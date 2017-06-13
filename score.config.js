@@ -7,6 +7,8 @@ module.exports = {
             name: 'score',
             script: './server.js',
             kill_timeout: 3000,
+            instances: 2,
+            exec_mode: 'cluster',
             env: {
                 NODE_ENV: 'production',
                 PORT: 3000,
