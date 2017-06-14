@@ -11,13 +11,14 @@ import teamLq from './team/lq'
 Vue.use(Vuex)
 
 const state = {
-    time: 0,
-    name: 'lichun',
-    websocket: {
-        connect: null,
-        data: null,
-        latestSub: null,
-        reconnect: 0
+    refreshTime: 0, // 用来监控用户点击刷新按钮时间
+    refreshing: 0, // 表示当前正在刷新任务数量
+    time: 0, // 记录生成页面的时间
+    websocket: { // 数据推送相关的
+        connect: null, // 代表当前连接
+        data: null,  // websocket 返回来的数据， 用到推送过来的数据的地方 watch一下就好了
+        latestSub: null, // 最近一次订阅数据， websocket重连的时候重新订阅上次订阅的事件
+        reconnect: 0  // socket 记录重连次数， 起到辅助作用， 比如websocket断开了连接， 重新请求接口， 避免推送丢失引发的问题
     }
 }
 const mutations = {
@@ -34,10 +35,19 @@ const mutations = {
         state.websocket.data = data
     },
     setTime (state, time) {
-        console.log('setLTme')
         state.time = time
+    },
+    startOneRefresh (state) {
+        state.refreshing++
+    },
+    endOneRefresh (state) {
+        if (state.refreshing > 0) {
+            state.refreshing--
+        }
+    },
+    beginRefresh (state) {
+        state.refreshTime = Date.now()
     }
-
 }
 const actions = {
     initWebsocket ({commit, dispatch, state}) {
@@ -108,7 +118,7 @@ const actions = {
             commit('initSocket', {connect})
         })
     },
-    async subscribe ({commit, dispatch, state}, {stamp, data}) {
+    subscribe ({commit, dispatch, state}, {stamp, data}) {
         try {
             let latestSub = JSON.stringify({
                 action: 'subs',
@@ -121,13 +131,6 @@ const actions = {
         } catch (e) {
             console.error(e.message)
         }
-    },
-    fetchItem ({commit}) {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve('hello world')
-            }, 2000)
-        })
     }
 }
 

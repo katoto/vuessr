@@ -15,9 +15,7 @@
     import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import {aTypes, mTypes} from '~store/home'
     export default {
-        hasParametor: true,
         async asyncData ({store, route: {params: {expect, tab}}}) {
-            if (store.state.home.zq.curExpect === expect && store.state.home.zq.tab === tab) return
             await store.dispatch(aTypes.fetchZqMatches, {expect, tab})
         },
         data () {
@@ -28,21 +26,19 @@
             }
         },
         watch: {
-            beginFilter (begin) {
-                if (begin) {
-                    this.$store.dispatch(aTypes.startFilter, {
-                        matches: this.matches,
-                        inited: this.selectOptions,
-                        onOk: ({selectOptions, filteredMatches}) => {
-                            this.filteredMatches = filteredMatches
-                            this.selectOptions = selectOptions
-                            this.$store.dispatch(aTypes.finishFilter)
-                        },
-                        onCancel: () => {
-                            this.$store.dispatch(aTypes.finishFilter)
-                        }
-                    })
-                }
+            filterClick () {
+                this.$store.commit(mTypes.initFilter, {
+                    matches: this.matches,
+                    inited: this.selectOptions,
+                    onOk: ({selectOptions, filteredMatches}) => {
+                        this.filteredMatches = filteredMatches
+                        this.selectOptions = selectOptions
+                        this.$store.commit(mTypes.endFilter)
+                    },
+                    onCancel: () => {
+                        this.$store.commit(mTypes.endFilter)
+                    }
+                })
             },
             showedMatchesSize () {
                 this.$refs.scroller.config()
@@ -51,8 +47,8 @@
                 this.showExpectList = false
                 this.filteredMatches = null
             },
-            fids (fids) {
-                fids && fids.length && this.$store.dispatch(aTypes.subscribeFootballInfo, fids.split(','))
+            fidIndexMap (fidIndexMap) {
+                this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(fidIndexMap))
             },
             socketData ({data, stamp}) {
                 if (stamp === pushEvents.FOOTBALL_INFO) {
@@ -72,8 +68,8 @@
             socketData () {
                 return this.$store.getters.getSocketData
             },
-            beginFilter () {
-                return this.$store.state.home.filter.begin
+            filterClick () {
+                return this.$store.state.home.filter.filterClick
             },
             zq () {
                 return this.$store.state.home.zq
@@ -90,7 +86,7 @@
             curExpect () {
                 return this.zq.curExpect
             },
-            fidIndexMap () {
+            fidIndexMap () { // matches 变化了， fidIndexMap一定会变化
                 const map = {}
                 this.matches.forEach((match, idx) => {
                     if (match.status !== StatusCode.ENDED) {
@@ -99,16 +95,17 @@
                 })
                 return map
             },
-            fids () {
-                return Object.keys(this.fidIndexMap).join(',')
-            },
             expectList () {
                 return this.zq.expectList
             }
         },
         mounted () {
-            this.$store.dispatch(aTypes.fetchZqMatches, this.$route.params)
-            this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(this.fidIndexMap))
+            this.fetchData()
+        },
+        methods: {
+            async fetchData () {
+                await this.$store.dispatch(aTypes.fetchZqMatches, this.$route.params)
+            }
         }
 
     }

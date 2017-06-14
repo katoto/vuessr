@@ -7,13 +7,13 @@ import {pushEvents} from '~common/constants'
 const ns = 'home'
 const state = {
     filter: {
-        begin: false,
-        show: false,
-        matches: null,
-        init: null,
-        onOk: () => {
+        filterClick: 0,
+        show: false, // 控制筛选对话框显示与隐藏
+        matches: null, // 当前所有比赛
+        init: null,  // 初始化选项
+        onOk: () => {  // 点击确认回调
         },
-        onCancel: () => {
+        onCancel: () => { // 点击取消回调
         }
     },
     zq: {
@@ -90,22 +90,6 @@ const actionsInfo = mapActions({
         commit(mTypes.setLqMatches, matchesInfo)
         return matchesInfo
     },
-    async fetchJclqMatches ({commit}, expect) {
-        const jclq = await ajax.get(`/score/lq/info?vtype=jclq&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`)
-
-        jclq.matches.some(match => {
-            if (match.status < 4) {
-                match._flag = true
-                return true
-            }
-        })
-        jclq._expect = expect
-        commit(mTypes.setJclq, jclq)
-        return jclq
-    },
-    triggerFilter ({commit}) {
-        commit(mTypes.beginFilter)
-    },
     startFilter ({commit}, {matches, inited, onOk, onCancel}) {
         commit(mTypes.initFilter, {matches, inited, onOk, onCancel})
     },
@@ -115,8 +99,8 @@ const actionsInfo = mapActions({
 }, ns)
 
 const mutationsInfo = mapMutations({
-    beginFilter (state) {
-        state.filter.begin = !state.filter.begin
+    filterClick (state) { // 用户点击帅选的时候 触发
+        state.filter.filterClick = Date.now()
     },
     initFilter (state, {matches, inited, onOk, onCancel}) {
         state.filter.matches = matches

@@ -24,6 +24,7 @@
             <router-view/>
 
         </div>
+        <refresh/>
         <transition name="slide">
             <league v-if="filter.show"
                     :matches="filter.matches"
@@ -57,10 +58,12 @@
 <script>
 
     import league from '~components/league.vue'
+    import refresh from '~components/refresh.vue'
+    import {mTypes} from '~store/home'
 
     export default{
 
-        components: {league},
+        components: {league, refresh},
         computed: {
             filter () {
                 return this.$store.state.home.filter
@@ -68,7 +71,7 @@
         },
         methods: {
             triggerFilter () {
-                this.$store.dispatch('home/triggerFilter')
+                this.$store.commit(mTypes.filterClick)
             }
         },
         mounted () {

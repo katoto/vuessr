@@ -1,14 +1,14 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import 'es6-promise/auto'
 import { createApp } from './app'
-import ProgressBar from './components/ProgressBar.vue'
+// import ProgressBar from './components/ProgressBar.vue'
 
 // global progress bar
-const bar = Vue.prototype.$bar = new Vue(ProgressBar).$mount()
-document.body.appendChild(bar.$el)
+// const bar = Vue.prototype.$bar = new Vue(ProgressBar).$mount()
+// document.body.appendChild(bar.$el)
 
 // a global mixin that calls `asyncData` when a route component's params change
-Vue.mixin({
+/* Vue.mixin({
     beforeMount () {
         const { asyncData } = this.$options
         if (asyncData) {
@@ -44,6 +44,7 @@ Vue.mixin({
         }
     }
 })
+*/
 
 const { app, router, store } = createApp()
 
@@ -60,7 +61,7 @@ router.onReady(() => {
     // Doing it after initial route is resolved so that we don't double-fetch
     // the data that we already have. Using router.beforeResolve() so that all
     // async components are resolved.
-    router.beforeResolve((to, from, next) => {
+   /* router.beforeResolve((to, from, next) => {
         store.state.time = 0
         const matched = router.getMatchedComponents(to)
         const prevMatched = router.getMatchedComponents(from)
@@ -81,6 +82,7 @@ router.onReady(() => {
             next()
         }).catch(next)
     })
+    */
 
     // actually mount to DOM
     app.$mount('#app')

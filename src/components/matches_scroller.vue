@@ -32,7 +32,7 @@
                         this.myScroll = null
                     }
                     let oTop
-                    if (window.__scroll_path === this.$route.path.split('?_t')[0] && window.__scroll_position) {
+                    if (window.__scroll_position) {
                         oTop = window.__scroll_position
                     } else {
                         const firstEndEl = document.querySelector('.__first_no_end')
@@ -55,6 +55,10 @@
                         this.myScroll.on('scrollEnd', this.scrollEndHandler)
                     })
                 })
+            },
+            scrollToMatch () {
+                const firstEndEl = document.querySelector('.__first_no_end')
+                oTop = firstEndEl && firstEndEl.offsetTop ? -(firstEndEl.offsetTop - this.itemHeight) : 0
             },
             scrollEndHandler () {
                 this.raf(() => {
