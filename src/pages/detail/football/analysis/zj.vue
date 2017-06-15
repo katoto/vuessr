@@ -298,7 +298,37 @@
                 leagueRankTan: 'all'
             }
         },
+        methods: {
+            async fetchData () {
+                this.$store.commit('startOneRefresh')
+                const {stageid, matchtime, homeid, awayid, league_id, matchgroup} = this.match
+                const matchdate = matchtime.substr(0, 10)
+                await this.$store.dispatch(aTypes.getAnalysisZj, {
+                    homeid,
+                    awayid,
+                    stid: stageid,
+                    matchdate,
+                    matchgroup,
+                    fid: this.$route.params.fid,
+                    leagueid: league_id,
+                    limit: 10,
+                    hoa: 0
+                })
+                this.$store.commit('endOneRefresh')
+            }
+        },
+        mounted () {
+            this.fetchData()
+        },
+        watch: {
+            refreshTime () {
+                this.fetchData()
+            }
+        },
         computed: {
+            refreshTime () { // 用户点击刷新按钮时间戳
+                return this.$store.state.refreshTime
+            },
             match () {
                 return this.$store.state.zqdetail.baseInfo
             },

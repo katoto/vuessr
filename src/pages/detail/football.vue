@@ -1,5 +1,5 @@
 <template>
-    <div class="l-full l-flex-column">
+    <div class="l-full l-flex-column" v-if="match">
         <div class="detailTop topBarMove2" style="display: block;">
             <a class="back-icon" onclick="history.back()" href="javascript:;">返回</a>
             <router-link to="/home/zq/jczq/cur" class="link-index f26">比分首页</router-link>
@@ -152,17 +152,20 @@
             </div>
         </div>
 
-
+        <refresh/>
     </div>
 </template>
 
 <script>
     import {FootballStatusCode as StatusCode} from '~common/constants'
+    import refresh from '~components/refresh.vue'
     import detailScroller from '~components/detail_scroller.vue'
     import {aTypes} from '~store/zqdetail'
     export default {
         async asyncData ({store, route: {params}}) {
-            await store.dispatch(aTypes.getBaseInfo, params.fid)
+            if (!store.state.zqdetail.baseInfo) {
+                await store.dispatch(aTypes.getBaseInfo, params.fid)
+            }
         },
         data () {
             return {
@@ -177,14 +180,15 @@
                 return this.$store.state.zqdetail.outer
             }
         },
-        mounted () {
+        async mounted () {
+            await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
             if (~this.$route.path.indexOf('/crazybet')) {
                 this.$refs.scroller.scrollTo(document.querySelector('.zq-header').offsetHeight, true)
                 this.$refs.scroller.switchStop(true)
             }
         },
         components: {
-            detailScroller
+            detailScroller, refresh
         },
         methods: {
             changeHeader (status) {

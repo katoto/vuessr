@@ -1,18 +1,19 @@
 <template>
-    <expect-select :expect-list="expectList" :cur-expect="curExpect">
-        <matches-scroller ref="scroller">
-            <!--<div v-if="!matches" class="loading">
-                <div class="icon"></div>
-                <div class="icon-shadow"></div>
-            </div>-->
+    <div>
+        <expect-select :expect-list="expectList" :cur-expect="curExpect" v-if="expectList">
+            <matches-scroller ref="scroller">
+                <metro></metro>
+                <ul class="list">
+                    <zq-list-item v-for="match in showedMatches" :match="match" key="match.fid"></zq-list-item>
+                </ul>
+            </matches-scroller>
+        </expect-select>
+        <div v-else class="loading">
+            <div class="icon"></div>
+            <div class="icon-shadow"></div>
+        </div>
+    </div>
 
-            <metro></metro>
-
-            <ul class="list">
-                <zq-list-item v-for="match in showedMatches" :match="match" key="match.fid"></zq-list-item>
-            </ul>
-        </matches-scroller>
-    </expect-select>
 
 </template>
 <script>
@@ -28,7 +29,6 @@
         },
         data () {
             return {
-                showExpectList: false,
                 selectOptions: null,
                 filteredMatches: null
             }
@@ -49,7 +49,7 @@
                 })
             },
             showedMatchesSize () {
-                this.$refs.scroller.update()
+                this.$refs.scroller && this.$refs.scroller.update()
             },
             matches () {
                 this.showExpectList = false
@@ -105,6 +105,7 @@
             },
             fidIndexMap () { // matches 变化了， fidIndexMap一定会变化
                 const map = {}
+                if (!this.matches) return null
                 this.matches.forEach((match, idx) => {
                     if (match.status !== StatusCode.ENDED) {
                         map[match.fid] = idx
@@ -122,8 +123,7 @@
         methods: {
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                await this.$store.dispatch(aTypes.getZqMetro)
-                await this.$store.dispatch(aTypes.fetchZqMatches, this.$route.params)
+                await Promise.all([this.$store.dispatch(aTypes.getZqMetro), this.$store.dispatch(aTypes.fetchZqMatches, this.$route.params)])
                 this.$store.commit('endOneRefresh')
             }
         }
