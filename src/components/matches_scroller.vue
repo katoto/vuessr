@@ -9,56 +9,60 @@
 
 </template>
 <script type="text/ecmascript-6">
+    let IScroll
+    if (process.env.VUE_ENV === 'server') {
+        IScroll = () => {}
+    } else {
+        IScroll = require('iscroll')
+    }
 
     export default {
         mounted () {
+            this.initConfig()
             this.config()
         },
         methods: {
+            initConfig () {
+                const eli = this.$el.querySelector('._scroll_content li')
+                const content = this.$el.querySelector('._scroll_content')
+                if (!content) return
+                this.itemHeight = eli.offsetHeight
+                this.contentHeight = content.offsetHeight
+                this.containerHeight = this.$el.offsetHeight
+            },
             raf (cb) {
                 return (window.requestAnimationFrame || (cb => setTimeout(cb, 50 / 3)))(cb)
             },
             config () {
-                this.raf(() => {
-                    const eli = document.querySelector('._scroll_content li')
-                    const container = document.querySelector('._scroll_container')
-                    const content = document.querySelector('._scroll_content')
-                    if (!content) return
-                    this.itemHeight = eli.offsetHeight
-                    this.contentHeight = content.offsetHeight
-                    this.containerHeight = container.offsetHeight
-                    if (this.myScroll) {
-                        this.myScroll.destroy()
-                        this.myScroll = null
-                    }
-                    let oTop
-                    if (window.__scroll_position) {
-                        oTop = window.__scroll_position
-                    } else {
-                        const firstEndEl = document.querySelector('.__first_no_end')
-                        oTop = firstEndEl && firstEndEl.offsetTop ? -(firstEndEl.offsetTop - this.itemHeight) : 0
-                    }
-                    if (this.contentHeight + oTop < this.containerHeight) {
-                        oTop = this.containerHeight - this.contentHeight
-                    }
-                    if (this.contentHeight <= this.containerHeight) {
-                        oTop = 0
-                    }
-                    window.__scroll_path = this.$route.path.split('?_t')[0]
-                    import('iscroll'/* webpackChunkName: "chunks/iscroll" */).then((IScroll) => {
-                        this.myScroll = new IScroll(container, {
-                            deceleration: 0.0025,
-                            mouseWheel: true,
-                            startY: oTop
-                        })
-                        this.scrollEndHandler()
-                        this.myScroll.on('scrollEnd', this.scrollEndHandler)
-                    })
+                if (this.myScroll) {
+                    this.myScroll.destroy()
+                    this.myScroll = null
+                }
+                let oTop
+                if (window.__scroll_position && window.__scroll_position_path === location.href) {
+                    oTop = window.__scroll_position
+                } else {
+                    const firstEndEl = document.querySelector('.__first_no_end')
+                    oTop = firstEndEl && firstEndEl.offsetTop ? -(firstEndEl.offsetTop - this.itemHeight) : 0
+                }
+                if (this.contentHeight + oTop < this.containerHeight) {
+                    oTop = this.containerHeight - this.contentHeight
+                }
+                if (this.contentHeight <= this.containerHeight) {
+                    oTop = 0
+                }
+                this.myScroll = new IScroll(this.$el, {
+                    deceleration: 0.0025,
+                    mouseWheel: true,
+                    startY: oTop
                 })
+                this.scrollEndHandler()
+                this.myScroll.on('scrollEnd', this.scrollEndHandler)
             },
             scrollToMatch () {
                 const firstEndEl = document.querySelector('.__first_no_end')
-                oTop = firstEndEl && firstEndEl.offsetTop ? -(firstEndEl.offsetTop - this.itemHeight) : 0
+                let oTop = firstEndEl && firstEndEl.offsetTop ? -(firstEndEl.offsetTop - this.itemHeight) : 0
+                this.myScroll.scrollTo(0, oTop)
             },
             scrollEndHandler () {
                 this.raf(() => {
@@ -91,6 +95,7 @@
         },
         beforeDestroy () {
             window.__scroll_position = this.myScroll.y
+            window.__scroll_position_path = location.href
         }
     }
 </script>

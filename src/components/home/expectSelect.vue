@@ -75,6 +75,9 @@
         methods: {
             toggleExpectList () {
                 this.showExpectList = !this.showExpectList
+            },
+            selectExpect ({expect}) {
+                this.$router.replace(`/home/${this.type}/${this.$route.params.tab}/${expect}`)
             }
         },
         filters: {

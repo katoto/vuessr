@@ -7,7 +7,7 @@ import {pushEvents} from '~common/constants'
 const ns = 'home'
 const state = {
     filter: {
-        filterClick: 0,
+        filterTime: 0,
         show: false, // 控制筛选对话框显示与隐藏
         matches: null, // 当前所有比赛
         init: null,  // 初始化选项
@@ -99,8 +99,8 @@ const actionsInfo = mapActions({
 }, ns)
 
 const mutationsInfo = mapMutations({
-    filterClick (state) { // 用户点击帅选的时候 触发
-        state.filter.filterClick = Date.now()
+    filterTime (state) { // 用户点击帅选的时候 触发
+        state.filter.filterTime = Date.now()
     },
     initFilter (state, {matches, inited, onOk, onCancel}) {
         state.filter.matches = matches

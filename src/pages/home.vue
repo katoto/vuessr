@@ -71,7 +71,7 @@
         },
         methods: {
             triggerFilter () {
-                this.$store.commit(mTypes.filterClick)
+                this.$store.commit(mTypes.filterTime)
             }
         },
         mounted () {

@@ -58,6 +58,12 @@
                         this.$store.commit(mTypes.updateZqMatch, {info: data, idx: this.fidIndexMap[data.fid]})
                     }
                 }
+            },
+            '$route.path' () {
+                this.fetchData()
+            },
+            refreshTime () {
+                this.fetchData()
             }
 
         },
@@ -65,11 +71,14 @@
             MatchesScroller, expectSelect, zqListItem
         },
         computed: {
-            socketData () {
+            refreshTime () { // 用户点击刷新按钮时间戳
+                return this.$store.state.refreshTime
+            },
+            socketData () {  // websocket推送过来的数据
                 return this.$store.getters.getSocketData
             },
-            filterClick () {
-                return this.$store.state.home.filter.filterClick
+            filterTime () {  // 用户点击筛选按钮时间戳
+                return this.$store.state.home.filter.filterTime
             },
             zq () {
                 return this.$store.state.home.zq
@@ -104,7 +113,9 @@
         },
         methods: {
             async fetchData () {
+                this.$store.commit('startOneRefresh')
                 await this.$store.dispatch(aTypes.fetchZqMatches, this.$route.params)
+                this.$store.commit('endOneRefresh')
             }
         }
 
