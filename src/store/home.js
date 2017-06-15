@@ -17,6 +17,7 @@ const state = {
         }
     },
     zq: {
+        metro: null,
         tab: 'jczq',
         matches: null,
         expectList: null,
@@ -71,6 +72,11 @@ const actionsInfo = mapActions({
         return matchesInfo
     },
 
+    async getZqMetro ({commit}) {
+        const metro = await ajax.get('/library/aggregate/metro')
+        commit(mTypes.setZqMetro, metro)
+        return metro
+    },
     async fetchLqMatches ({commit}, {expect, tab}) {
         let url = ``
         if (tab === 'jclq' || tab === 'all') {
@@ -125,6 +131,9 @@ const mutationsInfo = mapMutations({
         // eslint-disable-next-line
         state.zq.curExpect = curr_expect
         state.zq.matches = matches
+    },
+    setZqMetro (state, metro) {
+        state.zq.metro = metro
     },
     updateZqMatch (state, {info, idx}) {
         let match = {...state.zq.matches[idx], ...info}

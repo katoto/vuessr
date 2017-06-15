@@ -151,30 +151,6 @@
             scrollText
         },
         filters: {
-            combatDesc: (cell) => {
-                switch (cell.result) {
-                case '3':
-                    return `${cell.continous}连胜`
-                case '1':
-                    return `${cell.continous}连平`
-                case '0':
-                    return `${cell.continous}连负`
-                default:
-                    return ''
-                }
-            },
-            predictResult: (code) => {
-                switch (code) {
-                case '3':
-                    return '主胜'
-                case '1':
-                    return '平局'
-                case '0':
-                    return '主负'
-                default:
-                    return ''
-                }
-            },
             matchtimeFmt: (macthtime) => {
                 return macthtime.match(/\d{2}:\d{2}/)[0]
             },

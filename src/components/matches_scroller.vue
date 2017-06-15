@@ -18,22 +18,22 @@
 
     export default {
         mounted () {
-            this.initConfig()
             this.config()
         },
         methods: {
-            initConfig () {
-                const eli = this.$el.querySelector('._scroll_content li')
-                const content = this.$el.querySelector('._scroll_content')
-                if (!content) return
-                this.itemHeight = eli.offsetHeight
-                this.contentHeight = content.offsetHeight
-                this.containerHeight = this.$el.offsetHeight
-            },
             raf (cb) {
                 return (window.requestAnimationFrame || (cb => setTimeout(cb, 50 / 3)))(cb)
             },
+            update () {
+                this.raf(this.config)
+            },
             config () {
+                const eli = this.$el.querySelector('._scroll_content li')
+                const content = this.$el.querySelector('._scroll_content')
+                if (!content || !eli) return
+                this.itemHeight = eli.offsetHeight
+                this.contentHeight = content.offsetHeight
+                this.containerHeight = this.$el.offsetHeight
                 if (this.myScroll) {
                     this.myScroll.destroy()
                     this.myScroll = null
@@ -42,7 +42,7 @@
                 if (window.__scroll_position && window.__scroll_position_path === location.href) {
                     oTop = window.__scroll_position
                 } else {
-                    const firstEndEl = document.querySelector('.__first_no_end')
+                    const firstEndEl = this.$el.querySelector('.__first_no_end')
                     oTop = firstEndEl && firstEndEl.offsetTop ? -(firstEndEl.offsetTop - this.itemHeight) : 0
                 }
                 if (this.contentHeight + oTop < this.containerHeight) {
@@ -60,7 +60,7 @@
                 this.myScroll.on('scrollEnd', this.scrollEndHandler)
             },
             scrollToMatch () {
-                const firstEndEl = document.querySelector('.__first_no_end')
+                const firstEndEl = this.$el.querySelector('.__first_no_end')
                 let oTop = firstEndEl && firstEndEl.offsetTop ? -(firstEndEl.offsetTop - this.itemHeight) : 0
                 this.myScroll.scrollTo(0, oTop)
             },

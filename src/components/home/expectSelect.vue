@@ -61,6 +61,7 @@
             },
             preAndNextExpect () {
                 let result = {}
+                if (!this.expectList) return result
                 let index = 0
                 this.expectList.some((expect, idx) => {
                     if (expect === this.curExpect) {
@@ -78,6 +79,7 @@
             },
             selectExpect ({expect}) {
                 this.$router.replace(`/home/${this.type}/${this.$route.params.tab}/${expect}`)
+                this.showExpectList = false
             }
         },
         filters: {

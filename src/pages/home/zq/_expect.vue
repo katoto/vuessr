@@ -1,6 +1,13 @@
 <template>
     <expect-select :expect-list="expectList" :cur-expect="curExpect">
         <matches-scroller ref="scroller">
+            <!--<div v-if="!matches" class="loading">
+                <div class="icon"></div>
+                <div class="icon-shadow"></div>
+            </div>-->
+
+            <metro></metro>
+
             <ul class="list">
                 <zq-list-item v-for="match in showedMatches" :match="match" key="match.fid"></zq-list-item>
             </ul>
@@ -11,12 +18,13 @@
 <script>
     import MatchesScroller from '~components/matches_scroller.vue'
     import expectSelect from '~components/home/expectSelect.vue'
+    import metro from '~components/home/metro.vue'
     import zqListItem from '~components/home/zqListItem.vue'
     import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import {aTypes, mTypes} from '~store/home'
     export default {
         async asyncData ({store, route: {params: {expect, tab}}}) {
-            await store.dispatch(aTypes.fetchZqMatches, {expect, tab})
+            await Promise.all([store.dispatch(aTypes.getZqMetro), store.dispatch(aTypes.fetchZqMatches, {expect, tab})])
         },
         data () {
             return {
@@ -26,7 +34,7 @@
             }
         },
         watch: {
-            filterClick () {
+            filterTime () {
                 this.$store.commit(mTypes.initFilter, {
                     matches: this.matches,
                     inited: this.selectOptions,
@@ -41,7 +49,7 @@
                 })
             },
             showedMatchesSize () {
-                this.$refs.scroller.config()
+                this.$refs.scroller.update()
             },
             matches () {
                 this.showExpectList = false
@@ -68,7 +76,7 @@
 
         },
         components: {
-            MatchesScroller, expectSelect, zqListItem
+            MatchesScroller, expectSelect, zqListItem, metro
         },
         computed: {
             refreshTime () { // 用户点击刷新按钮时间戳
@@ -114,6 +122,7 @@
         methods: {
             async fetchData () {
                 this.$store.commit('startOneRefresh')
+                await this.$store.dispatch(aTypes.getZqMetro)
                 await this.$store.dispatch(aTypes.fetchZqMatches, this.$route.params)
                 this.$store.commit('endOneRefresh')
             }
