@@ -257,7 +257,7 @@
                     break
                 }
 
-                this.$store.commit(mTypes.setDialog, component)
+                this.$store.commit(mTypes.setDialog, {component})
             }
         },
         watch: {

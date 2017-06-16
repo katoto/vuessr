@@ -127,8 +127,9 @@ const actionsInfo = mapActions({
 }, ns)
 
 const mutationsInfo = mapMutations({
-    setDialog (state, component) {
+    setDialog (state, {component, params}) {
         state.outer.component = component
+        state.outer.params = params
     },
     updateScTime (state) {
         state.scTime = Date.now()
