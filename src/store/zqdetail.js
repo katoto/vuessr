@@ -8,6 +8,7 @@ import ajax from '~common/ajax'
 import {mapActions, mapMutations} from '~common/util'
 const ns = 'zqdetail'
 const state = {
+    scTime: 0, // 触发滚动更新时间戳
     analysis: {
         zj: {
             cuprank: null,
@@ -128,6 +129,9 @@ const actionsInfo = mapActions({
 const mutationsInfo = mapMutations({
     setDialog (state, component) {
         state.outer.component = component
+    },
+    updateScTime (state) {
+        state.scTime = Date.now()
     },
     setBaseInfo (state, baseInfo) {
         state.baseInfo = baseInfo
