@@ -95,7 +95,7 @@
                     component: oddsInfo,
                     params: {
                         cid,
-                        odds: this.europe,
+                        odds: this.europe.odds,
                         type: 'europe'
                     }
                 })

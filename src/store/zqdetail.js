@@ -70,6 +70,34 @@ const actionsInfo = mapActions({
         commit(mTypes.setOddsBifa, bifa)
         return bifa
     },
+    async getOddsDetailDaxiaoqiu ({commit}, {fid, cid, big, handi, small, leagueid, date}) {
+        let result = await Promise.all([
+            ajax.get(`/score/zq/samedaxiaoqiu?fid=${fid}&cid=${cid}&big=${big}&handi=${handi}&small=${small}&league_id=${leagueid}&date=${date}`),
+            ajax.get(`/score/zq/oneodds_daxiaoqiu?fid=${fid}&cid=${cid}&matchdate=${date}`)
+        ])
+        return result
+    },
+    async getOddsDetailEurope ({commit}, {fid, cid, win, draw, lost, leagueid, date}) {
+        let result = await Promise.all([
+            ajax.get(`/score/zq/sameeurope?fid=${fid}&cid=${cid}&win=${win}&draw=${draw}&lost=${lost}&league_id=${leagueid}&date=${date}`),
+            ajax.get(`/score/zq/oneodds?fid=${fid}&cid=${cid}&matchdate=${date}&vtype=europe`)
+        ])
+        return result
+    },
+    async getOddsDetailAsian ({commit}, {fid, cid, s1, s2, cp, leagueid, date}) {
+        let result = await Promise.all([
+            ajax.get(`/score/zq/sameeurope?fid=${fid}&cid=${cid}&s1=${s1}&s2=${s2}&cp=${cp}&league_id=${leagueid}&date=${date}`),
+            ajax.get(`/score/zq/oneodds_asian?fid=${fid}&cid=${cid}&matchdate=${date}`)
+        ])
+        return result
+    },
+    async getOddsDetailRq ({commit}, {fid, cid, win, draw, lost, leagueid, date, handicapline}) {
+        let result = await Promise.all([
+            ajax.get(`/score/zq/sameeurope?fid=${fid}&cid=${cid}&win=${win}&draw=${draw}&lost=${lost}&league_id=${leagueid}&date=${date}&handicapline=${handicapline}`),
+            ajax.get(`/score/zq/oneodds?fid=${fid}&cid=${cid}&matchdate=${date}&vtype=rangqiu&handicapline=${handicapline}`)
+        ])
+        return result
+    },
     async getAnalysisZj ({commit}, {homeid, awayid, matchdate, matchgroup, stid, fid, leagueid, limit, hoa}) {
         let result = await Promise.all([
             ajax.get(`/score/zq/leaguerank?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&stid=${stid}&fid=${fid}`),
