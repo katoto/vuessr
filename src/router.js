@@ -58,7 +58,7 @@ const TeamBasketBallGl = () => import('~pages/team/basketball/gl.vue')
 const TeamBasketBallSc = () => import('~pages/team/basketball/sc.vue')
 // const TeamBasketBallZr = () => import('~pages/team/football/zr.vue')
 console.log()
-export function createRouter() {
+export function createRouter () {
     return new VueRouter({
         mode: 'history',
         base: '/',
