@@ -183,7 +183,7 @@
         },
         methods: {
             closeDialog () {
-                this.$store.commit(mTypes.setDialog, null)
+                this.$store.commit(mTypes.setDialog, {})
             },
             switchTab ({tab}) {
                 this.tab = tab

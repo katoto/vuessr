@@ -157,7 +157,7 @@
     </div>
 </template>
 <script>
-    import {aTypes} from '~store/zqdetail'
+    import {aTypes, mTypes} from '~store/zqdetail'
     import echartPip from '~components/detail/football/odds/echartPip.vue'
     import echartBigTrade from '~components/detail/football/odds/echartBigTrade.vue'
     import echartBigTradeBar from '~components/detail/football/odds/echartBigTradeBar.vue'
@@ -167,6 +167,13 @@
         async asyncData ({store, route: {params: {fid}}}) {
             await store.dispatch(aTypes.getOddsBifa, fid)
         },
+        methods: {
+            async fetchData () {
+                this.$store.commit('startOneRefresh')
+                await this.$store.dispatch(aTypes.getOddsBifa, this.$route.params.fid)
+                this.$store.commit('endOneRefresh')
+            }
+        },
         components: {
             echartPip, echartBigTrade, echartAllTrade, echartBigTradeBar
         },
@@ -175,7 +182,26 @@
                 bifaTab: 'big'
             }
         },
+        watch: {
+            loaded (loaded) {
+                if (loaded) {
+                    this.$store.commit(mTypes.updateScTime)
+                }
+            },
+            refreshTime () {
+                this.fetchData()
+            }
+        },
+        mounted () {
+            this.fetchData()
+        },
         computed: {
+            refreshTime () { // 用户点击刷新按钮时间戳
+                return this.$store.state.refreshTime
+            },
+            loaded () {
+                return this.$store.state.refreshing === 0
+            },
             bifa () {
                 return this.$store.state.zqdetail.odds.bifa
             }
