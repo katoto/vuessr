@@ -99,7 +99,7 @@
                 </table>
             </div>
         </div>
-        <div class="inte-look zhedie" v-if="leagueRank.issame === '1'">完整积分榜&gt;</div>
+        <div class="inte-look zhedie" v-if="leagueRank && leagueRank.issame === '1'">完整积分榜&gt;</div>
         <!--<div class="inte-look zhedie" v-if="leagueRank.issame == '1'" onclick="location.href='match_center/index.html#/footballleague/integral/{{match.seasonid}}'">完整积分榜&gt;</div>-->
 
         <div class="zhedie-box zhedie-box-wl" v-if="cupRank && cupRank.length && match.stagemode==='2'">
@@ -301,7 +301,11 @@
         methods: {
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                const {stageid, matchtime, homeid, awayid, league_id, matchgroup} = this.match
+                let baseInfo = this.$store.state.zqdetail.baseInfo
+                if (!baseInfo || this.$store.state.zqdetail.baseInfo.fid !== this.$route.params.fid) {
+                    baseInfo = await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
+                }
+                const {stageid, matchtime, homeid, awayid, league_id, matchgroup} = baseInfo
                 const matchdate = matchtime.substr(0, 10)
                 await this.$store.dispatch(aTypes.getAnalysisZj, {
                     homeid,

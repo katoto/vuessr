@@ -241,6 +241,11 @@
             echartBarLine, echartPosition
         },
         methods: {
+            async fetchData () {
+                this.$store.commit('startOneRefresh')
+                await this.$store.dispatch(aTypes.getPredict, this.$route.params.fid)
+                this.$store.commit('endOneRefresh')
+            },
             selectTab ({tab}) {
                 let component = null
                 switch (tab) {
@@ -255,9 +260,25 @@
                 this.$store.commit(mTypes.setDialog, component)
             }
         },
+        watch: {
+            loaded (loaded) {
+                if (loaded) {
+                    this.$store.commit(mTypes.updateScTime)
+                }
+            },
+            refreshTime () {
+                this.fetchData()
+            }
+        },
         computed: {
+            refreshTime () { // 用户点击刷新按钮时间戳
+                return this.$store.state.refreshTime
+            },
             match () {
                 return this.$store.state.zqdetail.baseInfo
+            },
+            loaded () {
+                return this.$store.state.refreshing === 0
             },
             predictEurope () {
                 return this.$store.state.zqdetail.predict.europe
@@ -277,7 +298,7 @@
 
         },
         mounted () {
-
+            this.fetchData()
         }
     }
 </script>

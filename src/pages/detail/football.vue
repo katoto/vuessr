@@ -181,7 +181,7 @@
             }
         },
         async mounted () {
-            await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
+            this.fetchData()
             if (~this.$route.path.indexOf('/crazybet')) {
                 this.$refs.scroller.scrollTo(document.querySelector('.zq-header').offsetHeight, true)
                 this.$refs.scroller.switchStop(true)
@@ -191,6 +191,14 @@
             detailScroller, refresh
         },
         methods: {
+            async fetchData () {
+                this.$store.commit('startOneRefresh')
+                let baseInfo = this.$store.state.zqdetail.baseInfo
+                if (!baseInfo || this.$store.state.zqdetail.baseInfo.fid !== this.$route.params.fid) {
+                    await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
+                }
+                this.$store.commit('endOneRefresh')
+            },
             changeHeader (status) {
                 if (status) {
                     this.$el.querySelector('.detailTop').className = 'detailTop topBarMove'
@@ -218,6 +226,9 @@
                     this.$refs.scroller.scrollTo(0, true)
                     this.$refs.scroller.switchStop(false)
                 }
+            },
+            '$store.state.zqdetail.scTime' () {
+                this.updateScroller()
             }
         },
         filters: {
