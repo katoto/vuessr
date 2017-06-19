@@ -39,6 +39,7 @@ const state = {
     baseInfo: null,
     odds: {
         europe: null,
+        asian: null,
         bifa: null
     },
 
@@ -64,6 +65,11 @@ const actionsInfo = mapActions({
         const europe = await ajax.get(`/score/zq/europe?fid=${fid}`)
         commit(mTypes.setOddsEurope, europe)
         return europe
+    },
+    async getOddsAsian ({commit}, fid) {
+        const asian = await ajax.get(`/score/zq/asianodds?fid=${fid}`)
+        commit(mTypes.setOddsAsian, asian)
+        return asian
     },
     async getOddsBifa ({commit}, fid) {
         const bifa = await ajax.get(`/score/zq/spdex2?fid=${fid}`)
@@ -174,6 +180,9 @@ const mutationsInfo = mapMutations({
     },
     setOddsEurope (state, europe) {
         state.odds.europe = europe
+    },
+    setOddsAsian (state, asian) {
+        state.odds.asian = asian
     },
     setOddsBifa (state, bifa) {
         state.odds.bifa = bifa
