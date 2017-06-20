@@ -37,6 +37,11 @@ const state = {
         }
     },
     baseInfo: null,
+    situation: {
+        eventlist: null,
+        statistic: null,
+        newsList: null
+    },
     odds: {
         europe: null,
         asian: null,
@@ -60,6 +65,14 @@ const actionsInfo = mapActions({
         const baseInfo = await ajax.get(`/score/zq/baseinfo?fid=${fid}`)
         commit(mTypes.setBaseInfo, baseInfo)
         return baseInfo
+    },
+    async getSituation ({commit}, {fid, homeid, awayid, status, matchtime, leagueid}) {
+        let [{eventlist, statistic}, {news}] = await Promise.all([
+            ajax.get(`/score/zq/events_statistics?fid=${fid}`),
+            ajax.get(`/library/sports/news?homeid=${homeid}&awayid=${awayid}&status=${status}&matchtime=${matchtime}&vtype=1&leagueid=${leagueid}&limit=20`)
+        ])
+        commit(mTypes.setSituation, {eventlist, statistic, news})
+        return {eventlist, statistic, news}
     },
     async getOddsEurope ({commit}, fid) {
         const europe = await ajax.get(`/score/zq/europe?fid=${fid}`)
@@ -170,6 +183,11 @@ const mutationsInfo = mapMutations({
     },
     setBaseInfo (state, baseInfo) {
         state.baseInfo = baseInfo
+    },
+    setSituation (state, {eventlist, statistic, news}) {
+        state.situation.eventlist = eventlist
+        state.situation.statistic = statistic
+        state.situation.news = news
     },
     setPredict (state, {europe, asian, daxiaoqiu, score, half}) {
         state.predict.europe = europe

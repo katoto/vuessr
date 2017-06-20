@@ -790,37 +790,36 @@
                 this.loading = true
                 try {
                     switch (this.params.type) {
-                        case 'europe': {
-                            this.sameOddsInfo = null
-                            this.oddsInfo = null
-                            let currentInfo = null
-                            this.params.odds.some((info) => {
-                                if (info.cid === cid) {
-                                    currentInfo = info
-                                }
-                            })
-                            if (currentInfo) {
-                                const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailEurope, {
-                                    fid: this.$route.params.fid,
-                                    cid,
-                                    win: currentInfo.first.win,
-                                    draw: currentInfo.first.draw,
-                                    lost: currentInfo.first.lost,
-                                    leagueid: this.match.league_id,
-                                    date: this.match.matchtime
-                                })
-                                this.sameOddsInfo = sameOddsInfo
-                                this.oddsInfo = oddsInfo
+                    case 'europe': {
+                        this.sameOddsInfo = null
+                        this.oddsInfo = null
+                        let currentInfo = null
+                        this.params.odds.some((info) => {
+                            if (info.cid === cid) {
+                                currentInfo = info
                             }
-                            break
+                        })
+                        if (currentInfo) {
+                            const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailEurope, {
+                                fid: this.$route.params.fid,
+                                cid,
+                                win: currentInfo.first.win,
+                                draw: currentInfo.first.draw,
+                                lost: currentInfo.first.lost,
+                                leagueid: this.match.league_id,
+                                date: this.match.matchtime
+                            })
+                            this.sameOddsInfo = sameOddsInfo
+                            this.oddsInfo = oddsInfo
                         }
+                        break
+                    }
                     }
                 } catch (e) {
                     this.error = true
                 } finally {
                     this.loading = false
                 }
-
             }
         },
         computed: {

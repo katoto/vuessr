@@ -41,6 +41,19 @@ export const BasketballStatusCode = {
     BREAK_TIME: '13' // 休息时间
 }
 
+export const FootBallEventType = {
+    NONE: 0,
+    JIN_QIU: 1,
+    WU_LONG: 2,
+    DIAN_QIU: 3,
+    HUANG_PAI: 4,
+    HONG_PAI: 5,
+    LIANG_HUANG_BIAN_HONG: 6,
+    WU_XIAO: 7,
+    HUAN_REN: 8,
+    HUAN_RU: 9,
+    HUAN_CHU: 10
+}
 /*
 export default {
     'BBallStatusName':{
