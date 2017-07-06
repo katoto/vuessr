@@ -33,6 +33,13 @@ export default context => {
                 // serialized and injected into the HTML as window.__INITIAL_STATE__.
                 store.state.time = Date.now()
                 context.state = store.state
+                let title = '比分'
+                matchedComponents.some(Component => {
+                    if (Component.title) {
+                        title = Component.title
+                    }
+                })
+                context.title = title
 
                 resolve(app)
             }).catch(reject)
