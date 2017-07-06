@@ -193,7 +193,7 @@
 
         <div class="zhedie-box" v-if="fightingInfo">
             <div class="zj-nav" drunk-init-data="fightingInfoHidden = false">
-            <span class="saixuan"
+            <span class="saixuan"  v-tap="{methods: beginFilter, type: 'his'}"
                   onclick="_hmt.push(['_trackEvent','zq_detail','click','analysis_zj_ls'])"
                   drunk-on="click: filterVisible = true, currFilterOptions = fightingFilterOptions, $event.stopPropagation()">筛选</span>
                 历史交战
@@ -283,7 +283,7 @@
 
         <div class="zhedie-box" v-if="recentRecord">
             <div class="zj-nav" drunk-init-data="recentRecordHidden = false">
-                <span class="saixuan"
+                <span class="saixuan" v-tap="{methods: beginFilter, type: 'recent'}"
                       drunk-on="click: filterVisible = true, currFilterOptions = recentRecordFilterOptions, $event.stopPropagation()">筛选</span>
                 近期战绩
             </div>
@@ -390,12 +390,12 @@
             </span>
 
                         <span class="f30 color3 fl">
-                胜率{{recentRecord.away.all_matches.win_rate|default:'0'}}%
+                胜率{{recentRecord.away.all_matches.win_rate||'0'}}%
             </span>
                     </div>
                     <div class="total-tips">
-                        场均进{{recentRecord.away.all_matches.avar_get|default:0}}球，场均失{{recentRecord.away.all_matches.avar_lost|default:0}}球，
-                        大球{{recentRecord.away.all_matches.big_ball|default:0}}次，小球{{recentRecord.away.all_matches.small_ball|default:0}}次
+                        场均进{{recentRecord.away.all_matches.avar_get||0}}球，场均失{{recentRecord.away.all_matches.avar_lost||0}}球，
+                        大球{{recentRecord.away.all_matches.big_ball||0}}次，小球{{recentRecord.away.all_matches.small_ball||0}}次
                     </div>
                 </div>
 
@@ -468,12 +468,108 @@
 
         </div>
 
+        <div class="zhedie-box zhedie-box-wl" v-if="futureMatch" drunk-init-data="futureMatchHidden = false" >
+            <div class="zj-nav">
+                未来赛事
+            </div>
+            <div class="zhedie">
 
+                <table width="100%" cellpadding="0" cellspacing="0" class="fx-table">
+                    <tbody><tr>
+                        <th width="22%"><span class="color3 f28">{{match.homesxname}}</span></th>
+                        <th width="20%">日期</th>
+                        <th width="17%"><div class="textright">主队</div></th>
+                        <th width="7%"></th>
+                        <th width="17%"><div class="textleft">客队</div></th>
+                        <th>相隔</th>
+                    </tr>
+                    <tr v-for="futureMatchInfo in futureMatch.home">
+                        <td>{{futureMatchInfo.simpleleague| truncate(4)}}</td>
+                        <td>{{futureMatchInfo.matchdate}}</td>
+                        <td><div class="textright">{{futureMatchInfo.homesxname|truncate(4)}}</div></td>
+                        <td>vs</td>
+                        <td><div class="textleft">{{futureMatchInfo.awaysxname|truncate(4)}}</div></td>
+                        <td>{{futureMatchInfo.xdays}}</td>
+                    </tr>
+                    </tbody></table>
+                <!--<widget-prompt-view
+                        src="widget/prompt.html"
+                        text-type
+                        drunk-if="!isRequesting && !(futureMatch.home && futureMatch.home.length > 0)"
+                        extra-text="很抱歉，没有数据"
+                        type="no-data">
+                </widget-prompt-view>-->
+
+                <table width="100%" cellpadding="0" cellspacing="0" class="fx-table">
+                    <tbody><tr>
+                        <th width="22%"><span class="color3 f28">{{match.awaysxname}}</span></th>
+                        <th width="20%">日期</th>
+                        <th width="17%"><div class="textright">主队</div></th>
+                        <th width="7%"></th>
+                        <th width="17%"><div class="textleft">客队</div></th>
+                        <th>相隔</th>
+                    </tr>
+                    <tr v-for="futureMatchInfo in futureMatch.away">
+                        <td>{{futureMatchInfo.simpleleague| truncate(4)}}</td>
+                        <td>{{futureMatchInfo.matchdate}}</td>
+                        <td><div class="textright">{{futureMatchInfo.homesxname| truncate(4)}}</div></td>
+                        <td>vs</td>
+                        <td><div class="textleft">{{futureMatchInfo.awaysxname |truncate(4)}}</div></td>
+                        <td>{{futureMatchInfo.xdays}}</td>
+                    </tr>
+                    </tbody></table>
+                <!--<widget-prompt-view
+                        src="widget/prompt.html"
+                        text-type
+                        drunk-if="!isRequesting && !(futureMatch.away && futureMatch.away.length > 0)"
+                        extra-text="很抱歉，没有数据"
+                        type="no-data">
+                </widget-prompt-view>-->
+            </div>
+
+            <!--<widget-prompt-view
+                    src="widget/prompt.html"
+                    text-type
+                    drunk-if="!futureMatchHidden && (!isRequesting && !(futureMatch.home && futureMatch.home.length > 0) && !(futureMatch.away && futureMatch.away.length > 0))"
+                    extra-text="很抱歉，没有数据"
+                    type="no-data">
+            </widget-prompt-view>-->
+
+        </div>
+
+        <div class="zhedie-box">
+            <div class="zj-nav">
+                澳门心水推荐
+            </div>
+            <div class="zhedie show" v-if="macauNews && macauNews.stars !== undefined">
+                <div class="pm-namel">
+                    <span>{{macauNews.name}}</span>
+                    <span class="suggest-status">{{macauNews.result}}</span>
+                    <span class="suggest-power">信心指数</span>
+                    <span class="suggest-stars">
+            <i v-for="i in macauNews.stars" class="ico-star ico-star-active"></i>
+            <i v-for="i in (5 - macauNews.stars)" class="ico-star"></i>
+            </span>
+                </div>
+                <div class="macao-txt">
+                    <p>{{macauNews.description}}</p>
+                </div>
+            </div>
+            <!--<widget-prompt-view
+                    src="widget/prompt.html"
+                    text-type
+                    drunk-if="!isRequesting && !(macauNews && macauNews.stars !== undefined)"
+                    type="no-data">
+            </widget-prompt-view>-->
+        </div>
     </div>
 </template>
 
 <script>
     import {aTypes, mTypes} from '~store/zqdetail'
+
+    import Filter from '~components/detail/football/analysis/filter.vue'
+
     export default {
         async asyncData ({store, route: {params}}) {
             let baseInfo = store.state.zqdetail.baseInfo
@@ -507,14 +603,14 @@
                 recentRecordResultType_home: 'result1',
                 recentRecordResultType_away: 'result1',
                 rcOption: {
-                    rleagueid: -1,
-                    rlimit: 10,
-                    rhoa: 0
+                    leagueid: -1,
+                    limit: 10,
+                    hoa: 0
                 },
                 jzOption: {
-                    jzleagueid: -1,
-                    jzlimit: 6,
-                    jzhoa: 0
+                    leagueid: -1,
+                    limit: 6,
+                    hoa: 0
                 }
 
             }
@@ -535,12 +631,12 @@
                     matchdate,
                     matchgroup,
                     fid: this.$route.params.fid,
-                    rleagueid: this.rcOption.rleagueid,
-                    rlimit: this.rcOption.rlimit,
-                    rhoa: this.rcOption.rhoa,
-                    jzleagueid: this.jzOption.jzleagueid,
-                    jzlimit: this.jzOption.jzlimit,
-                    jzhoa: this.jzOption.jzhoa
+                    rleagueid: this.rcOption.leagueid,
+                    rlimit: this.rcOption.limit,
+                    rhoa: this.rcOption.hoa,
+                    jzleagueid: this.jzOption.leagueid,
+                    jzlimit: this.jzOption.limit,
+                    jzhoa: this.jzOption.hoa
                 })
                 this.$store.commit('endOneRefresh')
             },
@@ -558,6 +654,25 @@
                 const arr = ['result1', 'result2', 'result3']
                 let idx = arr.indexOf(this.recentRecordResultType_home)
                 this.recentRecordResultType_home = arr[(idx + 1) % 3]
+            },
+            beginFilter ({type}) {
+                if (type === 'his') {
+                    this.$store.commit(mTypes.setDialog, {
+                        component: Filter,
+                        params: {
+                            initOptions: this.jzOption,
+                            type: 'his',
+                            leagueid: this.match.league_id
+                        }})
+                } else {
+                    this.$store.commit(mTypes.setDialog, {
+                        component: Filter,
+                        params: {
+                            initOptions: this.jzOption,
+                            type: 'recent',
+                            leagueid: this.match.league_id
+                        }})
+                }
             }
         },
         mounted () {
@@ -606,6 +721,12 @@
             },
             recentRecord () {
                 return this.zj.recentRecord
+            },
+            futureMatch () {
+                return this.zj.futureMatch
+            },
+            macauNews () {
+                return this.zj.macauNews
             }
 
         },
