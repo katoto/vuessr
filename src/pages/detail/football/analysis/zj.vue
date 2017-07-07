@@ -192,7 +192,7 @@
 
 
         <div class="zhedie-box" v-if="fightingInfo">
-            <div class="zj-nav" drunk-init-data="fightingInfoHidden = false">
+            <div class="zj-nav">
             <span class="saixuan"  v-tap="{methods: beginFilter, type: 'his'}"
                   onclick="_hmt.push(['_trackEvent','zq_detail','click','analysis_zj_ls'])"
                   drunk-on="click: filterVisible = true, currFilterOptions = fightingFilterOptions, $event.stopPropagation()">筛选</span>
@@ -662,15 +662,21 @@
                         params: {
                             initOptions: this.jzOption,
                             type: 'his',
-                            leagueid: this.match.league_id
+                            leagueid: this.match.league_id,
+                            onOk: (option) => {
+                                this.jzOption = option
+                            }
                         }})
                 } else {
                     this.$store.commit(mTypes.setDialog, {
                         component: Filter,
                         params: {
-                            initOptions: this.jzOption,
+                            initOptions: this.rcOption,
                             type: 'recent',
-                            leagueid: this.match.league_id
+                            leagueid: this.match.league_id,
+                            onOk: (option) => {
+                                this.rcOption = option
+                            }
                         }})
                 }
             }
@@ -686,6 +692,30 @@
                 if (loaded) {
                     this.$store.commit(mTypes.updateScTime)
                 }
+            },
+            jzOption (jzOption) {
+                const {matchtime, homeid, awayid} = this.match
+                const matchdate = matchtime.substr(0, 10)
+                this.$store.dispatch(aTypes.getAnalysisZjHis, {
+                    homeid,
+                    awayid,
+                    matchdate,
+                    jzleagueid: jzOption.leagueid,
+                    jzlimit: jzOption.limit,
+                    jzhoa: jzOption.hoa
+                })
+            },
+            rcOption (rcOption) {
+                const {matchtime, homeid, awayid} = this.match
+                const matchdate = matchtime.substr(0, 10)
+                this.$store.dispatch(aTypes.getAnalysisZjR, {
+                    homeid,
+                    awayid,
+                    matchdate,
+                    rleagueid: rcOption.leagueid,
+                    rlimit: rcOption.limit,
+                    rhoa: rcOption.hoa
+                })
             },
             homeRecentRecordShowAll () {
                 this.$store.commit(mTypes.updateScTime)
