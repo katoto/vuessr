@@ -137,8 +137,8 @@ const actionsInfo = mapActions({
         commit(mTypes.setAnalysisZjHis, jzdata)
         return jzdata
     },
-    async getAnalysisZjR ({commit}, {homeid, awayid, matchdate, rleagueid, rlimit, rhoa}) {
-        let recentRecord = await ajax.get(`/score/zq/recent_record?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&leagueid=${rleagueid}&limit=${rlimit}&hoa=${rhoa}`)
+    async getAnalysisZjR ({commit}, {homeid, awayid, matchdate,stid, rleagueid, rlimit, rhoa}) {
+        let recentRecord = await ajax.get(`/score/zq/recent_record?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&stid=${stid}&leagueid=${rleagueid}&limit=${rlimit}&hoa=${rhoa}`)
         commit(mTypes.setAnalysisZjR, recentRecord)
         return recentRecord
     },

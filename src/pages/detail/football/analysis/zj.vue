@@ -165,24 +165,24 @@
                         <th width="18%">日期</th>
                     </tr>
                     <tr>
-                        <td>{{FIFARank.home[0].rank}}</td>
+                        <td>{{FIFARank.home[0]&&FIFARank.home[0].rank}}</td>
                         <td>
                             <div class="rank-team"><img :src="match.homelogo">{{match.homesxname}}</div>
                         </td>
-                        <td>{{FIFARank.home[0].rankchange > 0 ? '+' : ''}}{{FIFARank.home[0].rankchange}}</td>
-                        <td>{{FIFARank.home[0].point}}</td>
-                        <td>{{FIFARank.home[0].pointchange > 0 ? '+' : ''}}{{FIFARank.home[0].pointchange}}</td>
-                        <td>{{FIFARank.home[0].date}}</td>
+                        <td>{{FIFARank.home[0]&&FIFARank.home[0].rankchange > 0 ? '+' : ''}}{{FIFARank.home[0]&&FIFARank.home[0].rankchange}}</td>
+                        <td>{{FIFARank.home[0]&&FIFARank.home[0].point}}</td>
+                        <td>{{FIFARank.home[0]&&FIFARank.home[0].pointchange > 0 ? '+' : ''}}{{FIFARank.home[0]&&FIFARank.home[0].pointchange}}</td>
+                        <td>{{FIFARank.home[0]&&FIFARank.home[0].date}}</td>
                     </tr>
                     <tr>
-                        <td>{{FIFARank.away[0].rank}}</td>
+                        <td>{{FIFARank.away[0]&&FIFARank.away[0].rank}}</td>
                         <td>
                             <div class="rank-team"><img :src="match.awaylogo">{{match.awaysxname}}</div>
                         </td>
-                        <td>{{FIFARank.away[0].rankchange > 0 ? '+' : ''}}{{FIFARank.away[0].rankchange}}</td>
-                        <td>{{FIFARank.away[0].point}}</td>
-                        <td>{{FIFARank.away[0].pointchange > 0 ? '+' : ''}}{{FIFARank.away[0].pointchange}}</td>
-                        <td>{{FIFARank.away[0].date}}</td>
+                        <td>{{FIFARank.away[0]&&FIFARank.away[0].rankchange > 0 ? '+' : ''}}{{FIFARank.away[0]&&FIFARank.away[0].rankchange}}</td>
+                        <td>{{FIFARank.away[0]&&FIFARank.away[0].point}}</td>
+                        <td>{{FIFARank.away[0]&&FIFARank.away[0].pointchange > 0 ? '+' : ''}}{{FIFARank.away[0]&&FIFARank.away[0].pointchange}}</td>
+                        <td>{{FIFARank.away[0]&&FIFARank.away[0].date}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -191,7 +191,7 @@
         </div>
 
 
-        <div class="zhedie-box" v-if="fightingInfo">
+        <div class="zhedie-box">
             <div class="zj-nav">
             <span class="saixuan"  v-tap="{methods: beginFilter, type: 'his'}"
                   onclick="_hmt.push(['_trackEvent','zq_detail','click','analysis_zj_ls'])"
@@ -278,21 +278,23 @@
                     </tbody>
                 </table>
             </div>
+            <div class="feed-back" v-else>
+                <div class="feed-box">
+                    <em>暂无数据</em>
+                </div>
+            </div>
 
         </div>
 
-        <div class="zhedie-box" v-if="recentRecord">
-            <div class="zj-nav" drunk-init-data="recentRecordHidden = false">
+
+        <div class="zhedie-box">
+            <div class="zj-nav">
                 <span class="saixuan" v-tap="{methods: beginFilter, type: 'recent'}"
                       drunk-on="click: filterVisible = true, currFilterOptions = recentRecordFilterOptions, $event.stopPropagation()">筛选</span>
                 近期战绩
             </div>
 
-            <!--<widget-prompt-view src="widget/prompt.html" drunk-if="!isRequesting && !recentRecordHidden && recentRecordNoData" message="很抱歉，没有数据"
-                                type="no-data" text-type>
-            </widget-prompt-view>-->
-
-            <div class="zhedie">
+            <div class="zhedie" v-if="recentRecord&&recentRecord.home">
                 <div class="zd-detail">
                     <div class="gaik clear">
                         <span class="f30 color3 fl">近{{recentRecord.home.all_matches.all_count||0}}场 {{match.homesxname}}</span>
@@ -464,15 +466,19 @@
             recentRecord.away.matches == 0)" message="很抱歉，没有数据" type="no-data" text-type>
                 </widget-prompt-view>-->
             </div>
-
+            <div class="feed-back" v-else>
+                <div class="feed-box">
+                    <em>暂无数据</em>
+                </div>
+            </div>
 
         </div>
 
-        <div class="zhedie-box zhedie-box-wl" v-if="futureMatch" drunk-init-data="futureMatchHidden = false" >
+        <div class="zhedie-box zhedie-box-wl" v-if="futureMatch" >
             <div class="zj-nav">
                 未来赛事
             </div>
-            <div class="zhedie">
+            <div class="zhedie" v-if="futureMatch&&futureMatch.home">
 
                 <table width="100%" cellpadding="0" cellspacing="0" class="fx-table">
                     <tbody><tr>
@@ -526,14 +532,11 @@
                         type="no-data">
                 </widget-prompt-view>-->
             </div>
-
-            <!--<widget-prompt-view
-                    src="widget/prompt.html"
-                    text-type
-                    drunk-if="!futureMatchHidden && (!isRequesting && !(futureMatch.home && futureMatch.home.length > 0) && !(futureMatch.away && futureMatch.away.length > 0))"
-                    extra-text="很抱歉，没有数据"
-                    type="no-data">
-            </widget-prompt-view>-->
+            <div class="feed-back" v-else>
+                <div class="feed-box">
+                    <em>暂无数据</em>
+                </div>
+            </div>
 
         </div>
 
@@ -541,26 +544,27 @@
             <div class="zj-nav">
                 澳门心水推荐
             </div>
-            <div class="zhedie show" v-if="macauNews && macauNews.stars !== undefined">
-                <div class="pm-namel">
-                    <span>{{macauNews.name}}</span>
-                    <span class="suggest-status">{{macauNews.result}}</span>
-                    <span class="suggest-power">信心指数</span>
-                    <span class="suggest-stars">
+            <template v-if="macauNews&&macauNews.name">
+                <div class="zhedie show" v-if="macauNews && macauNews.stars !== undefined">
+                    <div class="pm-namel">
+                        <span>{{macauNews.name}}</span>
+                        <span class="suggest-status">{{macauNews.result}}</span>
+                        <span class="suggest-power">信心指数</span>
+                        <span class="suggest-stars">
             <i v-for="i in macauNews.stars" class="ico-star ico-star-active"></i>
             <i v-for="i in (5 - macauNews.stars)" class="ico-star"></i>
             </span>
+                    </div>
+                    <div class="macao-txt">
+                        <p>{{macauNews.description}}</p>
+                    </div>
                 </div>
-                <div class="macao-txt">
-                    <p>{{macauNews.description}}</p>
+            </template>
+            <div class="feed-back" v-else>
+                <div class="feed-box">
+                    <em>暂无数据</em>
                 </div>
             </div>
-            <!--<widget-prompt-view
-                    src="widget/prompt.html"
-                    text-type
-                    drunk-if="!isRequesting && !(macauNews && macauNews.stars !== undefined)"
-                    type="no-data">
-            </widget-prompt-view>-->
         </div>
     </div>
 </template>
@@ -706,11 +710,12 @@
                 })
             },
             rcOption (rcOption) {
-                const {matchtime, homeid, awayid} = this.match
+                const {matchtime, homeid, awayid, stageid} = this.match
                 const matchdate = matchtime.substr(0, 10)
                 this.$store.dispatch(aTypes.getAnalysisZjR, {
                     homeid,
                     awayid,
+                    stid: stageid,
                     matchdate,
                     rleagueid: rcOption.leagueid,
                     rlimit: rcOption.limit,
