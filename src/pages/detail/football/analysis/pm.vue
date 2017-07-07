@@ -85,7 +85,7 @@
                         <span class="chupei">{{probability.avar_last_odds[1].toFixed(2)}}</span>
                         <span class="chupei">{{probability.avar_last_odds[2].toFixed(2)}}</span>
                     </p>
-                    <a class="color78 fr yb-btn" href="javascript:;" drunk-on="click: historySampleVisible = !historySampleVisible">历史样本详情&gt;</a>
+                    <span class="color78 fr yb-btn" v-tap="{methods: showHisSampleDetail}">历史样本详情&gt;</span>
                 </div>
             </template>
 
@@ -273,6 +273,7 @@
 <script>
     import {aTypes, mTypes} from '~store/zqdetail'
 
+    import HistorySample from '~components/detail/football/analysis/historySample.vue'
     export default {
         async asyncData ({store, route: {params}}) {
             let baseInfo = store.state.zqdetail.baseInfo
@@ -313,6 +314,13 @@
                     leagueid: league_id
                 })
                 this.$store.commit('endOneRefresh')
+            },
+            showHisSampleDetail () {
+                this.$store.commit(mTypes.setDialog, {
+                    component: HistorySample,
+                    params: {
+                        probability: this.probability
+                    }})
             },
             toggleFightingInfoResultType () {
                 const arr = ['result1', 'result2', 'result3']
