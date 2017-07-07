@@ -565,6 +565,9 @@
                 </div>
             </div>
         </div>
+        <div class="sk-btips">
+            500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
+        </div>
     </div>
 </template>
 
