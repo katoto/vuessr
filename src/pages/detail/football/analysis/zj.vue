@@ -191,7 +191,7 @@
         </div>
 
 
-        <div class="zhedie-box">
+        <div class="zhedie-box" v-if="fightingInfo">
             <div class="zj-nav">
             <span class="saixuan"  v-tap="{methods: beginFilter, type: 'his'}"
                   onclick="_hmt.push(['_trackEvent','zq_detail','click','analysis_zj_ls'])"
@@ -199,7 +199,7 @@
                 历史交战
             </div>
 
-            <div class="zhedie" v-if="fightingInfo && fightingInfo.matches">
+            <div class="zhedie" v-if="fightingInfo.matches">
                 <div class="zd-detail">
                     <div class="gaik clear">
                         <span class="f30 color3 fl">近{{fightingInfo.all_matches.all_count||0}}场交战&nbsp;&nbsp;&nbsp;{{match.homesxname}}</span>
@@ -287,14 +287,13 @@
         </div>
 
 
-        <div class="zhedie-box">
+        <div class="zhedie-box" v-if="recentRecord">
             <div class="zj-nav">
-                <span class="saixuan" v-tap="{methods: beginFilter, type: 'recent'}"
-                      drunk-on="click: filterVisible = true, currFilterOptions = recentRecordFilterOptions, $event.stopPropagation()">筛选</span>
+                <span class="saixuan" v-tap="{methods: beginFilter, type: 'recent'}">筛选</span>
                 近期战绩
             </div>
 
-            <div class="zhedie" v-if="recentRecord&&recentRecord.home">
+            <div class="zhedie" v-if="recentRecord.home">
                 <div class="zd-detail">
                     <div class="gaik clear">
                         <span class="f30 color3 fl">近{{recentRecord.home.all_matches.all_count||0}}场 {{match.homesxname}}</span>
@@ -478,7 +477,7 @@
             <div class="zj-nav">
                 未来赛事
             </div>
-            <div class="zhedie" v-if="futureMatch&&futureMatch.home">
+            <div class="zhedie" v-if="futureMatch.home">
 
                 <table width="100%" cellpadding="0" cellspacing="0" class="fx-table">
                     <tbody><tr>
@@ -540,11 +539,11 @@
 
         </div>
 
-        <div class="zhedie-box">
+        <div class="zhedie-box" v-if="macauNews">
             <div class="zj-nav">
                 澳门心水推荐
             </div>
-            <template v-if="macauNews&&macauNews.name">
+            <template v-if="macauNews.name">
                 <div class="zhedie show" v-if="macauNews && macauNews.stars !== undefined">
                     <div class="pm-namel">
                         <span>{{macauNews.name}}</span>

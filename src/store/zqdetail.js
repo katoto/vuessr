@@ -142,7 +142,6 @@ const actionsInfo = mapActions({
         commit(mTypes.setAnalysisZjR, recentRecord)
         return recentRecord
     },
-
     async getAnalysisJs ({commit}, {homeid, awayid, matchdate, stid, fid, leagueid}) {
         let result = await Promise.all([
             ajax.get(`/score/zq/strength?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&stid=${stid}&fid=${fid}&leagueid=${leagueid}`),
