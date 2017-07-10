@@ -508,11 +508,7 @@
 
     export default {
         async asyncData ({store, route: {params}}) {
-            let baseInfo = store.state.zqdetail.baseInfo
-            if (!baseInfo || store.state.zqdetail.baseInfo.fid !== params.fid) {
-                baseInfo = await store.dispatch(aTypes.getBaseInfo, params.fid)
-            }
-            const {stageid, matchtime, homeid, awayid, league_id} = baseInfo
+            const {stageid, matchtime, homeid, awayid, league_id} = store.state.zqdetail.baseInfo
             const matchdate = matchtime.substr(0, 10)
             await store.dispatch(aTypes.getAnalysisJs, {
                 homeid,

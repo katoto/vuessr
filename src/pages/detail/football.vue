@@ -116,7 +116,6 @@
                             </router-link>
                         </li>
 
-
                         <li
                                 :class="{cur: ~$route.path.indexOf('/crazybet')}">
                             <router-link :to="{name: 'football-detail-crazybet'}" replace>
@@ -160,12 +159,10 @@
     import {FootballStatusCode as StatusCode} from '~common/constants'
     import refresh from '~components/refresh.vue'
     import detailScroller from '~components/detail_scroller.vue'
-    import {aTypes} from '~store/zqdetail'
+    import {aTypes, mTypes} from '~store/zqdetail'
     export default {
         async asyncData ({store, route: {params}}) {
-            if (!store.state.zqdetail.baseInfo) {
-                await store.dispatch(aTypes.getBaseInfo, params.fid)
-            }
+            await store.dispatch(aTypes.getBaseInfo, params.fid)
         },
         data () {
             return {
@@ -189,6 +186,9 @@
         },
         components: {
             detailScroller, refresh
+        },
+        destroyed () {
+            this.$store.commit(mTypes.reset)
         },
         methods: {
             async fetchData () {

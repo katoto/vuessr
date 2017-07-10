@@ -7,7 +7,7 @@
 import ajax from '~common/ajax'
 import {mapActions, mapMutations} from '~common/util'
 const ns = 'zqdetail'
-const state = {
+const initState = {
     scTime: 0, // 触发滚动更新时间戳
     analysis: {
         zj: {
@@ -246,6 +246,12 @@ const mutationsInfo = mapMutations({
         state.analysis.zr.teamworth = teamworth
         state.analysis.zr.formation = formation
         state.analysis.zr.lineup = lineup
+    },
+    reset (state) {
+        const iState = JSON.parse(JSON.stringify(initState))
+        Object.keys(state).forEach(key => {
+            state[key] = iState[key]
+        })
     }
 }, ns)
 
@@ -253,4 +259,4 @@ const actions = actionsInfo.actions
 const mutations = mutationsInfo.mutations
 export const aTypes = actionsInfo.aTypes
 export const mTypes = mutationsInfo.mTypes
-export default {state, actions, mutations}
+export default {state: JSON.parse(JSON.stringify(initState)), actions, mutations}

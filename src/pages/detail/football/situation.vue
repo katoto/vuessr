@@ -3,7 +3,7 @@
         <template v-if="!feature.a[match.status]">
             <event v-if="situation.eventlist && situation.eventlist.length" :eventlist="situation.eventlist" :status="match.status"></event>
             <statistic v-if="situation.statistic && situation.statistic.h_ballcontrol_rate" :statistic="situation.statistic"></statistic>
-            <me-sports v-if="situation.news && situation.news.length" :news="situation.news" :init-size="match.status == StatusCode.NOT_STARTED?5:3"></me-sports>
+            <me-sports v-if="situation.news && situation.news.length" :news="situation.news" :init-size="3"></me-sports>
             <div class="sk-btips"
                  v-if="(situation.eventlist && situation.eventlist.length) || (situation.statistic && situation.statistic.h_ballcontrol_rate != null)">
                 500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
@@ -25,11 +25,7 @@
     import statistic from '~components/detail/football/situation/statistic.vue'
     export default {
         async asyncData ({store, route: {params}}) {
-            let baseInfo = store.state.zqdetail.baseInfo
-            if (!baseInfo || store.state.zqdetail.baseInfo.fid !== params.fid) {
-                baseInfo = await store.dispatch(aTypes.getBaseInfo, params.fid)
-            }
-            const {status, matchtime, homeid, awayid, league_id} = baseInfo
+            const {status, matchtime, homeid, awayid, league_id} = store.state.zqdetail.baseInfo // baseInfo 保证有数据了
             await store.dispatch(aTypes.getSituation, {
                 fid: params.fid, homeid, awayid, status, matchtime, leagueid: league_id
             })
@@ -54,11 +50,7 @@
         methods: {
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                let baseInfo = this.$store.state.zqdetail.baseInfo
-                if (!baseInfo || this.$store.state.zqdetail.baseInfo.fid !== this.$route.params.fid) {
-                    baseInfo = await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
-                }
-                const {status, matchtime, homeid, awayid, league_id} = baseInfo
+                const {status, matchtime, homeid, awayid, league_id} = this.$store.state.zqdetail.baseInfo
                 await this.$store.dispatch(aTypes.getSituation, {
                     fid: this.$route.params.fid, homeid, awayid, status, matchtime, leagueid: league_id
                 })
