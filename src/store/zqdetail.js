@@ -105,8 +105,8 @@ const actionsInfo = mapActions({
     },
     async getOddsDetailAsian ({commit}, {fid, cid, s1, s2, cp, leagueid, date}) {
         let result = await Promise.all([
-            ajax.get(`/score/zq/sameeurope?fid=${fid}&cid=${cid}&s1=${s1}&s2=${s2}&cp=${cp}&league_id=${leagueid}&date=${date}`),
-            ajax.get(`/score/zq/oneodds_asian?fid=${fid}&cid=${cid}&matchdate=${date}`)
+            ajax.get(`/score/zq/sameasian?fid=${fid}&cid=${cid}&s1=${s1}&s2=${s2}&cp=${cp}&league_id=${leagueid}&date=${date}`, {ignore: true}),
+            ajax.get(`/score/zq/oneodds_asian?fid=${fid}&cid=${cid}&matchdate=${date}`, {ignore: true})
         ])
         return result
     },
@@ -137,7 +137,7 @@ const actionsInfo = mapActions({
         commit(mTypes.setAnalysisZjHis, jzdata)
         return jzdata
     },
-    async getAnalysisZjR ({commit}, {homeid, awayid, matchdate,stid, rleagueid, rlimit, rhoa}) {
+    async getAnalysisZjR ({commit}, {homeid, awayid, matchdate, stid, rleagueid, rlimit, rhoa}) {
         let recentRecord = await ajax.get(`/score/zq/recent_record?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&stid=${stid}&leagueid=${rleagueid}&limit=${rlimit}&hoa=${rhoa}`)
         commit(mTypes.setAnalysisZjR, recentRecord)
         return recentRecord

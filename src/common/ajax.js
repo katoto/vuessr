@@ -19,12 +19,14 @@ const ajax = function (url, config) {
     return _axios.get(url, config).then((response) => {
         if (response.status === 200) {
             return response.data
+        } else if (config.ignore) {
+            return {data: {}}
         } else {
             throw new Error(response.message)
         }
     }).then(resp => {
-        if (resp.status === '100') {
-            return resp.data
+        if (resp.status === '100' || config.ignore) {
+            return resp.data || {}
         } else {
             const error = new Error(resp.message)
             error.code = resp.status
@@ -36,12 +38,14 @@ ajax.get = function (url, config) {
     return _axios.get(url, config).then((response) => {
         if (response.status === 200) {
             return response.data
+        } else if (config.ignore) {
+            return {data: {}}
         } else {
             throw new Error(response.message)
         }
     }).then(resp => {
-        if (resp.status === '100') {
-            return resp.data
+        if (resp.status === '100' || config.ignore) {
+            return resp.data || {}
         } else {
             const error = new Error(resp.message)
             error.code = resp.status
@@ -53,12 +57,14 @@ ajax.post = function (url, param, config) {
     return _axios.post(url, param, config).then((response) => {
         if (response.status === 200) {
             return response.data
+        } else if (config.ignore) {
+            return {data: {}}
         } else {
             throw new Error(response.message)
         }
     }).then(resp => {
-        if (resp.status === '100') {
-            return resp.data
+        if (resp.status === '100' || config.ignore) {
+            return resp.data || {}
         } else {
             const error = new Error(resp.message)
             error.code = resp.status
