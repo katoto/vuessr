@@ -1,8 +1,4 @@
-<style>
-    .popBox ::-webkit-scrollbar {
-        display: none
-    }
-</style>
+
 <template>
     <div class="popBox l-full l-flex-column  slide-bottom-to-top">
         <div class="popTopbar" v-tap="{methods: closeDialog}"></div>
@@ -14,7 +10,7 @@
                             <ul class="plleft-list">
                                 <li v-for="info,index in params.odds"
                                     v-tap="{methods: changeComp, cid: info.cid}"
-                                    :class="{cur: info.cid == cid}">{{info.name}}
+                                    :class="{cur: info.cid == cid}" v-if="info.cid!=='-1'">{{info.name}}
 
                                 </li>
                             </ul>
@@ -426,6 +422,31 @@
                                 lost: currentInfo.first.lost,
                                 leagueid: this.match.league_id,
                                 date: this.match.matchtime
+                            })
+                            this.sameOddsInfo = sameOddsInfo
+                            this.oddsInfo = oddsInfo
+                        }
+                        break
+                    }
+                    case 'rangqiu': {
+                        this.sameOddsInfo = null
+                        this.oddsInfo = null
+                        let currentInfo = null
+                        this.params.odds.some((info) => {
+                            if (info.cid === cid) {
+                                currentInfo = info
+                            }
+                        })
+                        if (currentInfo) {
+                            const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailRq, {
+                                fid: this.$route.params.fid,
+                                cid,
+                                win: currentInfo.first.win,
+                                draw: currentInfo.first.draw,
+                                lost: currentInfo.first.lost,
+                                leagueid: this.match.league_id,
+                                date: this.match.matchtime,
+                                handicapline: currentInfo.end.handicapline
                             })
                             this.sameOddsInfo = sameOddsInfo
                             this.oddsInfo = oddsInfo

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="gl-box box-yc">
+        <div class="gl-box box-yc" v-if="predictEurope">
             <div class="gl-nav">胜平负 <span class="yc-more"></span></div>
             <div class="box-ycInner">
                 <template v-if="predictEurope&&predictEurope.outter">
@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        <div class="gl-box box-yc">
+        <div class="gl-box box-yc" v-if="predictAsian">
             <div class="gl-nav">
                 亚盘{{predictAsian && predictAsian.inner && predictAsian.inner.this_match.curr_odds[1]?('（盘口：'+predictAsian.inner.this_match.curr_odds[1]+'）'):'--'}}
                 <span class="yc-more" ></span></div>
@@ -81,7 +81,7 @@
             </div>
         </div>
 
-        <div class="gl-box box-yc">
+        <div class="gl-box box-yc" v-if="predictDaXiao">
             <div class="gl-nav">
                 大小盘{{predictDaXiao && predictDaXiao.inner && predictDaXiao.inner.this_match.curr_odds[1]?('（盘口：'+predictDaXiao.inner.this_match.curr_odds[1]+'）'):''}}
                 <span class="yc-more"></span>
@@ -124,7 +124,7 @@
 
         </div>
 
-        <div class="gl-box box-yc">
+        <div class="gl-box box-yc" v-if="predictScore">
 
             <div class="gl-nav">比分与进球 <span class="yc-more" ></span></div>
             <div class="box-ycInner box-yc-bifen">
@@ -175,7 +175,7 @@
             </div>
         </div>
 
-        <div class="gl-box box-yc">
+        <div class="gl-box box-yc" v-if="predictHalf">
             <div class="gl-nav">半场 <span class="yc-more" ></span></div>
             <div class="box-ycInner">
 

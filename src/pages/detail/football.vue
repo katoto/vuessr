@@ -267,9 +267,6 @@
          margin-left: auto !important;
 
     }
-    .back-icon:before {
-        margin-top: auto;
-    }
 
 
     .slide-enter-active, .slide-leave-active {
