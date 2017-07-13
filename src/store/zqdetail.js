@@ -178,7 +178,8 @@ const actionsInfo = mapActions({
             ajax.get(`/score/zq/predict_score?fid=${fid}`),
             ajax.get(`/score/zq/predict_half?fid=${fid}`)
         ])
-        const [europe, asian, daxiaoqiu, score, half] = result.map(item => Object.keys(item).length ? item : null)
+        // const [europe, asian, daxiaoqiu, score, half] = result.map(item => Object.keys(item).length ? item : null)
+        const [europe, asian, daxiaoqiu, score, half] = result
         commit(mTypes.setPredict, {europe, asian, daxiaoqiu, score, half})
     }
 

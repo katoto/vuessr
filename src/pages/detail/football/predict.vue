@@ -84,7 +84,8 @@
         <div class="gl-box box-yc">
             <div class="gl-nav">
                 大小盘{{predictDaXiao && predictDaXiao.inner && predictDaXiao.inner.this_match.curr_odds[1]?('（盘口：'+predictDaXiao.inner.this_match.curr_odds[1]+'）'):''}}
-                <span class="yc-more"></span></div>
+                <span class="yc-more"></span>
+            </div>
             <div class="box-ycInner">
                 <template v-if="predictDaXiao && predictDaXiao.outter">
                     <div class="dataBox" v-tap="{methods: selectTab, tab: 'daXiao'}">
@@ -114,15 +115,14 @@
 
                 </template>
 
-
-
-
-                <div class="feed-back" v-if=" v-if="predictDaXiao && !predictDaXiao.outter"">
+                <div class="feed-back" v-if="predictDaXiao && !predictDaXiao.outter">
                     <div class="feed-box">
                         <em>暂无数据</em>
                     </div>
                 </div>
             </div>
+
+        </div>
 
         <div class="gl-box box-yc">
 
