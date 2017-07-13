@@ -46,7 +46,8 @@ const initState = {
         europe: null,
         asian: null,
         bifa: null,
-        rangqiu: null
+        rangqiu: null,
+        daxiaopan: null
     },
 
     predict: {
@@ -89,6 +90,11 @@ const actionsInfo = mapActions({
         const rangqiu = await ajax.get(`/score/zq/rangqiu?fid=${fid}`)
         commit(mTypes.setOddsRq, rangqiu)
         return rangqiu
+    },
+    async getOddsDxp ({commit}, fid) {
+        const daxiaopan = await ajax.get(`/score/zq/daxiaoqiu?fid=${fid}`)
+        commit(mTypes.setOddsDxp, daxiaopan)
+        return daxiaopan
     },
     async getOddsBifa ({commit}, fid) {
         const bifa = await ajax.get(`/score/zq/spdex2?fid=${fid}`)
@@ -222,6 +228,9 @@ const mutationsInfo = mapMutations({
     },
     setOddsRq (state, rangqiu) {
         state.odds.rangqiu = rangqiu
+    },
+    setOddsDxp (state, daxiaopan) {
+        state.odds.daxiaopan = daxiaopan
     },
     setOddsBifa (state, bifa) {
         state.odds.bifa = bifa

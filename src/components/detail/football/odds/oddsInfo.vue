@@ -56,8 +56,8 @@
                                             </td>
                                             <td drunk-on="tap:isOddsTimeNormal=!isOddsTimeNormal,updateCustomOddsInfo()">
                                                 <span class="color9"
-                                                      drunk-if="!isOddsTimeNormal">{{info.updatetime}}</span>
-                                                <span class="color9" drunk-if="isOddsTimeNormal">{{info.realtime.substring(5,16)}}</span>
+                                                      v-if="!isOddsTimeNormal">{{info.updatetime}}</span>
+                                                <span class="color9" v-if="isOddsTimeNormal">{{info.realtime.substring(5,16)}}</span>
                                             </td>
                                         </tr>
                                     </table>
@@ -348,6 +348,163 @@
                             </div>
                             <no-match v-if="tab === 1 && sameOddsInfo && !sameOddsInfo.all_count"></no-match>
                         </template>
+                        <template v-if="params.type === 'daxiaopan'">
+                            <div class="l-full l-scroll-y" v-if="tab === 0 && oddsInfo && oddsInfo.length">
+                                <div class="plcontent">
+                                    <table width="100%" cellspacing="0" cellpadding="0" border="0" class="plxq-table">
+                                        <tbody>
+                                        <tr>
+                                            <th width="20%">大</th>
+                                            <th>盘口</th>
+                                            <th width="20%">小</th>
+                                            <th width="36%" drunk-on="tap:isOddsTimeNormal=!isOddsTimeNormal,updateCustomOddsInfo()">更新时间<em class="gxsj" id="gxsj"></em></th>
+                                        </tr>
+                                        <tr v-for="info in oddsInfo">
+                                            <td>
+                                                <span class="f24" :class="{'red': info.b == 1, 'green': info.b == -1}">{{info.big}}</span>
+                                            </td>
+                                            <td>
+                                                <span class="f24">{{info.handi}}</span>
+                                            </td>
+                                            <td>
+                                                <span class="f24" drunk-class="{'red': info.s == 1, 'green': info.s == -1}">{{info.small}}</span>
+                                            </td>
+                                            <td drunk-on="tap:isOddsTimeNormal=!isOddsTimeNormal,updateCustomOddsInfo()">
+                                                <span class="color9" v-if="!isOddsTimeNormal">{{info.time}}</span>
+                                                <span class="color9" v-if="isOddsTimeNormal">{{info.realtime.substring(5,16)}}</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <no-match v-if="tab === 0 && oddsInfo && !oddsInfo.length"></no-match>
+                            <div class="l-full l-scroll-y" v-if="tab === 1 && sameOddsInfo && sameOddsInfo.all_count">
+                                <div class="plcontent">
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%"
+                                           class="plxq-table firstleft plxq-table-lspt">
+                                        <tr>
+                                            <th></th>
+                                            <th width="20%">赢盘</th>
+                                            <th width="34%">走盘</th>
+                                            <th width="16%">盘路</th>
+                                        </tr>
+                                        <tr>
+                                            <td>相同初盘</td>
+                                            <td>{{sameOddsInfo.s1}}</td>
+                                            <td>{{sameOddsInfo.handi}}</td>
+                                            <td>{{sameOddsInfo.s2}}</td>
+                                        </tr>
+                                        <tr class="plxq-lspt-td130">
+                                            <td>全部赛事
+                                                <p class="colora">{{sameOddsInfo.all_count}}场</p>
+                                            </td>
+                                            <td class="win-c">
+                                                <p>{{sameOddsInfo.win_percent}}%</p>
+                                                <p class="colora">{{sameOddsInfo.win_count}}场</p>
+                                            </td>
+                                            <td class="level-c">
+                                                <p>{{sameOddsInfo.draw_percent}}%</p>
+
+                                                <p class="colora">{{sameOddsInfo.draw_count}}场</p>
+                                            </td>
+                                            <td class="lose-c">
+                                                <p>{{sameOddsInfo.lost_percent}}%</p>
+
+                                                <p class="colora">{{sameOddsInfo.lost_count}}场</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="plxq-lspt-td130" v-if="sameOddsInfo.league_counts">
+                                            <td>{{match.simpleleague}}
+                                                <p class="colora">{{sameOddsInfo.league_counts}}场</p>
+                                            </td>
+                                            <td class="  win-c">
+                                                <p>{{sameOddsInfo.lwin_percent}}%</p>
+
+                                                <p class="colora">{{sameOddsInfo.lwin_count}}场</p>
+                                            </td>
+                                            <td class="level-c">
+                                                <p>{{sameOddsInfo.ldraw_percent}}%</p>
+
+                                                <p class="colora">{{sameOddsInfo.ldraw_count}}场</p>
+                                            </td>
+                                            <td class="lose-c">
+                                                <p>{{sameOddsInfo.llost_percent}}%</p>
+
+                                                <p class="colora">{{sameOddsInfo.llost_count}}场</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%"
+                                           class="plxq-table-f firstleft"
+                                           v-if="sameOddsInfo.all_matches && sameOddsInfo.all_matches.length>0">
+                                        <tbody>
+                                        <tr>
+                                            <th class="textleft" width="43%"><em class="color3">全部赛事</em>
+                                                近{{sameOddsInfo.all_matches.length}}场
+                                            </th>
+                                            <th width="47%">初赔/终赔</th>
+                                            <th width="10%">盘路</th>
+                                        </tr>
+                                        <tr drunk-init-data="isSameEuropeAllMore=false"
+                                            v-for="match,idx in sameOddsInfo.all_matches">
+                                            <td>{{match.simpleleague}} {{match.matchdate.substring(2,10)}}<br>{{match.homesxname}}
+                                                {{match.homescore}}:{{match.awayscore}} {{match.awaysxname}}
+                                            </td>
+                                            <td>
+                                                <p class=" disc  disc-yp">
+                                                    <em>{{parseFloat(sameOddsInfo.s1).toFixed(2)}}</em><em>{{sameOddsInfo.handi}}</em><em>{{parseFloat(sameOddsInfo.s2).toFixed(2)}}</em>
+                                                </p>
+                                                <p class=" disc disc-yp"><em>{{match.s1 || '&#45;&#45;'}}</em><em>{{match.cp
+                                                    ||
+                                                    '&#45;&#45;'}}</em><em>{{match.s2 || '&#45;&#45;'}}</em></p>
+                                            </td>
+                                            <td class=" result-last"
+                                                :class="{'result-win':match.result=='赢','result-level':match.result=='走','result-lose':match.result=='输'}">
+                                                <span>{{match.result}}</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%"
+                                           class="plxq-table-f firstleft "
+                                           v-if="sameOddsInfo.all_matches && sameOddsInfo.league_matches.length>0">
+                                        <tbody>
+                                        <tr>
+                                            <th class="textleft" width="43%"><em class="color3">{{sameOddsInfo.leaguename}}</em>
+                                                近{{sameOddsInfo.league_matches.length}}场
+                                            </th>
+                                            <th width="47%">初赔/终赔</th>
+                                            <th width="10%">盘路</th>
+                                        </tr>
+                                        <tr v-for="match,idx in sameOddsInfo.league_matches">
+                                            <td>{{match.matchdate.substring(2,10)}}<br>{{match.homesxname}}
+                                                {{match.homescore}}:{{match.awayscore}}
+                                                {{match.awaysxname}}
+                                            </td>
+                                            <td>
+                                                <p class=" disc  disc-yp">
+                                                    <em>{{parseFloat(sameOddsInfo.s1).toFixed(2)}}</em><em>{{sameOddsInfo.handi}}</em><em>{{parseFloat(sameOddsInfo.s2).toFixed(2)}}</em>
+                                                </p>
+                                                <p class=" disc  disc-yp"><em>{{match.s1 || '&#45;&#45;'}}</em><em>{{match.cp
+                                                    ||
+                                                    '&#45;&#45;'}}</em><em>{{match.s2 || '&#45;&#45;'}}</em></p>
+                                            </td>
+                                            <td class=" result-last result-level"
+                                                :class="{'result-win':match.result=='赢','result-level':match.result=='走','result-lose':match.result=='输'}">
+                                                <span>{{match.result}}</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <no-match v-if="tab === 1 && sameOddsInfo && !sameOddsInfo.all_count"></no-match>
+                        </template>
                     </div>
                 </div>
 
@@ -482,6 +639,32 @@
                         }
                         break
                     }
+                        case 'daxiaopan': {
+                            this.sameOddsInfo = null
+                            this.oddsInfo = null
+                            let currentInfo = null
+                            this.params.odds.some((info) => {
+                                if (info.cid === cid) {
+                                    currentInfo = info
+                                }
+                            })
+                            if (currentInfo) {
+                                const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailDaxiaoqiu, {
+                                    fid: this.$route.params.fid,
+                                    cid,
+
+                                    big: currentInfo.first.home,
+                                    small: currentInfo.first.away,
+                                    handi: currentInfo.first.handi,
+
+                                    leagueid: this.match.league_id,
+                                    date: this.match.matchtime
+                                })
+                                this.sameOddsInfo = sameOddsInfo
+                                this.oddsInfo = oddsInfo
+                            }
+                            break
+                        }
                     }
                 } catch (e) {
                     this.error = true
