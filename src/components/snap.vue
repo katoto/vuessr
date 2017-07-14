@@ -114,6 +114,7 @@
             }, {
                 bouncing: true,
                 scrollingX: true,
+                Locking: false,
                 scrollingY: false,
                 snapping: true,
                 animationDuration: 150

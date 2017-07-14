@@ -8,6 +8,7 @@ import ajax from '~common/ajax'
 import {mapActions, mapMutations} from '~common/util'
 const ns = 'zqdetail'
 const initState = {
+    reachEndTime: 0,  // 滚动到最后触发的时间戳
     scTime: 0, // 触发滚动更新时间戳
     analysis: {
         zj: {
@@ -193,6 +194,10 @@ const actionsInfo = mapActions({
         // const [europe, asian, daxiaoqiu, score, half] = result.map(item => Object.keys(item).length ? item : null)
         const [europe, asian, daxiaoqiu, score, half] = result
         commit(mTypes.setPredict, {europe, asian, daxiaoqiu, score, half})
+    },
+    async getCommentList ({commit}, {type, fid, pageNo, tab, pageSize = 10}) {
+        let result = await ajax.get(`/sns/score/commentlist?vtype=${type}&fid=${fid}&pn=${pageNo}&tab=${tab}&rn=${pageSize}&_t=` + new Date().getTime())
+        return result
     }
 
 }, ns)
@@ -204,6 +209,9 @@ const mutationsInfo = mapMutations({
     },
     updateScTime (state) {
         state.scTime = Date.now()
+    },
+    updateReachEndTime (state) {
+        state.reachEndTime = Date.now()
     },
     setBaseInfo (state, baseInfo) {
         state.baseInfo = baseInfo

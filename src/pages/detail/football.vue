@@ -207,7 +207,7 @@
                 }
             },
             reachEnd () {
-                console.log('end')
+                this.$store.commit(mTypes.updateReachEndTime)
             },
             updateScroller () {
                 this.$refs.scroller.update()
