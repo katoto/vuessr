@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="bifa">
         <div class="bifa-stat">
             <div class="gl-nav">
                 必发数据
@@ -46,7 +46,7 @@
                 <i class="icon"></i>
                 <p class="f24">{{bifa.presentations}}</p>
             </div>
-            <div class="feed-back" v-if="!bifa">
+            <div class="feed-back" v-if="!bifa.spdex_data">
                 <div class="feed-box">
                     <em>暂无数据</em>
                 </div>
@@ -147,7 +147,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="feed-back" v-if="!bifa">
+            <div class="feed-back" v-if="!bifa.all_trade && !bifa.big_trade">
                 <div class="feed-box">
                     <em>暂无数据</em>
                 </div>
