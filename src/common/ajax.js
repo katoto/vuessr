@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 const _axios = axios.create(options)
 
-const ajax = function (url, config) {
+const ajax = function (url,  config = {ignore: true}) {
     return _axios.get(url, config).then((response) => {
         if (response.status === 200) {
             return response.data
@@ -26,7 +26,11 @@ const ajax = function (url, config) {
         }
     }).then(resp => {
         if (resp.status === '100' || config.ignore) {
-            return resp.data || {}
+            if (!resp.data) {
+                console.warn('服务端异常， 没有返回数据，' + url)
+                return {}
+            }
+            return resp.data
         } else {
             const error = new Error(resp.message)
             error.code = resp.status
@@ -34,7 +38,7 @@ const ajax = function (url, config) {
         }
     })
 }
-ajax.get = function (url, config) {
+ajax.get = function (url,  config = {ignore: true}) {
     return _axios.get(url, config).then((response) => {
         if (response.status === 200) {
             return response.data
@@ -45,7 +49,11 @@ ajax.get = function (url, config) {
         }
     }).then(resp => {
         if (resp.status === '100' || config.ignore) {
-            return resp.data || {}
+            if (!resp.data) {
+                console.warn('服务端异常， 没有返回数据，' + url)
+                return {}
+            }
+            return resp.data
         } else {
             const error = new Error(resp.message)
             error.code = resp.status
@@ -53,7 +61,7 @@ ajax.get = function (url, config) {
         }
     })
 }
-ajax.post = function (url, param, config) {
+ajax.post = function (url, param, config = {ignore: true}) {
     return _axios.post(url, param, config).then((response) => {
         if (response.status === 200) {
             return response.data
@@ -64,7 +72,11 @@ ajax.post = function (url, param, config) {
         }
     }).then(resp => {
         if (resp.status === '100' || config.ignore) {
-            return resp.data || {}
+            if (!resp.data) {
+                console.warn('服务端异常， 没有返回数据，' + url)
+                return {}
+            }
+            return resp.data
         } else {
             const error = new Error(resp.message)
             error.code = resp.status

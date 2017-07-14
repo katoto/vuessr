@@ -117,8 +117,8 @@ const actionsInfo = mapActions({
     },
     async getOddsDetailAsian ({commit}, {fid, cid, s1, s2, cp, leagueid, date}) {
         let result = await Promise.all([
-            ajax.get(`/score/zq/sameasian?fid=${fid}&cid=${cid}&s1=${s1}&s2=${s2}&cp=${cp}&league_id=${leagueid}&date=${date}`, {ignore: true}),
-            ajax.get(`/score/zq/oneodds_asian?fid=${fid}&cid=${cid}&matchdate=${date}`, {ignore: true})
+            ajax.get(`/score/zq/sameasian?fid=${fid}&cid=${cid}&s1=${s1}&s2=${s2}&cp=${cp}&league_id=${leagueid}&date=${date}`),
+            ajax.get(`/score/zq/oneodds_asian?fid=${fid}&cid=${cid}&matchdate=${date}`)
         ])
         return result
     },
@@ -255,11 +255,11 @@ const mutationsInfo = mapMutations({
         state.analysis.js.compare = compare
     },
     setAnalysisPm (state, {poisson, avrodds, handicapFeature, tzbl, coldHot}) {
-        state.analysis.pm.poisson = poisson
-        state.analysis.pm.avrodds = avrodds
-        state.analysis.pm.handicapFeature = handicapFeature
-        state.analysis.pm.tzbl = tzbl
-        state.analysis.pm.coldHot = coldHot
+        state.analysis.pm.poisson = poisson || {}
+        state.analysis.pm.avrodds = avrodds || {}
+        state.analysis.pm.handicapFeature = handicapFeature || {}
+        state.analysis.pm.tzbl = tzbl || {}
+        state.analysis.pm.coldHot = coldHot || {}
     },
     setAnalysisZr (state, {teamworth, formation, lineup}) {
         state.analysis.zr.teamworth = teamworth
