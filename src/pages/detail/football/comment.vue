@@ -68,7 +68,8 @@
             return {
                 tab: 'time',
                 commentList: [],
-                pageNo: 0
+                pageNo: 0,
+                end: false
             }
         },
         mounted () {
@@ -89,25 +90,29 @@
                 this.fetchData()
             },
             tab () {
+                this.end = false
                 this.pageNo = 0
                 this.commentList = []
                 this.fetchData()
             },
             reachEndTime () {
-                console.log('end time')
+                if (this.end) return
                 this.pageNo++
-//                this.fetchData()
+                this.fetchData(this.pageNo)
             }
         },
         methods: {
-            async fetchData () {
+            async fetchData (pageNo = 0) {
                 this.$store.commit('startOneRefresh')
                 let {commentlist} = await this.$store.dispatch(aTypes.getCommentList, {
                     type: '1',
                     fid: this.$route.params.fid,
-                    pageNo: this.pageNo,
+                    pageNo: pageNo,
                     tab: this.tab
                 })
+                if (!commentlist.length) {
+                    this.end = true
+                }
                 let commentList = [...this.commentList]
                 commentList.push(...commentlist)
                 this.commentList = commentList
