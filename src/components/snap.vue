@@ -58,7 +58,7 @@
                     vote.voted=='1')?(vote.ticket[0]+vote.ticket[1]+vote.ticket[2])+'人已投票':'本场比赛看好哪队获胜?'}}</h1>
 
 
-                <div class="comm-slide-cont" v-if="vote.voted==='0'&&match.status !== '4'">
+                <div class="comm-slide-cont" v-if="vote.voted === '0' && match.status !== '4'">
                     <ul>
                         <li drunk-on="click:onVote('3',0)">
                             <div class="support-icon"></div>
