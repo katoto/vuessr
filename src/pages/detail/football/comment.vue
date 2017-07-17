@@ -1,6 +1,6 @@
 <template>
     <div id="comment-content">
-        <snap :eventlist="eventlist" :statistic="statistic" :match="match" :online="online" :vote="vote"></snap>
+        <snap v-if="vote" :eventlist="eventlist" :statistic="statistic" :match="match" :online="online" :vote="vote"></snap>
 
 
         <div class="zj-nav"> 评论{{commentList.length}}
@@ -105,7 +105,23 @@
             }
         },
         methods: {
-            async fetchData (pageNo = 0) {
+            async fetchData () {
+                this.$store.commit('startOneRefresh')
+                let [commentlist] = await Promise.all([
+                    this.$store.dispatch(aTypes.getCommentList, {type: '1', fid: this.$route.params.fid, pageNo: 0, tab: 'time'}),
+                    this.$store.dispatch(aTypes.getEventAndStatistics, {fid: this.$route.params.fid}),
+                    this.$store.dispatch(aTypes.getTotal, {fid: this.$route.params.fid}),
+                    this.$store.dispatch(aTypes.getVote, {fid: this.$route.params.fid})
+                ])
+                if (!commentlist.length) {
+                    this.end = true
+                }
+                let commentList = [...this.commentList]
+                commentList.push(...commentlist)
+                this.commentList = commentList
+                this.$store.commit('endOneRefresh')
+            },
+            async fetchCommentData (pageNo = 0) {
                 this.$store.commit('startOneRefresh')
                 let {commentlist} = await this.$store.dispatch(aTypes.getCommentList, {
                     type: '1',
