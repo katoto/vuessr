@@ -46,7 +46,7 @@
                     <i class="jiaohuan"></i>
                 </span>
                     <!--服务端的数据太恶心，只能使用如此龌龊的三元表达式：服务没有数据，且进球的情况下，展示球队-->
-                    <div class="ren-name" drunk-if="event.is_team != 1 && event.eventtype != EventType.HUAN_REN">{{event.cdata?event.cdata:(event.eventtype != EventType.HUAN_REN?'【'+(event.is_team == 1?match.homesxname:match.awaysxname)+'】':'')}}</div>
+                    <div class="ren-name" v-if="event.is_team != 1 && event.eventtype != EventType.HUAN_REN">{{event.cdata?event.cdata:(event.eventtype != EventType.HUAN_REN?'【'+(event.is_team == 1?match.homesxname:match.awaysxname)+'】':'')}}</div>
 
                     <dl class="jh" v-if="event.eventtype == EventType.HUAN_REN">
                         <dd>
@@ -93,6 +93,11 @@
             return {
                 EventType,
                 StatusCode
+            }
+        },
+        computed: {
+            match () {
+                return this.$store.state.zqdetail.baseInfo
             }
         }
 

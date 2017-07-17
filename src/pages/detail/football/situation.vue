@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="situation">
        <!-- <template v-if="(situation.eventlist && situation.eventlist.length) || (situation.statistic && situation.statistic.h_ballcontrol_rate)">
 
         </template>-->

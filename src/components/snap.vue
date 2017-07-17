@@ -112,7 +112,7 @@
             this.scrollerObj = new Scroller((left, top, zoom) => {
                 this.content.style[transform] = 'translate3d(' + (-left) + 'px,' + (-top) + 'px,0) scale(' + zoom + ')'
             }, {
-                bouncing: true,
+                bouncing: false,
                 scrollingX: true,
                 Locking: false,
                 scrollingY: false,
