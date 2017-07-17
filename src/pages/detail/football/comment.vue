@@ -1,8 +1,6 @@
 <template>
     <div id="comment-content">
-
-
-        <snap></snap>
+        <snap :eventlist="eventlist" :statistic="statistic" :match="match" :online="online" :vote="vote"></snap>
 
 
         <div class="zj-nav"> 评论{{commentList.length}}
@@ -62,7 +60,12 @@
 
     export default {
         async asyncData ({store, route: {params}}) {
-            await store.dispatch(aTypes.getCommentList, {type: '1', fid: params.fid, pageNo: 0, tab: 'time'})
+            await Promise.all([
+                store.dispatch(aTypes.getEventAndStatistics, {fid: params.fid}),
+                store.dispatch(aTypes.getTotal, {fid: params.fid}),
+                store.dispatch(aTypes.getVote, {fid: params.fid}),
+                store.dispatch(aTypes.getCommentList, {type: '1', fid: params.fid, pageNo: 0, tab: 'time'})
+            ])
         },
         data () {
             return {
@@ -128,6 +131,27 @@
             },
             reachEndTime () {
                 return this.$store.state.zqdetail.reachEndTime
+            },
+            match () {
+                return this.$store.state.zqdetail.baseInfo
+            },
+            comment () {
+                return this.$store.state.zqdetail.comment
+            },
+            eventlist () {
+                return this.comment.eventlist
+            },
+            statistic () {
+                return this.comment.statistic
+            },
+            vote () {
+                return this.comment.vote
+            },
+            online () {
+                return this.comment.online
+            },
+            total () {
+                return this.comment.total
             }
         }
 

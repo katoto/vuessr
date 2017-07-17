@@ -58,6 +58,13 @@ const initState = {
         score: null,
         half: null
     },
+    comment: {
+        eventlist: null,
+        statistic: null,
+        online: null,
+        total: null,
+        vote: null
+    },
     outer: {
         component: null,
         params: null
@@ -76,6 +83,23 @@ const actionsInfo = mapActions({
         ])
         commit(mTypes.setSituation, {eventlist, statistic, news})
         return {eventlist, statistic, news}
+    },
+
+    async getEventAndStatistics ({commit}, {fid}) {
+        let {eventlist, statistic} = await ajax.get(`/score/zq/events_statistics?fid=${fid}`)
+        commit(mTypes.setEventAndStatistics, {eventlist, statistic})
+        return {eventlist, statistic}
+    },
+
+    async getTotal ({commit}, {fid}) {
+        let {online, total} = await ajax.get(`/sns/score/total?vtype=1&fid=${fid}`)
+        commit(mTypes.setTotal, {online, total})
+        return {online, total}
+    },
+    async getVote ({commit}, {fid}) {
+        let {votelist} = await ajax.get(`/sns/score/votelist?vtype=1&fid=${fid}`)
+        commit(mTypes.setVote, votelist[0])
+        return votelist[0]
     },
     async getOddsEurope ({commit}, fid) {
         const europe = await ajax.get(`/score/zq/europe?fid=${fid}`)
@@ -219,8 +243,20 @@ const mutationsInfo = mapMutations({
     setSituation (state, {eventlist, statistic, news}) {
         state.situation.eventlist = eventlist
         state.situation.statistic = statistic
-        state.situation.news = news
+        news && (state.situation.news = news)
     },
+    setEventAndStatistics (state, {eventlist, statistic}) {
+        state.comment.eventlist = eventlist
+        state.comment.statistic = statistic
+    },
+    setVote (state, vote) {
+        state.comment.vote = vote
+    },
+    setTotal (state, {online, total}) {
+        state.comment.online = online
+        state.comment.total = total
+    },
+
     setPredict (state, {europe, asian, daxiaoqiu, score, half}) {
         state.predict.europe = europe
         state.predict.asian = asian

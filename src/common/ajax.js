@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 const _axios = axios.create(options)
 
-const ajax = function (url,  config = {ignore: true}) {
+const ajax = function (url, config = {ignore: true}) {
     return _axios.get(url, config).then((response) => {
         if (response.status === 200) {
             return response.data
@@ -38,7 +38,7 @@ const ajax = function (url,  config = {ignore: true}) {
         }
     })
 }
-ajax.get = function (url,  config = {ignore: true}) {
+ajax.get = function (url, config = {ignore: true}) {
     return _axios.get(url, config).then((response) => {
         if (response.status === 200) {
             return response.data
