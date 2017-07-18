@@ -71,11 +71,13 @@
                 tab: 'time',
                 commentList: [],
                 pageNo: 0,
-                end: false
+                end: false,
+                interval: null
             }
         },
         mounted () {
             this.fetchData()
+            this.fetchCountAndEventAndStatisticsInterval()
         },
         components: {
             snap
@@ -131,6 +133,24 @@
                 commentList.push(...commentlist)
                 this.commentList = commentList
                 this.$store.commit('endOneRefresh')
+            },
+            fetchCountAndEventAndStatisticsInterval () {
+                if (this.match.status === '1' || this.match.status === '2' || this.match.status === '3') {
+                    if (this.interval) {
+                        clearInterval(this.interval)
+                        this.interval = null
+                    }
+                    this.interval = setInterval(() => {
+                        this.$store.dispatch(aTypes.getEventAndStatistics, {fid: this.$route.params.fid})
+                        this.$store.dispatch(aTypes.getTotal, {fid: this.$route.params.fid})
+                    }, 1000 * 10)
+                }
+            }
+        },
+        destroyed () {
+            if (this.interval) {
+                clearInterval(this.interval)
+                this.interval = null
             }
         },
         computed: {

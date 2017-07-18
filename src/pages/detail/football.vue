@@ -139,6 +139,7 @@
                 <component :is="outer.component" :params="outer.params"></component>
             </div>
         </transition>
+        <div style="position:absolute;top: 40rem; left:10rem;width: 10rem;height: 2rem;border: .1rem solid red"></div>
 
 
         <div v-if="~$route.path.indexOf('/comment')">
@@ -146,7 +147,7 @@
                 <div class="enter-ipt">
                     <i class="ipt-icon"></i>
                     <p class="ipt-txt">我来说两句…</p>
-                    <span class="ipt-count">5评</span>
+                    <span class="ipt-count">{{total}}评</span>
                 </div>
             </div>
         </div>
@@ -175,6 +176,9 @@
             },
             outer () {
                 return this.$store.state.zqdetail.outer
+            },
+            total () {
+                return this.$store.state.zqdetail.comment.total
             }
         },
         async mounted () {
