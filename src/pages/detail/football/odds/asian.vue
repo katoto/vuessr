@@ -1,7 +1,8 @@
 <template>
-   <div v-if="asian">
+    <div v-if="asian">
         <div class="pl-box-hd">
             <table cellspacing="0" cellpadding="0" border="0" class="pl-table" width="100%">
+                <tbody>
                 <tr>
                     <th width="18%">公司</th>
                     <th width="15%"></th>
@@ -9,19 +10,15 @@
                     <th>盘口</th>
                     <th width="20%">水</th>
                 </tr>
+                </tbody>
             </table>
         </div>
-
-        <!--<widget-prompt-view
-                src="widget/prompt.html"
-                drunk-if="!isRequesting && !oddsDataMap.asian || !oddsDataMap.asian.odds || !oddsDataMap.asian.odds.length"
-                extra-text="很抱歉，没有数据"
-                small-size
-                type="no-data">
-        </widget-prompt-view>-->
+        <no-data v-if="!asian.odds || !asian.odds.length"></no-data>
 
         <div class="pl-box-bd" v-if="asian.odds && asian.odds.length">
             <table cellspacing="0" cellpadding="0" border="0" class="pl-table" width="100%">
+
+
                 <colgroup>
                     <col width="18%">
                     <col width="15%">
@@ -29,10 +26,10 @@
                     <col width="">
                     <col width="20%">
                 </colgroup>
+                <tbody>
 
-                <tr v-for="info in asian.odds"
-                    drunk-highlight="{yebg: info.cid == highlightCid}"
-                    drunk-on="click: redirect('#/footballdetail/' + tab + '/' + match.fid + '/asian/' + info.cid)">
+                <tr :class="{'yebg': info.cid === $route.query.cid}" v-for="info,idx in asian.odds"
+                    v-tap="{methods: viewOddsDetail, cid: info.cid}">
                     <td>
                         <span class="color3">{{info.name}}</span>
                     </td>
@@ -56,6 +53,7 @@
                         <span class="f24" :class="{'red': info.end.s2 == 1, 'green': info.end.s2 == -1}">{{info.end.away|nullFormat}}</span>
                     </td>
                 </tr>
+                </tbody>
             </table>
         </div>
 
@@ -72,9 +70,13 @@
 <script>
     import {aTypes, mTypes} from '~store/zqdetail'
     import oddsInfo from '~components/detail/football/odds/oddsInfo.vue'
+    import noData from '~components/no_data.vue'
     export default {
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getOddsAsian, params.fid)
+        },
+        components: {
+            noData
         },
         watch: {
             loaded (loaded) {

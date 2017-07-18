@@ -1,142 +1,190 @@
 <template>
     <div id="comment-content">
-        <div class="comm-vs">
-            <div class="zj-nav"> 投票</div>
-            <p class="comm-vs-tit">本场比赛看好哪队获胜?</p>
+        <snap v-if="vote" :eventlist="eventlist" :statistic="statistic" :match="match" :online="online" :vote="vote"></snap>
 
-            <div class="comm-vs-box">
-                <div class="comm-vs-itm">
-                    <p class="vs-itm-bg" style="width:80%"></p>
-                    <span class="vs-itm-txt">巴伊亚</span>
-                    <span class="vs-itm-num" style="opacity:0">80%</span>
+
+        <div class="zj-nav"> 评论{{commentList.length}}
+            <ul class="volumeTab" id="tabBefore">
+                <li :class="{'cur':tab=='time'}" v-tap="{methods: ()=>tab='time'}">最新</li>
+                <li :class="{'cur':tab=='like'}" v-tap="{methods: ()=>tab='like'}">最热</li>
+            </ul>
+        </div>
+
+        <ul class="comm-list" v-if="commentList.length>0">
+            <li v-for="comment,idx in commentList">
+                <span class="list-face">  <img :src="comment.photo.thumbnail||'http://tccache.500.com/mobile/touch/images/bifen/face.png'"></span>
+                <div class="list-box">
+                    <p class="list-box-tl" drunk-on="click:onReport(comment._id,comment.nickname)"><span class="name">{{comment.nickname}}</span>
+                        <span class="time">{{comment.date.substring(5,10)}}<em>{{comment.date.substring(10,16)}}</em><em
+                                v-if="comment.label">({{comment.label}})</em></span></p>
+                    <div class="list-box-tr">
+                        <!--点赞修改170630-->
+                        <div class="dianz-cont" :class="{'dianzh-cont':comment.liked=='1'}"
+                             drunk-on="click:onLike(idx)">
+                            <span class="dianz-icon"></span>
+                            <em>{{comment.likes}}</em>
+                        </div>
+                        <!--评论-->
+                        <div class="pingl-icon" drunk-on="click:onReply(comment._id,comment.nickname)"><span></span>
+                        </div>
+                    </div>
                 </div>
-                <!--<if: type=='1' />--><div class="comm-vs-itm">
-                <p class="vs-itm-bg" style="width:17%"></p>
-                <span class="vs-itm-txt">平局</span>
-                <span class="vs-itm-num" style="opacity:0">17%</span>
-            </div>
-                <div class="comm-vs-itm">
-                    <p class="vs-itm-bg" style="width:3%"></p>
-                    <span class="vs-itm-txt">戈亚尼</span>
-                    <span class="vs-itm-num" style="opacity:0">3%</span>
+                <div class="list-cont" drunk-on="click:onReport(comment._id,comment.nickname)">{{comment.content}}</div>
+                <div class="list-cont floors-cont" v-if="comment.r_content">
+                    <ul class="comm-list">
+                        <li>
+                            <div class="list-cont">@{{comment.r_nickname}}:{{comment.r_content}}</div>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-        </div>
+            </li>
 
-        <div class="feed-back">
-            <div class="feed-box">
-                <i></i>
-                <em>对新比分有任何建议，请点此反馈</em>
-            </div>
-        </div>
-        <div class="zj-nav"> 评论</div>
-        <!--<if: !isRequesting&&commentList&&commentList.length==0 />-->
-        <!--<if: commentList&&commentList.length>0 />--><ul class="comm-list">
-        <!--<repeat>: comment,idx in commentList--><!--[repeat-item]comment,idx in commentList--><li>
-            <span class="list-face">
-                    <img lazy-load-default="http://tccache.500.com/mobile/touch/images/bifen/face.png" src="http://img.m.500.com/esun/avatar/40/7f/407fcb2648ea11e78460.jpg?t=1496555953.87?dw=300&amp;dh=300">
-                </span>
 
-        <div class="list-box">
-            <p class="list-box-tl"><span class="name">mm6**</span>
-                <span class="time">06-04 14:00</span>
-            </p>
-
-            <p class="list-box-tr">
-                <span class="zan-num">10</span>
-                <span class="zan-icon"></span>
-            </p>
-
-            <div class="list-cont">
-                真的稳健
-            </div>
-        </div>
-    </li><!--[repeat-item]comment,idx in commentList--><li>
-            <span class="list-face">
-                    <img lazy-load-default="http://tccache.500.com/mobile/touch/images/bifen/face.png" src="http://tccache.500.com/mobile/touch/images/bifen/face.png">
-                </span>
-
-        <div class="list-box">
-            <p class="list-box-tl"><span class="name">ml3**</span>
-                <span class="time">06-05 13:16</span>
-            </p>
-
-            <p class="list-box-tr">
-                <span class="zan-num">0</span>
-                <span class="zan-icon"></span>
-            </p>
-
-            <div class="list-cont">
-                主队加油
-            </div>
-        </div>
-    </li><!--[repeat-item]comment,idx in commentList--><li>
-            <span class="list-face">
-                    <img lazy-load-default="http://tccache.500.com/mobile/touch/images/bifen/face.png" src="http://img.m.500.com/esun/avatar/73/22/7322e3d8490311e7aeda.jpg?t=1496566942.59?dw=300&amp;dh=300">
-                </span>
-
-        <div class="list-box">
-            <p class="list-box-tl"><span class="name">qq8**</span>
-                <span class="time">06-05 03:50</span>
-            </p>
-
-            <p class="list-box-tr">
-                <span class="zan-num">0</span>
-                <span class="zan-icon"></span>
-            </p>
-
-            <div class="list-cont">
-                单子很稳
-            </div>
-        </div>
-    </li><!--[repeat-item]comment,idx in commentList--><li>
-            <span class="list-face">
-                    <img lazy-load-default="http://tccache.500.com/mobile/touch/images/bifen/face.png" src="http://img.m.500.com/esun/avatar/73/22/7322e3d8490311e7aeda.jpg?t=1496566942.59?dw=300&amp;dh=300">
-                </span>
-
-        <div class="list-box">
-            <p class="list-box-tl"><span class="name">qq8**</span>
-                <span class="time">06-05 03:49</span>
-            </p>
-
-            <p class="list-box-tr">
-                <span class="zan-num">1</span>
-                <span class="zan-icon"></span>
-            </p>
-
-            <div class="list-cont">
-                机会给你了  兄弟欢迎
-            </div>
-        </div>
-    </li><!--[repeat-item]comment,idx in commentList--><li>
-            <span class="list-face">
-                    <img lazy-load-default="http://tccache.500.com/mobile/touch/images/bifen/face.png" src="http://img.m.500.com/esun/avatar/43/22/432264a848f211e788fb.jpg?t=1496559100.37?dw=240&amp;dh=240">
-                </span>
-
-        <div class="list-box">
-            <p class="list-box-tl"><span class="name">171****4707</span>
-                <span class="time">06-04 14:56</span>
-            </p>
-
-            <p class="list-box-tr">
-                <span class="zan-num">1</span>
-                <span class="zan-icon"></span>
-            </p>
-
-            <div class="list-cont">
-                不怕不红，就怕你不来
-            </div>
-        </div>
-    </li><!--</repeat>: comment,idx in commentList-->
-    </ul>
-        <div class="item-loader" style="display: none;">
+        </ul>
+        <div class="item-loader" v-if="$store.state.refreshing">
             <div class="la-ball-pulse la-2x">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
         </div>
-        <!--<if: !isLoad&&commentList&&commentList.length>0 />--><p style="padding-bottom: 1.5555rem;" class="no-more">
+        <p v-if="end" style="padding-bottom: 1.5555rem;" class="no-more">
         暂无更多评论…</p>
     </div>
 </template>
+
+<script>
+    import snap from '~components/snap.vue'
+    import {aTypes, mTypes} from '~store/zqdetail'
+
+    export default {
+        async asyncData ({store, route: {params}}) {
+            await Promise.all([
+                store.dispatch(aTypes.getEventAndStatistics, {fid: params.fid}),
+                store.dispatch(aTypes.getTotal, {fid: params.fid}),
+                store.dispatch(aTypes.getVote, {fid: params.fid})
+//                store.dispatch(aTypes.getCommentList, {type: '1', fid: params.fid, pageNo: 0, tab: 'time'})
+            ])
+        },
+        data () {
+            return {
+                tab: 'time',
+                commentList: [],
+                pageNo: 0,
+                end: false,
+                interval: null
+            }
+        },
+        mounted () {
+            this.fetchData()
+            this.fetchCountAndEventAndStatisticsInterval()
+        },
+        components: {
+            snap
+        },
+        watch: {
+            loaded () {
+                this.$store.commit(mTypes.updateScTime)
+            },
+            refreshTime () {
+                this.pageNo = 0
+                this.commentList = []
+                this.fetchData()
+            },
+            tab () {
+                this.end = false
+                this.pageNo = 0
+                this.commentList = []
+                this.fetchCommentData()
+            },
+            reachEndTime () {
+                if (this.end || !this.loaded) return
+                this.pageNo++
+                this.fetchCommentData(this.pageNo)
+            }
+        },
+        methods: {
+            async fetchData () {
+                this.$store.commit('startOneRefresh')
+                let [{commentlist}] = await Promise.all([
+                    this.$store.dispatch(aTypes.getCommentList, {type: '1', fid: this.$route.params.fid, pageNo: 0, tab: 'time'}),
+                    this.$store.dispatch(aTypes.getEventAndStatistics, {fid: this.$route.params.fid}),
+                    this.$store.dispatch(aTypes.getTotal, {fid: this.$route.params.fid}),
+                    this.$store.dispatch(aTypes.getVote, {fid: this.$route.params.fid})
+                ])
+                if (!commentlist.length) {
+                    this.end = true
+                }
+                this.commentList = commentlist
+                this.$store.commit('endOneRefresh')
+            },
+            async fetchCommentData (pageNo = 0) {
+                this.$store.commit('startOneRefresh')
+                let {commentlist} = await this.$store.dispatch(aTypes.getCommentList, {
+                    type: '1',
+                    fid: this.$route.params.fid,
+                    pageNo: pageNo,
+                    tab: this.tab
+                })
+                if (!commentlist.length) {
+                    this.end = true
+                }
+                let commentList = [...this.commentList]
+                commentList.push(...commentlist)
+                this.commentList = commentList
+                this.$store.commit('endOneRefresh')
+            },
+            fetchCountAndEventAndStatisticsInterval () {
+                if (this.match.status === '1' || this.match.status === '2' || this.match.status === '3') {
+                    if (this.interval) {
+                        clearInterval(this.interval)
+                        this.interval = null
+                    }
+                    this.interval = setInterval(() => {
+                        this.$store.dispatch(aTypes.getEventAndStatistics, {fid: this.$route.params.fid})
+                        this.$store.dispatch(aTypes.getTotal, {fid: this.$route.params.fid})
+                    }, 1000 * 10)
+                }
+            }
+        },
+        destroyed () {
+            if (this.interval) {
+                clearInterval(this.interval)
+                this.interval = null
+            }
+        },
+        computed: {
+            refreshTime () { // 用户点击刷新按钮时间戳
+                return this.$store.state.refreshTime
+            },
+            loaded () {
+                return this.$store.state.refreshing === 0
+            },
+            reachEndTime () {
+                return this.$store.state.zqdetail.reachEndTime
+            },
+            match () {
+                return this.$store.state.zqdetail.baseInfo
+            },
+            comment () {
+                return this.$store.state.zqdetail.comment
+            },
+            eventlist () {
+                return this.comment.eventlist
+            },
+            statistic () {
+                return this.comment.statistic
+            },
+            vote () {
+                return this.comment.vote
+            },
+            online () {
+                return this.comment.online
+            },
+            total () {
+                return this.comment.total
+            }
+        }
+
+    }
+</script>

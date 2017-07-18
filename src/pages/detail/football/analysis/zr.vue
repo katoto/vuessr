@@ -151,11 +151,7 @@
 
     export default {
         async asyncData ({store, route: {params}}) {
-            let baseInfo = store.state.zqdetail.baseInfo
-            if (!baseInfo || store.state.zqdetail.baseInfo.fid !== params.fid) {
-                baseInfo = await store.dispatch(aTypes.getBaseInfo, params.fid)
-            }
-            const {homeid, awayid} = baseInfo
+            const {homeid, awayid} = store.state.zqdetail.baseInfo
             await store.dispatch(aTypes.getAnalysisZr, {
                 homeid,
                 awayid,
@@ -170,11 +166,7 @@
         methods: {
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                let baseInfo = this.$store.state.zqdetail.baseInfo
-                if (!baseInfo || this.$store.state.zqdetail.baseInfo.fid !== this.$route.params.fid) {
-                    baseInfo = await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
-                }
-                const {homeid, awayid} = baseInfo
+                const {homeid, awayid} = this.$store.state.zqdetail.baseInfo
                 await this.$store.dispatch(aTypes.getAnalysisZr, {
                     homeid,
                     awayid,

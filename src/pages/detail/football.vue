@@ -116,7 +116,6 @@
                             </router-link>
                         </li>
 
-
                         <li
                                 :class="{cur: ~$route.path.indexOf('/crazybet')}">
                             <router-link :to="{name: 'football-detail-crazybet'}" replace>
@@ -140,6 +139,7 @@
                 <component :is="outer.component" :params="outer.params"></component>
             </div>
         </transition>
+        <div style="position:absolute;top: 40rem; left:10rem;width: 10rem;height: 2rem;border: .1rem solid red"></div>
 
 
         <div v-if="~$route.path.indexOf('/comment')">
@@ -147,7 +147,7 @@
                 <div class="enter-ipt">
                     <i class="ipt-icon"></i>
                     <p class="ipt-txt">我来说两句…</p>
-                    <span class="ipt-count">5评</span>
+                    <span class="ipt-count">{{total}}评</span>
                 </div>
             </div>
         </div>
@@ -160,12 +160,10 @@
     import {FootballStatusCode as StatusCode} from '~common/constants'
     import refresh from '~components/refresh.vue'
     import detailScroller from '~components/detail_scroller.vue'
-    import {aTypes} from '~store/zqdetail'
+    import {aTypes, mTypes} from '~store/zqdetail'
     export default {
         async asyncData ({store, route: {params}}) {
-            if (!store.state.zqdetail.baseInfo) {
-                await store.dispatch(aTypes.getBaseInfo, params.fid)
-            }
+            await store.dispatch(aTypes.getBaseInfo, params.fid)
         },
         data () {
             return {
@@ -178,6 +176,9 @@
             },
             outer () {
                 return this.$store.state.zqdetail.outer
+            },
+            total () {
+                return this.$store.state.zqdetail.comment.total
             }
         },
         async mounted () {
@@ -189,6 +190,9 @@
         },
         components: {
             detailScroller, refresh
+        },
+        destroyed () {
+            this.$store.commit(mTypes.reset)
         },
         methods: {
             async fetchData () {
@@ -207,7 +211,7 @@
                 }
             },
             reachEnd () {
-                console.log('end')
+                this.$store.commit(mTypes.updateReachEndTime)
             },
             updateScroller () {
                 this.$refs.scroller.update()
@@ -253,10 +257,21 @@
         position: relative;
     }
 
+    .detailTop:after{
+        content: '';
+        z-index: -1;
+        position: absolute;
+        background-color: #242c35;
+        top: 0;
+        left: 0;
+        right: 0;
+        height:1.1893rem;
+    }
     .zq-header {
         position: relative;
-        top: -1px
+        top: 0;
     }
+
 
     .navigator {
         top: 0
@@ -266,9 +281,6 @@
          border: none !important;
          margin-left: auto !important;
 
-    }
-    .back-icon:before {
-        margin-top: auto;
     }
 
 

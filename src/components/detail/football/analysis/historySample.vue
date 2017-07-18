@@ -10,7 +10,7 @@
                         <li class="itemC">对阵</li>
                         <li class="itemR">初赔/终赔</li>
                     </ul>
-                    <ul class="dataItem" v-for="info in item.table">
+                    <ul class="dataItem" v-for="info,idx in item.table" v-if="shouldShowAll[index]||idx<5">
                         <li class="itemL">
                             <div>{{info.simpleleague}}</div>
                             <div>{{info.matchdate.substring(2,10)}}</div>
@@ -49,7 +49,7 @@
                             </table>
                         </li>
                     </ul>
-                    <div class="more" :class="{'more-up': true}" drunk-on="click: shouldShowAll.$set(index, !shouldShowAll[index])"><i class="zd-arrow"></i></div>
+                    <div class="more" :class="{'more-up': shouldShowAll[index]}" v-tap="{methods: () => shouldShowAll[index] = !shouldShowAll[index]}"><i class="zd-arrow"></i></div>
                 </div>
 
                 <div class="sk-btips">500彩票网提示：<br> 以上数据仅供参考，请以官方公布的数据为准
@@ -68,8 +68,7 @@
         props: ['params'],
         data () {
             return {
-                tab: 'history',
-                panTimeMap: ['初赔', '赛前24h', '赛前12h', '赛前6h', '赛前5h', '赛前4h', '赛前3h', '赛前2.5h', '赛前2h', '赛前1.5h', '赛前1h', '赛前0.5h', '终赔']
+                shouldShowAll: {}
             }
         },
         methods: {
@@ -79,6 +78,13 @@
             switchTab ({tab}) {
                 this.tab = tab
             }
+        },
+        created () {
+            let showAll = {}
+            Object.keys(this.probability.detail).forEach(key => {
+                showAll[key] = false
+            })
+            this.shouldShowAll = showAll
         },
         computed: {
             probability () {

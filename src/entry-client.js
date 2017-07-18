@@ -1,5 +1,6 @@
 // import Vue from 'vue'
 import 'es6-promise/auto'
+import platform from '~common/platform'
 import { createApp } from './app'
 // import ProgressBar from './components/ProgressBar.vue'
 
@@ -85,7 +86,9 @@ router.onReady(() => {
     */
 
     // actually mount to DOM
-    app.$mount('#app')
+    platform.ready(() => {
+        app.$mount('#app')
+    })
 })
 
 // service worker

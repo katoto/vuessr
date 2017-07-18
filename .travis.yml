@@ -12,9 +12,7 @@ before_install:
 before_script:
 - npm run build
 after_success:
-- tar --exclude node_modules --exclude src -jcf score.tar.bz2 *    # 打包并压缩代码
-- scp score.tar.bz2 root@103.42.214.153:~/tmp/score.tar.bz2  # 复制到生产服务器上
-#- ssh root@103.42.214.153 'pm2 delete all && rm -rf `ls /project/score/|awk "{if($0 != 'node_modules/') print $0}"`'
-- ssh root@103.42.214.153 'pm2 delete all && rm -rf /project/score/*'
-- ssh root@103.42.214.153 'cd ~/project/score && tar -jxf ~/tmp/score.tar.bz2 -C .'   # 解压
-- ssh root@103.42.214.153 'cd ~/project/score && yarn --prod && pm2 start score.config.js'   # 运行
+- tar --exclude node_modules --exclude src --exclude score.tar.gz -zcf score.tar.gz *   # 打包并压缩代码
+- scp score.tar.gz server@121.41.50.22:~/tmp/score.tar.gz  # 复制到生产服务器上
+- ssh server@121.41.50.22 'rm -rf ~/score/*'
+- ssh server@121.41.50.22 'cd ~/score && tar -zxf ~/tmp/score.tar.gz -C . && yarn --prod && pm2 startOrRestart score.config.js'

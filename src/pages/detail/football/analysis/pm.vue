@@ -276,11 +276,7 @@
     import HistorySample from '~components/detail/football/analysis/historySample.vue'
     export default {
         async asyncData ({store, route: {params}}) {
-            let baseInfo = store.state.zqdetail.baseInfo
-            if (!baseInfo || store.state.zqdetail.baseInfo.fid !== params.fid) {
-                baseInfo = await store.dispatch(aTypes.getBaseInfo, params.fid)
-            }
-            const {stageid, matchtime, homeid, awayid, league_id} = baseInfo
+            const {stageid, matchtime, homeid, awayid, league_id} = store.state.zqdetail.baseInfo
             const matchdate = matchtime.substr(0, 10)
             await store.dispatch(aTypes.getAnalysisPm, {
                 homeid,
@@ -299,11 +295,7 @@
         methods: {
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                let baseInfo = this.$store.state.zqdetail.baseInfo
-                if (!baseInfo || this.$store.state.zqdetail.baseInfo.fid !== this.$route.params.fid) {
-                    baseInfo = await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
-                }
-                const {stageid, matchtime, homeid, awayid, league_id} = baseInfo
+                const {stageid, matchtime, homeid, awayid, league_id} = this.$store.state.zqdetail.baseInfo
                 const matchdate = matchtime.substr(0, 10)
                 await this.$store.dispatch(aTypes.getAnalysisPm, {
                     homeid,

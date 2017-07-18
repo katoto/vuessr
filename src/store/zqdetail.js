@@ -7,7 +7,8 @@
 import ajax from '~common/ajax'
 import {mapActions, mapMutations} from '~common/util'
 const ns = 'zqdetail'
-const state = {
+const initState = {
+    reachEndTime: 0,  // 滚动到最后触发的时间戳
     scTime: 0, // 触发滚动更新时间戳
     analysis: {
         zj: {
@@ -45,7 +46,9 @@ const state = {
     odds: {
         europe: null,
         asian: null,
-        bifa: null
+        bifa: null,
+        rangqiu: null,
+        daxiaopan: null
     },
 
     predict: {
@@ -54,6 +57,13 @@ const state = {
         daxiaoqiu: null,
         score: null,
         half: null
+    },
+    comment: {
+        eventlist: null,
+        statistic: null,
+        online: null,
+        total: null,
+        vote: null
     },
     outer: {
         component: null,
@@ -74,6 +84,23 @@ const actionsInfo = mapActions({
         commit(mTypes.setSituation, {eventlist, statistic, news})
         return {eventlist, statistic, news}
     },
+
+    async getEventAndStatistics ({commit}, {fid}) {
+        let {eventlist, statistic} = await ajax.get(`/score/zq/events_statistics?fid=${fid}`)
+        commit(mTypes.setEventAndStatistics, {eventlist, statistic})
+        return {eventlist, statistic}
+    },
+
+    async getTotal ({commit}, {fid}) {
+        let {online, total} = await ajax.get(`/sns/score/total?vtype=1&fid=${fid}`)
+        commit(mTypes.setTotal, {online, total})
+        return {online, total}
+    },
+    async getVote ({commit}, {fid}) {
+        let {votelist} = await ajax.get(`/sns/score/votelist?vtype=1&fid=${fid}`)
+        commit(mTypes.setVote, votelist[0])
+        return votelist[0]
+    },
     async getOddsEurope ({commit}, fid) {
         const europe = await ajax.get(`/score/zq/europe?fid=${fid}`)
         commit(mTypes.setOddsEurope, europe)
@@ -83,6 +110,16 @@ const actionsInfo = mapActions({
         const asian = await ajax.get(`/score/zq/asianodds?fid=${fid}`)
         commit(mTypes.setOddsAsian, asian)
         return asian
+    },
+    async getOddsRq ({commit}, fid) {
+        const rangqiu = await ajax.get(`/score/zq/rangqiu?fid=${fid}`)
+        commit(mTypes.setOddsRq, rangqiu)
+        return rangqiu
+    },
+    async getOddsDxp ({commit}, fid) {
+        const daxiaopan = await ajax.get(`/score/zq/daxiaoqiu?fid=${fid}`)
+        commit(mTypes.setOddsDxp, daxiaopan)
+        return daxiaopan
     },
     async getOddsBifa ({commit}, fid) {
         const bifa = await ajax.get(`/score/zq/spdex2?fid=${fid}`)
@@ -105,7 +142,7 @@ const actionsInfo = mapActions({
     },
     async getOddsDetailAsian ({commit}, {fid, cid, s1, s2, cp, leagueid, date}) {
         let result = await Promise.all([
-            ajax.get(`/score/zq/sameeurope?fid=${fid}&cid=${cid}&s1=${s1}&s2=${s2}&cp=${cp}&league_id=${leagueid}&date=${date}`),
+            ajax.get(`/score/zq/sameasian?fid=${fid}&cid=${cid}&s1=${s1}&s2=${s2}&cp=${cp}&league_id=${leagueid}&date=${date}`),
             ajax.get(`/score/zq/oneodds_asian?fid=${fid}&cid=${cid}&matchdate=${date}`)
         ])
         return result
@@ -137,7 +174,7 @@ const actionsInfo = mapActions({
         commit(mTypes.setAnalysisZjHis, jzdata)
         return jzdata
     },
-    async getAnalysisZjR ({commit}, {homeid, awayid, matchdate,stid, rleagueid, rlimit, rhoa}) {
+    async getAnalysisZjR ({commit}, {homeid, awayid, matchdate, stid, rleagueid, rlimit, rhoa}) {
         let recentRecord = await ajax.get(`/score/zq/recent_record?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&stid=${stid}&leagueid=${rleagueid}&limit=${rlimit}&hoa=${rhoa}`)
         commit(mTypes.setAnalysisZjR, recentRecord)
         return recentRecord
@@ -178,8 +215,13 @@ const actionsInfo = mapActions({
             ajax.get(`/score/zq/predict_score?fid=${fid}`),
             ajax.get(`/score/zq/predict_half?fid=${fid}`)
         ])
-        const [europe, asian, daxiaoqiu, score, half] = result.map(item => Object.keys(item).length ? item : null)
+        // const [europe, asian, daxiaoqiu, score, half] = result.map(item => Object.keys(item).length ? item : null)
+        const [europe, asian, daxiaoqiu, score, half] = result
         commit(mTypes.setPredict, {europe, asian, daxiaoqiu, score, half})
+    },
+    async getCommentList ({commit}, {type, fid, pageNo, tab, pageSize = 10}) {
+        let result = await ajax.get(`/sns/score/commentlist?vtype=${type}&fid=${fid}&pn=${pageNo}&tab=${tab}&rn=${pageSize}&_t=` + new Date().getTime())
+        return result
     }
 
 }, ns)
@@ -192,14 +234,29 @@ const mutationsInfo = mapMutations({
     updateScTime (state) {
         state.scTime = Date.now()
     },
+    updateReachEndTime (state) {
+        state.reachEndTime = Date.now()
+    },
     setBaseInfo (state, baseInfo) {
         state.baseInfo = baseInfo
     },
     setSituation (state, {eventlist, statistic, news}) {
         state.situation.eventlist = eventlist
         state.situation.statistic = statistic
-        state.situation.news = news
+        news && (state.situation.news = news)
     },
+    setEventAndStatistics (state, {eventlist, statistic}) {
+        state.comment.eventlist = eventlist
+        state.comment.statistic = statistic
+    },
+    setVote (state, vote) {
+        state.comment.vote = vote
+    },
+    setTotal (state, {online, total}) {
+        state.comment.online = online
+        state.comment.total = total
+    },
+
     setPredict (state, {europe, asian, daxiaoqiu, score, half}) {
         state.predict.europe = europe
         state.predict.asian = asian
@@ -212,6 +269,12 @@ const mutationsInfo = mapMutations({
     },
     setOddsAsian (state, asian) {
         state.odds.asian = asian
+    },
+    setOddsRq (state, rangqiu) {
+        state.odds.rangqiu = rangqiu
+    },
+    setOddsDxp (state, daxiaopan) {
+        state.odds.daxiaopan = daxiaopan
     },
     setOddsBifa (state, bifa) {
         state.odds.bifa = bifa
@@ -236,16 +299,22 @@ const mutationsInfo = mapMutations({
         state.analysis.js.compare = compare
     },
     setAnalysisPm (state, {poisson, avrodds, handicapFeature, tzbl, coldHot}) {
-        state.analysis.pm.poisson = poisson
-        state.analysis.pm.avrodds = avrodds
-        state.analysis.pm.handicapFeature = handicapFeature
-        state.analysis.pm.tzbl = tzbl
-        state.analysis.pm.coldHot = coldHot
+        state.analysis.pm.poisson = poisson || {}
+        state.analysis.pm.avrodds = avrodds || {}
+        state.analysis.pm.handicapFeature = handicapFeature || {}
+        state.analysis.pm.tzbl = tzbl || {}
+        state.analysis.pm.coldHot = coldHot || {}
     },
     setAnalysisZr (state, {teamworth, formation, lineup}) {
         state.analysis.zr.teamworth = teamworth
         state.analysis.zr.formation = formation
         state.analysis.zr.lineup = lineup
+    },
+    reset (state) {
+        const iState = JSON.parse(JSON.stringify(initState))
+        Object.keys(state).forEach(key => {
+            state[key] = iState[key]
+        })
     }
 }, ns)
 
@@ -253,4 +322,4 @@ const actions = actionsInfo.actions
 const mutations = mutationsInfo.mutations
 export const aTypes = actionsInfo.aTypes
 export const mTypes = mutationsInfo.mTypes
-export default {state, actions, mutations}
+export default {state: JSON.parse(JSON.stringify(initState)), actions, mutations}
