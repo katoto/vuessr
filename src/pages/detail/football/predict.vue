@@ -179,9 +179,9 @@
             <div class="gl-nav">半场 <span class="yc-more" ></span></div>
             <div class="box-ycInner">
 
-                <template v-if="predictHalf&& predictHalf.outter">
+               <!-- <template v-if="predictHalf&& predictHalf.outter">
 
-                </template>
+                </template>-->
 
                 <div class="dataBox" v-if="predictHalf && predictHalf.outter"  v-tap="{methods: selectTab, tab: 'bc'}">
                     <ul class="dataItem">
