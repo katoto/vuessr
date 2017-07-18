@@ -36,6 +36,7 @@
     "express": "^4.15.2",
     "forward-request": "^1.0.1",
     "iscroll": "^5.2.0",
+    "js-cookie": "^2.1.4",
     "lru-cache": "^4.0.2",
     "rimraf": "^2.6.1",
     "scroller": "0.0.3",

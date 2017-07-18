@@ -253,10 +253,21 @@
         position: relative;
     }
 
+    .detailTop:after{
+        content: '';
+        z-index: -1;
+        position: absolute;
+        background-color: #242c35;
+        top: 0;
+        left: 0;
+        right: 0;
+        height:1.1893rem;
+    }
     .zq-header {
         position: relative;
-        top: -1px
+        top: 0;
     }
+
 
     .navigator {
         top: 0
