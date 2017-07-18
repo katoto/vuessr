@@ -41,14 +41,14 @@
 
 
         </ul>
-        <div class="item-loader" style="display: none;">
+        <div class="item-loader" v-if="$store.state.refreshing">
             <div class="la-ball-pulse la-2x">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
         </div>
-        <!--<if: !isLoad&&commentList&&commentList.length>0 />--><p style="padding-bottom: 1.5555rem;" class="no-more">
+        <p v-if="end" style="padding-bottom: 1.5555rem;" class="no-more">
         暂无更多评论…</p>
     </div>
 </template>
@@ -62,8 +62,8 @@
             await Promise.all([
                 store.dispatch(aTypes.getEventAndStatistics, {fid: params.fid}),
                 store.dispatch(aTypes.getTotal, {fid: params.fid}),
-                store.dispatch(aTypes.getVote, {fid: params.fid}),
-                store.dispatch(aTypes.getCommentList, {type: '1', fid: params.fid, pageNo: 0, tab: 'time'})
+                store.dispatch(aTypes.getVote, {fid: params.fid})
+//                store.dispatch(aTypes.getCommentList, {type: '1', fid: params.fid, pageNo: 0, tab: 'time'})
             ])
         },
         data () {
@@ -81,10 +81,8 @@
             snap
         },
         watch: {
-            loaded (loaded) {
-                if (loaded) {
-                    this.$store.commit(mTypes.updateScTime)
-                }
+            loaded () {
+                this.$store.commit(mTypes.updateScTime)
             },
             refreshTime () {
                 this.pageNo = 0
@@ -95,18 +93,18 @@
                 this.end = false
                 this.pageNo = 0
                 this.commentList = []
-                this.fetchData()
+                this.fetchCommentData()
             },
             reachEndTime () {
-                if (this.end) return
+                if (this.end || !this.loaded) return
                 this.pageNo++
-                this.fetchData(this.pageNo)
+                this.fetchCommentData(this.pageNo)
             }
         },
         methods: {
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                let [commentlist] = await Promise.all([
+                let [{commentlist}] = await Promise.all([
                     this.$store.dispatch(aTypes.getCommentList, {type: '1', fid: this.$route.params.fid, pageNo: 0, tab: 'time'}),
                     this.$store.dispatch(aTypes.getEventAndStatistics, {fid: this.$route.params.fid}),
                     this.$store.dispatch(aTypes.getTotal, {fid: this.$route.params.fid}),
@@ -115,9 +113,7 @@
                 if (!commentlist.length) {
                     this.end = true
                 }
-                let commentList = [...this.commentList]
-                commentList.push(...commentlist)
-                this.commentList = commentList
+                this.commentList = commentlist
                 this.$store.commit('endOneRefresh')
             },
             async fetchCommentData (pageNo = 0) {
