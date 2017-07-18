@@ -12,8 +12,7 @@
 
         <ul class="comm-list" v-if="commentList.length>0">
             <li v-for="comment,idx in commentList">
-                <span class="list-face">  <img
-                        :src="comment.photo.thumbnail||'http://tccache.500.com/mobile/touch/images/bifen/face.png'"></span>
+                <span class="list-face">  <img :src="comment.photo.thumbnail||'http://tccache.500.com/mobile/touch/images/bifen/face.png'"></span>
                 <div class="list-box">
                     <p class="list-box-tl" drunk-on="click:onReport(comment._id,comment.nickname)"><span class="name">{{comment.nickname}}</span>
                         <span class="time">{{comment.date.substring(5,10)}}<em>{{comment.date.substring(10,16)}}</em><em

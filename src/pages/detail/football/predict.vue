@@ -319,4 +319,5 @@
     .chart-position {
         height: 5.2rem
     }
+    /* flag */
 </style>
