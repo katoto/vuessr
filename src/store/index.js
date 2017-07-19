@@ -6,6 +6,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import home from './home'
 import zqdetail from './zqdetail'
+import {xiaojuan, mchao} from './lqdetail'
 import teamZq from './team/zq'
 import teamLq from './team/lq'
 Vue.use(Vuex)
@@ -147,7 +148,7 @@ export function createStore () {
         mutations,
         getters,
         modules: {
-            home, zqdetail, teamZq, teamLq
+            home, zqdetail, mchao, xiaojuan, teamZq, teamLq
         }
     })
 }

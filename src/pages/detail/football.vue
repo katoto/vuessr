@@ -207,7 +207,7 @@
                 }
             },
             reachEnd () {
-                this.$store.commit(mTypes.updateReachEndTime)
+                this.$store.commit(mTypes.updateReachEndTime)        // 更新滚动时间戳
             },
             updateScroller () {
                 this.$refs.scroller.update()
