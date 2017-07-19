@@ -41,6 +41,9 @@
 
 
         </ul>
+
+        <div class="ui-empty-font" v-if="end&&commentList.length===0">暂无评论</div>
+
         <div class="item-loader" v-if="$store.state.refreshing">
             <div class="la-ball-pulse la-2x">
                 <span></span>
@@ -48,10 +51,13 @@
                 <span></span>
             </div>
         </div>
-        <p v-if="end" style="padding-bottom: 1.5555rem;" class="no-more">
+        <p v-if="commentList.length!==0&&end" style="padding-bottom: 1.5555rem;" class="no-more">
         暂无更多评论…</p>
     </div>
 </template>
+<style>
+    .ui-empty-font{color:#b3b3b3;font-size:0.4rem;padding:0.22rem 0;text-align:center;}
+</style>
 
 <script>
     import snap from '~components/snap.vue'

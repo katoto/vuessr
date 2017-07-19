@@ -139,12 +139,15 @@
                 <component :is="outer.component" :params="outer.params"></component>
             </div>
         </transition>
-        <div style="position:absolute;top: 40rem; left:10rem;width: 10rem;height: 2rem;border: .1rem solid red"></div>
+
+        <div v-if="~$route.path.indexOf('/comment') && showEditor">
+            <editor :reply-name="replyName" type="1" @send="" @close="closeEditor"></editor>
+        </div>
 
 
         <div v-if="~$route.path.indexOf('/comment')">
             <div class="comm-enter">
-                <div class="enter-ipt">
+                <div class="enter-ipt" v-tap="{methods: beginEdit}">
                     <i class="ipt-icon"></i>
                     <p class="ipt-txt">我来说两句…</p>
                     <span class="ipt-count">{{total}}评</span>
@@ -159,6 +162,7 @@
 <script>
     import {FootballStatusCode as StatusCode} from '~common/constants'
     import refresh from '~components/refresh.vue'
+    import editor from '~components/editor.vue'
     import detailScroller from '~components/detail_scroller.vue'
     import {aTypes, mTypes} from '~store/zqdetail'
     export default {
@@ -179,6 +183,12 @@
             },
             total () {
                 return this.$store.state.zqdetail.comment.total
+            },
+            replayName () {
+                return this.$store.state.zqdetail.comment.replyName
+            },
+            showEditor () {
+                return this.$store.state.zqdetail.comment.showEditor
             }
         },
         async mounted () {
@@ -189,7 +199,7 @@
             }
         },
         components: {
-            detailScroller, refresh
+            detailScroller, refresh, editor
         },
         destroyed () {
             this.$store.commit(mTypes.reset)
@@ -210,6 +220,9 @@
                     this.$el.querySelector('.detailTop').className = 'detailTop topBarMove2'
                 }
             },
+            closeEditor () {
+                this.$store.commit(mTypes.hideEditorDialog)
+            },
             reachEnd () {
                 this.$store.commit(mTypes.updateReachEndTime)
             },
@@ -218,6 +231,9 @@
             },
             goTeam ({teamId}) {
                 this.$router.push(`/team/football/${teamId}/sc`)
+            },
+            beginEdit () {
+                this.$store.commit(mTypes.showEditorDialog)
             }
         },
         watch: {

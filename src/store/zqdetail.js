@@ -63,7 +63,9 @@ const initState = {
         statistic: null,
         online: null,
         total: null,
-        vote: null
+        vote: null,
+        replyName: null,
+        showEditor: false
     },
     outer: {
         component: null,
@@ -222,6 +224,14 @@ const actionsInfo = mapActions({
     async getCommentList ({commit}, {type, fid, pageNo, tab, pageSize = 10}) {
         let result = await ajax.get(`/sns/score/commentlist?vtype=${type}&fid=${fid}&pn=${pageNo}&tab=${tab}&rn=${pageSize}&_t=` + new Date().getTime())
         return result
+    },
+    async onVote (ignore, {opt, id, vtype = '1', fid}) {
+        return ajax.post(`/sns/score/vote?_t=${Date.now()}`, {
+            opt,
+            id,
+            fid,
+            vtype
+        })
     }
 
 }, ns)
@@ -309,6 +319,14 @@ const mutationsInfo = mapMutations({
         state.analysis.zr.teamworth = teamworth
         state.analysis.zr.formation = formation
         state.analysis.zr.lineup = lineup
+    },
+    showEditorDialog (state, replyName) {
+        state.comment.showEditor = true
+        state.comment.replyName = replyName
+    },
+    hideEditorDialog (state) {
+        state.comment.showEditor = false
+        state.comment.replyName = null
     },
     reset (state) {
         const iState = JSON.parse(JSON.stringify(initState))

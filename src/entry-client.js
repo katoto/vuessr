@@ -87,6 +87,8 @@ router.onReady(() => {
 
     // actually mount to DOM
     platform.ready(() => {
+        window.EsApp && window.EsApp.invoke('titleBar', {isShow: '0', title: '比分详情'})
+
         app.$mount('#app')
     })
 })
