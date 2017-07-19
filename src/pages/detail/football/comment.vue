@@ -25,7 +25,7 @@
                             <em>{{comment.likes}}</em>
                         </div>
                         <!--评论-->
-                        <div class="pingl-icon" drunk-on="click:onReply(comment._id,comment.nickname)"><span></span>
+                        <div class="pingl-icon" v-tap="{methods:onReply, commentReplyId: comment._id, replyName: comment.nickname}" drunk-on="click:onReply(comment._id,comment.nickname)"><span></span>
                         </div>
                     </div>
                 </div>
@@ -103,6 +103,13 @@
                 this.commentList = []
                 this.fetchCommentData()
             },
+            replyTime () {
+                this.end = false
+                this.pageNo = 0
+                this.commentList = []
+                this.fetchCommentData()
+            },
+
             reachEndTime () {
                 if (this.end || !this.loaded) return
                 this.pageNo++
@@ -151,6 +158,9 @@
                         this.$store.dispatch(aTypes.getTotal, {fid: this.$route.params.fid})
                     }, 1000 * 10)
                 }
+            },
+            onReply ({commentReplyId, replyName}) {
+                this.$store.commit(mTypes.showEditorDialog, {commentReplyId, replyName})
             }
         },
         destroyed () {
@@ -189,6 +199,9 @@
             },
             total () {
                 return this.comment.total
+            },
+            replyTime () {
+                return this.comment.replyTime
             }
         }
 

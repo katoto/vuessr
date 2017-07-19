@@ -141,7 +141,7 @@
         </transition>
 
         <div v-if="~$route.path.indexOf('/comment') && showEditor">
-            <editor :reply-name="replyName" type="1" @send="" @close="closeEditor"></editor>
+            <editor :reply-name="replyName" type="1" @send="onSend" @close="closeEditor"></editor>
         </div>
 
 
@@ -184,8 +184,11 @@
             total () {
                 return this.$store.state.zqdetail.comment.total
             },
-            replayName () {
+            replyName () {
                 return this.$store.state.zqdetail.comment.replyName
+            },
+            commentReplyId () {
+                return this.$store.state.zqdetail.comment.commentReplyId
             },
             showEditor () {
                 return this.$store.state.zqdetail.comment.showEditor
@@ -231,6 +234,10 @@
             },
             goTeam ({teamId}) {
                 this.$router.push(`/team/football/${teamId}/sc`)
+            },
+            onSend ({content, isShare}) {
+                this.$store.dispatch(aTypes.sendComment, {fid: this.$route.params.fid, content, parentid: this.commentReplyId, isShare})
+                this.closeEditor()
             },
             beginEdit () {
                 this.$store.commit(mTypes.showEditorDialog)

@@ -65,7 +65,9 @@ const initState = {
         total: null,
         vote: null,
         replyName: null,
-        showEditor: false
+        commentReplyId: null,
+        showEditor: false,
+        replyTime: 0 // 发表后服务端返回后时间戳
     },
     outer: {
         component: null,
@@ -232,8 +234,32 @@ const actionsInfo = mapActions({
             fid,
             vtype
         })
-    }
+    },
+    async sendComment ({commit}, {vtype = '1', fid, parentid, content, isShare = false}) {
+        console.log({
+            vtype,
+            id: fid,
+            parentid,
+            ctx: content
+        })
+        if (parentid) {
+            await ajax.post(`/sns/score/reply?_t=${Date.now()}`, {
+                vtype,
+                id: fid,
+                parentid,
+                ctx: content
+            })
+        } else {
+            await ajax.post(`/sns/score/commit?_t=${Date.now()}`, {
+                vtype,
+                id: fid,
+                isshare: isShare ? '1' : '0',
+                ctx: content
+            })
+        }
 
+        commit(mTypes.updateReplyTime)
+    }
 }, ns)
 
 const mutationsInfo = mapMutations({
@@ -320,9 +346,13 @@ const mutationsInfo = mapMutations({
         state.analysis.zr.formation = formation
         state.analysis.zr.lineup = lineup
     },
-    showEditorDialog (state, replyName) {
+    showEditorDialog (state, {replyName, commentReplyId}) {
         state.comment.showEditor = true
         state.comment.replyName = replyName
+        state.comment.commentReplyId = commentReplyId
+    },
+    updateReplyTime (state) {
+        state.comment.replyTime = Date.now()
     },
     hideEditorDialog (state) {
         state.comment.showEditor = false
