@@ -79,34 +79,34 @@ export default {
         }
     },
     computed: {
-		baseinfo() {
-			return this.$store.state.mchao.baseinfo
-		},
+        baseinfo () {
+            return this.$store.state.mchao.baseinfo
+        },
         matches () {
             return this.matchesObj.matches
         },
-		bkbStatus() {
-			return this.matches && this.matches.map((item, idx, arr) => {
-				let flag = item.isb2b === '1'
-				if(flag) arr[idx + 1].isb2b = '0'
-				return flag
-			})
-		},
-		homeTeamClass() {
-			return this.matches && this.matches.map((item) => {
-				return this.makeTeamClass(item, item.homesxname)
-			})
-		},
-		awayTeamClass() {
-			return this.matches && this.matches.map((item) => {
-				return this.makeTeamClass(item, item.awaysxname)
-			})
-		},
-		resultClass() {
-			return this.matches.map((match) => {
-				return this.makeResultClass(match)
-			})
-		}
+        bkbStatus () {
+            return this.matches && this.matches.map((item, idx, arr) => {
+                let flag = item.isb2b === '1'
+                if (flag) arr[idx + 1].isb2b = '0'
+                return flag
+            })
+        },
+        homeTeamClass () {
+            return this.matches && this.matches.map((item) => {
+                return this.makeTeamClass(item, item.homesxname)
+            })
+        },
+        awayTeamClass () {
+            return this.matches && this.matches.map((item) => {
+                return this.makeTeamClass(item, item.awaysxname)
+            })
+        },
+        resultClass () {
+            return this.matches.map((match) => {
+                return this.makeResultClass(match)
+            })
+        }
 
     },
     methods: {
@@ -146,14 +146,14 @@ export default {
             type: Object,
             required: true
         },
-		isJz: {
-			type: Boolean,
-			default: false
-		},
-		hoa: {
-			type: String,
-			default: 'homesxname'
-		}
+        isJz: {
+            type: Boolean,
+            default: false
+        },
+        hoa: {
+            type: String,
+            default: 'homesxname'
+        }
     },
     filters: {
         avgResultFmt (input) {
@@ -161,14 +161,14 @@ export default {
         },
         resultFmt (input, key) {
             let result = input['result' + key]
-			let preStr = ''
+            let preStr = ''
             if (result === '') return '-'
 
-			switch (key) {
-				case 1: preStr = `[${input.sub}]`; break;
-				case 2: preStr = (input.result2 === '赢') ? ('+' + input.rangfen) : ('-' + input.rangfen); break;
-				case 3: preStr = input.zongfen; break;
-			}
+            switch (key) {
+            case 1: preStr = `[${input.sub}]`; break
+            case 2: preStr = (input.result2 === '赢') ? ('+' + input.rangfen) : ('-' + input.rangfen); break
+            case 3: preStr = input.zongfen; break
+            }
             return preStr + result
         }
     }

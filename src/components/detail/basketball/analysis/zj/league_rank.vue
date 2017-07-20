@@ -80,7 +80,7 @@ export default {
                 away: this.leaguerank[0]
             }
         },
-        noEmptyFlag() {
+        noEmptyFlag () {
             return this.noEmpty(this.leaguerank)
         }
     },

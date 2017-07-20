@@ -88,7 +88,7 @@
             detailScroller
         },
         computed: {
-            baseinfo() {
+            baseinfo () {
                 return this.$store.state.mchao.baseinfo
             }
         },
@@ -113,7 +113,7 @@
             },
             updateScroller () {
                 this.$refs.scroller.update()
-            },
+            }
         },
         async mounted () {
             this.fetchData()

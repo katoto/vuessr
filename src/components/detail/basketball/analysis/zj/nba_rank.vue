@@ -61,7 +61,7 @@
 
 <script>
 export default {
-    data() {
+    data () {
         return {
             status: {
                 '-1': {
@@ -70,11 +70,11 @@ export default {
                 },
                 '0': {
                     style: 'lose',
-                    text: '连败',
+                    text: '连败'
                 },
                 '1': {
                     style: 'win',
-                    text: '连胜',
+                    text: '连胜'
                 }
 
             }

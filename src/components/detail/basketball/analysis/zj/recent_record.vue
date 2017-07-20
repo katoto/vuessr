@@ -19,13 +19,13 @@ export default {
         fightBox
     },
     computed: {
-        noEmptyFlag() {
+        noEmptyFlag () {
             return this.noEmptyFlag_home && this.noEmptyFlag_away
         },
-        noEmptyFlag_home() {
+        noEmptyFlag_home () {
             return this.noEmpty(this.recent_record && this.recent_record.hlist)
         },
-        noEmptyFlag_away() {
+        noEmptyFlag_away () {
             return this.noEmpty(this.recent_record && this.recent_record.alist)
         }
     },
@@ -36,9 +36,8 @@ export default {
         }
     },
     methods: {
-        noEmpty(obj) {
-            if(obj)
-                return !!Object.keys(obj).length
+        noEmpty (obj) {
+            if (obj) { return !!Object.keys(obj).length }
             return false
         }
     }

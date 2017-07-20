@@ -25,7 +25,7 @@ const initState = {
         jj: {
             team_misc: null,
             members_advanced: null
-        },
+        }
     },
     comment: {
         eventlist: null,
@@ -52,7 +52,7 @@ const actionsInfo = mapActions({
             ajax.get(`/score/lq/jz_data?fid=${fid}&stageid=${stageid}&homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&T=${Date.now()}`),
             ajax.get(`/score/lq/recent_record?fid=${fid}&stageid=${stageid}&homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&T=${Date.now()}`),
             ajax.get(`/score/lq/future_match?fid=${fid}&homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&T=${Date.now()}`),
-            ajax.get(`/score/zq/macau_news?fid=${fid}`),
+            ajax.get(`/score/zq/macau_news?fid=${fid}`)
         ])
         const [nbarank, leaguerank, jz_data, recent_record, future_match, macau_news] = result
         commit(mTypes.setAnalysisZj, {nbarank, leaguerank, jz_data, recent_record, future_match, macau_news})

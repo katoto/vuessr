@@ -23,28 +23,28 @@ export default {
         recentRecord
     },
     computed: {
-        baseinfo() {
+        baseinfo () {
             return this.$store.state.mchao.baseinfo
         },
-        analysis() {
+        analysis () {
             return this.$store.state.mchao.analysis
         },
-        nbarank() {
+        nbarank () {
             return this.analysis.zj.nbarank
         },
-        leaguerank() {
+        leaguerank () {
             return this.analysis.zj.leaguerank
         },
-        jz_data() {
+        jz_data () {
             return this.analysis.zj.jz_data
         },
-        recent_record() {
+        recent_record () {
             return this.analysis.zj.recent_record
         },
-        isNBA() {
+        isNBA () {
             return this.baseinfo.simpleleague === 'NBA'
         },
-        loaded() {
+        loaded () {
             return this.$store.state.refreshing === 0
         }
     },
@@ -57,13 +57,12 @@ export default {
             this.$store.commit('endOneRefresh')
         }
     },
-    mounted() {
+    mounted () {
         this.fetchData()
     },
     watch: {
-        loaded(loaded) {
-            if(loaded)
-                this.$store.commit(mTypes.updateScTime)
+        loaded (loaded) {
+            if (loaded) { this.$store.commit(mTypes.updateScTime) }
         }
     }
 }

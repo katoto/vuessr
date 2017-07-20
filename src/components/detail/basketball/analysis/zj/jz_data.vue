@@ -21,7 +21,7 @@ export default {
         fightBox
     },
     computed: {
-        noEmptyFlag() {
+        noEmptyFlag () {
             return this.noEmpty(this.jz_data)
         }
     },
@@ -32,9 +32,8 @@ export default {
         }
     },
     methods: {
-        noEmpty(obj) {
-            if(obj)
-                return !!Object.keys(obj).length
+        noEmpty (obj) {
+            if (obj) { return !!Object.keys(obj).length }
             return false
         }
     }
