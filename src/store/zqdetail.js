@@ -266,6 +266,9 @@ const actionsInfo = mapActions({
     },
     async getCustomOdds (ignore, {ptype}) {
         return ajax.get(`/score/concern/settings?vtype=1&ptype=${ptype}&_t=${Date.now()}`)
+    },
+    async updateCustomOdds (ignore, {ptype, items}) {
+        return ajax.get(`/score/concern/customize?vtype=1&ptype=${ptype}&item=${items.join(',')}&_t=${Date.now()}`, {ignore: false})
     }
 }, ns)
 
