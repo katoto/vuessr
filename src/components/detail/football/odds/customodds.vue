@@ -141,6 +141,7 @@
                     return this.closeDialog()
                 }
                 this.$store.dispatch('showToast', '保存成功')
+                this.$store.commit('beginRefresh')
                 this.closeDialog()
             },
             closeDialog () {
