@@ -263,6 +263,9 @@ const actionsInfo = mapActions({
         }
 
         commit(mTypes.updateReplyTime)
+    },
+    async getCustomOdds (ignore, {ptype}) {
+        return ajax.get(`/score/concern/settings?vtype=1&ptype=${ptype}&_t=${Date.now()}`)
     }
 }, ns)
 

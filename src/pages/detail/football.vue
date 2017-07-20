@@ -11,7 +11,7 @@
             <div id="_concern" style="display: none" class="topR" onclick="home.doConcern()">
                 <div class="sk-gz"></div>
             </div>
-            <div id="_sharemode" style="display: block;" class="topR" onclick="home.showShareMode()">
+            <div id="_sharemode" style="display: block;overflow: hidden" class="topR" onclick="home.showShareMode()">
                 <div class="sk-point"></div>
             </div>
             <div class="fen-box f30 responsive">
