@@ -156,15 +156,19 @@
         </div>
 
         <refresh/>
+        <toast v-if="toast.visible" :msg="toast.msg"/>
+
     </div>
 </template>
 
 <script>
     import {FootballStatusCode as StatusCode} from '~common/constants'
     import refresh from '~components/refresh.vue'
+    import toast from '~components/toast.vue'
     import editor from '~components/editor.vue'
     import detailScroller from '~components/detail_scroller.vue'
     import {aTypes, mTypes} from '~store/zqdetail'
+    import platform from '~common/platform'
     export default {
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getBaseInfo, params.fid)
@@ -192,6 +196,9 @@
             },
             showEditor () {
                 return this.$store.state.zqdetail.comment.showEditor
+            },
+            toast () {
+                return this.$store.state.toast
             }
         },
         async mounted () {
@@ -202,7 +209,7 @@
             }
         },
         components: {
-            detailScroller, refresh, editor
+            detailScroller, refresh, editor, toast
         },
         destroyed () {
             this.$store.commit(mTypes.reset)
@@ -240,7 +247,12 @@
                 this.closeEditor()
             },
             beginEdit () {
-                this.$store.commit(mTypes.showEditorDialog)
+                this.$store.dispatch('showToast', '开始评论')
+                if (!platform.isLogin()) {
+                    platform.login()
+                    return
+                }
+                this.$store.commit(mTypes.showEditorDialog, {})
             }
         },
         watch: {

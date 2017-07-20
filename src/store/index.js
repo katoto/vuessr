@@ -11,6 +11,10 @@ import teamLq from './team/lq'
 Vue.use(Vuex)
 
 const state = {
+    toast: {
+        msg: '',
+        visible: false
+    },
     refreshTime: 0, // 用来监控用户点击刷新按钮时间
     refreshing: 0, // 表示当前正在刷新任务数量
     time: 0, // 记录生成页面的时间
@@ -47,6 +51,14 @@ const mutations = {
     },
     beginRefresh (state) {
         state.refreshTime = Date.now()
+    },
+    showToast (state, msg) {
+        state.toast.msg = msg
+        state.toast.visible = true
+    },
+    hideToast (state) {
+        state.toast.msg = ''
+        state.toast.visible = false
     }
 }
 const actions = {
@@ -131,6 +143,12 @@ const actions = {
         } catch (e) {
             console.error(e.message)
         }
+    },
+    showToast ({commit}, msg) {
+        commit('showToast', msg)
+        setTimeout(() => {
+            commit('hideToast')
+        }, 3000)
     }
 }
 
