@@ -224,8 +224,12 @@ const actionsInfo = mapActions({
         commit(mTypes.setPredict, {europe, asian, daxiaoqiu, score, half})
     },
     async getCommentList ({commit}, {type, fid, pageNo, tab, pageSize = 10}) {
-        let result = await ajax.get(`/sns/score/commentlist?vtype=${type}&fid=${fid}&pn=${pageNo}&tab=${tab}&rn=${pageSize}&_t=` + new Date().getTime())
-        return result
+        return ajax.get(`/sns/score/commentlist?vtype=${type}&fid=${fid}&pn=${pageNo}&tab=${tab}&rn=${pageSize}&_t=` + new Date().getTime())
+    },
+    onLike (ignore, {status, id}) {
+        return ajax.post(`/sns/score/like?_t=${Date.now()}`, {
+            status, id
+        })
     },
     async onVote (ignore, {opt, id, vtype = '1', fid}) {
         return ajax.post(`/sns/score/vote?_t=${Date.now()}`, {

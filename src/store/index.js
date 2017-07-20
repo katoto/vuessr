@@ -2,6 +2,7 @@
  * Created by lichun on 2017/1/19.
  */
 import SockJS from 'sockjs-client'
+import platform from '~common/platform'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import home from './home'
@@ -60,6 +61,7 @@ const mutations = {
         state.toast.msg = ''
         state.toast.visible = false
     }
+
 }
 const actions = {
     initWebsocket ({commit, dispatch, state}) {
@@ -149,6 +151,13 @@ const actions = {
         setTimeout(() => {
             commit('hideToast')
         }, 3000)
+    },
+    ensureLogin () {
+        if (!platform.isLogin()) {
+            platform.login()
+            return false
+        }
+        return true
     }
 }
 

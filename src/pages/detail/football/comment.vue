@@ -19,7 +19,8 @@
                                 v-if="comment.label">({{comment.label}})</em></span></p>
                     <div class="list-box-tr">
                         <!--点赞修改170630-->
-                        <div class="dianz-cont" :class="{'dianzh-cont':comment.liked=='1'}"
+                        <div class="dianz-cont" :class="{'dianzh-cont':comment.liked==='1'}"
+                             v-tap="{methods: onLike, status: comment.liked, id: comment._id, index: idx}"
                              drunk-on="click:onLike(idx)">
                             <span class="dianz-icon"></span>
                             <em>{{comment.likes}}</em>
@@ -62,7 +63,6 @@
 <script>
     import snap from '~components/snap.vue'
     import {aTypes, mTypes} from '~store/zqdetail'
-
     export default {
         async asyncData ({store, route: {params}}) {
             await Promise.all([
@@ -160,7 +160,15 @@
                 }
             },
             onReply ({commentReplyId, replyName}) {
+                this.$store.dispatch('ensureLogin')
                 this.$store.commit(mTypes.showEditorDialog, {commentReplyId, replyName})
+            },
+            async onLike ({status, id, index}) {
+                this.$store.dispatch('ensureLogin')
+                await this.$store.dispatch(aTypes.onLike, {status, id})
+                let info = this.commentList[index]
+                info.liked = (info.liked === '0' ? '1' : '0')
+                info.likes = info.likes + (info.liked === '0' ? -1 : 1)
             }
         },
         destroyed () {

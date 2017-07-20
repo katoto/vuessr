@@ -168,7 +168,6 @@
     import editor from '~components/editor.vue'
     import detailScroller from '~components/detail_scroller.vue'
     import {aTypes, mTypes} from '~store/zqdetail'
-    import platform from '~common/platform'
     export default {
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getBaseInfo, params.fid)
@@ -243,15 +242,12 @@
                 this.$router.push(`/team/football/${teamId}/sc`)
             },
             onSend ({content, isShare}) {
+                this.$store.dispatch('ensureLogin')
                 this.$store.dispatch(aTypes.sendComment, {fid: this.$route.params.fid, content, parentid: this.commentReplyId, isShare})
                 this.closeEditor()
             },
             beginEdit () {
-                this.$store.dispatch('showToast', '开始评论')
-                if (!platform.isLogin()) {
-                    platform.login()
-                    return
-                }
+                this.$store.dispatch('ensureLogin')
                 this.$store.commit(mTypes.showEditorDialog, {})
             }
         },
