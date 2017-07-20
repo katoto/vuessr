@@ -60,7 +60,7 @@
     import noData from '~components/no_data.vue'
     export default {
         async asyncData ({store, route: {params}}) {
-            await store.dispatch(aTypes.getOddsDxp, params.fid)
+//            await store.dispatch(aTypes.getOddsDxp, params.fid)
         },
         components: {
             noData

@@ -115,7 +115,7 @@
     import {Scroller} from 'scroller'
     import {aTypes} from '~store/zqdetail'
 
-    import platform from '~common/platform'
+//    import platform from '~common/platform'
     export default {
         props: ['eventlist', 'statistic', 'match', 'online', 'vote'],
         data () {
@@ -145,12 +145,9 @@
                 if (this.match.status === '4') {
                     return
                 }
-                if (!platform.isLogin()) {
-                    platform.login()
-                    return
-                }
+                this.$store.dispatch('ensureLogin')
                 await this.$store.dispatch(aTypes.onVote, {
-                    opt, id: idx, fid: this.$route.params.fid
+                    opt, id: this.vote._id, fid: this.$route.params.fid
                 })
                 await this.$store.dispatch(aTypes.getVote, {fid: this.$route.params.fid})
             }
