@@ -173,6 +173,9 @@ const actions = {
             throw new Error('当前用户没有登录， 跳登录')
         }
         return true
+    },
+    login () {
+        platform.login()
     }
 }
 
