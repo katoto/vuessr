@@ -67,8 +67,8 @@
         async asyncData ({store, route: {params}}) {
             await Promise.all([
                 store.dispatch(aTypes.getEventAndStatistics, {fid: params.fid}),
-                store.dispatch(aTypes.getTotal, {fid: params.fid}),
-                store.dispatch(aTypes.getVote, {fid: params.fid})
+                store.dispatch(aTypes.getTotal, {fid: params.fid})
+//                store.dispatch(aTypes.getVote, {fid: params.fid})
 //                store.dispatch(aTypes.getCommentList, {type: '1', fid: params.fid, pageNo: 0, tab: 'time'})
             ])
         },

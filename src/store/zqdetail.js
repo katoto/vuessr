@@ -6,6 +6,7 @@
  */
 import ajax from '~common/ajax'
 import {mapActions, mapMutations} from '~common/util'
+import {pushEvents} from '~common/constants'
 const ns = 'zqdetail'
 const initState = {
     reachEndTime: 0,  // 滚动到最后触发的时间戳
@@ -75,6 +76,20 @@ const initState = {
     }
 }
 const actionsInfo = mapActions({
+    subscribeInfo ({dispatch}, fidList) {
+        if (!fidList || fidList.length < 1) {
+            return
+        }
+        const infoList = fidList.map(fid => 'LIVE:FOOTBALL:INFO:' + fid)
+        return dispatch('subscribe', {stamp: pushEvents.FOOTBALL_INFO, data: infoList})
+    },
+    subscribeEvent ({dispatch}, fidList) {
+        if (!fidList || fidList.length < 1) {
+            return
+        }
+        const eventList = fidList.map(fid => 'LIVE:FOOTBALL:EVENT:' + fid)
+        return dispatch('subscribe', {stamp: pushEvents.FOOTBALL_EVENT, data: eventList})
+    },
     async getBaseInfo ({commit}, fid) {
         const baseInfo = await ajax.get(`/score/zq/baseinfo?fid=${fid}`)
         commit(mTypes.setBaseInfo, baseInfo)
@@ -85,6 +100,7 @@ const actionsInfo = mapActions({
             ajax.get(`/score/zq/events_statistics?fid=${fid}`),
             ajax.get(`/library/sports/news?homeid=${homeid}&awayid=${awayid}&status=${status}&matchtime=${matchtime}&vtype=1&leagueid=${leagueid}&limit=20`)
         ])
+        eventlist = eventlist.reverse()
         commit(mTypes.setSituation, {eventlist, statistic, news})
         return {eventlist, statistic, news}
     },
@@ -263,6 +279,12 @@ const actionsInfo = mapActions({
         }
 
         commit(mTypes.updateReplyTime)
+    },
+    async getCustomOdds (ignore, {ptype}) {
+        return ajax.get(`/score/concern/settings?vtype=1&ptype=${ptype}&_t=${Date.now()}`)
+    },
+    async updateCustomOdds (ignore, {ptype, items}) {
+        return ajax.get(`/score/concern/customize?vtype=1&ptype=${ptype}&item=${items.join(',')}&_t=${Date.now()}`, {ignore: false})
     }
 }, ns)
 
