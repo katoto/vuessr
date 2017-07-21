@@ -74,6 +74,13 @@
             </div>
         </detail-scroller>
     </div>
+
+    <div  v-if="outer.component" class="popLayer"></div>
+    <transition name="slide">
+        <div v-if="outer.component" class="l-full" style="z-index: 101">
+            <component :is="outer.component" :params="outer.params"></component>
+        </div>
+    </transition>
 </div>
 </template>
 
@@ -90,6 +97,9 @@
         computed: {
             baseinfo () {
                 return this.$store.state.mchao.baseinfo
+            },
+            outer () {
+                return this.$store.state.mchao.outer
             }
         },
         methods: {
@@ -140,5 +150,37 @@
 </script>
 
 <style lang="css">
+.detailTop {
+    position: relative;
+}
 
+.zq-header {
+    position: relative;
+    top: -1px
+}
+
+.navigator {
+    top: 0
+}
+
+.sktab-arrow {
+     border: none !important;
+     margin-left: auto !important;
+
+}
+
+
+.slide-enter-active, .slide-leave-active {
+    -webkit-transition: -webkit-transform .3s ease;
+    transition: transform .3s ease;
+}
+.slide-enter-active, .slide-leave {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+.slide-leave-active, .slide-enter {
+    -webkit-transform: translate(0, 100%);
+    transform: translate(0, 100%);
+}
 </style>

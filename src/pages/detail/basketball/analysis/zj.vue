@@ -4,6 +4,10 @@
         <league-rank :baseinfo='baseinfo' :leaguerank='leaguerank' v-else-if='leaguerank'></league-rank>
         <jz-data :jz_data='jz_data' v-if="jz_data"></jz-data>
         <recent-record :recent_record='recent_record' v-if="recent_record"></recent-record>
+        <future-match :future_match='future_match' v-if="future_match"></future-match>
+        <div class="sk-btips">
+            500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
+        </div>
     </div>
 </template>
 
@@ -13,14 +17,15 @@ import leagueRank from '~components/detail/basketball/analysis/zj/league_rank.vu
 import NBARank from '~components/detail/basketball/analysis/zj/nba_rank.vue'
 import jzData from '~components/detail/basketball/analysis/zj/jz_data.vue'
 import recentRecord from '~components/detail/basketball/analysis/zj/recent_record.vue'
-// import futureMatch from '~components/detail/basketball/analysis/future_match.vue'
+import futureMatch from '~components/detail/basketball/analysis/zj/future_match.vue'
 
 export default {
     components: {
         leagueRank,
         NBARank,
         jzData,
-        recentRecord
+        recentRecord,
+        futureMatch
     },
     computed: {
         baseinfo () {
@@ -40,6 +45,9 @@ export default {
         },
         recent_record () {
             return this.analysis.zj.recent_record
+        },
+        future_match() {
+            return this.analysis.zj.future_match
         },
         isNBA () {
             return this.baseinfo.simpleleague === 'NBA'

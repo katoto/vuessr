@@ -16,7 +16,8 @@ const initState = {
         },
         js: {
             strength: null,
-            trend: null
+            trend: {},
+            stats: null
         },
         zr: {
             members: null,
@@ -58,13 +59,18 @@ const actionsInfo = mapActions({
         commit(mTypes.setAnalysisZj, {nbarank, leaguerank, jz_data, recent_record, future_match, macau_news})
         return {nbarank, leaguerank, jz_data, recent_record, future_match, macau_news}
     },
-    async getAnalysisJs ({commit}, {homeid, awayid, matchdate, stid, fid, leagueid}) {
+    async getAnalysisJs ({commit}, {fid, seasonid, homeid, awayid, matchdate}) {
         let result = await Promise.all([
-            ajax.get(`/score/lq/strength?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&stid=${stid}&fid=${fid}&leagueid=${leagueid}`),
-            ajax.get(`/score/lq/compare?fid=${fid}&matchdate=${matchdate}&stid=${stid}&homeid=${homeid}&awayid=${awayid}`)
+            ajax.get(`/score/lq/strength?fid=${fid}&seasonid=${seasonid}&homeid=${homeid}&awayid=${awayid}&T=${Date.now()}`),
+            ajax.get(`/score/lq/trend?fid=${fid}&homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&vtype=1&T=${Date.now()}`),
+            ajax.get(`/score/lq/stats?seasonid=${seasonid}&homeid=${homeid}&awayid=${awayid}&T=${Date.now()}`)
         ])
-        const [strength, compare] = result
-        commit(mTypes.setAnalysisJs, {strength, compare})
+        const [strength, trend, stats] = result
+        commit(mTypes.setAnalysisJs, {strength, trend, stats})
+    },
+    async getAnalysisJsTrend ({commit}, {fid, homeid, awayid, matchdate, vtype}) {
+        let trend = await ajax.get(`/score/lq/trend?fid=${fid}&homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&vtype=${vtype}&T=${Date.now()}`)
+        commit(mTypes.setAnalysisJsTrend, trend)
     },
     async getAnalysisZr ({commit}, {homeid, awayid, fid}) {
         let result = await Promise.all([
@@ -83,7 +89,7 @@ const actionsInfo = mapActions({
 }, ns)
 
 const mutationsInfo = mapMutations({
-    setDialog (state, {component, params}) {
+    setDialog (state, {component, params = null}) {
         state.outer.component = component
         state.outer.params = params
     },
@@ -104,9 +110,13 @@ const mutationsInfo = mapMutations({
         state.analysis.zj.future_match = future_match
         state.analysis.zj.macau_news = macau_news
     },
-    setAnalysisJs (state, {strength, compare}) {
+    setAnalysisJs (state, {strength, trend, stats}) {
         state.analysis.js.strength = strength
-        state.analysis.js.compare = compare
+        state.analysis.js.trend = trend
+        state.analysis.js.stats = stats
+    },
+    setAnalysisJsTrend(state, trend) {
+        state.analysis.js.trend = trend
     },
     setAnalysisZr (state, {teamworth, formation, lineup}) {
         state.analysis.zr.teamworth = teamworth
