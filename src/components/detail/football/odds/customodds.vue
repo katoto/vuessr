@@ -1,7 +1,7 @@
 
 <template>
     <div class="popBox l-full l-flex-column  slide-bottom-to-top">
-        <div class="popTopbar" v-tap="{methods: closeDialog}"></div>
+        <div class="popTopbar" v-tap="{methods: showTips}"></div>
         <div class="popInner box-yc" style="z-index: 2">
             <div class="full-scroll">
                 <!--顶部标题切换tab-->
@@ -146,6 +146,9 @@
             },
             closeDialog () {
                 this.$store.commit(mTypes.setDialog, {})
+            },
+            showTips () {
+                this.$store.dispatch('showToast', '底部选择‘保存’或‘取消’')
             }
         },
         computed: {

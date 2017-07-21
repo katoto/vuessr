@@ -35,12 +35,14 @@
                                    match.status == StatusCode.MID ||
                                    match.status == StatusCode.LAST_HALF ||
                                    match.status == StatusCode.ENDED">
-                            <div class="fen-bf" drunk-scroll-text="match.homescore" time-out='8' class-list="['fen-bf-active']">
+                            <div class="fen-bf" drunk-scroll-text="match.homescore" time-out='8'
+                                 class-list="['fen-bf-active']">
                                 <span class="score">{{match.homescore}}</span>
                                 <span class="score">{{match.homescore}}</span>
                             </div>
                             <div class="fen-ld">:</div>
-                            <div class="fen-bf" drunk-scroll-text="match.awayscore" time-out='8' class-list="['fen-bf-active']">
+                            <div class="fen-bf" drunk-scroll-text="match.awayscore" time-out='8'
+                                 class-list="['fen-bf-active']">
                                 <span class="score">{{match.awayscore}}</span>
                                 <span class="score">{{match.awayscore}}</span>
                             </div>
@@ -73,7 +75,8 @@
                     </div>
                     <div class="game-info">
                         <div v-if="match.status === StatusCode.FIRST_HALF || match.status === StatusCode.LAST_HALF"
-                             class="game-state f24">{{ match.match_at|matchAtFmt(match.status == StatusCode.FIRST_HALF)}}<i class="dian">'</i>
+                             class="game-state f24">{{ match.match_at|matchAtFmt(match.status ==
+                            StatusCode.FIRST_HALF)}}<i class="dian">'</i>
                         </div>
                         <div v-if="match.status === StatusCode.MID" class="game-state f24">中场休息</div>
                         <div v-if="match.status === StatusCode.ENDED" class="game-state f24">完场</div>
@@ -133,7 +136,7 @@
             </detail-scroller>
 
         </div>
-        <div  v-if="outer.component" class="popLayer"></div>
+        <div v-if="outer.component" class="popLayer"></div>
         <transition name="slide">
             <div v-if="outer.component" class="l-full" style="z-index: 101">
                 <component :is="outer.component" :params="outer.params"></component>
@@ -243,7 +246,12 @@
             },
             onSend ({content, isShare}) {
                 this.$store.dispatch('ensureLogin')
-                this.$store.dispatch(aTypes.sendComment, {fid: this.$route.params.fid, content, parentid: this.commentReplyId, isShare})
+                this.$store.dispatch(aTypes.sendComment, {
+                    fid: this.$route.params.fid,
+                    content,
+                    parentid: this.commentReplyId,
+                    isShare
+                })
                 this.closeEditor()
             },
             beginEdit () {
@@ -288,7 +296,7 @@
         position: relative;
     }
 
-    .detailTop:after{
+    .detailTop:after {
         content: '';
         z-index: -1;
         position: absolute;
@@ -296,29 +304,29 @@
         top: 0;
         left: 0;
         right: 0;
-        height:1.1893rem;
+        height: 1.1893rem;
     }
+
     .zq-header {
         position: relative;
         top: 0;
     }
-
 
     .navigator {
         top: 0
     }
 
     .sktab-arrow {
-         border: none !important;
-         margin-left: auto !important;
+        border: none !important;
+        margin-left: auto !important;
 
     }
-
 
     .slide-enter-active, .slide-leave-active {
         -webkit-transition: -webkit-transform .3s ease;
         transition: transform .3s ease;
     }
+
     .slide-enter-active, .slide-leave {
         -webkit-transform: translate(0, 0);
         transform: translate(0, 0);

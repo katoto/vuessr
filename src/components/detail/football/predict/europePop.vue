@@ -41,7 +41,7 @@
                                 <tbody>
                                 <tr>
                                     <td width="35%">
-                                        {{(inner.this_match.homesxname||'').substr(0,3)}}
+                                        {{(inner.this_match.homesxname||'')|truncate(3)}}
                                     </td>
                                     <td width="10%" class="textcenter">
                                         {{inner.this_match.result==='-1'?'-':inner.this_match.homescore}}
@@ -54,7 +54,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>{{(inner.this_match.awaysxname||'').substr(0,3)}}</td>
+                                    <td>{{(inner.this_match.awaysxname||'')|truncate(3)}}</td>
                                     <td class="textcenter">
                                         {{inner.this_match.result==='-1'?'-':inner.this_match.awayscore}}
                                     </td>
@@ -113,14 +113,14 @@
                             <table cellpadding="0" cellspacing="0" width="100%">
                                 <tbody>
                                 <tr>
-                                    <td width="45%">{{(item.homesxname||'').substr(0,3)}}</td>
+                                    <td width="45%">{{(item.homesxname||'')|truncate(3)}}</td>
                                     <td width="10%" class="textcenter">{{item.homescore}}</td>
                                     <td><span v-if="item.result==='3'" class="state red">主胜</span>
                                         <span v-if="item.result==='1'" class="state green">平</span>
                                         <span v-if="item.result==='0'" class="state blue">主负</span></td>
                                 </tr>
                                 <tr>
-                                    <td>{{(item.awaysxname||'').substr(0,3)}}</td>
+                                    <td>{{(item.awaysxname||'')|truncate(3)}}</td>
                                     <td class="textcenter">{{item.awayscore}}</td>
                                     <td>
                                     </td>
@@ -199,7 +199,17 @@
             match () {
                 return this.$store.state.zqdetail.baseInfo
             }
+        },
+        filters: {
+            truncate: (val, num) => {
+                if (val.length > num) {
+                    return val.substr(0, num) + '...'
+                } else {
+                    return val
+                }
+            }
         }
+
 
     }
 </script>

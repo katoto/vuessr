@@ -38,7 +38,7 @@
         },
         methods: {
             edit () {
-//                this.$store.dispatch('ensureLogin')
+                this.$store.dispatch('ensureLogin')
                 this.$store.commit(mTypes.setDialog, {component: customodds, params: {ptype: this.ptype}})
             }
         },

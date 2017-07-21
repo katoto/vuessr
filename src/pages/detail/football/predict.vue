@@ -3,7 +3,7 @@
         <div class="gl-box box-yc" v-if="predictEurope">
             <div class="gl-nav">胜平负 <span class="yc-more"></span></div>
             <div class="box-ycInner">
-                <template v-if="predictEurope&&predictEurope.outter">
+                <template v-if="predictEurope.outter">
                     <div class="dataBox" v-tap="{methods: selectTab, tab: 'europe'}">
                         <ul class="dataItem">
                             <li class="itemL"
@@ -31,7 +31,7 @@
 
                 </template>
 
-                <div class="feed-back" v-if="predictEurope&&!predictEurope.outter">
+                <div class="feed-back" v-if="!predictEurope.outter">
                     <div class="feed-box">
                         <em>暂无数据</em>
                     </div>
@@ -44,8 +44,8 @@
                 亚盘{{predictAsian && predictAsian.inner && predictAsian.inner.this_match.curr_odds[1]?('（盘口：'+predictAsian.inner.this_match.curr_odds[1]+'）'):'--'}}
                 <span class="yc-more" ></span></div>
             <div class="box-ycInner">
-                <template v-if="predictAsian && predictAsian.outter">
-                    <div class="dataBox" v-if="predictAsian" v-tap="{methods: selectTab, tab: 'asian'}">
+                <template v-if="predictAsian.outter">
+                    <div class="dataBox" v-tap="{methods: selectTab, tab: 'asian'}">
                         <ul class="dataItem">
                             <li class="itemL"
                                 :class="{'red2':predictAsian.outter.result.pw>predictAsian.outter.result.pd&&predictAsian.outter.result.pw>predictAsian.outter.result.pl}">
@@ -68,11 +68,11 @@
                         </ul>
                     </div>
 
-                    <echart-bar-line v-if="predictAsian" v-tap="{methods: selectTab, tab: 'asian'}" class="chart-yuce" name-bar="赢盘概率" name-line="赔率趋势" :data-bar="predictAsian.outter.chart.nbars" :data-line="predictAsian.outter.chart.curve"></echart-bar-line>
+                    <echart-bar-line v-tap="{methods: selectTab, tab: 'asian'}" class="chart-yuce" name-bar="赢盘概率" name-line="赔率趋势" :data-bar="predictAsian.outter.chart.nbars" :data-line="predictAsian.outter.chart.curve"></echart-bar-line>
 
                 </template>
 
-                <div class="feed-back" v-if="predictAsian && !predictAsian.outter">
+                <div class="feed-back" v-if="!predictAsian.outter">
                     <div class="feed-box">
                         <em>暂无数据</em>
                     </div>
@@ -83,12 +83,12 @@
 
         <div class="gl-box box-yc" v-if="predictDaXiao">
             <div class="gl-nav">
-                大小盘{{predictDaXiao && predictDaXiao.inner && predictDaXiao.inner.this_match.curr_odds[1]?('（盘口：'+predictDaXiao.inner.this_match.curr_odds[1]+'）'):''}}
+                大小盘{{predictDaXiao.inner && predictDaXiao.inner.this_match.curr_odds[1]?('（盘口：'+predictDaXiao.inner.this_match.curr_odds[1]+'）'):''}}
                 <span class="yc-more"></span>
             </div>
             <div class="box-ycInner">
-                <template v-if="predictDaXiao && predictDaXiao.outter">
-                    <div class="dataBox" v-tap="{methods: selectTab, tab: 'daXiao'}">
+                <template v-if="predictDaXiao.outter">
+                    <div class="dataBox" v-tap="{methods: selectTab, tab: 'daxiao'}">
                         <ul class="dataItem">
                             <li class="itemL"
                                 :class="{'red2':predictDaXiao.outter.result.pw>predictDaXiao.outter.result.pd&&predictDaXiao.outter.result.pw>predictDaXiao.outter.result.pl}">
@@ -111,11 +111,11 @@
                         </ul>
                     </div>
 
-                    <echart-bar-line v-tap="{methods: selectTab, tab: 'daXiao'}"  class="chart-yuce" name-bar="大球概率" name-line="赔率趋势" :data-bar="predictDaXiao.outter.chart.nbars" :data-line="predictDaXiao.outter.chart.curve"></echart-bar-line>
+                    <echart-bar-line v-tap="{methods: selectTab, tab: 'daxiao'}"  class="chart-yuce" name-bar="大球概率" name-line="赔率趋势" :data-bar="predictDaXiao.outter.chart.nbars" :data-line="predictDaXiao.outter.chart.curve"></echart-bar-line>
 
                 </template>
 
-                <div class="feed-back" v-if="predictDaXiao && !predictDaXiao.outter">
+                <div class="feed-back" v-if="!predictDaXiao.outter">
                     <div class="feed-box">
                         <em>暂无数据</em>
                     </div>
@@ -129,7 +129,7 @@
             <div class="gl-nav">比分与进球 <span class="yc-more" ></span></div>
             <div class="box-ycInner box-yc-bifen">
 
-                <template v-if="predictScore && predictScore.outter">
+                <template v-if="predictScore.outter">
                     <div class="dataBox" v-tap="{methods: selectTab, tab: 'score'}">
                         <ul class="dataItem">
                             <li class="itemL"
@@ -167,7 +167,7 @@
                 </template>
 
 
-                <div class="feed-back" v-if="predictScore && !predictScore.outter">
+                <div class="feed-back" v-if="!predictScore.outter">
                     <div class="feed-box">
                         <em>暂无数据</em>
                     </div>
@@ -178,12 +178,7 @@
         <div class="gl-box box-yc" v-if="predictHalf">
             <div class="gl-nav">半场 <span class="yc-more" ></span></div>
             <div class="box-ycInner">
-
-               <!-- <template v-if="predictHalf&& predictHalf.outter">
-
-                </template>-->
-
-                <div class="dataBox" v-if="predictHalf && predictHalf.outter"  v-tap="{methods: selectTab, tab: 'bc'}">
+                <div class="dataBox" v-if="predictHalf.outter"  v-tap="{methods: selectTab, tab: 'bc'}">
                     <ul class="dataItem">
                         <li class="itemL"
                             :class="{'red2':predictHalf.outter.prob.win>predictHalf.outter.prob.draw&&predictHalf.outter.prob.win>predictHalf.outter.prob.lost}">
@@ -227,7 +222,7 @@
                                 class="item-info2">{{predictHalf.outter.nums[2].num}}球</span></li>
                     </ul>
                 </div>
-                <div class="feed-back" v-if="predictHalf && !predictHalf.outter">
+                <div class="feed-back" v-if="!predictHalf.outter">
                     <div class="feed-box">
                         <em>暂无数据</em>
                     </div>
@@ -242,6 +237,8 @@
 <script>
     import europePop from '~components/detail/football/predict/europePop.vue'
     import asianPop from '~components/detail/football/predict/asianPop.vue'
+    import daxiaoPop from '~components/detail/football/predict/daxiaoPop.vue'
+    import scorePop from '~components/detail/football/predict/scorePop.vue'
 
     import echartBarLine from '~components/detail/football/predict/echartBarLine.vue'
     import echartPosition from '~components/detail/football/predict/echartPosition.vue'
@@ -268,8 +265,13 @@
                 case 'asian':
                     component = asianPop
                     break
+                case 'daxiao':
+                    component = daxiaoPop
+                    break
+                case 'score':
+                    component = scorePop
+                    break
                 }
-
                 this.$store.commit(mTypes.setDialog, {component})
             }
         },

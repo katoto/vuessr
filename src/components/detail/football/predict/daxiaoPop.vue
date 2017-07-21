@@ -40,7 +40,8 @@
                             <table cellpadding="0" cellspacing="0" width="100%">
                                 <tbody>
                                 <tr>
-                                    <td width="35%">
+
+                                    <td width="45%">
                                         {{(inner.this_match.homesxname||'')|truncate(3)}}
                                     </td>
                                     <td width="10%" class="textcenter">
@@ -48,15 +49,15 @@
                                     </td>
                                     <td>
                                         <span v-if="inner.this_match.result=='3'"
-                                              class="state red">主胜</span>
-                                        <span v-if="inner.this_match.result=='1'" class="state green">平</span>
-                                        <span v-if="inner.this_match.result=='0'" class="state blue">主负</span>
+                                              class="state red">大球</span>
+                                        <span v-if="inner.this_match.result=='1'" class="state green">走盘</span>
+                                        <span v-if="inner.this_match.result=='0'" class="state blue">小球</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>{{(inner.this_match.awaysxname||'')|truncate(3)}}</td>
                                     <td class="textcenter">
-                                        {{inner.this_match.result==='-1'?'-':inner.this_match.awayscore}}
+                                        {{inner.this_match.homescore==='-1'?'-':inner.this_match.awayscore}}
                                     </td>
                                     <td>&nbsp;</td>
                                 </tr>
@@ -73,7 +74,7 @@
                             <tr>
                                 <td width="13%">初赔：</td>
                                 <td width="10%">{{inner.this_match.first_odds[0]}}</td>
-                                <td width="30%" align="center">{{inner.this_match.first_odds[1]}}</td>
+                                <td width="12%" align="center">{{inner.this_match.first_odds[1]}}</td>
                                 <td width="10%" align="right">{{inner.this_match.first_odds[2]}}</td>
                                 <td>&nbsp;</td>
                             </tr>
@@ -115,9 +116,9 @@
                                 <tr>
                                     <td width="45%">{{(item.homesxname||'')|truncate(3)}}</td>
                                     <td width="10%" class="textcenter">{{item.homescore}}</td>
-                                    <td><span v-if="item.result==='3'" class="state red">主胜</span>
-                                        <span v-if="item.result==='1'" class="state green">平</span>
-                                        <span v-if="item.result==='0'" class="state blue">主负</span></td>
+                                    <td><span v-if="item.result==='3'" class="state red">大球</span>
+                                        <span v-if="item.result==='1'" class="state green">走盘</span>
+                                        <span v-if="item.result==='0'" class="state blue">小球</span></td>
                                 </tr>
                                 <tr>
                                     <td>{{(item.awaysxname||'')|truncate(3)}}</td>
@@ -163,7 +164,7 @@
         <div class="popFooter" v-tap="{methods: closeDialog}">
             <span class="arrow"></span>
 
-            <h2 class="f30">亚盘（盘口：{{inner.this_match.curr_odds[1]}}）</h2>
+            <h2 class="f30">大小盘（盘口：{{inner.this_match.curr_odds[1]}})</h2>
         </div>
     </div>
 </template>
@@ -191,10 +192,10 @@
         },
         computed: {
             outter () {
-                return this.$store.state.zqdetail.predict.asian.outter
+                return this.$store.state.zqdetail.predict.daxiaoqiu.outter
             },
             inner () {
-                return this.$store.state.zqdetail.predict.asian.inner
+                return this.$store.state.zqdetail.predict.daxiaoqiu.inner
             },
             match () {
                 return this.$store.state.zqdetail.baseInfo
@@ -209,7 +210,6 @@
                 }
             }
         }
-
 
     }
 </script>
