@@ -85,6 +85,7 @@ const actionsInfo = mapActions({
             ajax.get(`/score/zq/events_statistics?fid=${fid}`),
             ajax.get(`/library/sports/news?homeid=${homeid}&awayid=${awayid}&status=${status}&matchtime=${matchtime}&vtype=1&leagueid=${leagueid}&limit=20`)
         ])
+        eventlist = eventlist.reverse()
         commit(mTypes.setSituation, {eventlist, statistic, news})
         return {eventlist, statistic, news}
     },
