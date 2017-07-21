@@ -178,7 +178,7 @@
         <div class="gl-box box-yc" v-if="predictHalf">
             <div class="gl-nav">半场 <span class="yc-more" ></span></div>
             <div class="box-ycInner">
-                <div class="dataBox" v-if="predictHalf.outter"  v-tap="{methods: selectTab, tab: 'bc'}">
+                <div class="dataBox" v-if="predictHalf.outter"  v-tap="{methods: selectTab, tab: 'half'}">
                     <ul class="dataItem">
                         <li class="itemL"
                             :class="{'red2':predictHalf.outter.prob.win>predictHalf.outter.prob.draw&&predictHalf.outter.prob.win>predictHalf.outter.prob.lost}">
@@ -239,6 +239,7 @@
     import asianPop from '~components/detail/football/predict/asianPop.vue'
     import daxiaoPop from '~components/detail/football/predict/daxiaoPop.vue'
     import scorePop from '~components/detail/football/predict/scorePop.vue'
+    import halfPop from '~components/detail/football/predict/halfPop.vue'
 
     import echartBarLine from '~components/detail/football/predict/echartBarLine.vue'
     import echartPosition from '~components/detail/football/predict/echartPosition.vue'
@@ -270,6 +271,9 @@
                     break
                 case 'score':
                     component = scorePop
+                    break
+                case 'half':
+                    component = halfPop
                     break
                 }
                 this.$store.commit(mTypes.setDialog, {component})
