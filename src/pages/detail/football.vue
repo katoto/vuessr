@@ -165,7 +165,7 @@
 </template>
 
 <script>
-    import {FootballStatusCode as StatusCode} from '~common/constants'
+    import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import refresh from '~components/refresh.vue'
     import toast from '~components/toast.vue'
     import editor from '~components/editor.vue'
@@ -181,6 +181,9 @@
             }
         },
         computed: {
+            socketData () {  // websocket推送过来的数据
+                return this.$store.getters.getSocketData
+            },
             match () {
                 return this.$store.state.zqdetail.baseInfo
             },
@@ -204,7 +207,11 @@
             }
         },
         async mounted () {
-            this.fetchData()
+            await this.fetchData()
+            if (this.match.status !== StatusCode.ENDED) {
+                this.$store.dispatch(aTypes.subscribeInfo, [this.match.fid])
+                this.$store.dispatch(aTypes.subscribeEvent, [this.match.fid])
+            }
             if (~this.$route.path.indexOf('/crazybet')) {
                 this.$refs.scroller.scrollTo(document.querySelector('.zq-header').offsetHeight, true)
                 this.$refs.scroller.switchStop(true)
@@ -214,6 +221,7 @@
             detailScroller, refresh, editor, toast
         },
         destroyed () {
+            this.$store.dispatch('unsubscribeAll')
             this.$store.commit(mTypes.reset)
         },
         methods: {
@@ -260,6 +268,13 @@
             }
         },
         watch: {
+            socketData ({data, stamp}) {  // websocket推送过来的数据
+                if (stamp === pushEvents.FOOTBALL_INFO) {
+                    if (data.fid === this.match.fid) {
+                        this.$store.dispatch(aTypes.getBaseInfo, this.match.fid)
+                    }
+                }
+            },
             '$route.path' (path) {
                 this.$refs.scroller.update()
                 if (~path.indexOf('/crazybet')) {

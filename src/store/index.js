@@ -22,7 +22,7 @@ const state = {
     websocket: { // 数据推送相关的
         connect: null, // 代表当前连接
         data: null,  // websocket 返回来的数据， 用到推送过来的数据的地方 watch一下就好了
-        latestSub: null, // 最近一次订阅数据， websocket重连的时候重新订阅上次订阅的事件
+        latestSub: [], // 最近一次订阅数据， websocket重连的时候重新订阅上次订阅的事件
         reconnect: 0  // socket 记录重连次数， 起到辅助作用， 比如websocket断开了连接， 重新请求接口， 避免推送丢失引发的问题
     }
 }
@@ -91,8 +91,10 @@ const actions = {
                     // console.log(data)
                     commit('updateSocketData', {data, stamp: 0})
                 }, 2000) */
-                if (state.websocket.latestSub) {
-                    connect.send(state.websocket.latestSub)
+                if (state.websocket.latestSub.length) {
+                    state.websocket.latestSub.forEach((sub) => {
+                        connect.send(sub)
+                    })
                 }
                 interval = setInterval(() => {
                     connect.send(JSON.stringify({
@@ -105,6 +107,7 @@ const actions = {
                 }, 15000)
                 if (hasFinished) return
                 hasFinished = true
+                commit('initSocket', {connect})
                 resolve()
             }
             connect.onclose = function () {
@@ -129,21 +132,33 @@ const actions = {
                 error.code = '103'
                 reject(error)
             }, 2000)
-            commit('initSocket', {connect})
         })
     },
     subscribe ({commit, dispatch, state}, {stamp, data}) {
         try {
-            let latestSub = JSON.stringify({
+            let sub = JSON.stringify({
                 action: 'subs',
                 stamp,
                 data
             })
-            // if (!state.websocket.connect) await dispatch('initWebsocket')
-            state.websocket.connect && state.websocket.connect.send(latestSub)
-            commit('setLatestSub', latestSub)
+            if (!~state.websocket.latestSub.indexOf(sub)) { // 如果之前没有订阅过
+                state.websocket.connect && state.websocket.connect.send(sub)
+                let latestSub = [...state.websocket.latestSub, sub]
+                commit('setLatestSub', latestSub)
+            }
         } catch (e) {
             console.error(e.message)
+        }
+    },
+    unsubscribeAll ({commit, state}) {
+        if (state.websocket.latestSub.length) {
+            state.websocket.latestSub.forEach((sub) => {
+                sub = JSON.parse(sub)
+                sub.action = 'unsubs'
+                sub = JSON.stringify(sub)
+                state.websocket.connect.send(sub)
+            })
+            commit('setLatestSub', [])
         }
     },
     showToast ({commit}, msg) {

@@ -40,7 +40,7 @@
 
 <script>
     import {mTypes, aTypes} from '~store/zqdetail'
-    import {FootballStatusCode as StatusCode} from '~common/constants'
+    import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import event from '~components/detail/football/situation/event.vue'
     import meSports from '~components/detail/football/situation/meSports.vue'
     import statistic from '~components/detail/football/situation/statistic.vue'
@@ -87,9 +87,18 @@
             },
             refreshTime () {
                 this.fetchData()
+            },
+            socketData ({data, stamp}) {
+                if (stamp === pushEvents.FOOTBALL_EVENT) {
+                    // 重新调用接口
+                    this.fetchData()
+                }
             }
         },
         computed: {
+            socketData () {  // websocket推送过来的数据
+                return this.$store.getters.getSocketData
+            },
             refreshTime () { // 用户点击刷新按钮时间戳
                 return this.$store.state.refreshTime
             },
