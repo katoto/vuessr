@@ -3,10 +3,19 @@
        <!-- <template v-if="(situation.eventlist && situation.eventlist.length) || (situation.statistic && situation.statistic.h_ballcontrol_rate)">
 
         </template>-->
+        <div v-if="match.video" class="sk-nav bge6">视频</div>
+        <div class="video-box" id="video-box" v-if="match.video">
+            <iframe :src="match.video" name="url_pptv" allowtransparency="true"
+                    width="100%" height="100%"
+                    scrolling="no" frameborder="0">
+            </iframe>
+        </div>
+
         <template v-if="!feature.a[match.status]">
+
             <event v-if="situation.eventlist && situation.eventlist.length" :eventlist="situation.eventlist" :status="match.status"></event>
             <statistic v-if="situation.statistic && situation.statistic.h_ballcontrol_rate" :statistic="situation.statistic"></statistic>
-            <me-sports v-if="situation.news && situation.news.length" :news="situation.news" :init-size="3"></me-sports>
+            <me-sports v-if="situation.news && situation.news.length" :news="situation.news" :init-size="3" @rs="refreshScroll"></me-sports>
             <div class="sk-btips"
                  v-if="(situation.eventlist && situation.eventlist.length) || (situation.statistic && situation.statistic.h_ballcontrol_rate)">
                 500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
@@ -31,7 +40,7 @@
 
 <script>
     import {mTypes, aTypes} from '~store/zqdetail'
-    import {FootballStatusCode as StatusCode} from '~common/constants'
+    import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import event from '~components/detail/football/situation/event.vue'
     import meSports from '~components/detail/football/situation/meSports.vue'
     import statistic from '~components/detail/football/situation/statistic.vue'
@@ -67,19 +76,29 @@
                     fid: this.$route.params.fid, homeid, awayid, status, matchtime, leagueid: league_id
                 })
                 this.$store.commit('endOneRefresh')
+            },
+            refreshScroll () {
+                this.$store.commit(mTypes.updateScTime)
             }
         },
         watch: {
             loaded (loaded) {
-                if (loaded) {
-                    this.$store.commit(mTypes.updateScTime)
-                }
+                this.refreshScroll()
             },
             refreshTime () {
                 this.fetchData()
+            },
+            socketData ({data, stamp}) {
+                if (stamp === pushEvents.FOOTBALL_EVENT) {
+                    // 重新调用接口
+                    this.fetchData()
+                }
             }
         },
         computed: {
+            socketData () {  // websocket推送过来的数据
+                return this.$store.getters.getSocketData
+            },
             refreshTime () { // 用户点击刷新按钮时间戳
                 return this.$store.state.refreshTime
             },

@@ -5,7 +5,8 @@
  * Created by sampson on 2017/5/10.
  */
 import ajax from '~common/ajax'
-import {mapActions, mapMutations} from '~common/util'
+import { mapActions, mapMutations } from '~common/util'
+import { pushEvents } from '~common/constants'
 const ns = 'zqdetail'
 const initState = {
     reachEndTime: 0,  // 滚动到最后触发的时间戳
@@ -75,6 +76,20 @@ const initState = {
     }
 }
 const actionsInfo = mapActions({
+    subscribeInfo ({dispatch}, fidList) {
+        if (!fidList || fidList.length < 1) {
+            return
+        }
+        const infoList = fidList.map(fid => 'LIVE:FOOTBALL:INFO:' + fid)
+        return dispatch('subscribe', {stamp: pushEvents.FOOTBALL_INFO, data: infoList})
+    },
+    subscribeEvent ({dispatch}, fidList) {
+        if (!fidList || fidList.length < 1) {
+            return
+        }
+        const eventList = fidList.map(fid => 'LIVE:FOOTBALL:EVENT:' + fid)
+        return dispatch('subscribe', {stamp: pushEvents.FOOTBALL_EVENT, data: eventList})
+    },
     async getBaseInfo ({commit}, fid) {
         const baseInfo = await ajax.get(`/score/zq/baseinfo?fid=${fid}`)
         commit(mTypes.setBaseInfo, baseInfo)
@@ -85,6 +100,7 @@ const actionsInfo = mapActions({
             ajax.get(`/score/zq/events_statistics?fid=${fid}`),
             ajax.get(`/library/sports/news?homeid=${homeid}&awayid=${awayid}&status=${status}&matchtime=${matchtime}&vtype=1&leagueid=${leagueid}&limit=20`)
         ])
+        eventlist = eventlist.reverse()
         commit(mTypes.setSituation, {eventlist, statistic, news})
         return {eventlist, statistic, news}
     },
@@ -219,13 +235,22 @@ const actionsInfo = mapActions({
             ajax.get(`/score/zq/predict_score?fid=${fid}`),
             ajax.get(`/score/zq/predict_half?fid=${fid}`)
         ])
-        // const [europe, asian, daxiaoqiu, score, half] = result.map(item => Object.keys(item).length ? item : null)
+    // const [europe, asian, daxiaoqiu, score, half] = result.map(item => Object.keys(item).length ? item : null)
         const [europe, asian, daxiaoqiu, score, half] = result
         commit(mTypes.setPredict, {europe, asian, daxiaoqiu, score, half})
     },
     async getCommentList ({commit}, {type, fid, pageNo, tab, pageSize = 10}) {
-        let result = await ajax.get(`/sns/score/commentlist?vtype=${type}&fid=${fid}&pn=${pageNo}&tab=${tab}&rn=${pageSize}&_t=` + new Date().getTime())
-        return result
+        return ajax.get(`/sns/score/commentlist?vtype=${type}&fid=${fid}&pn=${pageNo}&tab=${tab}&rn=${pageSize}&_t=` + new Date().getTime())
+    },
+    onLike (ignore, {status, id}) {
+        return ajax.post(`/sns/score/like?_t=${Date.now()}`, {
+            status, id
+        })
+    },
+    onReport (ignore, id) {
+        return ajax.post(`/sns/score/report?_t=${Date.now()}`, {
+            id
+        })
     },
     async onVote (ignore, {opt, id, vtype = '1', fid}) {
         return ajax.post(`/sns/score/vote?_t=${Date.now()}`, {
@@ -259,6 +284,34 @@ const actionsInfo = mapActions({
         }
 
         commit(mTypes.updateReplyTime)
+    },
+    async getCustomOdds (ignore, {ptype}) {
+        return ajax.get(`/score/concern/settings?vtype=1&ptype=${ptype}&_t=${Date.now()}`)
+    },
+    async updateCustomOdds (ignore, {ptype, items}) {
+        return ajax.get(`/score/concern/customize?vtype=1&ptype=${ptype}&item=${items.join(',')}&_t=${Date.now()}`, {ignore: false})
+    },
+  /**
+   * 切换关注某场比赛
+   * @param commit
+   * @param state
+   * @param fid
+   * @param expect
+   * @returns {Promise.<void>}
+   */
+    async requestConcern ({commit, state}, {fid, expect}) {
+        let origin = state.baseInfo.isfocus
+        let op
+        let statset
+        if (origin === '0') {
+            op = 'set'
+            statset = '1'
+        } else {
+            op = 'unset'
+            statset = '0'
+        }
+        await ajax.get(`/score/concern/focus?fid=${fid}&vtype=1&op=${op}&lotid=46&expect=${expect}`, {ignore: false})
+        commit(mTypes.changeConcernStatus, statset)
     }
 }, ns)
 
@@ -357,6 +410,9 @@ const mutationsInfo = mapMutations({
     hideEditorDialog (state) {
         state.comment.showEditor = false
         state.comment.replyName = null
+    },
+    changeConcernStatus (state, status) {
+        state.baseInfo.isfocus = status
     },
     reset (state) {
         const iState = JSON.parse(JSON.stringify(initState))

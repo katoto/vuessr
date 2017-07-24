@@ -1,7 +1,7 @@
 <template>
 
     <div class="l-full" style="z-index: 100">
-        <div class="l-full" style="background-color: rgba(0,0,0,.4);z-index: 1"></div>
+        <div class="l-full" style="background-color: rgba(0,0,0,.6);z-index: 1"></div>
         <div class="ui-alert alert-comm" style="position: absolute">
             <div class="ui-alert-tit"> {{replyName?'回复@'+replyName:'评论'}}</div>
             <div class="ui-alert-cont alert-comm-txt">

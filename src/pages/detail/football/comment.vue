@@ -19,7 +19,8 @@
                                 v-if="comment.label">({{comment.label}})</em></span></p>
                     <div class="list-box-tr">
                         <!--点赞修改170630-->
-                        <div class="dianz-cont" :class="{'dianzh-cont':comment.liked=='1'}"
+                        <div class="dianz-cont" :class="{'dianzh-cont':comment.liked==='1'}"
+                             v-tap="{methods: onLike, status: comment.liked, id: comment._id, index: idx}"
                              drunk-on="click:onLike(idx)">
                             <span class="dianz-icon"></span>
                             <em>{{comment.likes}}</em>
@@ -29,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="list-cont" drunk-on="click:onReport(comment._id,comment.nickname)">{{comment.content}}</div>
+                <div class="list-cont" v-tap="{methods: clickComment, commentReplyId: comment._id, replyName:comment.nickname }" drunk-on="click:onReport(comment._id,comment.nickname)">{{comment.content}}</div>
                 <div class="list-cont floors-cont" v-if="comment.r_content">
                     <ul class="comm-list">
                         <li>
@@ -61,14 +62,14 @@
 
 <script>
     import snap from '~components/snap.vue'
+    import report from '~components/detail/report.vue'
     import {aTypes, mTypes} from '~store/zqdetail'
-
     export default {
         async asyncData ({store, route: {params}}) {
             await Promise.all([
                 store.dispatch(aTypes.getEventAndStatistics, {fid: params.fid}),
-                store.dispatch(aTypes.getTotal, {fid: params.fid}),
-                store.dispatch(aTypes.getVote, {fid: params.fid})
+                store.dispatch(aTypes.getTotal, {fid: params.fid})
+//                store.dispatch(aTypes.getVote, {fid: params.fid})
 //                store.dispatch(aTypes.getCommentList, {type: '1', fid: params.fid, pageNo: 0, tab: 'time'})
             ])
         },
@@ -160,7 +161,38 @@
                 }
             },
             onReply ({commentReplyId, replyName}) {
+                this.$store.dispatch('ensureLogin')
                 this.$store.commit(mTypes.showEditorDialog, {commentReplyId, replyName})
+            },
+            async onLike ({status, id, index}) {
+                this.$store.dispatch('ensureLogin')
+                await this.$store.dispatch(aTypes.onLike, {status, id})
+                let info = this.commentList[index]
+                info.liked = (info.liked === '0' ? '1' : '0')
+                info.likes = info.likes + (info.liked === '0' ? -1 : 1)
+            },
+            clickComment ({commentReplyId, replyName}) {
+                this.$store.commit(mTypes.setDialog, {
+                    component: report,
+                    params: {
+                        onClose: () => {
+                            this.$store.commit(mTypes.setDialog, {})
+                        },
+                        onReply: () => {
+                            this.$store.dispatch('ensureLogin')
+                            this.onReply({commentReplyId, replyName})
+                            this.$store.commit(mTypes.setDialog, {})
+                        },
+                        onReport: async () => {
+                            this.$store.dispatch('ensureLogin')
+                            await this.$store.dispatch(aTypes.onReport, commentReplyId)
+                            await this.$store.commit(mTypes.setDialog, {})
+                            this.$store.dispatch('showToast', '举报成功')
+
+                        }
+
+                    }
+                })
             }
         },
         destroyed () {

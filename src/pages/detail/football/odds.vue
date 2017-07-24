@@ -14,7 +14,7 @@
         <div class="zj-nav noborder" v-if="!~$route.path.indexOf('bifa')"> 赔率列表
             <ul class="time-item">
                 <li class="time-item-cur" onclick="_hmt.push(['_trackEvent','zq_detail','click','odds_opdz'])"
-                    drunk-on="click:onCustomOdds()">编辑
+                    v-tap="{methods: edit}">编辑
                 </li>
             </ul>
         </div>
@@ -29,6 +29,26 @@
     <!--<if: subtab=='crazybet' />-->
     </div>
 </template>
+<script>
+    import customodds from '~components/detail/football/odds/customodds.vue'
+    import {mTypes} from '~store/zqdetail'
+    export default {
+        components: {
+            customodds
+        },
+        methods: {
+            edit () {
+                this.$store.dispatch('ensureLogin')
+                this.$store.commit(mTypes.setDialog, {component: customodds, params: {ptype: this.ptype}})
+            }
+        },
+        computed: {
+            ptype () {
+                return this.$route.path.substr(this.$route.path.lastIndexOf('/') + 1)
+            }
+        }
+    }
+</script>
 <style scoped>
     a:-webkit-any-link {
         color: inherit;
