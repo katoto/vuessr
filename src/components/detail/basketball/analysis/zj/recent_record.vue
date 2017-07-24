@@ -1,13 +1,20 @@
 <template>
-    <div v-if="noEmptyFlag">
+    <div>
         <div class="zhedie-box">
             <div class="zj-nav">
                 近期战绩
             </div>
-            <fight-box :matchesObj='recent_record.alist' hoa='awaysxname' v-if="noEmptyFlag_home">
-            </fight-box>
-            <fight-box :matchesObj='recent_record.hlist' v-if="noEmptyFlag_away">
-            </fight-box>
+            <template v-if="noEmptyFlag">
+                <fight-box :matchesObj='recent_record.alist' hoa='awaysxname' v-if="noEmptyFlag_home">
+                </fight-box>
+                <fight-box :matchesObj='recent_record.hlist' v-if="noEmptyFlag_away">
+                </fight-box>
+            </template>
+            <div class="feed-back" v-else>
+                <div class="feed-box">
+                    <em>暂无数据</em>
+                </div>
+            </div>
         </div>
     </div>
 </template>

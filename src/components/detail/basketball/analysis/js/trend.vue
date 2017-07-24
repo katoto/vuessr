@@ -6,65 +6,102 @@
                 <li class="click-zf" :class="{'time-item-cur': vtype == 2}" v-tap="{methods: updateTrendData, vtype: 2}">总分</li>
             </ul>
         </div>
+        <template v-if="noEmptyFlag">
+            <div class="zhedie show">
+                <div class="jqzs-fc" v-if="trend.away">
+                    <div class="pm-namel fczs-cont ">
+                        <div class="pm-img">
+                            <img :src="baseinfo.awaylogo">
+                        </div>
+                        <div class="fczs">
+                            <div class="fczs-jt">{{trendType[trend.away.exp]}}<em :class="trendTypeClass[trend.away.exp]"><i></i></em></div>
+                            <div class="fczs-txt">近期状态</div>
+                        </div>
+                    </div>
+                    <div class="vic-cont">
+                        <template  v-if="vtype === 1">
+                            <div class="line-horiz" v-if="trend.home.level" :style="trendTopHome"><em>{{trend.home.level}}</em></div>
+                            <ul class="vic-list vic-list-fc">
+                                <li class="vic-item-empty" v-tap="{methods: () => trendFid = item.fid}" :class="{'vic-item-lose': item.value<0,'vic-item-win': item.value>0,'vic-item-coming':!item.value&&item.fid}" v-for="(item, idx) in trend.away.coords">
+                                    <span :style="trendHeightAway[idx]">
+                                        <em class="line-ver" v-if="item.value&&item.fid&&trendFid&&trendFid==item.fid"><i>{{item.matchdate.substring(5,10)}}<br>{{item.awaysxname}}{{item.awayscore}}:{{item.homescore}}{{item.homesxname}}</i></em>
+                                    </span>
+                                    <span v-if="!item.value&&!item.fid" ></span>
+                                </li>
+                            </ul>
+                        </template>
+                        <template v-if="vtype === 2">
+                            <div class="line-horiz" v-if="trend.home.level" :style="trendTotalTopHome"><em>{{trend.home.level}}</em></div>
+                            <ul class="vic-list">
+                                <li class="vic-item-empty" v-tap="{methods: () => trendFid = item.fid}" :class="{'vic-item-lose':item.state=='0','vic-item-win':item.state=='3','vic-item-coming':!item.state}" v-for="(item, idx) in trend.away.coords"  v-if="vtype === 2">
+                                    <span :style="totalTrendHeightAway[idx]">
+                                        <em class="line-ver" v-if="item.value&&item.fid&&trendFid&&trendFid==item.fid"><i>{{item.matchdate.substring(5,10)}}<br>{{item.awaysxname}}{{item.awayscore}}:{{item.homescore}}{{item.homesxname}}</i></em>
+                                    </span>
+                                    <span v-if="!item.value&&!item.fid" ></span>
+                                </li>
+                            </ul>
+                        </template>
+                    </div>
+                    <p class="jqzs-notice"> 近20天分差走势</p>
+                </div>
+                <div class="jqzs-fc" v-if="trend.home">
+                    <div class="pm-namel fczs-cont ">
+                        <div class="pm-img">
+                            <img :src="baseinfo.homelogo">
+                        </div>
+                        <div class="fczs">
+                            <div class="fczs-jt">{{trendType[trend.home.exp]}}<em :class="trendTypeClass[trend.home.exp]"><i></i></em></div>
+                            <div class="fczs-txt">近期状态</div>
+                        </div>
+                    </div>
+                    <div class="vic-cont ">
+                        <template  v-if="vtype === 1">
+                            <div class="line-horiz" v-if="trend.home.level" :style="trendTopAway"><em>{{trend.away.level}}</em></div>
+                            <ul class="vic-list vic-list-fc">
+                                <li class="vic-item-empty" v-tap="{methods: () => trendFid = item.fid}" :class="{'vic-item-lose': item.value<0,'vic-item-win': item.value>0,'vic-item-coming':!item.value&&item.fid}" v-for="(item, idx) in trend.home.coords">
+                                    <span :style="trendHeightHome[idx]">
+                                        <em class="line-ver" v-if="item.value&&item.fid&&trendFid&&trendFid==item.fid"><i>{{item.matchdate.substring(5,10)}}<br>{{item.awaysxname}}{{item.awayscore}}:{{item.homescore}}{{item.homesxname}}</i></em>
+                                    </span>
+                                    <span v-if="!item.value&&!item.fid" ></span>
+                                </li>
+                            </ul>
+                        </template>
+                        <template v-if="vtype === 2">
+                            <div class="line-horiz" v-if="trend.home.level" :style="trendTotalTopAwayaway"><em>{{trend.away.level}}</em></div>
+                            <ul class="vic-list">
+                                <li class="vic-item-empty" v-tap="{methods: () => trendFid = item.fid}" :class="{'vic-item-lose':item.state=='0','vic-item-win':item.state=='3','vic-item-coming':!item.state}" v-for="(item, idx) in trend.home.coords">
+                                    <span :style="totalTrendHeightHome[idx]">
+                                        <em class="line-ver" v-if="item.value&&item.fid&&trendFid&&trendFid==item.fid"><i>{{item.matchdate.substring(5,10)}}<br>{{item.awaysxname}}{{item.awayscore}}:{{item.homescore}}{{item.homesxname}}</i></em>
+                                    </span>
+                                    <span v-if="!item.value&&!item.fid" ></span>
+                                </li>
+                            </ul>
+                        </template>
+                    </div>
+                    <p class="jqzs-notice"> 近20天分差走势</p>
+                </div>
 
-        <div class="zhedie show">
-            <div class="jqzs-fc" v-if="trend.away">
-                <div class="pm-namel fczs-cont ">
-                    <div class="pm-img">
-                        <img :src="baseinfo.awaylogo">
-                    </div>
-                    <div class="fczs">
-                        <div class="fczs-jt">{{trendType[trend.away.exp]}}<em :class="trendTypeClass[trend.away.exp]"><i></i></em></div>
-                        <div class="fczs-txt">近期状态</div>
-                    </div>
-                </div>
-                <div class="vic-cont ">
-                    <!-- <div class="line-horiz"  ><em></em></div> -->
-                    <ul class="vic-list vic-list-fc">
-                        <li class="vic-item-empty" :class="{'vic-item-lose': item.value<0,'vic-item-win': item.value>0,'vic-item-coming':!item.value&&item.fid}" v-for="(item, idx) in trend.away.coords">
-                            <span :style="trendHeightAway[idx]" v-if="vtype === 1"></span>
-                            <span :style="totalTrendHeightAway[idx]" v-if="vtype === 2"></span>
-                            <!-- <span drunk-if="!item.value&&!item.fid" ></span> -->
-                        </li>
-                    </ul>
-                </div>
-                <p class="jqzs-notice"> 近20天分差走势</p>
             </div>
-            <div class="jqzs-fc" v-if="trend.home">
-                <div class="pm-namel fczs-cont ">
-                    <div class="pm-img">
-                        <img :src="baseinfo.homelogo">
-                    </div>
-                    <div class="fczs">
-                        <div class="fczs-jt">{{trendType[trend.home.exp]}}<em :class="trendTypeClass[trend.home.exp]"><i></i></em></div>
-                        <div class="fczs-txt">近期状态</div>
-                    </div>
-                </div>
-                <div class="vic-cont ">
-                    <ul class="vic-list vic-list-fc">
-                        <li class="vic-item-empty" :class="{'vic-item-lose': item.value<0,'vic-item-win': item.value>0,'vic-item-coming':!item.value&&item.fid}" v-for="(item, idx) in trend.home.coords">
-                            <span :style="trendHeightHome[idx]" v-if="vtype === 1"></span>
-                            <span :style="totalTrendHeightHome[idx]" v-if="vtype === 2"></span>
-                        </li>
-                    </ul>
-                </div>
-                <p class="jqzs-notice"> 近20天分差走势</p>
+
+            <!--图形解释-->
+            <div class="fczs-notice" v-if="vtype === 1">
+                <span><em class="point-red"></em>胜</span>
+                <span><em class="point-blue"></em>负</span>
+                <span><em class="xs">---</em>日期</span>
+                <span><em class="zx">——</em>本场让分盘口</span>
+            </div>
+            <div class="fczs-notice" v-else>
+                <span><em class="point-red"></em>大分</span>
+                <span><em class="point-blue"></em>小分</span>
+                <span><em class="xs">---</em>日期</span>
+                <span><em class="zx">——</em>本场大小分盘口</span>
             </div>
 
-        </div>
-
-        <!--图形解释-->
-        <div class="fczs-notice" drunk-if="basketBallTrend_1&&trendType=='1'">
-            <span><em class="point-red"></em>胜</span>
-            <span><em class="point-blue"></em>负</span>
-            <span><em class="xs">---</em>日期</span>
-            <span><em class="zx">——</em>本场让分盘口</span>
-        </div>
-        <div class="fczs-notice" drunk-if="basketBallTrend_2&&trendType=='2'">
-            <span><em class="point-red"></em>大分</span>
-            <span><em class="point-blue"></em>小分</span>
-            <span><em class="xs">---</em>日期</span>
-            <span><em class="zx">——</em>本场大小分盘口</span>
+        </template>
+        <div class="feed-back" v-else>
+            <div class="feed-box">
+                <em>暂无数据</em>
+            </div>
         </div>
 
     </div>
@@ -100,32 +137,60 @@ export default {
                 bad: 'zsc',
                 terrible: 'zsjc'
             },
-            vtype: 1
+            vtype: 1,
+            trendFid: null
         }
     },
     computed: {
         totalTrendHeightHome() {
+            if(this.vtype === 1) return []
             return this.trend.home.coords.map((item) => {
-                return `height: ${this.makeTotalTrendHeight(item.value, 20)}%`
+                if(!item.value) return ''
+                return `height: ${this.makeTotalTrendHeight(item.value - 170, 75)}%`
             })
         },
         totalTrendHeightAway() {
+            if(this.vtype === 1) return []
             return this.trend.away.coords.map((item) => {
-                return `height: ${this.makeTotalTrendHeight(item.value, 20)}%`
+                if(!item.value) return ''
+                return `height: ${this.makeTotalTrendHeight(item.value - 170, 75)}%`
             })
         },
         trendHeightHome() {
+            if(this.vtype === 2) return []
             return this.trend.home.coords.map((item) => {
+                if(!item.value) return ''
                 return `height: ${this.makeTrendHeight(item.value, 20)}%`
             })
         },
         trendHeightAway() {
+            if(this.vtype === 2) return []
             return this.trend.away.coords.map((item) => {
+                if(!item.value) return ''
                 return `height: ${this.makeTrendHeight(item.value, 20)}%`
             })
         },
+        trendTopHome() {
+            if(this.vtype === 2) return ''
+            return `top: ${this.makeTrendTop(this.trend.home.level, 20)}%`
+        },
+        trendTopAway() {
+            if(this.vtype === 2) return ''
+            return `top: ${this.makeTrendTop(0 - this.trend.home.level, 20)}%`
+        },
+        trendTotalTopHome() {
+            if(this.vtype === 1) return ''
+            return `top: ${this.makeTrendTop(this.trend.home.level - 170, 75)}%`
+        },
+        trendTotalTopAway() {
+            if(this.vtype === 1) return ''
+            return `top: ${this.makeTrendTop(this.trend.home.level - 170, 75)}%`
+        },
         loaded () {
             return this.$store.state.refreshing === 0
+        },
+        noEmptyFlag() {
+            return this.noEmpty(this.trend)
         }
     },
     methods: {
@@ -144,13 +209,27 @@ export default {
             }
             return 0;
         },
+        makeTrendTop(val, total) {
+            if (val > 0) {
+                return (100 - val * 100 / total) / 2
+            }
+            if (val < 0) {
+                return ((((0 - val) / total) * 100) / 2 + 50)
+            }
+            return 0;
+        },
         async updateTrendData({vtype}) {
+            this.trend = null
             this.vtype = vtype
             this.$store.commit('startOneRefresh')
             const {fid, homeid, awayid, matchtime} = this.baseinfo // baseInfo 保证有数据了
             const matchdate = matchtime && matchtime.substr(0, 10)
             await this.$store.dispatch(aTypes.getAnalysisJsTrend, {fid, homeid, awayid, matchdate, vtype: vtype})
             this.$store.commit('endOneRefresh')
+        },
+        noEmpty(obj) {
+            if (obj) return !!Object.keys(obj).length
+            return false
         }
     },
     watch: {

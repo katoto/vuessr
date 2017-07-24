@@ -4,7 +4,7 @@
     		<div class="zj-nav">
     			联赛排名
     		</div>
-    		<div class="zhedie">
+    		<div class="zhedie" v-if="noEmptyFlag">
     			<div v-for="hoa in ['away', 'home']">
     				<div class="pm-namel">
     					{{baseinfo[hoa + 'sxname']}} ({{baseinfo.simpleleague}})
@@ -49,12 +49,27 @@
     				</table>
     			</div>
     		</div>
+            <div class="feed-back" v-else>
+                <div class="feed-box">
+                    <em>暂无数据</em>
+                </div>
+            </div>
     	</div>
     </div>
 </template>
 
 <script>
 export default {
+    props: {
+        baseinfo: {
+            type: Object,
+            required: true
+        },
+        leaguerank: {
+            type: Array,
+            required: true
+        }
+    },
     data () {
         return {
             LeagueRankType: {
@@ -84,14 +99,10 @@ export default {
             return this.noEmpty(this.leaguerank)
         }
     },
-    props: {
-        baseinfo: {
-            type: Object,
-            required: true
-        },
-        leaguerank: {
-            type: Array,
-            required: true
+    methods: {
+        noEmpty (obj) {
+            if (obj) { return !!Object.keys(obj).length }
+            return false
         }
     }
 }

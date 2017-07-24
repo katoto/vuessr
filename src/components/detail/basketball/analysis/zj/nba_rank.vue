@@ -4,7 +4,7 @@
     		<div class="zj-nav noborder">
     			NBA排名
     		</div>
-    		<div class="zhedie show">
+    		<div class="zhedie show" v-if="noEmptyFlag">
     			<table width="100%" cellpadding="0" cellspacing="0" class="fx-table fb-lq">
     			<tbody>
     			<tr>
@@ -55,12 +55,23 @@
     			</tbody>
     			</table>
     		</div>
+            <div class="feed-back" v-else>
+                <div class="feed-box">
+                    <em>暂无数据</em>
+                </div>
+            </div>
     	</div>
     </div>
 </template>
 
 <script>
 export default {
+    props: {
+        nbarank: {
+            type: Object,
+            required: true
+        }
+    },
     data () {
         return {
             status: {
@@ -80,10 +91,15 @@ export default {
             }
         }
     },
-    props: {
-        nbarank: {
-            type: Object,
-            required: true
+    computed: {
+        noEmptyFlag () {
+            return this.noEmpty(this.leaguerank)
+        }
+    },
+    methods: {
+        noEmpty (obj) {
+            if (obj) { return !!Object.keys(obj).length }
+            return false
         }
     },
     filters: {

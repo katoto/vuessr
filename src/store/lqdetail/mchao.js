@@ -72,14 +72,25 @@ const actionsInfo = mapActions({
         let trend = await ajax.get(`/score/lq/trend?fid=${fid}&homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&vtype=${vtype}&T=${Date.now()}`)
         commit(mTypes.setAnalysisJsTrend, trend)
     },
-    async getAnalysisZr ({commit}, {homeid, awayid, fid}) {
+    async getAnalysisZr ({commit}, {homeid, awayid, seasonid, vtype}) {
         let result = await Promise.all([
-            ajax.get(`/score/lq/teamworth?fid=${fid}`),
-            ajax.get(`/score/lq/formation?homeid=${homeid}&fid=${fid}&awayid=${awayid}`),
-            ajax.get(`/score/lq/lineup?fid=${fid}`)
+            ajax.get(`/score/lq/best3?homeid=${homeid}&awayid=${awayid}&seasonid=${seasonid}&T=${Date.now()}`),
+            ajax.get(`/score/lq/members?homeid=${homeid}&awayid=${awayid}&seasonid=${seasonid}&vtype=${vtype}&T=${Date.now()}`)
         ])
-        const [teamworth, formation, lineup] = result
-        commit(mTypes.setAnalysisZr, {teamworth, formation, lineup})
+        const [best3, members] = result
+        commit(mTypes.setAnalysisZr, {best3, members})
+    },
+    async getAnalysisZrMembers ({commit}, {homeid, awayid, seasonid, vtype, hoa}) {
+        let members = await ajax.get(`/score/lq/members?homeid=${homeid}&awayid=${awayid}&seasonid=${seasonid}&vtype=${vtype}&T=${Date.now()}`)
+        commit(mTypes.setAnalysisZrMembers, {members, hoa})
+    },
+    async getAnalysisJj ({commit}, {homeid, awayid, seasonid}) {
+        let result = await Promise.all([
+            ajax.get(`/score/lq/members_advanced?homeid=${homeid}&awayid=${awayid}&seasonid=${seasonid}&T=${Date.now()}`),
+            ajax.get(`/score/lq/team_misc?homeid=${homeid}&awayid=${awayid}&seasonid=${seasonid}&T=${Date.now()}`)
+        ])
+        const [members_advanced, team_misc] = result
+        commit(mTypes.setAnalysisJj, {members_advanced, team_misc})
     },
     async getCommentList ({commit}, {type, fid, pageNo, tab, pageSize = 10}) {
         let result = await ajax.get(`/sns/score/commentlist?vtype=${type}&fid=${fid}&pn=${pageNo}&tab=${tab}&rn=${pageSize}&_t=` + new Date().getTime())
@@ -118,10 +129,16 @@ const mutationsInfo = mapMutations({
     setAnalysisJsTrend(state, trend) {
         state.analysis.js.trend = trend
     },
-    setAnalysisZr (state, {teamworth, formation, lineup}) {
-        state.analysis.zr.teamworth = teamworth
-        state.analysis.zr.formation = formation
-        state.analysis.zr.lineup = lineup
+    setAnalysisZr (state, {best3, members}) {
+        state.analysis.zr.best3 = best3
+        state.analysis.zr.members = members
+    },
+    setAnalysisZrMembers(state, {members, hoa}) {
+        state.analysis.zr.members[hoa] = members[hoa]
+    },
+    setAnalysisJj (state, {members_advanced, team_misc}) {
+        state.analysis.jj.members_advanced = members_advanced
+        state.analysis.jj.team_misc = team_misc
     },
     reset (state) {
         const iState = JSON.parse(JSON.stringify(initState))

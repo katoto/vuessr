@@ -6,57 +6,64 @@
                 <li class="time-item-cur more-zl" v-tap='{methods: beginStatBox}'>更多</li>
             </ul>
         </div>
-        <div class="zhzl-box">
-            <div class="zhzl-title">综合评分</div>
-            <div class="zhzl-vs">
-                <div class="zhzl-l" :class="makeColorClass('finalscore')" :style="makeWidthStyle('finalscore')">
-                    <div class="wua">
-                        <div class="hh"></div>
+        <template v-if="noEmptyFlag">
+            <div class="zhzl-box">
+                <div class="zhzl-title">综合评分</div>
+                <div class="zhzl-vs">
+                    <div class="zhzl-l" :class="makeColorClass('finalscore')" :style="makeWidthStyle('finalscore')">
+                        <div class="wua">
+                            <div class="hh"></div>
+                        </div>
+                    </div>
+                    <div class="zhzl-r" :class="makeColorClass('finalscore', true)" :style="makeWidthStyle('finalscore', true)">
+                        <div class="wua">
+                            <div class="hh"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="zhzl-r" :class="makeColorClass('finalscore', true)" :style="makeWidthStyle('finalscore', true)">
-                    <div class="wua">
-                        <div class="hh"></div>
-                    </div>
-                </div>
+                <div class="zhzl-bfb-left">{{strength.finalscore.away}}</div>
+                <div class="zhzl-bfb-right">{{strength.finalscore.home}}</div>
             </div>
-            <div class="zhzl-bfb-left">{{strength.finalscore.away}}</div>
-            <div class="zhzl-bfb-right">{{strength.finalscore.home}}</div>
-        </div>
-        <div class="zhedie" drunk-show="isStrength">
-            <ul class="zhzl-list">
-                <li class="responsive">
-                    <div class="zhzl-left">{{strength.shoot.away}}%</div>
-                    <div class="each-resone">
-                        <div class="zhzl-classify">投篮命中率</div>
-                        <div class="responsive">
-                            <div class="each-resone l-relative">
-                                <div class="zhzl-vs-left" :class="makeColorClass('shoot')" :style="makeWidthStyle('shoot')"></div>
-                            </div>
-                            <div class="each-resone l-relative">
-                                <div class="zhzl-vs-right" :class="makeColorClass('shoot', true)" :style="makeWidthStyle('shoot', true)"></div>
+            <div class="zhedie" drunk-show="isStrength">
+                <ul class="zhzl-list">
+                    <li class="responsive">
+                        <div class="zhzl-left">{{strength.shoot.away}}%</div>
+                        <div class="each-resone">
+                            <div class="zhzl-classify">投篮命中率</div>
+                            <div class="responsive">
+                                <div class="each-resone l-relative">
+                                    <div class="zhzl-vs-left" :class="makeColorClass('shoot')" :style="makeWidthStyle('shoot')"></div>
+                                </div>
+                                <div class="each-resone l-relative">
+                                    <div class="zhzl-vs-right" :class="makeColorClass('shoot', true)" :style="makeWidthStyle('shoot', true)"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="zhzl-right">{{strength.shoot.home}}%</div>
-                </li>
-                <li class="responsive" v-for="(name, type) in strengthType">
-                    <div class="zhzl-left">{{strength[type].away}}</div>
-                    <div class="each-resone">
-                        <div class="zhzl-classify">{{name}}</div>
-                        <div class="responsive">
-                            <div class="each-resone l-relative">
-                                <div class="zhzl-vs-left" :class="leftColorClass[type]" :style="leftWidthStyle[type]"></div>
-                            </div>
-                            <div class="each-resone l-relative">
-                                <div class="zhzl-vs-right" :class="rightColorClass[type]" :style="rightWidthStyle[type]"></div>
+                        <div class="zhzl-right">{{strength.shoot.home}}%</div>
+                    </li>
+                    <li class="responsive" v-for="(name, type) in strengthType">
+                        <div class="zhzl-left">{{strength[type].away}}</div>
+                        <div class="each-resone">
+                            <div class="zhzl-classify">{{name}}</div>
+                            <div class="responsive">
+                                <div class="each-resone l-relative">
+                                    <div class="zhzl-vs-left" :class="leftColorClass[type]" :style="leftWidthStyle[type]"></div>
+                                </div>
+                                <div class="each-resone l-relative">
+                                    <div class="zhzl-vs-right" :class="rightColorClass[type]" :style="rightWidthStyle[type]"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="zhzl-right">{{strength[type].home}}</div>
-                </li>
-            </ul>
-            <div class="zhzl-tips">数据来自NBA常规赛球队场均统计</div>
+                        <div class="zhzl-right">{{strength[type].home}}</div>
+                    </li>
+                </ul>
+                <div class="zhzl-tips">数据来自NBA常规赛球队场均统计</div>
+            </div>
+        </template>
+        <div class="feed-back" v-else>
+            <div class="feed-box">
+                <em>暂无数据</em>
+            </div>
         </div>
     </div>
 
@@ -136,6 +143,9 @@ export default {
                 }
             }
             return widthObj
+        },
+        noEmptyFlag() {
+            return this.noEmpty(this.strength)
         }
     },
     methods: {
@@ -158,6 +168,10 @@ export default {
                     stats: this.stats
                 }
             })
+        },
+        noEmpty(obj) {
+            if (obj) return !!Object.keys(obj).length
+            return false
         }
     }
 }

@@ -2,6 +2,9 @@
     <div class="">
         <strength :baseinfo='baseinfo' :strength='strength' :stats='stats' v-if="strength"></strength>
         <trend :baseinfo='baseinfo' :trend='trend' v-if="trend"></trend>
+        <div class="sk-btips">
+            500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
+        </div>
     </div>
 </template>
 
