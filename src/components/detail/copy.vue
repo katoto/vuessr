@@ -37,7 +37,6 @@
             clickLink ({event}) {
                 event.preventDefault()
                 event.stopPropagation()
-                console.log(event)
             }
         },
         computed: {

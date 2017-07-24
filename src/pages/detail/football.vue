@@ -274,9 +274,7 @@
                 this.$store.commit(mTypes.showEditorDialog, {})
             },
             doShare (nativeShare) {
-
-
-                // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
+            // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
                 try {
                     nativeShare.call()
                     // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
@@ -284,13 +282,13 @@
                 } catch (err) {
 //                    alert(err.message)
                     // 如果不支持，你可以在这里做降级处理
-                    this.$store.commit(mTypes.setDialog, {component: copy, params: {
-                        onClose: () => {
-                            this.$store.commit(mTypes.setDialog, {})
-                        }
-                    }})
+                    this.$store.commit(mTypes.setDialog, {component: copy,
+                        params: {
+                            onClose: () => {
+                                this.$store.commit(mTypes.setDialog, {})
+                            }
+                        }})
                 }
-
             },
             showShareMode () {
                 // 先创建一个实例

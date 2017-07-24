@@ -1,4 +1,5 @@
 /**
+ * 默认发生任何异常都返回一个空对象
  * Created by lichun on 2017/5/10.
  */
 import axios from 'axios'
