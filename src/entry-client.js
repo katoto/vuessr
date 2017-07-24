@@ -1,5 +1,6 @@
 // import Vue from 'vue'
 import 'es6-promise/auto'
+import platform from '~common/platform'
 import { createApp } from './app'
 // import ProgressBar from './components/ProgressBar.vue'
 
@@ -85,7 +86,11 @@ router.onReady(() => {
     */
 
     // actually mount to DOM
-    app.$mount('#app')
+    platform.ready(() => {
+        window.EsApp && window.EsApp.invoke('titleBar', {isShow: '0', title: '比分详情'})
+
+        app.$mount('#app')
+    })
 })
 
 // service worker

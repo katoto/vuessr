@@ -50,11 +50,11 @@
 
                     <dl class="jh" v-if="event.eventtype == EventType.HUAN_REN">
                         <dd>
-                            {{event.exchange_player[0]}}
+                            {{(event.exchange_player[0]||'')|truncate(8)}}
                             <i class="green-arrow"></i>
                         </dd>
                         <dd>
-                            {{event.exchange_player[1]}}
+                            {{(event.exchange_player[1]||'')|truncate(8)}}
                             <i class="red-arrow"></i>
                         </dd>
                     </dl>
@@ -98,6 +98,15 @@
         computed: {
             match () {
                 return this.$store.state.zqdetail.baseInfo
+            }
+        },
+        filters: {
+            truncate: (val, num) => {
+                if (val.length > num) {
+                    return val.substr(0, num) + '...'
+                } else {
+                    return val
+                }
             }
         }
 

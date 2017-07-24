@@ -16,13 +16,16 @@
     <!--<link rel="stylesheet" href="http://tccache.500.com/mobile/touch/css/league.css">-->
 
 </head>
-<body class="l-flex-column l-full">
+<!--<body class="l-flex-column l-full">
 <div style="background-color: black;height: 5rem"></div>
 
 
 <div class="l-flex-1 l-relative">
-    <div class="l-full">
-        <div style="background-color: black;height: 5rem"></div>
+    <div class="l-full l-scroll-y">
+        <div style="transform: translate3d(0px, 0px, 0px) scale(1); height: 100rem">
+            <div style="background-color: red;height: 5rem"></div>
+        </div>
+
 
 
 
@@ -30,5 +33,101 @@
 
 
 </div>
-</body>
+</body>-->
+
+<body>
+
+
+<div id="app"><div class="l-full l-flex-column"><div class="detailTop topBarMove2" style="display:block;"><a onclick="history.back()" href="javascript:;" class="back-icon">返回</a><a href="/home/zq/jczq/cur" class="link-index f26">比分首页</a><div onclick="home.goLeague()" class="r-sn f24">吉尼斯杯</div><div id="_concern" onclick="home.doConcern()" class="topR" style="display:none;"><div class="sk-gz"></div></div><div id="_sharemode" onclick="home.showShareMode()" class="topR" style="display:block;"><div class="sk-point"></div></div><div class="fen-box f30 responsive"><span id="team_home" class="itm-team each-resone">AC米兰</span><div class="itm-bf">&nbsp;&nbsp;VS&nbsp;&nbsp;</div><span id="team_away" class="itm-team each-resone">多  特</span></div></div><div class="l-flex-1 l-relative"><div class="l-full _scroll_container"><div class="navigator hide" style="position: absolute; top: 0px; left: 0px; right: 0px; transform: translate3d(0px, 397px, 0px) scale(1); display: block;"><ul><li class=""><a href="/detail/football/662988/situation" class=""><span>赛况<i class="sktab-arrow"></i></span></a></li><li class="cur"><a href="/detail/football/662988/analysis/zj" class="router-link-exact-active router-link-active"><span>分析<i class="sktab-arrow"></i></span></a></li><li class=""><a href="/detail/football/662988/predict" class=""><span>预测<i class="sktab-arrow"></i></span></a></li><li class=""><a href="/detail/football/662988/odds/europe" class=""><span>赔率<i class="sktab-arrow"></i></span></a></li><li class=""><a href="/detail/football/662988/comment" class=""><span>聊球<i class="sktab-arrow"></i></span></a></li><li class=""><a href="/detail/football/662988/crazybet" class=""><span>猜球<i class="sktab-arrow"></i></span></a></li></ul></div><div class="_scroll_content" style="transform: translate3d(0px, 0px, 0px) scale(1);"><div class="zq-header _header " style="transform-origin: 50% 100.5% 0px; transform: scale(1);"><div class="fen-box"><!----><!----><div class="wks">VS</div><div class="left-img"><div class="img-box"><img src="http://odds.500.com/static/soccerdata/images/TeamPic/teamsignnew_210.png"></div><h2 class="left-name f28">AC米兰<span class="zhongli f20"> (中)</span></h2><p class="header-pm f20">意甲排名6</p></div><div class="right-img"><div class="img-box"><img src="http://odds.500.com/static/soccerdata/images/TeamPic/teamsignnew_786.png"></div><h2 class="right-name f28">多  特</h2><p class="header-pm f20">暂无排名</p></div></div><div class="game-info"><!----><!----><!----><div class="game-time f20">07-18 19:20</div></div><div class="sk-tips"></div></div><div class="navigator " style="width:0;"></div><div class="main-inner2"><div><div class="sk-detail-tap-box"><ul class="sk-detail-tap three"><li data-type="zq_detail" data-tab="analysis_zj" data-event="click" class="cur"><a href="/detail/football/662988/analysis/zj" class="router-link-exact-active router-link-active">战绩</a></li><li class=""><a href="/detail/football/662988/analysis/js" class="">技术</a></li><li class=""><a href="/detail/football/662988/analysis/pm" class="">盘面</a></li><li class=""><a href="/detail/football/662988/analysis/zr" class="">阵容</a></li></ul></div><div><div><div class="zhedie-box"><div class="zj-nav">
+    联赛积分排名
+    <ul id="tabBefore" class="volumeTab"><li class="cur">全部</li><li class="">主客</li></ul></div><div class="zhedie show"><table width="100%" cellpadding="0" cellspacing="0" class="fx-table fb"><tbody><tr><th colspan="2">排名</th><th width="18%">赛事</th><th width="10%">赛</th><th width="15%">胜/平/负</th><th width="12%">进/失</th><th width="12%">积分</th></tr><tr><td>6</td><td><div class="rank-team"><img src="http://odds.500.com/static/soccerdata/images/TeamPic/teamsignnew_210.png">AC米兰</div></td><td>意甲</td><td>38</td><td>
+    18/9/11
+</td><td>57/45
+</td><td><p class="textcenter">63</p></td></tr><tr><td></td><td><div class="rank-team"><img src="http://odds.500.com/static/soccerdata/images/TeamPic/teamsignnew_786.png">多  特</div></td><td></td><td>--</td><td>
+    --
+</td><td>--
+</td><td><p class="textcenter">--</p></td></tr></tbody></table></div><!----></div><!----><!----><!----><div class="zhedie-box"><div class="zj-nav"><span onclick="_hmt.push(['_trackEvent','zq_detail','click','analysis_zj_ls'])" drunk-on="click: filterVisible = true, currFilterOptions = fightingFilterOptions, $event.stopPropagation()" class="saixuan">筛选</span>
+    历史交战
+</div><div class="zhedie"><div class="zd-detail"><div class="gaik clear"><span class="f30 color3 fl">近2场交战&nbsp;&nbsp;&nbsp;AC米兰</span><span class="f30 fl"><i class="win tcell">1胜</i><i class="tie tcell">0平</i><i class="lose tcell">1负</i></span><span class="f30 color3 fl">
+                    胜率50%
+                </span></div><div class="total-tips">
+    场均净胜0.0球，场均总进1.0球，
+    大球0次，小球2次
+</div></div><table width="100%" cellpadding="0" cellspacing="0" class="fx-table"><colgroup><col width="20%"><col width="22%"><col width="18%"><col width="22%"><col></colgroup><tbody><tr><th>赛事</th><th><div class="textright">主队</div></th><th>比分</th><th><div class="textleft">客队</div></th><th>赛果</th></tr><tr><td><span class="color9">欧冠</span><span class="colorc f20">03-03-19</span></td><td><div class="textright lose"><!---->AC米兰
+</div></td><td>0:1<span class="color9">(0:0)</span></td><td><div class="textleft">
+    多  特
+    <!----></div></td><td onclick="_hmt.push(['_trackEvent','zq_detail','click','analysis_zj_ls2'])"><div class="blue-k">
+    负
+</div><!----><!----></td></tr><tr><td><span class="color9">欧冠</span><span class="colorc f20">02-12-12</span></td><td><div class="textright"><!---->多  特
+</div></td><td>0:1<span class="color9">(-:-)</span></td><td><div class="textleft win">
+    AC米兰
+    <!----></div></td><td onclick="_hmt.push(['_trackEvent','zq_detail','click','analysis_zj_ls2'])"><div class="red-k">
+    胜
+</div><!----><!----></td></tr></tbody></table></div></div><div class="zhedie-box"><div class="zj-nav"><span class="saixuan">筛选</span>
+    近期战绩
+</div><div class="zhedie"><div class="zd-detail"><div class="gaik clear"><span class="f30 color3 fl">近10场 AC米兰</span><span class="f30 fl"><i class="win tcell">3胜</i><i class="tie tcell">4平</i><i class="lose tcell">3负</i></span><span class="f30 color3 fl">
+                        胜率30%
+                    </span></div><div class="total-tips">
+    场均进1.9球，场均失1.3球，
+    大球7次，小球3次
+</div></div><table width="100%" cellpadding="0" cellspacing="0" class="fx-table"><colgroup><col width="20%"><col width="22%"><col width="18%"><col width="22%"><col></colgroup><tbody><tr><th>赛事</th><th><div class="textright">主队</div></th><th>比分</th><th><div class="textleft">客队</div></th><th>赛果</th></tr><tr><td><span class="color9">球会友谊</span><span class="colorc f20">17-07-12</span></td><td><div class="textright"><!---->卢加诺
+</div></td><td>0:4<span class="color9">(0:1)</span></td><td><div class="textleft win">
+    AC米兰<!----></div></td><td><div class="red-k">
+    胜
+</div><!----><!----></td></tr><tr><td><span class="color9">意甲</span><span class="colorc f20">17-05-28</span></td><td><div class="textright"><span class="color9">[13]</span>卡利亚
+</div></td><td>2:1<span class="color9">(1:0)</span></td><td><div class="textleft lose">
+    AC米兰<span class="color9">[6]</span></div></td><td><div class="blue-k">
+    负
+</div><!----><!----></td></tr><tr><td><span class="color9">意甲</span><span class="colorc f20">17-05-21</span></td><td><div class="textright win"><span class="color9">[6]</span>AC米兰
+</div></td><td>3:0<span class="color9">(0:0)</span></td><td><div class="textleft">
+    博洛尼<span class="color9">[15]</span></div></td><td><div class="red-k">
+    胜
+</div><!----><!----></td></tr><tr><td><span class="color9">意甲</span><span class="colorc f20">17-05-14</span></td><td><div class="textright"><span class="color9">[5]</span>亚特兰
+</div></td><td>1:1<span class="color9">(1:0)</span></td><td><div class="textleft tie">
+    AC米兰<span class="color9">[6]</span></div></td><td><div class="green-k">
+    平
+</div><!----><!----></td></tr><tr><td><span class="color9">意甲</span><span class="colorc f20">17-05-08</span></td><td><div class="textright lose"><span class="color9">[6]</span>AC米兰
+</div></td><td>1:4<span class="color9">(0:2)</span></td><td><div class="textleft">
+    罗  马<span class="color9">[3]</span></div></td><td><div class="blue-k">
+    负
+</div><!----><!----></td></tr><tr><td><span class="color9">意甲</span><span class="colorc f20">17-04-30</span></td><td><div class="textright"><span class="color9">[18]</span>克罗托
+</div></td><td>1:1<span class="color9">(1:0)</span></td><td><div class="textleft tie">
+    AC米兰<span class="color9">[6]</span></div></td><td><div class="green-k">
+    平
+</div><!----><!----></td></tr><!----><!----><!----><!----></tbody></table><div class="box-arrow"><div class="zd-arrow"></div></div><div class="zd-detail"><div class="gaik clear"><span class="f30 color3 fl">近10场 多  特</span><span class="f30 fl"><i class="win tcell">6胜</i><i class="tie tcell">2平</i><i class="lose tcell">2负</i></span><span class="f30 color3 fl">
+            胜率60%
+        </span></div><div class="total-tips">
+    场均进2.1球，场均失1.8球，
+    大球8次，小球2次
+</div></div><table width="100%" cellpadding="0" cellspacing="0" class="fx-table"><colgroup><col width="20%"><col width="20%"><col width="20%"><col width="20%"><col width="20%"></colgroup><tbody><tr><th>赛事</th><th><div class="textright">主队</div></th><th>比分</th><th><div class="textleft">客队</div></th><th>赛果</th></tr><tr><td><span class="color9">球会友谊</span><span class="colorc f20">17-07-15</span></td><td><div class="textright"><!---->浦  和
+</div></td><td>2:3<span class="color9">(1:0)</span></td><td><div class="textleft win">
+    多  特<!----></div></td><td><div class="red-k">
+    胜
+</div><!----><!----></td></tr><tr><td><span class="color9">球会友谊</span><span class="colorc f20">17-07-12</span></td><td><div class="textright"><!---->埃  森
+</div></td><td>3:2<span class="color9">(2:1)</span></td><td><div class="textleft lose">
+    多  特<!----></div></td><td><div class="blue-k">
+    负
+</div><!----><!----></td></tr><tr><td><span class="color9">德国杯</span><span class="colorc f20">17-05-28</span></td><td><div class="textright"><!---->法兰克
+</div></td><td>1:2<span class="color9">(1:1)</span></td><td><div class="textleft win">
+    多  特<!----></div></td><td><div class="red-k">
+    胜
+</div><!----><!----></td></tr><tr><td><span class="color9">德甲</span><span class="colorc f20">17-05-20</span></td><td><div class="textright win"><span class="color9">[3]</span>多  特
+</div></td><td>4:3<span class="color9">(2:1)</span></td><td><div class="textleft">
+    不来梅<span class="color9">[8]</span></div></td><td><div class="red-k">
+    胜
+</div><!----><!----></td></tr><tr><td><span class="color9">德甲</span><span class="colorc f20">17-05-13</span></td><td><div class="textright"><span class="color9">[13]</span>奥格斯
+</div></td><td>1:1<span class="color9">(1:1)</span></td><td><div class="textleft tie">
+    多  特<span class="color9">[3]</span></div></td><td><div class="green-k">
+    平
+</div><!----><!----></td></tr><tr><td><span class="color9">德甲</span><span class="colorc f20">17-05-06</span></td><td><div class="textright win"><span class="color9">[4]</span>多  特
+</div></td><td>2:1<span class="color9">(1:0)</span></td><td><div class="textleft">
+    霍  芬<span class="color9">[3]</span></div></td><td><div class="red-k">
+    胜
+</div><!----><!----></td></tr><!----><!----><!----><!----></tbody></table><div class="box-arrow"><div class="zd-arrow"></div></div></div></div><div class="zhedie-box zhedie-box-wl"><div class="zj-nav">
+    未来赛事
+</div><div class="zhedie"><table width="100%" cellpadding="0" cellspacing="0" class="fx-table"><tbody><tr><th width="22%"><span class="color3 f28">AC米兰</span></th><th width="20%">日期</th><th width="17%"><div class="textright">主队</div></th><th width="7%"></th><th width="17%"><div class="textleft">客队</div></th><th>相隔</th></tr><tr><td>吉尼斯杯</td><td>2017-07-22</td><td><div class="textright">拜  仁</div></td><td>vs</td><td><div class="textleft">AC米兰</div></td><td>4天</td></tr></tbody></table><table width="100%" cellpadding="0" cellspacing="0" class="fx-table"><tbody><tr><th width="22%"><span class="color3 f28">多  特</span></th><th width="20%">日期</th><th width="17%"><div class="textright">主队</div></th><th width="7%"></th><th width="17%"><div class="textleft">客队</div></th><th>相隔</th></tr><tr><td>德超杯</td><td>2017-08-06</td><td><div class="textright">多  特</div></td><td>vs</td><td><div class="textleft">拜  仁</div></td><td>19天</td></tr><tr><td>德甲</td><td>2017-08-19</td><td><div class="textright">沃尔夫</div></td><td>vs</td><td><div class="textleft">多  特</div></td><td>32天</td></tr><tr><td>德甲</td><td>2017-08-27</td><td><div class="textright">多  特</div></td><td>vs</td><td><div class="textleft">赫  塔</div></td><td>40天</td></tr></tbody></table></div></div><div class="zhedie-box"><div class="zj-nav">
+    澳门心水推荐
+</div><div class="feed-back"><div class="feed-box"><em>暂无数据</em></div></div></div><div class="sk-btips">
+    500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
+</div></div></div></div></div></div></div></div><!----><!----><!----><div class="refresh-box"><i id="sx" class="refresh-icon"></i></div></div></div></body>
 </html>

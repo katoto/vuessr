@@ -9,7 +9,7 @@
                         <!--<div class="info-time">2016-01-15 16:01:28</div>-->
                         <div class="info-time">{{item.pubtime|fpubtime}}</div>
                     </div>
-                    <div class="news-pic"><img drunk-attr="{'src': item.indeximages}" alt="新闻配图"></div>
+                    <div class="news-pic"><img :src="item.indeximages" alt="新闻配图"></div>
                 </li>
             </ul>
             <div class="zhzl-tips " v-if="nums >= news.length">资讯新闻由ME体育提供，不代表500彩票观点</div>
@@ -54,6 +54,7 @@
                 } else {
                     this.nums = this.initSize
                 }
+                this.$emit('rs')
             }
         },
         filters: {

@@ -60,15 +60,15 @@
 
                 <div class="comm-slide-cont" v-if="vote.voted === '0' && match.status !== '4'">
                     <ul>
-                        <li drunk-on="click:onVote('3',0)">
+                        <li v-tap="{methods: onVote, opt: '3', idx: 0}">
                             <div class="support-icon"></div>
                             <div class="support-name">{{match.homesxname}}</div>
                         </li>
-                        <li drunk-on="click:onVote('1',1)">
+                        <li v-tap="{methods: onVote, opt: '1', idx: 1}">
                             <div class="support-icon"></div>
                             <div class="support-name">平局</div>
                         </li>
-                        <li drunk-on="click:onVote('0',2)">
+                        <li v-tap="{methods: onVote, opt: '0', idx: 2}">
                             <div class="support-icon"></div>
                             <div class="support-name">{{match.awaysxname}}</div>
                         </li>
@@ -113,7 +113,9 @@
 </template>
 <script>
     import {Scroller} from 'scroller'
+    import {aTypes} from '~store/zqdetail'
 
+//    import platform from '~common/platform'
     export default {
         props: ['eventlist', 'statistic', 'match', 'online', 'vote'],
         data () {
@@ -130,6 +132,24 @@
                     '9': '',
                     '10': ''
                 }
+            }
+        },
+        methods: {
+            /**
+             * 投票接口， 投完后立马获取投票数
+             * @param opt
+             * @param idx
+             * @returns {Promise.<void>}
+             */
+            async onVote ({opt, idx}) {
+                if (this.match.status === '4') {
+                    return
+                }
+                this.$store.dispatch('ensureLogin')
+                await this.$store.dispatch(aTypes.onVote, {
+                    opt, id: this.vote._id, fid: this.$route.params.fid
+                })
+                await this.$store.dispatch(aTypes.getVote, {fid: this.$route.params.fid})
             }
         },
         mounted () {
