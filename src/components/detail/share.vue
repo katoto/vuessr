@@ -9,7 +9,7 @@
                     <p>收藏</p>
                 </div>
                 <div class="collec-box share-box"  v-tap="{methods: doShare}">
-                    <sapn class="share-icon"></sapn>
+                    <span class="share-icon"></span>
                     <p>分享</p>
                 </div>
                 <div class="collec-box share-box" onclick="location.href='http://m.500.com/helpcenter/submituserproblem/'">
