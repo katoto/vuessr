@@ -11,7 +11,8 @@
             <div id="_concern" style="display: none" class="topR" onclick="home.doConcern()">
                 <div class="sk-gz"></div>
             </div>
-            <div id="_sharemode" style="display: block;" class="topR" onclick="home.showShareMode()">
+
+            <div id="_sharemode" style="display: block;overflow: hidden" class="topR" v-tap="{methods: showShareMode}">
                 <div class="sk-point"></div>
             </div>
             <div class="fen-box f30 responsive">
@@ -145,7 +146,6 @@
         </div>
 
 
-
         <div v-if="~$route.path.indexOf('/comment')">
             <div class="comm-enter">
                 <div class="enter-ipt" v-tap="{methods: beginEdit}">
@@ -168,7 +168,13 @@
     import toast from '~components/toast.vue'
     import editor from '~components/editor.vue'
     import detailScroller from '~components/detail_scroller.vue'
+    import share from '~components/detail/share.vue'
+    import copy from '~components/detail/copy.vue'
     import {aTypes, mTypes} from '~store/zqdetail'
+
+    if (process.env.VUE_ENV !== 'server') {
+        require('nativeshare')
+    }
     export default {
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getBaseInfo, params.fid)
@@ -263,6 +269,64 @@
             beginEdit () {
                 this.$store.dispatch('ensureLogin')
                 this.$store.commit(mTypes.showEditorDialog, {})
+            },
+            doShare (nativeShare) {
+            // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
+                try {
+                    nativeShare.call()
+                    // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
+                    // 类似的命令下面有介绍
+                } catch (err) {
+//                    alert(err.message)
+                    // 如果不支持，你可以在这里做降级处理
+                    this.$store.commit(mTypes.setDialog, {component: copy,
+                        params: {
+                            onClose: () => {
+                                this.$store.commit(mTypes.setDialog, {})
+                            }
+                        }})
+                }
+            },
+            showShareMode () {
+                // 先创建一个实例
+                let nativeShare = new window.NativeShare({
+                    wechatConfig: {
+                        appId: '',
+                        timestamp: '',
+                        nonceStr: '',
+                        signature: ''
+                    },
+                    // 让你修改的分享的文案同步到标签里，比如title文案会同步到<title>标签中
+                    // 这样可以让一些不支持分享的浏览器也能修改部分文案，默认都不会同步
+                    syncDescToTag: false,
+                    syncIconToTag: false,
+                    syncTitleToTag: false
+                })
+                //  设置分享文案
+                nativeShare.setShareData({
+                    icon: 'http://m.500.com/favicon.ico',
+                    link: location.href,
+                    title: '实时比分',
+                    desc: `${this.match.homesxname}vs${this.match.awaysxname}`,
+                    from: '500彩票网'
+                })
+                this.$store.commit(mTypes.setDialog, {
+                    component: share,
+                    params: {
+                        initFocus: this.match.isfocus, // 初始状态
+                        onClose: () => {
+                            this.$store.commit(mTypes.setDialog, {})
+                        },
+                        onShare: () => {
+                            this.$store.commit(mTypes.setDialog, {})
+                            this.doShare(nativeShare)
+                        },
+                        onCollect: () => {
+                            this.$store.dispatch(aTypes.requestConcern, this.match)
+                            this.$store.commit(mTypes.setDialog, {})
+                        }
+                    }
+                })
             }
         },
         watch: {

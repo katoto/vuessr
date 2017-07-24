@@ -179,11 +179,16 @@
                             this.$store.commit(mTypes.setDialog, {})
                         },
                         onReply: () => {
+                            this.$store.dispatch('ensureLogin')
                             this.onReply({commentReplyId, replyName})
                             this.$store.commit(mTypes.setDialog, {})
                         },
-                        onReport: () => {
-                            this.$store.commit(mTypes.setDialog, {})
+                        onReport: async () => {
+                            this.$store.dispatch('ensureLogin')
+                            await this.$store.dispatch(aTypes.onReport, commentReplyId)
+                            await this.$store.commit(mTypes.setDialog, {})
+                            this.$store.dispatch('showToast', '举报成功')
+
                         }
 
                     }
