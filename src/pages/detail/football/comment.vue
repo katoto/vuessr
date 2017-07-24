@@ -30,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="list-cont" drunk-on="click:onReport(comment._id,comment.nickname)">{{comment.content}}</div>
+                <div class="list-cont" v-tap="{methods: clickComment, commentReplyId: comment._id, replyName:comment.nickname }" drunk-on="click:onReport(comment._id,comment.nickname)">{{comment.content}}</div>
                 <div class="list-cont floors-cont" v-if="comment.r_content">
                     <ul class="comm-list">
                         <li>
@@ -62,6 +62,7 @@
 
 <script>
     import snap from '~components/snap.vue'
+    import report from '~components/detail/report.vue'
     import {aTypes, mTypes} from '~store/zqdetail'
     export default {
         async asyncData ({store, route: {params}}) {
@@ -169,6 +170,24 @@
                 let info = this.commentList[index]
                 info.liked = (info.liked === '0' ? '1' : '0')
                 info.likes = info.likes + (info.liked === '0' ? -1 : 1)
+            },
+            clickComment ({commentReplyId, replyName}) {
+                this.$store.commit(mTypes.setDialog, {
+                    component: report,
+                    params: {
+                        onClose: () => {
+                            this.$store.commit(mTypes.setDialog, {})
+                        },
+                        onReply: () => {
+                            this.onReply({commentReplyId, replyName})
+                            this.$store.commit(mTypes.setDialog, {})
+                        },
+                        onReport: () => {
+                            this.$store.commit(mTypes.setDialog, {})
+                        }
+
+                    }
+                })
             }
         },
         destroyed () {

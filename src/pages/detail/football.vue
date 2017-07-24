@@ -145,6 +145,7 @@
         </div>
 
 
+
         <div v-if="~$route.path.indexOf('/comment')">
             <div class="comm-enter">
                 <div class="enter-ipt" v-tap="{methods: beginEdit}">
