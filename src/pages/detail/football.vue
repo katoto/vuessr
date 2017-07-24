@@ -272,7 +272,21 @@
                 this.$store.dispatch('ensureLogin')
                 this.$store.commit(mTypes.showEditorDialog, {})
             },
-            doShare () {
+            doShare (nativeShare) {
+
+
+                // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
+                try {
+                    nativeShare.call()
+                    // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
+                    // 类似的命令下面有介绍
+                } catch (err) {
+//                    alert(err.message)
+                    // 如果不支持，你可以在这里做降级处理
+                }
+
+            },
+            showShareMode () {
                 // 先创建一个实例
                 let nativeShare = new window.NativeShare({
                     wechatConfig: {
@@ -295,28 +309,16 @@
                     desc: `${this.match.homesxname}vs${this.match.awaysxname}`,
                     from: '500彩票网'
                 })
-
-                // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
-                try {
-                    nativeShare.call()
-                    // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
-                    // 类似的命令下面有介绍
-                } catch (err) {
-//                    alert(err.message)
-                    // 如果不支持，你可以在这里做降级处理
-                }
-            },
-            showShareMode () {
                 this.$store.commit(mTypes.setDialog, {
                     component: share,
                     params: {
-                        initFocus: this.match.isfocus,
+                        initFocus: this.match.isfocus, // 初始状态
                         onClose: () => {
                             this.$store.commit(mTypes.setDialog, {})
                         },
                         onShare: () => {
                             this.$store.commit(mTypes.setDialog, {})
-                            this.doShare()
+                            this.doShare(nativeShare)
                         },
                         onCollect: () => {
                             this.$store.dispatch(aTypes.requestConcern, this.match)
