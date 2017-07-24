@@ -27,8 +27,13 @@ const BfycHotcool = () => import('~pages/bfyc/hotcool.vue' /* webpackChunkName: 
 const BfycRecord = () => import('~pages/bfyc/record.vue' /* webpackChunkName: "pages/bfyc-record" */)
 
 const FootballDetail = () => import('~pages/detail/football.vue' /* webpackChunkName: "pages/detail-football" */)
+const BasketballDetail = () => import('~pages/detail/basketball.vue' /* webpackChunkName: "pages/detail-basketball" */)
 
 const FootballSituation = () => import('~pages/detail/football/situation.vue' /* webpackChunkName: "pages/detail-football-situation" */)
+const BasketballSituation = () => import('~pages/detail/basketball/situation.vue' /* webpackChunkName: "pages/detail-basketball-situation" */)
+const BasketballSituationEvent = () => import('~pages/detail/basketball/situation/event.vue' /* webpackChunkName: "pages/detail-basketball-situation-event" */)
+const BasketballSituationStatistic = () => import('~pages/detail/basketball/situation/statistic.vue' /* webpackChunkName: "pages/detail-basketball-situation-statistic" */)
+
 
 const FootballAnalysis = () => import('~pages/detail/football/analysis.vue' /* webpackChunkName: "pages/detail-football-analysis" */)
 const FootballAnalysisZj = () => import('~pages/detail/football/analysis/zj.vue' /* webpackChunkName: "pages/detail-football-analysis-zj" */)
@@ -53,11 +58,6 @@ const TeamFootballGl = () => import('~pages/team/football/gl.vue')
 const TeamFootballSc = () => import('~pages/team/football/sc.vue')
 const TeamFootballZr = () => import('~pages/team/football/zr.vue')
 
-const TeamBasketBall = () => import('~pages/team/basketball.vue')
-const TeamBasketBallGl = () => import('~pages/team/basketball/gl.vue')
-const TeamBasketBallSc = () => import('~pages/team/basketball/sc.vue')
-// const TeamBasketBallZr = () => import('~pages/team/football/zr.vue')
-console.log()
 export function createRouter () {
     return new VueRouter({
         mode: 'history',
@@ -246,24 +246,27 @@ export function createRouter () {
                 ]
             },
             {
-                path: '/team/basketball/:tid/:sid',
-                component: TeamBasketBall,
-                name: 'team-basketball',
+               path: '/detail/basketball/:fid',
+                component: BasketballDetail,
+                name: 'detail-basketball',
                 children: [
                     {
-                        path: 'sc',
-                        component: TeamBasketBallSc,
-                        name: 'team-basketball-sc'
+                        path: 'situation',
+                        component: BasketballSituation,
+                        name: 'basketball-detail-situation',
+                        children:[
+                            {
+                                path:'event',
+                                component:BasketballSituationEvent,
+                                name:'basketball-detail-situation-event'
+                            },
+                            {
+                                path:'statistic',
+                                component:BasketballSituationStatistic,
+                                name:'basketball-detail-situation-statistic'
+                            }
+                        ]
                     },
-                    {
-                        path: 'gl',
-                        component: TeamBasketBallGl,
-                        name: 'team-basketball-gl'
-                    },
-                    {
-                        path: '*',
-                        redirect: 'sc'
-                    }
                 ]
             },
             {

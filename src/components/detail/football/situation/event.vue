@@ -17,7 +17,7 @@
                 'shikuang-lineLeft': event.is_team == 1,
                 'jh-box': event.eventtype == EventType.HUAN_REN,
                 'hide': event.isUnavailable
-            }">
+                }">
 
                     <span class="sk-time">{{event.timing_point}}'</span>
                     <span class="shikuang-ball">
