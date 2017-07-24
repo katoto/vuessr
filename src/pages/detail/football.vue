@@ -234,10 +234,7 @@
         methods: {
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                let baseInfo = this.$store.state.zqdetail.baseInfo
-                if (!baseInfo || this.$store.state.zqdetail.baseInfo.fid !== this.$route.params.fid) {
-                    await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
-                }
+                await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
                 this.$store.commit('endOneRefresh')
             },
             changeHeader (status) {
