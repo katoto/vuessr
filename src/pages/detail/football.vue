@@ -172,6 +172,7 @@
     import editor from '~components/editor.vue'
     import detailScroller from '~components/detail_scroller.vue'
     import share from '~components/detail/share.vue'
+    import copy from '~components/detail/copy.vue'
     import {aTypes, mTypes} from '~store/zqdetail'
 
     if (process.env.VUE_ENV !== 'server') {
@@ -283,6 +284,11 @@
                 } catch (err) {
 //                    alert(err.message)
                     // 如果不支持，你可以在这里做降级处理
+                    this.$store.commit(mTypes.setDialog, {component: copy, params: {
+                        onClose: () => {
+                            this.$store.commit(mTypes.setDialog, {})
+                        }
+                    }})
                 }
 
             },
