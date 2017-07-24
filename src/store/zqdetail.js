@@ -285,6 +285,22 @@ const actionsInfo = mapActions({
     },
     async updateCustomOdds (ignore, {ptype, items}) {
         return ajax.get(`/score/concern/customize?vtype=1&ptype=${ptype}&item=${items.join(',')}&_t=${Date.now()}`, {ignore: false})
+    },
+    async requestConcern ({commit, state}, {fid, expect}) {
+        let origin = state.baseInfo.isfocus
+        let op
+        let statset
+        if(origin === '0') {
+            op = 'set'
+            statset = '1'
+        }else {
+            op = 'unset'
+            statset = '0'
+        }
+        await  ajax.get(`/score/concern/focus?fid=${fid}&vtype=1&op=${op}&lotid=46&expect=${expect}`, {ignore: false})
+        commit(mTypes.changeConcernStatus, statset)
+
+
     }
 }, ns)
 
@@ -383,6 +399,9 @@ const mutationsInfo = mapMutations({
     hideEditorDialog (state) {
         state.comment.showEditor = false
         state.comment.replyName = null
+    },
+    changeConcernStatus(state, status) {
+        state.baseInfo.isfocus = status
     },
     reset (state) {
         const iState = JSON.parse(JSON.stringify(initState))

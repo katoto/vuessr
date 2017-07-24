@@ -38,6 +38,7 @@
     "iscroll": "^5.2.0",
     "js-cookie": "^2.1.4",
     "lru-cache": "^4.0.2",
+    "nativeshare": "^2.1.3",
     "rimraf": "^2.6.1",
     "scroller": "0.0.3",
     "serve-favicon": "^2.4.3",
