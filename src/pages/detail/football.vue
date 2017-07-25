@@ -81,39 +81,39 @@
                         <li
                                 :class="{cur: ~$route.path.indexOf('/situation')}">
                             <router-link :to="{name: 'football-detail-situation'}" replace>
-                                <span>赛况<i class="sktab-arrow"></i></span>
+                                <span data-p2="zq_detail" data-p4="situation">赛况<i class="sktab-arrow"></i></span>
                             </router-link>
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/analysis')}">
                             <router-link :to="{name: 'football-detail-analysis-zj'}" replace>
-                                <span>分析<i class="sktab-arrow"></i></span>
+                                <span data-p2="zq_detail" data-p4="analysis">分析<i class="sktab-arrow"></i></span>
                             </router-link>
 
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/predict')}">
                             <router-link :to="{name: 'football-detail-predict'}" replace>
-                                <span>预测<i class="sktab-arrow"></i></span>
+                                <span data-p2="zq_detail" data-p4="predict">预测<i class="sktab-arrow"></i></span>
                             </router-link>
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/odds')}">
                             <router-link :to="{name: 'football-detail-odds-europe'}" replace>
-                                <span>赔率<i class="sktab-arrow"></i></span>
+                                <span data-p2="zq_detail" data-p4="odds">赔率<i class="sktab-arrow"></i></span>
                             </router-link>
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/comment')}">
                             <router-link :to="{name: 'football-detail-comment'}" replace>
-                                <span>聊球<i class="sktab-arrow"></i></span>
+                                <span data-p2="zq_detail" data-p4="comment">聊球<i class="sktab-arrow"></i></span>
                             </router-link>
                         </li>
 
                         <li
                                 :class="{cur: ~$route.path.indexOf('/crazybet')}">
                             <router-link :to="{name: 'football-detail-crazybet'}" replace>
-                                <span>猜球<i class="sktab-arrow"></i></span>
+                                <span data-p2="zq_detail" data-p4="crazybet">猜球<i class="sktab-arrow"></i></span>
                             </router-link>
                         </li>
 
@@ -302,8 +302,8 @@
                 nativeShare.setShareData({
                     icon: 'http://m.500.com/favicon.ico',
                     link: location.href,
-                    title: '实时比分',
-                    desc: `${this.match.homesxname}vs${this.match.awaysxname}`,
+                    title: `${this.match.homesxname}vs${this.match.awaysxname} 实时比分`,
+                    desc: `关注最新比分动态， 请关注春哥网`,
                     from: '500彩票网'
                 })
                 this.$store.commit(mTypes.setDialog, {
