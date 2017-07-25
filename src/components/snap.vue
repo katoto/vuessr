@@ -8,7 +8,7 @@
                  class="com-slide-box swiper-slide swiper-slide-active" style="display: block;margin-left: .4rem">
                 <h1 class="com-slide-tit" v-if="!(match.status=='4'&&online=='0')">
                     {{match.status=='4'?'共':'与'}}<em><span
-                        class="score-itm"><i>{{online}}</i><i>{{online}}</i></span></em>{{match.status=='4'?'人看了这场比赛！':'人一起观看比赛！'}}
+                        class="score-itm" :class="{'itmMove': inmove}"><i>{{online0}}</i><i>{{online1}}</i></span></em>{{match.status=='4'?'人看了这场比赛！':'人一起观看比赛！'}}
                 </h1>
                 <h1 class="com-slide-tit" v-if="match.status=='4'&&online=='0'">有球有朋友，红单大家有</h1>
 
@@ -120,6 +120,9 @@
         props: ['eventlist', 'statistic', 'match', 'online', 'vote'],
         data () {
             return {
+                online0: 0,
+                online1: 0,
+                inmove: false,
                 classHas: {
                     '1': 'jinq-icon',
                     '2': 'wul-icon',
@@ -132,6 +135,21 @@
                     '9': '',
                     '10': ''
                 }
+            }
+        },
+        beforeMount () {
+            this.online0 = this.online
+            this.online1 = this.online
+        },
+        watch: {
+            online () {
+                console.log(this.online)
+                this.online1 = this.online
+                this.inmove = true
+                setTimeout(() => {
+                    this.inmove = false
+                    this.online0 = this.online
+                }, 1000)
             }
         },
         methods: {

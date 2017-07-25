@@ -47,5 +47,10 @@
 <style>
     .wrap {
         display: inline-block;
+        will-change:transform ;
+        /*transform: translateZ(0);*/
+
+        overflow: hidden;
     }
+
 </style>

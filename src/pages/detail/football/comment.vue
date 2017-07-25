@@ -188,9 +188,7 @@
                             await this.$store.dispatch(aTypes.onReport, commentReplyId)
                             await this.$store.commit(mTypes.setDialog, {})
                             this.$store.dispatch('showToast', '举报成功')
-
                         }
-
                     }
                 })
             }
