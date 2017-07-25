@@ -96,7 +96,6 @@
                 <span><em class="xs">---</em>日期</span>
                 <span><em class="zx">——</em>本场大小分盘口</span>
             </div>
-
         </template>
         <div class="feed-back" v-else>
             <div class="feed-box">
@@ -116,7 +115,7 @@ export default {
             type: Object,
             required: true
         },
-        trend: {
+        trends: {
             type: Object,
             required: true
         }
@@ -138,7 +137,8 @@ export default {
                 terrible: 'zsjc'
             },
             vtype: 1,
-            trendFid: null
+            trendFid: null,
+            trend: this.trends
         }
     },
     computed: {
@@ -219,12 +219,20 @@ export default {
             return 0;
         },
         async updateTrendData({vtype}) {
-            this.trend = null
             this.vtype = vtype
+            this.trend = null
             this.$store.commit('startOneRefresh')
             const {fid, homeid, awayid, matchtime} = this.baseinfo // baseInfo 保证有数据了
             const matchdate = matchtime && matchtime.substr(0, 10)
-            await this.$store.dispatch(aTypes.getAnalysisJsTrend, {fid, homeid, awayid, matchdate, vtype: vtype})
+            if(this.$store.state.mchao.analysis.js.trend[vtype]) {
+                this.trend = this.$store.state.mchao.analysis.js.trend[vtype]
+                this.$store.commit('endOneRefresh')
+                return;
+            }
+            await this.$store.dispatch(aTypes.getAnalysisJsTrend, {fid, homeid, awayid, matchdate, vtype: vtype}).then((data) => {
+                this.trend = data
+                console.log(data);
+            })
             this.$store.commit('endOneRefresh')
         },
         noEmpty(obj) {

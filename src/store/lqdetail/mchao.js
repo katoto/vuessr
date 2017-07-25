@@ -16,7 +16,10 @@ const initState = {
         },
         js: {
             strength: null,
-            trend: {},
+            trend: {
+                1: null,
+                2: null
+            },
             stats: null
         },
         zr: {
@@ -53,7 +56,7 @@ const actionsInfo = mapActions({
             ajax.get(`/score/lq/jz_data?fid=${fid}&stageid=${stageid}&homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&T=${Date.now()}`),
             ajax.get(`/score/lq/recent_record?fid=${fid}&stageid=${stageid}&homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&T=${Date.now()}`),
             ajax.get(`/score/lq/future_match?fid=${fid}&homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&T=${Date.now()}`),
-            ajax.get(`/score/zq/macau_news?fid=${fid}`)
+            ajax.get(`/score/lq/macau_news?fid=${fid}`)
         ])
         const [nbarank, leaguerank, jz_data, recent_record, future_match, macau_news] = result
         commit(mTypes.setAnalysisZj, {nbarank, leaguerank, jz_data, recent_record, future_match, macau_news})
@@ -70,7 +73,8 @@ const actionsInfo = mapActions({
     },
     async getAnalysisJsTrend ({commit}, {fid, homeid, awayid, matchdate, vtype}) {
         let trend = await ajax.get(`/score/lq/trend?fid=${fid}&homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&vtype=${vtype}&T=${Date.now()}`)
-        commit(mTypes.setAnalysisJsTrend, trend)
+        commit(mTypes.setAnalysisJsTrend, {trend, vtype})
+        return trend
     },
     async getAnalysisZr ({commit}, {homeid, awayid, seasonid, vtype}) {
         let result = await Promise.all([
@@ -123,11 +127,11 @@ const mutationsInfo = mapMutations({
     },
     setAnalysisJs (state, {strength, trend, stats}) {
         state.analysis.js.strength = strength
-        state.analysis.js.trend = trend
+        state.analysis.js.trend['1'] = trend
         state.analysis.js.stats = stats
     },
-    setAnalysisJsTrend(state, trend) {
-        state.analysis.js.trend = trend
+    setAnalysisJsTrend(state, {trend, vtype}) {
+        state.analysis.js.trend[vtype] = trend
     },
     setAnalysisZr (state, {best3, members}) {
         state.analysis.zr.best3 = best3

@@ -3,7 +3,7 @@
         <div class="gl-nav">
             实力对比
             <ul class="time-item" drunk-if="strengthInfo">
-                <li class="time-item-cur more-zl" v-tap='{methods: beginStatBox}'>更多</li>
+                <li class="time-item-cur more-zl" v-tap='{methods: openStatBox}'>更多</li>
             </ul>
         </div>
         <template v-if="noEmptyFlag">
@@ -160,7 +160,7 @@ export default {
                 return `width: ${this.strength[type].home_percent}%`
             return `width: ${this.strength[type].away_percent}%`
         },
-        beginStatBox() {
+        openStatBox() {
             this.$store.commit(mTypes.setDialog, {
                 component: statsBox,
                 params: {

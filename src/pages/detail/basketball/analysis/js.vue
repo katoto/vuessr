@@ -1,10 +1,7 @@
 <template>
     <div class="">
         <strength :baseinfo='baseinfo' :strength='strength' :stats='stats' v-if="strength"></strength>
-        <trend :baseinfo='baseinfo' :trend='trend' v-if="trend"></trend>
-        <div class="sk-btips">
-            500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
-        </div>
+        <trend :baseinfo='baseinfo' :trends='trend' v-if="trend"></trend>
     </div>
 </template>
 
@@ -35,7 +32,7 @@ export default {
             return this.analysis.js.stats
         },
         trend() {
-            return this.analysis.js.trend
+            return this.analysis.js.trend['1']
         }
     },
     methods: {

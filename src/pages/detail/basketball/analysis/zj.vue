@@ -5,9 +5,7 @@
         <jz-data :jz_data='jz_data' v-if="jz_data"></jz-data>
         <recent-record :recent_record='recent_record' v-if="recent_record"></recent-record>
         <future-match :future_match='future_match' v-if="future_match"></future-match>
-        <div class="sk-btips">
-            500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
-        </div>
+        <macau-news :macau_news='macau_news' v-if="macau_news"></macau-news>
     </div>
 </template>
 
@@ -18,6 +16,7 @@ import NBARank from '~components/detail/basketball/analysis/zj/nba_rank.vue'
 import jzData from '~components/detail/basketball/analysis/zj/jz_data.vue'
 import recentRecord from '~components/detail/basketball/analysis/zj/recent_record.vue'
 import futureMatch from '~components/detail/basketball/analysis/zj/future_match.vue'
+import macauNews from '~components/detail/basketball/analysis/zj/macau_news.vue'
 
 export default {
     components: {
@@ -25,7 +24,8 @@ export default {
         NBARank,
         jzData,
         recentRecord,
-        futureMatch
+        futureMatch,
+        macauNews
     },
     computed: {
         baseinfo () {
@@ -48,6 +48,9 @@ export default {
         },
         future_match() {
             return this.analysis.zj.future_match
+        },
+        macau_news() {
+            return this.analysis.zj.macau_news
         },
         isNBA () {
             return this.baseinfo.simpleleague === 'NBA'

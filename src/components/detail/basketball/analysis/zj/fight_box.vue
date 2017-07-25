@@ -165,9 +165,9 @@ export default {
             if (result === '') return '-'
 
             switch (key) {
-            case 1: preStr = `[${input.sub}]`; break
-            case 2: preStr = (input.result2 === '赢') ? ('+' + input.rangfen) : ('-' + input.rangfen); break
-            case 3: preStr = input.zongfen; break
+	            case 1: preStr = `[${input.sub}]`; break
+	            case 2: preStr = input.rangfen; break
+	            case 3: preStr = input.zongfen; break
             }
             return preStr + result
         }

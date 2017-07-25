@@ -1,6 +1,6 @@
 <template>
     <div class="tContent" style="display: block;">
-        <ratio :team_misc='team_misc'></ratio>
+        <ratio :team_misc='team_misc' v-if="team_misc"></ratio>
         <offend :offend="team_misc.offend"></offend>
         <defense :defense="team_misc.defense"></defense>
     </div>

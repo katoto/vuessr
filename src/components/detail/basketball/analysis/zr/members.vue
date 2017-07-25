@@ -18,20 +18,7 @@
                     <li class="click-sslfz" :class="{'time-item-cur': homeVtype === 4}" v-tap="{methods: () => homeVtype = 4}">36分钟</li>
                 </ul>
             </div>
-            <div class="dataBox" v-if="noEmpty(members[hoa])">
-                <div class="zr-detail">
-                    <member-box :members='members[hoa].slice(0, cutLen[hoa])'></member-box>
-                </div>
-            </div>
-            <div class="feed-back" v-else>
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
-            <div class="box-arrow noborder" v-tap="{methods: collap, lenght: members[hoa].length, hoa: hoa}">
-                <div class="zd-arrow" :class="{'rotate180': moreFlag[hoa]}">
-                </div>
-            </div>
+            <member-box :members='members[hoa]' :membersType='BasketballMemberType'></member-box>
         </div>
     </div>
 </div>
@@ -45,7 +32,7 @@ import {
 import {
     BasketballMemberType
 } from '~common/constants'
-import memberBox from '~components/detail/basketball/analysis/zr/member_box.vue'
+import memberBox from '~components/detail/basketball/analysis/member_box.vue'
 export default {
     components: {
         memberBox
@@ -64,15 +51,7 @@ export default {
         return {
             awayVtype: 1,
             homeVtype: 1,
-            BasketballMemberType,
-            moreFlag: {
-                home: false,
-                away: false
-            },
-            cutLen: {
-                home: 5,
-                away: 5
-            }
+            BasketballMemberType
         }
     },
     computed: {
@@ -85,11 +64,6 @@ export default {
             if(obj)
             return !!Object.keys(obj).length
             return false
-        },
-        collap({length, hoa}) {
-            this.moreFlag[hoa] = !this.moreFlag[hoa]
-            this.cutLen[hoa] = this.moreFlag[hoa] ? length : 5
-            this.$store.commit(mTypes.updateScTime)
         },
         async updateMembersData(vtype, hoa) {
             this.$store.commit('startOneRefresh')

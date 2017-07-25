@@ -1,13 +1,18 @@
 <template>
-    <team-misc :team_misc="team_misc" v-if="team_misc"></team-misc>
+    <div>
+        <team-misc :team_misc="team_misc" v-if="team_misc"></team-misc>
+        <members-advanced :baseinfo="baseinfo" :members_advanced="members_advanced" v-if="members_advanced"></members-advanced>
+    </div>
 </template>
 
 <script>
 import {mTypes, aTypes} from '~store/lqdetail/mchao'
 import teamMisc from '~components/detail/basketball/analysis/jj/team_misc.vue'
+import membersAdvanced from '~components/detail/basketball/analysis/jj/members_advanced.vue'
 export default {
     components: {
-        teamMisc
+        teamMisc,
+        membersAdvanced
     },
     computed: {
         baseinfo () {

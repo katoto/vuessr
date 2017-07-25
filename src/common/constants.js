@@ -86,6 +86,26 @@ export const BasketballMemberType = {
     // 'effective_rate': '有效率',
 }
 
+export const BasketballMemberAdvType = {
+    position: '位置',
+    play_count: '场次',
+    effective_rate: '效率值',
+    true_hit_rate: '真实%',
+    '3rate': '三分率',
+    penalty_rate: '罚球率',
+    rebounds_rate: '篮板率',
+    off_rebounds_rate: '前板率',
+    def_rebounds_rate: '后板率',
+    assists_rate: '助攻率',
+    steals_rate: '抢断率',
+    mistakes_rate: '失误率',
+    usage_rate: '球权指数',
+    win_shares: '贡献值',
+    off_win_shares: '进攻贡献',
+    def_win_shares: '防守贡献'
+    // first_count: '首发场次',
+}
+
 /*
 export default {
     'BBallStatusName':{

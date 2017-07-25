@@ -75,7 +75,7 @@
         </detail-scroller>
     </div>
 
-    <div  v-if="outer.component" class="popLayer"></div>
+    <!-- <div  v-if="outer.component" class="popLayer"></div> -->
     <transition name="slide">
         <div v-if="outer.component" class="l-full" style="z-index: 101">
             <component :is="outer.component" :params="outer.params"></component>
