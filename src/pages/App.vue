@@ -12,6 +12,19 @@
     export default {
         mounted () {
             this.$store.dispatch('initWebsocket')
+            this.$el.addEventListener('click', (e) => {
+                if (e.target.dataset.p4 && e.target.dataset.p2) {
+                    this.summery(e.target.dataset.p2, e.target.dataset.p4, e.target.dataset.p1, e.target.dataset.p3)
+                }
+            })
+        },
+        methods: {
+            summery (p2, p4, p1 = '_trackEvent', p3 = 'click') {
+                if (window._hmt) {
+                    window._hmt.push([p1, p2, p3, p4])
+                }
+                console.log([p1, p2, p3, p4])
+            }
         }
     }
 </script>
