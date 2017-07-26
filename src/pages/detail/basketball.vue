@@ -81,25 +81,68 @@
             <component :is="outer.component" :params="outer.params"></component>
         </div>
     </transition>
+
+    <div v-if="~$route.path.indexOf('/comment') && showEditor">
+        <editor :reply-name="replyName" type="1" @send="onSend" @close="closeEditor"></editor>
+    </div>
+
+
+    <div v-if="~$route.path.indexOf('/comment')">
+        <div class="comm-enter">
+            <div class="enter-ipt" v-tap="{methods: beginEdit}">
+                <i class="ipt-icon"></i>
+                <p class="ipt-txt">我来说两句…</p>
+                <span class="ipt-count">{{total}}评</span>
+            </div>
+        </div>
+    </div>
+
+    <refresh/>
 </div>
 </template>
 
 <script>
+    import refresh from '~components/refresh.vue'
+    import toast from '~components/toast.vue'
+    import editor from '~components/editor.vue'
     import detailScroller from '~components/detail_scroller.vue'
+    import share from '~components/detail/share.vue'
+    import copy from '~components/detail/copy.vue'
     import {
         aTypes,
         mTypes
     } from '~store/lqdetail/mchao'
     export default {
+        async asyncData ({store, route: {params}}) {
+            await store.dispatch(aTypes.getBaseInfo, params.fid)
+        },
         components: {
-            detailScroller
+            detailScroller, refresh, editor, toast
         },
         computed: {
+            // socketData () {  // websocket推送过来的数据
+            //     return this.$store.getters.getSocketData
+            // },
             baseinfo () {
                 return this.$store.state.mchao.baseinfo
             },
             outer () {
                 return this.$store.state.mchao.outer
+            },
+            total () {
+                return this.$store.state.mchao.comment.total
+            },
+            replyName () {
+                return this.$store.state.mchao.comment.replyName
+            },
+            commentReplyId () {
+                return this.$store.state.mchao.comment.commentReplyId
+            },
+            showEditor () {
+                return this.$store.state.mchao.comment.showEditor
+            },
+            toast () {
+                return this.$store.state.toast
             }
         },
         methods: {
@@ -123,7 +166,24 @@
             },
             updateScroller () {
                 this.$refs.scroller.update()
-            }
+            },
+            onSend ({content, isShare}) {
+                this.$store.dispatch('ensureLogin')
+                this.$store.dispatch(aTypes.sendComment, {
+                    fid: this.$route.params.fid,
+                    content,
+                    parentid: this.commentReplyId,
+                    isShare
+                })
+                this.closeEditor()
+            },
+            beginEdit () {
+                this.$store.dispatch('ensureLogin')
+                this.$store.commit(mTypes.showEditorDialog, {})
+            },
+            closeEditor () {
+                this.$store.commit(mTypes.hideEditorDialog)
+            },
         },
         async mounted () {
             this.fetchData()

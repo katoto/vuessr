@@ -42,7 +42,8 @@
                             </ul>
                         </template>
                     </div>
-                    <p class="jqzs-notice"> 近20天分差走势</p>
+                    <p class="jqzs-notice" v-if="vtype === 1"> 近20天分差走势</p>
+                    <p class="jqzs-notice" v-if="vtype === 2"> 近20天总分走势</p>
                 </div>
                 <div class="jqzs-fc" v-if="trend.home">
                     <div class="pm-namel fczs-cont ">
@@ -67,7 +68,7 @@
                             </ul>
                         </template>
                         <template v-if="vtype === 2">
-                            <div class="line-horiz" v-if="trend.home.level" :style="trendTotalTopAwayaway"><em>{{trend.away.level}}</em></div>
+                            <div class="line-horiz" v-if="trend.home.level" :style="trendTotalTopAway"><em>{{trend.away.level}}</em></div>
                             <ul class="vic-list">
                                 <li class="vic-item-empty" v-tap="{methods: () => trendFid = item.fid}" :class="{'vic-item-lose':item.state=='0','vic-item-win':item.state=='3','vic-item-coming':!item.state}" v-for="(item, idx) in trend.home.coords">
                                     <span :style="totalTrendHeightHome[idx]">
@@ -78,7 +79,8 @@
                             </ul>
                         </template>
                     </div>
-                    <p class="jqzs-notice"> 近20天分差走势</p>
+                    <p class="jqzs-notice" v-if="vtype === 1"> 近20天分差走势</p>
+                    <p class="jqzs-notice" v-if="vtype === 2"> 近20天总分走势</p>
                 </div>
 
             </div>
@@ -221,6 +223,7 @@ export default {
         async updateTrendData({vtype}) {
             this.vtype = vtype
             this.trend = null
+            this.trendFid = null
             this.$store.commit('startOneRefresh')
             const {fid, homeid, awayid, matchtime} = this.baseinfo // baseInfo 保证有数据了
             const matchdate = matchtime && matchtime.substr(0, 10)

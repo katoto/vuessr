@@ -32,11 +32,14 @@ const initState = {
         }
     },
     comment: {
-        eventlist: null,
-        statistic: null,
+        commentlist: null,
         online: null,
         total: null,
-        vote: null
+        vote: null,
+        replyName: null,
+        commentReplyId: null,
+        showEditor: false,
+        replyTime: 0 // 发表后服务端返回后时间戳
     },
     outer: {
         component: null,
@@ -96,9 +99,60 @@ const actionsInfo = mapActions({
         const [members_advanced, team_misc] = result
         commit(mTypes.setAnalysisJj, {members_advanced, team_misc})
     },
-    async getCommentList ({commit}, {type, fid, pageNo, tab, pageSize = 10}) {
-        let result = await ajax.get(`/sns/score/commentlist?vtype=${type}&fid=${fid}&pn=${pageNo}&tab=${tab}&rn=${pageSize}&_t=` + new Date().getTime())
+    async getCommentList ({commit}, {vtype, fid, pageNo, tab, pageSize = 10}) {
+        let result = await ajax.get(`/sns/score/commentlist?vtype=${vtype}&fid=${fid}&pn=${pageNo}&tab=${tab}&rn=${pageSize}&_t=` + new Date().getTime())
         return result
+    },
+    async getTotal ({commit}, {fid}) {
+        let {online, total} = await ajax.get(`/sns/score/total?vtype=2&fid=${fid}`)
+        commit(mTypes.setTotal, {online, total})
+        return {online, total}
+    },
+    async getVote ({commit}, {fid}) {
+        let {votelist} = await ajax.get(`/sns/score/votelist?vtype=2&fid=${fid}`)
+        commit(mTypes.setVote, votelist[0])
+        return votelist[0]
+    },
+    async onVote(ignore, {opt, vtype = '2', id, fid}) {
+        console.log(opt);
+        return ajax.post(`/sns/score/vote?_t=${Date.now()}`, {
+            opt, id, fid, vtype
+        })
+    },
+    onLike (ignore, {status, id}) {
+        return ajax.post(`/sns/score/like?_t=${Date.now()}`, {
+            status, id
+        })
+    },
+    onReport (ignore, id) {
+        return ajax.post(`/sns/score/report?_t=${Date.now()}`, {
+            id
+        })
+    },
+    async sendComment ({commit}, {vtype = '2', fid, parentid, content, isShare = false}) {
+        console.log({
+            vtype,
+            id: fid,
+            parentid,
+            ctx: content
+        })
+        if (parentid) {
+            await ajax.post(`/sns/score/reply?_t=${Date.now()}`, {
+                vtype,
+                id: fid,
+                parentid,
+                ctx: content
+            })
+        } else {
+            await ajax.post(`/sns/score/commit?_t=${Date.now()}`, {
+                vtype,
+                id: fid,
+                isshare: isShare ? '1' : '0',
+                ctx: content
+            })
+        }
+
+        commit(mTypes.updateReplyTime)
     }
 
 }, ns)
@@ -143,6 +197,28 @@ const mutationsInfo = mapMutations({
     setAnalysisJj (state, {members_advanced, team_misc}) {
         state.analysis.jj.members_advanced = members_advanced
         state.analysis.jj.team_misc = team_misc
+    },
+    setVote (state, vote) {
+        state.comment.vote = vote
+    },
+    setTotal (state, {online, total}) {
+        state.comment.online = online
+        state.comment.total = total
+    },
+    showEditorDialog (state, {replyName, commentReplyId}) {
+        state.comment.showEditor = true
+        state.comment.replyName = replyName
+        state.comment.commentReplyId = commentReplyId
+    },
+    updateReplyTime (state) {
+        state.comment.replyTime = Date.now()
+    },
+    hideEditorDialog (state) {
+        state.comment.showEditor = false
+        state.comment.replyName = null
+    },
+    changeConcernStatus (state, status) {
+        state.baseInfo.isfocus = status
     },
     reset (state) {
         const iState = JSON.parse(JSON.stringify(initState))

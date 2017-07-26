@@ -8,7 +8,7 @@
                         <li class="time-item-cur" v-tap="{methods: openWordBox, str: baseinfo[hoa + 'sxname'] + '球员'}">名词解释</li>
                     </ul>
                 </div>
-                <member-box :members='members_advanced[hoa]' :membersType='BasketballMemberAdvType'></member-box>
+                <member-box ref="memBox" :members='members_advanced[hoa]' :membersType='BasketballMemberAdvType' liW="25.73rem"></member-box>
             </div>
         </div>
     </div>
@@ -120,6 +120,11 @@ export default {
             }
         }
     },
+    computed: {
+        loaded() {
+            return this.$store.state.refreshing === 0
+        }
+    },
     methods: {
         openWordBox({str}) {
             this.$store.commit(mTypes.setDialog, {
@@ -130,6 +135,13 @@ export default {
                     title: str
                 }
             })
+        }
+    },
+    watch: {
+        loaded(loaded) {
+            if (loaded) {
+                this.$store.commit(mTypes.updateScTime)
+            }
         }
     }
 }

@@ -18,7 +18,7 @@
                     <li class="click-sslfz" :class="{'time-item-cur': homeVtype === 4}" v-tap="{methods: () => homeVtype = 4}">36分钟</li>
                 </ul>
             </div>
-            <member-box :members='members[hoa]' :membersType='BasketballMemberType'></member-box>
+            <member-box ref="memBox" :members='members[hoa]' :membersType='BasketballMemberType' liW="33.6rem"></member-box>
         </div>
     </div>
 </div>
@@ -84,9 +84,11 @@ export default {
     },
     watch: {
         awayVtype(vtype) {
+            this.$refs.memBox[0].scrollTo(0, false)
             this.updateMembersData(vtype, 'away')
         },
         homeVtype(vtype) {
+            this.$refs.memBox[1].scrollTo(0, false)
             this.updateMembersData(vtype, 'home')
         },
         loaded(loaded) {

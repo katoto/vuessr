@@ -87,9 +87,8 @@ export default {
         },
         bkbStatus () {
             return this.matches && this.matches.map((item, idx, arr) => {
-                let flag = item.isb2b === '1'
-                if (flag) arr[idx + 1].isb2b = '0'
-                return flag
+				if(idx === arr.length - 1) return false
+                return item.isb2b === '1' && arr[idx + 1].isb2b === '1'
             })
         },
         homeTeamClass () {
@@ -169,7 +168,7 @@ export default {
 	            case 2: preStr = input.rangfen; break
 	            case 3: preStr = input.zongfen; break
             }
-            return preStr + result
+            return preStr + ' ' + result
         }
     }
 }

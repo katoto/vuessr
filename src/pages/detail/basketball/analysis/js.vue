@@ -2,6 +2,13 @@
     <div class="">
         <strength :baseinfo='baseinfo' :strength='strength' :stats='stats' v-if="strength"></strength>
         <trend :baseinfo='baseinfo' :trends='trend' v-if="trend"></trend>
+        <div class="item-loader" v-if="$store.state.refreshing">
+            <div class="la-ball-pulse la-2x">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -11,11 +18,19 @@ import strength from '~components/detail/basketball/analysis/js/strength.vue'
 import trend from '~components/detail/basketball/analysis/js/trend.vue'
 
 export default {
+    async asyncData ({store, route: {params}}) {
+        const {fid, seasonid, homeid, awayid, matchtime} = store.state.mchao.baseinfo// baseInfo 保证有数据了
+        const matchdate = matchtime && matchtime.substr(0, 10)
+        await this.$store.dispatch(aTypes.getAnalysisJs, {fid, seasonid, homeid, awayid, matchdate})
+    },
     components: {
         strength,
         trend
     },
     computed: {
+        refreshTime () { // 用户点击刷新按钮时间戳
+            return this.$store.state.refreshTime
+        },
         loaded () {
             return this.$store.state.refreshing === 0
         },
@@ -50,6 +65,9 @@ export default {
     watch: {
         loaded (loaded) {
             if (loaded) { this.$store.commit(mTypes.updateScTime) }
+        },
+        refreshTime () {
+            this.fetchData()
         }
     }
 }

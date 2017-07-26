@@ -6,6 +6,13 @@
         <recent-record :recent_record='recent_record' v-if="recent_record"></recent-record>
         <future-match :future_match='future_match' v-if="future_match"></future-match>
         <macau-news :macau_news='macau_news' v-if="macau_news"></macau-news>
+        <div class="item-loader" v-if="$store.state.refreshing">
+            <div class="la-ball-pulse la-2x">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -19,6 +26,11 @@ import futureMatch from '~components/detail/basketball/analysis/zj/future_match.
 import macauNews from '~components/detail/basketball/analysis/zj/macau_news.vue'
 
 export default {
+    async asyncData ({store, route: {params}}) {
+        const {fid, homeid, awayid, seasonid, stageid, matchid, matchtime, group, stagemode} = store.state.mchao.baseinfo // baseInfo 保证有数据了
+        const matchdate = matchtime && matchtime.substr(0, 10)
+        await store.dispatch(aTypes.getAnalysisZj, {fid, homeid, awayid, seasonid, stageid, matchid, matchdate, group, stagemode})
+    },
     components: {
         leagueRank,
         NBARank,
@@ -57,7 +69,10 @@ export default {
         },
         loaded () {
             return this.$store.state.refreshing === 0
-        }
+        },
+        refreshTime () { // 用户点击刷新按钮时间戳
+            return this.$store.state.refreshTime
+        },
     },
     methods: {
         async fetchData () {
@@ -74,6 +89,9 @@ export default {
     watch: {
         loaded (loaded) {
             if (loaded) { this.$store.commit(mTypes.updateScTime) }
+        },
+        refreshTime () {
+            this.fetchData()
         }
     }
 }

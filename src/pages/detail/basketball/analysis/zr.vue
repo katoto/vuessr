@@ -2,6 +2,13 @@
     <div>
         <best3 :best3='best3' v-if="best3"></best3>
         <members :baseinfo="baseinfo" :members='members' v-if="members"></members>
+        <div class="item-loader" v-if="$store.state.refreshing">
+            <div class="la-ball-pulse la-2x">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -10,6 +17,10 @@ import {mTypes, aTypes} from '~store/lqdetail/mchao'
 import best3 from '~components/detail/basketball/analysis/zr/best3.vue'
 import members from '~components/detail/basketball/analysis/zr/members.vue'
 export default {
+    async asyncData ({store, route: {params}}) {
+        const {homeid, awayid, seasonid, vtype} = store.state.mchao.baseinfo // baseInfo 保证有数据了
+        await this.$store.dispatch(aTypes.getAnalysisZr, {homeid, awayid, seasonid, vtype: 1})
+    },
     components: {
         best3,
         members
@@ -29,6 +40,9 @@ export default {
         },
         loaded () {
             return this.$store.state.refreshing === 0
+        },
+        refreshTime () { // 用户点击刷新按钮时间戳
+            return this.$store.state.refreshTime
         }
     },
     methods: {
@@ -45,6 +59,9 @@ export default {
     watch: {
         loaded (loaded) {
             if (loaded) { this.$store.commit(mTypes.updateScTime) }
+        },
+        refreshTime () {
+            this.fetchData()
         }
     }
 }

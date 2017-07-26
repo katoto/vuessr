@@ -220,7 +220,7 @@
         },
         methods: {
             goDetail ({fid}) {
-                this.$router.push(`/detail/football/${fid}/situation`)
+                this.$router.push(`/detail/basketball/${fid}/situation`)
             },
             toggleExpectList () {
                 this.showExpectList = !this.showExpectList
