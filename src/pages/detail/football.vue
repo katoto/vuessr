@@ -320,6 +320,10 @@
                         onCollect: () => {
                             this.$store.dispatch(aTypes.requestConcern, this.match)
                             this.$store.commit(mTypes.setDialog, {})
+                        },
+                        onReply: () => {
+                            this.$store.dispatch('ensureLogin')
+                            location.href = 'http://m.500.com/helpcenter/submituserproblem/'
                         }
                     }
                 })
