@@ -301,7 +301,6 @@
         }
 
     }
-
 </script>
 
 <style>
@@ -349,9 +348,7 @@
         background: url(../../assets/style/images/detail/detail-icon.png) no-repeat;
         background-size: .533333rem 13.333333rem
     }
-
     /*详情页顶部*/
-
     .top-wrap {
         height: 328px;
     }
@@ -489,7 +486,6 @@
     }
 
     /*详情页头部*/
-
     .zq-header {
         width: 100%;
         height: 3.2rem;
@@ -948,4 +944,3 @@
         transform: translate(0, 100%);
     }
 </style>
-

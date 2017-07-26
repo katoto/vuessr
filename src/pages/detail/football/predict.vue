@@ -322,6 +322,305 @@
     }
 </script>
 <style>
+    .main-inner {
+        min-height: 15.44rem;
+        width: 100%;
+        overflow-x: hidden;
+        color: #242c35
+    }
+/*小标题 start*/
+    .gl-nav,
+    .sk-nav,
+    .zj-nav {
+        height: .706667rem;
+        line-height: .706667rem;
+        background: #efefef;
+        color: #242c35;
+        position: relative;
+        text-align: left;
+        border-bottom: 1px solid #eaeaea;
+        border-top: 1px solid #eaeaea;
+        padding: .333333rem .4rem 0 .6133rem
+    }
+
+    [data-dpr="1"] .gl-nav,
+    [data-dpr="1"] .sk-nav,
+    [data-dpr="1"] .zj-nav {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .gl-nav,
+    [data-dpr="2"] .sk-nav,
+    [data-dpr="2"] .zj-nav {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .gl-nav,
+    [data-dpr="3"] .sk-nav,
+    [data-dpr="3"] .zj-nav {
+        font-size: 36px
+    }
+
+    .gl-nav:before,
+    .sk-nav:before,
+    .zj-nav:before {
+        content: '';
+        position: absolute;
+        left: .4rem;
+        top: .533333rem;
+        display: block;
+        width: .053333rem;
+        height: .3067rem;
+        overflow: hidden;
+        background: #242c35;
+        border-radius: .026667rem .026667rem
+    }
+    /*over*/
+    /*底部文字 start*/
+
+    .sk-btips {
+        color: #999;
+        text-align: center;
+        height: 1rem;
+        padding: .533333rem 0;
+        background: #efefef;
+        line-height: .506667rem
+    }
+
+    [data-dpr="1"] .sk-btips {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .sk-btips {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .sk-btips {
+        font-size: 33px
+    }
+    /*over*/
+/*弹层小按钮*/
+    .yc-more {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 1.066667rem;
+        height: 1.066667rem
+    }
+
+    .yc-more:after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: .4rem;
+        bottom: .2rem;
+        width: .346667rem;
+        height: .346667rem;
+        background: url(/mobile/touch/images/bifen/icon_sprite.png) no-repeat -1.6rem 0;
+        background-size: 1.92rem
+    }
+    /*over*/
+    .gl-box,
+    .zr-box {
+        background: #fff
+    }
+    .dataBox {
+        padding: .4rem .4rem .266667rem .4rem;
+        border-bottom: 1px solid #f4f4f4;
+        text-align: center
+    }
+    .dataItem {
+        display: table;
+        height: 1.333333rem;
+        width: 100%
+    }
+
+    .dataItem li {
+        display: table-cell;
+        color: #515e6d;
+        vertical-align: middle;
+        height: 1.733333rem
+    }
+
+    .dataItem .itemL {
+        text-align: left;
+        width: 2.8rem;
+        padding-left: .4rem
+    }
+
+    .dataItem .itemC {
+        text-align: center;
+        color: #aab5bd
+    }
+
+    .dataItem .itemR {
+        text-align: right;
+        width: 2.8rem;
+        padding-right: .4rem
+    }
+
+    [data-dpr="1"] .dataItem .num {
+        font-size: 23px
+    }
+
+    [data-dpr="2"] .dataItem .num {
+        font-size: 46px
+    }
+
+    [data-dpr="3"] .dataItem .num {
+        font-size: 69px
+    }
+
+    .dataItem .red2 {
+        color: #d3553d
+    }
+
+    .dataItem .green2 {
+        color: #36a171
+    }
+
+    .dataItem .blue {
+        color: #437ba8
+    }
+
+    .dataItem .item-info {
+        display: block;
+        color: #aab5bd
+    }
+
+    [data-dpr="1"] .dataItem .item-info {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .dataItem .item-info {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .dataItem .item-info {
+        font-size: 33px
+    }
+
+    .dataItem .item-tit {
+        color: #242c35;
+        display: block;
+        height: .72rem;
+        line-height: .72rem
+    }
+
+    [data-dpr="1"] .dataItem .item-tit {
+        font-size: 16px
+    }
+
+    [data-dpr="2"] .dataItem .item-tit {
+        font-size: 32px
+    }
+
+    [data-dpr="3"] .dataItem .item-tit {
+        font-size: 48px
+    }
+    .item-loader {
+        text-align: center;
+        height: 1.733333rem;
+        position: relative;
+        background: #fff
+    }
+
+    .la-ball-pulse {
+        position: absolute;
+        width: 1.44rem;
+        height: .48rem;
+        display: inline-block;
+        font-size: 0;
+        left: 50%;
+        top: 50%;
+        margin-left: -.72rem;
+        margin-top: -.24rem
+    }
+
+    .la-ball-pulse.la-dark {
+        color: #333
+    }
+
+    .la-ball-pulse>span {
+        display: inline-block;
+        float: none;
+        background-color: #515e6d;
+        border: 0
+    }
+
+    .la-ball-pulse>span:nth-child(1) {
+        -webkit-animation-delay: -.2s;
+        animation-delay: -.2s
+    }
+
+    .la-ball-pulse>span:nth-child(2) {
+        -webkit-animation-delay: -.1s;
+        animation-delay: -.1s
+    }
+
+    .la-ball-pulse>span:nth-child(3) {
+        -webkit-animation-delay: 0s;
+        animation-delay: 0s
+    }
+
+    .la-ball-pulse>span {
+        width: .133333rem;
+        height: .133333rem;
+        margin: .053333rem;
+        border-radius: 50% 50%;
+        -webkit-animation: ball-pulse 1s ease infinite;
+        animation: ball-pulse 1s ease infinite
+    }
+
+    .la-ball-pulse.la-2x {
+        height: .293333rem;
+        margin-top: -.146667rem
+    }
+
+    .la-ball-pulse.la-2x>span {
+        width: .133333rem;
+        height: .133333rem;
+        margin: .08rem
+    }
+
+    @-webkit-keyframes ball-pulse {
+        0%,
+        100%,
+        60% {
+            opacity: 1;
+            -webkit-transform: scale(1);
+            transform: scale(1)
+        }
+        30% {
+            opacity: .1;
+            -webkit-transform: scale(.01);
+            transform: scale(.01)
+        }
+    }
+
+    @keyframes ball-pulse {
+        0%,
+        100%,
+        60% {
+            opacity: 1;
+            -webkit-transform: scale(1);
+            transform: scale(1)
+        }
+        30% {
+            opacity: .1;
+            -webkit-transform: scale(.01);
+            transform: scale(.01)
+        }
+    }
+    .chart-yuce {
+        width: 9.2rem;
+        height: 5.866667rem;
+        margin: 0 auto
+    }
+
+
+
     .chart-position {
         height: 5.2rem
     }
