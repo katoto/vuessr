@@ -5,8 +5,8 @@
  * Created by sampson on 2017/5/10.
  */
 import ajax from '~common/ajax'
-import {mapActions, mapMutations} from '~common/util'
-import {pushEvents} from '~common/constants'
+import { mapActions, mapMutations } from '~common/util'
+import { pushEvents } from '~common/constants'
 const ns = 'zqdetail'
 const initState = {
     reachEndTime: 0,  // 滚动到最后触发的时间戳
@@ -235,7 +235,7 @@ const actionsInfo = mapActions({
             ajax.get(`/score/zq/predict_score?fid=${fid}`),
             ajax.get(`/score/zq/predict_half?fid=${fid}`)
         ])
-        // const [europe, asian, daxiaoqiu, score, half] = result.map(item => Object.keys(item).length ? item : null)
+    // const [europe, asian, daxiaoqiu, score, half] = result.map(item => Object.keys(item).length ? item : null)
         const [europe, asian, daxiaoqiu, score, half] = result
         commit(mTypes.setPredict, {europe, asian, daxiaoqiu, score, half})
     },
@@ -245,6 +245,11 @@ const actionsInfo = mapActions({
     onLike (ignore, {status, id}) {
         return ajax.post(`/sns/score/like?_t=${Date.now()}`, {
             status, id
+        })
+    },
+    onReport (ignore, id) {
+        return ajax.post(`/sns/score/report?_t=${Date.now()}`, {
+            id
         })
     },
     async onVote (ignore, {opt, id, vtype = '1', fid}) {
@@ -285,6 +290,28 @@ const actionsInfo = mapActions({
     },
     async updateCustomOdds (ignore, {ptype, items}) {
         return ajax.get(`/score/concern/customize?vtype=1&ptype=${ptype}&item=${items.join(',')}&_t=${Date.now()}`, {ignore: false})
+    },
+  /**
+   * 切换关注某场比赛
+   * @param commit
+   * @param state
+   * @param fid
+   * @param expect
+   * @returns {Promise.<void>}
+   */
+    async requestConcern ({commit, state}, {fid, expect}) {
+        let origin = state.baseInfo.isfocus
+        let op
+        let statset
+        if (origin === '0') {
+            op = 'set'
+            statset = '1'
+        } else {
+            op = 'unset'
+            statset = '0'
+        }
+        await ajax.get(`/score/concern/focus?fid=${fid}&vtype=1&op=${op}&lotid=46&expect=${expect}`, {ignore: false})
+        commit(mTypes.changeConcernStatus, statset)
     }
 }, ns)
 
@@ -301,6 +328,9 @@ const mutationsInfo = mapMutations({
     },
     setBaseInfo (state, baseInfo) {
         state.baseInfo = baseInfo
+    },
+    syncBaseInfo (state, baseInfo) {
+        Object.assign(state.baseInfo, baseInfo)
     },
     setSituation (state, {eventlist, statistic, news}) {
         state.situation.eventlist = eventlist
@@ -383,6 +413,9 @@ const mutationsInfo = mapMutations({
     hideEditorDialog (state) {
         state.comment.showEditor = false
         state.comment.replyName = null
+    },
+    changeConcernStatus (state, status) {
+        state.baseInfo.isfocus = status
     },
     reset (state) {
         const iState = JSON.parse(JSON.stringify(initState))

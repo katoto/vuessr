@@ -1,6 +1,6 @@
 <template>
     <div class="l-full l-flex-column" v-if="match">
-        <div class="detailTop topBarMove2" style="display: block;">
+        <div class="detailTop" :class="{'topBarMove': showScore, 'topBarMove2': !showScore}" style="display: block;">
             <a class="back-icon" onclick="history.back()" href="javascript:;">返回</a>
             <router-link to="/home/zq/jczq/cur" class="link-index f26">比分首页</router-link>
             <!--<a class="link-index f26" href="/score/index.html#/football">比分首页</a>-->
@@ -8,22 +8,28 @@
             <div onclick="home.goLeague()" class="r-sn f24">{{match.simpleleague}}</div>
 
 
-            <div id="_concern" style="display: none" class="topR" onclick="home.doConcern()">
+            <!--<div id="_concern" style="display: none" class="topR" onclick="home.doConcern()">
                 <div class="sk-gz"></div>
+<<<<<<< HEAD
             </div>
-            <div id="_sharemode" style="display: block;" class="topR" onclick="home.showShareMode()">
+
+=======
+            </div>-->
+>>>>>>> dev
+            <div id="_sharemode" style="display: block;overflow: hidden" class="topR" v-tap="{methods: showShareMode}">
                 <div class="sk-point"></div>
             </div>
             <div class="fen-box f30 responsive">
-                <span class="itm-team each-resone" id="team_home">{{match.homesxname}}</span>
+                <span class="itm-team each-resone">{{match.homesxname}}</span>
 
                 <div class="itm-bf" v-if="match.status == StatusCode.NOT_STARTED">&nbsp;&nbsp;VS&nbsp;&nbsp;</div>
                 <div class="itm-bf" v-else>
-                    <div class="fen-bf"><span id="home_score" class="score">{{match.homescore}}</span></div>
+
+                    <div class="fen-bf"><span class="score">{{match.homescore}}</span></div>
                     <div class="fen-ld">:</div>
-                    <div class="fen-bf"><span id="away_score" class="score">{{match.awayscore}}</span></div>
+                    <div class="fen-bf"><span class="score">{{match.awayscore}}</span></div>
                 </div>
-                <span class="itm-team each-resone" id="team_away">{{match.awaysxname}}</span>
+                <span class="itm-team each-resone">{{match.awaysxname}}</span>
             </div>
         </div>
         <div class="l-flex-1 l-relative">
@@ -35,6 +41,7 @@
                                    match.status == StatusCode.MID ||
                                    match.status == StatusCode.LAST_HALF ||
                                    match.status == StatusCode.ENDED">
+<<<<<<< HEAD
                             <div class="fen-bf" drunk-scroll-text="match.homescore" time-out='8' class-list="['fen-bf-active']">
                                 <span class="score">{{match.homescore}}</span>
                                 <span class="score">{{match.homescore}}</span>
@@ -44,6 +51,9 @@
                                 <span class="score">{{match.awayscore}}</span>
                                 <span class="score">{{match.awayscore}}</span>
                             </div>
+=======
+                           <score :homescore="match.homescore" :new-homescore="newHomescore" :awayscore="match.awayscore" :new-awayscore="newAwayscore" @update="syncMatch"></score>
+>>>>>>> dev
                         </div>
 
                         <div
@@ -87,39 +97,39 @@
                         <li
                                 :class="{cur: ~$route.path.indexOf('/situation')}">
                             <router-link :to="{name: 'football-detail-situation'}" replace>
-                                <span>赛况<i class="sktab-arrow"></i></span>
+                                <span data-p2="zq_detail" data-p4="situation">赛况<i class="sktab-arrow"></i></span>
                             </router-link>
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/analysis')}">
                             <router-link :to="{name: 'football-detail-analysis-zj'}" replace>
-                                <span>分析<i class="sktab-arrow"></i></span>
+                                <span data-p2="zq_detail" data-p4="analysis">分析<i class="sktab-arrow"></i></span>
                             </router-link>
 
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/predict')}">
                             <router-link :to="{name: 'football-detail-predict'}" replace>
-                                <span>预测<i class="sktab-arrow"></i></span>
+                                <span data-p2="zq_detail" data-p4="predict">预测<i class="sktab-arrow"></i></span>
                             </router-link>
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/odds')}">
                             <router-link :to="{name: 'football-detail-odds-europe'}" replace>
-                                <span>赔率<i class="sktab-arrow"></i></span>
+                                <span data-p2="zq_detail" data-p4="odds">赔率<i class="sktab-arrow"></i></span>
                             </router-link>
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/comment')}">
                             <router-link :to="{name: 'football-detail-comment'}" replace>
-                                <span>聊球<i class="sktab-arrow"></i></span>
+                                <span data-p2="zq_detail" data-p4="comment">聊球<i class="sktab-arrow"></i></span>
                             </router-link>
                         </li>
 
                         <li
                                 :class="{cur: ~$route.path.indexOf('/crazybet')}">
                             <router-link :to="{name: 'football-detail-crazybet'}" replace>
-                                <span>猜球<i class="sktab-arrow"></i></span>
+                                <span data-p2="zq_detail" data-p4="crazybet">猜球<i class="sktab-arrow"></i></span>
                             </router-link>
                         </li>
 
@@ -167,14 +177,24 @@
     import toast from '~components/toast.vue'
     import editor from '~components/editor.vue'
     import detailScroller from '~components/detail_scroller.vue'
+    import share from '~components/detail/share.vue'
+    import copy from '~components/detail/copy.vue'
+    import score from '~components/detail/score.vue'
     import {aTypes, mTypes} from '~store/zqdetail'
+
+    if (process.env.VUE_ENV !== 'server') {
+        require('nativeshare')
+    }
     export default {
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getBaseInfo, params.fid)
         },
         data () {
             return {
-                StatusCode
+                StatusCode,
+                showScore: false,
+                newHomescore: 0,
+                newAwayscore: 0
             }
         },
         computed: {
@@ -215,7 +235,7 @@
             }
         },
         components: {
-            detailScroller, refresh, editor, toast
+            detailScroller, refresh, editor, toast, score
         },
         destroyed () {
             this.$store.dispatch('unsubscribeAll')
@@ -224,16 +244,15 @@
         methods: {
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                let baseInfo = this.$store.state.zqdetail.baseInfo
-                if (!baseInfo || this.$store.state.zqdetail.baseInfo.fid !== this.$route.params.fid) {
-                    await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
-                }
+                await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
                 this.$store.commit('endOneRefresh')
             },
             changeHeader (status) {
                 if (status) {
+                    this.showScore = true
                     this.$el.querySelector('.detailTop').className = 'detailTop topBarMove'
                 } else {
+                    this.showScore = false
                     this.$el.querySelector('.detailTop').className = 'detailTop topBarMove2'
                 }
             },
@@ -262,13 +281,94 @@
             beginEdit () {
                 this.$store.dispatch('ensureLogin')
                 this.$store.commit(mTypes.showEditorDialog, {})
+            },
+            doShare (nativeShare) {
+            // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
+                try {
+                    nativeShare.call()
+                    // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
+                    // 类似的命令下面有介绍
+                } catch (err) {
+//                    alert(err.message)
+                    // 如果不支持，你可以在这里做降级处理
+                    this.$store.commit(mTypes.setDialog, {component: copy,
+                        params: {
+                            onClose: () => {
+                                this.$store.commit(mTypes.setDialog, {})
+                            }
+                        }})
+                }
+            },
+            showShareMode () {
+                // 先创建一个实例
+                let nativeShare = new window.NativeShare({
+                    wechatConfig: {
+                        appId: '',
+                        timestamp: '',
+                        nonceStr: '',
+                        signature: ''
+                    },
+                    // 让你修改的分享的文案同步到标签里，比如title文案会同步到<title>标签中
+                    // 这样可以让一些不支持分享的浏览器也能修改部分文案，默认都不会同步
+                    syncDescToTag: false,
+                    syncIconToTag: false,
+                    syncTitleToTag: false
+                })
+                //  设置分享文案
+                nativeShare.setShareData({
+                    icon: 'http://m.500.com/favicon.ico',
+                    link: location.href,
+                    title: `${this.match.homesxname}vs${this.match.awaysxname} 实时比分`,
+                    desc: `关注最新比分动态， 请关注春哥网`,
+                    from: '500彩票网'
+                })
+                this.$store.commit(mTypes.setDialog, {
+                    component: share,
+                    params: {
+                        initFocus: this.match.isfocus, // 初始状态
+                        onClose: () => {
+                            this.$store.commit(mTypes.setDialog, {})
+                        },
+                        onShare: () => {
+                            this.$store.commit(mTypes.setDialog, {})
+                            this.doShare(nativeShare)
+                        },
+                        onCollect: () => {
+                            this.$store.dispatch(aTypes.requestConcern, this.match)
+                            this.$store.commit(mTypes.setDialog, {})
+                        },
+                        onReply: () => {
+                            this.$store.dispatch('ensureLogin')
+                            location.href = 'http://m.500.com/helpcenter/submituserproblem/'
+                        }
+                    }
+                })
+            },
+            syncMatch () {
+                if (this.socketData.stamp === pushEvents.FOOTBALL_INFO && (this.socketData.data.fid + '' === this.match.fid)) {
+//                    同步数据
+                    this.$store.commit(mTypes.syncBaseInfo, this.socketData.data)
+                }
             }
         },
         watch: {
             socketData ({data, stamp}) {  // websocket推送过来的数据
+                data.fid = data.fid + ''
                 if (stamp === pushEvents.FOOTBALL_INFO) {
-                    if (data.fid === this.match.fid) {
-                        this.$store.dispatch(aTypes.getBaseInfo, this.match.fid)
+                    if ((data.fid + '') === this.match.fid) {
+                        console.log(data.homescore)
+                        if (this.match.homescore === data.homescore && this.match.awayscore === data.awayscore) {
+                            this.syncMatch()
+                        } else {
+                            if (this.match.homescore !== data.homescore) {
+                                this.newHomescore = data.homescore
+                            }
+                            if (this.match.awayscore !== data.awayscore) {
+                                this.newAwayscore = data.awayscore
+                            }
+                        }
+
+//                        this.$store.dispatch(aTypes.getBaseInfo, this.match.fid)
                     }
                 }
             },
