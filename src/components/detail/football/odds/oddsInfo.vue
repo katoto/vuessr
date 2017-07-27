@@ -40,7 +40,7 @@
                                             <th>平</th>
                                             <th width="20%">负</th>
                                             <th width="36%"
-                                                drunk-on="tap:isOddsTimeNormal=!isOddsTimeNormal,updateCustomOddsInfo()">
+                                                v-tap="{methods: ()=> isOddsTimeNormal=!isOddsTimeNormal}">
                                                 更新时间<em
                                                     class="gxsj"></em></th>
                                         </tr>
@@ -54,7 +54,7 @@
                                             <td><span class="f24"
                                                       :class="{'red': info.lost_change == 1, 'green': info.lost_change == -1}">{{parseFloat(info.lost).toFixed(2)}}</span>
                                             </td>
-                                            <td drunk-on="tap:isOddsTimeNormal=!isOddsTimeNormal,updateCustomOddsInfo()">
+                                            <td  v-tap="{methods: ()=> isOddsTimeNormal=!isOddsTimeNormal}">
                                                 <span class="color9"
                                                       v-if="!isOddsTimeNormal">{{info.updatetime}}</span>
                                                 <span class="color9" v-if="isOddsTimeNormal">{{info.realtime.substring(5,16)}}</span>
