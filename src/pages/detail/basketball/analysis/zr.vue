@@ -19,7 +19,7 @@ import members from '~components/detail/basketball/analysis/zr/members.vue'
 export default {
     async asyncData ({store, route: {params}}) {
         const {homeid, awayid, seasonid, vtype} = store.state.mchao.baseinfo // baseInfo 保证有数据了
-        await this.$store.dispatch(aTypes.getAnalysisZr, {homeid, awayid, seasonid, vtype: 1})
+        await store.dispatch(aTypes.getAnalysisZr, {homeid, awayid, seasonid, vtype: 1})
     },
     components: {
         best3,

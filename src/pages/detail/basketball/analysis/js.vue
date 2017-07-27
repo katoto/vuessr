@@ -21,7 +21,7 @@ export default {
     async asyncData ({store, route: {params}}) {
         const {fid, seasonid, homeid, awayid, matchtime} = store.state.mchao.baseinfo// baseInfo 保证有数据了
         const matchdate = matchtime && matchtime.substr(0, 10)
-        await this.$store.dispatch(aTypes.getAnalysisJs, {fid, seasonid, homeid, awayid, matchdate})
+        await store.dispatch(aTypes.getAnalysisJs, {fid, seasonid, homeid, awayid, matchdate})
     },
     components: {
         strength,

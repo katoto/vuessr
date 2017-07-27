@@ -88,7 +88,12 @@ export default {
         bkbStatus () {
             return this.matches && this.matches.map((item, idx, arr) => {
 				if(idx === arr.length - 1) return false
-                return item.isb2b === '1' && arr[idx + 1].isb2b === '1'
+				let dt1 = new Date(item.date)
+				dt1.setDate(dt1.getDate()) // 处理为相同日期
+
+				let dt2 = new Date(arr[idx + 1].date)
+				dt2.setDate(dt2.getDate() + 1) // 处理为相同日期
+				return +dt1 == +dt2
             })
         },
         homeTeamClass () {

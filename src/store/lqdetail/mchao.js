@@ -1,5 +1,6 @@
 import ajax from '~common/ajax'
 import {mapActions, mapMutations} from '~common/util'
+import { pushEvents } from '~common/constants'
 const ns = 'lqdetail/mchao'
 const initState = {
     reachEndTime: 0,  // 滚动到最后触发的时间戳
@@ -47,6 +48,20 @@ const initState = {
     }
 }
 const actionsInfo = mapActions({
+    subscribeInfo ({dispatch}, fidList) {
+        if (!fidList || fidList.length < 1) {
+            return
+        }
+        const infoList = fidList.map(fid => 'LIVE:BASKETBALL:INFO:' + fid)
+        return dispatch('subscribe', {stamp: pushEvents.BASKETBALL_INFO, data: infoList})
+    },
+    subscribeEvent ({dispatch}, fidList) {
+        if (!fidList || fidList.length < 1) {
+            return
+        }
+        const eventList = fidList.map(fid => 'LIVE:BASKETBALL:EVENT:' + fid)
+        return dispatch('subscribe', {stamp: pushEvents.BASKETBALL_INFO, data: eventList})
+    },
     async getBaseInfo ({commit}, fid) {
         const baseinfo = await ajax.get(`/score/lq/baseinfo?fid=${fid}`)
         commit(mTypes.setBaseInfo, baseinfo)
@@ -153,6 +168,20 @@ const actionsInfo = mapActions({
         }
 
         commit(mTypes.updateReplyTime)
+    },
+    async requestConcern ({commit, state}, {fid, expect}) {
+        let origin = state.baseinfo.isfocus
+        let op
+        let statset
+        if (origin === '0') {
+            op = 'set'
+            statset = '1'
+        } else {
+            op = 'unset'
+            statset = '0'
+        }
+        await ajax.get(`/score/concern/focus?fid=${fid}&vtype=2&op=${op}&lotid=46&expect=${expect}`, {ignore: false})
+        commit(mTypes.changeConcernStatus, statset)
     }
 
 }, ns)
@@ -218,7 +247,7 @@ const mutationsInfo = mapMutations({
         state.comment.replyName = null
     },
     changeConcernStatus (state, status) {
-        state.baseInfo.isfocus = status
+        state.baseinfo.isfocus = status
     },
     reset (state) {
         const iState = JSON.parse(JSON.stringify(initState))

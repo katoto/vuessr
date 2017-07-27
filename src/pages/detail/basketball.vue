@@ -1,47 +1,95 @@
 <template>
 <div class="l-full l-flex-column" v-if="baseinfo">
-    <div class="detailTop topBarMove2" style="display: block;position:relative"><a onclick="history.back()" href="javascript:;" class="back-icon">返回</a><a href="/score/index.html#/basketball" class="link-index f26">比分首页</a>
-        <div onclick="home.goLeague()" class="r-sn f24">WNBA</div>
-        <div id="_concern" onclick="home.doConcern()" class="topR" style="display: none;">
+    <div class="detailTop topBarMove2" style="display: block;">
+        <a class="back-icon" onclick="history.back()" href="javascript:;">返回</a>
+        <router-link to="/home/zq/jczq/cur" class="link-index f26">比分首页</router-link>
+        <!--<a class="link-index f26" href="/score/index.html#/football">比分首页</a>-->
+
+        <div onclick="home.goLeague()" class="r-sn f24">{{baseinfo.simpleleague}}</div>
+
+
+        <div id="_concern" style="display: none" class="topR" onclick="home.doConcern()">
             <div class="sk-gz"></div>
         </div>
-        <div id="_sharemode" onclick="home.showShareMode()" class="topR" style="display: block;">
+        <div id="_sharemode" style="display: block;overflow: hidden" class="topR" v-tap="{methods: showShareMode}"
+             onclick="home.showShareMode()">
             <div class="sk-point"></div>
         </div>
-        <div class="fen-box f30 responsive"><span id="team_home" class="itm-team each-resone">天空</span>
-            <div id="type_vs" class="itm-bf" style="display: none;">&nbsp;&nbsp;VS&nbsp;&nbsp;</div>
-            <div id="type_score" class="itm-bf" style="display: block;">
-                <div class="fen-bf"><span id="home_score" class="score">106</span></div>
+        <div class="fen-box f30 responsive">
+            <span class="itm-team each-resone" id="team_away">{{baseinfo.awaysxname}}</span>
+
+            <div class="itm-bf" v-if="baseinfo.status == StatusCode.NOT_STARTED">&nbsp;&nbsp;VS&nbsp;&nbsp;</div>
+            <div class="itm-bf" v-else>
+                <div class="fen-bf-lq"><span id="away_score" class="score">{{baseinfo.awayscore}}</span></div>
                 <div class="fen-ld">:</div>
-                <div class="fen-bf"><span id="away_score" class="score">112</span></div>
-            </div><span id="team_away" class="itm-team each-resone">飞翼</span></div>
+                <div class="fen-bf-lq"><span id="home_score" class="score">{{baseinfo.homescore}}</span></div>
+            </div>
+            <span class="itm-team each-resone" id="team_home">{{baseinfo.homesxname}}</span>
+        </div>
     </div>
     <div class="l-flex-1 l-relative">
         <detail-scroller ref="scroller" @switch="changeHeader" @end="reachEnd">
-            <div class="zq-header _header" style="position: relative;top:0">
+            <div class="zq-header _header ">
                 <div class="fen-box">
-                    <div class="itm-bf">
-                        <div time-out="2" class-list="['fen-bf-active']" class="fen-bf-lq"><span class="score">106</span><span class="score">106</span></div>
-                        <div class="fen-ld">:</div>
-                        <div time-out="2" class-list="['fen-bf-active']" class="fen-bf-lq"><span class="score">112</span><span class="score">112</span></div>
+
+                    <div class="itm-bf" v-if="baseinfo.status == StatusCode.SECTION_1 ||
+                               baseinfo.status == StatusCode.SECTION_2 ||
+                               baseinfo.status == StatusCode.SECTION_3 ||
+                               baseinfo.status == StatusCode.SECTION_4 ||
+                               baseinfo.status == StatusCode.MID ||
+                               baseinfo.status == StatusCode.OVERTIME_1 ||
+                               baseinfo.status == StatusCode.OVERTIME_2 ||
+                               baseinfo.status == StatusCode.OVERTIME_3 ||
+                               baseinfo.status == StatusCode.OVERTIME_4 ||
+                               baseinfo.status == StatusCode.ENDED">
+                       <div class="fen-bf-lq" drunk-scroll-text="baseinfo.awayscore" time-out='8'
+                           class-list="['fen-bf-lq-active']">
+                           <span class="score">{{baseinfo.awayscore}}</span>
+                           <span class="score">{{baseinfo.awayscore}}</span>
+                       </div>
+                       <div class="fen-ld">:</div>
+                        <div class="fen-bf-lq" drunk-scroll-text="baseinfo.homescore" time-out='8'
+                             class-list="['fen-bf-lq-active']">
+                            <span class="score">{{baseinfo.homescore}}</span>
+                            <span class="score">{{baseinfo.homescore}}</span>
+                        </div>
                     </div>
-                    <div onclick="location.href='team_home/index.html#!/team/lq/125/curr/gl'" class="left-img">
-                        <div class="img-box"><img src="http://odds.500.com/static/soccerdata/images/BasketBallTeamPic/b8eec19219eb7fbc65ce7bd40fa9c8dc.gif"></div>
-                        <h2 class="left-name f28"> 天空
-                                    </h2>
-                        <p class="header-pm f20">东部排名6</p>
+
+                    <div
+                            v-if="baseinfo.status == StatusCode.CHANGED"
+                            class="wks">{{baseinfo.status_desc}}
                     </div>
-                    <div onclick="location.href='team_home/index.html#!/team/lq/130/curr/gl'" class="right-img">
-                        <div class="img-box"><img src="http://odds.500.com/static/soccerdata/images/BasketBallTeamPic/e57d0c76ea95e3a33ff0d1a9157bb1ef.png"></div>
-                        <h2 class="right-name f28">飞翼
-                                    </h2>
-                        <p class="header-pm f20">西部排名5</p>
+                    <div v-if="baseinfo.status == StatusCode.NOT_STARTED" class="wks">VS</div>
+
+
+                    <div class="left-img" v-tap="{methods: goTeam, teamId: baseinfo.awayid}">
+                        <div class="img-box"><img
+                            :src="baseinfo.awaylogo">
+                        </div>
+                        <h2 class="right-name f28">{{baseinfo.awaysxname}}</h2>
+
+                        <p class="header-pm f20">{{baseinfo.astr?baseinfo.astr:'暂无排名'}}</p>
+                    </div>
+                    <div class="right-img" v-tap="{methods: goTeam, teamId: baseinfo.homeid}">
+                        <div class="img-box"><img
+                                :src="baseinfo.homelogo">
+                        </div>
+                        <h2 class="left-name f28">{{baseinfo.homesxname}}<span class="zhongli f20"
+                                                                            v-if="baseinfo.zlc == 1"> (中)</span></h2>
+
+                        <p class="header-pm f20">{{baseinfo.hstr?baseinfo.hstr:'暂无排名'}}</p>
                     </div>
                 </div>
                 <div class="game-info">
-                    <div class="game-state f24">完场</div>
-                    <div class="game-time f20">07-17 04:30</div>
+                    <div v-if="
+                            baseinfo.status != StatusCode.NOT_STARTED && baseinfo.status != StatusCode.ENDED && baseinfo.status != StatusCode.CHANGED"
+                         class="game-state f24">{{baseinfo.status_desc}}
+                    </div>
+                    <div v-if="baseinfo.status === StatusCode.ENDED" class="game-state f24">完场</div>
+                    <div class="game-time f20">{{baseinfo.matchtime.slice(5,16)}}</div>
+
                 </div>
+                <div class="sk-tips"></div>
             </div>
             <div slot="navigator" class="navigator hide">
                 <ul>
@@ -102,6 +150,7 @@
 </template>
 
 <script>
+    import {BasketballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import refresh from '~components/refresh.vue'
     import toast from '~components/toast.vue'
     import editor from '~components/editor.vue'
@@ -112,6 +161,10 @@
         aTypes,
         mTypes
     } from '~store/lqdetail/mchao'
+
+    if (process.env.VUE_ENV !== 'server') {
+        require('nativeshare')
+    }
     export default {
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getBaseInfo, params.fid)
@@ -119,10 +172,15 @@
         components: {
             detailScroller, refresh, editor, toast
         },
+        data () {
+            return {
+                StatusCode
+            }
+        },
         computed: {
-            // socketData () {  // websocket推送过来的数据
-            //     return this.$store.getters.getSocketData
-            // },
+            socketData () {  // websocket推送过来的数据
+                return this.$store.getters.getSocketData
+            },
             baseinfo () {
                 return this.$store.state.mchao.baseinfo
             },
@@ -148,8 +206,8 @@
         methods: {
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                let baseInfo = this.$store.state.mchao.baseInfo
-                if (!baseInfo || this.$store.state.mchao.baseInfo.fid !== this.$route.params.fid) {
+                let baseinfo = this.$store.state.mchao.baseinfo
+                if (!baseinfo || this.$store.state.mchao.baseinfo.fid !== this.$route.params.fid) {
                     await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
                 }
                 this.$store.commit('endOneRefresh')
@@ -184,14 +242,90 @@
             closeEditor () {
                 this.$store.commit(mTypes.hideEditorDialog)
             },
+            doShare (nativeShare) {
+            // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
+                try {
+                    nativeShare.call()
+                    // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
+                    // 类似的命令下面有介绍
+                } catch (err) {
+//                    alert(err.message)
+                    // 如果不支持，你可以在这里做降级处理
+                    this.$store.commit(mTypes.setDialog, {component: copy,
+                        params: {
+                            onClose: () => {
+                                this.$store.commit(mTypes.setDialog, {})
+                            }
+                        }})
+                }
+            },
+            showShareMode () {
+                // 先创建一个实例
+                let nativeShare = new window.NativeShare({
+                    wechatConfig: {
+                        appId: '',
+                        timestamp: '',
+                        nonceStr: '',
+                        signature: ''
+                    },
+                    // 让你修改的分享的文案同步到标签里，比如title文案会同步到<title>标签中
+                    // 这样可以让一些不支持分享的浏览器也能修改部分文案，默认都不会同步
+                    syncDescToTag: false,
+                    syncIconToTag: false,
+                    syncTitleToTag: false
+                })
+                //  设置分享文案
+                nativeShare.setShareData({
+                    icon: 'http://m.500.com/favicon.ico',
+                    link: location.href,
+                    title: '实时比分',
+                    desc: `${this.baseinfo.homesxname}vs${this.baseinfo.awaysxname}`,
+                    from: '500彩票网'
+                })
+                this.$store.commit(mTypes.setDialog, {
+                    component: share,
+                    params: {
+                        initFocus: this.baseinfo.isfocus, // 初始状态
+                        onClose: () => {
+                            this.$store.commit(mTypes.setDialog, {})
+                        },
+                        onShare: () => {
+                            this.$store.commit(mTypes.setDialog, {})
+                            this.doShare(nativeShare)
+                        },
+                        onCollect: () => {
+                            this.$store.dispatch(aTypes.requestConcern, this.baseinfo)
+                            this.$store.commit(mTypes.setDialog, {})
+                        }
+                    }
+                })
+            },
+            goTeam ({teamId}) {
+                this.$router.push(`/team/basketball/${teamId}/sc`)
+            }
         },
         async mounted () {
-            this.fetchData()
+            await this.fetchData()
+            if (this.baseinfo.status !== StatusCode.ENDED) {
+                console.log('---------');
+                this.$store.dispatch(aTypes.subscribeInfo, [this.baseinfo.fid])
+                this.$store.dispatch(aTypes.subscribeEvent, [this.baseinfo.fid])
+            }
         },
         destroyed () {
+            this.$store.dispatch('unsubscribeAll')
             this.$store.commit(mTypes.reset)
         },
         watch: {
+            socketData ({data, stamp}) {  // websocket推送过来的数据
+                console.log('=========websocket');
+                console.log({data, stamp});
+                if (stamp === pushEvents.BASKETBALL_INFO) {
+                    if (data.fid === this.baseinfo.fid) {
+                        this.$store.dispatch(aTypes.getBaseInfo, this.baseinfo.fid)
+                    }
+                }
+            },
             '$route.path' (path) {
                 this.$refs.scroller.update()
                 if (~path.indexOf('/crazybet')) {

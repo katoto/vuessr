@@ -198,4 +198,10 @@ export default {
 </script>
 
 <style lang="css">
+.ui-empty-font {
+    color: #b3b3b3;
+    font-size: 0.4rem;
+    padding: 0.22rem 0;
+    text-align: center;
+}
 </style>
