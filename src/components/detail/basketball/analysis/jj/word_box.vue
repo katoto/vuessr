@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import {mTypes} from '~store/lqdetail/mchao'
+import {mTypes} from '~store/lqdetail'
 export default {
     props: ['params'],
     data() {

@@ -1,7 +1,7 @@
 <template>
     <div v-if="analysis">
-        <NBA-rank :baseinfo='baseinfo' :nbarank='nbarank.all' v-if="isNBA && nbarank"></NBA-rank>
-        <league-rank :baseinfo='baseinfo' :leaguerank='leaguerank' v-else-if='leaguerank'></league-rank>
+        <NBA-rank :baseInfo='baseInfo' :nbarank='nbarank.all' v-if="isNBA && nbarank"></NBA-rank>
+        <league-rank :baseInfo='baseInfo' :leaguerank='leaguerank' v-else-if='leaguerank'></league-rank>
         <jz-data :jz_data='jz_data' v-if="jz_data"></jz-data>
         <recent-record :recent_record='recent_record' v-if="recent_record"></recent-record>
         <future-match :future_match='future_match' v-if="future_match"></future-match>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import {mTypes, aTypes} from '~store/lqdetail/mchao'
+import {mTypes, aTypes} from '~store/lqdetail'
 import leagueRank from '~components/detail/basketball/analysis/zj/league_rank.vue'
 import NBARank from '~components/detail/basketball/analysis/zj/nba_rank.vue'
 import jzData from '~components/detail/basketball/analysis/zj/jz_data.vue'
@@ -27,7 +27,7 @@ import macauNews from '~components/detail/basketball/analysis/zj/macau_news.vue'
 
 export default {
     async asyncData ({store, route: {params}}) {
-        const {fid, homeid, awayid, seasonid, stageid, matchid, matchtime, group, stagemode} = store.state.mchao.baseinfo // baseInfo 保证有数据了
+        const {fid, homeid, awayid, seasonid, stageid, matchid, matchtime, group, stagemode} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
         const matchdate = matchtime && matchtime.substr(0, 10)
         await store.dispatch(aTypes.getAnalysisZj, {fid, homeid, awayid, seasonid, stageid, matchid, matchdate, group, stagemode})
     },
@@ -40,11 +40,11 @@ export default {
         macauNews
     },
     computed: {
-        baseinfo () {
-            return this.$store.state.mchao.baseinfo
+        baseInfo () {
+            return this.$store.state.lqdetail.baseInfo
         },
         analysis () {
-            return this.$store.state.mchao.analysis
+            return this.$store.state.lqdetail.analysis
         },
         nbarank () {
             return this.analysis.zj.nbarank
@@ -65,7 +65,7 @@ export default {
             return this.analysis.zj.macau_news
         },
         isNBA () {
-            return this.baseinfo.simpleleague === 'NBA'
+            return this.baseInfo.simpleleague === 'NBA'
         },
         loaded () {
             return this.$store.state.refreshing === 0
@@ -77,7 +77,7 @@ export default {
     methods: {
         async fetchData () {
             this.$store.commit('startOneRefresh')
-            const {fid, homeid, awayid, seasonid, stageid, matchid, matchtime, group, stagemode} = this.baseinfo // baseInfo 保证有数据了
+            const {fid, homeid, awayid, seasonid, stageid, matchid, matchtime, group, stagemode} = this.baseInfo // baseInfo 保证有数据了
             const matchdate = matchtime && matchtime.substr(0, 10)
             await this.$store.dispatch(aTypes.getAnalysisZj, {fid, homeid, awayid, seasonid, stageid, matchid, matchdate, group, stagemode})
             this.$store.commit('endOneRefresh')

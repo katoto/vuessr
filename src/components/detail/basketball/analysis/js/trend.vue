@@ -11,7 +11,7 @@
                 <div class="jqzs-fc" v-if="trend.away">
                     <div class="pm-namel fczs-cont ">
                         <div class="pm-img">
-                            <img :src="baseinfo.awaylogo">
+                            <img :src="baseInfo.awaylogo">
                         </div>
                         <div class="fczs">
                             <div class="fczs-jt">{{trendType[trend.away.exp]}}<em :class="trendTypeClass[trend.away.exp]"><i></i></em></div>
@@ -48,7 +48,7 @@
                 <div class="jqzs-fc" v-if="trend.home">
                     <div class="pm-namel fczs-cont ">
                         <div class="pm-img">
-                            <img :src="baseinfo.homelogo">
+                            <img :src="baseInfo.homelogo">
                         </div>
                         <div class="fczs">
                             <div class="fczs-jt">{{trendType[trend.home.exp]}}<em :class="trendTypeClass[trend.home.exp]"><i></i></em></div>
@@ -110,10 +110,10 @@
 </template>
 
 <script>
-import {mTypes, aTypes} from '~store/lqdetail/mchao'
+import {mTypes, aTypes} from '~store/lqdetail'
 export default {
     props: {
-        baseinfo: {
+        baseInfo: {
             type: Object,
             required: true
         },
@@ -225,10 +225,10 @@ export default {
             this.trend = null
             this.trendFid = null
             this.$store.commit('startOneRefresh')
-            const {fid, homeid, awayid, matchtime} = this.baseinfo // baseInfo 保证有数据了
+            const {fid, homeid, awayid, matchtime} = this.baseInfo // baseInfo 保证有数据了
             const matchdate = matchtime && matchtime.substr(0, 10)
-            if(this.$store.state.mchao.analysis.js.trend[vtype]) {
-                this.trend = this.$store.state.mchao.analysis.js.trend[vtype]
+            if(this.$store.state.lqdetail.analysis.js.trend[vtype]) {
+                this.trend = this.$store.state.lqdetail.analysis.js.trend[vtype]
                 this.$store.commit('endOneRefresh')
                 return;
             }

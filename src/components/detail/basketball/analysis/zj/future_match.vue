@@ -10,7 +10,7 @@
                         <tbody>
                             <tr>
                                 <th width="22%">
-                                    <span class="color3 f28">{{baseinfo[hoa + 'sxname']}}</span>
+                                    <span class="color3 f28">{{baseInfo[hoa + 'sxname']}}</span>
                                 </th>
                                 <th width="20%">
                                     日期
@@ -77,8 +77,8 @@ export default {
         }
     },
     computed: {
-        baseinfo() {
-            return this.$store.state.mchao.baseinfo
+        baseInfo() {
+            return this.$store.state.lqdetail.baseInfo
         },
         noEmptyFlag() {
             return this.noEmpty(this.future_match.home) && this.noEmpty(this.future_match.away)

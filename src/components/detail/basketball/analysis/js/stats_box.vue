@@ -11,9 +11,9 @@
                             <th width="30%"></th>
                             <th width="35%" colspan="2" v-for="hoa in ['away', 'home']">
                                 <span class="jcsj-img">
-                    				<img :src="baseinfo[hoa + 'logo']">
+                    				<img :src="baseInfo[hoa + 'logo']">
                     			</span>
-                                <em>{{baseinfo[hoa + 'sxname']}}</em>
+                                <em>{{baseInfo[hoa + 'sxname']}}</em>
                             </th>
                         </tr>
                         <tr>
@@ -45,7 +45,7 @@
 <script>
 import {
     mTypes
-} from '~store/lqdetail/mchao'
+} from '~store/lqdetail'
 export default {
     props: ['params'],
     data() {
@@ -76,8 +76,8 @@ export default {
         }
     },
     computed: {
-        baseinfo() {
-            return this.params.baseinfo
+        baseInfo() {
+            return this.params.baseInfo
         },
         stats() {
             return this.params.stats

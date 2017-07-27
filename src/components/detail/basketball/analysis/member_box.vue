@@ -39,7 +39,7 @@
 import {
     mTypes,
     aTypes
-} from '~store/lqdetail/mchao'
+} from '~store/lqdetail'
 import {Scroller} from 'scroller'
 
 export default {
@@ -67,7 +67,7 @@ export default {
             return this.noEmpty(this.members)
         },
         membersFmt() {
-            return members.slice(0, this.cutLen)
+            return this.members.slice(0, this.cutLen)
         }
     },
     methods: {

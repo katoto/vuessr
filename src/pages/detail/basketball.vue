@@ -1,11 +1,11 @@
 <template>
-<div class="l-full l-flex-column" v-if="baseinfo">
+<div class="l-full l-flex-column" v-if="baseInfo">
     <div class="detailTop topBarMove2" style="display: block;">
         <a class="back-icon" onclick="history.back()" href="javascript:;">返回</a>
         <router-link to="/home/zq/jczq/cur" class="link-index f26">比分首页</router-link>
         <!--<a class="link-index f26" href="/score/index.html#/football">比分首页</a>-->
 
-        <div onclick="home.goLeague()" class="r-sn f24">{{baseinfo.simpleleague}}</div>
+        <div onclick="home.goLeague()" class="r-sn f24">{{baseInfo.simpleleague}}</div>
 
 
         <div id="_concern" style="display: none" class="topR" onclick="home.doConcern()">
@@ -16,15 +16,15 @@
             <div class="sk-point"></div>
         </div>
         <div class="fen-box f30 responsive">
-            <span class="itm-team each-resone" id="team_away">{{baseinfo.awaysxname}}</span>
+            <span class="itm-team each-resone" id="team_away">{{baseInfo.awaysxname}}</span>
 
-            <div class="itm-bf" v-if="baseinfo.status == StatusCode.NOT_STARTED">&nbsp;&nbsp;VS&nbsp;&nbsp;</div>
+            <div class="itm-bf" v-if="baseInfo.status == StatusCode.NOT_STARTED">&nbsp;&nbsp;VS&nbsp;&nbsp;</div>
             <div class="itm-bf" v-else>
-                <div class="fen-bf-lq"><span id="away_score" class="score">{{baseinfo.awayscore}}</span></div>
+                <div class="fen-bf-lq"><span id="away_score" class="score">{{baseInfo.awayscore}}</span></div>
                 <div class="fen-ld">:</div>
-                <div class="fen-bf-lq"><span id="home_score" class="score">{{baseinfo.homescore}}</span></div>
+                <div class="fen-bf-lq"><span id="home_score" class="score">{{baseInfo.homescore}}</span></div>
             </div>
-            <span class="itm-team each-resone" id="team_home">{{baseinfo.homesxname}}</span>
+            <span class="itm-team each-resone" id="team_home">{{baseInfo.homesxname}}</span>
         </div>
     </div>
     <div class="l-flex-1 l-relative">
@@ -32,61 +32,61 @@
             <div class="zq-header _header ">
                 <div class="fen-box">
 
-                    <div class="itm-bf" v-if="baseinfo.status == StatusCode.SECTION_1 ||
-                               baseinfo.status == StatusCode.SECTION_2 ||
-                               baseinfo.status == StatusCode.SECTION_3 ||
-                               baseinfo.status == StatusCode.SECTION_4 ||
-                               baseinfo.status == StatusCode.MID ||
-                               baseinfo.status == StatusCode.OVERTIME_1 ||
-                               baseinfo.status == StatusCode.OVERTIME_2 ||
-                               baseinfo.status == StatusCode.OVERTIME_3 ||
-                               baseinfo.status == StatusCode.OVERTIME_4 ||
-                               baseinfo.status == StatusCode.ENDED">
-                       <div class="fen-bf-lq" drunk-scroll-text="baseinfo.awayscore" time-out='8'
+                    <div class="itm-bf" v-if="baseInfo.status == StatusCode.SECTION_1 ||
+                               baseInfo.status == StatusCode.SECTION_2 ||
+                               baseInfo.status == StatusCode.SECTION_3 ||
+                               baseInfo.status == StatusCode.SECTION_4 ||
+                               baseInfo.status == StatusCode.MID ||
+                               baseInfo.status == StatusCode.OVERTIME_1 ||
+                               baseInfo.status == StatusCode.OVERTIME_2 ||
+                               baseInfo.status == StatusCode.OVERTIME_3 ||
+                               baseInfo.status == StatusCode.OVERTIME_4 ||
+                               baseInfo.status == StatusCode.ENDED">
+                       <div class="fen-bf-lq" drunk-scroll-text="baseInfo.awayscore" time-out='8'
                            class-list="['fen-bf-lq-active']">
-                           <span class="score">{{baseinfo.awayscore}}</span>
-                           <span class="score">{{baseinfo.awayscore}}</span>
+                           <span class="score">{{baseInfo.awayscore}}</span>
+                           <span class="score">{{baseInfo.awayscore}}</span>
                        </div>
                        <div class="fen-ld">:</div>
-                        <div class="fen-bf-lq" drunk-scroll-text="baseinfo.homescore" time-out='8'
+                        <div class="fen-bf-lq" drunk-scroll-text="baseInfo.homescore" time-out='8'
                              class-list="['fen-bf-lq-active']">
-                            <span class="score">{{baseinfo.homescore}}</span>
-                            <span class="score">{{baseinfo.homescore}}</span>
+                            <span class="score">{{baseInfo.homescore}}</span>
+                            <span class="score">{{baseInfo.homescore}}</span>
                         </div>
                     </div>
 
                     <div
-                            v-if="baseinfo.status == StatusCode.CHANGED"
-                            class="wks">{{baseinfo.status_desc}}
+                            v-if="baseInfo.status == StatusCode.CHANGED"
+                            class="wks">{{baseInfo.status_desc}}
                     </div>
-                    <div v-if="baseinfo.status == StatusCode.NOT_STARTED" class="wks">VS</div>
+                    <div v-if="baseInfo.status == StatusCode.NOT_STARTED" class="wks">VS</div>
 
 
-                    <div class="left-img" v-tap="{methods: goTeam, teamId: baseinfo.awayid}">
+                    <div class="left-img" v-tap="{methods: goTeam, teamId: baseInfo.awayid}">
                         <div class="img-box"><img
-                            :src="baseinfo.awaylogo">
+                            :src="baseInfo.awaylogo">
                         </div>
-                        <h2 class="right-name f28">{{baseinfo.awaysxname}}</h2>
+                        <h2 class="right-name f28">{{baseInfo.awaysxname}}</h2>
 
-                        <p class="header-pm f20">{{baseinfo.astr?baseinfo.astr:'暂无排名'}}</p>
+                        <p class="header-pm f20">{{baseInfo.astr?baseInfo.astr:'暂无排名'}}</p>
                     </div>
-                    <div class="right-img" v-tap="{methods: goTeam, teamId: baseinfo.homeid}">
+                    <div class="right-img" v-tap="{methods: goTeam, teamId: baseInfo.homeid}">
                         <div class="img-box"><img
-                                :src="baseinfo.homelogo">
+                                :src="baseInfo.homelogo">
                         </div>
-                        <h2 class="left-name f28">{{baseinfo.homesxname}}<span class="zhongli f20"
-                                                                            v-if="baseinfo.zlc == 1"> (中)</span></h2>
+                        <h2 class="left-name f28">{{baseInfo.homesxname}}<span class="zhongli f20"
+                                                                            v-if="baseInfo.zlc == 1"> (中)</span></h2>
 
-                        <p class="header-pm f20">{{baseinfo.hstr?baseinfo.hstr:'暂无排名'}}</p>
+                        <p class="header-pm f20">{{baseInfo.hstr?baseInfo.hstr:'暂无排名'}}</p>
                     </div>
                 </div>
                 <div class="game-info">
                     <div v-if="
-                            baseinfo.status != StatusCode.NOT_STARTED && baseinfo.status != StatusCode.ENDED && baseinfo.status != StatusCode.CHANGED"
-                         class="game-state f24">{{baseinfo.status_desc}}
+                            baseInfo.status != StatusCode.NOT_STARTED && baseInfo.status != StatusCode.ENDED && baseInfo.status != StatusCode.CHANGED"
+                         class="game-state f24">{{baseInfo.status_desc}}
                     </div>
-                    <div v-if="baseinfo.status === StatusCode.ENDED" class="game-state f24">完场</div>
-                    <div class="game-time f20">{{baseinfo.matchtime.slice(5,16)}}</div>
+                    <div v-if="baseInfo.status === StatusCode.ENDED" class="game-state f24">完场</div>
+                    <div class="game-time f20">{{baseInfo.matchtime.slice(5,16)}}</div>
 
                 </div>
                 <div class="sk-tips"></div>
@@ -123,7 +123,7 @@
         </detail-scroller>
     </div>
 
-    <!-- <div  v-if="outer.component" class="popLayer"></div> -->
+    <div  v-if="outer.component" class="popLayer"></div>
     <transition name="slide">
         <div v-if="outer.component" class="l-full" style="z-index: 101">
             <component :is="outer.component" :params="outer.params"></component>
@@ -160,7 +160,7 @@
     import {
         aTypes,
         mTypes
-    } from '~store/lqdetail/mchao'
+    } from '~store/lqdetail'
 
     if (process.env.VUE_ENV !== 'server') {
         require('nativeshare')
@@ -181,23 +181,23 @@
             socketData () {  // websocket推送过来的数据
                 return this.$store.getters.getSocketData
             },
-            baseinfo () {
-                return this.$store.state.mchao.baseinfo
+            baseInfo () {
+                return this.$store.state.lqdetail.baseInfo
             },
             outer () {
-                return this.$store.state.mchao.outer
+                return this.$store.state.lqdetail.outer
             },
             total () {
-                return this.$store.state.mchao.comment.total
+                return this.$store.state.lqdetail.comment.total
             },
             replyName () {
-                return this.$store.state.mchao.comment.replyName
+                return this.$store.state.lqdetail.comment.replyName
             },
             commentReplyId () {
-                return this.$store.state.mchao.comment.commentReplyId
+                return this.$store.state.lqdetail.comment.commentReplyId
             },
             showEditor () {
-                return this.$store.state.mchao.comment.showEditor
+                return this.$store.state.lqdetail.comment.showEditor
             },
             toast () {
                 return this.$store.state.toast
@@ -206,8 +206,8 @@
         methods: {
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                let baseinfo = this.$store.state.mchao.baseinfo
-                if (!baseinfo || this.$store.state.mchao.baseinfo.fid !== this.$route.params.fid) {
+                let baseInfo = this.$store.state.lqdetail.baseInfo
+                if (!baseInfo || this.$store.state.lqdetail.baseInfo.fid !== this.$route.params.fid) {
                     await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
                 }
                 this.$store.commit('endOneRefresh')
@@ -279,13 +279,13 @@
                     icon: 'http://m.500.com/favicon.ico',
                     link: location.href,
                     title: '实时比分',
-                    desc: `${this.baseinfo.homesxname}vs${this.baseinfo.awaysxname}`,
+                    desc: `${this.baseInfo.homesxname}vs${this.baseInfo.awaysxname}`,
                     from: '500彩票网'
                 })
                 this.$store.commit(mTypes.setDialog, {
                     component: share,
                     params: {
-                        initFocus: this.baseinfo.isfocus, // 初始状态
+                        initFocus: this.baseInfo.isfocus, // 初始状态
                         onClose: () => {
                             this.$store.commit(mTypes.setDialog, {})
                         },
@@ -294,7 +294,7 @@
                             this.doShare(nativeShare)
                         },
                         onCollect: () => {
-                            this.$store.dispatch(aTypes.requestConcern, this.baseinfo)
+                            this.$store.dispatch(aTypes.requestConcern, this.baseInfo)
                             this.$store.commit(mTypes.setDialog, {})
                         }
                     }
@@ -306,10 +306,10 @@
         },
         async mounted () {
             await this.fetchData()
-            if (this.baseinfo.status !== StatusCode.ENDED) {
+            if (this.baseInfo.status !== StatusCode.ENDED) {
                 console.log('---------');
-                this.$store.dispatch(aTypes.subscribeInfo, [this.baseinfo.fid])
-                this.$store.dispatch(aTypes.subscribeEvent, [this.baseinfo.fid])
+                this.$store.dispatch(aTypes.subscribeInfo, [this.baseInfo.fid])
+                this.$store.dispatch(aTypes.subscribeEvent, [this.baseInfo.fid])
             }
         },
         destroyed () {
@@ -321,8 +321,8 @@
                 console.log('=========websocket');
                 console.log({data, stamp});
                 if (stamp === pushEvents.BASKETBALL_INFO) {
-                    if (data.fid === this.baseinfo.fid) {
-                        this.$store.dispatch(aTypes.getBaseInfo, this.baseinfo.fid)
+                    if (data.fid === this.baseInfo.fid) {
+                        this.$store.dispatch(aTypes.getBaseInfo, this.baseInfo.fid)
                     }
                 }
             },
@@ -336,7 +336,7 @@
                     this.$refs.scroller.switchStop(false)
                 }
             },
-            '$store.state.mchao.scTime' () {
+            '$store.state.lqdetail.scTime' () {
                 this.updateScroller()
             }
         }

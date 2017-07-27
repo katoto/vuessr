@@ -1,13 +1,13 @@
 <template>
     <div>
-    	<div class="zhedie-box" v-if="baseinfo.stagemode === '1'">
+    	<div class="zhedie-box" v-if="baseInfo.stagemode === '1'">
     		<div class="zj-nav">
     			联赛排名
     		</div>
     		<div class="zhedie" v-if="noEmptyFlag">
     			<div v-for="hoa in ['away', 'home']">
     				<div class="pm-namel">
-    					{{baseinfo[hoa + 'sxname']}} ({{baseinfo.simpleleague}})
+    					{{baseInfo[hoa + 'sxname']}} ({{baseInfo.simpleleague}})
     				</div>
     				<table width="100%" cellpadding="0" cellspacing="0" class="fx-table fb">
         				<tbody>
@@ -58,7 +58,7 @@
 
         <div class="zhedie-box" v-else>
         	<div class="zj-nav">
-        		{{baseinfo.seasongbname}}{{baseinfo.matchgroup}}组排名
+        		{{baseInfo.seasongbname}}{{baseInfo.matchgroup}}组排名
         	</div>
         	<div class="zhedie" v-if="noEmptyFlag">
         		<table width="100%" cellpadding="0" cellspacing="0" class="fx-table fb-lq">
@@ -112,7 +112,7 @@
 <script>
 export default {
     props: {
-        baseinfo: {
+        baseInfo: {
             type: Object,
             required: true
         },

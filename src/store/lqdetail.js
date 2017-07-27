@@ -76,9 +76,9 @@ const actionsInfo = mapActions({
         return dispatch('subscribe', {stamp: pushEvents.BASKETBALL_INFO, data: eventList})
     },
     async getBaseInfo ({commit}, fid) {
-        const baseinfo = await ajax.get(`/score/lq/baseinfo?fid=${fid}`)
-        commit(mTypes.setBaseInfo, baseinfo)
-        return baseinfo
+        const baseInfo = await ajax.get(`/score/lq/baseinfo?fid=${fid}`)
+        commit(mTypes.setBaseInfo, baseInfo)
+        return baseInfo
     },
     async getAnalysisZj ({commit}, {fid, homeid, awayid, seasonid, stageid, matchid, matchdate, group, stagemode}) {
         let result = await Promise.all([
@@ -183,7 +183,7 @@ const actionsInfo = mapActions({
         commit(mTypes.updateReplyTime)
     },
     async requestConcern ({commit, state}, {fid, expect}) {
-        let origin = state.baseinfo.isfocus
+        let origin = state.baseInfo.isfocus
         let op
         let statset
         if (origin === '0') {
@@ -343,7 +343,7 @@ const mutationsInfo = mapMutations({
         state.comment.replyName = null
     },
     changeConcernStatus (state, status) {
-        state.baseinfo.isfocus = status
+        state.baseInfo.isfocus = status
     },
     reset (state) {
         const iState = JSON.parse(JSON.stringify(initState))

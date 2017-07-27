@@ -1,6 +1,6 @@
 <template>
     <div id="comment-content">
-        <snap v-if="vote" :baseinfo="baseinfo" :online="online" :vote="vote"></snap>
+        <snap v-if="vote" :baseInfo="baseInfo" :online="online" :vote="vote"></snap>
 
         <div class="zj-nav"> 评论
             <ul class="volumeTab" id="tabBefore">
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import {mTypes, aTypes} from '~store/lqdetail/mchao'
+import {mTypes, aTypes} from '~store/lqdetail'
 import snap from '~components/detail/basketball/comment/snap.vue'
 export default {
     components: {
@@ -80,13 +80,13 @@ export default {
             return this.$store.state.refreshing === 0
         },
         reachEndTime () {
-            return this.$store.state.mchao.reachEndTime
+            return this.$store.state.lqdetail.reachEndTime
         },
-        baseinfo () {
-            return this.$store.state.mchao.baseinfo
+        baseInfo () {
+            return this.$store.state.lqdetail.baseInfo
         },
         comment () {
-            return this.$store.state.mchao.comment
+            return this.$store.state.lqdetail.comment
         },
         vote () {
             return this.comment.vote

@@ -1,7 +1,7 @@
 <template>
     <div class="">
-        <strength :baseinfo='baseinfo' :strength='strength' :stats='stats' v-if="strength"></strength>
-        <trend :baseinfo='baseinfo' :trends='trend' v-if="trend"></trend>
+        <strength :baseInfo='baseInfo' :strength='strength' :stats='stats' v-if="strength"></strength>
+        <trend :baseInfo='baseInfo' :trends='trend' v-if="trend"></trend>
         <div class="item-loader" v-if="$store.state.refreshing">
             <div class="la-ball-pulse la-2x">
                 <span></span>
@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import {mTypes, aTypes} from '~store/lqdetail/mchao'
+import {mTypes, aTypes} from '~store/lqdetail'
 import strength from '~components/detail/basketball/analysis/js/strength.vue'
 import trend from '~components/detail/basketball/analysis/js/trend.vue'
 
 export default {
     async asyncData ({store, route: {params}}) {
-        const {fid, seasonid, homeid, awayid, matchtime} = store.state.mchao.baseinfo// baseInfo 保证有数据了
+        const {fid, seasonid, homeid, awayid, matchtime} = store.state.lqdetail.baseInfo// baseInfo 保证有数据了
         const matchdate = matchtime && matchtime.substr(0, 10)
         await store.dispatch(aTypes.getAnalysisJs, {fid, seasonid, homeid, awayid, matchdate})
     },
@@ -34,11 +34,11 @@ export default {
         loaded () {
             return this.$store.state.refreshing === 0
         },
-        baseinfo () {
-            return this.$store.state.mchao.baseinfo
+        baseInfo () {
+            return this.$store.state.lqdetail.baseInfo
         },
         analysis () {
-            return this.$store.state.mchao.analysis
+            return this.$store.state.lqdetail.analysis
         },
         strength() {
             return this.analysis.js.strength
@@ -53,7 +53,7 @@ export default {
     methods: {
         async fetchData () {
             this.$store.commit('startOneRefresh')
-            const {fid, seasonid, homeid, awayid, matchtime} = this.baseinfo // baseInfo 保证有数据了
+            const {fid, seasonid, homeid, awayid, matchtime} = this.baseInfo // baseInfo 保证有数据了
             const matchdate = matchtime && matchtime.substr(0, 10)
             await this.$store.dispatch(aTypes.getAnalysisJs, {fid, seasonid, homeid, awayid, matchdate})
             this.$store.commit('endOneRefresh')

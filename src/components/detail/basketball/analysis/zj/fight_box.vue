@@ -2,7 +2,7 @@
 	<div class="zhedie" v-if="matchesObj">
 		<div class="zd-detail">
 			<div class="gaik clear">
-				<span class="f30 color3 fl">近{{matchesObj.all_count}}场<span v-if="isJz">交战</span>&nbsp;&nbsp;&nbsp;{{baseinfo[hoa]}}</span>
+				<span class="f30 color3 fl">近{{matchesObj.all_count}}场<span v-if="isJz">交战</span>&nbsp;&nbsp;&nbsp;{{baseInfo[hoa]}}</span>
                 <span class="f30 fl"><i class="win tcell">{{matchesObj.win_count}}胜</i><i class="lose tcell">{{matchesObj.lost_count}}负</i></span>
                 <span class="f30 color3 fl">胜率{{matchesObj.winrate}}%</span>
 			</div>
@@ -79,8 +79,8 @@ export default {
         }
     },
     computed: {
-        baseinfo () {
-            return this.$store.state.mchao.baseinfo
+        baseInfo () {
+            return this.$store.state.lqdetail.baseInfo
         },
         matches () {
             return this.matchesObj.matches
@@ -142,7 +142,7 @@ export default {
 	            case '平': key = 1; break
 	            case '负': key = 2; break
             }
-            return name === this.baseinfo[this.hoa] ? this.teamClassMap[key] : ''
+            return name === this.baseInfo[this.hoa] ? this.teamClassMap[key] : ''
         }
     },
     props: {

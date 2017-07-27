@@ -1,7 +1,7 @@
 <template>
     <div>
         <team-misc :team_misc="team_misc" v-if="team_misc"></team-misc>
-        <members-advanced :baseinfo="baseinfo" :members_advanced="members_advanced" v-if="members_advanced"></members-advanced>
+        <members-advanced :baseInfo="baseInfo" :members_advanced="members_advanced" v-if="members_advanced"></members-advanced>
         <div class="item-loader" v-if="$store.state.refreshing">
             <div class="la-ball-pulse la-2x">
                 <span></span>
@@ -13,12 +13,12 @@
 </template>
 
 <script>
-import {mTypes, aTypes} from '~store/lqdetail/mchao'
+import {mTypes, aTypes} from '~store/lqdetail'
 import teamMisc from '~components/detail/basketball/analysis/jj/team_misc.vue'
 import membersAdvanced from '~components/detail/basketball/analysis/jj/members_advanced.vue'
 export default {
     async asyncData ({store, route: {params}}) {
-        const {homeid, awayid, seasonid} = store.state.mchao.baseinfo // baseInfo 保证有数据了
+        const {homeid, awayid, seasonid} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
         await store.dispatch(aTypes.getAnalysisJj, {homeid, awayid, seasonid})
     },
     components: {
@@ -26,11 +26,11 @@ export default {
         membersAdvanced
     },
     computed: {
-        baseinfo () {
-            return this.$store.state.mchao.baseinfo
+        baseInfo () {
+            return this.$store.state.lqdetail.baseInfo
         },
         analysis () {
-            return this.$store.state.mchao.analysis
+            return this.$store.state.lqdetail.analysis
         },
         team_misc() {
             return this.analysis.jj.team_misc
@@ -48,7 +48,7 @@ export default {
     methods: {
         async fetchData () {
             this.$store.commit('startOneRefresh')
-            const {homeid, awayid, seasonid} = this.baseinfo // baseInfo 保证有数据了
+            const {homeid, awayid, seasonid} = this.baseInfo // baseInfo 保证有数据了
             await this.$store.dispatch(aTypes.getAnalysisJj, {homeid, awayid, seasonid})
             this.$store.commit('endOneRefresh')
         }

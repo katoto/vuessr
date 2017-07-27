@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import {mTypes} from '~store/lqdetail/mchao'
+import {mTypes} from '~store/lqdetail'
 import statsBox from '~components/detail/basketball/analysis/js/stats_box.vue'
 
 export default {
@@ -78,7 +78,7 @@ export default {
         statsBox
     },
     props: {
-        baseinfo: {
+        baseInfo: {
             type: Object,
             required: true
         },
@@ -164,7 +164,7 @@ export default {
             this.$store.commit(mTypes.setDialog, {
                 component: statsBox,
                 params: {
-                    baseinfo: this.baseinfo,
+                    baseInfo: this.baseInfo,
                     stats: this.stats
                 }
             })

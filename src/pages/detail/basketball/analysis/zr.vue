@@ -1,7 +1,7 @@
 <template>
     <div>
         <best3 :best3='best3' v-if="best3"></best3>
-        <members :baseinfo="baseinfo" :members='members' v-if="members"></members>
+        <members :baseInfo="baseInfo" :members='members' v-if="members"></members>
         <div class="item-loader" v-if="$store.state.refreshing">
             <div class="la-ball-pulse la-2x">
                 <span></span>
@@ -13,12 +13,12 @@
 </template>
 
 <script>
-import {mTypes, aTypes} from '~store/lqdetail/mchao'
+import {mTypes, aTypes} from '~store/lqdetail'
 import best3 from '~components/detail/basketball/analysis/zr/best3.vue'
 import members from '~components/detail/basketball/analysis/zr/members.vue'
 export default {
     async asyncData ({store, route: {params}}) {
-        const {homeid, awayid, seasonid, vtype} = store.state.mchao.baseinfo // baseInfo 保证有数据了
+        const {homeid, awayid, seasonid, vtype} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
         await store.dispatch(aTypes.getAnalysisZr, {homeid, awayid, seasonid, vtype: 1})
     },
     components: {
@@ -26,11 +26,11 @@ export default {
         members
     },
     computed: {
-        baseinfo () {
-            return this.$store.state.mchao.baseinfo
+        baseInfo () {
+            return this.$store.state.lqdetail.baseInfo
         },
         analysis () {
-            return this.$store.state.mchao.analysis
+            return this.$store.state.lqdetail.analysis
         },
         best3() {
             return this.analysis.zr.best3
@@ -48,7 +48,7 @@ export default {
     methods: {
         async fetchData () {
             this.$store.commit('startOneRefresh')
-            const {homeid, awayid, seasonid, vtype} = this.baseinfo // baseInfo 保证有数据了
+            const {homeid, awayid, seasonid, vtype} = this.baseInfo // baseInfo 保证有数据了
             await this.$store.dispatch(aTypes.getAnalysisZr, {homeid, awayid, seasonid, vtype: 1})
             this.$store.commit('endOneRefresh')
         }

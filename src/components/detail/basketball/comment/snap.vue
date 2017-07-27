@@ -2,22 +2,22 @@
     <div class="swiper-container swiper-container-horizontal swiper-container-coverflow">
     	<div class="new-comm-info swiper-wrapper">
     		<div class="com-slide-box swiper-slide swiper-slide-next" style="">
-                <h1 class="com-slide-tit">{{(baseinfo.status === '11' ||
+                <h1 class="com-slide-tit">{{(baseInfo.status === '11' ||
                     vote.voted=='1')?(vote.ticket[0]+vote.ticket[1]+vote.ticket[2])+'人已投票':'本场比赛看好哪队获胜?'}}
                 </h1>
-                <div class="comm-slide-cont comm-base-cont" v-if="vote.voted === '0' && baseinfo.status !== '11'">
+                <div class="comm-slide-cont comm-base-cont" v-if="vote.voted === '0' && baseInfo.status !== '11'">
                     <ul>
                         <li v-tap="{methods: onVote, opt: '3', idx: 0}">
                             <div class="support-icon"></div>
-                            <div class="support-name">{{baseinfo.homesxname}}</div>
+                            <div class="support-name">{{baseInfo.homesxname}}</div>
                         </li>
                         <li v-tap="{methods: onVote, opt: '0', idx: 2}">
                             <div class="support-icon"></div>
-                            <div class="support-name">{{baseinfo.awaysxname}}</div>
+                            <div class="support-name">{{baseInfo.awaysxname}}</div>
                         </li>
                     </ul>
                 </div>
-    			<div class="touph-box base-box" v-if="vote.voted==='1'||(baseinfo.status === '11')">
+    			<div class="touph-box base-box" v-if="vote.voted==='1'||(baseInfo.status === '11')">
                     <div class="data-line">
                         <ul>
                             <li :style="{width: voteResult.winW+'%'}"
@@ -30,11 +30,11 @@
                         <ul>
                             <li>
                                 <p>{{voteResult.winPer}}%</p>
-                                <p>{{baseinfo.homesxname}}</p>
+                                <p>{{baseInfo.homesxname}}</p>
                             </li>
                             <li>
                                 <p>{{voteResult.lostPer}}%</p>
-                                <p>{{baseinfo.awaysxname}}</p>
+                                <p>{{baseInfo.awaysxname}}</p>
                             </li>
                         </ul>
                     </div>
@@ -49,9 +49,9 @@
 </template>
 
 <script>
-import {aTypes} from '~store/lqdetail/mchao'
+import {aTypes} from '~store/lqdetail'
 export default {
-    props: ['baseinfo', 'online', 'vote'],
+    props: ['baseInfo', 'online', 'vote'],
     computed: {
         voteResult() {
             if(this.vote && this.vote.ticket) {
@@ -86,7 +86,7 @@ export default {
          * @returns {Promise.<void>}
          */
         async onVote ({opt, idx}) {
-            if (this.baseinfo.status === '11') {
+            if (this.baseInfo.status === '11') {
                 return
             }
             this.$store.dispatch('ensureLogin')

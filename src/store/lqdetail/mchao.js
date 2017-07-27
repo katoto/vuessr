@@ -170,7 +170,7 @@ const actionsInfo = mapActions({
         commit(mTypes.updateReplyTime)
     },
     async requestConcern ({commit, state}, {fid, expect}) {
-        let origin = state.baseinfo.isfocus
+        let origin = state.baseInfo.isfocus
         let op
         let statset
         if (origin === '0') {

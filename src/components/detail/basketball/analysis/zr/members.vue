@@ -3,7 +3,7 @@
     <div class="tContent" style="display:block" v-for="hoa in ['away', 'home']">
         <div class="gl-box fx-zr-box">
             <div class="zj-nav">
-                {{baseinfo[hoa + 'sxname']}}
+                {{baseInfo[hoa + 'sxname']}}
                 <ul class="time-item" v-if="hoa === 'away'">
                     <li class="click-cj" :class="{'time-item-cur': awayVtype === 1}" v-tap="{methods: () => awayVtype = 1}">场均</li>
                     <li class="click-zs" :class="{'time-item-cur': awayVtype === 2}" v-tap="{methods: () => awayVtype = 2}">总数</li>
@@ -28,7 +28,7 @@
 import {
     mTypes,
     aTypes
-} from '~store/lqdetail/mchao'
+} from '~store/lqdetail'
 import {
     BasketballMemberType
 } from '~common/constants'
@@ -38,7 +38,7 @@ export default {
         memberBox
     },
     props: {
-        baseinfo: {
+        baseInfo: {
             type: Object,
             required: true
         },
@@ -71,7 +71,7 @@ export default {
                 homeid,
                 awayid,
                 seasonid
-            } = this.baseinfo // baseInfo 保证有数据了
+            } = this.baseInfo // baseInfo 保证有数据了
             await this.$store.dispatch(aTypes.getAnalysisZrMembers, {
                 homeid,
                 awayid,

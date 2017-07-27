@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import {mTypes} from '~store/lqdetail/mchao'
+import {mTypes} from '~store/lqdetail'
 import wordBox from '~components/detail/basketball/analysis/jj/word_box.vue'
 import dataBox from '~components/detail/basketball/analysis/jj/teamMisc/data_box.vue'
 
