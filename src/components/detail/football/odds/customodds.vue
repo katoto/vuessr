@@ -135,7 +135,7 @@
                     items.push(item.cid)
                 })
                 try {
-                    await this.$store.dispatch(aTypes.updateCustomOdds, {ptype: (this.params.ptype === 'daxiaopan' ? 'daxiaoqiu' : this.params.ptype), items})
+                    await this.$store.dispatch(aTypes.updateCustomOdds, {ptype: this.params.ptype, items})
                 } catch (e) {
                     this.$store.dispatch('showToast', e.message)
                     return this.closeDialog()

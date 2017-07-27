@@ -90,7 +90,7 @@
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/odds')}">
-                            <router-link :to="{name: 'football-detail-odds-europe'}" replace>
+                            <router-link :to="{name: 'basketball-detail-odds-shengfu'}" replace>
                                 <span>赔率<i class="sktab-arrow"></i></span>
                             </router-link>
                         </li>
@@ -119,34 +119,39 @@
         </transition>
 
         <refresh/>
+        <toast v-if="toast.visible" :msg="toast.msg"/>
     </div>
 </template>
 
 <script>
     import {BasketballStatusCode as StatusCode} from '~common/constants'
     import refresh from '~components/refresh.vue'
+    import toast from '~components/toast.vue'
     import detailScroller from '~components/detail_scroller.vue'
     import {aTypes, mTypes} from '~store/lqdetail'
     export default {
-        components:{
-            refresh,detailScroller
+        components: {
+            refresh, detailScroller,toast
         },
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getBaseInfo, params.fid)
         },
 
-        data(){
-            return{
+        data () {
+            return {
                 StatusCode
             }
         },
         computed: {
-            match:function () {
-                return this.$store.state.lqdetail.baseInfo;
+            match: function () {
+                return this.$store.state.lqdetail.baseInfo
             },
             outer () {
                 return this.$store.state.lqdetail.outer
             },
+            toast () {
+                return this.$store.state.toast
+            }
         },
         async mounted () {
             this.fetchData()
@@ -163,8 +168,9 @@
             async fetchData () {
                 this.$store.commit('startOneRefresh')
                 let baseInfo = this.$store.state.lqdetail.baseInfo
+                console.log(baseInfo);
                 if (this.$store.state.lqdetail.baseInfo.fid !== this.$route.params.fid || !baseInfo) {
-                    console.log(this.$route.params.fid);
+                    console.log(this.$route.params.fid)
                     await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
                 }
                 this.$store.commit('endOneRefresh')
@@ -218,7 +224,7 @@
     }
 
 </script>
-<style>
+<style scoped>
     .detailTop {
         position: relative;
     }

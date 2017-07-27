@@ -45,20 +45,21 @@
                 </div>
             </div>
             <!--<me-sports src="detail-page/comment/me-sports.html" drunk-if="subtab == 'event'" requesting="{{isRequesting}}" on-size="hasNews=!!$event.args[0]" leagueid="{{match.matchid}}" init-size="{{match.status == StatusCode.NOT_STARTED?5:3}}" homeid="{{match.homeid}}" awayid="{{match.awayid}}" status="{{match.status}}" matchtime="{{match.matchdate}}" vtype="2"></me-sports>-->
+
             <div class="gl-nav">文字直播</div>
-            <div class="zhedie-box" v-if="eventList && eventList.length" v-for="(event,index) in eventList"
-                 v-tap="{methods:changeSelect, idx:index}">
-                <div class="zhedie-nav" :class="{'dang-list-l-on': isActive[index]}">
-                    {{event[0].desc.replace('开始','')}}
-                    <!--<span class="live" v-if="match.status == StatusCode[index]">Live</span>-->
+            <div class="zhedie-box" v-if="eventList && eventList.length" v-for="(item,index) in eventList">
+                <div class="zhedie-nav" :class="{'dang-list-l-on': isActive[index]}" v-tap="{methods:()=>changeSelect(index)}">
+                    {{item[0].desc.replace('结束','')}}
+                    <span class="live" v-if=" Number(match.status) >= 7 && Number(match.status) <= 10">Live</span>
                     <span class="sh-arrow" :class="{'rotate180': !isActive[index]}"></span>
                 </div>
 
-                <div class="tree-box" v-if="isActive[index]">
-                    :class="{'green-s': match.status == StatusCode[index] && match.status != StatusCode.ENDED, 'gray-s': match.status == StatusCode.ENDED || match.status != OrderedStatusCode[index]}">
-                    <div class="list" v-for="evt in event">
+                <!--<div class="tree-box" v-if="isActive[index]">-->
+                <div class="tree-box" v-if="isActive[index]"
+                     :class="{'green-s': match.status >=7 && match.status <=10, 'gray-s': match.status == StatusCode.ENDED}">
+                    <div class="list" v-for="evt in item">
                         <span class="timing">{{evt.time}}</span>
-                        <div class="dui" drunk-if="event.team">[{{evt.team}}]</div>
+                        <div class="dui" v-if="evt.team">[{{evt.team}}]</div>
                         <p class="jies">{{evt.desc}}
                             <span class="jies-bf">[{{evt.awayscore}}:{{evt.homescore}}]</span>
                         </p>
@@ -71,7 +72,7 @@
                 </div>
             </div>
 
-            <div class="sk-btips" v-if="eventList && eventList.length">500彩票网提示：
+            <div class="sk-btips">500彩票网提示：
                 <br>以上数据仅供参考，请以官方公布的数据为准
             </div>
         </div>
@@ -91,75 +92,101 @@
     import {BasketballStatusCode as StatusCode} from '~common/constants'
     export default{
         async asyncData ({store, route: {params}}) {
-            await store.dispatch(aTypes.getSituation, {
-                fid: params.fid,
+            await store.dispatch(aTypes.getSituationEvent, {
+                fid: params.fid
             })
         },
-        data(){
+        data () {
             return {
-                jieData:[],
+                jieData: [],
                 isActive:{},
                 StatusCode
             }
         },
-        computed:{
-            match:function () {
-                return this.$store.state.lqdetail.baseInfo;
+        computed: {
+            refreshTime () { // 用户点击刷新按钮时间戳
+                return this.$store.state.refreshTime
             },
-            ascore:function () {
-                let reg=/-|\//;     //将字符串20-0-21-0/10-20中的数据拆分出来
-                if(this.match){
+            loaded () {
+                return this.$store.state.refreshing === 0
+            },
+            match: function () {
+                return this.$store.state.lqdetail.baseInfo
+            },
+            ascore: function () {
+                let reg = /-|\//     // 将字符串20-0-21-0/10-20中的数据拆分出来
+                if (this.match) {
                     return this.match.ascore.split(reg).filter(function (n) {
-                        return n;
-                    });
+                        return n
+                    })
                 }
             },
-            hscore:function () {
-                let reg=/-|\//;     //将字符串20-0-21-0/10-20中的数据拆分出来
-                if(this.match){
+            hscore: function () {
+                let reg = /-|\//     // 将字符串20-0-21-0/10-20中的数据拆分出来
+                if (this.match) {
                     return this.match.hscore.split(reg).filter(function (n) {
-                        return n;
-                    });
+                        return n
+                    })
                 }
             },
-            eventList:function () {
-                return  this.$store.state.lqdetail.situation.eventlist.reverse();
+            eventList: function () {
+                let tmp=[];
+                let list=[];
+                if(this.$store.state.lqdetail.situation && this.$store.state.lqdetail.situation.eventlist){
+                    tmp=this.$store.state.lqdetail.situation.eventlist.reverse();
+                    for(let lst of tmp){
+                        list.push(lst.reverse());
+                    }
+                    return list;
+                }
+
             }
         },
-        methods:{
-            jiePush:function(){    //4小节+加时赛
-                if(this.ascore){
-                    for(let i=1,len=this.ascore.length,j=1,k=1;i<=len;i++){
-                        if(i<=4){
-                            this.jieData.push(j+'节')
-                            j++;
-                        }else{
-                            this.jieData.push('加'+k);
-                            k++;
+        methods: {
+            jiePush: function () {    // 4小节+加时赛
+                if (this.ascore) {
+                    for (let i = 1, len = this.ascore.length, j = 1, k = 1; i <= len; i++) {
+                        if (i <= 4) {
+                            this.jieData.push(j + '节')
+                            j++
+                        } else {
+                            this.jieData.push('加' + k)
+                            k++
                         }
                     }
                 }
             },
-            changeSelect:function (idx) {
-                this.$set(this.isActive, idx, !this.isActive[idx]);
-//                console.log(this.isActive[idx])
+            changeSelect: function (idx) {
+                this.$set(this.isActive, idx, !this.isActive[idx])
+                console.log(idx);
+                console.log(this.isActive[idx])
             },
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                let baseInfo = this.$store.state.lqdetail.baseInfo
-                if (!baseInfo || this.$store.state.lqdetail.baseInfo.fid !== this.$route.params.fid) {
-                    baseInfo = await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
-                }
-
-                await this.$store.dispatch(aTypes.getSituation, {
-                    fid: this.$route.params.fid,
-                })
+//                let baseInfo = this.$store.state.lqdetail.baseInfo
+//                if (!baseInfo || this.$store.state.lqdetail.baseInfo.fid !== this.$route.params.fid) {
+//                    baseInfo = await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
+//                }
+                await this.$store.dispatch(aTypes.getSituationEvent, {fid:this.$route.params.fid})
                 this.$store.commit('endOneRefresh')
+
+            },
+            refreshScroll () {
+                this.$store.commit(mTypes.updateScTime)
+            }
+        },
+        watch: {
+            loaded (loaded) {
+                this.refreshScroll()
+            },
+            refreshTime () {
+                this.fetchData()
             },
         },
-        mounted(){
-            this.fetchData();
-            this.jiePush();
-        },
+        mounted () {
+            this.fetchData()
+            this.jiePush()
+            this.$set(this.isActive,0,true)
+        }
     }
 </script>

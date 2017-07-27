@@ -27,13 +27,14 @@ const BfycHotcool = () => import('~pages/bfyc/hotcool.vue' /* webpackChunkName: 
 const BfycRecord = () => import('~pages/bfyc/record.vue' /* webpackChunkName: "pages/bfyc-record" */)
 
 const FootballDetail = () => import('~pages/detail/football.vue' /* webpackChunkName: "pages/detail-football" */)
+
 const BasketballDetail = () => import('~pages/detail/basketball.vue' /* webpackChunkName: "pages/detail-basketball" */)
 
 const FootballSituation = () => import('~pages/detail/football/situation.vue' /* webpackChunkName: "pages/detail-football-situation" */)
+
 const BasketballSituation = () => import('~pages/detail/basketball/situation.vue' /* webpackChunkName: "pages/detail-basketball-situation" */)
 const BasketballSituationEvent = () => import('~pages/detail/basketball/situation/event.vue' /* webpackChunkName: "pages/detail-basketball-situation-event" */)
 const BasketballSituationStatistic = () => import('~pages/detail/basketball/situation/statistic.vue' /* webpackChunkName: "pages/detail-basketball-situation-statistic" */)
-
 
 const FootballAnalysis = () => import('~pages/detail/football/analysis.vue' /* webpackChunkName: "pages/detail-football-analysis" */)
 const FootballAnalysisZj = () => import('~pages/detail/football/analysis/zj.vue' /* webpackChunkName: "pages/detail-football-analysis-zj" */)
@@ -49,6 +50,11 @@ const FootballOddseAsian = () => import('~pages/detail/football/odds/asian.vue' 
 const FootballOddseRangqiu = () => import('~pages/detail/football/odds/rangqiu.vue' /* webpackChunkName: "pages/detail-football-odds-rangqiu" */)
 const FootballOddseDaxiaopan = () => import('~pages/detail/football/odds/daxiaopan.vue' /* webpackChunkName: "pages/detail-football-odds-daxiaopan" */)
 const FootballOddseBifa = () => import('~pages/detail/football/odds/bifa.vue' /* webpackChunkName: "pages/detail-football-odds-bifa" */)
+
+const BasketballOdds = () => import('~pages/detail/basketball/odds.vue' /* webpackChunkName: "pages/detail-basketball-odds" */)
+const BasketballOddsShengfu = () => import('~pages/detail/basketball/odds/shengfu.vue' /* webpackChunkName: "pages/detail-basketball-odds-shengfu" */)
+const BasketballOddsRangfenpan = () => import('~pages/detail/basketball/odds/rangfenpan.vue' /* webpackChunkName: "pages/detail-basketball-odds-rangfenpan" */)
+const BasketballOddsDaxiaofen = () => import('~pages/detail/basketball/odds/daxiaofen.vue' /* webpackChunkName: "pages/detail-basketball-odds-daxiaofen" */)
 
 const FootballCrazybet = () => import('~pages/detail/football/crazybet.vue' /* webpackChunkName: "pages/detail-football-odds-bifa" */)
 const FootballComment = () => import('~pages/detail/football/comment.vue' /* webpackChunkName: "pages/detail-football-comment" */)
@@ -246,7 +252,7 @@ export function createRouter () {
                 ]
             },
             {
-               path: '/detail/basketball/:fid',
+                path: '/detail/basketball/:fid',
                 component: BasketballDetail,
                 name: 'detail-basketball',
                 children: [
@@ -254,19 +260,41 @@ export function createRouter () {
                         path: 'situation',
                         component: BasketballSituation,
                         name: 'basketball-detail-situation',
-                        children:[
+                        children: [
                             {
-                                path:'event',
-                                component:BasketballSituationEvent,
-                                name:'basketball-detail-situation-event'
+                                path: 'event',
+                                component: BasketballSituationEvent,
+                                name: 'basketball-detail-situation-event'
                             },
                             {
-                                path:'statistic',
-                                component:BasketballSituationStatistic,
-                                name:'basketball-detail-situation-statistic'
+                                path: 'statistic',
+                                component: BasketballSituationStatistic,
+                                name: 'basketball-detail-situation-statistic'
                             }
                         ]
                     },
+                    {
+                        path: 'odds',
+                        component: BasketballOdds,
+                        name: 'basketball-detail-odds',
+                        children: [
+                            {
+                                path: 'daxiaofen',
+                                component: BasketballOddsDaxiaofen,
+                                name: 'basketball-detail-odds-daxiaofen'
+                            },
+                            {
+                                path: 'rangfenpan',
+                                component: BasketballOddsRangfenpan,
+                                name: 'basketball-detail-odds-rangfenpan'
+                            },
+                            {
+                                path: 'shengfu',
+                                component: BasketballOddsShengfu,
+                                name: 'basketball-detail-odds-shengfu'
+                            }
+                        ]
+                    }
                 ]
             },
             {
