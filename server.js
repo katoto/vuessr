@@ -108,6 +108,7 @@ function render (req, res) {
     const s = Date.now()
 
     res.setHeader('Content-Type', 'text/html')
+    res.setHeader('Cache-Control', 'max-age=3000')
     const handleError = err => {
         if (err && err.code === 404) {
             res.status(404).end('404 | Page Not Found')

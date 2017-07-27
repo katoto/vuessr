@@ -12,7 +12,7 @@
                     <span class="share-icon"></span>
                     <p>分享</p>
                 </div>
-                <div class="collec-box share-box" onclick="location.href='http://m.500.com/helpcenter/submituserproblem/'">
+                <div class="collec-box share-box" v-tap="{methods: doReply}">
                     <img src="http://tccache.500.com/mobile/touch/images/bifen/v124/yjfk.png" alt="意见反馈">
                     <p>意见反馈</p>
                 </div>
@@ -39,6 +39,11 @@
             doCollect () {
                 if (typeof this.params.onCollect === 'function') {
                     this.params.onCollect()
+                }
+            },
+            doReply () {
+                if (typeof this.params.onReply === 'function') {
+                    this.params.onReply()
                 }
             }
         }

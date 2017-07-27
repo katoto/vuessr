@@ -15,8 +15,10 @@ module.exports = {
     },
     resolve: {
         alias: {
+            '~': path.resolve(__dirname, '../src'),
             'public': path.resolve(__dirname, '../public'),
             '~assets': path.resolve(__dirname, '../src/assets'),
+            'assets': path.resolve(__dirname, '../src/assets'),
             '~common': path.resolve(__dirname, '../src/common'),
             '~components': path.resolve(__dirname, '../src/components'),
             '~store': path.resolve(__dirname, '../src/store'),
