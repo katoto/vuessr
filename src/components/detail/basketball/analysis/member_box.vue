@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div class="dataBox" v-if="noEmpty(members)">
+        <div class="dataBox" v-if="noEmptyFlag">
             <div class="zr-detail">
                 <ul class="zr-detail-left">
                     <li class="zr-detail-tit">球员</li>
-                    <li v-for="item in members.slice(0, cutLen)">{{item.player | truncate(4)}}<em v-if="item.isinjury === '1'">伤</em></li>
+                    <li v-for="item in membersFmt">{{item.player | truncate(4)}}<em v-if="item.isinjury === '1'">伤</em></li>
                 </ul>
                 <div class="scroll-cont table-sslfz">
                     <ul class="zr-detail-right" :style="{width: liW}">
@@ -13,7 +13,7 @@
                                 <li v-for="(name, type) in membersType">{{name}}</li>
                             </ul>
                         </li>
-                        <li class="zr-detailer zr-detailer-box" v-for="item in members.slice(0, cutLen)">
+                        <li class="zr-detailer zr-detailer-box" v-for="item in membersFmt">
                             <ul>
                                 <li v-for="(name, type) in membersType">{{item[type]}}</li>
                             </ul>
@@ -62,6 +62,14 @@ export default {
             cutLen: 5
         }
     },
+    computed: {
+        noEmptyFlag() {
+            return this.noEmpty(this.members)
+        },
+        membersFmt() {
+            return members.slice(0, this.cutLen)
+        }
+    },
     methods: {
         collap({length}) {
             this.moreFlag = !this.moreFlag
@@ -83,6 +91,7 @@ export default {
         raf: (cb) => window.requestAnimationFrame ? requestAnimationFrame(cb) : setTimeout(() => cb(), 16.7),
     },
     mounted () {
+        if(!this.noEmptyFlag) return
         this.container = this.$el.querySelector('.scroll-cont')
         this.content = this.$el.querySelector('.zr-detail-right')
         const transform = typeof document.body.style.transform !== 'undefined' ? 'transform' : 'webkitTransform'
