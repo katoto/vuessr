@@ -28,7 +28,13 @@ const BfycRecord = () => import('~pages/bfyc/record.vue' /* webpackChunkName: "p
 
 const FootballDetail = () => import('~pages/detail/football.vue' /* webpackChunkName: "pages/detail-football" */)
 
+const BasketballDetail = () => import('~pages/detail/basketball.vue' /* webpackChunkName: "pages/detail-basketball" */)
+
 const FootballSituation = () => import('~pages/detail/football/situation.vue' /* webpackChunkName: "pages/detail-football-situation" */)
+
+const BasketballSituation = () => import('~pages/detail/basketball/situation.vue' /* webpackChunkName: "pages/detail-basketball-situation" */)
+const BasketballSituationEvent = () => import('~pages/detail/basketball/situation/event.vue' /* webpackChunkName: "pages/detail-basketball-situation-event" */)
+const BasketballSituationStatistic = () => import('~pages/detail/basketball/situation/statistic.vue' /* webpackChunkName: "pages/detail-basketball-situation-statistic" */)
 
 const FootballAnalysis = () => import('~pages/detail/football/analysis.vue' /* webpackChunkName: "pages/detail-football-analysis" */)
 const FootballAnalysisZj = () => import('~pages/detail/football/analysis/zj.vue' /* webpackChunkName: "pages/detail-football-analysis-zj" */)
@@ -45,14 +51,13 @@ const FootballOddseRangqiu = () => import('~pages/detail/football/odds/rangqiu.v
 const FootballOddseDaxiaopan = () => import('~pages/detail/football/odds/daxiaopan.vue' /* webpackChunkName: "pages/detail-football-odds-daxiaopan" */)
 const FootballOddseBifa = () => import('~pages/detail/football/odds/bifa.vue' /* webpackChunkName: "pages/detail-football-odds-bifa" */)
 
+const BasketballOdds = () => import('~pages/detail/basketball/odds.vue' /* webpackChunkName: "pages/detail-basketball-odds" */)
+const BasketballOddsShengfu = () => import('~pages/detail/basketball/odds/shengfu.vue' /* webpackChunkName: "pages/detail-basketball-odds-shengfu" */)
+const BasketballOddsRangfenpan = () => import('~pages/detail/basketball/odds/rangfenpan.vue' /* webpackChunkName: "pages/detail-basketball-odds-rangfenpan" */)
+const BasketballOddsDaxiaofen = () => import('~pages/detail/basketball/odds/daxiaofen.vue' /* webpackChunkName: "pages/detail-basketball-odds-daxiaofen" */)
+
 const FootballCrazybet = () => import('~pages/detail/football/crazybet.vue' /* webpackChunkName: "pages/detail-football-odds-bifa" */)
 const FootballComment = () => import('~pages/detail/football/comment.vue' /* webpackChunkName: "pages/detail-football-comment" */)
-
-const BasketballDetail = () => import('~pages/detail/basketball.vue' /* webpackChunkName: "pages/detail-basketball" */)
-
-const BasketballSituation = () => import('~pages/detail/basketball/situation.vue' /* webpackChunkName: "pages/detail-basketball-situation" */)
-const BasketballSituationEvent = () => import('~pages/detail/basketball/situation/event.vue' /* webpackChunkName: "pages/detail-basketball-situation" */)
-const BasketballSituationStatistic = () => import('~pages/detail/basketball/situation/statistic.vue' /* webpackChunkName: "pages/detail-basketball-situation" */)
 
 const BasketballAnalysis = () => import('~pages/detail/basketball/analysis.vue' /* webpackChunkName: "pages/detail-basketball-analysis" */)
 const BasketballAnalysisZj = () => import('~pages/detail/basketball/analysis/zj.vue' /* webpackChunkName: "pages/detail-basketball-analysis-zj" */)
@@ -62,10 +67,7 @@ const BasketballAnalysisJj = () => import('~pages/detail/basketball/analysis/jj.
 //
 // const BasketballPredict = () => import('~pages/detail/basketball/predict.vue' /* webpackChunkName: "pages/detail-basketball-predict" */)
 //
-const BasketballOdds = () => import('~pages/detail/basketball/odds.vue' /* webpackChunkName: "pages/detail-basketball-odds" */)
 const BasketballOddsRangfen = () => import('~pages/detail/basketball/odds/rangfen.vue' /* webpackChunkName: "pages/detail-basketball-odds-rangqiu" */)
-const BasketballOddsDaxiaofen = () => import('~pages/detail/basketball/odds/daxiaofen.vue' /* webpackChunkName: "pages/detail-basketball-odds-daxiaopan" */)
-const BasketballOddsShengfu = () => import('~pages/detail/basketball/odds/shengfu.vue' /* webpackChunkName: "pages/detail-basketball-odds-daxiaopan" */)
 
 // const BasketballCrazybet = () => import('~pages/detail/basketball/crazybet.vue' /* webpackChunkName: "pages/detail-basketball-odds-bifa" */)
 const BasketballComment = () => import('~pages/detail/basketball/comment.vue' /* webpackChunkName: "pages/detail-basketball-comment" */)
@@ -75,11 +77,6 @@ const TeamFootballGl = () => import('~pages/team/football/gl.vue')
 const TeamFootballSc = () => import('~pages/team/football/sc.vue')
 const TeamFootballZr = () => import('~pages/team/football/zr.vue')
 
-const TeamBasketBall = () => import('~pages/team/basketball.vue')
-const TeamBasketBallGl = () => import('~pages/team/basketball/gl.vue')
-const TeamBasketBallSc = () => import('~pages/team/basketball/sc.vue')
-// const TeamBasketBallZr = () => import('~pages/team/football/zr.vue')
-console.log()
 export function createRouter () {
     return new VueRouter({
         mode: 'history',
@@ -296,23 +293,19 @@ export function createRouter () {
                         name: 'basketball-detail-odds',
                         children: [
                             {
-                                path: 'shengfu',
-                                component: BasketballOddsShengfu,
-                                name: 'basketball-detail-odds-shengfu'
-                            },
-                            {
-                                path: 'rangfen',
-                                component: BasketballOddsRangfen,
-                                name: 'basketball-detail-odds-rangfen'
-                            },
-                            {
                                 path: 'daxiaofen',
                                 component: BasketballOddsDaxiaofen,
                                 name: 'basketball-detail-odds-daxiaofen'
                             },
                             {
-                                path: '*',
-                                redirect: 'shengfu'
+                                path: 'rangfenpan',
+                                component: BasketballOddsRangfenpan,
+                                name: 'basketball-detail-odds-rangfenpan'
+                            },
+                            {
+                                path: 'shengfu',
+                                component: BasketballOddsShengfu,
+                                name: 'basketball-detail-odds-shengfu'
                             }
                         ]
                     },
@@ -347,27 +340,6 @@ export function createRouter () {
                         path: 'zr',
                         component: TeamFootballZr,
                         name: 'team-football-zr'
-                    },
-                    {
-                        path: '*',
-                        redirect: 'sc'
-                    }
-                ]
-            },
-            {
-                path: '/team/basketball/:tid/:sid',
-                component: TeamBasketBall,
-                name: 'team-basketball',
-                children: [
-                    {
-                        path: 'sc',
-                        component: TeamBasketBallSc,
-                        name: 'team-basketball-sc'
-                    },
-                    {
-                        path: 'gl',
-                        component: TeamBasketBallGl,
-                        name: 'team-basketball-gl'
                     },
                     {
                         path: '*',

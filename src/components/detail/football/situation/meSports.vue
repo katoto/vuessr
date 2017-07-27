@@ -1,5 +1,5 @@
 <template>
-    <div class="v124-wrap" drunk-if="news&&news.length">
+    <div class="v124-wrap" v-if="news&&news.length">
         <section class="news-cont">
             <div class="gl-nav">相关新闻</div>
             <ul class="news-list">
