@@ -13,13 +13,15 @@
                                 <div class="zhzl-classify">{{itm}}</div>
                                 <div class="responsive">
                                     <div class="each-resone l-relative">
+                                        <!--:style="'width:' +getData(Number(away.zj[sf[idx]]),Number(home.zj[sf[idx]])) + '%' ">-->
+
                                         <div class="zhzl-vs-left " :class="away.zj[sf[idx]] < home.zj[sf[idx]] ? 'zhzl-gray' : 'zhzl-green'"
-                                             :style="'width:' +getData(Number(away.zj[sf[idx]]),Number(home.zj[sf[idx]])) + '%' ">
+                                             :style="away.zj[sf[idx]], home.zj[sf[idx]]|getWidth">
                                         </div>
                                     </div>
                                     <div class="each-resone l-relative">
                                         <div class="zhzl-vs-right" :class="away.zj[sf[idx]] < home.zj[sf[idx]] ? 'zhzl-green' : 'zhzl-gray'"
-                                             :style="'width:' + getData(Number(home.zj[sf[idx]]),Number(away.zj[sf[idx]])) + '%'">
+                                             :style="home.zj[sf[idx]], away.zj[sf[idx]]|getWidth">
 
                                         </div>
                                     </div>
@@ -47,65 +49,68 @@
 
                             </ul>
                             <div class="scroll-cont ">
-                                <ul class=" zr-detail-right table-tj">
-                                    <li class="zr-detailer zr-detail-tit">
-                                        <ul>
-                                            <li>时间</li>
-                                            <li>得分</li>
-                                            <li>投篮</li>
-                                            <li>篮板</li>
-                                            <li>助攻</li>
-                                            <li>抢断</li>
-                                            <li>盖帽</li>
-                                            <li>失误</li>
-                                            <li>犯规</li>
-                                        </ul>
-                                    </li>
+                                <slide>
+                                    <ul class=" zr-detail-right table-tj">
+                                        <li class="zr-detailer zr-detail-tit">
+                                            <ul>
+                                                <li>时间</li>
+                                                <li>得分</li>
+                                                <li>投篮</li>
+                                                <li>篮板</li>
+                                                <li>助攻</li>
+                                                <li>抢断</li>
+                                                <li>盖帽</li>
+                                                <li>失误</li>
+                                                <li>犯规</li>
+                                            </ul>
+                                        </li>
 
-                                    <li class="zr-detailer" v-for="info in away.sf">
-                                        <ul>
+                                        <li class="zr-detailer" v-for="info in away.sf">
+                                            <ul>
 
-                                            <li>{{info.time}}</li>
-                                            <li>{{info.score}}</li>
-                                            <li>{{info.shoot}}</li>
-                                            <li>{{info.rebs}}</li>
-                                            <li>{{info.assists}}</li>
-                                            <li>{{info.steals}}</li>
-                                            <li>{{info.block_shot}}</li>
-                                            <li>{{info.fehlpass}}</li>
-                                            <li>{{info.foul}}</li>
-                                        </ul>
-                                    </li>
+                                                <li>{{info.time}}</li>
+                                                <li>{{info.score}}</li>
+                                                <li>{{info.shoot}}</li>
+                                                <li>{{info.rebs}}</li>
+                                                <li>{{info.assists}}</li>
+                                                <li>{{info.steals}}</li>
+                                                <li>{{info.block_shot}}</li>
+                                                <li>{{info.fehlpass}}</li>
+                                                <li>{{info.foul}}</li>
+                                            </ul>
+                                        </li>
 
-                                    <li class="zr-detailer zr-detail-tit">
-                                        <ul>
-                                            <li>时间</li>
-                                            <li>得分</li>
-                                            <li>投篮</li>
-                                            <li>篮板</li>
-                                            <li>助攻</li>
-                                            <li>抢断</li>
-                                            <li>盖帽</li>
-                                            <li>失误</li>
-                                            <li>犯规</li>
+                                        <li class="zr-detailer zr-detail-tit">
+                                            <ul>
+                                                <li>时间</li>
+                                                <li>得分</li>
+                                                <li>投篮</li>
+                                                <li>篮板</li>
+                                                <li>助攻</li>
+                                                <li>抢断</li>
+                                                <li>盖帽</li>
+                                                <li>失误</li>
+                                                <li>犯规</li>
 
-                                        </ul>
-                                    </li>
-                                    <li class="zr-detailer" v-for="info in away.tb">
-                                        <ul>
-                                            <li>{{info.time}}</li>
-                                            <li>{{info.score}}</li>
-                                            <li>{{info.shoot}}</li>
-                                            <li>{{info.rebs}}</li>
-                                            <li>{{info.assists}}</li>
-                                            <li>{{info.steals}}</li>
-                                            <li>{{info.block_shot}}</li>
-                                            <li>{{info.fehlpass}}</li>
-                                            <li>{{info.foul}}</li>
+                                            </ul>
+                                        </li>
+                                        <li class="zr-detailer" v-for="info in away.tb">
+                                            <ul>
+                                                <li>{{info.time}}</li>
+                                                <li>{{info.score}}</li>
+                                                <li>{{info.shoot}}</li>
+                                                <li>{{info.rebs}}</li>
+                                                <li>{{info.assists}}</li>
+                                                <li>{{info.steals}}</li>
+                                                <li>{{info.block_shot}}</li>
+                                                <li>{{info.fehlpass}}</li>
+                                                <li>{{info.foul}}</li>
 
-                                        </ul>
-                                    </li>
-                                </ul>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </slide>
+
                             </div>
                         </div>
                     </div>
@@ -127,65 +132,68 @@
 
                             </ul>
                             <div class="scroll-cont ">
-                                <ul class=" zr-detail-right table-tj">
-                                    <li class="zr-detailer zr-detail-tit">
-                                        <ul>
-                                            <li>时间</li>
-                                            <li>得分</li>
-                                            <li>投篮</li>
-                                            <li>篮板</li>
-                                            <li>助攻</li>
-                                            <li>抢断</li>
-                                            <li>盖帽</li>
-                                            <li>失误</li>
-                                            <li>犯规</li>
-                                        </ul>
-                                    </li>
+                                <slide>
+                                    <ul class=" zr-detail-right table-tj">
+                                        <li class="zr-detailer zr-detail-tit">
+                                            <ul>
+                                                <li>时间</li>
+                                                <li>得分</li>
+                                                <li>投篮</li>
+                                                <li>篮板</li>
+                                                <li>助攻</li>
+                                                <li>抢断</li>
+                                                <li>盖帽</li>
+                                                <li>失误</li>
+                                                <li>犯规</li>
+                                            </ul>
+                                        </li>
 
-                                    <li class="zr-detailer" v-for="info in home.sf">
-                                        <ul>
+                                        <li class="zr-detailer" v-for="info in home.sf">
+                                            <ul>
 
-                                            <li>{{info.time}}</li>
-                                            <li>{{info.score}}</li>
-                                            <li>{{info.shoot}}</li>
-                                            <li>{{info.rebs}}</li>
-                                            <li>{{info.assists}}</li>
-                                            <li>{{info.steals}}</li>
-                                            <li>{{info.block_shot}}</li>
-                                            <li>{{info.fehlpass}}</li>
-                                            <li>{{info.foul}}</li>
-                                        </ul>
-                                    </li>
+                                                <li>{{info.time}}</li>
+                                                <li>{{info.score}}</li>
+                                                <li>{{info.shoot}}</li>
+                                                <li>{{info.rebs}}</li>
+                                                <li>{{info.assists}}</li>
+                                                <li>{{info.steals}}</li>
+                                                <li>{{info.block_shot}}</li>
+                                                <li>{{info.fehlpass}}</li>
+                                                <li>{{info.foul}}</li>
+                                            </ul>
+                                        </li>
 
-                                    <li class="zr-detailer zr-detail-tit">
-                                        <ul>
-                                            <li>时间</li>
-                                            <li>得分</li>
-                                            <li>投篮</li>
-                                            <li>篮板</li>
-                                            <li>助攻</li>
-                                            <li>抢断</li>
-                                            <li>盖帽</li>
-                                            <li>失误</li>
-                                            <li>犯规</li>
+                                        <li class="zr-detailer zr-detail-tit">
+                                            <ul>
+                                                <li>时间</li>
+                                                <li>得分</li>
+                                                <li>投篮</li>
+                                                <li>篮板</li>
+                                                <li>助攻</li>
+                                                <li>抢断</li>
+                                                <li>盖帽</li>
+                                                <li>失误</li>
+                                                <li>犯规</li>
 
-                                        </ul>
-                                    </li>
-                                    <li class="zr-detailer" v-for="info in home.tb">
-                                        <ul>
-                                            <li>{{info.time}}</li>
-                                            <li>{{info.score}}</li>
-                                            <li>{{info.shoot}}</li>
-                                            <li>{{info.rebs}}</li>
-                                            <li>{{info.assists}}</li>
-                                            <li>{{info.steals}}</li>
-                                            <li>{{info.block_shot}}</li>
-                                            <li>{{info.fehlpass}}</li>
-                                            <li>{{info.foul}}</li>
+                                            </ul>
+                                        </li>
+                                        <li class="zr-detailer" v-for="info in home.tb">
+                                            <ul>
+                                                <li>{{info.time}}</li>
+                                                <li>{{info.score}}</li>
+                                                <li>{{info.shoot}}</li>
+                                                <li>{{info.rebs}}</li>
+                                                <li>{{info.assists}}</li>
+                                                <li>{{info.steals}}</li>
+                                                <li>{{info.block_shot}}</li>
+                                                <li>{{info.fehlpass}}</li>
+                                                <li>{{info.foul}}</li>
 
-                                        </ul>
-                                    </li>
-                                </ul>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </slide>
+
                             </div>
                         </div>
                     </div>
@@ -210,7 +218,7 @@
 <script>
     import {aTypes, mTypes} from '~store/lqdetail'
     import meSports from '~components/detail/basketball/situation/meSports.vue'
-    import {Scroller} from 'scroller'
+    import slide from '~components/detail/basketball/situation/slide.vue'
     export default{
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getSituationStatistic, {
@@ -218,6 +226,9 @@
             })
         },
 
+        components:{
+            slide
+        },
         data () {
             return {
                 teamData: ['投篮', '三分', '罚球', '前篮板', '后篮板', '总篮板', '助攻', '抢断', '盖帽', '失误', '犯规', '得分'],
@@ -240,9 +251,7 @@
             away: function () {
                 return this.$store.state.lqdetail.situation.statistic && this.$store.state.lqdetail.situation.statistic.away
             },
-            scrollwidth:function () {
-                return document.querySelector('.zr-detail-right').width;
-            }
+
         },
         methods: {
             refreshScroll () {
@@ -250,21 +259,10 @@
             },
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                let baseInfo = this.$store.state.lqdetail.baseInfo
-                if (!baseInfo || this.$store.state.lqdetail.baseInfo.fid !== this.$route.params.fid) {
-                    baseInfo = await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
-                }
-
                 await this.$store.dispatch(aTypes.getSituationStatistic, {
                     fid: this.$route.params.fid
                 })
                 this.$store.commit('endOneRefresh')
-            },
-            getData: function (data1, data2) {     // 横条比例显示的数据处理
-                let tmp = data1 + data2
-                if (data1 === 0) { return 3 }
-                if (data1 === tmp) { return 3 }
-                return data1 / (data1 + data2) * 100
             }
         },
         watch: {
@@ -277,49 +275,16 @@
         },
         mounted () {
             this.fetchData()
-
-            this.container = this.$el.querySelector('.scroll-cont')
-            this.content = this.$el.querySelector('.zr-detail-right')
-            const transform = typeof document.body.style.transform !== 'undefined' ? 'transform' : 'webkitTransform'
-            this.scrollerObj = new Scroller((left, top, zoom) => {
-                this.content.style[transform] = 'translate3d(' + (-left) + 'px,' + (-top) + 'px,0) scale(' + zoom + ')'
-        }, {
-                bouncing: false,
-                    scrollingX: true,
-                    Locking: false,
-                    scrollingY: false,
-                    animationDuration: 150
-            })
-            this.scrollerObj.setSnapSize(this.container.offsetWidth)
-            this.scrollerObj.setDimensions(this.container.offsetWidth, this.container.offsetHeight, this.content.offsetWidth, this.content.offsetHeight)
-            let latestX = 0
-            let latesY = 0
-            let needLockY = false
-            this.container.addEventListener('touchstart', (e) => {
-                latestX = e.touches[0].pageX
-                latesY = e.touches[0].pageY
-                this.scrollerObj.doTouchStart(e.touches, e.timeStamp)
-            e.preventDefault()
-        }, false)
-            this.container.addEventListener('touchmove', (e) => {
-                if (Math.abs(latestX - e.touches[0].pageX) > Math.abs(latesY - e.touches[0].pageY)) {
-                needLockY = true
+        },
+        filters: {
+            getWidth (data1, data2) {  // 横条比例显示的数据处理
+                data1 = data1 - 0
+                data2 = data2 - 0
+                let tmp = data1 + data2
+                if (data1 === 0) { return "width:3%" }
+                if (data1 === tmp) { return "width:3%" }
+                return {width: data1 / (data1 + data2) * 100 + '%'}
             }
-            latestX = e.touches[0].pageX
-            latesY = e.touches[0].pageY
-
-            needLockY && e.stopPropagation()
-            this.scrollerObj.doTouchMove(e.touches, e.timeStamp, e.scale)
-        }, false)
-
-            this.container.addEventListener('touchend', (e) => {
-                needLockY = false
-                this.scrollerObj.doTouchEnd(e.timeStamp)
-        }, false)
-
-            this.container.addEventListener('touchcancel', (e) => {
-                this.scrollerObj.doTouchEnd(e.timeStamp)
-        }, false)
         }
     }
 </script>
