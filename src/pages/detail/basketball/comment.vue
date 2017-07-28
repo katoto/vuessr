@@ -44,7 +44,7 @@
 
         <div class="ui-empty-font" v-if="end&&commentList.length===0">暂无评论</div>
 
-        <div class="item-loader" v-if="$store.state.refreshing">
+        <div class="item-loader" v-if="!(vote && commentList)">
             <div class="la-ball-pulse la-2x">
                 <span></span>
                 <span></span>

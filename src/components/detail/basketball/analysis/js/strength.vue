@@ -24,7 +24,7 @@
                 <div class="zhzl-bfb-left">{{strength.finalscore.away}}</div>
                 <div class="zhzl-bfb-right">{{strength.finalscore.home}}</div>
             </div>
-            <div class="zhedie" drunk-show="isStrength">
+            <div class="zhedie" v-if="collaFlag">
                 <ul class="zhzl-list">
                     <li class="responsive">
                         <div class="zhzl-left">{{strength.shoot.away}}%</div>
@@ -65,13 +65,17 @@
                 <em>暂无数据</em>
             </div>
         </div>
+        <div class="box-arrow noborder" v-tap="{methods: () => collaFlag = !collaFlag}">
+        	<div class="zd-arrow" :class="{'rotate180': collaFlag}">
+        	</div>
+        </div>
     </div>
 
 </template>
 
 <script>
 import {mTypes} from '~store/lqdetail'
-import statsBox from '~components/detail/basketball/analysis/js/stats_box.vue'
+import statsBox from '~components/detail/basketball/analysis/js/statsBox.vue'
 
 export default {
     components: {
@@ -104,7 +108,8 @@ export default {
                 // away: '客队实力值'
                 // home_percent: '主队实力占比'
                 // away_percent: '客队实力占比'
-            }
+            },
+            collaFlag: true
         }
     },
     computed: {
@@ -149,11 +154,11 @@ export default {
         }
     },
     methods: {
-        makeColorClass (type, isReverse, class_l = 'zhzl-gray', class_s = 'zhzl-green') { // isReverse 作用是为了反转左右的参数
+        makeColorClass (type, isReverse, classL = 'zhzl-gray', classS = 'zhzl-green') {   // isReverse 作用是为了反转左右的参数
             let home = +(this.strength[type].home_percent)
             let away = +(this.strength[type].away_percent)
-            if (isReverse) { return home <= away ? class_l : class_s }
-            return home >= away ? class_l : class_s
+            if (isReverse) { return home <= away ? classL : classS }
+            return home >= away ? classL : classS
         },
         makeWidthStyle (type, isReverse) {
             if (isReverse) { return `width: ${this.strength[type].home_percent}%` }
@@ -171,6 +176,11 @@ export default {
         noEmpty (obj) {
             if (obj) return !!Object.keys(obj).length
             return false
+        }
+    },
+    watch: {
+        collaFlag () {
+            this.$store.commit(mTypes.updateScTime)
         }
     }
 }

@@ -1,8 +1,8 @@
 <template>
     <div>
-        <team-misc :team_misc="team_misc" v-if="team_misc"></team-misc>
-        <members-advanced :baseInfo="baseInfo" :members_advanced="members_advanced" v-if="members_advanced"></members-advanced>
-        <div class="item-loader" v-if="$store.state.refreshing">
+        <team-misc :teamMisc="teamMisc" v-if="teamMisc"></team-misc>
+        <members-advanced :baseInfo="baseInfo" :membersAdvanced="membersAdvanced" v-if="membersAdvanced"></members-advanced>
+        <div class="item-loader" v-if="!(teamMisc && membersAdvanced)">
             <div class="la-ball-pulse la-2x">
                 <span></span>
                 <span></span>
@@ -14,8 +14,8 @@
 
 <script>
 import {mTypes, aTypes} from '~store/lqdetail'
-import teamMisc from '~components/detail/basketball/analysis/jj/team_misc.vue'
-import membersAdvanced from '~components/detail/basketball/analysis/jj/members_advanced.vue'
+import teamMisc from '~components/detail/basketball/analysis/jj/teamMisc.vue'
+import membersAdvanced from '~components/detail/basketball/analysis/jj/membersAdvanced.vue'
 export default {
     async asyncData ({store, route: {params}}) {
         const {homeid, awayid, seasonid} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
@@ -32,11 +32,11 @@ export default {
         analysis () {
             return this.$store.state.lqdetail.analysis
         },
-        team_misc () {
-            return this.analysis.jj.team_misc
+        teamMisc () {
+            return this.analysis.jj.teamMisc
         },
-        members_advanced () {
-            return this.analysis.jj.members_advanced
+        membersAdvanced () {
+            return this.analysis.jj.membersAdvanced
         },
         loaded () {
             return this.$store.state.refreshing === 0

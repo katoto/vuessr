@@ -2,11 +2,11 @@
     <div v-if="analysis">
         <NBA-rank :baseInfo='baseInfo' :nbarank='nbarank.all' v-if="isNBA && nbarank"></NBA-rank>
         <league-rank :baseInfo='baseInfo' :leaguerank='leaguerank' v-else-if='leaguerank'></league-rank>
-        <jz-data :jz_data='jz_data' v-if="jz_data"></jz-data>
-        <recent-record :recent_record='recent_record' v-if="recent_record"></recent-record>
-        <future-match :future_match='future_match' v-if="future_match"></future-match>
-        <macau-news :macau_news='macau_news' v-if="macau_news"></macau-news>
-        <div class="item-loader" v-if="$store.state.refreshing">
+        <jz-data :jzData='jzData' v-if="jzData"></jz-data>
+        <recent-record :recentRecord='recentRecord' v-if="recentRecord"></recent-record>
+        <future-match :futureMatch='futureMatch' v-if="futureMatch"></future-match>
+        <macau-news :macauNews='macauNews' v-if="macauNews"></macau-news>
+        <div class="item-loader" v-if="!(nbarank && nbarank.all && leaguerank && recentRecord && futureMatch && macauNews)">
             <div class="la-ball-pulse la-2x">
                 <span></span>
                 <span></span>
@@ -18,12 +18,12 @@
 
 <script>
 import {mTypes, aTypes} from '~store/lqdetail'
-import leagueRank from '~components/detail/basketball/analysis/zj/league_rank.vue'
-import NBARank from '~components/detail/basketball/analysis/zj/nba_rank.vue'
-import jzData from '~components/detail/basketball/analysis/zj/jz_data.vue'
-import recentRecord from '~components/detail/basketball/analysis/zj/recent_record.vue'
-import futureMatch from '~components/detail/basketball/analysis/zj/future_match.vue'
-import macauNews from '~components/detail/basketball/analysis/zj/macau_news.vue'
+import leagueRank from '~components/detail/basketball/analysis/zj/leagueRank.vue'
+import NBARank from '~components/detail/basketball/analysis/zj/nbaRank.vue'
+import jzData from '~components/detail/basketball/analysis/zj/jzData.vue'
+import recentRecord from '~components/detail/basketball/analysis/zj/recentRecord.vue'
+import futureMatch from '~components/detail/basketball/analysis/zj/futureMatch.vue'
+import macauNews from '~components/detail/basketball/analysis/zj/macauNews.vue'
 
 export default {
     async asyncData ({store, route: {params}}) {
@@ -52,17 +52,17 @@ export default {
         leaguerank () {
             return this.analysis.zj.leaguerank
         },
-        jz_data () {
-            return this.analysis.zj.jz_data
+        jzData () {
+            return this.analysis.zj.jzData
         },
-        recent_record () {
-            return this.analysis.zj.recent_record
+        recentRecord () {
+            return this.analysis.zj.recentRecord
         },
-        future_match () {
-            return this.analysis.zj.future_match
+        futureMatch () {
+            return this.analysis.zj.futureMatch
         },
-        macau_news () {
-            return this.analysis.zj.macau_news
+        macauNews () {
+            return this.analysis.zj.macauNews
         },
         isNBA () {
             return this.baseInfo.simpleleague === 'NBA'
