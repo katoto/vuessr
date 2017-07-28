@@ -10,12 +10,7 @@
 
             <!--<div id="_concern" style="display: none" class="topR" onclick="home.doConcern()">
                 <div class="sk-gz"></div>
-<<<<<<< HEAD
-            </div>
-
-=======
             </div>-->
->>>>>>> dev
             <div id="_sharemode" style="display: block;overflow: hidden" class="topR" v-tap="{methods: showShareMode}">
                 <div class="sk-point"></div>
             </div>
@@ -41,19 +36,8 @@
                                    match.status == StatusCode.MID ||
                                    match.status == StatusCode.LAST_HALF ||
                                    match.status == StatusCode.ENDED">
-<<<<<<< HEAD
-                            <div class="fen-bf" drunk-scroll-text="match.homescore" time-out='8' class-list="['fen-bf-active']">
-                                <span class="score">{{match.homescore}}</span>
-                                <span class="score">{{match.homescore}}</span>
-                            </div>
-                            <div class="fen-ld">:</div>
-                            <div class="fen-bf" drunk-scroll-text="match.awayscore" time-out='8' class-list="['fen-bf-active']">
-                                <span class="score">{{match.awayscore}}</span>
-                                <span class="score">{{match.awayscore}}</span>
-                            </div>
-=======
+
                            <score :homescore="match.homescore" :new-homescore="newHomescore" :awayscore="match.awayscore" :new-awayscore="newAwayscore" @update="syncMatch"></score>
->>>>>>> dev
                         </div>
 
                         <div
@@ -445,7 +429,7 @@
     }
     /*头部*/
     .back-icon:before, .black-ball, .dian-ball, .gl-tico:after, .green-arrow, .green-pl:after, .ipt-icon, .jiaohuan, .person-mr, .red-arrow, .red-ball, .red-pl:after, .saixuan:after, .sh-arrow, .sk-gz:after, .wuxiao-ball, .zan-icon, .zd-arrow, .zj-nav .cur:after {
-        background: url(../../assets/style/images/detail/detail-icon.png) no-repeat;
+        background: url(~assets/style/images/detail/detail-icon.png) no-repeat;
         background-size: .533333rem 13.333333rem
     }
     /*详情页顶部*/
@@ -455,12 +439,24 @@
     .detailTop {
         position: relative;
         width: 100%;
-        height: 1.1733rem;
+        height: 1.173rem;
         background: #242c35;
     }
+    [data-dpr="1"] .detailTop {
+        height: 44px
+    }
+
+    [data-dpr="2"] .detailTop  {
+        height: 88px
+    }
+
+    [data-dpr="3"] .detailTop  {
+        height: 132px
+    }
+
     .back-icon {
         width: 1.066667rem;
-        height: 1.173333rem;
+        height: 1.173rem;
         display: inline-block;
         text-indent: -999px;
         position: absolute;
@@ -501,8 +497,8 @@
         position: absolute;
         left: 50%;
         margin-left: -2rem;
-        height: 1.1733rem;
-        line-height: 1.1733rem;
+        height: 1.173rem;
+        line-height: 1.173rem;
         width: 100%;
         text-align: center;
         width: 4rem;
@@ -512,17 +508,17 @@
     }
 
     .detailTop .sk-gz {
-        width: 1.1733rem;
+        width: 1.173rem;
         display: inline-block;
-        height: 1.1733rem;
+        height: 1.173rem;
         position: relative;
     }
     .detailTop .topR {
         position: absolute;
         top: 0;
         right: 0;
-        width: 1.1733rem;
-        height: 1.1733rem;
+        width: 1.173rem;
+        height: 1.173rem;
     }
     .detailTop .sk-gz:after {
         position: absolute;
@@ -541,8 +537,8 @@
     .detailTop .fen-box {
         position: absolute;
         width: 8rem;
-        height: 1.1733rem;
-        line-height: 1.1733rem;
+        height: 1.173rem;
+        line-height: 1.173rem;
         text-align: center;
         left: 50%;
         margin-left: -4rem;
@@ -840,13 +836,13 @@
     /*详情页导航*/
 
     .nav-placeholder {
-        height: 88px;
+        height: 1.173rem;
         position: relative;
         width: 100%;
     }
     .navigator {
-        height: 88px;
-        line-height: 88px;
+        height: 1.173rem;
+        line-height: 1.173rem;
         color: #d1d4d0;
         font-size:0.4rem;
         text-align: center;
@@ -856,7 +852,7 @@
         position: -webkit-sticky;
         position: sticky;
         left: 0;
-        top: 88px;
+        top: 1.173rem;
     }
     .nav-relative {
         position: relative;
@@ -877,7 +873,7 @@
         flex: 1;
         display: block;
         width: 100%;
-        height: 88px;
+        height: 1.173rem;
         overflow: hidden;
         position: relative;
     }
@@ -1010,12 +1006,12 @@
             top: 3.7333rem;
         }
         100% {
-            top: 1.1733rem;
+            top: ;
         }
     }
     @keyframes navM2 {
         0% {
-            top: 1.1733rem;
+            top: 1.173rem;
         }
         100% {
             top: 3.7333rem;

@@ -348,7 +348,7 @@
     .zan-icon,
     .zd-arrow,
     .zj-nav .cur:after{
-        background: url("../../../assets/style/images/detail/detail-icon.png") no-repeat;
+        background: url(~assets/style/images/detail/detail-icon.png) no-repeat;
         background-size: .533333rem 13.333333rem}
 
     .black-ball,
