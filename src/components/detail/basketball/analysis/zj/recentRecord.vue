@@ -5,9 +5,9 @@
                 近期战绩
             </div>
             <template v-if="noEmptyFlag">
-                <fight-box :matchesObj='recent_record.alist' hoa='awaysxname' v-if="noEmptyFlag_home">
+                <fight-box :matchesObj='recentRecord.alist' hoa='awaysxname' v-if="noEmptyFlag_home">
                 </fight-box>
-                <fight-box :matchesObj='recent_record.hlist' v-if="noEmptyFlag_away">
+                <fight-box :matchesObj='recentRecord.hlist' v-if="noEmptyFlag_away">
                 </fight-box>
             </template>
             <div class="feed-back" v-else>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import fightBox from '~components/detail/basketball/analysis/zj/fight_box.vue'
+import fightBox from '~components/detail/basketball/analysis/zj/fightBox.vue'
 export default {
     components: {
         fightBox
@@ -30,14 +30,14 @@ export default {
             return this.noEmptyFlag_home && this.noEmptyFlag_away
         },
         noEmptyFlag_home () {
-            return this.noEmpty(this.recent_record && this.recent_record.hlist)
+            return this.noEmpty(this.recentRecord && this.recentRecord.hlist)
         },
         noEmptyFlag_away () {
-            return this.noEmpty(this.recent_record && this.recent_record.alist)
+            return this.noEmpty(this.recentRecord && this.recentRecord.alist)
         }
     },
     props: {
-        recent_record: {
+        recentRecord: {
             type: Object,
             required: true
         }

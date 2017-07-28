@@ -227,13 +227,13 @@
             })
         },
 
-        components:{
+        components: {
             slide
         },
         data () {
             return {
                 teamData: ['投篮', '三分', '罚球', '前篮板', '后篮板', '总篮板', '助攻', '抢断', '盖帽', '失误', '犯规', '得分'],
-                sf: ['shoot', 'third', 'penalty_kick', 'offensiverebound', 'defensiverebound', 'rebs', 'assists', 'steals', 'block_shot', 'fehlpass', 'foul', 'score'],
+                sf: ['shoot', 'third', 'penalty_kick', 'offensiverebound', 'defensiverebound', 'rebs', 'assists', 'steals', 'block_shot', 'fehlpass', 'foul', 'score']
             }
         },
         computed: {
@@ -251,7 +251,7 @@
             },
             away: function () {
                 return this.$store.state.lqdetail.situation.statistic && this.$store.state.lqdetail.situation.statistic.away
-            },
+            }
 
         },
         methods: {
@@ -272,7 +272,7 @@
             },
             refreshTime () {
                 this.fetchData()
-            },
+            }
         },
         mounted () {
             this.fetchData()
@@ -282,8 +282,8 @@
                 data1 = data1 - 0
                 data2 = data2 - 0
                 let tmp = data1 + data2
-                if (data1 === 0) { return "width:3%" }
-                if (data1 === tmp) { return "width:3%" }
+                if (data1 === 0) { return 'width:3%' }
+                if (data1 === tmp) { return 'width:3%' }
                 return {width: data1 / (data1 + data2) * 100 + '%'}
             }
         }

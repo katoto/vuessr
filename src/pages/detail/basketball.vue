@@ -307,7 +307,7 @@
         async mounted () {
             await this.fetchData()
             if (this.baseInfo.status !== StatusCode.ENDED) {
-                console.log('---------');
+                console.log('---------')
                 this.$store.dispatch(aTypes.subscribeInfo, [this.baseInfo.fid])
                 this.$store.dispatch(aTypes.subscribeEvent, [this.baseInfo.fid])
             }
@@ -318,8 +318,8 @@
         },
         watch: {
             socketData ({data, stamp}) {  // websocket推送过来的数据
-                console.log('=========websocket');
-                console.log({data, stamp});
+                console.log('=========websocket')
+                console.log({data, stamp})
                 if (stamp === pushEvents.BASKETBALL_INFO) {
                     if (data.fid === this.baseInfo.fid) {
                         this.$store.dispatch(aTypes.getBaseInfo, this.baseInfo.fid)

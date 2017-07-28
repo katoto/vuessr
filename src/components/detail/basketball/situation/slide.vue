@@ -9,8 +9,8 @@
 <script>
     import {Scroller} from 'scroller'
     export default{
-        methods:{
-            initConfig:function () {
+        methods: {
+            initConfig: function () {
                 this.container = this.$el
                 this.content = this.$el.querySelector('.s-content')
                 const transform = typeof document.body.style.transform !== 'undefined' ? 'transform' : 'webkitTransform'
@@ -54,9 +54,9 @@
                 }, false)
             }
         },
-        mounted(){
+        mounted () {
             console.log('he')
-            this.initConfig();
+            this.initConfig()
         }
     }
 </script>

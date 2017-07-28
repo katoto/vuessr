@@ -178,11 +178,11 @@ const actionsInfo = mapActions({
         let result = await Promise.all([
             ajax.get(`/score/zq/leaguerank?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&stid=${stid}&fid=${fid}`),
             ajax.get(`/score/zq/cuprank?matchgroup=${matchgroup}&matchdate=${matchdate}&stid=${stid}`),
-            ajax.get(`/score/zq/recent_record?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&leagueid=${rleagueid}&stid=${stid}&limit=${rlimit}&hoa=${rhoa}`),
-            ajax.get(`/score/zq/macau_news?fid=${fid}`),
+            ajax.get(`/score/zq/recentRecord?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&leagueid=${rleagueid}&stid=${stid}&limit=${rlimit}&hoa=${rhoa}`),
+            ajax.get(`/score/zq/macauNews?fid=${fid}`),
             ajax.get(`/score/zq/fifarank?homeid=${homeid}&awayid=${awayid}`),
-            ajax.get(`/score/zq/future_match?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&fid=${fid}`),
-            ajax.get(`/score/zq/jz_data?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&leagueid=${jzleagueid}&limit=${jzlimit}&hoa=${jzhoa}`)
+            ajax.get(`/score/zq/futureMatch?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&fid=${fid}`),
+            ajax.get(`/score/zq/jzData?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&leagueid=${jzleagueid}&limit=${jzlimit}&hoa=${jzhoa}`)
         ])
         const [leaguerank, cuprank, recentRecord, macauNews, fifarank, futureMatch, jzdata] = result
         commit(mTypes.setAnalysisZj, {leaguerank, cuprank, recentRecord, macauNews, fifarank, futureMatch, jzdata})
@@ -190,12 +190,12 @@ const actionsInfo = mapActions({
     },
 
     async getAnalysisZjHis ({commit}, {homeid, awayid, matchdate, jzleagueid, jzlimit, jzhoa}) {
-        let jzdata = await ajax.get(`/score/zq/jz_data?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&leagueid=${jzleagueid}&limit=${jzlimit}&hoa=${jzhoa}`)
+        let jzdata = await ajax.get(`/score/zq/jzData?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&leagueid=${jzleagueid}&limit=${jzlimit}&hoa=${jzhoa}`)
         commit(mTypes.setAnalysisZjHis, jzdata)
         return jzdata
     },
     async getAnalysisZjR ({commit}, {homeid, awayid, matchdate, stid, rleagueid, rlimit, rhoa}) {
-        let recentRecord = await ajax.get(`/score/zq/recent_record?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&stid=${stid}&leagueid=${rleagueid}&limit=${rlimit}&hoa=${rhoa}`)
+        let recentRecord = await ajax.get(`/score/zq/recentRecord?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&stid=${stid}&leagueid=${rleagueid}&limit=${rlimit}&hoa=${rhoa}`)
         commit(mTypes.setAnalysisZjR, recentRecord)
         return recentRecord
     },

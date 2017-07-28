@@ -79,18 +79,18 @@
                 fid: params.fid
             })
         },
-        components:{
+        components: {
             noData
         },
-        computed:{
+        computed: {
             refreshTime () { // 用户点击刷新按钮时间戳
                 return this.$store.state.refreshTime
             },
             loaded () {
                 return this.$store.state.refreshing === 0
             },
-            europe:function () {
-                return this.$store.state.lqdetail.odds && this.$store.state.lqdetail.odds.europe;
+            europe: function () {
+                return this.$store.state.lqdetail.odds && this.$store.state.lqdetail.odds.europe
             }
         },
         methods: {
@@ -106,7 +106,7 @@
                 this.$store.commit('endOneRefresh')
             },
             viewOddsDetail ({cid}) {
-                console.log(cid);
+                console.log(cid)
                 if (cid === '-1') return
                 this.$store.commit(mTypes.setDialog, {
                     component: oddsInfo,
@@ -124,11 +124,10 @@
             },
             refreshTime () {
                 this.fetchData()
-            },
+            }
         },
         mounted () {
             this.fetchData()
         }
     }
 </script>
-

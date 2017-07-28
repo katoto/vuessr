@@ -31,7 +31,7 @@
                                     相隔
                                 </th>
                             </tr>
-                            <tr v-for="list in future_match[hoa]">
+                            <tr v-for="list in futureMatch[hoa]">
                                 <td>
                                     <span class="color9">{{list.simpleleague}}</span>
                                 </td>
@@ -71,21 +71,21 @@
 <script>
 export default {
     props: {
-        future_match: {
+        futureMatch: {
             type: Object,
             required: true
         }
     },
     computed: {
-        baseInfo() {
+        baseInfo () {
             return this.$store.state.lqdetail.baseInfo
         },
-        noEmptyFlag() {
-            return this.noEmpty(this.future_match.home) && this.noEmpty(this.future_match.away)
+        noEmptyFlag () {
+            return this.noEmpty(this.futureMatch.home) && this.noEmpty(this.futureMatch.away)
         }
     },
     methods: {
-        noEmpty(obj) {
+        noEmpty (obj) {
             if (obj) return !!Object.keys(obj).length
             return false
         }

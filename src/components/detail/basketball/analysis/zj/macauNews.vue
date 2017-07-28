@@ -6,11 +6,11 @@
   		</div>
   		<div class="zhedie show" v-if="noEmptyFlag">
   			<div class="pm-namel">
-  				<span>{{macau_news.name}}</span><span class="suggest-status"> {{macau_news.result}}</span><span class="suggest-power">信心指数</span><span class="suggest-stars"><i class="ico-star ico-star-active" v-for="i in macau_news.stars"></i></span>
+  				<span>{{macauNews.name}}</span><span class="suggest-status"> {{macauNews.result}}</span><span class="suggest-power">信心指数</span><span class="suggest-stars"><i class="ico-star ico-star-active" v-for="i in macauNews.stars"></i></span>
   			</div>
   			<div class="macao-txt">
   				<p>
-  					{{macau_news.description}}
+  					{{macauNews.description}}
   				</p>
   			</div>
   		</div>
@@ -26,14 +26,14 @@
 <script>
 export default {
     props: {
-        macau_news: {
+        macauNews: {
             type: Object,
             required: true
         }
     },
     computed: {
         noEmptyFlag () {
-            return this.noEmpty(this.macau_news)
+            return this.noEmpty(this.macauNews)
         }
     },
     methods: {

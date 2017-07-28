@@ -84,7 +84,7 @@
                 return this.$store.state.refreshing === 0
             },
             rangfenpan: function () {
-                return this.$store.state.lqdetail.odds && this.$store.state.lqdetail.odds.handicap;
+                return this.$store.state.lqdetail.odds && this.$store.state.lqdetail.odds.handicap
             }
         },
         methods: {
@@ -117,7 +117,7 @@
             },
             refreshTime () {
                 this.fetchData()
-            },
+            }
         },
         mounted () {
             this.fetchData()

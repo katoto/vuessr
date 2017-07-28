@@ -21,10 +21,10 @@ const initState = {
         zj: {
             nbarank: null,
             leaguerank: null,
-            jz_data: null,
-            recent_record: null,
-            future_match: null,
-            macau_news: null
+            jzData: null,
+            recentRecord: null,
+            futureMatch: null,
+            macauNews: null
         },
         js: {
             strength: null,
@@ -39,8 +39,8 @@ const initState = {
             best3: null
         },
         jj: {
-            team_misc: null,
-            members_advanced: null
+            teamMisc: null,
+            membersAdvanced: null
         }
     },
     comment: {
@@ -89,9 +89,9 @@ const actionsInfo = mapActions({
             ajax.get(`/score/lq/future_match?fid=${fid}&homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&T=${Date.now()}`),
             ajax.get(`/score/lq/macau_news?fid=${fid}`)
         ])
-        const [nbarank, leaguerank, jz_data, recent_record, future_match, macau_news] = result
-        commit(mTypes.setAnalysisZj, {nbarank, leaguerank, jz_data, recent_record, future_match, macau_news})
-        return {nbarank, leaguerank, jz_data, recent_record, future_match, macau_news}
+        const [nbarank, leaguerank, jzData, recentRecord, futureMatch, macauNews] = result
+        commit(mTypes.setAnalysisZj, {nbarank, leaguerank, jzData, recentRecord, futureMatch, macauNews})
+        return {nbarank, leaguerank, jzData, recentRecord, futureMatch, macauNews}
     },
     async getAnalysisJs ({commit}, {fid, seasonid, homeid, awayid, matchdate}) {
         let result = await Promise.all([
@@ -124,8 +124,8 @@ const actionsInfo = mapActions({
             ajax.get(`/score/lq/members_advanced?homeid=${homeid}&awayid=${awayid}&seasonid=${seasonid}&T=${Date.now()}`),
             ajax.get(`/score/lq/team_misc?homeid=${homeid}&awayid=${awayid}&seasonid=${seasonid}&T=${Date.now()}`)
         ])
-        const [members_advanced, team_misc] = result
-        commit(mTypes.setAnalysisJj, {members_advanced, team_misc})
+        const [membersAdvanced, teamMisc] = result
+        commit(mTypes.setAnalysisJj, {membersAdvanced, teamMisc})
     },
     async getCommentList ({commit}, {vtype, fid, pageNo, tab, pageSize = 10}) {
         let result = await ajax.get(`/sns/score/commentlist?vtype=${vtype}&fid=${fid}&pn=${pageNo}&tab=${tab}&rn=${pageSize}&_t=` + new Date().getTime())
@@ -141,8 +141,8 @@ const actionsInfo = mapActions({
         commit(mTypes.setVote, votelist[0])
         return votelist[0]
     },
-    async onVote(ignore, {opt, vtype = '2', id, fid}) {
-        console.log(opt);
+    async onVote (ignore, {opt, vtype = '2', id, fid}) {
+        console.log(opt)
         return ajax.post(`/sns/score/vote?_t=${Date.now()}`, {
             opt, id, fid, vtype
         })
@@ -231,7 +231,7 @@ const actionsInfo = mapActions({
     },
     async getOddsHandicap ({commit}, {fid}) {
         const handicap = await ajax.get(`/score/lq/handicap?fid=${fid}`)
-        commit(mTypes.setOddsHandicap,handicap)
+        commit(mTypes.setOddsHandicap, handicap)
         return handicap
     },
     async getOddsPoints ({commit}, {fid}) {
@@ -293,35 +293,32 @@ const mutationsInfo = mapMutations({
         state.odds.points = points
     },
 
-
-
-
-    setAnalysisZj (state, {nbarank, leaguerank, jz_data, recent_record, future_match, macau_news}) {
+    setAnalysisZj (state, {nbarank, leaguerank, jzData, recentRecord, futureMatch, macauNews}) {
         state.analysis.zj.leaguerank = leaguerank
         state.analysis.zj.nbarank = nbarank
-        state.analysis.zj.jz_data = jz_data
-        state.analysis.zj.recent_record = recent_record
-        state.analysis.zj.future_match = future_match
-        state.analysis.zj.macau_news = macau_news
+        state.analysis.zj.jzData = jzData
+        state.analysis.zj.recentRecord = recentRecord
+        state.analysis.zj.futureMatch = futureMatch
+        state.analysis.zj.macauNews = macauNews
     },
     setAnalysisJs (state, {strength, trend, stats}) {
         state.analysis.js.strength = strength
         state.analysis.js.trend['1'] = trend
         state.analysis.js.stats = stats
     },
-    setAnalysisJsTrend(state, {trend, vtype}) {
+    setAnalysisJsTrend (state, {trend, vtype}) {
         state.analysis.js.trend[vtype] = trend
     },
     setAnalysisZr (state, {best3, members}) {
         state.analysis.zr.best3 = best3
         state.analysis.zr.members = members
     },
-    setAnalysisZrMembers(state, {members, hoa}) {
+    setAnalysisZrMembers (state, {members, hoa}) {
         state.analysis.zr.members[hoa] = members[hoa]
     },
-    setAnalysisJj (state, {members_advanced, team_misc}) {
-        state.analysis.jj.members_advanced = members_advanced
-        state.analysis.jj.team_misc = team_misc
+    setAnalysisJj (state, {membersAdvanced, teamMisc}) {
+        state.analysis.jj.membersAdvanced = membersAdvanced
+        state.analysis.jj.teamMisc = teamMisc
     },
     setVote (state, vote) {
         state.comment.vote = vote

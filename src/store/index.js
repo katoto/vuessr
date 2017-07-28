@@ -76,7 +76,7 @@ const actions = {
                 commit('updateSocketData', data)
             }
             connect.onopen = function () {
-                /*let homeScore = 2
+                /* let homeScore = 2
                 setInterval(() => {
                     let data = {
                         "status":"1",
@@ -90,7 +90,7 @@ const actions = {
                     }
                     // console.log(data)
                     commit('updateSocketData', {data, stamp: 0})
-                }, 5000)*/
+                }, 5000) */
                 if (state.websocket.latestSub.length) {
                     state.websocket.latestSub.forEach((sub) => {
                         connect.send(sub)

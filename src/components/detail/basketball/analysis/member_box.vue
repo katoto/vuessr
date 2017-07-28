@@ -37,8 +37,7 @@
 
 <script>
 import {
-    mTypes,
-    aTypes
+    mTypes
 } from '~store/lqdetail'
 import {Scroller} from 'scroller'
 
@@ -56,29 +55,28 @@ export default {
             required: true
         }
     },
-    data() {
+    data () {
         return {
             moreFlag: false,
             cutLen: 5
         }
     },
     computed: {
-        noEmptyFlag() {
+        noEmptyFlag () {
             return this.noEmpty(this.members)
         },
-        membersFmt() {
+        membersFmt () {
             return this.members.slice(0, this.cutLen)
         }
     },
     methods: {
-        collap({length}) {
+        collap ({length}) {
             this.moreFlag = !this.moreFlag
             this.cutLen = this.moreFlag ? length : 5
             this.$store.commit(mTypes.updateScTime)
         },
-        noEmpty(obj) {
-            if(obj)
-            return !!Object.keys(obj).length
+        noEmpty (obj) {
+            if (obj) { return !!Object.keys(obj).length }
             return false
         },
         scrollTo (left, isAnimate) {
@@ -88,10 +86,10 @@ export default {
                 })
             })
         },
-        raf: (cb) => window.requestAnimationFrame ? requestAnimationFrame(cb) : setTimeout(() => cb(), 16.7),
+        raf: (cb) => window.requestAnimationFrame ? requestAnimationFrame(cb) : setTimeout(() => cb(), 16.7)
     },
     mounted () {
-        if(!this.noEmptyFlag) return
+        if (!this.noEmptyFlag) return
         this.container = this.$el.querySelector('.scroll-cont')
         this.content = this.$el.querySelector('.zr-detail-right')
         const transform = typeof document.body.style.transform !== 'undefined' ? 'transform' : 'webkitTransform'

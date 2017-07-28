@@ -8,20 +8,20 @@
     	</div>
         <template v-if="noEmptyFlag">
             <div class="gl-box">
-                <data-box :data="team_misc.ratio" :dataType="ratioType"></data-box>
-                <div class="infoTips" v-if="team_misc.ratio.desc">
+                <data-box :data="teamMisc.ratio" :dataType="ratioType"></data-box>
+                <div class="infoTips" v-if="teamMisc.ratio.desc">
                     <i class="icon"></i>
                     <p class="f24">
-                        {{team_misc.ratio.desc}}
+                        {{teamMisc.ratio.desc}}
                     </p>
                 </div>
             </div>
             <div class="gl-box gl-zjBox">
                 <data-box :data="data" :dataType="combatType"></data-box>
-                <div class="infoTips" v-if="team_misc.combat.desc">
+                <div class="infoTips" v-if="teamMisc.combat.desc">
                     <i class="icon"></i>
                     <p class="f24">
-                        {{team_misc.combat.desc}}
+                        {{teamMisc.combat.desc}}
                     </p>
                 </div>
             </div>
@@ -45,12 +45,12 @@ export default {
         wordBox
     },
     props: {
-        team_misc: {
+        teamMisc: {
             type: Object,
             required: true
         }
     },
-    data() {
+    data () {
         return {
             ratioType: {
                 pace: {
@@ -115,19 +115,19 @@ export default {
         }
     },
     computed: {
-        data() {
+        data () {
             return {
-                expect: this.team_misc.combat.expect,
-                real: this.team_misc.combat.real,
-                sos: this.team_misc.degree.sos
+                expect: this.teamMisc.combat.expect,
+                real: this.teamMisc.combat.real,
+                sos: this.teamMisc.degree.sos
             }
         },
-        noEmptyFlag() {
-            return this.noEmpty(this.team_misc)
+        noEmptyFlag () {
+            return this.noEmpty(this.teamMisc)
         }
     },
     methods: {
-        openWordBox() {
+        openWordBox () {
             this.$store.commit(mTypes.setDialog, {
                 component: wordBox,
                 params: {
@@ -137,7 +137,7 @@ export default {
                 }
             })
         },
-        noEmpty(obj) {
+        noEmpty (obj) {
             if (obj) return !!Object.keys(obj).length
             return false
         }

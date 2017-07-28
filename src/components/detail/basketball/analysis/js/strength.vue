@@ -24,7 +24,7 @@
                 <div class="zhzl-bfb-left">{{strength.finalscore.away}}</div>
                 <div class="zhzl-bfb-right">{{strength.finalscore.home}}</div>
             </div>
-            <div class="zhedie" drunk-show="isStrength">
+            <div class="zhedie" v-if="collaFlag">
                 <ul class="zhzl-list">
                     <li class="responsive">
                         <div class="zhzl-left">{{strength.shoot.away}}%</div>
@@ -65,6 +65,10 @@
                 <em>暂无数据</em>
             </div>
         </div>
+        <div class="box-arrow noborder" v-tap="{methods: () => collaFlag = !collaFlag}">
+        	<div class="zd-arrow" :class="{'rotate180': collaFlag}">
+        	</div>
+        </div>
     </div>
 
 </template>
@@ -91,7 +95,7 @@ export default {
             required: true
         }
     },
-    data() {
+    data () {
         return {
             strengthType: {
                 // finalscore: '综合评分',
@@ -104,11 +108,12 @@ export default {
                 // away: '客队实力值'
                 // home_percent: '主队实力占比'
                 // away_percent: '客队实力占比'
-            }
+            },
+            collaFlag: true
         }
     },
     computed: {
-        leftColorClass() {
+        leftColorClass () {
             let colorObj = {}
             for (var type in this.strengthType) {
                 if (this.strengthType.hasOwnProperty(type)) {
@@ -117,7 +122,7 @@ export default {
             }
             return colorObj
         },
-        rightColorClass() {
+        rightColorClass () {
             let colorObj = {}
             for (var type in this.strengthType) {
                 if (this.strengthType.hasOwnProperty(type)) {
@@ -126,7 +131,7 @@ export default {
             }
             return colorObj
         },
-        leftWidthStyle() {
+        leftWidthStyle () {
             let widthObj = {}
             for (var type in this.strengthType) {
                 if (this.strengthType.hasOwnProperty(type)) {
@@ -135,7 +140,7 @@ export default {
             }
             return widthObj
         },
-        rightWidthStyle() {
+        rightWidthStyle () {
             let widthObj = {}
             for (var type in this.strengthType) {
                 if (this.strengthType.hasOwnProperty(type)) {
@@ -144,23 +149,22 @@ export default {
             }
             return widthObj
         },
-        noEmptyFlag() {
+        noEmptyFlag () {
             return this.noEmpty(this.strength)
         }
     },
     methods: {
-        makeColorClass (type, isReverse, class_l = 'zhzl-gray', class_s = 'zhzl-green') {   // isReverse 作用是为了反转左右的参数
+        makeColorClass (type, isReverse, classL = 'zhzl-gray', classS = 'zhzl-green') {   // isReverse 作用是为了反转左右的参数
             let home = +(this.strength[type].home_percent)
             let away = +(this.strength[type].away_percent)
-            if (isReverse) { return home <= away ? class_l : class_s }
-            return home >= away ? class_l : class_s
+            if (isReverse) { return home <= away ? classL : classS }
+            return home >= away ? classL : classS
         },
         makeWidthStyle (type, isReverse) {
-            if(isReverse)
-                return `width: ${this.strength[type].home_percent}%`
+            if (isReverse) { return `width: ${this.strength[type].home_percent}%` }
             return `width: ${this.strength[type].away_percent}%`
         },
-        openStatBox() {
+        openStatBox () {
             this.$store.commit(mTypes.setDialog, {
                 component: statsBox,
                 params: {
@@ -169,9 +173,14 @@ export default {
                 }
             })
         },
-        noEmpty(obj) {
+        noEmpty (obj) {
             if (obj) return !!Object.keys(obj).length
             return false
+        }
+    },
+    watch: {
+        collaFlag () {
+            this.$store.commit(mTypes.updateScTime)
         }
     }
 }

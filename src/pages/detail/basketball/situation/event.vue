@@ -100,7 +100,7 @@
         data () {
             return {
                 jieData: [],
-                isActive:{},
+                isActive: {},
                 StatusCode
             }
         },
@@ -131,16 +131,15 @@
                 }
             },
             eventList: function () {
-                let tmp=[];
-                let list=[];
-                if(this.$store.state.lqdetail.situation && this.$store.state.lqdetail.situation.eventlist){
-                    tmp=this.$store.state.lqdetail.situation.eventlist.reverse();
-                    for(let lst of tmp){
-                        list.push(lst.reverse());
+                let tmp = []
+                let list = []
+                if (this.$store.state.lqdetail.situation && this.$store.state.lqdetail.situation.eventlist) {
+                    tmp = this.$store.state.lqdetail.situation.eventlist.reverse()
+                    for (let lst of tmp) {
+                        list.push(lst.reverse())
                     }
-                    return list;
+                    return list
                 }
-
             }
         },
         methods: {
@@ -159,7 +158,7 @@
             },
             changeSelect: function (idx) {
                 this.$set(this.isActive, idx, !this.isActive[idx])
-                console.log(idx);
+                console.log(idx)
                 console.log(this.isActive[idx])
             },
             async fetchData () {
@@ -168,9 +167,8 @@
 //                if (!baseInfo || this.$store.state.lqdetail.baseInfo.fid !== this.$route.params.fid) {
 //                    baseInfo = await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
 //                }
-                await this.$store.dispatch(aTypes.getSituationEvent, {fid:this.$route.params.fid})
+                await this.$store.dispatch(aTypes.getSituationEvent, {fid: this.$route.params.fid})
                 this.$store.commit('endOneRefresh')
-
             },
             refreshScroll () {
                 this.$store.commit(mTypes.updateScTime)
@@ -182,13 +180,12 @@
             },
             refreshTime () {
                 this.fetchData()
-            },
+            }
         },
         mounted () {
             this.fetchData()
             this.jiePush()
-            this.$set(this.isActive,0,true)
+            this.$set(this.isActive, 0, true)
         }
     }
 </script>
-
