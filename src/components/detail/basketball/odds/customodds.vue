@@ -107,7 +107,7 @@
                 }
                 this.customOdds.company.custom.splice(idx, 1)
             },
-            setCustomTop ({idx}) {    // 置顶
+            setCustomTop ({idx}) { // 置顶
                 console.log(idx)
                 if (idx > 0) {
                     console.log(this.customOdds.company.custom)
@@ -115,7 +115,7 @@
                     this.customOdds.company.custom.splice(idx + 1, 1)
                 }
             },
-            addCustomOdd ({key, idx}) {  // 公司添加
+            addCustomOdd ({key, idx}) { // 公司添加
                 if (!this.customOdds.company.custom || this.customOdds.company.custom.length > 29) {
                     return this.$store.dispatch('showToast', '最多可添加30家赔率公司')
                 }
@@ -131,7 +131,7 @@
                     type: item.type
                 })
             },
-            async updateCustomOdds () {   // 保存
+            async updateCustomOdds () { // 保存
                 let items = []
                 this.customOdds.company.custom.forEach(function (item) {
                     items.push(item.cid)
@@ -142,8 +142,8 @@
                     this.$store.dispatch('showToast', e.message)
                     return this.closeDialog()
                 }
-//                console.log('----------');
-//                console.log(items);
+                //                console.log('----------');
+                //                console.log(items);
                 this.$store.dispatch('showToast', '保存成功')
                 this.$store.commit('beginRefresh')
                 this.closeDialog()
@@ -163,7 +163,7 @@
             for (let p in this.customOdds.company.all) {
                 this.customKeyList.push(p)
             }
-            this.customKeyList.sort()  // #,A,B的顺序排序
+            this.customKeyList.sort() // #,A,B的顺序排序
         }
     }
 </script>

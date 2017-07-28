@@ -55,7 +55,6 @@
             }
         },
         mounted () {
-            console.log('he')
             this.initConfig()
         }
     }

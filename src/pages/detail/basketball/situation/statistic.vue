@@ -218,7 +218,7 @@
 
 <script>
     import {aTypes, mTypes} from '~store/lqdetail'
-    import meSports from '~components/detail/basketball/situation/meSports.vue'
+//    import meSports from '~components/detail/basketball/situation/meSports.vue'
     import slide from '~components/detail/basketball/situation/slide.vue'
     export default{
         async asyncData ({store, route: {params}}) {
@@ -278,7 +278,7 @@
             this.fetchData()
         },
         filters: {
-            getWidth (data1, data2) {  // 横条比例显示的数据处理
+            getWidth (data1, data2) { // 横条比例显示的数据处理
                 data1 = data1 - 0
                 data2 = data2 - 0
                 let tmp = data1 + data2

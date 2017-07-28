@@ -82,10 +82,10 @@
             refreshTime () { // 用户点击刷新按钮时间戳
                 return this.$store.state.refreshTime
             },
-            socketData () {  // websocket推送过来的数据
+            socketData () { // websocket推送过来的数据
                 return this.$store.getters.getSocketData
             },
-            filterTime () {  // 用户点击筛选按钮时间戳
+            filterTime () { // 用户点击筛选按钮时间戳
                 return this.$store.state.home.filter.filterTime
             },
             zq () {

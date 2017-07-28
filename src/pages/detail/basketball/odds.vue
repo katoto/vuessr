@@ -41,9 +41,9 @@
             ptype () {
                 let tmp = this.$route.path.substr(this.$route.path.lastIndexOf('/') + 1)
                 switch (tmp) {
-                case 'shengfu': { return 'europe'; break }
-                case 'rangfenpan': { return 'rangfen'; break }
-                case 'daxiaofen': { return 'zongfen'; break }
+                case 'shengfu': { return 'europe' }
+                case 'rangfenpan': { return 'rangfen' }
+                case 'daxiaofen': { return 'zongfen' }
                 }
             }
         }

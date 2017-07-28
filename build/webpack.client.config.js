@@ -1,9 +1,10 @@
-
+const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const base = require('./webpack.base.config')
 // const SWPrecachePlugin = require('sw-precache-webpack-plugin')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = merge(base, {
     entry: {
@@ -38,7 +39,21 @@ const config = merge(base, {
         new webpack.optimize.CommonsChunkPlugin({
             name: 'manifest'
         }),
-        new VueSSRClientPlugin()
+        new VueSSRClientPlugin(),
+        new HtmlWebpackPlugin({
+            filename: 'backup.html',
+            template: path.resolve(__dirname, '../src/index.tpl.html'),
+            inject: true,
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeAttributeQuotes: true
+                // more options:
+                // https://github.com/kangax/html-minifier#options-quick-reference
+            },
+            // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+            chunksSortMode: 'dependency'
+        })
     ]
 })
 

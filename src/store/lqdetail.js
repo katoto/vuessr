@@ -5,7 +5,7 @@ import { pushEvents } from '~common/constants'
 const name = 'lqdetail'
 
 const initState = {
-    reachEndTime: 0,  // 滚动到最后触发的时间戳
+    reachEndTime: 0, // 滚动到最后触发的时间戳
     scTime: 0, // 触发滚动更新时间戳
     baseInfo: null,
     situation: {
