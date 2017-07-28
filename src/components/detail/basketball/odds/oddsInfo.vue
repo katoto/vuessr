@@ -2,7 +2,7 @@
     <div>
         <div class="popLayer "></div>
         <div style="z-index: 100;" class="l-full l-flex-column slide-bottom-to-top">
-            <div class="popTopbar" onclick="history.back()"></div>
+            <div class="popTopbar" v-tap="{methods: closeDialog}"></div>
             <div class="popInner">
                 <div class="full-scroll">
                     <div class="plleft">
