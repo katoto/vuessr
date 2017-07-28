@@ -1,0 +1,181 @@
+<template>
+    <div class="zhedie-box">
+        <div class="gl-nav">
+            实力对比
+            <ul class="time-item" drunk-if="strengthInfo">
+                <li class="time-item-cur more-zl" v-tap='{methods: openStatBox}'>更多</li>
+            </ul>
+        </div>
+        <template v-if="noEmptyFlag">
+            <div class="zhzl-box">
+                <div class="zhzl-title">综合评分</div>
+                <div class="zhzl-vs">
+                    <div class="zhzl-l" :class="makeColorClass('finalscore')" :style="makeWidthStyle('finalscore')">
+                        <div class="wua">
+                            <div class="hh"></div>
+                        </div>
+                    </div>
+                    <div class="zhzl-r" :class="makeColorClass('finalscore', true)" :style="makeWidthStyle('finalscore', true)">
+                        <div class="wua">
+                            <div class="hh"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zhzl-bfb-left">{{strength.finalscore.away}}</div>
+                <div class="zhzl-bfb-right">{{strength.finalscore.home}}</div>
+            </div>
+            <div class="zhedie" drunk-show="isStrength">
+                <ul class="zhzl-list">
+                    <li class="responsive">
+                        <div class="zhzl-left">{{strength.shoot.away}}%</div>
+                        <div class="each-resone">
+                            <div class="zhzl-classify">投篮命中率</div>
+                            <div class="responsive">
+                                <div class="each-resone l-relative">
+                                    <div class="zhzl-vs-left" :class="makeColorClass('shoot')" :style="makeWidthStyle('shoot')"></div>
+                                </div>
+                                <div class="each-resone l-relative">
+                                    <div class="zhzl-vs-right" :class="makeColorClass('shoot', true)" :style="makeWidthStyle('shoot', true)"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="zhzl-right">{{strength.shoot.home}}%</div>
+                    </li>
+                    <li class="responsive" v-for="(name, type) in strengthType">
+                        <div class="zhzl-left">{{strength[type].away}}</div>
+                        <div class="each-resone">
+                            <div class="zhzl-classify">{{name}}</div>
+                            <div class="responsive">
+                                <div class="each-resone l-relative">
+                                    <div class="zhzl-vs-left" :class="leftColorClass[type]" :style="leftWidthStyle[type]"></div>
+                                </div>
+                                <div class="each-resone l-relative">
+                                    <div class="zhzl-vs-right" :class="rightColorClass[type]" :style="rightWidthStyle[type]"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="zhzl-right">{{strength[type].home}}</div>
+                    </li>
+                </ul>
+                <div class="zhzl-tips">数据来自NBA常规赛球队场均统计</div>
+            </div>
+        </template>
+        <div class="feed-back" v-else>
+            <div class="feed-box">
+                <em>暂无数据</em>
+            </div>
+        </div>
+    </div>
+
+</template>
+
+<script>
+import {mTypes} from '~store/lqdetail'
+import statsBox from '~components/detail/basketball/analysis/js/stats_box.vue'
+
+export default {
+    components: {
+        statsBox
+    },
+    props: {
+        baseInfo: {
+            type: Object,
+            required: true
+        },
+        strength: {
+            type: Object,
+            required: true
+        },
+        stats: {
+            type: Object,
+            required: true
+        }
+    },
+    data() {
+        return {
+            strengthType: {
+                // finalscore: '综合评分',
+                // shoot: '投篮命中率',
+                attack: '得分',
+                defense: '失分',
+                rebound: '篮板',
+                assist: '助攻'
+                // home: '主队实力值'
+                // away: '客队实力值'
+                // home_percent: '主队实力占比'
+                // away_percent: '客队实力占比'
+            }
+        }
+    },
+    computed: {
+        leftColorClass() {
+            let colorObj = {}
+            for (var type in this.strengthType) {
+                if (this.strengthType.hasOwnProperty(type)) {
+                    colorObj[type] = this.makeColorClass(type)
+                }
+            }
+            return colorObj
+        },
+        rightColorClass() {
+            let colorObj = {}
+            for (var type in this.strengthType) {
+                if (this.strengthType.hasOwnProperty(type)) {
+                    colorObj[type] = this.makeColorClass(type, true)
+                }
+            }
+            return colorObj
+        },
+        leftWidthStyle() {
+            let widthObj = {}
+            for (var type in this.strengthType) {
+                if (this.strengthType.hasOwnProperty(type)) {
+                    widthObj[type] = this.makeWidthStyle(type)
+                }
+            }
+            return widthObj
+        },
+        rightWidthStyle() {
+            let widthObj = {}
+            for (var type in this.strengthType) {
+                if (this.strengthType.hasOwnProperty(type)) {
+                    widthObj[type] = this.makeWidthStyle(type, true)
+                }
+            }
+            return widthObj
+        },
+        noEmptyFlag() {
+            return this.noEmpty(this.strength)
+        }
+    },
+    methods: {
+        makeColorClass (type, isReverse, class_l = 'zhzl-gray', class_s = 'zhzl-green') {   // isReverse 作用是为了反转左右的参数
+            let home = +(this.strength[type].home_percent)
+            let away = +(this.strength[type].away_percent)
+            if (isReverse) { return home <= away ? class_l : class_s }
+            return home >= away ? class_l : class_s
+        },
+        makeWidthStyle (type, isReverse) {
+            if(isReverse)
+                return `width: ${this.strength[type].home_percent}%`
+            return `width: ${this.strength[type].away_percent}%`
+        },
+        openStatBox() {
+            this.$store.commit(mTypes.setDialog, {
+                component: statsBox,
+                params: {
+                    baseInfo: this.baseInfo,
+                    stats: this.stats
+                }
+            })
+        },
+        noEmpty(obj) {
+            if (obj) return !!Object.keys(obj).length
+            return false
+        }
+    }
+}
+</script>
+
+<style lang="css">
+</style>
