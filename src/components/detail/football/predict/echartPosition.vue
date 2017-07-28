@@ -51,7 +51,7 @@
                         textStyle: {
                             fontSize: fontSize
                         },
-                        position: function (p) {   // 其中p为当前鼠标的位置
+                        position: function (p) { // 其中p为当前鼠标的位置
                             return [p[0] + 20, p[1] * 0.4]
                         },
                         padding: [10, 20, 10, 20],

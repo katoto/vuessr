@@ -5,7 +5,7 @@ import { pushEvents } from '~common/constants'
 const name = 'lqdetail'
 
 const initState = {
-    reachEndTime: 0,  // 滚动到最后触发的时间戳
+    reachEndTime: 0, // 滚动到最后触发的时间戳
     scTime: 0, // 触发滚动更新时间戳
     baseInfo: null,
     situation: {
@@ -141,8 +141,8 @@ const actionsInfo = mapActions({
         commit(mTypes.setVote, votelist[0])
         return votelist[0]
     },
-    async onVote(ignore, {opt, vtype = '2', id, fid}) {
-        console.log(opt);
+    async onVote (ignore, {opt, vtype = '2', id, fid}) {
+        console.log(opt)
         return ajax.post(`/sns/score/vote?_t=${Date.now()}`, {
             opt, id, fid, vtype
         })
@@ -231,7 +231,7 @@ const actionsInfo = mapActions({
     },
     async getOddsHandicap ({commit}, {fid}) {
         const handicap = await ajax.get(`/score/lq/handicap?fid=${fid}`)
-        commit(mTypes.setOddsHandicap,handicap)
+        commit(mTypes.setOddsHandicap, handicap)
         return handicap
     },
     async getOddsPoints ({commit}, {fid}) {
@@ -293,9 +293,6 @@ const mutationsInfo = mapMutations({
         state.odds.points = points
     },
 
-
-
-
     setAnalysisZj (state, {nbarank, leaguerank, jz_data, recent_record, future_match, macau_news}) {
         state.analysis.zj.leaguerank = leaguerank
         state.analysis.zj.nbarank = nbarank
@@ -309,14 +306,14 @@ const mutationsInfo = mapMutations({
         state.analysis.js.trend['1'] = trend
         state.analysis.js.stats = stats
     },
-    setAnalysisJsTrend(state, {trend, vtype}) {
+    setAnalysisJsTrend (state, {trend, vtype}) {
         state.analysis.js.trend[vtype] = trend
     },
     setAnalysisZr (state, {best3, members}) {
         state.analysis.zr.best3 = best3
         state.analysis.zr.members = members
     },
-    setAnalysisZrMembers(state, {members, hoa}) {
+    setAnalysisZrMembers (state, {members, hoa}) {
         state.analysis.zr.members[hoa] = members[hoa]
     },
     setAnalysisJj (state, {members_advanced, team_misc}) {

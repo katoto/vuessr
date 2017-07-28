@@ -87,7 +87,7 @@
                 return this.$store.state.refreshing === 0
             },
             daxiaofen: function () {
-                return this.$store.state.lqdetail.odds && this.$store.state.lqdetail.odds.points;
+                return this.$store.state.lqdetail.odds && this.$store.state.lqdetail.odds.points
             }
         },
         methods: {
@@ -103,7 +103,7 @@
                 this.$store.commit('endOneRefresh')
             },
             viewOddsDetail ({cid}) {
-                //console.log(cid);
+                // console.log(cid);
                 if (cid === '-1') return
                 this.$store.commit(mTypes.setDialog, {
                     component: oddsInfo,
@@ -121,7 +121,7 @@
             },
             refreshTime () {
                 this.fetchData()
-            },
+            }
         },
         mounted () {
             this.fetchData()

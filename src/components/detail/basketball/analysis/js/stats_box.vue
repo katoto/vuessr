@@ -48,7 +48,7 @@ import {
 } from '~store/lqdetail'
 export default {
     props: ['params'],
-    data() {
+    data () {
         return {
             statsType: {
                 'points_per_game': '得分',
@@ -71,28 +71,27 @@ export default {
                 'penalty_num': '罚篮数',
                 'penalty_rate': '罚篮命中率',
                 'off_rebounds': '进攻篮板',
-                'def_rebounds': '防守篮板',
+                'def_rebounds': '防守篮板'
             }
         }
     },
     computed: {
-        baseInfo() {
+        baseInfo () {
             return this.params.baseInfo
         },
-        stats() {
+        stats () {
             return this.params.stats
         },
-        noEmptyFlag() {
+        noEmptyFlag () {
             return this.noEmpty(this.stats)
         }
     },
     methods: {
-        closeDialog() {
+        closeDialog () {
             this.$store.commit(mTypes.setDialog, {})
         },
-        noEmpty(obj) {
-            if(obj)
-                return !!Object.keys(obj).length
+        noEmpty (obj) {
+            if (obj) { return !!Object.keys(obj).length }
             return false
         }
     }

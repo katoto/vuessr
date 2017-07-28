@@ -77,15 +77,15 @@ export default {
         }
     },
     computed: {
-        baseInfo() {
+        baseInfo () {
             return this.$store.state.lqdetail.baseInfo
         },
-        noEmptyFlag() {
+        noEmptyFlag () {
             return this.noEmpty(this.future_match.home) && this.noEmpty(this.future_match.away)
         }
     },
     methods: {
-        noEmpty(obj) {
+        noEmpty (obj) {
             if (obj) return !!Object.keys(obj).length
             return false
         }

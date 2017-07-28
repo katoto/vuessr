@@ -50,7 +50,7 @@ export default {
             required: true
         }
     },
-    data() {
+    data () {
         return {
             ratioType: {
                 pace: {
@@ -115,19 +115,19 @@ export default {
         }
     },
     computed: {
-        data() {
+        data () {
             return {
                 expect: this.team_misc.combat.expect,
                 real: this.team_misc.combat.real,
                 sos: this.team_misc.degree.sos
             }
         },
-        noEmptyFlag() {
+        noEmptyFlag () {
             return this.noEmpty(this.team_misc)
         }
     },
     methods: {
-        openWordBox() {
+        openWordBox () {
             this.$store.commit(mTypes.setDialog, {
                 component: wordBox,
                 params: {
@@ -137,7 +137,7 @@ export default {
                 }
             })
         },
-        noEmpty(obj) {
+        noEmpty (obj) {
             if (obj) return !!Object.keys(obj).length
             return false
         }

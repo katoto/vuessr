@@ -37,7 +37,7 @@ export default {
             required: true
         }
     },
-    data() {
+    data () {
         return {
             BasketballMemberAdvType,
             wordData: {
@@ -121,12 +121,12 @@ export default {
         }
     },
     computed: {
-        loaded() {
+        loaded () {
             return this.$store.state.refreshing === 0
         }
     },
     methods: {
-        openWordBox({str}) {
+        openWordBox ({str}) {
             this.$store.commit(mTypes.setDialog, {
                 component: wordBox,
                 params: {
@@ -138,7 +138,7 @@ export default {
         }
     },
     watch: {
-        loaded(loaded) {
+        loaded (loaded) {
             if (loaded) {
                 this.$store.commit(mTypes.updateScTime)
             }

@@ -53,8 +53,8 @@ import {aTypes} from '~store/lqdetail'
 export default {
     props: ['baseInfo', 'online', 'vote'],
     computed: {
-        voteResult() {
-            if(this.vote && this.vote.ticket) {
+        voteResult () {
+            if (this.vote && this.vote.ticket) {
                 let result = {
                     winPer: 0,
                     lostPer: 0,

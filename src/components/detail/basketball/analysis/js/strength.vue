@@ -91,7 +91,7 @@ export default {
             required: true
         }
     },
-    data() {
+    data () {
         return {
             strengthType: {
                 // finalscore: '综合评分',
@@ -108,7 +108,7 @@ export default {
         }
     },
     computed: {
-        leftColorClass() {
+        leftColorClass () {
             let colorObj = {}
             for (var type in this.strengthType) {
                 if (this.strengthType.hasOwnProperty(type)) {
@@ -117,7 +117,7 @@ export default {
             }
             return colorObj
         },
-        rightColorClass() {
+        rightColorClass () {
             let colorObj = {}
             for (var type in this.strengthType) {
                 if (this.strengthType.hasOwnProperty(type)) {
@@ -126,7 +126,7 @@ export default {
             }
             return colorObj
         },
-        leftWidthStyle() {
+        leftWidthStyle () {
             let widthObj = {}
             for (var type in this.strengthType) {
                 if (this.strengthType.hasOwnProperty(type)) {
@@ -135,7 +135,7 @@ export default {
             }
             return widthObj
         },
-        rightWidthStyle() {
+        rightWidthStyle () {
             let widthObj = {}
             for (var type in this.strengthType) {
                 if (this.strengthType.hasOwnProperty(type)) {
@@ -144,23 +144,22 @@ export default {
             }
             return widthObj
         },
-        noEmptyFlag() {
+        noEmptyFlag () {
             return this.noEmpty(this.strength)
         }
     },
     methods: {
-        makeColorClass (type, isReverse, class_l = 'zhzl-gray', class_s = 'zhzl-green') {   // isReverse 作用是为了反转左右的参数
+        makeColorClass (type, isReverse, class_l = 'zhzl-gray', class_s = 'zhzl-green') { // isReverse 作用是为了反转左右的参数
             let home = +(this.strength[type].home_percent)
             let away = +(this.strength[type].away_percent)
             if (isReverse) { return home <= away ? class_l : class_s }
             return home >= away ? class_l : class_s
         },
         makeWidthStyle (type, isReverse) {
-            if(isReverse)
-                return `width: ${this.strength[type].home_percent}%`
+            if (isReverse) { return `width: ${this.strength[type].home_percent}%` }
             return `width: ${this.strength[type].away_percent}%`
         },
-        openStatBox() {
+        openStatBox () {
             this.$store.commit(mTypes.setDialog, {
                 component: statsBox,
                 params: {
@@ -169,7 +168,7 @@ export default {
                 }
             })
         },
-        noEmpty(obj) {
+        noEmpty (obj) {
             if (obj) return !!Object.keys(obj).length
             return false
         }

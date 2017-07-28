@@ -122,7 +122,7 @@ export default {
             required: true
         }
     },
-    data() {
+    data () {
         return {
             trendType: {
                 great: '极佳',
@@ -144,101 +144,101 @@ export default {
         }
     },
     computed: {
-        totalTrendHeightHome() {
-            if(this.vtype === 1) return []
+        totalTrendHeightHome () {
+            if (this.vtype === 1) return []
             return this.trend.home.coords.map((item) => {
-                if(!item.value) return ''
+                if (!item.value) return ''
                 return `height: ${this.makeTotalTrendHeight(item.value - 170, 75)}%`
             })
         },
-        totalTrendHeightAway() {
-            if(this.vtype === 1) return []
+        totalTrendHeightAway () {
+            if (this.vtype === 1) return []
             return this.trend.away.coords.map((item) => {
-                if(!item.value) return ''
+                if (!item.value) return ''
                 return `height: ${this.makeTotalTrendHeight(item.value - 170, 75)}%`
             })
         },
-        trendHeightHome() {
-            if(this.vtype === 2) return []
+        trendHeightHome () {
+            if (this.vtype === 2) return []
             return this.trend.home.coords.map((item) => {
-                if(!item.value) return ''
+                if (!item.value) return ''
                 return `height: ${this.makeTrendHeight(item.value, 20)}%`
             })
         },
-        trendHeightAway() {
-            if(this.vtype === 2) return []
+        trendHeightAway () {
+            if (this.vtype === 2) return []
             return this.trend.away.coords.map((item) => {
-                if(!item.value) return ''
+                if (!item.value) return ''
                 return `height: ${this.makeTrendHeight(item.value, 20)}%`
             })
         },
-        trendTopHome() {
-            if(this.vtype === 2) return ''
+        trendTopHome () {
+            if (this.vtype === 2) return ''
             return `top: ${this.makeTrendTop(this.trend.home.level, 20)}%`
         },
-        trendTopAway() {
-            if(this.vtype === 2) return ''
+        trendTopAway () {
+            if (this.vtype === 2) return ''
             return `top: ${this.makeTrendTop(0 - this.trend.home.level, 20)}%`
         },
-        trendTotalTopHome() {
-            if(this.vtype === 1) return ''
+        trendTotalTopHome () {
+            if (this.vtype === 1) return ''
             return `top: ${this.makeTrendTop(this.trend.home.level - 170, 75)}%`
         },
-        trendTotalTopAway() {
-            if(this.vtype === 1) return ''
+        trendTotalTopAway () {
+            if (this.vtype === 1) return ''
             return `top: ${this.makeTrendTop(this.trend.home.level - 170, 75)}%`
         },
         loaded () {
             return this.$store.state.refreshing === 0
         },
-        noEmptyFlag() {
+        noEmptyFlag () {
             return this.noEmpty(this.trend)
         }
     },
     methods: {
-        makeTotalTrendHeight(val, total) {
+        makeTotalTrendHeight (val, total) {
             if (val > 0) {
-                return val * 100 / total;
+                return val * 100 / total
             }
-            return 5;
+            return 5
         },
-        makeTrendHeight(val, total) {
+        makeTrendHeight (val, total) {
             if (val > 0) {
-                return val * 100 / total;
+                return val * 100 / total
             }
             if (val < 0) {
-                return (0 - val * 100 / total);
+                return (0 - val * 100 / total)
             }
-            return 0;
+            return 0
         },
-        makeTrendTop(val, total) {
+        makeTrendTop (val, total) {
             if (val > 0) {
                 return (100 - val * 100 / total) / 2
             }
             if (val < 0) {
                 return ((((0 - val) / total) * 100) / 2 + 50)
             }
-            return 0;
+            return 0
         },
-        async updateTrendData({vtype}) {
+        async updateTrendData ({vtype}) {
             this.vtype = vtype
             this.trend = null
             this.trendFid = null
             this.$store.commit('startOneRefresh')
             const {fid, homeid, awayid, matchtime} = this.baseInfo // baseInfo 保证有数据了
             const matchdate = matchtime && matchtime.substr(0, 10)
-            if(this.$store.state.lqdetail.analysis.js.trend[vtype]) {
+            if (this.$store.state.lqdetail.analysis.js.trend[vtype]) {
                 this.trend = this.$store.state.lqdetail.analysis.js.trend[vtype]
                 this.$store.commit('endOneRefresh')
-                return;
+                return
             }
             await this.$store.dispatch(aTypes.getAnalysisJsTrend, {fid, homeid, awayid, matchdate, vtype: vtype}).then((data) => {
                 this.trend = data
-                console.log(data);
+                console.log(data)
             })
             this.$store.commit('endOneRefresh')
         },
-        noEmpty(obj) {
+        noEmpty (obj) {
             if (obj) return !!Object.keys(obj).length
             return false
         }

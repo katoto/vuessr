@@ -31,19 +31,19 @@
     import customodds from '~components/detail/basketball/odds/customodds.vue'
     import {mTypes} from '~store/lqdetail'
     export default{
-        methods:{
+        methods: {
             edit () {
                 this.$store.dispatch('ensureLogin')
                 this.$store.commit(mTypes.setDialog, {component: customodds, params: {ptype: this.ptype}})
-            },
+            }
         },
         computed: {
             ptype () {
-                let tmp=this.$route.path.substr(this.$route.path.lastIndexOf('/') + 1)
-                switch(tmp){
-                    case 'shengfu':{ return 'europe'; break }
-                    case 'rangfenpan':{ return 'rangfen';break }
-                    case 'daxiaofen':{ return 'zongfen';break }
+                let tmp = this.$route.path.substr(this.$route.path.lastIndexOf('/') + 1)
+                switch (tmp) {
+                case 'shengfu': { return 'europe' }
+                case 'rangfenpan': { return 'rangfen' }
+                case 'daxiaofen': { return 'zongfen' }
                 }
             }
         }

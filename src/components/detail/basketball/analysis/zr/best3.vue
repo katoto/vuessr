@@ -72,7 +72,7 @@ export default {
             required: true
         }
     },
-    data() {
+    data () {
         return {
             Best3Type: {
                 points: '得分',
@@ -91,14 +91,13 @@ export default {
         }
     },
     computed: {
-        noEmptyFlag() {
+        noEmptyFlag () {
             return this.noEmpty(this.best3)
         }
     },
     methods: {
-        noEmpty(obj) {
-            if(obj)
-                return !!Object.keys(obj).length
+        noEmpty (obj) {
+            if (obj) { return !!Object.keys(obj).length }
             return false
         }
     },

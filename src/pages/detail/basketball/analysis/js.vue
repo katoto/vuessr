@@ -40,13 +40,13 @@ export default {
         analysis () {
             return this.$store.state.lqdetail.analysis
         },
-        strength() {
+        strength () {
             return this.analysis.js.strength
         },
-        stats() {
+        stats () {
             return this.analysis.js.stats
         },
-        trend() {
+        trend () {
             return this.analysis.js.trend['1']
         }
     },

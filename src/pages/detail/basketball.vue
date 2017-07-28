@@ -178,7 +178,7 @@
             }
         },
         computed: {
-            socketData () {  // websocket推送过来的数据
+            socketData () { // websocket推送过来的数据
                 return this.$store.getters.getSocketData
             },
             baseInfo () {
@@ -220,7 +220,7 @@
                 }
             },
             reachEnd () {
-                this.$store.commit(mTypes.updateReachEndTime)        // 更新滚动时间戳
+                this.$store.commit(mTypes.updateReachEndTime) // 更新滚动时间戳
             },
             updateScroller () {
                 this.$refs.scroller.update()
@@ -249,7 +249,7 @@
                     // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
                     // 类似的命令下面有介绍
                 } catch (err) {
-//                    alert(err.message)
+                //                    alert(err.message)
                     // 如果不支持，你可以在这里做降级处理
                     this.$store.commit(mTypes.setDialog, {component: copy,
                         params: {
@@ -307,7 +307,7 @@
         async mounted () {
             await this.fetchData()
             if (this.baseInfo.status !== StatusCode.ENDED) {
-                console.log('---------');
+                console.log('---------')
                 this.$store.dispatch(aTypes.subscribeInfo, [this.baseInfo.fid])
                 this.$store.dispatch(aTypes.subscribeEvent, [this.baseInfo.fid])
             }
@@ -317,9 +317,9 @@
             this.$store.commit(mTypes.reset)
         },
         watch: {
-            socketData ({data, stamp}) {  // websocket推送过来的数据
-                console.log('=========websocket');
-                console.log({data, stamp});
+            socketData ({data, stamp}) { // websocket推送过来的数据
+                console.log('=========websocket')
+                console.log({data, stamp})
                 if (stamp === pushEvents.BASKETBALL_INFO) {
                     if (data.fid === this.baseInfo.fid) {
                         this.$store.dispatch(aTypes.getBaseInfo, this.baseInfo.fid)

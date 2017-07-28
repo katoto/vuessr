@@ -59,6 +59,7 @@
 <script>
 import {mTypes, aTypes} from '~store/lqdetail'
 import snap from '~components/detail/basketball/comment/snap.vue'
+import report from '~components/detail/report.vue'
 export default {
     components: {
         snap
@@ -156,14 +157,13 @@ export default {
                         await this.$store.dispatch(aTypes.onReport, commentReplyId)
                         await this.$store.commit(mTypes.setDialog, {})
                         this.$store.dispatch('showToast', '举报成功')
-
                     }
 
                 }
             })
         }
     },
-    mounted() {
+    mounted () {
         this.fetchData()
     },
     watch: {
@@ -193,7 +193,7 @@ export default {
             this.pageNo++
             this.fetchCommentData(this.pageNo)
         }
-    },
+    }
 }
 </script>
 

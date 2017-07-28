@@ -65,7 +65,6 @@ export default {
             this.imageUrl = _baseUrl + typeMap[this.type].img
         }
     }
-
 </script>
 <style scoped>
     .txtcenter {
