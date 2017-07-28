@@ -1009,13 +1009,24 @@
         background-size: 1.066667rem;
         display: inline-block
     }
+    .comm-list .list-cont {
+        clear: both;
+        word-wrap: break-word;
+        word-break: break-all;
+        padding-top: .23rem;
+        color: #242c35;
+        padding-right: .4rem
+    }
 
+    [data-dpr="1"] .comm-list .list-cont {
+        font-size: 15px
+    }
 
+    [data-dpr="2"] .comm-list .list-cont {
+        font-size: 30px
+    }
 
-
-
-
-
-
-
+    [data-dpr="3"] .comm-list .list-cont {
+        font-size: 45px
+    }
 </style>
