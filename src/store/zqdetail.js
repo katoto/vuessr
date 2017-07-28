@@ -9,7 +9,7 @@ import { mapActions, mapMutations } from '~common/util'
 import { pushEvents } from '~common/constants'
 const ns = 'zqdetail'
 const initState = {
-    reachEndTime: 0,  // 滚动到最后触发的时间戳
+    reachEndTime: 0, // 滚动到最后触发的时间戳
     scTime: 0, // 触发滚动更新时间戳
     analysis: {
         zj: {
@@ -235,7 +235,7 @@ const actionsInfo = mapActions({
             ajax.get(`/score/zq/predict_score?fid=${fid}`),
             ajax.get(`/score/zq/predict_half?fid=${fid}`)
         ])
-    // const [europe, asian, daxiaoqiu, score, half] = result.map(item => Object.keys(item).length ? item : null)
+        // const [europe, asian, daxiaoqiu, score, half] = result.map(item => Object.keys(item).length ? item : null)
         const [europe, asian, daxiaoqiu, score, half] = result
         commit(mTypes.setPredict, {europe, asian, daxiaoqiu, score, half})
     },
@@ -291,7 +291,7 @@ const actionsInfo = mapActions({
     async updateCustomOdds (ignore, {ptype, items}) {
         return ajax.get(`/score/concern/customize?vtype=1&ptype=${ptype}&item=${items.join(',')}&_t=${Date.now()}`, {ignore: false})
     },
-  /**
+    /**
    * 切换关注某场比赛
    * @param commit
    * @param state

@@ -54,6 +54,58 @@ export const FootBallEventType = {
     HUAN_RU: 9,
     HUAN_CHU: 10
 }
+export const BasketballMemberType = {
+    'position': '位置',
+    'points_per_game': '得分',
+    'assists': '助攻',
+    'rebounds': '篮板',
+    'off_rebounds': '进攻篮板',
+    'def_rebounds': '防守篮板',
+    'steals': '抢断',
+    'cap': '盖帽',
+    'shots': '出手',
+    'rate': '命中率',
+    '2hit': '2分命中',
+    '2rate': '2分命中率',
+    '2shots': '2分出手',
+    '3hit': '3分命中',
+    '3rate': '3分命中率',
+    '3shots': '3分出手',
+    'penalty_num': '罚篮数',
+    'penalty_hit': '罚篮命中',
+    'penalty_rate': '罚篮命中率',
+    'mistakes': '失误',
+    'foul': '犯规'
+    // 'player': '球员',
+    // 'play_count': '场次',
+    // 'first_count': '首发场次',
+    // 'upfield_time': '上场时间',
+    // 'off_efficiency': '进攻效率',
+    // 'def_efficiency': '防守效率',
+    // 'hit': '命中',
+    // 'effective_rate': '有效率',
+}
+
+export const BasketballMemberAdvType = {
+    position: '位置',
+    play_count: '场次',
+    effective_rate: '效率值',
+    true_hit_rate: '真实%',
+    '3rate': '三分率',
+    penalty_rate: '罚球率',
+    rebounds_rate: '篮板率',
+    off_rebounds_rate: '前板率',
+    def_rebounds_rate: '后板率',
+    assists_rate: '助攻率',
+    steals_rate: '抢断率',
+    mistakes_rate: '失误率',
+    usage_rate: '球权指数',
+    win_shares: '贡献值',
+    off_win_shares: '进攻贡献',
+    def_win_shares: '防守贡献'
+    // first_count: '首发场次',
+}
+
 /*
 export default {
     'BBallStatusName':{

@@ -96,7 +96,7 @@
             }
         },
         computed: {
-            socketData () {  // websocket推送过来的数据
+            socketData () { // websocket推送过来的数据
                 return this.$store.getters.getSocketData
             },
             refreshTime () { // 用户点击刷新按钮时间戳

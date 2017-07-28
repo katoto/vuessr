@@ -7,6 +7,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import home from './home'
 import zqdetail from './zqdetail'
+import lqdetail from './lqdetail'
 import teamZq from './team/zq'
 import teamLq from './team/lq'
 Vue.use(Vuex)
@@ -21,9 +22,9 @@ const state = {
     time: 0, // 记录生成页面的时间
     websocket: { // 数据推送相关的
         connect: null, // 代表当前连接
-        data: null,  // websocket 返回来的数据， 用到推送过来的数据的地方 watch一下就好了
+        data: null, // websocket 返回来的数据， 用到推送过来的数据的地方 watch一下就好了
         latestSub: [], // 最近一次订阅数据， websocket重连的时候重新订阅上次订阅的事件
-        reconnect: 0  // socket 记录重连次数， 起到辅助作用， 比如websocket断开了连接， 重新请求接口， 避免推送丢失引发的问题
+        reconnect: 0 // socket 记录重连次数， 起到辅助作用， 比如websocket断开了连接， 重新请求接口， 避免推送丢失引发的问题
     }
 }
 const mutations = {
@@ -31,7 +32,7 @@ const mutations = {
         state.websocket.connect = connect
     },
     addConnectNum (state) {
-        state.websocket.reconnect ++
+        state.websocket.reconnect++
     },
     setLatestSub (state, latestSub) {
         state.websocket.latestSub = latestSub
@@ -75,7 +76,7 @@ const actions = {
                 commit('updateSocketData', data)
             }
             connect.onopen = function () {
-                /*let homeScore = 2
+                /* let homeScore = 2
                 setInterval(() => {
                     let data = {
                         "status":"1",
@@ -89,7 +90,7 @@ const actions = {
                     }
                     // console.log(data)
                     commit('updateSocketData', {data, stamp: 0})
-                }, 5000)*/
+                }, 5000) */
                 if (state.websocket.latestSub.length) {
                     state.websocket.latestSub.forEach((sub) => {
                         connect.send(sub)
@@ -191,7 +192,7 @@ export function createStore () {
         mutations,
         getters,
         modules: {
-            home, zqdetail, teamZq, teamLq
+            home, zqdetail, lqdetail, teamZq, teamLq
         }
     })
 }

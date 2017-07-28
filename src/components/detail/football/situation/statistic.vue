@@ -5,7 +5,7 @@
 
        <!-- <widget-prompt-view
                 src="widget/prompt.html"
-                drunk-if="!isRequesting && (!statistic || statistic.h_ballcontrol_rate == null)"
+                v-if="!isRequesting && (!statistic || statistic.h_ballcontrol_rate == null)"
                 extra-text="很抱歉，没有数据"
                 text-type
                 type="no-data">
@@ -91,5 +91,4 @@
         }
 
     }
-
 </script>

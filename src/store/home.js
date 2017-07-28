@@ -10,8 +10,8 @@ const state = {
         filterTime: 0,
         show: false, // 控制筛选对话框显示与隐藏
         matches: null, // 当前所有比赛
-        init: null,  // 初始化选项
-        onOk: () => {  // 点击确认回调
+        init: null, // 初始化选项
+        onOk: () => { // 点击确认回调
         },
         onCancel: () => { // 点击取消回调
         }

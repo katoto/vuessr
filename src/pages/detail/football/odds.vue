@@ -23,10 +23,6 @@
             <router-view></router-view>
         </div>
 
-
-
-
-    <!--<if: subtab=='crazybet' />-->
     </div>
 </template>
 <script>

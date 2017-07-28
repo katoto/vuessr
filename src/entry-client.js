@@ -62,7 +62,7 @@ router.onReady(() => {
     // Doing it after initial route is resolved so that we don't double-fetch
     // the data that we already have. Using router.beforeResolve() so that all
     // async components are resolved.
-   /* router.beforeResolve((to, from, next) => {
+    /* router.beforeResolve((to, from, next) => {
         store.state.time = 0
         const matched = router.getMatchedComponents(to)
         const prevMatched = router.getMatchedComponents(from)

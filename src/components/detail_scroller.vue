@@ -16,15 +16,15 @@
     export default {
         data () {
             return {
-                stop: false,
-                container: null,
-                content: null,
-                navigator: null,
-                headPartHeight: 0,
-                width: 0,
-                containerHeight: 0,
-                contentHeight: 0,
-                scrollerObj: null
+                stop: false, //
+                container: null, // 组件包含框
+                content: null, // 组件内容框
+                navigator: null, // 导航栏
+                headPartHeight: 0, // 头部高度
+                width: 0, // 头部宽度
+                containerHeight: 0, // 包含框高度
+                contentHeight: 0, // 包含框宽度
+                scrollerObj: null // scroller对象
             }
         },
         mounted () {
@@ -53,7 +53,7 @@
                 this.content = this.$el.querySelector('._scroll_content')
                 this.navigator = this.$el.querySelector('.navigator.hide')
                 this.navigator.style.position = 'absolute'
-//                this.navigator.style.zIndex = 'auto'
+                //                this.navigator.style.zIndex = 'auto'
                 this.navigator.style.top = '0'
                 this.navigator.style.left = '0'
                 this.navigator.style.right = '0'
