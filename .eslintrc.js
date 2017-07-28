@@ -13,6 +13,7 @@ module.exports = {
     // add your custom rules here
     rules: {
         "indent": [2, 4],//缩进风格
+        camelcase: 0
     },
     globals: {}
 }

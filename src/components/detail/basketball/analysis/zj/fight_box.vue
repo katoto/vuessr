@@ -87,13 +87,13 @@ export default {
         },
         bkbStatus () {
             return this.matches && this.matches.map((item, idx, arr) => {
-				if(idx === arr.length - 1) return false
-				let dt1 = new Date(item.date)
-				dt1.setDate(dt1.getDate()) // 处理为相同日期
+                if (idx === arr.length - 1) return false
+                let dt1 = new Date(item.date)
+                dt1.setDate(dt1.getDate()) // 处理为相同日期
 
-				let dt2 = new Date(arr[idx + 1].date)
-				dt2.setDate(dt2.getDate() + 1) // 处理为相同日期
-				return +dt1 == +dt2
+                let dt2 = new Date(arr[idx + 1].date)
+                dt2.setDate(dt2.getDate() + 1) // 处理为相同日期
+                return +dt1 === +dt2
             })
         },
         homeTeamClass () {
@@ -138,9 +138,9 @@ export default {
             let result = match.result1
             let key = 0
             switch (result) {
-	            case '胜': key = 0; break
-	            case '平': key = 1; break
-	            case '负': key = 2; break
+            case '胜': key = 0; break
+            case '平': key = 1; break
+            case '负': key = 2; break
             }
             return name === this.baseInfo[this.hoa] ? this.teamClassMap[key] : ''
         }
@@ -169,9 +169,9 @@ export default {
             if (result === '') return '-'
 
             switch (key) {
-	            case 1: preStr = `[${input.sub}]`; break
-	            case 2: preStr = input.rangfen; break
-	            case 3: preStr = input.zongfen; break
+            case 1: preStr = `[${input.sub}]`; break
+            case 2: preStr = input.rangfen; break
+            case 3: preStr = input.zongfen; break
             }
             return preStr + ' ' + result
         }

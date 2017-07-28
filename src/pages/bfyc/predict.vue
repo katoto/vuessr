@@ -197,7 +197,7 @@
         },
         filters: {
             predictResult: (pr) => {
-//                3-主胜 1-平局 0-主负
+            //                3-主胜 1-平局 0-主负
                 switch (pr) {
                 case '1':
                     return '平局'

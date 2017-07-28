@@ -37,7 +37,7 @@ export default {
             required: true
         }
     },
-    data() {
+    data () {
         return {
             defenseType: {
                 efg: {
@@ -82,12 +82,12 @@ export default {
         }
     },
     computed: {
-        noEmptyFlag() {
+        noEmptyFlag () {
             return this.noEmpty(this.defense)
         }
     },
     methods: {
-        openWordBox() {
+        openWordBox () {
             this.$store.commit(mTypes.setDialog, {
                 component: wordBox,
                 params: {
@@ -97,7 +97,7 @@ export default {
                 }
             })
         },
-        noEmpty(obj) {
+        noEmpty (obj) {
             if (obj) return !!Object.keys(obj).length
             return false
         }

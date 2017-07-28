@@ -34,18 +34,17 @@
 import {mTypes} from '~store/lqdetail'
 export default {
     props: ['params'],
-    data() {
+    data () {
         return {
             tab: this.params.cur
         }
     },
     methods: {
-        closeDialog() {
+        closeDialog () {
             this.$store.commit(mTypes.setDialog, {})
         },
-        noEmpty(obj) {
-            if(obj)
-                return !!Object.keys(obj).length
+        noEmpty (obj) {
+            if (obj) { return !!Object.keys(obj).length }
             return false
         }
     }

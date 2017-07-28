@@ -58,10 +58,10 @@ export default {
         recent_record () {
             return this.analysis.zj.recent_record
         },
-        future_match() {
+        future_match () {
             return this.analysis.zj.future_match
         },
-        macau_news() {
+        macau_news () {
             return this.analysis.zj.macau_news
         },
         isNBA () {
@@ -72,7 +72,7 @@ export default {
         },
         refreshTime () { // 用户点击刷新按钮时间戳
             return this.$store.state.refreshTime
-        },
+        }
     },
     methods: {
         async fetchData () {

@@ -75,7 +75,7 @@ export const BasketballMemberType = {
     'penalty_hit': '罚篮命中',
     'penalty_rate': '罚篮命中率',
     'mistakes': '失误',
-    'foul': '犯规',
+    'foul': '犯规'
     // 'player': '球员',
     // 'play_count': '场次',
     // 'first_count': '首发场次',

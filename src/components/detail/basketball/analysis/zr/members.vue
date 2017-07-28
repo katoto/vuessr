@@ -47,7 +47,7 @@ export default {
             required: true
         }
     },
-    data() {
+    data () {
         return {
             awayVtype: 1,
             homeVtype: 1,
@@ -55,17 +55,16 @@ export default {
         }
     },
     computed: {
-        loaded() {
+        loaded () {
             return this.$store.state.refreshing === 0
         }
     },
     methods: {
-        noEmpty(obj) {
-            if(obj)
-            return !!Object.keys(obj).length
+        noEmpty (obj) {
+            if (obj) { return !!Object.keys(obj).length }
             return false
         },
-        async updateMembersData(vtype, hoa) {
+        async updateMembersData (vtype, hoa) {
             this.$store.commit('startOneRefresh')
             const {
                 homeid,
@@ -83,15 +82,15 @@ export default {
         }
     },
     watch: {
-        awayVtype(vtype) {
+        awayVtype (vtype) {
             this.$refs.memBox[0].scrollTo(0, false)
             this.updateMembersData(vtype, 'away')
         },
-        homeVtype(vtype) {
+        homeVtype (vtype) {
             this.$refs.memBox[1].scrollTo(0, false)
             this.updateMembersData(vtype, 'home')
         },
-        loaded(loaded) {
+        loaded (loaded) {
             if (loaded) {
                 this.$store.commit(mTypes.updateScTime)
             }

@@ -56,7 +56,6 @@
 </style>
 
 <script>
-
     import league from '~components/league.vue'
     import refresh from '~components/refresh.vue'
     import {mTypes} from '~store/home'
@@ -75,7 +74,7 @@
             }
         },
         mounted () {
-//            入口
+        //            入口
         }
 
     }

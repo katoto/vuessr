@@ -198,7 +198,7 @@
             }
         },
         computed: {
-            socketData () {  // websocket推送过来的数据
+            socketData () { // websocket推送过来的数据
                 return this.$store.getters.getSocketData
             },
             match () {
@@ -260,7 +260,7 @@
                 this.$store.commit(mTypes.hideEditorDialog)
             },
             reachEnd () {
-                this.$store.commit(mTypes.updateReachEndTime)        // 更新滚动时间戳
+                this.$store.commit(mTypes.updateReachEndTime) // 更新滚动时间戳
             },
             updateScroller () {
                 this.$refs.scroller.update()
@@ -289,7 +289,7 @@
                     // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
                     // 类似的命令下面有介绍
                 } catch (err) {
-//                    alert(err.message)
+                //                    alert(err.message)
                     // 如果不支持，你可以在这里做降级处理
                     this.$store.commit(mTypes.setDialog, {component: copy,
                         params: {
@@ -346,13 +346,13 @@
             },
             syncMatch () {
                 if (this.socketData.stamp === pushEvents.FOOTBALL_INFO && (this.socketData.data.fid + '' === this.match.fid)) {
-//                    同步数据
+                //                    同步数据
                     this.$store.commit(mTypes.syncBaseInfo, this.socketData.data)
                 }
             }
         },
         watch: {
-            socketData ({data, stamp}) {  // websocket推送过来的数据
+            socketData ({data, stamp}) { // websocket推送过来的数据
                 data.fid = data.fid + ''
                 if (stamp === pushEvents.FOOTBALL_INFO) {
                     if ((data.fid + '') === this.match.fid) {
@@ -368,7 +368,7 @@
                             }
                         }
 
-//                        this.$store.dispatch(aTypes.getBaseInfo, this.match.fid)
+                    //                        this.$store.dispatch(aTypes.getBaseInfo, this.match.fid)
                     }
                 }
             },
@@ -401,7 +401,6 @@
         }
 
     }
-
 </script>
 
 <style>

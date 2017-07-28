@@ -89,7 +89,7 @@
 
 <script>
     import {aTypes, mTypes} from '~store/lqdetail'
-    import meSports from '~components/detail/basketball/situation/meSports.vue'
+//    import meSports from '~components/detail/basketball/situation/meSports.vue'
     import {BasketballStatusCode as StatusCode} from '~common/constants'
     export default{
         async asyncData ({store, route: {params}}) {
@@ -100,7 +100,7 @@
         data () {
             return {
                 jieData: [],
-                isActive:{},
+                isActive: {},
                 StatusCode
             }
         },
@@ -115,7 +115,7 @@
                 return this.$store.state.lqdetail.baseInfo
             },
             ascore: function () {
-                let reg = /-|\//     // 将字符串20-0-21-0/10-20中的数据拆分出来
+                let reg = /-|\// // 将字符串20-0-21-0/10-20中的数据拆分出来
                 if (this.match) {
                     return this.match.ascore.split(reg).filter(function (n) {
                         return n
@@ -123,7 +123,7 @@
                 }
             },
             hscore: function () {
-                let reg = /-|\//     // 将字符串20-0-21-0/10-20中的数据拆分出来
+                let reg = /-|\// // 将字符串20-0-21-0/10-20中的数据拆分出来
                 if (this.match) {
                     return this.match.hscore.split(reg).filter(function (n) {
                         return n
@@ -131,20 +131,19 @@
                 }
             },
             eventList: function () {
-                let tmp=[];
-                let list=[];
-                if(this.$store.state.lqdetail.situation && this.$store.state.lqdetail.situation.eventlist){
-                    tmp=this.$store.state.lqdetail.situation.eventlist.reverse();
-                    for(let lst of tmp){
-                        list.push(lst.reverse());
+                let tmp = []
+                let list = []
+                if (this.$store.state.lqdetail.situation && this.$store.state.lqdetail.situation.eventlist) {
+                    tmp = this.$store.state.lqdetail.situation.eventlist.reverse()
+                    for (let lst of tmp) {
+                        list.push(lst.reverse())
                     }
-                    return list;
+                    return list
                 }
-
             }
         },
         methods: {
-            jiePush: function () {    // 4小节+加时赛
+            jiePush: function () { // 4小节+加时赛
                 if (this.ascore) {
                     for (let i = 1, len = this.ascore.length, j = 1, k = 1; i <= len; i++) {
                         if (i <= 4) {
@@ -159,18 +158,12 @@
             },
             changeSelect: function (idx) {
                 this.$set(this.isActive, idx, !this.isActive[idx])
-                console.log(idx);
-                console.log(this.isActive[idx])
+                this.refreshScroll()
             },
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-//                let baseInfo = this.$store.state.lqdetail.baseInfo
-//                if (!baseInfo || this.$store.state.lqdetail.baseInfo.fid !== this.$route.params.fid) {
-//                    baseInfo = await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
-//                }
-                await this.$store.dispatch(aTypes.getSituationEvent, {fid:this.$route.params.fid})
+                await this.$store.dispatch(aTypes.getSituationEvent, {fid: this.$route.params.fid})
                 this.$store.commit('endOneRefresh')
-
             },
             refreshScroll () {
                 this.$store.commit(mTypes.updateScTime)
@@ -182,12 +175,12 @@
             },
             refreshTime () {
                 this.fetchData()
-            },
+            }
         },
         mounted () {
             this.fetchData()
             this.jiePush()
-            this.$set(this.isActive,0,true)
+            this.$set(this.isActive, 0, true)
         }
     }
 </script>

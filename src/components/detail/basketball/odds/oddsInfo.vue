@@ -130,7 +130,7 @@
     import noMatch from '~components/detail/basketball/odds/noMatch.vue'
 
     export default{
-        components:{
+        components: {
             noMatch
         },
         props: {
@@ -142,7 +142,7 @@
                 }
             }
         },
-        data(){
+        data () {
             return {
                 tab: 0,
                 cid: -1,
@@ -158,8 +158,8 @@
             }
         },
         mounted () {
-            this.cid = this.params.cid;
-            console.log(this.cid);
+            this.cid = this.params.cid
+            console.log(this.cid)
         },
         methods: {
             async changeComp ({cid}) {
@@ -168,70 +168,70 @@
             closeDialog () {
                 this.$store.commit(mTypes.setDialog, {})
             },
-            updateCustomOddsInfo:function () {
-                this.isOddsTimeNormal=!this.isOddsTimeNormal
+            updateCustomOddsInfo: function () {
+                this.isOddsTimeNormal = !this.isOddsTimeNormal
             }
         },
         watch: {
             async cid (cid) {
                 this.loading = true
-                this.isOddsTimeNormal= false
+                this.isOddsTimeNormal = false
                 try {
                     switch (this.params.type) {
-                        case 'europe': {
-                            this.oddsInfo = null
-                            let currentInfo = null
-                            this.params.odds.some((info) => {
-                                if (info.cid === cid) {
-                                    currentInfo = info
-                                }
-                            })
-                            if (currentInfo) {
-                                const oddsInfo = await this.$store.dispatch(aTypes.getOddsDetailEurope, {
-                                    fid: this.$route.params.fid,
-                                    cid,
-                                    date: this.match.matchtime
-                                })
-                                this.oddsInfo = oddsInfo
+                    case 'europe': {
+                        this.oddsInfo = null
+                        let currentInfo = null
+                        this.params.odds.some((info) => {
+                            if (info.cid === cid) {
+                                currentInfo = info
                             }
-                            break
-                        }
-                        case 'rangqiu': {
-                            this.oddsInfo = null
-                            let currentInfo = null
-                            this.params.odds.some((info) => {
-                                if (info.cid === cid) {
-                                    currentInfo = info
-                                }
+                        })
+                        if (currentInfo) {
+                            const oddsInfo = await this.$store.dispatch(aTypes.getOddsDetailEurope, {
+                                fid: this.$route.params.fid,
+                                cid,
+                                date: this.match.matchtime
                             })
-                            if (currentInfo) {
-                                const oddsInfo = await this.$store.dispatch(aTypes.getOddsDetailHandicap, {
-                                    fid: this.$route.params.fid,
-                                    cid,
-                                    date: this.match.matchtime,
-                                })
-                                this.oddsInfo = oddsInfo
-                            }
-                            break
+                            this.oddsInfo = oddsInfo
                         }
-                        case 'zongfen': {
-                            this.oddsInfo = null
-                            let currentInfo = null
-                            this.params.odds.some((info) => {
-                                if (info.cid === cid) {
-                                    currentInfo = info
-                                }
+                        break
+                    }
+                    case 'rangqiu': {
+                        this.oddsInfo = null
+                        let currentInfo = null
+                        this.params.odds.some((info) => {
+                            if (info.cid === cid) {
+                                currentInfo = info
+                            }
+                        })
+                        if (currentInfo) {
+                            const oddsInfo = await this.$store.dispatch(aTypes.getOddsDetailHandicap, {
+                                fid: this.$route.params.fid,
+                                cid,
+                                date: this.match.matchtime
                             })
-                            if (currentInfo) {
-                                const oddsInfo = await this.$store.dispatch(aTypes.getOddsDetailPoints, {
-                                    fid: this.$route.params.fid,
-                                    cid,
-                                    date: this.match.matchtime
-                                })
-                                this.oddsInfo = oddsInfo
-                            }
-                            break
+                            this.oddsInfo = oddsInfo
                         }
+                        break
+                    }
+                    case 'zongfen': {
+                        this.oddsInfo = null
+                        let currentInfo = null
+                        this.params.odds.some((info) => {
+                            if (info.cid === cid) {
+                                currentInfo = info
+                            }
+                        })
+                        if (currentInfo) {
+                            const oddsInfo = await this.$store.dispatch(aTypes.getOddsDetailPoints, {
+                                fid: this.$route.params.fid,
+                                cid,
+                                date: this.match.matchtime
+                            })
+                            this.oddsInfo = oddsInfo
+                        }
+                        break
+                    }
                     }
                 } catch (e) {
                     this.error = true
@@ -239,6 +239,6 @@
                     this.loading = false
                 }
             }
-        },
+        }
     }
 </script>

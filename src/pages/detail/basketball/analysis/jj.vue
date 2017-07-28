@@ -32,10 +32,10 @@ export default {
         analysis () {
             return this.$store.state.lqdetail.analysis
         },
-        team_misc() {
+        team_misc () {
             return this.analysis.jj.team_misc
         },
-        members_advanced() {
+        members_advanced () {
             return this.analysis.jj.members_advanced
         },
         loaded () {
