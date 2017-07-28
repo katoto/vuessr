@@ -111,10 +111,10 @@
             loaded () {
                 return this.$store.state.refreshing === 0
             },
-            match: function () {
+            match () {
                 return this.$store.state.lqdetail.baseInfo
             },
-            ascore: function () {
+            ascore () {
                 let reg = /-|\// // 将字符串20-0-21-0/10-20中的数据拆分出来
                 if (this.match) {
                     return this.match.ascore.split(reg).filter(function (n) {
@@ -122,7 +122,7 @@
                     })
                 }
             },
-            hscore: function () {
+            hscore () {
                 let reg = /-|\// // 将字符串20-0-21-0/10-20中的数据拆分出来
                 if (this.match) {
                     return this.match.hscore.split(reg).filter(function (n) {
@@ -130,7 +130,7 @@
                     })
                 }
             },
-            eventList: function () {
+            eventList () {
                 let tmp = []
                 let list = []
                 if (this.$store.state.lqdetail.situation && this.$store.state.lqdetail.situation.eventlist) {
@@ -143,7 +143,7 @@
             }
         },
         methods: {
-            jiePush: function () { // 4小节+加时赛
+            jiePush () { // 4小节+加时赛
                 if (this.ascore) {
                     for (let i = 1, len = this.ascore.length, j = 1, k = 1; i <= len; i++) {
                         if (i <= 4) {
@@ -156,7 +156,7 @@
                     }
                 }
             },
-            changeSelect: function (idx) {
+            changeSelect: idx => {
                 this.$set(this.isActive, idx, !this.isActive[idx])
                 this.refreshScroll()
             },
