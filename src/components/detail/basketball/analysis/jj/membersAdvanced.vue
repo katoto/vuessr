@@ -20,8 +20,8 @@ import {mTypes} from '~store/lqdetail'
 import {
     BasketballMemberAdvType
 } from '~common/constants'
-import memberBox from '~components/detail/basketball/analysis/member_box.vue'
-import wordBox from '~components/detail/basketball/analysis/jj/word_box.vue'
+import memberBox from '~components/detail/basketball/analysis/memberBox.vue'
+import wordBox from '~components/detail/basketball/analysis/jj/wordBox.vue'
 
 export default {
     components: {

@@ -75,7 +75,7 @@
 
 <script>
 import {mTypes} from '~store/lqdetail'
-import statsBox from '~components/detail/basketball/analysis/js/stats_box.vue'
+import statsBox from '~components/detail/basketball/analysis/js/statsBox.vue'
 
 export default {
     components: {

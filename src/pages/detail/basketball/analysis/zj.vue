@@ -18,8 +18,8 @@
 
 <script>
 import {mTypes, aTypes} from '~store/lqdetail'
-import leagueRank from '~components/detail/basketball/analysis/zj/league_rank.vue'
-import NBARank from '~components/detail/basketball/analysis/zj/nba_rank.vue'
+import leagueRank from '~components/detail/basketball/analysis/zj/leagueRank.vue'
+import NBARank from '~components/detail/basketball/analysis/zj/nbaRank.vue'
 import jzData from '~components/detail/basketball/analysis/zj/jzData.vue'
 import recentRecord from '~components/detail/basketball/analysis/zj/recentRecord.vue'
 import futureMatch from '~components/detail/basketball/analysis/zj/futureMatch.vue'
