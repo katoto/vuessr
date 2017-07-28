@@ -159,15 +159,10 @@
             },
             changeSelect: function (idx) {
                 this.$set(this.isActive, idx, !this.isActive[idx])
-                console.log(idx);
-                console.log(this.isActive[idx])
+                this.refreshScroll();
             },
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-//                let baseInfo = this.$store.state.lqdetail.baseInfo
-//                if (!baseInfo || this.$store.state.lqdetail.baseInfo.fid !== this.$route.params.fid) {
-//                    baseInfo = await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
-//                }
                 await this.$store.dispatch(aTypes.getSituationEvent, {fid:this.$route.params.fid})
                 this.$store.commit('endOneRefresh')
 
