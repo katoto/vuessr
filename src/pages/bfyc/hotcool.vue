@@ -152,7 +152,7 @@
                 }
             }
         },
-        mounted() {
+        mounted () {
             this.$store.dispatch(aTypes.getHotcool)
         },
         filters: {
