@@ -40,12 +40,6 @@
             }
 
         },
-        methods: {
-            noEmpty (obj) {
-                if (obj) return !!Object.keys(obj).length
-                return false
-            }
-        },
         mounted() {
             this.$store.dispatch(aTypes.getRecord)
         }
