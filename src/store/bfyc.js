@@ -28,11 +28,11 @@ const actionsInfo = mapActions({
         commit(mTypes.setRecord, record)
         return record
     },
-    async getStrengh ({commit}, expect) {
+    async getStrength ({commit}, expect) {
         expect = expect ? 'expect=' + expect : ''
-        let strengh = await ajax(`library/aggregate/strength_compare?${expect}&T=${Date.now()}`)
-        commit(mTypes.setStrengh, strengh)
-        return strengh
+        let strength = await ajax(`library/aggregate/strength_compare?${expect}&T=${Date.now()}`)
+        commit(mTypes.setStrength, strength)
+        return strength
     },
     reset (state) {
         const iState = JSON.parse(JSON.stringify(initState))
@@ -55,8 +55,8 @@ const mutationsInfo = mapMutations({
     setRecord (state, record) {
         state.record = record
     },
-    setStrengh (state, strengh) {
-        state.strengh = strengh
+    setStrength (state, strength) {
+        state.strength = strength
     },
     reset (state) {
         const iState = JSON.parse(JSON.stringify(initState))
