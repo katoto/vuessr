@@ -150,7 +150,7 @@ export default {
             return widthObj
         },
 
-        finalscoreClassHome() {
+        finalscoreClassHome () {
             return this.makeColorClass('finalscore')
         },
         finalscoreClassAway() {
@@ -171,6 +171,7 @@ export default {
         shootStyleHome() {
             return this.makeWidthStyle('shoot')
         },
+<<<<<<< HEAD
         shootStyleAway() {},
         finalscoreClassHome (){
 
@@ -194,6 +195,8 @@ export default {
         shootStyleHome () {
             return this.makeWidthStyle('shoot')
         },
+=======
+>>>>>>> 3178d9c52c7d1772b31df166db4e96920454fca7
         shootStyleAway () {
             return this.makeWidthStyle('shoot', true)
         },
