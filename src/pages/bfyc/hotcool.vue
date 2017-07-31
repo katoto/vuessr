@@ -87,7 +87,7 @@
         components: {
             Prompt
         },
-        data() {
+        data () {
             return {
                 dataType: {
                     avrodds: '百家欧赔',
@@ -98,10 +98,10 @@
             }
         },
         computed: {
-            hotcool() {
+            hotcool () {
                 return this.$store.state.bfyc.hotcool
             },
-            curStatus() {
+            curStatus () {
                 let curStatus = {
                     latest: false,
                     history: false
@@ -117,17 +117,17 @@
                 }
                 return curStatus
             },
-            descClass() {
+            descClass () {
                 return this.hotcool.matches.map((match) => {
                     return this.makeDescClass(match.tag.desc)
                 })
             },
-            noEmptyFlag() {
+            noEmptyFlag () {
                 return this.noEmpty(this.hotcool.matches)
             }
         },
         methods: {
-            goAnalysis({fid}) {
+            goAnalysis ({fid}) {
                 this.$router.push(`/detail/football/${fid}/odds/europe`)
             },
             makeDescClass (desc) {
@@ -156,19 +156,19 @@
             this.$store.dispatch(aTypes.getHotcool)
         },
         filters: {
-            score(match) {
+            score (match) {
                 if (match.homescore && match.awayscore) {
                     return `${match.homescore}:${match.awayscore}`
                 } else {
                     return 'VS'
                 }
             },
-            makeTitle(item) {
+            makeTitle (item) {
                 return item.order + ' ' + item.simpleleague + ' ' + item.matchtime.slice(5)
             },
-            dataFmt(input, type) {
+            dataFmt (input, type) {
                 let tail = ''
-                if(type === 'europe' || type === 'betfair') tail = '%'
+                if (type === 'europe' || type === 'betfair') tail = '%'
                 return input === '' ? '--' : (input + tail)
             }
         }

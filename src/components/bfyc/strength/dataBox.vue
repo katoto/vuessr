@@ -30,12 +30,12 @@ export default {
         }
     },
     computed: {
-        leftColorClass() {
+        leftColorClass () {
             return this.data.map((match) => {
                 return match.cell.home_percent < match.cell.away_percent ? 'green-bg' : 'gray-bg'
             })
         },
-        rightColorClass() {
+        rightColorClass () {
             return this.data.map((match) => {
                 return match.cell.home_percent > match.cell.away_percent ? 'green-bg' : 'gray-bg'
             })
@@ -43,22 +43,22 @@ export default {
 
     },
     methods: {
-        goAnalysis({fid}) {
+        goAnalysis ({fid}) {
             this.$router.push(`/detail/football/${fid}/analysis/js`)
         }
     },
     filters: {
-        score(match) {
+        score (match) {
             if (match.homescore && match.awayscore) {
                 return `${match.homescore}:${match.awayscore}`
             } else {
                 return 'VS'
             }
         },
-        timeFmt(match) {
+        timeFmt (match) {
             return match.order + ' ' + match.simpleleague + ' ' + match.matchtime.substr(5)
         },
-        curroddsFmt(currodds) {
+        curroddsFmt (currodds) {
             return currodds && currodds.join('/')
         }
     }

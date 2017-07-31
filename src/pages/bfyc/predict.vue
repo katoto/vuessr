@@ -137,13 +137,13 @@
         components: {
             Prompt
         },
-        data() {
+        data () {
             return {
                 cur: ''
             }
         },
         computed: {
-            predict() {
+            predict () {
                 return this.$store.state.bfyc.predict
             },
             good_news () {
@@ -158,7 +158,7 @@
             matches () {
                 return this.predict && this.predict.matches
             },
-            curStatus() {
+            curStatus () {
                 let curStatus = {
                     latest: false,
                     history: false
@@ -175,7 +175,7 @@
                 return curStatus
             }
         },
-        mounted() {
+        mounted () {
             this.$store.dispatch(aTypes.getPredict)
         },
         watch: {
@@ -189,12 +189,12 @@
                 this.cur = expect
                 this.$store.dispatch(aTypes.getPredict, this.cur)
             },
-            goAnalysis({fid}) {
+            goAnalysis ({fid}) {
                 this.$router.push(`/detail/football/${fid}/predict`)
             }
         },
         filters: {
-            predictResult(pr) {
+            predictResult (pr) {
             //                3-主胜 1-平局 0-主负
                 switch (pr) {
                 case '1':
@@ -205,7 +205,7 @@
                     return '主胜'
                 }
             },
-            fdate(cur) {
+            fdate (cur) {
                 return cur && cur.replace('-', '年').replace('-', '月') + '日'
             }
         }

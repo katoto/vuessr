@@ -23,7 +23,7 @@
     import dataBox from '~components/bfyc/record/dataBox.vue'
 
     export default{
-        async asyncData({store}) {
+        async asyncData ({store}) {
             return store.dispatch(aTypes.getRecord)
         },
         components: {
@@ -35,12 +35,12 @@
             }
         },
         computed: {
-            record() {
+            record () {
                 return this.$store.state.bfyc.record
             }
 
         },
-        mounted() {
+        mounted () {
             this.$store.dispatch(aTypes.getRecord)
         }
 

@@ -32,7 +32,7 @@ export default {
             required: true
         }
     },
-    data() {
+    data () {
         return {
             resultObj: {
                 '3': {
@@ -55,7 +55,7 @@ export default {
         }
     },
     computed: {
-        noEmptyFlag() {
+        noEmptyFlag () {
             return this.noEmpty(this.data.recent_record) || this.noEmpty(this.data.history_battle)
         }
     },
@@ -64,7 +64,7 @@ export default {
             if (obj) { return !!Object.keys(obj).length }
             return false
         },
-        goAnalysis({fid}) {
+        goAnalysis ({fid}) {
             this.$router.push(`detail/football/${fid}/analysis/zj`)
         }
     }

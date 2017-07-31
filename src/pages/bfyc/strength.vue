@@ -23,28 +23,28 @@
     import dataBox from '~components/bfyc/strength/dataBox.vue'
 
     export default{
-        async asyncData({store}) {
+        async asyncData ({store}) {
             return store.dispatch(aTypes.getStrength)
         },
         components: {
             Prompt, dataBox
         },
         computed: {
-            strength() {
+            strength () {
                 return this.$store.state.bfyc.strength
             },
-            matches() {
+            matches () {
                 let matches = {
                     end: [],
                     noEnd: []
                 }
                 this.strength.matches.forEach((match) => {
-                    if(match.status !== '4') matches.noEnd.push(match)
+                    if (match.status !== '4') matches.noEnd.push(match)
                     else matches.end.push(match)
                 })
                 return matches
             },
-            curStatus() {
+            curStatus () {
                 let curStatus = {
                     latest: false,
                     history: false
@@ -62,7 +62,7 @@
             }
 
         },
-        mounted() {
+        mounted () {
             this.$store.dispatch(aTypes.getStrength)
         }
 
