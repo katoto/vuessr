@@ -2,7 +2,7 @@
     <div>
         <best3 :best3='best3' v-if="best3"></best3>
         <members :baseInfo="baseInfo" :members='members' v-if="members"></members>
-        <div class="item-loader" v-if="$store.state.refreshing">
+        <div class="item-loader" v-if="!(best3 && members)">
             <div class="la-ball-pulse la-2x">
                 <span></span>
                 <span></span>

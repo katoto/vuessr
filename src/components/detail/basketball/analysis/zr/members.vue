@@ -32,7 +32,7 @@ import {
 import {
     BasketballMemberType
 } from '~common/constants'
-import memberBox from '~components/detail/basketball/analysis/member_box.vue'
+import memberBox from '~components/detail/basketball/analysis/memberBox.vue'
 export default {
     components: {
         memberBox

@@ -89,7 +89,7 @@
             loaded () {
                 return this.$store.state.refreshing === 0
             },
-            europe: function () {
+            europe () {
                 return this.$store.state.lqdetail.odds && this.$store.state.lqdetail.odds.europe
             }
         },
@@ -131,4 +131,3 @@
         }
     }
 </script>
-

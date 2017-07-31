@@ -8,20 +8,20 @@
     	</div>
         <template v-if="noEmptyFlag">
             <div class="gl-box">
-                <data-box :data="team_misc.ratio" :dataType="ratioType"></data-box>
-                <div class="infoTips" v-if="team_misc.ratio.desc">
+                <data-box :data="teamMisc.ratio" :dataType="ratioType"></data-box>
+                <div class="infoTips" v-if="teamMisc.ratio.desc">
                     <i class="icon"></i>
                     <p class="f24">
-                        {{team_misc.ratio.desc}}
+                        {{teamMisc.ratio.desc}}
                     </p>
                 </div>
             </div>
             <div class="gl-box gl-zjBox">
                 <data-box :data="data" :dataType="combatType"></data-box>
-                <div class="infoTips" v-if="team_misc.combat.desc">
+                <div class="infoTips" v-if="teamMisc.combat.desc">
                     <i class="icon"></i>
                     <p class="f24">
-                        {{team_misc.combat.desc}}
+                        {{teamMisc.combat.desc}}
                     </p>
                 </div>
             </div>
@@ -36,8 +36,8 @@
 
 <script>
 import {mTypes} from '~store/lqdetail'
-import wordBox from '~components/detail/basketball/analysis/jj/word_box.vue'
-import dataBox from '~components/detail/basketball/analysis/jj/teamMisc/data_box.vue'
+import wordBox from '~components/detail/basketball/analysis/jj/wordBox.vue'
+import dataBox from '~components/detail/basketball/analysis/jj/teamMisc/dataBox.vue'
 
 export default {
     components: {
@@ -45,7 +45,7 @@ export default {
         wordBox
     },
     props: {
-        team_misc: {
+        teamMisc: {
             type: Object,
             required: true
         }
@@ -117,13 +117,13 @@ export default {
     computed: {
         data () {
             return {
-                expect: this.team_misc.combat.expect,
-                real: this.team_misc.combat.real,
-                sos: this.team_misc.degree.sos
+                expect: this.teamMisc.combat.expect,
+                real: this.teamMisc.combat.real,
+                sos: this.teamMisc.degree.sos
             }
         },
         noEmptyFlag () {
-            return this.noEmpty(this.team_misc)
+            return this.noEmpty(this.teamMisc)
         }
     },
     methods: {

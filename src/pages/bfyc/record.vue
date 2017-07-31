@@ -12,8 +12,8 @@
             <!--胜平负-->
             <div class="l-full l-scroll-y">
                 <div v-if="tab === 'result' && noEmpty(record.result)">
-                    <div class="gl-nav sticky" v-if="record.result.recent_record.length">近期战绩</div>
-                    <section v-for="item in record.result.recent_record">
+                    <div class="gl-nav sticky" v-if="record.result.recentRecord.length">近期战绩</div>
+                    <section v-for="item in record.result.recentRecord">
                         <div class="hotc-item record-item" v-tap="{methods: goAnalysis, fid: item.fid}">
                             <div class="hotc-right" v-if="item.cell.result === '3'">
                                 <div class="right-predict">{{item.cell.continous}}<em>连胜</em></div>
@@ -64,8 +64,8 @@
             <!--压盘-->
             <div class="l-full l-scroll-y">
                 <div v-if="tab === 'asian' && noEmpty(record.asian)">
-                    <div class="gl-nav sticky" v-if="record.asian.recent_record.length">近期战绩</div>
-                    <section v-for="item in record.asian.recent_record">
+                    <div class="gl-nav sticky" v-if="record.asian.recentRecord.length">近期战绩</div>
+                    <section v-for="item in record.asian.recentRecord">
                         <div class="hotc-item record-item" v-tap="{methods: goAnalysis, fid: item.fid}">
                             <div class="hotc-right" v-if="item.cell.result === '3'">
                                 <div class="right-predict">{{item.cell.continous}}<em>连赢</em></div>
@@ -116,8 +116,8 @@
             <!--大小球-->
             <div class="l-full l-scroll-y">
                 <div v-if="tab === 'bigsmall' && noEmpty(record.bigsmall)">
-                    <div class="gl-nav sticky" v-if="record.bigsmall.recent_record.length">近期战绩</div>
-                    <section v-for="item in record.bigsmall.recent_record">
+                    <div class="gl-nav sticky" v-if="record.bigsmall.recentRecord.length">近期战绩</div>
+                    <section v-for="item in record.bigsmall.recentRecord">
                         <div class="hotc-item record-item" v-tap="{methods: goAnalysis, fid: item.fid}">
                             <div class="hotc-right" v-if="item.cell.result === '3'">
                                 <div class="right-predict">{{item.cell.continous}}<em>连大</em></div>

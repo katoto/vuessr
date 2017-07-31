@@ -8,7 +8,7 @@
                         <li class="time-item-cur" v-tap="{methods: openWordBox, str: baseInfo[hoa + 'sxname'] + '球员'}">名词解释</li>
                     </ul>
                 </div>
-                <member-box ref="memBox" :members='members_advanced[hoa]' :membersType='BasketballMemberAdvType' liW="25.73rem"></member-box>
+                <member-box ref="memBox" :members='membersAdvanced[hoa]' :membersType='BasketballMemberAdvType' liW="25.73rem"></member-box>
             </div>
         </div>
     </div>
@@ -20,8 +20,8 @@ import {mTypes} from '~store/lqdetail'
 import {
     BasketballMemberAdvType
 } from '~common/constants'
-import memberBox from '~components/detail/basketball/analysis/member_box.vue'
-import wordBox from '~components/detail/basketball/analysis/jj/word_box.vue'
+import memberBox from '~components/detail/basketball/analysis/memberBox.vue'
+import wordBox from '~components/detail/basketball/analysis/jj/wordBox.vue'
 
 export default {
     components: {
@@ -32,7 +32,7 @@ export default {
             type: Object,
             required: true
         },
-        members_advanced: {
+        membersAdvanced: {
             type: Object,
             required: true
         }

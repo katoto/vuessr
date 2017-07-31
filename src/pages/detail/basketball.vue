@@ -318,7 +318,6 @@
         },
         watch: {
             socketData ({data, stamp}) { // websocket推送过来的数据
-                console.log('=========websocket')
                 console.log({data, stamp})
                 if (stamp === pushEvents.BASKETBALL_INFO) {
                     if (data.fid === this.baseInfo.fid) {

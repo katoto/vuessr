@@ -10,7 +10,7 @@ git clone ...
 ~~~
 2. 初始化
 ~~~
-npm install （or yarn）
+npm install （or yarn） 建议用yarn
 ~~~
 
 

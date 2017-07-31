@@ -243,13 +243,13 @@
             loaded () {
                 return this.$store.state.refreshing === 0
             },
-            match: function () {
+            match () {
                 return this.$store.state.lqdetail.baseInfo
             },
-            home: function () {
+            home () {
                 return this.$store.state.lqdetail.situation.statistic && this.$store.state.lqdetail.situation.statistic.home
             },
-            away: function () {
+            away () {
                 return this.$store.state.lqdetail.situation.statistic && this.$store.state.lqdetail.situation.statistic.away
             }
 
