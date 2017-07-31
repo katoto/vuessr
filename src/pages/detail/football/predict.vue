@@ -1,5 +1,35 @@
 <template>
     <div>
+
+        <div class="gl-box box-yc" v-if="predictRecommend&&predictRecommend.articles">
+            <div class="gl-nav">专家推荐</div>
+            <ul class="list-yuce" v-if="predictRecommend.articles">
+                <template  v-for="c,idx in predictRecommend.articles">
+                    <li onclick="_hmt.push(['_trackEvent','zq_detail','click','predict_zjtj'])"  v-if="!isArticle||idx<1" drunk-on="click:redirect(c.touch_url)">
+                        <div class="title clear"><span>{{c.title}}</span><i v-if="c.paytype=='1'">付费</i></div>
+                        <div class="info">
+                            <span>
+                                <i class="face"><img alt="小头像" :src="c.headimg"></i>{{c.nickname}}
+                            </span>
+                            <span class="time">{{c.publishtime.substring(5,16)}}</span>
+                            <span class="view">{{c.hits}}</span>
+                        </div>
+
+                    </li>
+                </template>
+
+                <li class="box-arrow" v-if="predictRecommend.articles.length>2" v-tap="{methods: ()=>isArticle=!isArticle}">
+                    <div class="zd-arrow" :class="{'rotate180':!isArticle}"></div>
+                </li>
+            </ul>
+            <div class="feed-back" v-if="predictRecommend.articles&&predictRecommend.articles.length<1">
+                <div class="feed-box">
+                    <em>本场暂无推荐</em>
+                </div>
+            </div>
+        </div>
+
+
         <div class="gl-box box-yc" v-if="predictEurope">
             <div class="gl-nav">胜平负 <span class="yc-more"></span></div>
             <div class="box-ycInner">
@@ -229,8 +259,17 @@
                 </div>
             </div>
         </div>
-        <div class="sk-btips" v-if="predictEurope||predictAsian||predictDaXiao||predictScore">
+
+        <div class="sk-btips" v-if="predictRecommend||predictEurope||predictAsian||predictDaXiao||predictScore">
             500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
+        </div>
+
+        <div class="item-loader" v-else>
+            <div class="la-ball-pulse la-2x">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </div>
 </template>
@@ -247,6 +286,11 @@
     export default {
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getPredict, params.fid)
+        },
+        data () {
+            return {
+                isArticle: true
+            }
         },
         components: {
             echartBarLine, echartPosition
@@ -285,6 +329,9 @@
                     this.$store.commit(mTypes.updateScTime)
                 }
             },
+            isArticle () {
+                this.$store.commit(mTypes.updateScTime)
+            },
             refreshTime () {
                 this.fetchData()
             }
@@ -299,20 +346,26 @@
             loaded () {
                 return this.$store.state.refreshing === 0
             },
+            predict () {
+                return this.$store.state.zqdetail.predict
+            },
             predictEurope () {
-                return this.$store.state.zqdetail.predict.europe
+                return this.predict.europe
             },
             predictDaXiao () {
-                return this.$store.state.zqdetail.predict.daxiaoqiu
+                return this.predict.daxiaoqiu
             },
             predictScore () {
-                return this.$store.state.zqdetail.predict.score
+                return this.predict.score
             },
             predictHalf () {
-                return this.$store.state.zqdetail.predict.half
+                return this.predict.half
             },
             predictAsian () {
-                return this.$store.state.zqdetail.predict.asian
+                return this.predict.asian
+            },
+            predictRecommend () {
+                return this.predict.recommends
             }
 
         },
