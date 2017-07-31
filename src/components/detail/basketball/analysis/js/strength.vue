@@ -3,7 +3,7 @@
         <div class="gl-nav">
             实力对比
             <ul class="time-item" drunk-if="strengthInfo">
-                <li class="time-item-cur more-zl" v-tap='{methods: openStatBox}'>更多</li>
+                <li class="time-item-cur more-zl" v-tap='{methods: openStatBox}' v-if="noEmptyFlagStats">更多</li>
             </ul>
         </div>
         <template v-if="noEmptyFlag">
@@ -175,6 +175,9 @@ export default {
         },
         noEmptyFlag () {
             return this.noEmpty(this.strength)
+        },
+        noEmptyFlagStats() {
+            return this.noEmpty(this.stats)
         }
     },
     methods: {
