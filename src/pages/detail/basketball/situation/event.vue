@@ -184,4 +184,119 @@
         }
     }
 </script>
+<style>
+    .ui-empty{padding:2.72rem 0; text-align: center}
+    .ui-empty .w240{
+        width:3.2rem;}
+    .ui-empty img{ margin-bottom: 0.933rem;}
+    .ui-empty-dfont{font-size: 0.4533rem; color: #333; height: 0.8933rem;line-height: 0.8933rem;}
+    .main-inner {
+        min-height: 15.44rem;
+        width: 100%;
+        overflow-x: hidden;
+        color: #242c35
+    }
+    .tContent {
+        display: none;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0)
+    }
+    .jie-detail {
+        background: #fff;
+        margin: 0 auto .266667rem
+    }
 
+    .jie-detail:after {
+        content: '';
+        clear: both;
+        display: block;
+        height: 0;
+        visibility: hidden
+    }
+    .jie-detailL {
+        float: left;
+        width: 3.906667rem
+    }
+
+    .jie-detailR {
+        float: right;
+        width: 6.073333rem;
+        position: relative;
+        padding-bottom: .133333rem
+    }
+    .t-nav {
+        line-height: .933333rem;
+        height: .933333rem;
+        border-bottom: 1px solid #ededed;
+        color: #999;
+        text-align: center
+    }
+
+    [data-dpr="1"] .t-nav {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .t-nav {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .t-nav {
+        font-size: 33px
+    }
+    [data-dpr="1"] .t-detail {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .t-detail {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .t-detail {
+        font-size: 33px
+    }
+
+    .t-detail li {
+        line-height: 1rem;
+        height: 1rem
+    }
+
+    .jie-detailR .t-detail li div {
+        text-align: center
+    }
+
+    .jie-detailL .t-detail li {
+        padding-left: .4rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis
+    }
+
+    .jie-detailR .t-detail,
+    .jie-detailR .t-nav {
+        padding-right: .4rem
+    }
+
+    .t-img {
+        width: .786667rem;
+        height: 1rem;
+        position: relative;
+        float: left
+    }
+
+    .simg,
+    .t-img img {
+        width: .506rem;
+        height: .506rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -.253rem;
+        left: 0
+    }
+    .jie-detailR .mr40 {
+        margin-right: 1.253333rem
+    }
+    .slide-box {
+        -webkit-overflow-scrolling: touch
+    }
+
+</style>

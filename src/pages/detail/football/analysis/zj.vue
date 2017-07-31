@@ -1391,7 +1391,6 @@
         border-radius: 0 0 .08rem .08rem;
         border-top: 1px solid #ddd
     }
-
     .ui-alert-btn {
         display: table-cell;
         height: 1.28rem;
@@ -1399,15 +1398,12 @@
         color: #36c;
         line-height: 1.28rem
     }
-
     [data-dpr="1"] .ui-alert-btn {
         font-size: 15px
     }
-
     [data-dpr="2"] .ui-alert-btn {
         font-size: 30px
     }
-
     [data-dpr="3"] .ui-alert-btn {
         font-size: 45px
     }
@@ -1462,6 +1458,4 @@
         background-size: 1.066667rem;
         display: inline-block
     }
-
-
 </style>
