@@ -4,7 +4,7 @@
             <div class="zj-nav">
                  历史交战
             </div>
-            <fight-box :matchesObj='jz_data' :isJz='isJz' v-if="noEmptyFlag"></fight-box>
+            <fight-box :matchesObj='jzData' :isJz='isJz' v-if="noEmptyFlag"></fight-box>
             <div class="feed-back" v-else>
                 <div class="feed-box">
                     <em>暂无数据</em>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import fightBox from '~components/detail/basketball/analysis/zj/fight_box.vue'
+import fightBox from '~components/detail/basketball/analysis/zj/fightBox.vue'
 export default {
     data () {
         return {
@@ -27,11 +27,11 @@ export default {
     },
     computed: {
         noEmptyFlag () {
-            return this.noEmpty(this.jz_data)
+            return this.noEmpty(this.jzData)
         }
     },
     props: {
-        jz_data: {
+        jzData: {
             type: Object,
             required: true
         }

@@ -1029,4 +1029,5 @@
     [data-dpr="3"] .comm-list .list-cont {
         font-size: 45px
     }
+
 </style>

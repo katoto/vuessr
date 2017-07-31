@@ -10,12 +10,12 @@
             <div class="zhzl-box">
                 <div class="zhzl-title">综合评分</div>
                 <div class="zhzl-vs">
-                    <div class="zhzl-l" :class="makeColorClass('finalscore')" :style="makeWidthStyle('finalscore')">
+                    <div class="zhzl-l" :class="finalscoreClassAway" :style="finalscoreStyleAway">
                         <div class="wua">
                             <div class="hh"></div>
                         </div>
                     </div>
-                    <div class="zhzl-r" :class="makeColorClass('finalscore', true)" :style="makeWidthStyle('finalscore', true)">
+                    <div class="zhzl-r" :class="finalscoreClassHome" :style="finalscoreStyleHome">
                         <div class="wua">
                             <div class="hh"></div>
                         </div>
@@ -24,7 +24,7 @@
                 <div class="zhzl-bfb-left">{{strength.finalscore.away}}</div>
                 <div class="zhzl-bfb-right">{{strength.finalscore.home}}</div>
             </div>
-            <div class="zhedie" drunk-show="isStrength">
+            <div class="zhedie" v-if="collaFlag">
                 <ul class="zhzl-list">
                     <li class="responsive">
                         <div class="zhzl-left">{{strength.shoot.away}}%</div>
@@ -32,10 +32,10 @@
                             <div class="zhzl-classify">投篮命中率</div>
                             <div class="responsive">
                                 <div class="each-resone l-relative">
-                                    <div class="zhzl-vs-left" :class="makeColorClass('shoot')" :style="makeWidthStyle('shoot')"></div>
+                                    <div class="zhzl-vs-left" :class="shootClassAway" :style="shootStyleAway"></div>
                                 </div>
                                 <div class="each-resone l-relative">
-                                    <div class="zhzl-vs-right" :class="makeColorClass('shoot', true)" :style="makeWidthStyle('shoot', true)"></div>
+                                    <div class="zhzl-vs-right" :class="shootClassHome" :style="shootStyleHome"></div>
                                 </div>
                             </div>
                         </div>
@@ -65,13 +65,17 @@
                 <em>暂无数据</em>
             </div>
         </div>
+        <div class="box-arrow noborder" v-tap="{methods: () => collaFlag = !collaFlag}">
+        	<div class="zd-arrow" :class="{'rotate180': collaFlag}">
+        	</div>
+        </div>
     </div>
 
 </template>
 
 <script>
 import {mTypes} from '~store/lqdetail'
-import statsBox from '~components/detail/basketball/analysis/js/stats_box.vue'
+import statsBox from '~components/detail/basketball/analysis/js/statsBox.vue'
 
 export default {
     components: {
@@ -104,7 +108,8 @@ export default {
                 // away: '客队实力值'
                 // home_percent: '主队实力占比'
                 // away_percent: '客队实力占比'
-            }
+            },
+            collaFlag: true
         }
     },
     computed: {
@@ -144,16 +149,40 @@ export default {
             }
             return widthObj
         },
+        finalscoreClassHome() {
+            return this.makeColorClass('finalscore')
+        },
+        finalscoreClassAway() {
+            return this.makeColorClass('finalscore', true)
+        },
+        finalscoreStyleHome() {
+            return this.makeWidthStyle('finalscore')
+        },
+        finalscoreStyleAway() {
+            return this.makeWidthStyle('finalscore', true)
+        },
+        shootClassHome() {
+            return this.makeColorClass('shoot')
+        },
+        shootClassAway() {
+            return this.makeColorClass('shoot', true)
+        },
+        shootStyleHome() {
+            return this.makeWidthStyle('shoot')
+        },
+        shootStyleAway() {
+            return this.makeWidthStyle('shoot', true)
+        },
         noEmptyFlag () {
             return this.noEmpty(this.strength)
         }
     },
     methods: {
-        makeColorClass (type, isReverse, class_l = 'zhzl-gray', class_s = 'zhzl-green') { // isReverse 作用是为了反转左右的参数
+        makeColorClass (type, isReverse, classL = 'zhzl-gray', classS = 'zhzl-green') {   // isReverse 作用是为了反转左右的参数
             let home = +(this.strength[type].home_percent)
             let away = +(this.strength[type].away_percent)
-            if (isReverse) { return home <= away ? class_l : class_s }
-            return home >= away ? class_l : class_s
+            if (isReverse) { return home <= away ? classL : classS }
+            return home >= away ? classL : classS
         },
         makeWidthStyle (type, isReverse) {
             if (isReverse) { return `width: ${this.strength[type].home_percent}%` }
@@ -171,6 +200,11 @@ export default {
         noEmpty (obj) {
             if (obj) return !!Object.keys(obj).length
             return false
+        }
+    },
+    watch: {
+        collaFlag () {
+            this.$store.commit(mTypes.updateScTime)
         }
     }
 }
