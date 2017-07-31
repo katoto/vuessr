@@ -99,14 +99,15 @@
 </template>
 
 <script type="text/javascript">
+    import {aTypes} from '~store/bfyc.js'
     import Prompt from '~components/prompt.vue'
 
     export default{
+        async asyncData ({store, route: {params}}) {
+            await store.dispatch(aTypes.getHotcool)
+        },
         components: {
             Prompt
-        },
-        fetch ({store}) {
-            return store.dispatch('bfyc/fetchColdHotDistribute')
         },
         computed: {
             coldHot: function () {
@@ -151,7 +152,9 @@
                 }
             }
         },
-
+        mounted () {
+            this.$store.dispatch(aTypes.getHotcool)
+        },
         filters: {
             score: (match) => {
                 if (match.homescore && match.awayscore) {

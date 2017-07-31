@@ -1,5 +1,5 @@
 <template>
-    <div class="l-full l-flex-column" v-if="match">
+    <div class="l-full l-flex-column" v-if="match" style="overflow: hidden">
         <div class="detailTop" :class="{'topBarMove': showScore, 'topBarMove2': !showScore}" style="display: block;">
             <a class="back-icon" onclick="history.back()" href="javascript:;">返回</a>
             <router-link to="/home/zq/jczq/cur" class="link-index f26">比分首页</router-link>

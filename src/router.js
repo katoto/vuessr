@@ -67,7 +67,10 @@ const BasketballAnalysisJj = () => import('~pages/detail/basketball/analysis/jj.
 //
 // const BasketballPredict = () => import('~pages/detail/basketball/predict.vue' /* webpackChunkName: "pages/detail-basketball-predict" */)
 //
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2b403df635a051ced25b6470298f6fbd02d3526e
 
 // const BasketballCrazybet = () => import('~pages/detail/basketball/crazybet.vue' /* webpackChunkName: "pages/detail-basketball-odds-bifa" */)
 const BasketballComment = () => import('~pages/detail/basketball/comment.vue' /* webpackChunkName: "pages/detail-basketball-comment" */)

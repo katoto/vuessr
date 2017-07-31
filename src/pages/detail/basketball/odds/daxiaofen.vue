@@ -86,7 +86,11 @@
             loaded () {
                 return this.$store.state.refreshing === 0
             },
+<<<<<<< HEAD
             daxiaofen() {
+=======
+            daxiaofen () {
+>>>>>>> 2b403df635a051ced25b6470298f6fbd02d3526e
                 return this.$store.state.lqdetail.odds && this.$store.state.lqdetail.odds.points
             }
         },
@@ -128,6 +132,7 @@
         }
     }
 </script>
+<<<<<<< HEAD
 <style>
     .pl-box-hd {
         background: #fff;
@@ -505,3 +510,5 @@
     }
 
 </style>
+=======
+>>>>>>> 2b403df635a051ced25b6470298f6fbd02d3526e

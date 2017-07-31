@@ -3,7 +3,7 @@
         <div class="gl-nav">
             实力对比
             <ul class="time-item" drunk-if="strengthInfo">
-                <li class="time-item-cur more-zl" v-tap='{methods: openStatBox}'>更多</li>
+                <li class="time-item-cur more-zl" v-tap='{methods: openStatBox}' v-if="noEmptyFlagStats">更多</li>
             </ul>
         </div>
         <template v-if="noEmptyFlag">
@@ -149,6 +149,7 @@ export default {
             }
             return widthObj
         },
+<<<<<<< HEAD
         finalscoreClassHome() {
             return this.makeColorClass('finalscore')
         },
@@ -171,14 +172,45 @@ export default {
             return this.makeWidthStyle('shoot')
         },
         shootStyleAway() {
+=======
+        finalscoreClassHome () {
+            return this.makeColorClass('finalscore')
+        },
+        finalscoreClassAway () {
+            return this.makeColorClass('finalscore', true)
+        },
+        finalscoreStyleHome () {
+            return this.makeWidthStyle('finalscore')
+        },
+        finalscoreStyleAway () {
+            return this.makeWidthStyle('finalscore', true)
+        },
+        shootClassHome () {
+            return this.makeColorClass('shoot')
+        },
+        shootClassAway () {
+            return this.makeColorClass('shoot', true)
+        },
+        shootStyleHome () {
+            return this.makeWidthStyle('shoot')
+        },
+        shootStyleAway () {
+>>>>>>> 2b403df635a051ced25b6470298f6fbd02d3526e
             return this.makeWidthStyle('shoot', true)
         },
         noEmptyFlag () {
             return this.noEmpty(this.strength)
+        },
+        noEmptyFlagStats () {
+            return this.noEmpty(this.stats)
         }
     },
     methods: {
+<<<<<<< HEAD
         makeColorClass (type, isReverse, classL = 'zhzl-gray', classS = 'zhzl-green') {   // isReverse 作用是为了反转左右的参数
+=======
+        makeColorClass (type, isReverse, classL = 'zhzl-gray', classS = 'zhzl-green') { // isReverse 作用是为了反转左右的参数
+>>>>>>> 2b403df635a051ced25b6470298f6fbd02d3526e
             let home = +(this.strength[type].home_percent)
             let away = +(this.strength[type].away_percent)
             if (isReverse) { return home <= away ? classL : classS }

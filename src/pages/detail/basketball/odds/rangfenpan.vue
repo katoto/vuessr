@@ -84,6 +84,7 @@
                 return this.$store.state.refreshing === 0
             },
             rangfenpan() {
+            rangfenpan () {
                 return this.$store.state.lqdetail.odds && this.$store.state.lqdetail.odds.handicap
             }
         },
@@ -124,6 +125,7 @@
         }
     }
 </script>
+
 <style>
     .pl-box-hd {
         background: #fff;
