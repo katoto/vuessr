@@ -86,7 +86,7 @@
             loaded () {
                 return this.$store.state.refreshing === 0
             },
-            daxiaofen() {
+            daxiaofen () {
                 return this.$store.state.lqdetail.odds && this.$store.state.lqdetail.odds.points
             }
         },

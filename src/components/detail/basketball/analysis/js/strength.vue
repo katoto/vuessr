@@ -149,34 +149,34 @@ export default {
             }
             return widthObj
         },
-        finalscoreClassHome() {
+        finalscoreClassHome () {
             return this.makeColorClass('finalscore')
         },
-        finalscoreClassAway() {
+        finalscoreClassAway () {
             return this.makeColorClass('finalscore', true)
         },
-        finalscoreStyleHome() {
+        finalscoreStyleHome () {
             return this.makeWidthStyle('finalscore')
         },
-        finalscoreStyleAway() {
+        finalscoreStyleAway () {
             return this.makeWidthStyle('finalscore', true)
         },
-        shootClassHome() {
+        shootClassHome () {
             return this.makeColorClass('shoot')
         },
-        shootClassAway() {
+        shootClassAway () {
             return this.makeColorClass('shoot', true)
         },
-        shootStyleHome() {
+        shootStyleHome () {
             return this.makeWidthStyle('shoot')
         },
-        shootStyleAway() {
+        shootStyleAway () {
             return this.makeWidthStyle('shoot', true)
         },
         noEmptyFlag () {
             return this.noEmpty(this.strength)
         },
-        noEmptyFlagStats() {
+        noEmptyFlagStats () {
             return this.noEmpty(this.stats)
         }
     },
