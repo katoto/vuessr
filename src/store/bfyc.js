@@ -11,22 +11,26 @@ const initState = {
 }
 const actionsInfo = mapActions({
     async getPredict ({commit}, expect) {
-        let predict = await ajax(`library/aggregate/awesome_predict?expect=${expect}&T=${Date.now()}`)
+        expect = expect ? 'expect=' + expect : ''
+        let predict = await ajax(`library/aggregate/awesome_predict?${expect}&T=${Date.now()}`)
         commit(mTypes.setPredict, predict)
         return predict
     },
     async getHotcool ({commit}, expect) {
-        let hotcool = await ajax(`library/aggregate/coldhot_distribute?expect=${expect}&T=${Date.now()}`)
+        expect = expect ? 'expect=' + expect : ''
+        let hotcool = await ajax(`library/aggregate/coldhot_distribute?${expect}&T=${Date.now()}`)
         commit(mTypes.setHotcool, hotcool)
         return hotcool
     },
     async getRecord ({commit}, expect) {
-        let record = await ajax(`library/aggregate/strength_compare?expect=${expect}&T=${Date.now()}`)
+        expect = expect ? 'expect=' + expect : ''
+        let record = await ajax(`library/aggregate/combat_feature?${expect}&T=${Date.now()}`)
         commit(mTypes.setRecord, record)
         return record
     },
     async getStrengh ({commit}, expect) {
-        let strengh = await ajax(`library/aggregate/combat_feature?expect=${expect}&T=${Date.now()}`)
+        expect = expect ? 'expect=' + expect : ''
+        let strengh = await ajax(`library/aggregate/strength_compare?${expect}&T=${Date.now()}`)
         commit(mTypes.setStrengh, strengh)
         return strengh
     },
@@ -42,16 +46,16 @@ const mutationsInfo = mapMutations({
     updateScTime (state) {
         state.scTime = Date.now()
     },
-    setPredict ({state}, predict) {
+    setPredict (state, predict) {
         state.predict = predict
     },
-    setHotcool ({state}, hotcool) {
+    setHotcool (state, hotcool) {
         state.hotcool = hotcool
     },
-    setRecord ({state}, record) {
+    setRecord (state, record) {
         state.record = record
     },
-    setStrengh ({state}, strengh) {
+    setStrengh (state, strengh) {
         state.strengh = strengh
     },
     reset (state) {

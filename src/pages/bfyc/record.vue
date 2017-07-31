@@ -9,7 +9,6 @@
             </ul>
         </section>
         <div class="hot-cool-wrap l-flex-1 l-relative" v-if="record">
-            <!--胜平负-->
             <div class="l-full l-scroll-y">
                 <div v-if="tab === 'result' && noEmpty(record.result)">
                     <div class="gl-nav sticky" v-if="record.result.recentRecord.length">近期战绩</div>
@@ -164,11 +163,12 @@
 </template>
 
 <script>
+    import {aTypes} from '~store/bfyc'
     import Prompt from '~components/prompt.vue'
 
     export default{
-        fetch  ({store}) {
-            return store.dispatch('bfyc/fetchCombatFeature')
+        async asyncData({store}) {
+            return store.dispatch(aTypes.getRecord)
         },
         components: {
             Prompt
@@ -179,23 +179,25 @@
             }
         },
         computed: {
-            record: function () {
-                // console.log(this.$store.state.combat_feature);
-                return this.$store.state.bfyc.combat_feature
+            record() {
+                return this.$store.state.bfyc.record
             }
 
         },
-
         methods: {
-            onTab: function (type) {
+            onTab(type) {
                 this.tab = type
             },
-            goAnalysis: function ({fid}) {
-                location.href = `/score/detail.html?analysis=record#/footballdetail/analysis/${fid}`
+            goAnalysis({fid}) {
+                this.$router.push(`detail/football/${fid}/analysis/js`)
             },
-            noEmpty: function (obj) {
-                return !!Object.keys(obj).length
+            noEmpty (obj) {
+                if (obj) return !!Object.keys(obj).length
+                return false
             }
+        },
+        mounted() {
+            this.$store.dispatch(aTypes.getRecord)
         }
 
     }

@@ -6,14 +6,14 @@
         <section class="hotc-header">
             {{cur|fdate}}
             <ul>
-                <li :class="{'cur': expect_list&&cur===expect_list[0]}"
-                    v-tap="{methods: changeExpect , expect: expect_list&&expect_list[0]}">昨日
+                <li :class="{'cur': expect_list && cur === expect_list[0]}"
+                    v-tap="{methods: changeExpect , expect: expect_list && expect_list[0]}">昨日
                 </li>
-                <li :class="{'cur': expect_list&&cur===expect_list[1]}"
-                    v-tap="{methods: changeExpect , expect: expect_list&&expect_list[1]}">今日
+                <li :class="{'cur': expect_list && cur === expect_list[1]}"
+                    v-tap="{methods: changeExpect , expect: expect_list && expect_list[1]}">今日
                 </li>
-                <li :class="{'cur': expect_list&&cur===expect_list[2]}"
-                    v-tap="{methods: changeExpect , expect: expect_list&&expect_list[2]}">明日
+                <li :class="{'cur': expect_list && cur === expect_list[2]}"
+                    v-tap="{methods: changeExpect , expect: expect_list && expect_list[2]}">明日
                 </li>
             </ul>
         </section>
@@ -28,7 +28,6 @@
                     </div>
                     <template v-if="matches">
                         <template v-if="matches.length">
-
                             <ul>
                                 <template v-for="match,idx in matches" v-if="match.status !== '4'">
                                     <!--未完场-->
@@ -88,17 +87,8 @@
                                         </div>
 
                                         <!--未中 加上statue-hit-no-->
-                                        <div class="hotc-right statue-hit-no" v-if="match.cell.on_target==='0'">
+                                        <div class="hotc-right" :class="{'statue-hit-no': match.cell.on_target === '0'}">
                                             <div class="left-statue">未<br/>中</div>
-                                            <div class="right-predict">
-                                                <p>{{match.cell.probability}}<em>%</em></p>
-                                                <p>{{match.cell.predict_result|predictResult}}
-                                                    {{match.cell.predict_reback}}</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="hotc-right" v-if="match.cell.on_target==='1'">
-                                            <div class="left-statue">命<br/>中</div>
                                             <div class="right-predict">
                                                 <p>{{match.cell.probability}}<em>%</em></p>
                                                 <p>{{match.cell.predict_result|predictResult}}
@@ -129,39 +119,46 @@
 </template>
 
 <script type="text/ecmascript-6">
+    import {aTypes} from '~store/bfyc.js'
     import Prompt from '~components/prompt.vue'
     export default {
         async asyncData ({store}) {
-            if (store.state.bfyc.awesome_predict) {
+            if (store.state.bfyc.predict) {
                 return {
-                    cur: store.state.bfyc.awesome_predict.curr_expect
+                    cur: store.state.bfyc.predict.curr_expect
                 }
             } else {
-                let predict = await store.dispatch('bfyc/fetchAwesomePredict')
+                let predict = await store.dispatch(aTypes.getPredict)
                 return {
                     cur: predict.curr_expect
                 }
             }
         },
-
         components: {
             Prompt
         },
-
+        data() {
+            return {
+                cur: ''
+            }
+        },
         computed: {
+            predict() {
+                return this.$store.state.bfyc.predict
+            },
             good_news () {
-                return this.$store.state.bfyc.awesome_predict && this.$store.state.bfyc.awesome_predict.good_news
+                return this.predict && this.predict.good_news
             },
             expect_list () {
-                return this.$store.state.bfyc.awesome_predict && this.$store.state.bfyc.awesome_predict.expect_list
+                return this.predict && this.predict.expect_list
             },
             curr_expect () {
-                return this.$store.state.bfyc.awesome_predict && this.$store.state.bfyc.awesome_predict.curr_expect
+                return this.predict && this.predict.curr_expect
             },
             matches () {
-                return this.$store.state.bfyc.awesome_predict && this.cur && this.$store.state.bfyc.awesome_predict.allMatches[this.cur]
+                return this.predict && this.predict.matches
             },
-            curStatus: function () {
+            curStatus() {
                 let curStatus = {
                     latest: false,
                     history: false
@@ -178,6 +175,9 @@
                 return curStatus
             }
         },
+        mounted() {
+            this.$store.dispatch(aTypes.getPredict)
+        },
         watch: {
             curr_expect (currExpect) {
                 this.cur = currExpect
@@ -187,16 +187,14 @@
         methods: {
             changeExpect ({expect}) {
                 this.cur = expect
-                if (!this.$store.state.bfyc.awesome_predict.allMatches[this.cur] || !this.$store.state.bfyc.awesome_predict.allMatches[this.cur].length) {
-                    this.$store.dispatch('bfyc/fetchAwesomePredict', this.cur)
-                }
+                this.$store.dispatch(aTypes.getPredict, this.cur)
             },
-            goAnalysis: function ({fid}) {
-                location.href = `/score/detail.html#/footballdetail/predict/${fid}`
+            goAnalysis({fid}) {
+                this.$router.push(`/detail/football/${fid}/predict`)
             }
         },
         filters: {
-            predictResult: (pr) => {
+            predictResult(pr) {
             //                3-主胜 1-平局 0-主负
                 switch (pr) {
                 case '1':
@@ -207,7 +205,7 @@
                     return '主胜'
                 }
             },
-            fdate: (cur) => {
+            fdate(cur) {
                 return cur && cur.replace('-', '年').replace('-', '月') + '日'
             }
         }
