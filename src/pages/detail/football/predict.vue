@@ -5,7 +5,7 @@
             <div class="gl-nav">专家推荐</div>
             <ul class="list-yuce" v-if="predictRecommend.articles">
                 <template  v-for="c,idx in predictRecommend.articles">
-                    <li onclick="_hmt.push(['_trackEvent','zq_detail','click','predict_zjtj'])"  v-if="!isArticle||idx<1" drunk-on="click:redirect(c.touch_url)">
+                    <li data-p2="zq_detail" data-p4="predict_zjtj" v-if="!isArticle||idx<1" v-tap="{methods: goUrl, url:c.touch_url}">
                         <div class="title clear"><span>{{c.title}}</span><i v-if="c.paytype=='1'">付费</i></div>
                         <div class="info">
                             <span>
@@ -321,6 +321,9 @@
                     break
                 }
                 this.$store.commit(mTypes.setDialog, {component})
+            },
+            goUrl ({url}) {
+                location.href = url
             }
         },
         watch: {
