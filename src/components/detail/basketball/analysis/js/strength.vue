@@ -149,7 +149,7 @@ export default {
             }
             return widthObj
         },
-<<<<<<< HEAD
+
         finalscoreClassHome() {
             return this.makeColorClass('finalscore')
         },
@@ -171,12 +171,11 @@ export default {
         shootStyleHome() {
             return this.makeWidthStyle('shoot')
         },
-        shootStyleAway() {
-=======
-        finalscoreClassHome () {
+        shootStyleAway() {},
+        finalscoreClassHome (){
             return this.makeColorClass('finalscore')
         },
-        finalscoreClassAway () {
+        finalscoreClassAway (){
             return this.makeColorClass('finalscore', true)
         },
         finalscoreStyleHome () {
@@ -195,7 +194,6 @@ export default {
             return this.makeWidthStyle('shoot')
         },
         shootStyleAway () {
->>>>>>> 2b403df635a051ced25b6470298f6fbd02d3526e
             return this.makeWidthStyle('shoot', true)
         },
         noEmptyFlag () {
@@ -206,11 +204,8 @@ export default {
         }
     },
     methods: {
-<<<<<<< HEAD
         makeColorClass (type, isReverse, classL = 'zhzl-gray', classS = 'zhzl-green') {   // isReverse 作用是为了反转左右的参数
-=======
-        makeColorClass (type, isReverse, classL = 'zhzl-gray', classS = 'zhzl-green') { // isReverse 作用是为了反转左右的参数
->>>>>>> 2b403df635a051ced25b6470298f6fbd02d3526e
+        makeColorClass (type, isReverse, classL = 'zhzl-gray', classS = 'zhzl-green'){ // isReverse 作用是为了反转左右的参数
             let home = +(this.strength[type].home_percent)
             let away = +(this.strength[type].away_percent)
             if (isReverse) { return home <= away ? classL : classS }
