@@ -58,8 +58,8 @@
     import {mTypes, aTypes} from '~store/center'
     export default{
         async asyncData ({store}) {
-            console.log(this.tab);
-            await store.dispatch(aTypes.getBasketballAll,this.tab)
+            console.log(this.tab)
+            await store.dispatch(aTypes.getBasketballAll, this.tab)
         },
         data () {
             return {
@@ -68,7 +68,7 @@
             }
         },
         computed: {
-            match(){
+            match () {
                 return this.$store.state.center.lqAll
             }
         },
@@ -82,31 +82,31 @@
             collap: function (index) {
                 this.$set(this.isActive, index, !this.isActive[index])
             },
-            async fetchData(){
+            async fetchData () {
                 if (!this.match) {
                     switch (this.tab) {
-                        case 'Europe': {
-                            await this.$store.dispatch(aTypes.getBasketballAll,1)
-                            break
-                        }
-                        case 'America': {
-                            await this.$store.dispatch(aTypes.getBasketballAll,2)
-                            break
-                        }
-                        case 'Asian': {
-                            await this.$store.dispatch(aTypes.getBasketballAll,3)
-                            break
-                        }
-                        case 'Cup': {
-                            await this.$store.dispatch(aTypes.getBasketballAll,5)
-                            break
-                        }
+                    case 'Europe': {
+                        await this.$store.dispatch(aTypes.getBasketballAll, 1)
+                        break
+                    }
+                    case 'America': {
+                        await this.$store.dispatch(aTypes.getBasketballAll, 2)
+                        break
+                    }
+                    case 'Asian': {
+                        await this.$store.dispatch(aTypes.getBasketballAll, 3)
+                        break
+                    }
+                    case 'Cup': {
+                        await this.$store.dispatch(aTypes.getBasketballAll, 5)
+                        break
+                    }
                     }
                 }
             },
 
-            mounted(){
-                this.fetchData();
+            mounted () {
+                this.fetchData()
             }
         }
     }
