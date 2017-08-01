@@ -2,13 +2,7 @@
     <div>
         <div class="tContent" style="display:block" v-for="hoa in ['away', 'home']">
             <div class="gl-box fx-zr-box">
-                <div class="zj-nav">
-                    {{baseInfo[hoa + 'sxname']}}球员
-                    <ul class="time-item">
-                        <li class="time-item-cur" v-tap="{methods: openWordBox, str: baseInfo[hoa + 'sxname'] + '球员'}">名词解释</li>
-                    </ul>
-                </div>
-                <member-box ref="memBox" :members='membersAdvanced[hoa]' :membersType='BasketballMemberAdvType' liW="25.73rem"></member-box>
+                <member-box ref="memBox" :baseInfo="baseInfo" :members='membersAdvanced[hoa]' :membersType='BasketballMemberAdvType' liW="25.73rem" :hoa="hoa" :isJj='isJj'></member-box>
             </div>
         </div>
     </div>
@@ -117,7 +111,8 @@ export default {
                     tit: '防守贡献DWS',
                     desc: '该数值是用来衡量球员防守能力对球队防守端的贡献'
                 }
-            }
+            },
+            isJj: true
         }
     },
     computed: {
