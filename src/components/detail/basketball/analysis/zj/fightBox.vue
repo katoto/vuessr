@@ -63,6 +63,20 @@
 
 <script>
 export default {
+	props: {
+		matchesObj: {
+			type: Object,
+			required: true
+		},
+		isJz: {
+			type: Boolean,
+			default: false
+		},
+		hoa: {
+			type: String,
+			default: 'homesxname'
+		}
+	},
     data () {
         return {
             key: 1,
@@ -143,20 +157,6 @@ export default {
             case '负': key = 2; break
             }
             return name === this.baseInfo[this.hoa] ? this.teamClassMap[key] : ''
-        }
-    },
-    props: {
-        matchesObj: {
-            type: Object,
-            required: true
-        },
-        isJz: {
-            type: Boolean,
-            default: false
-        },
-        hoa: {
-            type: String,
-            default: 'homesxname'
         }
     },
     filters: {

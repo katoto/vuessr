@@ -5,47 +5,35 @@
         <section class="pre-header">
             <ul>
                 <li>比赛</li>
-                <li>百家欧赔</li>
-                <li>欧赔概率</li>
-                <li>必发交易</li>
-                <li>冷热</li>
+                <li v-for="(name, type) in dataType">{{name}}</li>
             </ul>
         </section>
 
 
-        <div class="hotc-box l-flex-1 l-relative" v-if="coldHot">
-            <div v-if="coldHot.matches.length" class="l-full l-scroll-y">
+        <div class="hotc-box l-flex-1 l-relative" v-if="hotcool">
+            <div v-if="hotcool.matches.length" class="l-full l-scroll-y">
                 <!--冷热列表-->
-                <section class="hotc-cont" v-for="match in coldHot.matches" v-if="match.status !== '4'"
+                <section class="hotc-cont" v-for="(match, idx) in hotcool.matches" v-if="match.status !== '4'"
                          v-tap="{methods: goAnalysis, fid: match.fid}">
-                    <div class="hotc-tab-tit ">{{match | makeTitle}}<em :class="colorClass(match.tag.desc)">{{match.tag.desc}}</em>
+                    <div class="hotc-tab-tit ">{{match | makeTitle}}<em :class="descClass[idx]">{{match.tag.desc}}</em>
                     </div>
                     <ul class="hotc-tab-list">
                         <li class="hotc-tab-item">
                             <ul>
                                 <li>{{match.homesxname}}<em v-if="match.result==='3'">赢</em></li>
-                                <li>{{match.cell.win.avrodds===''?'--':match.cell.win.avrodds}}</li>
-                                <li>{{match.cell.win.europe===''?'--':(match.cell.win.europe+'%')}}</li>
-                                <li>{{match.cell.win.betfair===''?'--':(match.cell.win.betfair+'%')}}</li>
-                                <li>{{match.cell.win.exp===''?'--': match.cell.win.exp}}</li>
+                                <li v-for="(name, type) in dataType">{{match.cell.win[type] | dataFmt(type)}}</li>
                             </ul>
                         </li>
                         <li class="hotc-tab-item">
                             <ul>
                                 <li>平局<em v-if="match.result==='1'">赢</em></li>
-                                <li>{{match.cell.draw.avrodds===''?'--':match.cell.draw.avrodds}}</li>
-                                <li>{{match.cell.draw.europe===''?'--':(match.cell.draw.europe+'%')}}</li>
-                                <li>{{match.cell.draw.betfair===''?'--':(match.cell.draw.betfair+'%')}}</li>
-                                <li>{{match.cell.draw.exp===''?'--': match.cell.draw.exp}}</li>
+                                <li v-for="(name, type) in dataType">{{match.cell.draw[type] | dataFmt(type)}}</li>
                             </ul>
                         </li>
                         <li class="hotc-tab-item">
                             <ul>
                                 <li>{{match.awaysxname}}<em v-if="match.result==='0'">赢</em></li>
-                                <li>{{match.cell.lost.avrodds===''?'--':match.cell.lost.avrodds}}</li>
-                                <li>{{match.cell.lost.europe===''?'--':(match.cell.lost.europe+'%')}}</li>
-                                <li>{{match.cell.lost.betfair===''?'--':(match.cell.lost.betfair+'%')}}</li>
-                                <li>{{match.cell.lost.exp===''?'--': match.cell.lost.exp}}</li>
+                                <li v-for="(name, type) in dataType">{{match.cell.lost[type] | dataFmt(type)}}</li>
                             </ul>
                         </li>
                     </ul>
@@ -53,36 +41,27 @@
 
                 <!--已完场-->
                 <div class="tag-game-over" v-if="curStatus.history&&curStatus.latest">已完场</div>
-                <section class="hotc-cont" v-for="match in coldHot.matches" v-if="match.status === '4'"
+                <section class="hotc-cont" v-for="(match, idx) in hotcool.matches" v-if="match.status === '4'"
                          v-tap="{methods: goAnalysis, fid: match.fid}">
-                    <div class="hotc-tab-tit ">{{match | makeTitle}}<em :class="colorClass(match.tag.desc)">{{match.tag.desc}}</em>
+                    <div class="hotc-tab-tit ">{{match | makeTitle}}<em :class="descClass[idx]">{{match.tag.desc}}</em>
                     </div>
                     <ul class="hotc-tab-list">
                         <li class="hotc-tab-item">
                             <ul>
                                 <li>{{match.homesxname}}<em v-if="match.result==='3'">赢</em></li>
-                                <li>{{match.cell.win.avrodds===''?'--':match.cell.win.avrodds}}</li>
-                                <li>{{match.cell.win.europe===''?'--':(match.cell.win.europe+'%')}}</li>
-                                <li>{{match.cell.win.betfair===''?'--':(match.cell.win.betfair+'%')}}</li>
-                                <li>{{match.cell.win.exp===''?'--': match.cell.win.exp}}</li>
+                                <li v-for="(name, type) in dataType">{{match.cell.win[type] | dataFmt(type)}}</li>
                             </ul>
                         </li>
                         <li class="hotc-tab-item">
                             <ul>
                                 <li>平局<em v-if="match.result==='1'">赢</em></li>
-                                <li>{{match.cell.draw.avrodds===''?'--':match.cell.draw.avrodds}}</li>
-                                <li>{{match.cell.draw.europe===''?'--':(match.cell.draw.europe+'%')}}</li>
-                                <li>{{match.cell.draw.betfair===''?'--':(match.cell.draw.betfair+'%')}}</li>
-                                <li>{{match.cell.draw.exp===''?'--': match.cell.win.exp}}</li>
+                                <li v-for="(name, type) in dataType">{{match.cell.draw[type] | dataFmt(type)}}</li>
                             </ul>
                         </li>
                         <li class="hotc-tab-item">
                             <ul>
                                 <li>{{match.awaysxname}}<em v-if="match.result==='0'">赢</em></li>
-                                <li>{{match.cell.lost.avrodds===''?'--':match.cell.lost.avrodds}}</li>
-                                <li>{{match.cell.lost.europe===''?'--':(match.cell.lost.europe+'%')}}</li>
-                                <li>{{match.cell.lost.betfair===''?'--':(match.cell.lost.betfair+'%')}}</li>
-                                <li>{{match.cell.lost.exp===''?'--': match.cell.lost.exp}}</li>
+                                <li v-for="(name, type) in dataType">{{match.cell.lost[type] | dataFmt(type)}}</li>
                             </ul>
                         </li>
                     </ul>
@@ -101,7 +80,6 @@
 <script type="text/javascript">
     import {aTypes} from '~store/bfyc.js'
     import Prompt from '~components/prompt.vue'
-
     export default{
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getHotcool)
@@ -109,17 +87,27 @@
         components: {
             Prompt
         },
+        data () {
+            return {
+                dataType: {
+                    avrodds: '百家欧赔',
+                    europe: '欧赔概率',
+                    betfair: '必发交易',
+                    exp: '冷热'
+                }
+            }
+        },
         computed: {
-            coldHot: function () {
-                return this.$store.state.bfyc.coldhot_distribute
+            hotcool () {
+                return this.$store.state.bfyc.hotcool
             },
-            curStatus: function () {
+            curStatus () {
                 let curStatus = {
                     latest: false,
                     history: false
                 }
-                if (this.coldHot && this.coldHot.matches) {
-                    this.coldHot.matches.forEach(match => {
+                if (this.hotcool && this.hotcool.matches) {
+                    this.hotcool.matches.forEach(match => {
                         if (match.status !== '4') {
                             curStatus.latest = true
                         } else {
@@ -128,13 +116,21 @@
                     })
                 }
                 return curStatus
+            },
+            descClass () {
+                return this.hotcool.matches.map((match) => {
+                    return this.makeDescClass(match.tag.desc)
+                })
+            },
+            noEmptyFlag () {
+                return this.noEmpty(this.hotcool.matches)
             }
         },
         methods: {
-            goAnalysis: function ({fid}) {
-                location.href = `/score/detail.html?odds=bifa#/footballdetail/odds/${fid}`
+            goAnalysis ({fid}) {
+                this.$router.push(`/detail/football/${fid}/odds/europe`)
             },
-            colorClass (desc) {
+            makeDescClass (desc) {
                 switch (desc) {
                 case '胜过冷':
                 case '负过冷':
@@ -150,21 +146,30 @@
                 default:
                     return ''
                 }
+            },
+            noEmpty (obj) {
+                if (obj) { return !!Object.keys(obj).length }
+                return false
             }
         },
         mounted () {
             this.$store.dispatch(aTypes.getHotcool)
         },
         filters: {
-            score: (match) => {
+            score (match) {
                 if (match.homescore && match.awayscore) {
                     return `${match.homescore}:${match.awayscore}`
                 } else {
                     return 'VS'
                 }
             },
-            makeTitle: (item) => {
+            makeTitle (item) {
                 return item.order + ' ' + item.simpleleague + ' ' + item.matchtime.slice(5)
+            },
+            dataFmt (input, type) {
+                let tail = ''
+                if (type === 'europe' || type === 'betfair') tail = '%'
+                return input === '' ? '--' : (input + tail)
             }
         }
 
