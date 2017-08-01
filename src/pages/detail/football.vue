@@ -43,7 +43,10 @@
                                 v-if="match.status == StatusCode.CHANGED || match.status == StatusCode.UNSURE || match.status == StatusCode.REMOVED || match.status == StatusCode.CANCELED || match.status == StatusCode.PAUSED"
                                 class="wks">{{match.status_desc}}
                         </div>
-                        <div v-if="match.status == StatusCode.NOT_STARTED" class="wks">VS</div>
+                        <div v-if="(match.status !== StatusCode.FIRST_HALF &&
+                                   match.status !== StatusCode.MID &&
+                                   match.status !== StatusCode.LAST_HALF &&
+                                   match.status !== StatusCode.ENDED)" class="wks">VS</div>
 
 
                         <div class="left-img" v-tap="{methods: goTeam, teamId: match.homeid}">

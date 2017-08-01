@@ -371,7 +371,7 @@
                                     <div class="each-resone l-relative">
                                         <div class="zhzl-vs-left"
                                              :class="{'green-bg':compareInfo.evt_statistic.foul_times.hper>compareInfo.evt_statistic.foul_times.aper,'gray-bg':compareInfo.evt_statistic.foul_times.hper<compareInfo.evt_statistic.foul_times.aper}"
-                                             :style="{width:compareInfo.evt_statistic.foul_times.hpe+'%'}"></div>
+                                             :style="{width:compareInfo.evt_statistic.foul_times.hper+'%'}"></div>
                                     </div>
                                     <div class="each-resone l-relative">
                                         <div class="zhzl-vs-right" :class="{'green-bg':compareInfo.evt_statistic.foul_times.hper<compareInfo.evt_statistic.foul_times.aper,'gray-bg':compareInfo.evt_statistic.foul_times.hper>compareInfo.evt_statistic.foul_times.aper}"
@@ -393,7 +393,7 @@
                                              :style="{width:compareInfo.evt_statistic.red_yellow_times.hper+'%'}"></div>
                                     </div>
                                     <div class="each-resone l-relative">
-                                        <div class="zhzl-vs-right" drunk-class="{'green-bg':compareInfo.evt_statistic.red_yellow_times.hper<compareInfo.evt_statistic.red_yellow_times.aper,'gray-bg':compareInfo.evt_statistic.red_yellow_times.hper>compareInfo.evt_statistic.red_yellow_times.aper}"
+                                        <div class="zhzl-vs-right" :class="{'green-bg':compareInfo.evt_statistic.red_yellow_times.hper<compareInfo.evt_statistic.red_yellow_times.aper,'gray-bg':compareInfo.evt_statistic.red_yellow_times.hper>compareInfo.evt_statistic.red_yellow_times.aper}"
                                              :style="{width:compareInfo.evt_statistic.red_yellow_times.aper+'%'}"></div>
                                     </div>
                                 </div>
