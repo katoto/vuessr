@@ -90,7 +90,7 @@
                 return this.$store.state.refreshing === 0
             },
             europe () {
-                return this.$store.state.lqdetail.odds && this.$store.state.lqdetail.odds.europe
+                return this.$store.state.lqdetail.odds.europe
             }
         },
         methods: {
