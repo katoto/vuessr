@@ -1,5 +1,5 @@
 <template>
-    <div class="popBox slide-bottom-to-top drunk-created" style="animation-fill-mode:both">
+    <div class="popBox slide-bottom-to-top v-created" style="animation-fill-mode:both">
     	<div class="popLayer">
     	</div>
     	<div class="l-full l-flex-column">

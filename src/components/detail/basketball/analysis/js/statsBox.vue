@@ -1,7 +1,7 @@
 <template>
-<div class="popBox plxqBox plxqBoxer slide-bottom-to-top drunk-created" style="animation-fill-mode: both;" v-if="stats">
+<div class="popBox plxqBox plxqBoxer slide-bottom-to-top v-created" style="animation-fill-mode: both;" v-if="stats">
     <div class="popLayer "></div>
-    <div class="l-full l-flex-column  slide-bottom-to-top drunk-created">
+    <div class="l-full l-flex-column  slide-bottom-to-top v-created">
         <div class="popTopbar" v-tap="{methods: closeDialog}"></div>
         <div class="popInner box-yc">
             <div class="full-scroll">
