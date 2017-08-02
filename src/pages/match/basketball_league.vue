@@ -57,10 +57,6 @@
 <script>
     import {mTypes, aTypes} from '~store/center'
     export default{
-        async asyncData ({store}) {
-            console.log(this.tab)
-            await store.dispatch(aTypes.getBasketballAll, this.tab)
-        },
         data () {
             return {
                 tab: 'Europe',

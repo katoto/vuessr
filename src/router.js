@@ -381,22 +381,34 @@ export function createRouter () {
                             {
                                 path: 'europe',
                                 component: BasketballEurope,
-                                name: 'center-basketball-league-europe'
+                                name: 'center-basketball-league-europe',
+                                meta: {
+                                    type: 1
+                                }
                             },
                             {
                                 path: 'asian',
                                 component: BasketballAsian,
-                                name: 'center-basketball-league-asian'
+                                name: 'center-basketball-league-asian',
+                                meta: {
+                                    type: 2
+                                }
                             },
                             {
                                 path: 'america',
                                 component: BasketballAmerica,
-                                name: 'center-basketball-league-america'
+                                name: 'center-basketball-league-america',
+                                meta: {
+                                    type: 3
+                                }
                             },
                             {
                                 path: 'cups',
                                 component: BasketballCups,
-                                name: 'center-basketball-league-cups'
+                                name: 'center-basketball-league-cups',
+                                meta: {
+                                    type: 5
+                                }
                             }
                         ]
                     },
@@ -428,7 +440,10 @@ export function createRouter () {
                             {
                                 path: 'africa',
                                 component: FootballAfrica,
-                                name: 'center-football-league-africa'
+                                name: 'center-football-league-africa',
+                                meta: {
+                                    tab: 'africa'
+                                }
                             },
                             {
                                 path: 'cups',
