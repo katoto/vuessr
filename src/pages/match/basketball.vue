@@ -48,5 +48,4 @@
             this.fetchData()
         }
     }
-
 </script>

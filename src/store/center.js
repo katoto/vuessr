@@ -14,8 +14,8 @@ const initState = {
         leagues: null
     },
     outer: {
-        component: null,   // 组件名
-        params: null       // 所传递的参数
+        component: null, // 组件名
+        params: null // 所传递的参数
     }
 }
 const actionsInfo = mapActions({

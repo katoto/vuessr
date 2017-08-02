@@ -364,7 +364,7 @@ export function createRouter () {
                 ]
             },
             {
-                path: '/center',                            // 赛事中心
+                path: '/center', // 赛事中心
                 component: Center,
                 name: 'center',
                 children: [

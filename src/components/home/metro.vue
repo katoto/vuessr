@@ -60,7 +60,7 @@
             }
         },
         methods: {
-            goBfyc({page}) {
+            goBfyc ({page}) {
                 this.$router.push(`/bfyc/${page}`)
             }
         },
