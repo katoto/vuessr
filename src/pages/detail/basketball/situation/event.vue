@@ -134,7 +134,7 @@
                 let tmp = []
                 let list = []
                 if (this.$store.state.lqdetail.situation && this.$store.state.lqdetail.situation.eventlist) {
-                    tmp = this.$store.state.lqdetail.situation.eventlist.reverse()
+                    tmp = [...this.$store.state.lqdetail.situation.eventlist].reverse()
                     for (let lst of tmp) {
                         list.push(lst.reverse())
                     }
