@@ -1,7 +1,7 @@
 <template>
     <div class="exit-cont" v-if="metro">
         <ul>
-            <li class="exit-pre" onclick="_hmt.push(['_trackEvent','zq','click','predict'])" @click="goBfyc('/score/bfyc/index.html#/predict')">
+            <li class="exit-pre" v-tap="{methods: goBfyc, page: 'predict'}">
                 <p>精选预测</p>
                 <template v-if="metro.awesome_predict.homesxname">
                     <p>{{metro.awesome_predict.homesxname}}</p>
@@ -13,7 +13,7 @@
                 </template>
 
             </li>
-            <li class="exit-hotc" onclick="_hmt.push(['_trackEvent','zq','click','hotcool'])"  @click="goBfyc('/score/bfyc/index.html#/hotcool')">
+            <li class="exit-hotc"  v-tap="{methods: goBfyc, page: 'hotcool'}">
                 <p>冷热分布</p>
                 <template v-if="metro.coldhot_distribute.order">
                     <p>{{metro.coldhot_distribute.order}}</p>
@@ -25,7 +25,7 @@
                 </template>
 
             </li>
-            <li class="exit-stre" onclick="_hmt.push(['_trackEvent','zq','click','strength'])" @click="goBfyc('/score/bfyc/index.html#/strength')">
+            <li class="exit-stre" v-tap="{methods: goBfyc, page: 'strength'}">
                 <p>实力对比</p>
                 <template v-if="metro.strength_compare.homesxname">
                     <p>{{metro.strength_compare.homesxname}}</p>
@@ -37,7 +37,7 @@
                 </template>
 
             </li>
-            <li class="exit-recod" onclick="_hmt.push(['_trackEvent','zq','click','record'])" @click="goBfyc('/score/bfyc/index.html#/record')">
+            <li class="exit-recod" v-tap="{methods: goBfyc, page: 'record'}">
                 <p>战绩特征</p>
                 <template v-if="metro.combat_feature.awaysxname">
                     <p>{{metro.combat_feature.cell.teamsxname}}</p>
@@ -57,6 +57,11 @@
         computed: {
             metro () {
                 return this.$store.state.home.zq.metro
+            }
+        },
+        methods: {
+            goBfyc({page}) {
+                this.$router.push(`/bfyc/${page}`)
             }
         },
         filters: {
