@@ -78,11 +78,7 @@
             </div>
         </div>
         <div v-else>
-            <div class="ui-empty" style="padding: 1.54rem 0;">
-                <img class="w240" src="http://tccache.500.com/mobile/widget/empty/images/12.png">
-                <!--<if: message />--><div class="ui-empty-dfont">很抱歉，没有数据</div>
-                <!--<if: extraText />-->
-            </div>
+           <no-data></no-data>
         </div>
     </div>
 </template>
@@ -90,12 +86,16 @@
 <script>
     import {aTypes, mTypes} from '~store/lqdetail'
 //    import meSports from '~components/detail/basketball/situation/meSports.vue'
+    import noData from '~components/no_data.vue'
     import {BasketballStatusCode as StatusCode} from '~common/constants'
     export default{
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getSituationEvent, {
                 fid: params.fid
             })
+        },
+        components:{
+            noData
         },
         data () {
             return {
@@ -156,8 +156,8 @@
                     }
                 }
             },
-            changeSelect: idx => {
-                this.$set(this.isActive, idx, !this.isActive[idx])
+            changeSelect(idx){
+                this.isActive[idx] = !this.isActive[idx]
                 this.refreshScroll()
             },
             async fetchData () {

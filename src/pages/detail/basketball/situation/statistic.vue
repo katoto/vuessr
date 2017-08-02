@@ -207,11 +207,7 @@
         </div>
 
         <div v-else>
-            <div class="ui-empty" style="padding: 1.54rem 0;">
-                <img class="w240" src="http://tccache.500.com/mobile/widget/empty/images/12.png">
-                <!--<if: message />--><div class="ui-empty-dfont">很抱歉，没有数据</div>
-                <!--<if: extraText />-->
-            </div>
+           <no-data></no-data>
         </div>
     </div>
 </template>
@@ -220,6 +216,7 @@
     import {aTypes, mTypes} from '~store/lqdetail'
 //    import meSports from '~components/detail/basketball/situation/meSports.vue'
     import slide from '~components/detail/basketball/situation/slide.vue'
+    import noData from '~components/no_data.vue'
     export default{
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getSituationStatistic, {
@@ -228,7 +225,7 @@
         },
 
         components: {
-            slide
+            slide,noData
         },
         data () {
             return {
