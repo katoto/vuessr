@@ -57,7 +57,8 @@ const initState = {
         asian: null,
         daxiaoqiu: null,
         score: null,
-        half: null
+        half: null,
+        recommends: null
     },
     comment: {
         eventlist: null,
@@ -178,11 +179,11 @@ const actionsInfo = mapActions({
         let result = await Promise.all([
             ajax.get(`/score/zq/leaguerank?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&stid=${stid}&fid=${fid}`),
             ajax.get(`/score/zq/cuprank?matchgroup=${matchgroup}&matchdate=${matchdate}&stid=${stid}`),
-            ajax.get(`/score/zq/recentRecord?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&leagueid=${rleagueid}&stid=${stid}&limit=${rlimit}&hoa=${rhoa}`),
-            ajax.get(`/score/zq/macauNews?fid=${fid}`),
+            ajax.get(`/score/zq/recent_record?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&leagueid=${rleagueid}&stid=${stid}&limit=${rlimit}&hoa=${rhoa}`),
+            ajax.get(`/score/zq/macau_news?fid=${fid}`),
             ajax.get(`/score/zq/fifarank?homeid=${homeid}&awayid=${awayid}`),
-            ajax.get(`/score/zq/futureMatch?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&fid=${fid}`),
-            ajax.get(`/score/zq/jzData?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&leagueid=${jzleagueid}&limit=${jzlimit}&hoa=${jzhoa}`)
+            ajax.get(`/score/zq/future_match?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&fid=${fid}`),
+            ajax.get(`/score/zq/jz_data?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&leagueid=${jzleagueid}&limit=${jzlimit}&hoa=${jzhoa}`)
         ])
         const [leaguerank, cuprank, recentRecord, macauNews, fifarank, futureMatch, jzdata] = result
         commit(mTypes.setAnalysisZj, {leaguerank, cuprank, recentRecord, macauNews, fifarank, futureMatch, jzdata})
@@ -190,12 +191,12 @@ const actionsInfo = mapActions({
     },
 
     async getAnalysisZjHis ({commit}, {homeid, awayid, matchdate, jzleagueid, jzlimit, jzhoa}) {
-        let jzdata = await ajax.get(`/score/zq/jzData?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&leagueid=${jzleagueid}&limit=${jzlimit}&hoa=${jzhoa}`)
+        let jzdata = await ajax.get(`/score/zq/jz_data?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&leagueid=${jzleagueid}&limit=${jzlimit}&hoa=${jzhoa}`)
         commit(mTypes.setAnalysisZjHis, jzdata)
         return jzdata
     },
     async getAnalysisZjR ({commit}, {homeid, awayid, matchdate, stid, rleagueid, rlimit, rhoa}) {
-        let recentRecord = await ajax.get(`/score/zq/recentRecord?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&stid=${stid}&leagueid=${rleagueid}&limit=${rlimit}&hoa=${rhoa}`)
+        let recentRecord = await ajax.get(`/score/zq/recent_record?homeid=${homeid}&awayid=${awayid}&matchdate=${matchdate}&stid=${stid}&leagueid=${rleagueid}&limit=${rlimit}&hoa=${rhoa}`)
         commit(mTypes.setAnalysisZjR, recentRecord)
         return recentRecord
     },
@@ -233,11 +234,12 @@ const actionsInfo = mapActions({
             ajax.get(`/score/zq/predict_asian?fid=${fid}`),
             ajax.get(`/score/zq/predict_daxiaoqiu?fid=${fid}`),
             ajax.get(`/score/zq/predict_score?fid=${fid}`),
-            ajax.get(`/score/zq/predict_half?fid=${fid}`)
+            ajax.get(`/score/zq/predict_half?fid=${fid}`),
+            ajax.get(`/library/sports/recommends?fid=${fid}`)
         ])
         // const [europe, asian, daxiaoqiu, score, half] = result.map(item => Object.keys(item).length ? item : null)
-        const [europe, asian, daxiaoqiu, score, half] = result
-        commit(mTypes.setPredict, {europe, asian, daxiaoqiu, score, half})
+        const [europe, asian, daxiaoqiu, score, half, recommends] = result
+        commit(mTypes.setPredict, {europe, asian, daxiaoqiu, score, half, recommends})
     },
     async getCommentList ({commit}, {type, fid, pageNo, tab, pageSize = 10}) {
         return ajax.get(`/sns/score/commentlist?vtype=${type}&fid=${fid}&pn=${pageNo}&tab=${tab}&rn=${pageSize}&_t=` + new Date().getTime())
@@ -349,12 +351,13 @@ const mutationsInfo = mapMutations({
         state.comment.total = total
     },
 
-    setPredict (state, {europe, asian, daxiaoqiu, score, half}) {
+    setPredict (state, {europe, asian, daxiaoqiu, score, half, recommends}) {
         state.predict.europe = europe
         state.predict.asian = asian
         state.predict.daxiaoqiu = daxiaoqiu
         state.predict.score = score
         state.predict.half = half
+        state.predict.recommends = recommends
     },
     setOddsEurope (state, europe) {
         state.odds.europe = europe
