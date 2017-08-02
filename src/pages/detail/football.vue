@@ -17,7 +17,10 @@
             <div class="fen-box f30 responsive">
                 <span class="itm-team each-resone">{{match.homesxname}}</span>
 
-                <div class="itm-bf" v-if="match.status == StatusCode.NOT_STARTED">&nbsp;&nbsp;VS&nbsp;&nbsp;</div>
+                <div class="itm-bf" v-if="(match.status !== StatusCode.FIRST_HALF &&
+                                   match.status !== StatusCode.MID &&
+                                   match.status !== StatusCode.LAST_HALF &&
+                                   match.status !== StatusCode.ENDED)">&nbsp;&nbsp;VS&nbsp;&nbsp;</div>
                 <div class="itm-bf" v-else>
 
                     <div class="fen-bf"><span class="score">{{match.homescore}}</span></div>
@@ -369,7 +372,7 @@
                     this.$refs.scroller.switchStop(false)
                 }
             },
-                '$store.state.zqdetail.scTime' () {
+            '$store.state.zqdetail.scTime' () {
                 this.updateScroller()
             }
         },

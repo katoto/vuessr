@@ -46,6 +46,7 @@
                 </div>
             </div>
             <!--<me-sports src="detail-page/comment/me-sports.html" drunk-if="subtab == 'event'" requesting="{{isRequesting}}" on-size="hasNews=!!$event.args[0]" leagueid="{{match.matchid}}" init-size="{{match.status == StatusCode.NOT_STARTED?5:3}}" homeid="{{match.homeid}}" awayid="{{match.awayid}}" status="{{match.status}}" matchtime="{{match.matchdate}}" vtype="2"></me-sports>-->
+            <!--<me-sports :news="situation.news"  :init-size="match.status == StatusCode.NOT_STARTED?5:3"></me-sports>-->
 
             <div class="gl-nav">文字直播</div>
             <div class="zhedie-box" v-if="eventList && eventList.length" v-for="(item,index) in eventList">
@@ -78,24 +79,24 @@
             </div>
         </div>
         <div v-else>
-            <div class="ui-empty" style="padding: 1.54rem 0;">
-                <img class="w240" src="http://tccache.500.com/mobile/widget/empty/images/12.png">
-                <!--<if: message />--><div class="ui-empty-dfont">很抱歉，没有数据</div>
-                <!--<if: extraText />-->
-            </div>
+            <no-data></no-data>
         </div>
     </div>
 </template>
 
 <script>
     import {aTypes, mTypes} from '~store/lqdetail'
-//    import meSports from '~components/detail/basketball/situation/meSports.vue'
+    import meSports from '~components/detail/basketball/situation/meSports.vue'
     import {BasketballStatusCode as StatusCode} from '~common/constants'
+    import noData from '~components/no_data.vue'
     export default{
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getSituationEvent, {
                 fid: params.fid
             })
+        },
+        components: {
+            meSports, noData
         },
         data () {
             return {
@@ -134,7 +135,7 @@
                 let tmp = []
                 let list = []
                 if (this.$store.state.lqdetail.situation && this.$store.state.lqdetail.situation.eventlist) {
-                    tmp = this.$store.state.lqdetail.situation.eventlist.reverse()
+                    tmp = [...this.$store.state.lqdetail.situation.eventlist].reverse()
                     for (let lst of tmp) {
                         list.push(lst.reverse())
                     }
@@ -156,8 +157,8 @@
                     }
                 }
             },
-            changeSelect: idx => {
-                this.$set(this.isActive, idx, !this.isActive[idx])
+            changeSelect (idx) {
+                this.isActive[idx] = !this.isActive[idx]
                 this.refreshScroll()
             },
             async fetchData () {
