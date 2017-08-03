@@ -72,20 +72,23 @@
                     </div>
                 </div>
             </div>
-
             <div class="sk-btips">500彩票网提示：
                 <br>以上数据仅供参考，请以官方公布的数据为准
             </div>
         </div>
-        <div v-else>
-            <no-data></no-data>
+        <me-sports v-if="news" :news="news.news" :init-size="3" @rs="refreshScroll"></me-sports>
+        <div v-if="!news && ! eventList">
+           <no-data></no-data>
+
         </div>
     </div>
 </template>
 
 <script>
     import {aTypes, mTypes} from '~store/lqdetail'
-    import meSports from '~components/detail/basketball/situation/meSports.vue'
+    import meSports from '~components/detail/meSports.vue'
+    import noData from '~components/no_data.vue'
+
     import {BasketballStatusCode as StatusCode} from '~common/constants'
     import noData from '~components/no_data.vue'
     export default{
@@ -96,13 +99,10 @@
                 fid: params.fid, homeid, awayid, status, matchtime, leagueid: matchid
             })
         },
-//        async asyncData ({store, route: {params}}) {
-//            await store.dispatch(aTypes.getSituationEvent, {
-//                fid: params.fid
-//            })
-//        },
-        components: {
-            meSports, noData
+
+        components:{
+            noData,meSports
+
         },
         data () {
             return {
@@ -148,8 +148,8 @@
                     return list
                 }
             },
-            news (){
-                return this.$store.state.lqdetail.situation.newslist
+            news () {
+                return this.$store.state.lqdetail.situation.news
             }
         },
         methods: {
@@ -166,7 +166,8 @@
                     }
                 }
             },
-            changeSelect (idx) {
+
+            changeSelect(idx){
                 this.isActive[idx] = !this.isActive[idx]
                 this.refreshScroll()
             },

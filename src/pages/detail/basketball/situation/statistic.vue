@@ -208,6 +208,7 @@
 
         <div v-else>
             <no-data></no-data>
+
         </div>
     </div>
 </template>
@@ -217,6 +218,7 @@
 //    import meSports from '~components/detail/basketball/situation/meSports.vue'
     import noData from '~components/no_data.vue'
     import slide from '~components/detail/basketball/situation/slide.vue'
+    import noData from '~components/no_data.vue'
     export default{
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getSituationStatistic, {
