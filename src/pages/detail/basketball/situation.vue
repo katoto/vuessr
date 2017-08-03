@@ -48,22 +48,22 @@
                 homeid, awayid, status, matchtime, leagueid: matchid
             })
         },
-        components:{
+        components: {
             meSports, noData
         },
-        data(){
+        data () {
             return {
                 StatusCode
             }
         },
-        computed:{
+        computed: {
             socketData () { // websocket推送过来的数据
                 return this.$store.getters.getSocketData
             },
             refreshTime () { // 用户点击刷新按钮时间戳
                 return this.$store.state.refreshTime
             },
-            match(){
+            match () {
                 return this.$store.state.lqdetail.baseInfo
             },
             loaded () {
@@ -73,12 +73,12 @@
                 return this.$store.state.lqdetail.situation.news
             }
         },
-        methods:{
+        methods: {
             async fetchData () {
                 this.$store.commit('startOneRefresh')
                 const {status, matchtime, homeid, awayid, matchid} = this.$store.state.lqdetail.baseInfo
                 await this.$store.dispatch(aTypes.getSituationNews, {
-                     homeid, awayid, status, matchtime, leagueid: matchid
+                    homeid, awayid, status, matchtime, leagueid: matchid
                 })
                 this.$store.commit('endOneRefresh')
             },
