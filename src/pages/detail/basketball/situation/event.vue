@@ -45,8 +45,8 @@
                     <div class="sli-line"></div>
                 </div>
             </div>
-            <!--<me-sports src="detail-page/comment/me-sports.html" drunk-if="subtab == 'event'" requesting="{{isRequesting}}" on-size="hasNews=!!$event.args[0]" leagueid="{{match.matchid}}" init-size="{{match.status == StatusCode.NOT_STARTED?5:3}}" homeid="{{match.homeid}}" awayid="{{match.awayid}}" status="{{match.status}}" matchtime="{{match.matchdate}}" vtype="2"></me-sports>-->
-            <!--<me-sports :news="situation.news"  :init-size="match.status == StatusCode.NOT_STARTED?5:3"></me-sports>-->
+            <!--<me-sports src="detail-page/comment/me-sports.html" match.status == StatusCode.NOT_STARTED || eventlist == null" requesting="{{isRequesting}}" leagueid="{{match.matchid}}" on-size="hasNews=!!$event.args[0]" init-size="{{match.status == StatusCode.NOT_STARTED?5:3}}" homeid="{{match.homeid}}" awayid="{{match.awayid}}" status="{{match.status}}" matchtime="{{match.matchdate}}" vtype="2"></me-sports>-->
+            <me-sports v-if="news && news.length && (match.status == StatusCode.NOT_STARTED || eventList == null)" :news="news"></me-sports>
 
             <div class="gl-nav">文字直播</div>
             <div class="zhedie-box" v-if="eventList && eventList.length" v-for="(item,index) in eventList">
@@ -56,7 +56,6 @@
                     <span class="sh-arrow" :class="{'rotate180': !isActive[index]}"></span>
                 </div>
 
-                <!--<div class="tree-box" v-if="isActive[index]">-->
                 <div class="tree-box" v-if="isActive[index]"
                      :class="{'green-s': match.status >=7 && match.status <=10, 'gray-s': match.status == StatusCode.ENDED}">
                     <div class="list" v-for="evt in item">
@@ -91,10 +90,17 @@
     import noData from '~components/no_data.vue'
     export default{
         async asyncData ({store, route: {params}}) {
+            const {status, matchtime, homeid, awayid, matchid} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
+            console.log(status);
             await store.dispatch(aTypes.getSituationEvent, {
-                fid: params.fid
+                fid: params.fid, homeid, awayid, status, matchtime, leagueid: matchid
             })
         },
+//        async asyncData ({store, route: {params}}) {
+//            await store.dispatch(aTypes.getSituationEvent, {
+//                fid: params.fid
+//            })
+//        },
         components: {
             meSports, noData
         },
@@ -141,6 +147,9 @@
                     }
                     return list
                 }
+            },
+            news (){
+                return this.$store.state.lqdetail.situation.newslist
             }
         },
         methods: {
@@ -163,7 +172,10 @@
             },
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                await this.$store.dispatch(aTypes.getSituationEvent, {fid: this.$route.params.fid})
+                const {status, matchtime, homeid, awayid, matchid} = this.$store.state.lqdetail.baseInfo
+                await this.$store.dispatch(aTypes.getSituationEvent, {
+                    fid: this.$route.params.fid, homeid, awayid, status, matchtime, leagueid: matchid
+                })
                 this.$store.commit('endOneRefresh')
             },
             refreshScroll () {
