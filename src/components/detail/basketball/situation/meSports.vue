@@ -26,9 +26,6 @@
             news: {
                 type: Array,
                 required: true
-            },
-            initSize: {
-                type: Number
             }
         },
         data () {
