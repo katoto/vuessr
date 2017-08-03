@@ -87,9 +87,8 @@
     import {aTypes, mTypes} from '~store/lqdetail'
     import meSports from '~components/detail/meSports.vue'
     import noData from '~components/no_data.vue'
-
     import {BasketballStatusCode as StatusCode} from '~common/constants'
-    import noData from '~components/no_data.vue'
+
     export default{
         async asyncData ({store, route: {params}}) {
             const {status, matchtime, homeid, awayid, matchid} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
