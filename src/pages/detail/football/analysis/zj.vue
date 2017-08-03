@@ -1,7 +1,6 @@
 <template>
     <div>
-        <div class="zhedie-box"
-             v-if="leagueRank && leagueRank.hometeam && leagueRank.hometeam.home && leagueRank.hometeam.home.matches_count">
+        <div class="zhedie-box" v-if="leagueRank && leagueRank.hometeam && leagueRank.hometeam.home">
             <div class="zj-nav">
                 {{ leagueRank.issame == '1'?leagueRank.title:''}} 联赛积分排名
                 <ul class="volumeTab" id="tabBefore">
@@ -193,8 +192,7 @@
 
         <div class="zhedie-box" v-if="fightingInfo">
             <div class="zj-nav">
-            <span class="saixuan"  v-tap="{methods: beginFilter, type: 'his'}"
-                  onclick="_hmt.push(['_trackEvent','zq_detail','click','analysis_zj_ls'])"
+            <span class="saixuan"  v-tap="{methods: beginFilter, type: 'his'}" data-p2="zq_detail" data-p4="analysis_zj_ls"
                   drunk-on="click: filterVisible = true, currFilterOptions = fightingFilterOptions, $event.stopPropagation()">筛选</span>
                 历史交战
             </div>

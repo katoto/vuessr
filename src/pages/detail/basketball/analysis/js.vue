@@ -2,7 +2,7 @@
     <div class="">
         <strength :baseInfo='baseInfo' :strength='strength' :stats='stats' v-if="strength"></strength>
         <trend :baseInfo='baseInfo' :trends='trend' v-if="trend"></trend>
-        <div class="item-loader" v-if="$store.state.refreshing">
+        <div class="item-loader" v-if="!(strength && trend)">
             <div class="la-ball-pulse la-2x">
                 <span></span>
                 <span></span>

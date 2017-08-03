@@ -67,7 +67,6 @@ const BasketballAnalysisJj = () => import('~pages/detail/basketball/analysis/jj.
 //
 // const BasketballPredict = () => import('~pages/detail/basketball/predict.vue' /* webpackChunkName: "pages/detail-basketball-predict" */)
 //
-// const BasketballOddsRangfen = () => import('~pages/detail/basketball/odds/rangfen.vue' /* webpackChunkName: "pages/detail-basketball-odds-rangqiu" */)
 
 // const BasketballCrazybet = () => import('~pages/detail/basketball/crazybet.vue' /* webpackChunkName: "pages/detail-basketball-odds-bifa" */)
 const BasketballComment = () => import('~pages/detail/basketball/comment.vue' /* webpackChunkName: "pages/detail-basketball-comment" */)
@@ -76,6 +75,23 @@ const TeamFootball = () => import('~pages/team/football.vue')
 const TeamFootballGl = () => import('~pages/team/football/gl.vue')
 const TeamFootballSc = () => import('~pages/team/football/sc.vue')
 const TeamFootballZr = () => import('~pages/team/football/zr.vue')
+
+const Center = () => import('~pages/match.vue')
+const BasketballCenter = () => import('~pages/match/basketball.vue')
+const FootballCenter = () => import('~pages/match/football.vue')
+
+const BasketballLeague = () => import('~pages/match/basketball_league.vue')
+const BasketballEurope = () => import('~pages/match/basketball/europe.vue')
+const BasketballAsian = () => import('~pages/match/basketball/asian.vue')
+const BasketballAmerica = () => import('~pages/match/basketball/america.vue')
+const BasketballCups = () => import('~pages/match/basketball/cups.vue')
+
+const FootballLeague = () => import('~pages/match/football_league.vue')
+const FootballEurope = () => import('~pages/match/football/europe.vue')
+const FootballAsian = () => import('~pages/match/football/asian.vue')
+const FootballAmerica = () => import('~pages/match/football/america.vue')
+const FootballAfrica = () => import('~pages/match/football/africa.vue')
+const FootballCups = () => import('~pages/match/football/cups.vue')
 
 export function createRouter () {
     return new VueRouter({
@@ -344,6 +360,97 @@ export function createRouter () {
                     {
                         path: '*',
                         redirect: 'sc'
+                    }
+                ]
+            },
+            {
+                path: '/center', // 赛事中心
+                component: Center,
+                name: 'center',
+                children: [
+                    {
+                        path: 'basketball',
+                        component: BasketballCenter,
+                        name: 'center-basketball'
+                    },
+                    {
+                        path: 'basketleague',
+                        component: BasketballLeague,
+                        name: 'center-basketball-league',
+                        children: [
+                            {
+                                path: 'europe',
+                                component: BasketballEurope,
+                                name: 'center-basketball-league-europe',
+                                meta: {
+                                    type: 1
+                                }
+                            },
+                            {
+                                path: 'asian',
+                                component: BasketballAsian,
+                                name: 'center-basketball-league-asian',
+                                meta: {
+                                    type: 2
+                                }
+                            },
+                            {
+                                path: 'america',
+                                component: BasketballAmerica,
+                                name: 'center-basketball-league-america',
+                                meta: {
+                                    type: 3
+                                }
+                            },
+                            {
+                                path: 'cups',
+                                component: BasketballCups,
+                                name: 'center-basketball-league-cups',
+                                meta: {
+                                    type: 5
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        path: 'football',
+                        component: FootballCenter,
+                        name: 'center-football'
+                    },
+                    {
+                        path: 'footleague',
+                        component: FootballLeague,
+                        name: 'center-football-league',
+                        children: [
+                            {
+                                path: 'europe',
+                                component: FootballEurope,
+                                name: 'center-football-league-europe'
+                            },
+                            {
+                                path: 'asian',
+                                component: FootballAsian,
+                                name: 'center-football-league-asian'
+                            },
+                            {
+                                path: 'america',
+                                component: FootballAmerica,
+                                name: 'center-football-league-america'
+                            },
+                            {
+                                path: 'africa',
+                                component: FootballAfrica,
+                                name: 'center-football-league-africa',
+                                meta: {
+                                    tab: 'africa'
+                                }
+                            },
+                            {
+                                path: 'cups',
+                                component: FootballCups,
+                                name: 'center-football-league-cups'
+                            }
+                        ]
                     }
                 ]
             },

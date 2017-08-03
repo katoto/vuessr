@@ -8,8 +8,11 @@ import Vuex from 'vuex'
 import home from './home'
 import zqdetail from './zqdetail'
 import lqdetail from './lqdetail'
+import bfyc from './bfyc'
 import teamZq from './team/zq'
 import teamLq from './team/lq'
+import center from './center'
+
 Vue.use(Vuex)
 
 const state = {
@@ -192,7 +195,7 @@ export function createStore () {
         mutations,
         getters,
         modules: {
-            home, zqdetail, lqdetail, teamZq, teamLq
+            home, zqdetail, lqdetail, teamZq, teamLq, bfyc, center
         }
     })
 }

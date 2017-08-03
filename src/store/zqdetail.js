@@ -57,7 +57,8 @@ const initState = {
         asian: null,
         daxiaoqiu: null,
         score: null,
-        half: null
+        half: null,
+        recommends: null
     },
     comment: {
         eventlist: null,
@@ -233,11 +234,12 @@ const actionsInfo = mapActions({
             ajax.get(`/score/zq/predict_asian?fid=${fid}`),
             ajax.get(`/score/zq/predict_daxiaoqiu?fid=${fid}`),
             ajax.get(`/score/zq/predict_score?fid=${fid}`),
-            ajax.get(`/score/zq/predict_half?fid=${fid}`)
+            ajax.get(`/score/zq/predict_half?fid=${fid}`),
+            ajax.get(`/library/sports/recommends?fid=${fid}`)
         ])
         // const [europe, asian, daxiaoqiu, score, half] = result.map(item => Object.keys(item).length ? item : null)
-        const [europe, asian, daxiaoqiu, score, half] = result
-        commit(mTypes.setPredict, {europe, asian, daxiaoqiu, score, half})
+        const [europe, asian, daxiaoqiu, score, half, recommends] = result
+        commit(mTypes.setPredict, {europe, asian, daxiaoqiu, score, half, recommends})
     },
     async getCommentList ({commit}, {type, fid, pageNo, tab, pageSize = 10}) {
         return ajax.get(`/sns/score/commentlist?vtype=${type}&fid=${fid}&pn=${pageNo}&tab=${tab}&rn=${pageSize}&_t=` + new Date().getTime())
@@ -349,12 +351,13 @@ const mutationsInfo = mapMutations({
         state.comment.total = total
     },
 
-    setPredict (state, {europe, asian, daxiaoqiu, score, half}) {
+    setPredict (state, {europe, asian, daxiaoqiu, score, half, recommends}) {
         state.predict.europe = europe
         state.predict.asian = asian
         state.predict.daxiaoqiu = daxiaoqiu
         state.predict.score = score
         state.predict.half = half
+        state.predict.recommends = recommends
     },
     setOddsEurope (state, europe) {
         state.odds.europe = europe

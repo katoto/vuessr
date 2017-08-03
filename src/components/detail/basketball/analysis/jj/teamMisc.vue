@@ -1,8 +1,8 @@
 <template>
     <div class="tContent" style="display: block;">
-        <ratio :team_misc='team_misc' v-if="team_misc"></ratio>
-        <offend :offend="team_misc.offend"></offend>
-        <defense :defense="team_misc.defense"></defense>
+        <ratio :teamMisc='teamMisc' v-if="teamMisc"></ratio>
+        <offend :offend="teamMisc.offend"></offend>
+        <defense :defense="teamMisc.defense"></defense>
     </div>
 </template>
 
@@ -12,7 +12,7 @@ import offend from '~components/detail/basketball/analysis/jj/teamMisc/offend.vu
 import defense from '~components/detail/basketball/analysis/jj/teamMisc/defense.vue'
 export default {
     props: {
-        team_misc: {
+        teamMisc: {
             type: Object,
             required: true
         }

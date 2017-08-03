@@ -1,5 +1,5 @@
 <template>
-    <div class="l-full l-flex-column" v-if="match">
+    <div class="l-full l-flex-column" v-if="match" style="overflow: hidden">
         <div class="detailTop" :class="{'topBarMove': showScore, 'topBarMove2': !showScore}" style="display: block;">
             <a class="back-icon" onclick="history.back()" href="javascript:;">返回</a>
             <router-link to="/home/zq/jczq/cur" class="link-index f26">比分首页</router-link>
@@ -17,7 +17,10 @@
             <div class="fen-box f30 responsive">
                 <span class="itm-team each-resone">{{match.homesxname}}</span>
 
-                <div class="itm-bf" v-if="match.status == StatusCode.NOT_STARTED">&nbsp;&nbsp;VS&nbsp;&nbsp;</div>
+                <div class="itm-bf" v-if="(match.status !== StatusCode.FIRST_HALF &&
+                                   match.status !== StatusCode.MID &&
+                                   match.status !== StatusCode.LAST_HALF &&
+                                   match.status !== StatusCode.ENDED)">&nbsp;&nbsp;VS&nbsp;&nbsp;</div>
                 <div class="itm-bf" v-else>
 
                     <div class="fen-bf"><span class="score">{{match.homescore}}</span></div>
@@ -43,7 +46,10 @@
                                 v-if="match.status == StatusCode.CHANGED || match.status == StatusCode.UNSURE || match.status == StatusCode.REMOVED || match.status == StatusCode.CANCELED || match.status == StatusCode.PAUSED"
                                 class="wks">{{match.status_desc}}
                         </div>
-                        <div v-if="match.status == StatusCode.NOT_STARTED" class="wks">VS</div>
+                        <div v-if="(match.status !== StatusCode.FIRST_HALF &&
+                                   match.status !== StatusCode.MID &&
+                                   match.status !== StatusCode.LAST_HALF &&
+                                   match.status !== StatusCode.ENDED)" class="wks">VS</div>
 
 
                         <div class="left-img" v-tap="{methods: goTeam, teamId: match.homeid}">
