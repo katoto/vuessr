@@ -63,20 +63,20 @@
 
 <script>
 export default {
-	props: {
-		matchesObj: {
-			type: Object,
-			required: true
-		},
-		isJz: {
-			type: Boolean,
-			default: false
-		},
-		hoa: {
-			type: String,
-			default: 'homesxname'
-		}
-	},
+    props: {
+        matchesObj: {
+            type: Object,
+            required: true
+        },
+        isJz: {
+            type: Boolean,
+            default: false
+        },
+        hoa: {
+            type: String,
+            default: 'homesxname'
+        }
+    },
     data () {
         return {
             key: 1,
