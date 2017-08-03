@@ -94,14 +94,14 @@
     export default{
         async asyncData ({store, route: {params}}) {
             const {status, matchtime, homeid, awayid, matchid} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
-            console.log(status);
+            console.log(status)
             await store.dispatch(aTypes.getSituationEvent, {
                 fid: params.fid, homeid, awayid, status, matchtime, leagueid: matchid
             })
         },
 
-        components:{
-            noData,meSports
+        components: {
+            noData, meSports
 
         },
         data () {
@@ -167,7 +167,7 @@
                 }
             },
 
-            changeSelect(idx){
+            changeSelect (idx) {
                 this.isActive[idx] = !this.isActive[idx]
                 this.refreshScroll()
             },
