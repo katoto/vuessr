@@ -28,7 +28,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
     .sk-detail-tap-box a:-webkit-any-link {
         color: inherit;
     }

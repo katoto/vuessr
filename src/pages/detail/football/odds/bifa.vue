@@ -208,7 +208,7 @@
         }
     }
 </script>
-<style>
+<style scoped>
     .zhedie-box {
         background: #fff
     }

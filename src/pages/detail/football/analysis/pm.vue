@@ -373,10 +373,7 @@
         }
     }
 </script>
-<style>
-    .zhedie-box {
-        background: #fff
-    }
+<style scoped>
     /*小标题 start*/
     .gl-nav,
     .sk-nav,
@@ -424,50 +421,6 @@
         background: #242c35;
         border-radius: .026667rem .026667rem
     }
-    /*over*/
-    .zhzl-box {
-        height: .973333rem;
-        position: relative;
-        margin: .4rem .4rem 0
-    }
-
-    .zhzl-title {
-        color: #999;
-        padding-top: .186667rem;
-        text-align: center;
-        width: 100%;
-        line-height: .626667rem
-    }
-
-    [data-dpr="1"] .zhzl-title {
-        font-size: 13px
-    }
-
-    [data-dpr="2"] .zhzl-title {
-        font-size: 26px
-    }
-
-    [data-dpr="3"] .zhzl-title {
-        font-size: 39px
-    }
-
-    .zhzl-l,
-    .zhzl-r {
-        position: absolute;
-        bottom: 0;
-        transition: all .5s ease-in-out 0s;
-        -webkit-transition: all .5s ease-in-out 0s;
-        height: .16rem;
-        width: 0
-    }
-
-    .zhzl-l {
-        left: 0
-    }
-
-    .zhzl-r {
-        right: 0
-    }
 
     .zhzl-vs div:first-child.zhzl-green .hh {
         border-top: .16rem solid #5c788f;
@@ -490,164 +443,7 @@
         height: 0
     }
 
-    .zhzl-gray .hh {
-        border: 0
-    }
 
-    .zhzl-bfb-left,
-    .zhzl-bfb-right {
-        position: absolute;
-        top: .066667rem;
-        color: #333
-    }
-
-    [data-dpr="1"] .zhzl-bfb-left,
-    [data-dpr="1"] .zhzl-bfb-right {
-        font-size: 23px
-    }
-
-    [data-dpr="2"] .zhzl-bfb-left,
-    [data-dpr="2"] .zhzl-bfb-right {
-        font-size: 46px
-    }
-
-    [data-dpr="3"] .zhzl-bfb-left,
-    [data-dpr="3"] .zhzl-bfb-right {
-        font-size: 69px
-    }
-
-    .zhzl-bfb-right {
-        right: 0
-    }
-
-    [data-dpr="1"] .zhzl-box i {
-        font-size: 12px
-    }
-
-    [data-dpr="2"] .zhzl-box i {
-        font-size: 24px
-    }
-
-    [data-dpr="3"] .zhzl-box i {
-        font-size: 36px
-    }
-    .wua {
-        position: relative;
-        width: 100%;
-        height: .16rem
-    }
-    .show{
-        display: block;}
-    .zhzl-list {
-        margin: .533333rem .4rem 0
-    }
-
-    .zhzl-list li {
-        height: 1.08rem
-    }
-
-    .responsive {
-        width: 100%;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex
-    }
-    .each-resone {
-        -webkit-box-flex: 1;
-        -ms-flex: 1;
-        flex: 1;
-        display: block;
-        width: 100%
-    }
-    .zhzl-classify {
-        color: #aab5bd;
-        line-height: .466667rem;
-        text-align: center
-    }
-
-    [data-dpr="1"] .zhzl-classify {
-        font-size: 11px
-    }
-
-    [data-dpr="2"] .zhzl-classify {
-        font-size: 22px
-    }
-
-    [data-dpr="3"] .zhzl-classify {
-        font-size: 33px
-    }
-    .green-bg,
-    .zhzl-green {
-        background: #5c788f
-    }
-    .gray-bg,
-    .zhzl-gray {
-        background: #bcd0de
-    }
-    .zhzl-left,
-    .zhzl-right {
-        color: #333;
-        width: 2.106667rem;
-        line-height: 1.066667rem
-    }
-
-    [data-dpr="1"] .zhzl-left,
-    [data-dpr="1"] .zhzl-right {
-        font-size: 11px
-    }
-
-    [data-dpr="2"] .zhzl-left,
-    [data-dpr="2"] .zhzl-right {
-        font-size: 22px
-    }
-
-    [data-dpr="3"] .zhzl-left,
-    [data-dpr="3"] .zhzl-right {
-        font-size: 33px
-    }
-    .zhzl-tips {
-        color: rgba(170, 181, 189, .5);
-        text-align: center
-    }
-
-    [data-dpr="1"] .zhzl-tips {
-        font-size: 10px
-    }
-
-    [data-dpr="2"] .zhzl-tips {
-        font-size: 20px
-    }
-
-    [data-dpr="3"] .zhzl-tips {
-        font-size: 30px
-    }
-
-    .box-arrow {
-        height: 1.066667rem;
-        position: relative
-    }
-
-    .box-arrow:active {
-        background: #f4f4f4
-    }
-    .zd-arrow {
-        background: url(~assets/style/images/detail/detail-icon.png) no-repeat;
-        background-size: .533333rem 13.333333rem
-    }
-    .zd-arrow {
-        width: .533333rem;
-        height: .177rem;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin: -.2rem 0 0 -.266667rem;
-        background-position: center -10.84rem
-    }
-    .rotate180{
-        transition: all .2s linear;
-        -webkit-transform: rotate(180deg);
-        transform: rotate(180deg)
-    }
     .gl-box,
     .zr-box {
         background: #fff
@@ -722,33 +518,7 @@
         flex: 1;
         padding-left: .213333rem
     }
-    .jishu-sjtj .zhzl-left,
-    .jishu-sjtj .zhzl-right,
-    .tongji-box .zhzl-left,
-    .tongji-box .zhzl-right {
-        width: 1.066667rem
-    }
 
-    [data-dpr="1"] .jishu-sjtj .zhzl-left,
-    [data-dpr="1"] .jishu-sjtj .zhzl-right,
-    [data-dpr="1"] .tongji-box .zhzl-left,
-    [data-dpr="1"] .tongji-box .zhzl-right {
-        font-size: 13px
-    }
-
-    [data-dpr="2"] .jishu-sjtj .zhzl-left,
-    [data-dpr="2"] .jishu-sjtj .zhzl-right,
-    [data-dpr="2"] .tongji-box .zhzl-left,
-    [data-dpr="2"] .tongji-box .zhzl-right {
-        font-size: 26px
-    }
-
-    [data-dpr="3"] .jishu-sjtj .zhzl-left,
-    [data-dpr="3"] .jishu-sjtj .zhzl-right,
-    [data-dpr="3"] .tongji-box .zhzl-left,
-    [data-dpr="3"] .tongji-box .zhzl-right {
-        font-size: 39px
-    }
     /*底部文字 start*/
 
     .sk-btips {
@@ -928,7 +698,7 @@
     .dataTit {
         position: relative;
         margin: .533333rem auto 0;
-        padding: 0 q14px;
+        padding: 0 14px;
         display: inline-block;
         color: #aab5bd
     }
@@ -1012,8 +782,10 @@
         color: #36a171
     }
 
-    .dataItem .blue {
-        color: #437ba8
-    }
 
+    .dataItem .item-info{display:block;color:#aab5bd}
+    .bili-tips{line-height:.96rem;color:rgba(170,181,189,.5);text-align:center}
+    [data-dpr="1"] .bili-tips{font-size:10px}
+    [data-dpr="2"] .bili-tips{font-size:20px}
+    [data-dpr="3"] .bili-tips{font-size:30px}
 </style>

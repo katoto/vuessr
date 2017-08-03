@@ -596,7 +596,7 @@
         }
     }
 </script>
-<style>
+<style scoped>
     .zhedie-box {
         background: #fff
     }
@@ -803,6 +803,11 @@
     .zhzl-green {
         background: #5c788f
     }
+
+    .zhzl-vs-left,.zhzl-vs-right{height:.106667rem;position:absolute;top:0;}
+    .zhzl-vs-left{right:0;margin-right:.04rem}
+
+
     .gray-bg,
     .zhzl-gray {
         background: #bcd0de

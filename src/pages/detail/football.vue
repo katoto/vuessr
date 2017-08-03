@@ -394,18 +394,6 @@
 </script>
 
 <style>
-    .l-box-center{display:-webkit-box; -webkit-box-align: center; -webkit-box-pack: center;display:flex;justify-content: center;align-items: center;  -webkit-box-orient: vertical;flex-flow: column;}
-    .l-box-vertical-center{display: -webkit-box;-webkit-box-align: center;display: flex;align-items: center;-webkit-box-orient: horizontal; flex-flow: row;}
-    .l-box-vertical-center-justify{display: -webkit-box;-webkit-box-orient: horizontal; flex-flow: row; -webkit-box-align: center;-webkit-box-pack: justify;display: flex;align-items: center;justify-content: space-between;}
-    .l-box-vertical-center-begin{display: -webkit-box;-webkit-box-orient: horizontal; flex-flow: row; -webkit-box-align: center;-webkit-box-pack: start;display: flex;align-items: center;justify-content: flex-start;}
-    .l-box-vertical-center-end{display: -webkit-box;-webkit-box-orient: horizontal; flex-flow: row; -webkit-box-align: center;-webkit-box-pack: end;display: flex;align-items: center;justify-content: flex-end;}
-    .l-box-horizontal-center{display: -webkit-box;-webkit-box-pack: center;display: flex;justify-content: center;-webkit-box-orient: horizontal; flex-flow: row;}
-    .l-flex-column{ display:-webkit-box; -webkit-box-orient: vertical; display:flex; flex-flow: column;height: 100% }
-    .l-flex-row{ display:-webkit-box; -webkit-box-orient: horizontal; display:flex; flex-flow: row; width: 100%}
-    .l-flex-1{ -webkit-box-flex: 1; flex:1;overflow: hidden}
-    .l-scroll-y{overflow: auto;-webkit-overflow-scrolling:touch;}
-    .l-full{ position: absolute; top:0; left:0; right:0; bottom:0 }
-    .l-relative{ position:relative;}
     .f20{font-size:0.266rem}
     .f24{font-size:0.32rem}
     .f26{font-size:0.346rem}
@@ -662,34 +650,11 @@
         height: 0;
         visibility: hidden
     }
-    .fen-bf, .fen-bf-lq, .fen-ld {
-        height: .96rem;
-        line-height: 1rem;
-        color: #fff;
-        display: inline-block;
-    }
-    .fen-bf, .fen-bf-lq {
-        background: rgba(255, 255, 255, .06);
-        font-size: 0.667rem;
-        font-family: Arial;
-        border-radius: .053333rem;
-        position: relative;
-        overflow: hidden
-    }
-    .fen-bf {
-        width: 0.9333rem;
-    }
+
     .fen-bf-lq {
         width: 1.533333rem;
     }
-    .fen-ld {
-        width: .626667rem;
-        font-size: 0.8rem;
-        overflow: hidden;
-        line-height: .82rem;
-        position: relative;
-        vertical-align: top
-    }
+
     .wks, .gaix {
         color: #fff;
         height: 1.5rem;
@@ -714,82 +679,40 @@
         left: 50%;
         transform: translate(-50%, 0)
     }
-    .zq-header .fen-bf .score:last-child {
-        transform: translate(-50%, 100%)
+
+    .fen-bf, .fen-bf-lq, .fen-ld {
+        height: .96rem;
+        line-height: 1rem;
+        color: #fff;
+        display: inline-block;
     }
-    .zq-header .fen-bf-active .score {
+    .fen-bf, .fen-bf-lq {
+        background: rgba(255, 255, 255, .06);
+        font-size: 0.667rem;
+        font-family: Arial;
+        border-radius: .053333rem;
+        position: relative;
+        overflow: hidden
+    }
+    .fen-bf {
+        width: 0.9333rem;
+    }
+    .fen-ld {
+        width: .626667rem;
+        font-size: 0.8rem;
+        overflow: hidden;
+        line-height: .82rem;
+        position: relative;
+        vertical-align: top
+    }
+
+    .fen-bf-active .score {
         animation: changeScore 1s ease-in-out forwards
     }
-    .zq-header .fen-bf-active .score:last-child {
+    .fen-bf-active .score:last-child {
         animation: changeScore2 10s ease-in-out forwards
     }
-    @keyframes changeScore {
-        0% {
-            transform: translate(-50%, 0)
-        }
-        100% {
-            transform: translate(-50%, -100%)
-        }
-    }
-    @keyframes changeScore2 {
-        0% {
-            color: #fff;
-            transform: translate(-50%, 100%)
-        }
-        10% {
-            color: #1ac843;
-            transform: translate(-50%, 0)
-        }
-        90% {
-            color: #1ac843;
-            transform: translate(-50%, 0)
-        }
-        100% {
-            color: #fff;
-            transform: translate(-50%, 0)
-        }
-    }
-    .fen-bf-lq {
-        position: relative;
-        min-width: .933333rem;
-        overflow: hidden;
-    }
-    .fen-bf-lq .score {
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%, 0)
-    }
-    .zq-header .fen-bf-lq .score:last-child {
-        transform: translate(-50%, 100%)
-    }
-    .zq-header .fen-bf-lq.fen-bf-active .score {
-        animation: changeScore 1s ease-in-out forwards
-    }
-    .zq-header .fen-bf-lq.fen-bf-active .score:last-child {
-        animation: changeScore3 3s ease-in-out forwards
-    }
-    @keyframes changeScore3 {
-        0% {
-            color: #fff;
-            transform: translate(-50%, 100%)
-        }
-        30% {
-            color: #ffba00;
-            transform: translate(-50%, 0)
-        }
-        50% {
-            color: #ffba00;
-            transform: translate(-50%, 0)
-        }
-        80% {
-            color: #ffba00;
-            transform: translate(-50%, 0)
-        }
-        100% {
-            color: #fff;
-            transform: translate(-50%, 0)
-        }
-    }
+
     .zhong {
         font-size: 0.293rem;
         color: #ccc;
@@ -870,6 +793,9 @@
         top: 88px;
         z-index: 9
     }
+    [data-dpr="1"] .navigator{font-size:15px}
+    [data-dpr="2"] .navigator{font-size:30px}
+    [data-dpr="3"] .navigator{font-size:45px}
     .navigator ul {
         display: flex;
         border-bottom: 1px solid #e8e8e8;
@@ -977,56 +903,24 @@
             transform: translateY(0);
         }
     }
-    .headerMove {
-        animation: headerM .2s ease-out both;
-        transform-origin: center top;
-    }
-    .headerMove2 {
-        animation: headerM2 .2s ease-out both;
-        transform-origin: center top;
-    }
-    @keyframes headerM {
-        0% {
-            height: 2.5867rem;
-        }
-        100% {
-            height: 0rem;
-        }
-    }
-    @keyframes headerM2 {
-        0% {
-            height: 0rem;
-        }
-        100% {
-            height: 2.5867rem;
-        }
-    }
-    .navMove {
-        animation: navM .15s ease-out both;
-    }
-    .navMove2 {
-        animation: navM2 .25s ease-out both;
-    }
-    @keyframes navM {
-        0% {
-            top: 3.7333rem;
-        }
-        100% {
-            top: ;
-        }
-    }
-    @keyframes navM2 {
-        0% {
-            top: 1.173rem;
-        }
-        100% {
-            top: 3.7333rem;
-        }
-    }
+
+
 
     /*详情页头部动效 end*/
 
     /*春哥增加*/
+    .popLayer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        z-index: 90;
+        background: rgba(0, 0, 0, .8)
+    }
+
+
     .sktab-arrow {
         border: none !important;
         margin-left: auto !important;
@@ -1044,5 +938,81 @@
     .slide-leave-active, .slide-enter {
         -webkit-transform: translate(0, 100%);
         transform: translate(0, 100%);
+    }
+
+    .comm-enter {
+        background: #fff;
+        width: 100%;
+        height: 1.133333rem;
+        padding-top: .2rem;
+        text-align: center;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 10;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0)
+    }
+
+    .comm-enter .enter-ipt {
+        height: .906667rem;
+        border: 1px solid #f1f1f1;
+        border-radius: .08rem;
+        width: 9.2rem;
+        margin: 0 auto;
+        text-align: left;
+        background: #f4f4f4;
+        position: relative
+    }
+
+    .comm-enter .enter-ipt .ipt-icon {
+        display: inline-block;
+        vertical-align: middle;
+        width: .64rem;
+        height: .44rem;
+        margin: .266667rem;
+        background-position: .053333rem -12.906667rem;
+        float: left
+    }
+
+    .comm-enter .enter-ipt .ipt-txt {
+        display: inline-block;
+        vertical-align: middle;
+        color: #ccc;
+        height: .906667rem;
+        line-height: .906667rem
+    }
+
+    .comm-enter .ipt-count {
+        display: inline-block;
+        position: absolute;
+        right: .666667rem;
+        top: .026667rem;
+        height: .906667rem;
+        line-height: .906667rem;
+        color: #787878
+    }
+
+    .comm-enter:active .enter-ipt .ipt-txt {
+        color: #787878
+    }
+    .sk-point {
+        position: relative;
+        width: 1.333333rem;
+        height: 1.333333rem;
+        display: inline-block;
+    }
+    .sk-point:after {
+        content: "";
+        display: inline-block;
+        background: url(~assets/style/images/detail/share-point.png) no-repeat;
+        width: .48rem;
+        height: .106667rem;
+        background-size: cover;
+        position: absolute;
+        top: 50%;
+        margin-top: -.053333rem;
+        left: 50%;
+        margin-left: -.24rem;
     }
 </style>

@@ -225,7 +225,7 @@
         }
     }
 </script>
-<style>
+<style scoped>
     .gl-box,
     .zr-box {
         background: #fff
