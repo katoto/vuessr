@@ -72,12 +72,12 @@
                     </div>
                 </div>
             </div>
-
             <div class="sk-btips">500彩票网提示：
                 <br>以上数据仅供参考，请以官方公布的数据为准
             </div>
         </div>
-        <div v-else>
+        <me-sports v-if="news" :news="news.news" :init-size="3" @rs="refreshScroll"></me-sports>
+        <div v-if="!news && ! eventList">
            <no-data></no-data>
         </div>
     </div>
@@ -85,7 +85,7 @@
 
 <script>
     import {aTypes, mTypes} from '~store/lqdetail'
-//    import meSports from '~components/detail/basketball/situation/meSports.vue'
+    import meSports from '~components/detail/meSports.vue'
     import noData from '~components/no_data.vue'
     import {BasketballStatusCode as StatusCode} from '~common/constants'
     export default{
@@ -95,7 +95,7 @@
             })
         },
         components:{
-            noData
+            noData,meSports
         },
         data () {
             return {
@@ -140,6 +140,9 @@
                     }
                     return list
                 }
+            },
+            news () {
+                return this.$store.state.lqdetail.situation.news
             }
         },
         methods: {

@@ -42,7 +42,7 @@
     import {mTypes, aTypes} from '~store/zqdetail'
     import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import event from '~components/detail/football/situation/event.vue'
-    import meSports from '~components/detail/football/situation/meSports.vue'
+    import meSports from '~components/detail/meSports.vue'
     import statistic from '~components/detail/football/situation/statistic.vue'
     export default {
         async asyncData ({store, route: {params}}) {
