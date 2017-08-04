@@ -176,7 +176,7 @@
             },
 
             changeSelect (idx) {
-               // this.isActive[idx] = !this.isActive[idx]
+                // this.isActive[idx] = !this.isActive[idx]
                 this.$set(this.isActive, idx, !this.isActive[idx])
                 this.refreshScroll()
             },

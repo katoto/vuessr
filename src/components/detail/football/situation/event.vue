@@ -65,7 +65,7 @@
                 <li class="d-zt-box" v-if="status != null && status != StatusCode.NOT_STARTED"><span class="d-zt">开始</span></li>
             </ul>
         </div>
-
+        <div class="ui-empty-font" v-else>暂无数据</div>
         <div class="sk-intro">
             <img src="http://tccache.500.com/mobile/touch/images/bifen/intro.png" width="100%">
         </div>
@@ -79,16 +79,7 @@
 <script>
     import {FootBallEventType as EventType, FootballStatusCode as StatusCode} from '~common/constants'
     export default {
-        props: {
-            eventlist: {
-                type: Array,
-                required: true
-            },
-            status: {
-                type: String,
-                required: true
-            }
-        },
+        props: ['eventlist', 'status'],
         data () {
             return {
                 EventType,
@@ -112,3 +103,11 @@
 
     }
 </script>
+<style scoped>
+    .ui-empty-font {
+        color: #b3b3b3;
+        font-size: 0.4rem;
+        padding: 0.22rem 0;
+        text-align: center;
+    }
+</style>

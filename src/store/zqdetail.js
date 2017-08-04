@@ -247,7 +247,7 @@ const actionsInfo = mapActions({
     onLike (ignore, {status, id}) {
         return ajax.post(`/sns/score/like?_t=${Date.now()}`, {
             status, id
-        })
+        }, {ignore: false})
     },
     onReport (ignore, id) {
         return ajax.post(`/sns/score/report?_t=${Date.now()}`, {

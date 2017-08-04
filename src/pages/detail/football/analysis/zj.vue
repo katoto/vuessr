@@ -25,7 +25,7 @@
                             <div class="rank-team"><img :src="match.homelogo">{{match.homesxname}}</div>
                         </td>
                         <td>{{leagueRank.hometeam.leaguename}}</td>
-                        <td>{{leagueRank.hometeam.all&&leagueRank.hometeam.all.matches_count||'--'}}</td>
+                        <td>{{leagueRank.hometeam.all&&leagueRank.hometeam.all.matches_count}}</td>
                         <td>
                             {{leagueRank.hometeam.all&&[leagueRank.hometeam.all.win,leagueRank.hometeam.all.draw,leagueRank.hometeam.all.lost].join('/')||'--'}}
                         </td>
@@ -43,7 +43,7 @@
                             <div class="rank-team"><img :src="match.awaylogo">{{match.awaysxname}}</div>
                         </td>
                         <td>{{leagueRank.awayteam.leaguename}}</td>
-                        <td>{{leagueRank.awayteam.all&&leagueRank.awayteam.all.matches_count||'--'}}</td>
+                        <td>{{leagueRank.awayteam.all&&leagueRank.awayteam.all.matches_count}}</td>
                         <td>
                             {{leagueRank.awayteam.all&&[leagueRank.awayteam.all.win,leagueRank.awayteam.all.draw,leagueRank.awayteam.all.lost].join('/')||'--'}}
                         </td>
@@ -75,7 +75,7 @@
                             <div class="rank-team"><img :src="match.homelogo">{{match.homesxname}}</div>
                         </td>
                         <td>{{leagueRank.hometeam.leaguename}}</td>
-                        <td>{{leagueRank.hometeam.home&&leagueRank.hometeam.home.matches_count||'--'}}</td>
+                        <td>{{leagueRank.hometeam.home&&leagueRank.hometeam.home.matches_count}}</td>
                         <td>
                             {{leagueRank.hometeam.home&&[leagueRank.hometeam.home.win,leagueRank.hometeam.home.draw,leagueRank.hometeam.home.lost].join('/')||'--'}}
                         </td>
@@ -92,7 +92,7 @@
                             <div class="rank-team"><img :src="match.awaylogo">{{match.awaysxname}}</div>
                         </td>
                         <td>{{leagueRank.awayteam.leaguename}}</td>
-                        <td>{{leagueRank.awayteam.away&&leagueRank.awayteam.away.matches_count||'--'}}</td>
+                        <td>{{leagueRank.awayteam.away&&leagueRank.awayteam.away.matches_count}}</td>
                         <td>
                             {{leagueRank.awayteam.away&&[leagueRank.awayteam.away.win,leagueRank.awayteam.away.draw,leagueRank.awayteam.away.lost].join('/')||'--'}}
                         </td>
@@ -554,8 +554,9 @@
                     </tr>
 
                     </tbody>
-                    <div class="ui-empty-font"  v-if="!futureMatch.away || !futureMatch.away.length">暂无数据</div>
+
                 </table>
+                <div class="ui-empty-font"  v-if="!futureMatch.away || !futureMatch.away.length">暂无数据</div>
             </div>
 
 
@@ -568,7 +569,7 @@
             <template v-if="macauNews.name">
                 <div class="zhedie show" v-if="macauNews && macauNews.stars !== undefined">
                     <div class="pm-namel">
-                        <span>{{macauNews.name}}</span>
+                        <span>{{macauNews.name}}</span>&nbsp;
                         <span class="suggest-status">{{macauNews.result}}</span>
                         <span class="suggest-power">信心指数</span>
                         <span class="suggest-stars">
@@ -789,7 +790,8 @@
         filters: {
             truncate: (val, num) => {
                 if (val.length > num) {
-                    return val.substr(0, num) + '...'
+                    // return val.substr(0, num) + '...'
+                    return val.substr(0, num)
                 } else {
                     return val
                 }

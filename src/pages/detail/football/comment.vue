@@ -3,7 +3,7 @@
         <snap v-if="vote" :eventlist="eventlist" :statistic="statistic" :match="match" :online="online" :vote="vote"></snap>
 
 
-        <div class="zj-nav"> 评论{{commentList.length}}
+        <div class="zj-nav"> 评论
             <ul class="volumeTab" id="tabBefore">
                 <li :class="{'cur':tab=='time'}" v-tap="{methods: ()=>tab='time'}">最新</li>
                 <li :class="{'cur':tab=='like'}" v-tap="{methods: ()=>tab='like'}">最热</li>
@@ -166,10 +166,14 @@
             },
             async onLike ({status, id, index}) {
                 this.$store.dispatch('ensureLogin')
-                await this.$store.dispatch(aTypes.onLike, {status, id})
-                let info = this.commentList[index]
-                info.liked = (info.liked === '0' ? '1' : '0')
-                info.likes = info.likes + (info.liked === '0' ? -1 : 1)
+                try {
+                    await this.$store.dispatch(aTypes.onLike, {status, id})
+                    let info = this.commentList[index]
+                    info.liked = (info.liked === '0' ? '1' : '0')
+                    info.likes = info.likes + (info.liked === '0' ? -1 : 1)
+                } catch (e) {
+                    this.$store.dispatch('showToast', e.message)
+                }
             },
             clickComment ({commentReplyId, replyName}) {
                 this.$store.commit(mTypes.setDialog, {

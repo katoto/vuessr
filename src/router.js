@@ -25,6 +25,7 @@ const BfycPredict = () => import('~pages/bfyc/predict.vue' /* webpackChunkName: 
 const BfycHotcool = () => import('~pages/bfyc/hotcool.vue' /* webpackChunkName: "pages/bfyc-hotcool" */)
 
 const BfycRecord = () => import('~pages/bfyc/record.vue' /* webpackChunkName: "pages/bfyc-record" */)
+const BfycRecordChild = () => import('~pages/bfyc/record/child.vue' /* webpackChunkName: "pages/bfyc-record" */)
 
 const FootballDetail = () => import('~pages/detail/football.vue' /* webpackChunkName: "pages/detail-football" */)
 
@@ -160,7 +161,38 @@ export function createRouter () {
                     {
                         path: 'record',
                         component: BfycRecord,
-                        name: 'bfyc-record'
+                        name: 'bfyc-record',
+                        redirect: 'record/result',
+                        children: [
+                            {
+                                path: 'result',
+                                component: BfycRecordChild,
+                                name: 'bfyc-record-result',
+                                meta: {
+                                    tab: 'result'
+                                }
+                            },
+                            {
+                                path: 'asian',
+                                component: BfycRecordChild,
+                                name: 'bfyc-record-asian',
+                                meta: {
+                                    tab: 'asian'
+                                }
+                            },
+                            {
+                                path: 'bigsmall',
+                                component: BfycRecordChild,
+                                name: 'bfyc-record-bigsmall',
+                                meta: {
+                                    tab: 'bigsmall'
+                                }
+                            },
+                            {
+                                path: '*',
+                                redirect: 'result'
+                            }
+                        ]
                     }
                 ]
             },
