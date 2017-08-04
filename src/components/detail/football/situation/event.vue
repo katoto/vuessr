@@ -79,7 +79,7 @@
 <script>
     import {FootBallEventType as EventType, FootballStatusCode as StatusCode} from '~common/constants'
     export default {
-        props: ['eventlist'],
+        props: ['eventlist', 'status'],
         data () {
             return {
                 EventType,
