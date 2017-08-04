@@ -55,6 +55,7 @@
                 </ul>
             </div>
         </div>
+        <div class="ui-empty-font" v-else>暂无数据</div>
     </div>
 
 
@@ -62,12 +63,7 @@
 <script>
     import {FootBallEventType as EventType, FootballStatusCode as StatusCode} from '~common/constants'
     export default {
-        props: {
-            statistic: {
-                type: Object,
-                required: true
-            }
-        },
+        props: ['statistic'],
         data () {
             return {
                 EventType,
@@ -92,3 +88,11 @@
 
     }
 </script>
+<style scoped>
+    .ui-empty-font {
+        color: #b3b3b3;
+        font-size: 0.4rem;
+        padding: 0.22rem 0;
+        text-align: center;
+    }
+</style>

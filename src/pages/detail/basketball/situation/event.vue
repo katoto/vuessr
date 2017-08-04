@@ -51,7 +51,7 @@
             <div class="zhedie-box" v-if="eventList && eventList.length" v-for="(item,index) in eventList">
                 <div class="zhedie-nav" :class="{'dang-list-l-on': isActive[index]}" v-tap="{methods:()=>changeSelect(index)}">
                     {{nameList[index]}}
-                    <span class="live" v-if=" Number(match.status) >= 7 && Number(match.status) <= 10">Live</span>
+                    <span class="live" v-if=" Number(match.status) >= 2 && Number(match.status) <= 10 && index == 0">Live</span>
                     <span class="sh-arrow" :class="{'rotate180': !isActive[index]}"></span>
                 </div>
 
@@ -106,8 +106,8 @@
             return {
                 jieData: [],
                 isActive: {},
-                nameList:[],
-                dataList:['一','二','三','四'],
+                nameList: [],
+                dataList: ['一', '二', '三', '四'],
                 StatusCode
             }
         },
@@ -158,11 +158,11 @@
                     for (let i = 1, len = this.ascore.length, j = 1, k = 1; i <= len; i++) {
                         if (i <= 4) {
                             this.jieData.push(j + '节')
-                            this.nameList.push('第'+ this.dataList[j-1] + '节')
+                            this.nameList.push('第' + this.dataList[j - 1] + '节')
                             j++
                         } else {
                             this.jieData.push('加' + k)
-                            this.nameList.push('加时'+ this.dataList[k-1])
+                            this.nameList.push('加时' + this.dataList[k - 1])
                             k++
                         }
                     }
@@ -172,7 +172,7 @@
 
             changeSelect (idx) {
                // this.isActive[idx] = !this.isActive[idx]
-                this.$set(this.isActive,idx,!this.isActive[idx])
+                this.$set(this.isActive, idx, !this.isActive[idx])
                 this.refreshScroll()
             },
             async fetchData () {
