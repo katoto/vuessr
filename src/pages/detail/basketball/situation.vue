@@ -1,7 +1,7 @@
 
 <template>
     <div>
-        <div v-if="match.status != StatusCode.NOT_STARTED">  <!--赛中或赛后-->
+        <template v-if="match.status != StatusCode.NOT_STARTED">  <!--赛中或赛后-->
             <div class="sk-detail-tap-box sk-detail-tap-box2">
                 <ul class="sk-detail-tap">
                     <li :class="{cur:~$route.path.indexOf('/event')}">
@@ -16,7 +16,7 @@
                 <router-view></router-view>
             </div>
             <!--<me-sports v-if="news && news.length" :news="situation.news" :init-size="3" @rs="refreshScroll"></me-sports>-->
-        </div>
+        </template>
 
 
         <div class="ui-empty" v-if="!news &&(match.status == StatusCode.NOT_STARTED || match.status == StatusCode.CHANGED || match.status == StatusCode.REMOVED || match.status == StatusCode.CANCELED || match.status == StatusCode.PAUSED)">
