@@ -42,22 +42,22 @@
                             </div>
                             <div class="zhzl-right">{{strengthInfo.confrontation.away_win}}胜{{strengthInfo.confrontation.away_draw}}平{{strengthInfo.confrontation.away_lost}}负</div>
                         </li>
-                        <li class="responsive" v-if="strengthInfo.recentRecord">
-                            <div class="zhzl-left">{{strengthInfo.recentRecord.home_win}}胜{{strengthInfo.recentRecord.home_draw}}平{{strengthInfo.recentRecord.home_lost}}负</div>
+                        <li class="responsive" v-if="strengthInfo.recent_record">
+                            <div class="zhzl-left">{{strengthInfo.recent_record.home_win}}胜{{strengthInfo.recent_record.home_draw}}平{{strengthInfo.recent_record.home_lost}}负</div>
                             <div class="each-resone">
                                 <div class="zhzl-classify">近况</div>
                                 <div class="responsive">
                                     <div class="each-resone l-relative">
-                                        <div class="zhzl-vs-left" :class="{'green-bg':strengthInfo.recentRecord.home_percent > strengthInfo.recentRecord.away_percent,'gray-bg':strengthInfo.recentRecord.home_percent <= strengthInfo.recentRecord.away_percent}"
-                                             :style="{width:strengthInfo.recentRecord.home_percent+ '%'}"></div>
+                                        <div class="zhzl-vs-left" :class="{'green-bg':strengthInfo.recent_record.home_percent > strengthInfo.recent_record.away_percent,'gray-bg':strengthInfo.recent_record.home_percent <= strengthInfo.recent_record.away_percent}"
+                                             :style="{width:strengthInfo.recent_record.home_percent+ '%'}"></div>
                                     </div>
                                     <div class="each-resone l-relative">
-                                        <div class="zhzl-vs-right" :class="{'green-bg':strengthInfo.recentRecord.home_percent < strengthInfo.recentRecord.away_percent,'gray-bg':strengthInfo.recentRecord.home_percent >= strengthInfo.recentRecord.away_percent}"
-                                             :style="{width:strengthInfo.recentRecord.away_percent+'%'}"></div>
+                                        <div class="zhzl-vs-right" :class="{'green-bg':strengthInfo.recent_record.home_percent < strengthInfo.recent_record.away_percent,'gray-bg':strengthInfo.recent_record.home_percent >= strengthInfo.recent_record.away_percent}"
+                                             :style="{width:strengthInfo.recent_record.away_percent+'%'}"></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="zhzl-right">{{strengthInfo.recentRecord.away_win}}胜{{strengthInfo.recentRecord.away_draw}}平{{strengthInfo.recentRecord.away_lost}}负</div>
+                            <div class="zhzl-right">{{strengthInfo.recent_record.away_win}}胜{{strengthInfo.recent_record.away_draw}}平{{strengthInfo.recent_record.away_lost}}负</div>
                         </li>
                         <li class="responsive" v-if="strengthInfo.same_home_away">
                             <div class="zhzl-left">{{strengthInfo.same_home_away.home_win}}胜{{strengthInfo.same_home_away.home_draw}}平{{strengthInfo.same_home_away.home_lost}}负</div>
