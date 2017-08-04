@@ -51,7 +51,7 @@
             <div class="zhedie-box" v-if="eventList && eventList.length" v-for="(item,index) in eventList">
                 <div class="zhedie-nav" :class="{'dang-list-l-on': isActive[index]}" v-tap="{methods:()=>changeSelect(index)}">
                     {{item[0].desc.replace('结束','')}}
-                    <span class="live" v-if=" Number(match.status) >= 7 && Number(match.status) <= 10">Live</span>
+                    <span class="live" v-if=" Number(match.status) >= 2 && Number(match.status) <= 10 && index == 0">Live</span>
                     <span class="sh-arrow" :class="{'rotate180': !isActive[index]}"></span>
                 </div>
 
@@ -94,8 +94,8 @@
                 fid: params.fid
             })
         },
-        components:{
-            noData,meSports
+        components: {
+            noData, meSports
         },
         data () {
             return {
@@ -159,7 +159,7 @@
                     }
                 }
             },
-            changeSelect(idx){
+            changeSelect (idx) {
                 this.isActive[idx] = !this.isActive[idx]
                 this.refreshScroll()
             },

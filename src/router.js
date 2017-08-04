@@ -85,6 +85,7 @@ const BasketballEurope = () => import('~pages/match/basketball/europe.vue')
 const BasketballAsian = () => import('~pages/match/basketball/asian.vue')
 const BasketballAmerica = () => import('~pages/match/basketball/america.vue')
 const BasketballCups = () => import('~pages/match/basketball/cups.vue')
+const BasketballMatch = () => import('~pages/match/basketabll/match.vue')
 
 const FootballLeague = () => import('~pages/match/football_league.vue')
 const FootballEurope = () => import('~pages/match/football/europe.vue')
@@ -374,7 +375,7 @@ export function createRouter () {
                         name: 'center-basketball'
                     },
                     {
-                        path: 'basketleague',
+                        path: 'basketballleague',
                         component: BasketballLeague,
                         name: 'center-basketball-league',
                         children: [
@@ -401,12 +402,17 @@ export function createRouter () {
                         ]
                     },
                     {
+                        path: 'basketballmatch/:seasonid',
+                        component: BasketballMatch,
+                        name: 'center-basketball-match'
+                    },
+                    {
                         path: 'football',
                         component: FootballCenter,
                         name: 'center-football'
                     },
                     {
-                        path: 'footleague',
+                        path: 'footballleague',
                         component: FootballLeague,
                         name: 'center-football-league',
                         children: [

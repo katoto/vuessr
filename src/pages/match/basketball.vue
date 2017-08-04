@@ -15,7 +15,7 @@
             </ul>
             <div class="all-match">
                 <!--<a href="#/match/basketball" class="link-all-match">全部赛事<i class="icon-more"></i></a>-->
-                <router-link :to="{name:'center-basketball-league'}">
+                <router-link :to="{name:'center-basketball-league-europe'}">
                     <span class="link-all-match">全部赛事<i class="icon-more"></i></span>
                 </router-link>
             </div>

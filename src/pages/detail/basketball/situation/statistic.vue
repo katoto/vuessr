@@ -225,7 +225,7 @@
         },
 
         components: {
-            slide,noData
+            slide, noData
         },
         data () {
             return {

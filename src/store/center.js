@@ -8,10 +8,33 @@ const ns = 'center'
 const initState = {
     lqhot: null,
     zqhot: null,
-    lqAll: null,
+    lqAll: {
+        europe: null,
+        asian: null,
+        america: null,
+        cups: null
+    },
     zqAll: {
-        cups: null,
-        leagues: null
+        europe: {
+            cups: null,
+            leagues: null
+        },
+        asian: {
+            cups: null,
+            leagues: null
+        },
+        america: {
+            cups: null,
+            leagues: null
+        },
+        africa: {
+            cups: null,
+            leagues: null
+        },
+        inte: {
+            cups: null,
+            leagues: null
+        }
     },
     outer: {
         component: null,   // 组件名
@@ -31,7 +54,26 @@ const actionsInfo = mapActions({
     },
     async getBasketballAll ({commit}, {areaid}) {
         let lqAll = await ajax.get(`/library/lq/leagues?areaid=${areaid}&T=${new Date().getTime()}`)
-        commit(mTypes.setBasketballAll, lqAll)
+        switch (areaid) {
+        case 1: {
+            commit(mTypes.setBasketballEurope, lqAll)
+            console.log(areaid)
+            break
+        }
+        case 2: {
+            commit(mTypes.setBasketballAsian, lqAll)
+            break
+        }
+        case 3: {
+            commit(mTypes.setBasketballAmerica, lqAll)
+            break
+        }
+        case 5: {
+            commit(mTypes.setBasketballCups, lqAll)
+            break
+        }
+        }
+
         return lqAll
     },
     async getFootballAll ({commit}, {vtype, areaid}) {
@@ -39,7 +81,7 @@ const actionsInfo = mapActions({
             ajax.get(`/library/zq/cups?areaid=${vtype}&T=${new Date().getTime()}`),
             ajax.get(`/library/zq/leagues?areaid=${vtype}&T=${new Date().getTime()}`)
         ])
-        commit(mTypes.setFootballAll, {cups, leagues})
+        commit(mTypes.setFootballEurope, {cups, leagues})
         return {cups, leagues}
     }
 
@@ -51,12 +93,21 @@ const mutationsInfo = mapMutations({
     setFootballHot (state, zqhot) {
         state.zqhot = zqhot
     },
-    setBasketballAll (state, lqAll) {
-        state.lqAll = lqAll
+    setBasketballEurope (state, europe) {
+        state.lqAll.europe = europe
     },
-    setFootballAll (state, {cups, leagues}) {
-        state.cups = cups
-        state.leagues = leagues
+    setBasketballAsian (state, asian) {
+        state.lqAll.asian = asian
+    },
+    setBasketballAmerica (state, america) {
+        state.lqAll.america = america
+    },
+    setBasketballCups (state, cups) {
+        state.lqAll.cups = cups
+    },
+    setFootballEurope (state, {cups, leagues}) {
+        state.zqAll.europe.cups = cups
+        state.zqAll.europe.leagues = leagues
     }
 }, ns)
 
