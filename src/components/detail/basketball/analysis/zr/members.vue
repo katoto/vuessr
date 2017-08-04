@@ -10,8 +10,7 @@
 
 <script>
 import {
-    mTypes,
-    aTypes
+    mTypes
 } from '~store/lqdetail'
 import {
     BasketballMemberType
