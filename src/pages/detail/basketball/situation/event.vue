@@ -46,13 +46,12 @@
                 </div>
             </div>
             <!--<me-sports src="detail-page/comment/me-sports.html" match.status == StatusCode.NOT_STARTED || eventlist == null" requesting="{{isRequesting}}" leagueid="{{match.matchid}}" on-size="hasNews=!!$event.args[0]" init-size="{{match.status == StatusCode.NOT_STARTED?5:3}}" homeid="{{match.homeid}}" awayid="{{match.awayid}}" status="{{match.status}}" matchtime="{{match.matchdate}}" vtype="2"></me-sports>-->
-            <me-sports v-if="news && news.length && (match.status == StatusCode.NOT_STARTED || eventList == null)" :news="news"></me-sports>
 
             <div class="gl-nav">文字直播</div>
             <div class="zhedie-box" v-if="eventList && eventList.length" v-for="(item,index) in eventList">
                 <div class="zhedie-nav" :class="{'dang-list-l-on': isActive[index]}" v-tap="{methods:()=>changeSelect(index)}">
-                    {{item[0].desc.replace('结束','')}}
-                    <span class="live" v-if=" Number(match.status) >= 7 && Number(match.status) <= 10">Live</span>
+                    {{nameList[index]}}
+                    <span class="live" v-if=" Number(match.status) >= 2 && Number(match.status) <= 10 && index == 0">Live</span>
                     <span class="sh-arrow" :class="{'rotate180': !isActive[index]}"></span>
                 </div>
 
@@ -72,42 +71,43 @@
                     </div>
                 </div>
             </div>
-
             <div class="sk-btips">500彩票网提示：
                 <br>以上数据仅供参考，请以官方公布的数据为准
             </div>
         </div>
-        <div v-else>
-            <no-data></no-data>
+        <me-sports v-if="news" :news="news.news" :init-size="3" @rs="refreshScroll"></me-sports>
+        <div v-if="!news && ! eventList">
+           <no-data></no-data>
+
         </div>
     </div>
 </template>
 
 <script>
     import {aTypes, mTypes} from '~store/lqdetail'
-    import meSports from '~components/detail/basketball/situation/meSports.vue'
-    import {BasketballStatusCode as StatusCode} from '~common/constants'
+    import meSports from '~components/detail/meSports.vue'
     import noData from '~components/no_data.vue'
+    import {BasketballStatusCode as StatusCode} from '~common/constants'
+
     export default{
         async asyncData ({store, route: {params}}) {
             const {status, matchtime, homeid, awayid, matchid} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
-            console.log(status);
+            console.log(status)
             await store.dispatch(aTypes.getSituationEvent, {
                 fid: params.fid, homeid, awayid, status, matchtime, leagueid: matchid
             })
         },
-//        async asyncData ({store, route: {params}}) {
-//            await store.dispatch(aTypes.getSituationEvent, {
-//                fid: params.fid
-//            })
-//        },
+
         components: {
-            meSports, noData
+            noData, meSports
+
         },
         data () {
             return {
                 jieData: [],
                 isActive: {},
+                nameList: [],
+                dataList: ['一', '二', '三', '四'],
                 StatusCode
             }
         },
@@ -148,8 +148,8 @@
                     return list
                 }
             },
-            news (){
-                return this.$store.state.lqdetail.situation.newslist
+            news () {
+                return this.$store.state.lqdetail.situation.news
             }
         },
         methods: {
@@ -158,16 +158,21 @@
                     for (let i = 1, len = this.ascore.length, j = 1, k = 1; i <= len; i++) {
                         if (i <= 4) {
                             this.jieData.push(j + '节')
+                            this.nameList.push('第' + this.dataList[j - 1] + '节')
                             j++
                         } else {
                             this.jieData.push('加' + k)
+                            this.nameList.push('加时' + this.dataList[k - 1])
                             k++
                         }
                     }
+                    this.nameList.reverse()
                 }
             },
+
             changeSelect (idx) {
-                this.isActive[idx] = !this.isActive[idx]
+                // this.isActive[idx] = !this.isActive[idx]
+                this.$set(this.isActive, idx, !this.isActive[idx])
                 this.refreshScroll()
             },
             async fetchData () {

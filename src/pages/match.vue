@@ -24,7 +24,6 @@
 </template>
 
 <script>
-    import {mTypes, aTypes} from '~store/center'
     export default{
         computed: {
             tab () {

@@ -168,9 +168,13 @@
                         <td>
                             <div class="rank-team"><img :src="match.homelogo">{{match.homesxname}}</div>
                         </td>
-                        <td>{{FIFARank.home[0]&&FIFARank.home[0].rankchange > 0 ? '+' : ''}}{{FIFARank.home[0]&&FIFARank.home[0].rankchange}}</td>
+                        <td>{{FIFARank.home[0]&&FIFARank.home[0].rankchange > 0 ? '+' :
+                            ''}}{{FIFARank.home[0]&&FIFARank.home[0].rankchange}}
+                        </td>
                         <td>{{FIFARank.home[0]&&FIFARank.home[0].point}}</td>
-                        <td>{{FIFARank.home[0]&&FIFARank.home[0].pointchange > 0 ? '+' : ''}}{{FIFARank.home[0]&&FIFARank.home[0].pointchange}}</td>
+                        <td>{{FIFARank.home[0]&&FIFARank.home[0].pointchange > 0 ? '+' :
+                            ''}}{{FIFARank.home[0]&&FIFARank.home[0].pointchange}}
+                        </td>
                         <td>{{FIFARank.home[0]&&FIFARank.home[0].date}}</td>
                     </tr>
                     <tr>
@@ -178,9 +182,13 @@
                         <td>
                             <div class="rank-team"><img :src="match.awaylogo">{{match.awaysxname}}</div>
                         </td>
-                        <td>{{FIFARank.away[0]&&FIFARank.away[0].rankchange > 0 ? '+' : ''}}{{FIFARank.away[0]&&FIFARank.away[0].rankchange}}</td>
+                        <td>{{FIFARank.away[0]&&FIFARank.away[0].rankchange > 0 ? '+' :
+                            ''}}{{FIFARank.away[0]&&FIFARank.away[0].rankchange}}
+                        </td>
                         <td>{{FIFARank.away[0]&&FIFARank.away[0].point}}</td>
-                        <td>{{FIFARank.away[0]&&FIFARank.away[0].pointchange > 0 ? '+' : ''}}{{FIFARank.away[0]&&FIFARank.away[0].pointchange}}</td>
+                        <td>{{FIFARank.away[0]&&FIFARank.away[0].pointchange > 0 ? '+' :
+                            ''}}{{FIFARank.away[0]&&FIFARank.away[0].pointchange}}
+                        </td>
                         <td>{{FIFARank.away[0]&&FIFARank.away[0].date}}</td>
                     </tr>
                     </tbody>
@@ -192,7 +200,8 @@
 
         <div class="zhedie-box" v-if="fightingInfo">
             <div class="zj-nav">
-            <span class="saixuan"  v-tap="{methods: beginFilter, type: 'his'}" data-p2="zq_detail" data-p4="analysis_zj_ls"
+            <span class="saixuan" v-tap="{methods: beginFilter, type: 'his'}" data-p2="zq_detail"
+                  data-p4="analysis_zj_ls"
                   drunk-on="click: filterVisible = true, currFilterOptions = fightingFilterOptions, $event.stopPropagation()">筛选</span>
                 历史交战
             </div>
@@ -470,30 +479,44 @@
 
         </div>
 
-        <div class="zhedie-box zhedie-box-wl" v-if="futureMatch" >
+        <div class="zhedie-box zhedie-box-wl" v-if="futureMatch">
             <div class="zj-nav">
                 未来赛事
             </div>
-            <div class="zhedie" v-if="futureMatch.home">
+            <div class="zhedie">
 
                 <table width="100%" cellpadding="0" cellspacing="0" class="fx-table">
-                    <tbody><tr>
+                    <tbody>
+                    <tr>
                         <th width="22%"><span class="color3 f28">{{match.homesxname}}</span></th>
                         <th width="20%">日期</th>
-                        <th width="17%"><div class="textright">主队</div></th>
+                        <th width="17%">
+                            <div class="textright">主队</div>
+                        </th>
                         <th width="7%"></th>
-                        <th width="17%"><div class="textleft">客队</div></th>
+                        <th width="17%">
+                            <div class="textleft">客队</div>
+                        </th>
                         <th>相隔</th>
                     </tr>
                     <tr v-for="futureMatchInfo in futureMatch.home">
                         <td>{{futureMatchInfo.simpleleague| truncate(4)}}</td>
                         <td>{{futureMatchInfo.matchdate}}</td>
-                        <td><div class="textright">{{futureMatchInfo.homesxname|truncate(4)}}</div></td>
+                        <td>
+                            <div class="textright">{{futureMatchInfo.homesxname|truncate(4)}}</div>
+                        </td>
                         <td>vs</td>
-                        <td><div class="textleft">{{futureMatchInfo.awaysxname|truncate(4)}}</div></td>
+                        <td>
+                            <div class="textleft">{{futureMatchInfo.awaysxname|truncate(4)}}</div>
+                        </td>
                         <td>{{futureMatchInfo.xdays}}</td>
                     </tr>
-                    </tbody></table>
+
+                    </tbody>
+                </table>
+                <div class="ui-empty-font"  v-if="!futureMatch.home || !futureMatch.home.length">
+                    暂无数据
+                </div>
                 <!--<widget-prompt-view
                         src="widget/prompt.html"
                         text-type
@@ -503,36 +526,37 @@
                 </widget-prompt-view>-->
 
                 <table width="100%" cellpadding="0" cellspacing="0" class="fx-table">
-                    <tbody><tr>
+                    <tbody>
+                    <tr>
                         <th width="22%"><span class="color3 f28">{{match.awaysxname}}</span></th>
                         <th width="20%">日期</th>
-                        <th width="17%"><div class="textright">主队</div></th>
+                        <th width="17%">
+                            <div class="textright">主队</div>
+                        </th>
                         <th width="7%"></th>
-                        <th width="17%"><div class="textleft">客队</div></th>
+                        <th width="17%">
+                            <div class="textleft">客队</div>
+                        </th>
                         <th>相隔</th>
                     </tr>
                     <tr v-for="futureMatchInfo in futureMatch.away">
                         <td>{{futureMatchInfo.simpleleague| truncate(4)}}</td>
                         <td>{{futureMatchInfo.matchdate}}</td>
-                        <td><div class="textright">{{futureMatchInfo.homesxname| truncate(4)}}</div></td>
+                        <td>
+                            <div class="textright">{{futureMatchInfo.homesxname| truncate(4)}}</div>
+                        </td>
                         <td>vs</td>
-                        <td><div class="textleft">{{futureMatchInfo.awaysxname |truncate(4)}}</div></td>
+                        <td>
+                            <div class="textleft">{{futureMatchInfo.awaysxname |truncate(4)}}</div>
+                        </td>
                         <td>{{futureMatchInfo.xdays}}</td>
                     </tr>
-                    </tbody></table>
-                <!--<widget-prompt-view
-                        src="widget/prompt.html"
-                        text-type
-                        drunk-if="!isRequesting && !(futureMatch.away && futureMatch.away.length > 0)"
-                        extra-text="很抱歉，没有数据"
-                        type="no-data">
-                </widget-prompt-view>-->
+
+                    </tbody>
+                    <div class="ui-empty-font"  v-if="!futureMatch.away || !futureMatch.away.length">暂无数据</div>
+                </table>
             </div>
-            <div class="feed-back" v-else>
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
+
 
         </div>
 
@@ -556,11 +580,14 @@
                     </div>
                 </div>
             </template>
-            <div class="feed-back" v-else>
+            <div class="ui-empty-font"  v-else>
+                暂无数据
+            </div>
+           <!-- <div class="feed-back" v-else>
                 <div class="feed-box">
                     <em>暂无数据</em>
                 </div>
-            </div>
+            </div>-->
         </div>
         <div class="sk-btips">
             500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
@@ -661,7 +688,8 @@
                             onOk: (option) => {
                                 this.jzOption = option
                             }
-                        }})
+                        }
+                    })
                 } else {
                     this.$store.commit(mTypes.setDialog, {
                         component: Filter,
@@ -672,7 +700,8 @@
                             onOk: (option) => {
                                 this.rcOption = option
                             }
-                        }})
+                        }
+                    })
                 }
             }
         },

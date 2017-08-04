@@ -109,7 +109,7 @@ export default {
                 // home_percent: '主队实力占比'
                 // away_percent: '客队实力占比'
             },
-            collaFlag: true
+            collaFlag: false
         }
     },
     computed: {

@@ -4,9 +4,8 @@
         <div class="gl-box box-yc" v-if="predictRecommend&&predictRecommend.articles">
             <div class="gl-nav">专家推荐</div>
             <ul class="list-yuce" v-if="predictRecommend.articles">
-                <template v-for="c,idx in predictRecommend.articles">
-                    <li data-p2="zq_detail" data-p4="predict_zjtj" v-if="!isArticle||idx<1"
-                        v-tap="{methods: goUrl, url:c.touch_url}">
+                <template  v-for="c,idx in predictRecommend.articles">
+                    <li data-p2="zq_detail" data-p4="predict_zjtj" v-if="!isArticle||idx<2" v-tap="{methods: goUrl, url:c.touch_url}">
                         <div class="title clear"><span>{{c.title}}</span><i v-if="c.paytype=='1'">付费</i></div>
                         <div class="info">
                             <span>
@@ -325,21 +324,21 @@
             selectTab ({tab}) {
                 let component = null
                 switch (tab) {
-                    case 'europe':
-                        component = europePop
-                        break
-                    case 'asian':
-                        component = asianPop
-                        break
-                    case 'daxiao':
-                        component = daxiaoPop
-                        break
-                    case 'score':
-                        component = scorePop
-                        break
-                    case 'half':
-                        component = halfPop
-                        break
+                case 'europe':
+                    component = europePop
+                    break
+                case 'asian':
+                    component = asianPop
+                    break
+                case 'daxiao':
+                    component = daxiaoPop
+                    break
+                case 'score':
+                    component = scorePop
+                    break
+                case 'half':
+                    component = halfPop
+                    break
                 }
                 this.$store.commit(mTypes.setDialog, {component})
             },
@@ -799,7 +798,7 @@
         content: '';
         width: .266667rem;
         height: .266667rem;
-        background: url(/mobile/touch/images/bifen/icon_sprite.png) no-repeat 0 -.586667rem;
+        /*background: url(/mobile/touch/images/bifen/icon_sprite.png) no-repeat 0 -.586667rem;*/
         background-size: 1.92rem;
         position: absolute;
         left: 0;
@@ -1537,7 +1536,7 @@
         width: .64rem;
         height: .6rem;
         display: inline-block;
-        background: url(/mobile/touch/images/bifen/v124/collect.png) no-repeat;
+        /*background: url(/mobile/touch/images/bifen/v124/collect.png) no-repeat;*/
         background-size: cover
     }
 
@@ -1545,7 +1544,7 @@
         width: .64rem;
         height: .6rem;
         display: inline-block;
-        background: url(/mobile/touch/images/bifen/v124/collected.png) no-repeat;
+        /*background: url(/mobile/touch/images/bifen/v124/collected.png) no-repeat;*/
         background-size: cover
     }
 
@@ -1553,7 +1552,7 @@
         width: .56rem;
         height: .626667rem;
         display: inline-block;
-        background: url(/mobile/touch/images/bifen/v124/share.png) no-repeat;
+        /*background: url(/mobile/touch/images/bifen/v124/share.png) no-repeat;*/
         background-size: cover
     }
 
@@ -1582,7 +1581,7 @@
     .btn-share-notice {
         width: 2.32rem;
         height: 1.16rem;
-        background: url(/mobile/touch/images/bifen/v124/click-s.png) no-repeat;
+        /*background: url(/mobile/touch/images/bifen/v124/click-s.png) no-repeat;*/
         background-size: cover;
         font-size: .373333rem;
         color: #fff;
@@ -1701,7 +1700,7 @@
     .sk-point:after {
         content: "";
         display: inline-block;
-        background: url(/mobile/touch/images/bifen/v124/share-point.png) no-repeat;
+        /*background: url(/mobile/touch/images/bifen/v124/share-point.png) no-repeat;*/
         width: .48rem;
         height: .106667rem;
         background-size: cover;

@@ -13,8 +13,8 @@
 
         <template v-if="!feature.a[match.status]">
 
-            <event v-if="situation.eventlist && situation.eventlist.length" :eventlist="situation.eventlist" :status="match.status"></event>
-            <statistic v-if="situation.statistic && situation.statistic.h_ballcontrol_rate" :statistic="situation.statistic"></statistic>
+            <event :eventlist="situation.eventlist" :status="match.status"></event>
+            <statistic :statistic="situation.statistic"></statistic>
             <me-sports v-if="situation.news && situation.news.length" :news="situation.news" :init-size="3" @rs="refreshScroll"></me-sports>
             <div class="sk-btips"
                  v-if="(situation.eventlist && situation.eventlist.length) || (situation.statistic && situation.statistic.h_ballcontrol_rate)">
@@ -26,14 +26,14 @@
         </template>
         <template v-else>
             <me-sports v-if="situation.news && situation.news.length" :news="situation.news"  :init-size="match.status == StatusCode.NOT_STARTED?5:3"></me-sports>
-
+            <div class="ui-empty" v-else>
+                <img src="http://tccache.500.com/mobile/widget/empty/images/07.png" class="w240">
+                <div class="ui-empty-dfont">比赛时间 {{match.matchtime.substr(5, 11)}}</div>
+                <div class="ui-empty-gfont">先去分析栏目看看吧</div>
+            </div>
         </template>
 
-        <div class="ui-empty" v-if="noData">
-            <img src="http://tccache.500.com/mobile/widget/empty/images/07.png" class="w240">
-            <div class="ui-empty-dfont">比赛时间 {{match.matchtime.substr(5, 11)}}</div>
-            <div class="ui-empty-gfont">先去分析栏目看看吧</div>
-        </div>
+
 
     </div>
 </template>
@@ -42,7 +42,7 @@
     import {mTypes, aTypes} from '~store/zqdetail'
     import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import event from '~components/detail/football/situation/event.vue'
-    import meSports from '~components/detail/football/situation/meSports.vue'
+    import meSports from '~components/detail/meSports.vue'
     import statistic from '~components/detail/football/situation/statistic.vue'
     export default {
         async asyncData ({store, route: {params}}) {
@@ -110,19 +110,7 @@
             },
             loaded () {
                 return this.$store.state.refreshing === 0
-            },
-            noData () {
-                if (!this.loaded) {
-                    return false
-                }
-                if (!this.feature.a[this.match.status]) {
-                    return !((this.situation.statistic && this.situation.statistic.h_ballcontrol_rate) ||
-                    (this.situation.eventlist && this.situation.eventlist.length) || (this.situation.news && this.situation.news.length))
-                } else {
-                    return !(this.situation.news && this.situation.news.length)
-                }
             }
-
         },
         mounted () {
             this.fetchData()
