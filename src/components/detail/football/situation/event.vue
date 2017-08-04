@@ -110,4 +110,418 @@
         padding: 0.22rem 0;
         text-align: center;
     }
+    .gl-nav,
+    .sk-nav,
+    .zj-nav {
+        height: .706667rem;
+        line-height: .706667rem;
+        background: #efefef;
+        color: #242c35;
+        position: relative;
+        text-align: left;
+        border-bottom: 1px solid #eaeaea;
+        border-top: 1px solid #eaeaea;
+        padding: .333333rem .4rem 0 .6133rem
+    }
+
+    [data-dpr="1"] .gl-nav,
+    [data-dpr="1"] .sk-nav,
+    [data-dpr="1"] .zj-nav {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .gl-nav,
+    [data-dpr="2"] .sk-nav,
+    [data-dpr="2"] .zj-nav {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .gl-nav,
+    [data-dpr="3"] .sk-nav,
+    [data-dpr="3"] .zj-nav {
+        font-size: 36px
+    }
+
+    .gl-nav:before,
+    .sk-nav:before,
+    .zj-nav:before {
+        content: '';
+        position: absolute;
+        left: .4rem;
+        top: .533333rem;
+        display: block;
+        width: .053333rem;
+        height: .3067rem;
+        overflow: hidden;
+        background: #242c35;
+        border-radius: .026667rem .026667rem
+    }
+
+    .shikuang-box {
+        text-align: center;
+        font-size: .173333rem;
+        background: #f4f4f4;
+        padding-bottom: .84rem
+    }
+
+    .shikuang-line {
+        background: #e2e2e2;
+        width: 1px;
+        margin: .533333rem auto 0;
+        height: 100%;
+        display: inline-block
+    }
+
+    .shikuang-line li {
+        width: 3.906667rem;
+        line-height: .933333rem;
+        margin-bottom: .64rem;
+        background: #fff;
+        border: 1px solid #e2e2e2;
+        position: relative;
+        border-radius: .053333rem
+    }
+    .shikuang-line li:last-child,
+    .shikuang-line li:last-child.d-zt-box {
+        margin-bottom: 0
+    }
+
+    .shikuang-lineLeft {
+        float: right;
+        text-align: right;
+        padding-right: .533333rem
+    }
+
+    .shikuang-lineRight {
+        float: left;
+        text-align: left;
+        padding-left: .533333rem
+    }
+    .shikuang-lineLeft .mtop {
+        margin: .093333rem 0 0 .053333rem
+    }
+
+    .shikuang-lineRight .mtop {
+        margin: .093333rem .053333rem 0 0
+    }
+
+    .shikuang-ball {
+        width: .8rem;
+        height: .8rem;
+        border-radius: 100%;
+        display: inline-block;
+        background: #fff;
+        text-align: center;
+        border: 1px solid #d0d0d0;
+        position: absolute;
+        top: 0
+    }
+    .shikuang-lineLeft .shikuang-ball {
+        margin: -.4rem -.4rem 0 0;
+        right: 0
+    }
+
+    .shikuang-lineRight .shikuang-ball {
+        margin: -.4rem 0 0 -.933333rem
+    }
+
+    .ren-name {
+        position: relative;
+        top: 0;
+        color: #333;
+        display: inline-block
+    }
+
+    [data-dpr="1"] .ren-name {
+        font-size: 13px
+    }
+
+    [data-dpr="2"] .ren-name {
+        font-size: 26px
+    }
+
+    [data-dpr="3"] .ren-name {
+        font-size: 39px
+    }
+
+    .sk-time {
+        position: absolute;
+        top: 0;
+        width: .933333rem;
+        color: #999
+    }
+
+    [data-dpr="1"] .sk-time {
+        font-size: 14px
+    }
+
+    [data-dpr="2"] .sk-time {
+        font-size: 28px
+    }
+
+    [data-dpr="3"] .sk-time {
+        font-size: 42px
+    }
+
+    .shikuang-lineLeft .sk-time {
+        right: -1.4rem;
+        top: -.4rem;
+        text-align: left
+    }
+
+    .shikuang-lineRight .sk-time {
+        margin: -.4rem 0 0 -1.933333rem;
+        text-align: right
+    }
+
+    .shikuang-line li.jh-box {
+        min-height: 1.466667rem
+    }
+
+    .shikuang-lineRight .jh {
+        margin: 0 .293333rem 0 0
+    }
+
+    .shikuang-lineLeft .jh {
+        margin: 0 0 0 .293333rem
+    }
+
+    [data-dpr="1"] .jh {
+        font-size: 13px
+    }
+
+    [data-dpr="2"] .jh {
+        font-size: 26px
+    }
+
+    [data-dpr="3"] .jh {
+        font-size: 39px
+    }
+    .back-icon:before,
+    .black-ball,
+    .dian-ball,
+    .gl-tico:after,
+    .green-arrow,
+    .green-pl:after,
+    .ipt-icon,
+    .jiaohuan,
+    .person-mr,
+    .red-arrow,
+    .red-ball,
+    .red-pl:after,
+    .saixuan:after,
+    .sh-arrow,
+    .sk-gz:after,
+    .wuxiao-ball,
+    .zan-icon,
+    .zd-arrow,
+    .zj-nav .cur:after{
+        background: url(~assets/style/images/detail/detail-icon.png) no-repeat;
+        background-size: .533333rem 13.333333rem}
+
+    .black-ball,
+    .dian-ball,
+    .jiaohuan,
+    .red-ball,
+    .wuxiao-ball {
+        width: .8rem;
+        height: .8rem;
+        display: inline-block
+    }
+    .wuxiao-ball {
+        background-position: center -5.186667rem
+    }
+    .black-ball {
+        background-position: center -1.72rem
+    }
+
+    .dian-ball {
+        background-position: center -2.586667rem
+    }
+
+    .red-ball {
+        background-position: center -4.32rem
+    }
+
+    .wuxiao-ball {
+        background-position: center -5.186667rem
+    }
+
+    .lineH30 {
+        line-height: .266667rem;
+        display: inline-block
+    }
+
+    .jiaohuan {
+        background-position: center -3.453333rem
+    }
+
+    .red-yellow-card {
+        position: relative;
+        top: .2rem
+    }
+
+    .shikuang-line li.d-zt-box {
+        margin-bottom: .746667rem;
+        height: 1.066667rem;
+        background: 0 0;
+        border: none;
+        width: 1.06667rem;
+        clear: both
+    }
+
+    .shikuang-line li.d-zt-box:first-child {
+        margin-top: -1.066666rem
+    }
+
+    .green-arrow,
+    .red-arrow {
+        width: .8rem;
+        height: .733333rem;
+        display: inline-block;
+        position: absolute;
+        top: 0
+    }
+
+    .shikuang-lineLeft .green-arrow,
+    .shikuang-lineLeft .red-arrow {
+        right: 0
+    }
+
+    .shikuang-lineRight .green-arrow,
+    .shikuang-lineRight .red-arrow {
+        left: 0
+    }
+
+    .green-arrow {
+        background-position: center -5.986667rem
+    }
+
+    .red-arrow {
+        background-position: center -6.72rem
+    }
+    .dianqiu,
+    .jinqiu,
+    .wulong,
+    .wuxiao {
+        width: .746667rem;
+        height: .33rem;
+        padding-top: .03rem;
+        line-height: .36rem;
+        border-radius: .053333rem;
+        color: #fff;
+        text-align: center;
+        display: inline-block;
+        position: relative;
+        top: 0
+    }
+
+    [data-dpr="1"] .dianqiu,
+    [data-dpr="1"] .jinqiu,
+    [data-dpr="1"] .wulong,
+    [data-dpr="1"] .wuxiao {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .dianqiu,
+    [data-dpr="2"] .jinqiu,
+    [data-dpr="2"] .wulong,
+    [data-dpr="2"] .wuxiao {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .dianqiu,
+    [data-dpr="3"] .jinqiu,
+    [data-dpr="3"] .wulong,
+    [data-dpr="3"] .wuxiao {
+        font-size: 33px
+    }
+
+    .shikuang-lineLeft code {
+        margin-left: .213333rem
+    }
+
+    .shikuang-lineRight code {
+        margin-right: .213333rem
+    }
+
+    .jinqiu {
+        background: #0bcd0b
+    }
+
+    .dianqiu {
+        background: #ff9000
+    }
+
+    .wuxiao {
+        background: #b5b5b5
+    }
+
+    .wulong {
+        background: #f54141
+    }
+
+
+    .jh dd {
+        border-bottom: 1px solid #e2e2e2;
+        line-height: .733333rem;
+        position: relative
+    }
+
+    .jh dd:last-child {
+        border-bottom: 0;
+        color: #8c96a0
+    }
+    .shikuang-lineLeft .jh dd {
+        padding-right: .8rem
+    }
+
+    .shikuang-lineRight .jh dd {
+        padding-left: .8rem
+    }
+
+    .red-yellow-card em,
+    .yellow-card {
+        background: #ffe91f
+    }
+    .red-card,
+    .red-yellow-card,
+    .yellow-card {
+        margin: 0 auto;
+        width: .293333rem;
+        height: .346667rem;
+        display: block; position: relative;
+        top: .24rem
+    }
+    .sk-intro {
+        background: #fff;
+        padding: .28rem 1.293333rem;
+        text-align: center
+    }
+    .d-zt {
+        width: 1.066667rem;
+        height: 1.066667rem;
+        line-height: 1.066667rem;
+        border: 1px solid #d0d0d0;
+        text-align: center;
+        border-radius: .503333rem .503333rem;
+        color: #333;
+        display: inline-block;
+        background: #fff;
+        position: relative;
+        left: -.533333rem
+    }
+
+    [data-dpr="1"] .d-zt {
+        font-size: 13px
+    }
+
+    [data-dpr="2"] .d-zt {
+        font-size: 26px
+    }
+
+    [data-dpr="3"] .d-zt {
+        font-size: 39px
+    }
+
 </style>

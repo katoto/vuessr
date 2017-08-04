@@ -402,6 +402,32 @@
         margin-top: .17rem
     }
 
+    .comm-sk{width:8.133333rem;margin:0 auto;height:.933333rem;position:relative}
+    .ked-bg{width:8.133333rem;height:.16rem;background:#bcd0de;position:relative}
+    .deep-blue{width:62%;height:.16rem;background:#5c788f}
+    .keg-img{width:7.253333rem;height:.16rem;background:url(~assets/style/images/detail/ked.png) no-repeat;background-size:cover;position:absolute;left:50%;margin-left:-3.626667rem;bottom:0;z-index:9}
+    .zhud-jq{padding-left:.533333rem;font-size:.32rem;color:#515e6d}
+    .jiaoq-qz img{width:.16rem;height:.226667rem}
+    .ked-jq{padding-right:.533333rem;text-align:right;height:.32rem;line-height:.32rem}
+    .ked-jq .jiaoq-qz{margin-right:.133333rem}
+
+    .data-detail ul li p:nth-child(1){color:#515e6d;font-size:.4rem}
+    .data-detail ul li p:nth-child(2){font-size:.32rem;color:rgba(81,94,109,.5)}
+    .zud-sk-icon{width:8.133333rem;height:.38rem;position:relative}
+    .ked-sk-icon{width:8.133333rem;height:.4rem;position:relative}
+    .zud-sk-icon span{display:inline-block;position:absolute;bottom:.053333rem;background-size:cover}
+    .ked-sk-icon span{display:inline-block;position:absolute;top:.04rem;background-size:cover}
+    .jiaoh-icon{width:.266667rem;height:.266667rem;background:url(~assets/style/images/detail/jiaoh-icon.png) no-repeat;left:15%}
+    .huangp-icon{width:.266667rem;height:.266667rem;background:url(~assets/style/images/detail/huangp-icon.png) no-repeat;left:20%}
+    .hongp-icon{width:.266667rem;height:.266667rem;background:url(~assets/style/images/detail/hongp-icon.png) no-repeat;left:50%}
+    .lianghbh-icon{width:.266667rem;height:.266667rem;background:url(~assets/style/images/detail/lianghbh-icon.png) no-repeat;left:12%}
+    .jinq-icon{width:.266667rem;height:.266667rem;background:url(~assets/style/images/detail/jinq-icon.png) no-repeat;left:0}
+    .dianq-icon{width:.266667rem;height:.266667rem;background:url(~assets/style/images/detail/dianq-icon.png) no-repeat;left:70%}
+    .wul-icon{width:.266667rem;height:.266667rem;background:url(~assets/style/images/detail/wul-icon.png) no-repeat;left:78%}
+    .jinqwx-icon{width:.266667rem;height:.266667rem;background:url(~assets/style/images/detail/jinqwx-icon.png) no-repeat;left:36%}
+
+
+
     .data-line{width:8.133333rem;height:.853333rem;margin:0 auto;position:relative}
     .data-line ul{overflow:hidden;clear:both;height:.16rem;width:100%;position:absolute;left:0;top:50%;margin-top:-.08rem}
     .data-line ul li{height:.16rem;float:left;box-sizing:border-box;background:#bcd0de}
