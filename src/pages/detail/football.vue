@@ -100,7 +100,7 @@
                         <li
                                 :class="{cur: ~$route.path.indexOf('/predict')}">
                             <router-link :to="{name: 'football-detail-predict'}" replace>
-                                <span data-p2="zq_detail" data-p4="predict">预测<i class="sktab-arrow"></i><em class="nav-yuce-liao enter">料</em></span>
+                                <span data-p2="zq_detail" data-p4="predict">预测<i class="sktab-arrow"></i><em class="nav-yuce-liao " :class="{enter: !~$route.path.indexOf('/predict')}">料</em></span>
                             </router-link>
                         </li>
                         <li
