@@ -29,7 +29,7 @@ const actionsInfo = mapActions({
         commit(mTypes.setFootballHot, foothot)
         return foothot
     },
-    async getBasketballAll ({commit}) {
+    async getBasketballAll ({commit}, {areaid}) {
         let lqAll = await ajax.get(`/library/lq/leagues?areaid=${areaid}&T=${new Date().getTime()}`)
         commit(mTypes.setBasketballAll, lqAll)
         return lqAll
