@@ -14,14 +14,13 @@
 
 <script>
     import {aTypes} from '~store/bfyc'
-    import dataBox from '~components/bfyc/record/dataBox.vue'
-
+    
     export default{
         async asyncData ({store}) {
             return store.dispatch(aTypes.getRecord)
         },
         methods: {
-            onTab({tab}) {
+            onTab ({tab}) {
                 this.$router.push(`/bfyc/record/${tab}`)
             }
         },

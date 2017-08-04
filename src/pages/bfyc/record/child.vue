@@ -16,10 +16,10 @@ export default {
         Prompt, dataBox
     },
     computed: {
-        tab() {
+        tab () {
             return this.$route.meta.tab
         },
-        record() {
+        record () {
             return this.$store.state.bfyc.record[this.tab]
         }
     }
