@@ -10,7 +10,8 @@ const initState = {
     baseInfo: null,
     situation: {
         eventlist: null,
-        statistic: null
+        statistic: null,
+        news: null
     },
     odds: {
         europe: null,
@@ -215,6 +216,11 @@ const actionsInfo = mapActions({
         commit(mTypes.setSituationStatistic, statistic)
         return statistic
     },
+    async getSituationNews ({commit}, {homeid, awayid, status, matchtime, leagueid}) {
+        const news = await ajax.get(`/library/sports/news?homeid=${homeid}&awayid=${awayid}&status=${status}&matchtime=${matchtime}&vtype=2&leagueid=${leagueid}&limit=20`)
+        commit(mTypes.setSituationNews, news)
+        return news
+    },
     // async getOdds ({commit}, {fid}) {
     //     let [europe, handicap, points] = await Promise.all([
     //         ajax.get(`/score/lq/europe?fid=${fid}`),
@@ -282,6 +288,9 @@ const mutationsInfo = mapMutations({
     },
     setSituationStatistic (state, statistic) {
         state.situation.statistic = statistic
+    },
+    setSituationNews (state, news) {
+        state.situation.news = news
     },
     setOddsEurope (state, europe) {
         state.odds.europe = europe

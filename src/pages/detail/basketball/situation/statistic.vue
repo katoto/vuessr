@@ -208,6 +208,7 @@
 
         <div v-else>
             <no-data></no-data>
+
         </div>
     </div>
 </template>
