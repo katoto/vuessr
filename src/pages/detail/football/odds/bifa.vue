@@ -57,7 +57,7 @@
             <div class="gl-nav clear">
                 交易数据
             </div>
-            <div class="volumeBox" v-if="bifa.all_trade.pie_chart">
+            <div class="volumeBox" v-if="bifa.all_trade && bifa.all_trade.pie_chart">
                 <div class="bili-box">
                     <div class="chart into">
                         <echart-pip  class="volumeChart" :data="[

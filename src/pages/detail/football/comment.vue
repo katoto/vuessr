@@ -166,10 +166,14 @@
             },
             async onLike ({status, id, index}) {
                 this.$store.dispatch('ensureLogin')
-                await this.$store.dispatch(aTypes.onLike, {status, id})
-                let info = this.commentList[index]
-                info.liked = (info.liked === '0' ? '1' : '0')
-                info.likes = info.likes + (info.liked === '0' ? -1 : 1)
+                try {
+                    await this.$store.dispatch(aTypes.onLike, {status, id})
+                    let info = this.commentList[index]
+                    info.liked = (info.liked === '0' ? '1' : '0')
+                    info.likes = info.likes + (info.liked === '0' ? -1 : 1)
+                } catch (e) {
+                    this.$store.dispatch('showToast', e.message)
+                }
             },
             clickComment ({commentReplyId, replyName}) {
                 this.$store.commit(mTypes.setDialog, {
