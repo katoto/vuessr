@@ -553,8 +553,9 @@
                     </tr>
 
                     </tbody>
-                    <div class="ui-empty-font"  v-if="!futureMatch.away || !futureMatch.away.length">暂无数据</div>
+
                 </table>
+                <div class="ui-empty-font"  v-if="!futureMatch.away || !futureMatch.away.length">暂无数据</div>
             </div>
 
 
