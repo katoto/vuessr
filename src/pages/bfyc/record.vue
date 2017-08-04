@@ -13,20 +13,11 @@
 </template>
 
 <script>
-    import {aTypes} from '~store/bfyc'
-    
     export default{
-        async asyncData ({store}) {
-            return store.dispatch(aTypes.getRecord)
-        },
         methods: {
             onTab ({tab}) {
                 this.$router.push(`/bfyc/record/${tab}`)
             }
-        },
-        mounted () {
-            this.$store.dispatch(aTypes.getRecord)
         }
-
     }
 </script>

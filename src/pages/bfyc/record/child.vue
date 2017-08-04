@@ -10,8 +10,12 @@
 <script>
 import dataBox from '~components/bfyc/record/dataBox.vue'
 import Prompt from '~components/prompt.vue'
+import {aTypes} from '~store/bfyc'
 
 export default {
+    async asyncData ({store}) {
+        return store.dispatch(aTypes.getRecord)
+    },
     components: {
         Prompt, dataBox
     },
@@ -20,10 +24,12 @@ export default {
             return this.$route.meta.tab
         },
         record () {
-            return this.$store.state.bfyc.record[this.tab]
+            return this.$store.state.bfyc.record && this.$store.state.bfyc.record[this.tab]
         }
+    },
+    mounted () {
+        this.$store.dispatch(aTypes.getRecord)
     }
-
 }
 </script>
 
