@@ -46,9 +46,6 @@
 </template>
 
 <script>
-import {
-    aTypes
-} from '~store/team/zq'
 import Prompt from '~components/prompt.vue'
 import introBox from '~components/team/intro_box.vue'
 

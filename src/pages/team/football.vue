@@ -25,7 +25,7 @@
 </template>
 <script>
 import {
-    aTypes
+    mTypes, aTypes
 } from '~store/team/zq'
 
 export default {
