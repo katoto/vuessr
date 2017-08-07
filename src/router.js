@@ -77,6 +77,10 @@ const TeamFootballGl = () => import('~pages/team/football/gl.vue')
 const TeamFootballSc = () => import('~pages/team/football/sc.vue')
 const TeamFootballZr = () => import('~pages/team/football/zr.vue')
 
+const TeamBasketball = () => import('~pages/team/basketball.vue')
+const TeamBasketballGl = () => import('~pages/team/basketball/gl.vue')
+const TeamBasketballSc = () => import('~pages/team/basketball/sc.vue')
+
 const Center = () => import('~pages/match.vue')
 const BasketballCenter = () => import('~pages/match/basketball.vue')
 const FootballCenter = () => import('~pages/match/football.vue')
@@ -388,6 +392,27 @@ export function createRouter () {
                         path: 'zr',
                         component: TeamFootballZr,
                         name: 'team-football-zr'
+                    },
+                    {
+                        path: '*',
+                        redirect: 'sc'
+                    }
+                ]
+            },
+            {
+                path: '/team/basketball/:tid/:sid',
+                component: TeamBasketball,
+                name: 'team-basketball',
+                children: [
+                    {
+                        path: 'sc',
+                        component: TeamBasketballSc,
+                        name: 'team-basketball-sc'
+                    },
+                    {
+                        path: 'gl',
+                        component: TeamBasketballGl,
+                        name: 'team-basketball-gl'
                     },
                     {
                         path: '*',

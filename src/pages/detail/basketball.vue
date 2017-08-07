@@ -301,7 +301,7 @@
                 })
             },
             goTeam ({teamId}) {
-                this.$router.push(`/team/basketball/${teamId}/sc`)
+                this.$router.push(`/team/basketball/${teamId}/curr/sc`)
             }
         },
         async mounted () {
