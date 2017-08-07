@@ -76,7 +76,7 @@ const TeamFootballGl = () => import('~pages/team/football/gl.vue')
 const TeamFootballSc = () => import('~pages/team/football/sc.vue')
 const TeamFootballZr = () => import('~pages/team/football/zr.vue')
 
-const Center = () => import('~pages/match.vue')
+const Center = () => import('~pages/center.vue')
 const BasketballCenter = () => import('~pages/match/basketball.vue')
 const FootballCenter = () => import('~pages/match/football.vue')
 
@@ -85,7 +85,10 @@ const BasketballEurope = () => import('~pages/match/basketball/europe.vue')
 const BasketballAsian = () => import('~pages/match/basketball/asian.vue')
 const BasketballAmerica = () => import('~pages/match/basketball/america.vue')
 const BasketballCups = () => import('~pages/match/basketball/cups.vue')
-const BasketballMatch = () => import('~pages/match/basketabll/match.vue')
+const BasketballMatch = () => import('~pages/match/basketball/match.vue')
+const BasketballMatchRank = () => import('~pages/match/basketball/match/rank.vue')
+const BasketballMatchSchedule = () => import('~pages/match/basketball/match/schedule.vue')
+const BasketballMatchStatistics = () => import('~pages/match/basketball/match/statistics.vue')
 
 const FootballLeague = () => import('~pages/match/football_league.vue')
 const FootballEurope = () => import('~pages/match/football/europe.vue')
@@ -404,7 +407,24 @@ export function createRouter () {
                     {
                         path: 'basketballmatch/:seasonid',
                         component: BasketballMatch,
-                        name: 'center-basketball-match'
+                        name: 'center-basketball-match',
+                        children: [
+                            {
+                                path: 'rank',
+                                component: BasketballMatchRank,
+                                name: 'center-basketball-match-rank'
+                            },
+                            {
+                                path: 'schedule',
+                                component: BasketballMatchSchedule,
+                                name: 'center-basketball-match-schedule'
+                            },
+                            {
+                                path: 'statistics',
+                                component: BasketballMatchStatistics,
+                                name: 'center-basketball-match-statistics'
+                            }
+                        ]
                     },
                     {
                         path: 'football',

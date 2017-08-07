@@ -36,12 +36,29 @@ const initState = {
             leagues: null
         }
     },
+    basketballMatch: {
+        head: null,
+        rank: null,
+        schedule: null,
+        statistics: null
+    },
+    footballMatch: {
+        head: null,
+        schedule: null,
+        integral: null,
+        statistics: null
+    },
     outer: {
         component: null,   // 组件名
         params: null       // 所传递的参数
     }
 }
 const actionsInfo = mapActions({
+    async getBasketHead ({commit}, {seasonid}) {
+        let baseInfo = await ajax.get(`library/lq/baseinfo?seasonid=${id}&T=${new Date().getTime()}`)
+        commit(mTypes.setBasketHead, baseInfo)
+        return baseInfo
+    },
     async getBasketballHot ({commit}) {
         let baskethot = await ajax.get(`/library/lq/leagues?areaid=0&T=${new Date().getTime()}`)
         commit(mTypes.setBasketballHot, baskethot)
@@ -57,7 +74,7 @@ const actionsInfo = mapActions({
         switch (areaid) {
         case 1: {
             commit(mTypes.setBasketballEurope, lqAll)
-            console.log(areaid)
+            // console.log(areaid)
             break
         }
         case 2: {
@@ -83,6 +100,21 @@ const actionsInfo = mapActions({
         ])
         commit(mTypes.setFootballEurope, {cups, leagues})
         return {cups, leagues}
+    },
+    async getBasketballMatchRank ({commit}, {seasonid}) {
+        let rank = await ajax.get(`/library/lq/rank?T=${new Date().getTime()}&seasonid=${seasonid}&iscup=0`)
+        commit(mTypes.setBasketballMatchRank, rank)
+        return rank
+    },
+    async getBasketballMatchSchedule ({commit}, {seasonid}) {
+        let schedule = await ajax.get(`library/lq/progress?seasonid=${seasonid}&T=${new Date().getTime()}`)
+        commit(mTypes.setBasketballMatchSchedule, schedule)
+        return schedule
+    },
+    async getBasketballMatchStatistics ({commit}, {seasonid, key}) {
+        let statistics = await ajax.get(`library/lq/statistic?T=${new Date().getTime()}&seasonid=${seasonid}&key=${key}`)
+        commit(mTypes.setBasketballMatchStatistics, statistics)
+        return statistics
     }
 
 }, ns)
@@ -108,6 +140,18 @@ const mutationsInfo = mapMutations({
     setFootballEurope (state, {cups, leagues}) {
         state.zqAll.europe.cups = cups
         state.zqAll.europe.leagues = leagues
+    },
+    setBasketHead (state, head) {
+        state.basketballMatch.head = head
+    },
+    setBasketballMatchRank (state, rank) {
+        state.basketballMatch.rank = rank
+    },
+    setBasketballMatchSchedule (state, schedule) {
+        state.basketballMatch.schedule = schedule
+    },
+    setBasketballMatchStatistics (state, statistics) {
+        state.basketballMatch.statistics = statistics
     }
 }, ns)
 

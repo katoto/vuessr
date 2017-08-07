@@ -13,11 +13,13 @@
                 <ul class="hot-match-list match-list-detail" v-if="isActive[index]" v-for="detail in item.leaguelist">
                     <li class="hot-match-item">
                         <!--<a :href=" '#/basketball-league/rank/'+ detail.leagueid" class="link-all-match">-->
-                        <span class="link-all-match">
-                            <em class="match-icon">
-                                <img :src="detail['matchlogo']"/></em>
-                            <em class="match-tit">{{detail['matchgbname']}}</em>
-                        </span>
+                        <router-link :to="{name: 'center-basketball-match-rank',params:{seasonid:list.seasonid}}">
+                            <span class="link-all-match">
+                                <em class="match-icon">
+                                    <img :src="detail['matchlogo']"/></em>
+                                <em class="match-tit">{{detail['matchgbname']}}</em>
+                            </span>
+                        </router-link>
                     </li>
                 </ul>
 
