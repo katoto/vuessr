@@ -2,7 +2,7 @@ import ajax from '~common/ajax'
 import {mapActions, mapMutations} from '~common/util'
 
 const ns = 'team/zq'
-const state = {
+const initState = {
     teamInfo: null,
     teamMatches: null,
     teamMembers: null
@@ -35,6 +35,12 @@ const mutationsInfo = mapMutations({
     },
     setTeamMembers (state, teamMembers) {
         state.teamMembers = teamMembers
+    },
+    reset (state) {
+        const iState = JSON.parse(JSON.stringify(initState))
+        Object.keys(state).forEach(key => {
+            state[key] = iState[key]
+        })
     }
 }, ns)
 const actions = actionsInfo.actions
@@ -42,4 +48,4 @@ const mutations = mutationsInfo.mutations
 export const mTypes = mutationsInfo.mTypes
 export const aTypes = actionsInfo.aTypes
 
-export default {state, mutations, actions}
+export default {state: JSON.parse(JSON.stringify(initState)), actions, mutations}
