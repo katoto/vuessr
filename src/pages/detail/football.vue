@@ -876,7 +876,7 @@
         height: 1.333333rem;
         display: inline-block;
     }
- /*   .sk-point:after {
+    .sk-point:after {
         content: "";
         display: inline-block;
         background: url(~assets/style/images/detail/share-point.png) no-repeat;
@@ -888,7 +888,7 @@
         margin-top: -.053333rem;
         left: 50%;
         margin-left: -.24rem;
-    }*/
+    }
     .navigator .nav-yuce-liao{display:block;width:.4rem;height:.346667rem;line-height:.346667rem;position:absolute;top:.133333rem;right:-.44rem;text-align:center;background-color:#d25138;color:#fff;border-radius:.04rem;font-size:.266667rem;overflow:hidden;-webkit-transform-origin:0 100%;transform-origin:0 100%;-webkit-transform:scale(0);transform:scale(0)}
     .navigator .nav-yuce-liao.enter{-webkit-animation:iScale .3s ease both;animation:iScale .3s ease both;-webkit-transform:scale(1);transform:scale(1)}
     .navigator .nav-yuce-liao.leave{-webkit-animation:iScale2 .3s ease both;animation:iScale2 .3s ease both;-webkit-transform:scale(0);transform:scale(0)}
