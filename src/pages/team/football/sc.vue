@@ -40,4 +40,10 @@ export default {
 </script>
 
 <style lang="css">
+    .l-full{ position: absolute; top:0; left:0; right:0; bottom:0 }
+    .schedule-foot .who-gamer-home em, .schedule-foot .who-gamer-guest em{ display: inline-block;
+        width: 1.7rem; text-align:center;}
+    .who-win i{ color: #999; margin:0 0.13333rem; display: inline-block;}
+    .schedule-foot .who-win{ width: 1.173333rem}
+    .schedule-foot .when-game{ width: 3rem;}
 </style>

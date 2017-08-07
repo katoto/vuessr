@@ -63,4 +63,8 @@ export default {
 </script>
 
 <style lang="css">
+    .l-scroll-y{overflow: auto;-webkit-overflow-scrolling:touch;}
+    .l-full{ position: absolute; top:0; left:0; right:0; bottom:0 }
+    .main{width:100%;padding-top:.266667rem}
+    .box-tit h2{font-size:.4rem;padding-left:.533333rem;line-height:1.066667rem}
 </style>
