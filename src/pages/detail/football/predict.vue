@@ -1732,4 +1732,8 @@
     [data-dpr="1"] .dataItem .item-info2{font-size:10px}
     [data-dpr="2"] .dataItem .item-info2{font-size:20px}
     [data-dpr="3"] .dataItem .item-info2{font-size:30px}
+
+    .feed-back{width:100%;height:1.733333rem;background:#fff;border-top:1px solid #eaeaea}
+    .feed-box{color:#787878;line-height:1.733333rem;text-align:center}
+
 </style>

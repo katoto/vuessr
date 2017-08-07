@@ -575,6 +575,7 @@
         font-size: 45px
     }
 
+    .no-more{padding:.366667rem 0 .6rem 0;color:#999;text-align:center}
 
 
 
