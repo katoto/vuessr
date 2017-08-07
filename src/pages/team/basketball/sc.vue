@@ -47,7 +47,7 @@ export default {
     },
     mounted () {
         if (!(this.$store.state.teamLq.teamId_sc === this.teamId && this.$store.state.teamLq.seasonId_sc === this.seasonId && this.$store.state.teamLq.teamInfo)) {
-            this.$store.dispatch(aTypes.requestTeamMatches, {
+            this.$store.dispatch(aTypes.getTeamMatches, {
                 tid: this.teamId,
                 sid: this.seasonId
             })

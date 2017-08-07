@@ -32,7 +32,7 @@ vue.use(vueTap)
 export default {
     // async asyncData ({store, route: {params: {tid, sid}}}) {
     //     if (store.state.teamLq.teamInfo && store.state.teamLq.teamInfo.teamId === params.tid && ) return
-    //     await store.dispatch(aTypes.requestTeamInfo, params.id)
+    //     await store.dispatch(aTypes.getTeamInfo, params.id)
     // },
     components: {
         vueTap
@@ -60,7 +60,7 @@ export default {
         }
     },
     mounted () {
-        this.$store.dispatch(aTypes.requestTeamInfo, {tid: this.teamId, sid: this.seasonId})
+        this.$store.dispatch(aTypes.getTeamInfo, {tid: this.teamId, sid: this.seasonId})
     }
 }
 </script>
