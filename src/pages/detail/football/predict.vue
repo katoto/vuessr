@@ -280,9 +280,7 @@
             </div>
         </div>
 
-        <div class="sk-btips" v-if="predictRecommend||predictEurope||predictAsian||predictDaXiao||predictScore">
-            500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
-        </div>
+        <skbtips v-if="predictRecommend||predictEurope||predictAsian||predictDaXiao||predictScore"></skbtips>
 
         <div class="item-loader" v-else>
             <div class="la-ball-pulse la-2x">
@@ -299,6 +297,7 @@
     import daxiaoPop from '~components/detail/football/predict/daxiaoPop.vue'
     import scorePop from '~components/detail/football/predict/scorePop.vue'
     import halfPop from '~components/detail/football/predict/halfPop.vue'
+    import skbtips from '~components/detail/skbtips.vue'
 
     import echartBarLine from '~components/detail/football/predict/echartBarLine.vue'
     import echartPosition from '~components/detail/football/predict/echartPosition.vue'
@@ -313,7 +312,7 @@
             }
         },
         components: {
-            echartBarLine, echartPosition
+            echartBarLine, echartPosition, skbtips
         },
         methods: {
             async fetchData () {
@@ -447,29 +446,6 @@
         border-radius: .026667rem .026667rem
     }
 
-    /*over*/
-    /*底部文字 start*/
-
-    .sk-btips {
-        color: #999;
-        text-align: center;
-        height: 1rem;
-        padding: .533333rem 0;
-        background: #efefef;
-        line-height: .506667rem
-    }
-
-    [data-dpr="1"] .sk-btips {
-        font-size: 11px
-    }
-
-    [data-dpr="2"] .sk-btips {
-        font-size: 22px
-    }
-
-    [data-dpr="3"] .sk-btips {
-        font-size: 33px
-    }
 
     /*over*/
     /*弹层小按钮*/

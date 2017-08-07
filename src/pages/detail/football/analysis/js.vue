@@ -496,16 +496,13 @@
                 </div>
             </div>
         </div>
-        <div class="sk-btips">
-            500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
-        </div>
-
+        <skbtips></skbtips>
     </div>
 </template>
 
 <script>
     import {aTypes, mTypes} from '~store/zqdetail'
-
+    import skbtips from '~components/detail/skbtips.vue'
     export default {
         async asyncData ({store, route: {params}}) {
             const {stageid, matchtime, homeid, awayid, league_id} = store.state.zqdetail.baseInfo
@@ -523,6 +520,9 @@
             return {
                 strengthInfoContentVisible: false
             }
+        },
+        components: {
+            skbtips
         },
         methods: {
             async fetchData () {
@@ -977,28 +977,6 @@
     [data-dpr="3"] .tongji-box .zhzl-right {
         font-size: 39px
     }
-    /*底部文字 start*/
 
-    .sk-btips {
-        color: #999;
-        text-align: center;
-        height: 1rem;
-        padding: .533333rem 0;
-        background: #efefef;
-        line-height: .506667rem
-    }
-
-    [data-dpr="1"] .sk-btips {
-        font-size: 11px
-    }
-
-    [data-dpr="2"] .sk-btips {
-        font-size: 22px
-    }
-
-    [data-dpr="3"] .sk-btips {
-        font-size: 33px
-    }
-    /*over*/
 
 </style>

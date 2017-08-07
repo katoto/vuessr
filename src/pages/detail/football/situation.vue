@@ -16,18 +16,14 @@
             <event :eventlist="situation.eventlist" :status="match.status"></event>
             <statistic :statistic="situation.statistic"></statistic>
             <me-sports v-if="situation.news && situation.news.length" :news="situation.news" :init-size="3" @rs="refreshScroll"></me-sports>
-            <div class="sk-btips"
-                 v-if="(situation.eventlist && situation.eventlist.length) || (situation.statistic && situation.statistic.h_ballcontrol_rate)">
-                500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
-            </div>
-
+            <skbtips v-if="(situation.eventlist && situation.eventlist.length) || (situation.statistic && situation.statistic.h_ballcontrol_rate)"></skbtips>
 
 
         </template>
         <template v-else>
             <me-sports v-if="situation.news && situation.news.length" :news="situation.news"  :init-size="match.status == StatusCode.NOT_STARTED?5:3"></me-sports>
             <div class="ui-empty" v-else>
-                <img src="http://tccache.500.com/mobile/widget/empty/images/07.png" class="w240">
+                <img src="~assets/style/images/detail/07.png" class="w240">
                 <div class="ui-empty-dfont">比赛时间 {{match.matchtime.substr(5, 11)}}</div>
                 <div class="ui-empty-gfont">先去分析栏目看看吧</div>
             </div>
@@ -44,6 +40,7 @@
     import event from '~components/detail/football/situation/event.vue'
     import meSports from '~components/detail/meSports.vue'
     import statistic from '~components/detail/football/situation/statistic.vue'
+    import skbtips from '~components/detail/skbtips.vue'
     export default {
         async asyncData ({store, route: {params}}) {
             const {status, matchtime, homeid, awayid, league_id} = store.state.zqdetail.baseInfo // baseInfo 保证有数据了
@@ -66,7 +63,7 @@
             }
         },
         components: {
-            event, meSports, statistic
+            event, meSports, statistic, skbtips
         },
         methods: {
             async fetchData () {
@@ -169,30 +166,6 @@
         height: 4.5333rem;
         position: relative;
         background: #fff
-    }
-
-
-
-
-    .sk-btips {
-        color: #999;
-        text-align: center;
-        height: 1rem;
-        padding: .533333rem 0;
-        background: #efefef;
-        line-height: .506667rem
-    }
-
-    [data-dpr="1"] .sk-btips {
-        font-size: 11px
-    }
-
-    [data-dpr="2"] .sk-btips {
-        font-size: 22px
-    }
-
-    [data-dpr="3"] .sk-btips {
-        font-size: 33px
     }
 
 

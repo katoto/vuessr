@@ -590,9 +590,7 @@
                 </div>
             </div>-->
         </div>
-        <div class="sk-btips">
-            500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
-        </div>
+        <skbtips></skbtips>
     </div>
 </template>
 
@@ -600,7 +598,7 @@
     import {aTypes, mTypes} from '~store/zqdetail'
 
     import Filter from '~components/detail/football/analysis/filter.vue'
-
+    import skbtips from '~components/detail/skbtips.vue'
     export default {
         async asyncData ({store, route: {params}}) {
             const {stageid, matchtime, homeid, awayid, matchgroup} = store.state.zqdetail.baseInfo
@@ -619,6 +617,9 @@
                 jzlimit: 6,
                 jzhoa: 0
             })
+        },
+        components: {
+            skbtips
         },
         data () {
             return {
@@ -1288,28 +1289,7 @@
     [data-dpr="3"] .macao-txt {
         font-size: 39px
     }
-    /*底部文字 start*/
 
-    .sk-btips {
-        color: #999;
-        text-align: center;
-        height: 1rem;
-        padding: .533333rem 0;
-        background: #efefef;
-        line-height: .506667rem
-    }
-
-    [data-dpr="1"] .sk-btips {
-        font-size: 11px
-    }
-
-    [data-dpr="2"] .sk-btips {
-        font-size: 22px
-    }
-
-    [data-dpr="3"] .sk-btips {
-        font-size: 33px
-    }
 
     .inte-look{height:1.066667rem;line-height:1.066667rem;background:#fff;color:#515e6d;position:relative;text-align:right;border-top:1px solid #ededed;padding-right:.4rem}
     [data-dpr="1"] .inte-look{font-size:12px}
