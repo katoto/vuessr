@@ -61,7 +61,7 @@
 </style>
 
 <script>
-    import snap from '~components/snap.vue'
+    import snap from '~components/detail/football/comment/snap.vue'
     import report from '~components/detail/report.vue'
     import {aTypes, mTypes} from '~store/zqdetail'
     export default {
@@ -336,6 +336,16 @@
     }
 
 
+    .comm-list .list-box-tr .zan-icon {
+        display: inline-block;
+        width: .533333rem;
+        height: .48rem;
+        background-position: 0 -11.67rem;
+        vertical-align: middle;
+        position: relative;
+        top: -.08rem
+    }
+
     .comm-list .list-box-tl .time em {
         margin: 0 .133333rem
     }
@@ -484,6 +494,13 @@
         width: 100%;
         text-align: center;
         border: none
+    }
+    .main:after {
+        content: '';
+        clear: both;
+        display: block;
+        height: 0;
+        visibility: hidden
     }
 
     .comm-list .list-cont {
