@@ -437,28 +437,11 @@
     display: block;
     width: 100%;
 }
-.respon2 {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    box-orient: vertical;
-}
-.respon2-itm {
-    flex: 1;
-    display: block;
-    width: 100%;
-    position: relative;
-}
+
 /*头部*/
-.back-icon:before, .black-ball, .dian-ball, .gl-tico:after, .green-arrow, .green-pl:after, .ipt-icon, .jiaohuan, .person-mr, .red-arrow, .red-ball, .red-pl:after, .saixuan:after, .sh-arrow, .sk-gz:after, .wuxiao-ball, .zan-icon, .zd-arrow, .zj-nav .cur:after {
-    background: url(~assets/style/images/detail/detail-icon.png) no-repeat;
-    background-size: .533333rem 13.333333rem
-}
+
 /*详情页顶部*/
-.top-wrap {
-    height: 328px;
-}
+
 .detailTop {
     position: relative;
     width: 100%;
@@ -644,17 +627,7 @@
 .img-box img {
     width: 0.9067rem;
 }
-.zhu-ke {
-    font-size:0.293rem;
-    color: #ccc;
-    position: absolute;
-}
-.right-name .zhu-ke {
-    right: -.266667rem
-}
-.left-name .zhu-ke {
-    left: -.266667rem
-}
+
 .fen-box {
     width: 100%;
     text-align: center;
@@ -715,9 +688,7 @@
 .wks {
     font-size: 0.667rem;
 }
-.gaix {
-    font-size: 0.533rem;
-}
+
 .sk-tips {
     position: absolute;
     top: 3.2rem;
@@ -807,17 +778,7 @@
         transform: translate(-50%, 0)
     }
 }
-.zhong {
-    font-size: 0.293rem;
-    color: #ccc;
-    margin-left: .12rem
-}
-.macao-txt {
-    color: #787878;
-    padding: 0 30px 36px;
-    font-size: 0.3466rem;
-    text-align: justify;
-}
+
 .game-info {
     text-align: center;
     width: 100%;
@@ -858,11 +819,6 @@
 
 /*详情页导航*/
 
-.nav-placeholder {
-    height: 1.173rem;
-    position: relative;
-    width: 100%;
-}
 .navigator {
     height: 1.173rem;
     line-height: 1.173rem;
@@ -877,16 +833,7 @@
     left: 0;
     top: 1.173rem;
 }
-.nav-relative {
-    position: relative;
-    z-index: 9;
-    top: 0;
-}
-.nav-fixed {
-    position: fixed;
-    top: 88px;
-    z-index: 9
-}
+
 .navigator ul {
     display: flex;
     border-bottom: 1px solid #e8e8e8;
@@ -952,11 +899,7 @@
         transform: scaleX(1)
     }
 }
-.header-placeholder {
-    height: 328px;
-    position: relative;
-    z-index: 1
-}
+
 /*详情页头部动效 start*/
 
 .topBarMove .link-index, .topBarMove .r-sn, .topBarMove2 .fen-box {
@@ -1018,74 +961,10 @@
         height: 2.5867rem;
     }
 }
-.navMove {
-    animation: navM .15s ease-out both;
-}
-.navMove2 {
-    animation: navM2 .25s ease-out both;
-}
-@keyframes navM {
-    0% {
-        top: 3.7333rem;
-    }
-    100% {
-        top: ;
-    }
-}
-@keyframes navM2 {
-    0% {
-        top: 1.173rem;
-    }
-    100% {
-        top: 3.7333rem;
-    }
-}
+
 /*详情页头部动效 end*/
 /*标题*/
-.zj-nav {
-    height: .706667rem;
-    line-height: .706667rem;
-    background: #efefef;
-    color: #242c35;
-    position: relative;
-    text-align: left;
-    border-bottom: 1px solid #eaeaea;
-    border-top: 1px solid #eaeaea;
-    padding: .333333rem .4rem 0 .6133rem
-}
 
-[data-dpr="1"] .gl-nav,
-[data-dpr="1"] .sk-nav,
-[data-dpr="1"] .zj-nav {
-    font-size: 12px
-}
-
-[data-dpr="2"] .gl-nav,
-[data-dpr="2"] .sk-nav,
-[data-dpr="2"] .zj-nav {
-    font-size: 24px
-}
-
-[data-dpr="3"] .gl-nav,
-[data-dpr="3"] .sk-nav,
-[data-dpr="3"] .zj-nav {
-    font-size: 36px
-}
-
-.gl-nav:before,
-.sk-nav:before,
-.zj-nav:before {
-    content: '';
-    position: absolute;
-    left: .4rem;
-    top: .533333rem;
-    display: block;
-    width: .053333rem;
-    height: .3067rem;
-    overflow: hidden;
-    background: #242c35;
-    border-radius: .026667rem .026667rem
-}
 /*over*/
 /*春哥增加*/
 .sktab-arrow {

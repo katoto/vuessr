@@ -93,5 +93,117 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped>
+    .zhedie-box {
+        background: #fff
+    }
+
+    .zhedie-box:last-child {
+        margin-bottom: 0
+    }
+
+    .fx-table {
+        margin-top: .053333rem
+    }
+
+    .fx-table tr th {
+        background: #fff;
+        border-bottom: 1px solid #f4f4f4;
+        height: .8rem;
+        line-height: .8rem;
+        color: #aab5bd;
+        font-weight: 400
+    }
+
+    [data-dpr="1"] .fx-table tr th {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .fx-table tr th {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .fx-table tr th {
+        font-size: 33px
+    }
+
+    .fx-table tr td {
+        line-height: 1.066667rem;
+        color: #242c35;
+        text-align: center
+    }
+
+    [data-dpr="1"] .fx-table tr td {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .fx-table tr td {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .fx-table tr td {
+        font-size: 36px
+    }
+
+
+    .fx-table tr td .color9,
+    .fx-table tr td .colorc {
+        color: #aab5bd
+    }
+
+    .fx-table tr td:first-child,
+    .fx-table tr th:first-child {
+        padding-left: .4rem;
+        text-align: left;
+        position: relative
+    }
+
+    .fx-table tr td:last-child,
+    .fx-table tr th:last-child {
+        padding-right: .4rem;
+        text-align: right
+    }
+
+    .fx-table tr:last-child td {
+        padding-bottom: .25rem
+    }
+
+    .fx-table tr td:first-child span {
+        display: block;
+        height: .426667rem;
+        line-height: .426667rem
+    }
+
+    [data-dpr="1"] .fx-table tr td:first-child span {
+        font-size: 10px
+    }
+
+    [data-dpr="2"] .fx-table tr td:first-child span {
+        font-size: 20px
+    }
+
+    [data-dpr="3"] .fx-table tr td:first-child span {
+        font-size: 30px
+    }
+
+    [data-dpr="1"] .fx-table tr td:first-child span.f23 {
+        font-size: 11.5px
+    }
+
+    [data-dpr="2"] .fx-table tr td:first-child span.f23 {
+        font-size: 23px
+    }
+
+    [data-dpr="3"] .fx-table tr td:first-child span.f23 {
+        font-size: 34.5px
+    }
+
+
+    .zhedie-box-wl .fx-table tr th:first-child span {
+        color: #5c788f
+    }
+    [data-dpr="1"] .zhedie-box-wl .fx-table tr td:first-child span{font-size:12px}
+    [data-dpr="2"] .zhedie-box-wl .fx-table tr td:first-child span{font-size:24px}
+    [data-dpr="3"] .zhedie-box-wl .fx-table tr td:first-child span{font-size:36px;}
+    .zhedie-box-wl .fx-table tr th:first-child span{color:#5c788f}
 </style>

@@ -111,5 +111,25 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped>
+	.zhedie-box {
+		background: #fff
+	}
+
+	.zhedie-box:last-child {
+		margin-bottom: 0
+	}
+
+	.lq-img{
+		width: .6rem;
+		position: relative;
+		float: left
+	}
+
+
+
+	.lq-img {
+		height: 1.06667rem
+	}
+
 </style>
