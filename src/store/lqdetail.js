@@ -283,6 +283,9 @@ const mutationsInfo = mapMutations({
     setBaseInfo (state, baseInfo) {
         state.baseInfo = baseInfo
     },
+    syncBaseInfo (state, baseInfo) {
+        Object.assign(state.baseInfo, baseInfo)
+    },
     setSituationEvent (state, eventlist) {
         state.situation.eventlist = eventlist
     },

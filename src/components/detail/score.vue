@@ -1,19 +1,33 @@
 <template>
     <div class="wrap">
-        <div class="fen-bf" :class="{'fen-bf-active': homeChange}">
-            <span class="score">{{homescore}}</span>
-            <span class="score">{{newHomescore}}</span>
-        </div>
-        <div class="fen-ld">:</div>
-        <div class="fen-bf" :class="{'fen-bf-active': awayChange}">
-            <span class="score">{{awayscore}}</span>
-            <span class="score">{{newAwayscore}}</span>
-        </div>
+        <template v-if="type === 'zq'">
+            <div class="fen-bf" :class="{'fen-bf-active': homeChange}">
+                <span class="score">{{homescore}}</span>
+                <span class="score">{{newHomescore}}</span>
+            </div>
+            <div class="fen-ld">:</div>
+            <div class="fen-bf" :class="{'fen-bf-active': awayChange}">
+                <span class="score">{{awayscore}}</span>
+                <span class="score">{{newAwayscore}}</span>
+            </div>
+        </template>
+        <template v-if="type === 'lq'">
+            <div class="fen-bf-lq" :class="{'fen-bf-lq-active': awayChange}">
+                <span class="score">{{awayscore}}</span>
+                <span class="score">{{newAwayscore}}</span>
+            </div>
+            <div class="fen-ld">:</div>
+            <div class="fen-bf-lq" :class="{'fen-bf-lq-active': homeChange}">
+                <span class="score">{{homescore}}</span>
+                <span class="score">{{newHomescore}}</span>
+            </div>
+        </template>
+
     </div>
 </template>
 <script>
     export default {
-        props: ['homescore', 'newHomescore', 'awayscore', 'newAwayscore'],
+        props: ['homescore', 'newHomescore', 'awayscore', 'newAwayscore', 'type'],
         data () {
             return {
                 homeChange: false,
@@ -64,6 +78,10 @@
         border-radius: .053333rem;
         position: relative;
         overflow: hidden
+    }
+
+    .fen-bf-lq {
+        width: 1.1rem;
     }
     .fen-bf {
         width: 0.9333rem;

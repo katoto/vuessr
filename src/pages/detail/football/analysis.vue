@@ -35,12 +35,6 @@
     .sk-detail-tap-box a {
         display: block;
     }
-    .main-inner {
-        min-height: 15.44rem;
-        width: 100%;
-        overflow-x: hidden;
-        color: #242c35
-    }
     .sk-detail-tap-box {
         text-align: center;
         height: 1.173333rem;
@@ -84,10 +78,5 @@
     .sk-detail-tap li:active {
         color: #242c35
     }
-    .pl-cont .red {
-        color: #d3553d
-    }
-    .pl-cont .green {
-        color: #36a171
-    }
+
 </style>

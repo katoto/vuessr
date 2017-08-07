@@ -302,12 +302,6 @@
     [data-dpr="3"] .dataItem .item-tit {
         font-size: 48px
     }
-    .item-loader {
-        text-align: center;
-        height: 1.733333rem;
-        position: relative;
-        background: #fff
-    }
 
     .chart-yuce {
         width: 9.2rem;
@@ -316,9 +310,6 @@
     }
 
 
-    .popBox .popLayer {
-        z-index: 2
-    }
 
     .popBox {
         position: absolute;
@@ -367,13 +358,6 @@
         margin-top: .533333rem
     }
 
-    .popHeader .dataBox {
-        border-bottom: 0
-    }
-
-    .popHeader .dataBox:active {
-        background: #fff
-    }
 
     .popTab {
         text-align: center;

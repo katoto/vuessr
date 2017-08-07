@@ -89,12 +89,6 @@
     }
 </script>
 <style scoped>
-    .ui-empty-font {
-        color: #b3b3b3;
-        font-size: 0.4rem;
-        padding: 0.22rem 0;
-        text-align: center;
-    }
     .tongji-box {
         background: #fff;
         padding: .266667rem 0 0;
@@ -263,31 +257,5 @@
     [data-dpr="3"] .zhzl-classify {
         font-size: 33px
     }
-    .respon2 {
-        height: 100%;
-        width: 100%;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-        flex-direction: column;
-        box-orient: vertical
-    }
-
-    .respon2-itm {
-        -webkit-box-flex: 1;
-        -ms-flex: 1;
-        flex: 1;
-        display: block;
-        width: 100%;
-        position: relative
-    }
-
-
-
-
-
 
 </style>

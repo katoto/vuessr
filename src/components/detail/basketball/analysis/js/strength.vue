@@ -171,27 +171,6 @@ export default {
         shootStyleHome () {
             return this.makeWidthStyle('shoot')
         },
-        finalscoreClassHome () {
-            return this.makeColorClass('finalscore')
-        },
-        finalscoreClassAway () {
-            return this.makeColorClass('finalscore', true)
-        },
-        finalscoreStyleHome () {
-            return this.makeWidthStyle('finalscore')
-        },
-        finalscoreStyleAway () {
-            return this.makeWidthStyle('finalscore', true)
-        },
-        shootClassHome () {
-            return this.makeColorClass('shoot')
-        },
-        shootClassAway () {
-            return this.makeColorClass('shoot', true)
-        },
-        shootStyleHome () {
-            return this.makeWidthStyle('shoot')
-        },
         shootStyleAway () {
             return this.makeWidthStyle('shoot', true)
         },

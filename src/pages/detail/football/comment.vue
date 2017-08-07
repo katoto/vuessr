@@ -243,54 +243,6 @@
 </script>
 <style scoped>
 
-    /*小标题 start*/
-    .gl-nav,
-    .sk-nav,
-    .zj-nav {
-        height: .706667rem;
-        line-height: .706667rem;
-        background: #efefef;
-        color: #242c35;
-        position: relative;
-        text-align: left;
-        border-bottom: 1px solid #eaeaea;
-        border-top: 1px solid #eaeaea;
-        padding: .333333rem .4rem 0 .6133rem
-    }
-
-    [data-dpr="1"] .gl-nav,
-    [data-dpr="1"] .sk-nav,
-    [data-dpr="1"] .zj-nav {
-        font-size: 12px
-    }
-
-    [data-dpr="2"] .gl-nav,
-    [data-dpr="2"] .sk-nav,
-    [data-dpr="2"] .zj-nav {
-        font-size: 24px
-    }
-
-    [data-dpr="3"] .gl-nav,
-    [data-dpr="3"] .sk-nav,
-    [data-dpr="3"] .zj-nav {
-        font-size: 36px
-    }
-
-    .gl-nav:before,
-    .sk-nav:before,
-    .zj-nav:before {
-        content: '';
-        position: absolute;
-        left: .4rem;
-        top: .533333rem;
-        display: block;
-        width: .053333rem;
-        height: .3067rem;
-        overflow: hidden;
-        background: #242c35;
-        border-radius: .026667rem .026667rem
-    }
-
     .volumeTab {
         float: right
     }
@@ -383,19 +335,6 @@
         overflow: hidden
     }
 
-    .comm-list .list-box-tr .zan-num {
-        color: #787878
-    }
-
-    .comm-list .list-box-tr .zan-icon {
-        display: inline-block;
-        width: .533333rem;
-        height: .48rem;
-        background-position: 0 -11.67rem;
-        vertical-align: middle;
-        position: relative;
-        top: -.08rem
-    }
 
     .comm-list .list-box-tl .time em {
         margin: 0 .133333rem
@@ -545,13 +484,6 @@
         width: 100%;
         text-align: center;
         border: none
-    }
-    .main:after {
-        content: '';
-        clear: both;
-        display: block;
-        height: 0;
-        visibility: hidden
     }
 
     .comm-list .list-cont {

@@ -40,7 +40,7 @@
                                    match.status == StatusCode.LAST_HALF ||
                                    match.status == StatusCode.ENDED">
 
-                           <score :homescore="match.homescore" :new-homescore="newHomescore" :awayscore="match.awayscore" :new-awayscore="newAwayscore" @update="syncMatch"></score>
+                           <score :homescore="match.homescore" :new-homescore="newHomescore" :awayscore="match.awayscore" :new-awayscore="newAwayscore" @update="syncMatch" type="zq"></score>
                         </div>
 
                         <div
@@ -145,16 +145,7 @@
         </div>
 
 
-        <div v-if="~$route.path.indexOf('/comment')">
-            <div class="comm-enter">
-                <div class="enter-ipt" v-tap="{methods: beginEdit}">
-                    <i class="ipt-icon"></i>
-                    <p class="ipt-txt">我来说两句…</p>
-                    <span class="ipt-count">{{total}}评</span>
-                </div>
-            </div>
-        </div>
-
+        <comm-enter v-if="~$route.path.indexOf('/comment')" :total="total" @edit="beginEdit"></comm-enter>
         <refresh/>
         <toast v-if="toast.visible" :msg="toast.msg"/>
 
@@ -171,7 +162,7 @@
     import copy from '~components/detail/copy.vue'
     import score from '~components/detail/score.vue'
     import {aTypes, mTypes} from '~store/zqdetail'
-
+    import commEnter from '~components/detail/commEnter.vue'
     if (process.env.VUE_ENV !== 'server') {
         require('nativeshare')
     }
@@ -228,7 +219,7 @@
             }
         },
         components: {
-            detailScroller, refresh, editor, toast, score
+            detailScroller, refresh, editor, toast, score, commEnter
         },
         destroyed () {
             this.$store.dispatch('unsubscribeAll')
@@ -243,10 +234,8 @@
             changeHeader (status) {
                 if (status) {
                     this.showScore = true
-                    this.$el.querySelector('.detailTop').className = 'detailTop topBarMove'
                 } else {
                     this.showScore = false
-                    this.$el.querySelector('.detailTop').className = 'detailTop topBarMove2'
                 }
             },
             closeEditor () {
@@ -414,28 +403,12 @@
         display: block;
         width: 100%;
     }
-    .respon2 {
-        height: 100%;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        box-orient: vertical;
-    }
-    .respon2-itm {
-        flex: 1;
-        display: block;
-        width: 100%;
-        position: relative;
-    }
     /*头部*/
-    .back-icon:before, .black-ball, .dian-ball, .gl-tico:after, .green-arrow, .green-pl:after, .ipt-icon, .jiaohuan, .person-mr, .red-arrow, .red-ball, .red-pl:after, .saixuan:after, .sh-arrow, .sk-gz:after, .wuxiao-ball, .zan-icon, .zd-arrow, .zj-nav .cur:after {
+    .back-icon:before, .zj-nav .cur:after {
         background: url(~assets/style/images/detail/detail-icon.png) no-repeat;
         background-size: .533333rem 13.333333rem
     }
     /*详情页顶部*/
-    .top-wrap {
-        height: 328px;
-    }
     .detailTop {
         position: relative;
         width: 100%;
@@ -657,9 +630,6 @@
         visibility: hidden
     }
 
-    .fen-bf-lq {
-        width: 1.533333rem;
-    }
 
     .wks, .gaix {
         color: #fff;
@@ -686,20 +656,6 @@
         transform: translate(-50%, 0)
     }
 
-    .fen-bf, .fen-bf-lq, .fen-ld {
-        height: .96rem;
-        line-height: 1rem;
-        color: #fff;
-        display: inline-block;
-    }
-    .fen-bf, .fen-bf-lq {
-        background: rgba(255, 255, 255, .06);
-        font-size: 0.667rem;
-        font-family: Arial;
-        border-radius: .053333rem;
-        position: relative;
-        overflow: hidden
-    }
     .fen-bf {
         width: 0.9333rem;
     }
@@ -719,17 +675,6 @@
         animation: changeScore2 10s ease-in-out forwards
     }
 
-    .zhong {
-        font-size: 0.293rem;
-        color: #ccc;
-        margin-left: .12rem
-    }
-    .macao-txt {
-        color: #787878;
-        padding: 0 30px 36px;
-        font-size: 0.3466rem;
-        text-align: justify;
-    }
     .game-info {
         text-align: center;
         width: 100%;
@@ -769,12 +714,6 @@
     }
 
     /*详情页导航*/
-
-    .nav-placeholder {
-        height: 1.173rem;
-        position: relative;
-        width: 100%;
-    }
     .navigator {
         height: 1.173rem;
         line-height: 1.173rem;
@@ -788,16 +727,6 @@
         position: sticky;
         left: 0;
         top: 1.173rem;
-    }
-    .nav-relative {
-        position: relative;
-        z-index: 9;
-        top: 0;
-    }
-    .nav-fixed {
-        position: fixed;
-        top: 88px;
-        z-index: 9
     }
     [data-dpr="1"] .navigator{font-size:15px}
     [data-dpr="2"] .navigator{font-size:30px}
@@ -867,11 +796,6 @@
             transform: scaleX(1)
         }
     }
-    .header-placeholder {
-        height: 328px;
-        position: relative;
-        z-index: 1
-    }
     /*详情页头部动效 start*/
 
     .topBarMove .link-index, .topBarMove .r-sn, .topBarMove2 .fen-box {
@@ -910,6 +834,7 @@
         }
     }
 
+    .fen-bf{background:rgba(255,255,255,.06);font-family:Arial;border-radius:.053333rem;position:relative;overflow:hidden}
 
 
     /*详情页头部动效 end*/
@@ -945,70 +870,13 @@
         -webkit-transform: translate(0, 100%);
         transform: translate(0, 100%);
     }
-
-    .comm-enter {
-        background: #fff;
-        width: 100%;
-        height: 1.133333rem;
-        padding-top: .2rem;
-        text-align: center;
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        z-index: 10;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0)
-    }
-
-    .comm-enter .enter-ipt {
-        height: .906667rem;
-        border: 1px solid #f1f1f1;
-        border-radius: .08rem;
-        width: 9.2rem;
-        margin: 0 auto;
-        text-align: left;
-        background: #f4f4f4;
-        position: relative
-    }
-
-    .comm-enter .enter-ipt .ipt-icon {
-        display: inline-block;
-        vertical-align: middle;
-        width: .64rem;
-        height: .44rem;
-        margin: .266667rem;
-        background-position: .053333rem -12.906667rem;
-        float: left
-    }
-
-    .comm-enter .enter-ipt .ipt-txt {
-        display: inline-block;
-        vertical-align: middle;
-        color: #ccc;
-        height: .906667rem;
-        line-height: .906667rem
-    }
-
-    .comm-enter .ipt-count {
-        display: inline-block;
-        position: absolute;
-        right: .666667rem;
-        top: .026667rem;
-        height: .906667rem;
-        line-height: .906667rem;
-        color: #787878
-    }
-
-    .comm-enter:active .enter-ipt .ipt-txt {
-        color: #787878
-    }
     .sk-point {
         position: relative;
         width: 1.333333rem;
         height: 1.333333rem;
         display: inline-block;
     }
-    .sk-point:after {
+ /*   .sk-point:after {
         content: "";
         display: inline-block;
         background: url(~assets/style/images/detail/share-point.png) no-repeat;
@@ -1020,7 +888,7 @@
         margin-top: -.053333rem;
         left: 50%;
         margin-left: -.24rem;
-    }
+    }*/
     .navigator .nav-yuce-liao{display:block;width:.4rem;height:.346667rem;line-height:.346667rem;position:absolute;top:.133333rem;right:-.44rem;text-align:center;background-color:#d25138;color:#fff;border-radius:.04rem;font-size:.266667rem;overflow:hidden;-webkit-transform-origin:0 100%;transform-origin:0 100%;-webkit-transform:scale(0);transform:scale(0)}
     .navigator .nav-yuce-liao.enter{-webkit-animation:iScale .3s ease both;animation:iScale .3s ease both;-webkit-transform:scale(1);transform:scale(1)}
     .navigator .nav-yuce-liao.leave{-webkit-animation:iScale2 .3s ease both;animation:iScale2 .3s ease both;-webkit-transform:scale(0);transform:scale(0)}

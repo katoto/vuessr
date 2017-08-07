@@ -104,58 +104,6 @@
     }
 </script>
 <style scoped>
-    .ui-empty-font {
-        color: #b3b3b3;
-        font-size: 0.4rem;
-        padding: 0.22rem 0;
-        text-align: center;
-    }
-    .gl-nav,
-    .sk-nav,
-    .zj-nav {
-        height: .706667rem;
-        line-height: .706667rem;
-        background: #efefef;
-        color: #242c35;
-        position: relative;
-        text-align: left;
-        border-bottom: 1px solid #eaeaea;
-        border-top: 1px solid #eaeaea;
-        padding: .333333rem .4rem 0 .6133rem
-    }
-
-    [data-dpr="1"] .gl-nav,
-    [data-dpr="1"] .sk-nav,
-    [data-dpr="1"] .zj-nav {
-        font-size: 12px
-    }
-
-    [data-dpr="2"] .gl-nav,
-    [data-dpr="2"] .sk-nav,
-    [data-dpr="2"] .zj-nav {
-        font-size: 24px
-    }
-
-    [data-dpr="3"] .gl-nav,
-    [data-dpr="3"] .sk-nav,
-    [data-dpr="3"] .zj-nav {
-        font-size: 36px
-    }
-
-    .gl-nav:before,
-    .sk-nav:before,
-    .zj-nav:before {
-        content: '';
-        position: absolute;
-        left: .4rem;
-        top: .533333rem;
-        display: block;
-        width: .053333rem;
-        height: .3067rem;
-        overflow: hidden;
-        background: #242c35;
-        border-radius: .026667rem .026667rem
-    }
 
     .shikuang-box {
         text-align: center;
@@ -297,27 +245,6 @@
     [data-dpr="3"] .jh {
         font-size: 39px
     }
-    .back-icon:before,
-    .black-ball,
-    .dian-ball,
-    .gl-tico:after,
-    .green-arrow,
-    .green-pl:after,
-    .ipt-icon,
-    .jiaohuan,
-    .person-mr,
-    .red-arrow,
-    .red-ball,
-    .red-pl:after,
-    .saixuan:after,
-    .sh-arrow,
-    .sk-gz:after,
-    .wuxiao-ball,
-    .zan-icon,
-    .zd-arrow,
-    .zj-nav .cur:after{
-        background: url(~assets/style/images/detail/detail-icon.png) no-repeat;
-        background-size: .533333rem 13.333333rem}
 
     .black-ball,
     .dian-ball,

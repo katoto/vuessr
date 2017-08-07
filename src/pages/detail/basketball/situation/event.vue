@@ -106,7 +106,7 @@
             return {
                 jieData: [],
                 isActive: {},
-                nameList:[],
+                nameList: [],
                 dataList: ['一', '二', '三', '四'],
                 StatusCode
             }
@@ -141,11 +141,11 @@
                 let tmp = []
                 let list = []
                 if (this.$store.state.lqdetail.situation && this.$store.state.lqdetail.situation.eventlist) {
-                    for(let i=0; i<this.$store.state.lqdetail.situation.eventlist.length;i++){
-                        if(i<4){
-                            this.nameList.push('第'+ this.dataList[i] + '节')
-                        }else{
-                            this.nameList.push('加时'+ this.dataList[i-4])
+                    for (let i = 0; i < this.$store.state.lqdetail.situation.eventlist.length; i++) {
+                        if (i < 4) {
+                            this.nameList.push('第' + this.dataList[i] + '节')
+                        } else {
+                            this.nameList.push('加时' + this.dataList[i - 4])
                         }
                     }
                     this.nameList.reverse()

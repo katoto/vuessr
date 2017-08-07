@@ -124,11 +124,6 @@
     }
 </script>
 <style scoped>
-    .tContent {
-        display: none;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0)
-    }
 
     .pl-box-bd {
         background: #fff;

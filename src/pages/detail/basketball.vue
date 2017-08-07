@@ -1,6 +1,6 @@
 <template>
 <div class="l-full l-flex-column" v-if="baseInfo">
-    <div class="detailTop topBarMove2" style="display: block;">
+    <div class="detailTop" style="display: block;" :class="{'topBarMove': showScore, 'topBarMove2': !showScore}">
         <a class="back-icon" onclick="history.back()" href="javascript:;">返回</a>
         <router-link to="/home/zq/jczq/cur" class="link-index f26">比分首页</router-link>
         <!--<a class="link-index f26" href="/score/index.html#/football">比分首页</a>-->
@@ -42,17 +42,19 @@
                                baseInfo.status == StatusCode.OVERTIME_3 ||
                                baseInfo.status == StatusCode.OVERTIME_4 ||
                                baseInfo.status == StatusCode.ENDED">
-                       <div class="fen-bf-lq" drunk-scroll-text="baseInfo.awayscore" time-out='8'
-                           class-list="['fen-bf-lq-active']">
+                       <!--<div class="fen-bf-lq" drunk-scroll-text="baseInfo.awayscore" time-out='8'
+                           class-list="['fen-bf-active']">
                            <span class="score">{{baseInfo.awayscore}}</span>
                            <span class="score">{{baseInfo.awayscore}}</span>
                        </div>
                        <div class="fen-ld">:</div>
                         <div class="fen-bf-lq" drunk-scroll-text="baseInfo.homescore" time-out='8'
-                             class-list="['fen-bf-lq-active']">
+                             class-list="['fen-bf-active']">
                             <span class="score">{{baseInfo.homescore}}</span>
                             <span class="score">{{baseInfo.homescore}}</span>
-                        </div>
+                        </div>-->
+                        <score :homescore="baseInfo.homescore" :new-homescore="newHomescore" :awayscore="baseInfo.awayscore" :new-awayscore="newAwayscore" @update="syncMatch" type="lq"></score>
+
                     </div>
 
                     <div
@@ -135,16 +137,8 @@
     </div>
 
 
-    <div v-if="~$route.path.indexOf('/comment')">
-        <div class="comm-enter">
-            <div class="enter-ipt" v-tap="{methods: beginEdit}">
-                <i class="ipt-icon"></i>
-                <p class="ipt-txt">我来说两句…</p>
-                <span class="ipt-count">{{total}}评</span>
-            </div>
-        </div>
-    </div>
-
+    <comm-enter v-if="~$route.path.indexOf('/comment')" :total="total" @edit="beginEdit"></comm-enter>
+    <toast v-if="toast.visible" :msg="toast.msg"/>
     <refresh/>
 </div>
 </template>
@@ -156,7 +150,9 @@
     import editor from '~components/editor.vue'
     import detailScroller from '~components/detail_scroller.vue'
     import share from '~components/detail/share.vue'
+    import score from '~components/detail/score.vue'
     import copy from '~components/detail/copy.vue'
+    import commEnter from '~components/detail/commEnter.vue'
     import {
         aTypes,
         mTypes
@@ -170,16 +166,22 @@
             await store.dispatch(aTypes.getBaseInfo, params.fid)
         },
         components: {
-            detailScroller, refresh, editor, toast
+            detailScroller, refresh, editor, toast, commEnter, score
         },
         data () {
             return {
-                StatusCode
+                StatusCode,
+                showScore: false,
+                newHomescore: 0,
+                newAwayscore: 0
             }
         },
         computed: {
             socketData () { // websocket推送过来的数据
                 return this.$store.getters.getSocketData
+            },
+            refreshTime () { // 用户点击刷新按钮时间戳
+                return this.$store.state.refreshTime
             },
             baseInfo () {
                 return this.$store.state.lqdetail.baseInfo
@@ -206,17 +208,14 @@
         methods: {
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                let baseInfo = this.$store.state.lqdetail.baseInfo
-                if (!baseInfo || this.$store.state.lqdetail.baseInfo.fid !== this.$route.params.fid) {
-                    await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
-                }
+                await this.$store.dispatch(aTypes.getBaseInfo, this.$route.params.fid)
                 this.$store.commit('endOneRefresh')
             },
             changeHeader (status) {
                 if (status) {
-                    this.$el.querySelector('.detailTop').className = 'detailTop topBarMove'
+                    this.showScore = true
                 } else {
-                    this.$el.querySelector('.detailTop').className = 'detailTop topBarMove2'
+                    this.showScore = false
                 }
             },
             reachEnd () {
@@ -300,6 +299,12 @@
                     }
                 })
             },
+            syncMatch () {
+                if (this.socketData.stamp === pushEvents.BASKETBALL_INFO && (this.socketData.data.fid + '' === this.baseInfo.fid)) {
+                    //                    同步数据
+                    this.$store.commit(mTypes.syncBaseInfo, this.socketData.data)
+                }
+            },
             goTeam ({teamId}) {
                 this.$router.push(`/team/basketball/${teamId}/sc`)
             }
@@ -307,7 +312,6 @@
         async mounted () {
             await this.fetchData()
             if (this.baseInfo.status !== StatusCode.ENDED) {
-                console.log('---------')
                 this.$store.dispatch(aTypes.subscribeInfo, [this.baseInfo.fid])
                 this.$store.dispatch(aTypes.subscribeEvent, [this.baseInfo.fid])
             }
@@ -318,12 +322,24 @@
         },
         watch: {
             socketData ({data, stamp}) { // websocket推送过来的数据
-                console.log({data, stamp})
                 if (stamp === pushEvents.BASKETBALL_INFO) {
                     if (data.fid === this.baseInfo.fid) {
-                        this.$store.dispatch(aTypes.getBaseInfo, this.baseInfo.fid)
+                        if (this.baseInfo.homescore === data.homescore && this.baseInfo.awayscore === data.awayscore) {
+                            this.syncMatch()
+                        } else {
+                            if (this.baseInfo.homescore !== data.homescore) {
+                                this.newHomescore = data.homescore
+                            }
+                            if (this.baseInfo.awayscore !== data.awayscore) {
+                                this.newAwayscore = data.awayscore
+                            }
+                        }
+                    //                        this.$store.dispatch(aTypes.getBaseInfo, this.baseInfo.fid)
                     }
                 }
+            },
+            refreshTime () {
+                this.fetchData()
             },
             '$route.path' (path) {
                 this.$refs.scroller.update()
@@ -342,9 +358,39 @@
     }
 </script>
 
-<style lang="css">
+<style scoped>
 .detailTop {
     position: relative;
+}
+.popLayer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    z-index: 90;
+    background: rgba(0, 0, 0, .8)
+}
+
+.sk-point {
+    position: relative;
+    width: 1.333333rem;
+    height: 1.333333rem;
+    display: inline-block;
+}
+.sk-point:after {
+    content: "";
+    display: inline-block;
+    background: url(~assets/style/images/detail/share-point.png) no-repeat;
+    width: .48rem;
+    height: .106667rem;
+    background-size: cover;
+    position: absolute;
+    top: 50%;
+    margin-top: -.053333rem;
+    left: 50%;
+    margin-left: -.24rem;
 }
 
 .zq-header {
@@ -376,18 +422,7 @@
     -webkit-transform: translate(0, 100%);
     transform: translate(0, 100%);
 }
- .l-box-center{display:-webkit-box; -webkit-box-align: center; -webkit-box-pack: center;display:flex;justify-content: center;align-items: center;  -webkit-box-orient: vertical;flex-flow: column;}
-.l-box-vertical-center{display: -webkit-box;-webkit-box-align: center;display: flex;align-items: center;-webkit-box-orient: horizontal; flex-flow: row;}
-.l-box-vertical-center-justify{display: -webkit-box;-webkit-box-orient: horizontal; flex-flow: row; -webkit-box-align: center;-webkit-box-pack: justify;display: flex;align-items: center;justify-content: space-between;}
-.l-box-vertical-center-begin{display: -webkit-box;-webkit-box-orient: horizontal; flex-flow: row; -webkit-box-align: center;-webkit-box-pack: start;display: flex;align-items: center;justify-content: flex-start;}
-.l-box-vertical-center-end{display: -webkit-box;-webkit-box-orient: horizontal; flex-flow: row; -webkit-box-align: center;-webkit-box-pack: end;display: flex;align-items: center;justify-content: flex-end;}
-.l-box-horizontal-center{display: -webkit-box;-webkit-box-pack: center;display: flex;justify-content: center;-webkit-box-orient: horizontal; flex-flow: row;}
-.l-flex-column{ display:-webkit-box; -webkit-box-orient: vertical; display:flex; flex-flow: column;height: 100% }
-.l-flex-row{ display:-webkit-box; -webkit-box-orient: horizontal; display:flex; flex-flow: row; width: 100%}
-.l-flex-1{ -webkit-box-flex: 1; flex:1;overflow: hidden}
-.l-scroll-y{overflow: auto;-webkit-overflow-scrolling:touch;}
-.l-full{ position: absolute; top:0; left:0; right:0; bottom:0 }
-.l-relative{ position:relative;}
+
 .f20{font-size:0.266rem}
 .f24{font-size:0.32rem}
 .f26{font-size:0.346rem}
