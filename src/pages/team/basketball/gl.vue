@@ -31,9 +31,6 @@
 </template>
 
 <script>
-import {
-    aTypes
-} from '~store/team/lq'
 import Prompt from '~components/prompt.vue'
 import introBox from '~components/team/intro_box.vue'
 import teamStrength from '~components/team/team_strength.vue'
