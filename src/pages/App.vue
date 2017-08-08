@@ -16,6 +16,10 @@
                     this.summery(e.target.dataset.p2, e.target.dataset.p4, e.target.dataset.p1, e.target.dataset.p3)
                 }
             })
+
+            if(window && (window.EsApp)) {
+                this.$store.commit('setIsApp', true)
+            }
         },
         methods: {
             summery (p2, p4, p1 = '_trackEvent', p3 = 'click') {

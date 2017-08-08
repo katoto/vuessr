@@ -1,7 +1,7 @@
 <template>
     <div class="v124-wrap l-full l-flex-column">
         <!--head begin-->
-        <header id="uiHead" class="ui-head">
+        <header id="uiHead" class="ui-head" v-if="!isApp">
             <div class="ui-head-in">
                 <div class="ui-head-l">
                     <span class="ui-head-btn1" onclick="history.back()">返回</span>
@@ -25,30 +25,22 @@
 </template>
 
 <script>
-    import Vue from 'vue'
-import vueTap from 'v-tap'
-Vue.use(vueTap)
-
 export default{
-
-        computed: {
-            title () {
-                switch (this.$route.path.substring(this.$route.path.lastIndexOf('/'))) {
-                case '/predict': return '精选预测'
-                case '/record': return '战绩特征'
-                case '/strength': return '实力对比'
-                case '/hotcool': return '冷热分布'
-                default: return '比分预测'
-                }
+    computed: {
+        title () {
+            switch (this.$route.path.substring(this.$route.path.lastIndexOf('/'))) {
+            case '/predict': return '精选预测'
+            case '/record': return '战绩特征'
+            case '/strength': return '实力对比'
+            case '/hotcool': return '冷热分布'
+            default: return '比分预测'
             }
-
         },
-        methods: {
-
-        },
-        mounted () {
-        //            入口
+        isApp() {
+            return this.$store.state.isApp
         }
+
+    }
 
     }
 </script>
