@@ -67,7 +67,7 @@ export default {
     }
 
     .back-icon:before {
-        background: url(http://tccache.500.com/mobile/touch/images/bifen/detail-icon.png) no-repeat;
+        background: url("~assets/images/team/detail-icon.png") no-repeat;
         background-size: .533333rem 13.333333rem;
     }
     .back-icon{width:1.066667rem;height:1.173333rem;display:inline-block;text-indent:-999px;position:absolute;left:0;z-index:6}
