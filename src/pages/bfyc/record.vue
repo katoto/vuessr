@@ -16,8 +16,17 @@
     export default{
         methods: {
             onTab ({tab}) {
-                this.$router.push(`/bfyc/record/${tab}`)
+                this.$router.replace(`/bfyc/record/${tab}`)
             }
         }
     }
 </script>
+<style scoped>
+    .v124-wrap{width:100%;height:100%;background:#efefef}
+    .record-header{box-sizing:border-box;width:100%;height:1.173333rem;border-bottom:1px solid #eaeaea;background:#fff;line-height:1.173333rem}
+    .record-header ul{clear:both;margin:0 auto;width:6.8rem;zoom:1}
+    .record-header ul li{float:left;box-sizing:border-box;width:1.333333rem;height:1.173333rem;color:rgba(36,44,53,.8);text-align:center;font-size:.4rem}
+    .record-header ul li:nth-child(2){margin:0 1.333333rem}
+    .record-header ul .cur{border-bottom:.04rem solid #242c35;color:#242c35}
+
+</style>

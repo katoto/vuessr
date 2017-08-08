@@ -65,5 +65,29 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+    .strengh-cont{box-sizing:border-box;padding:.266667rem .4rem .666667rem;height:3.173333rem;border-bottom:1px solid #eaeaea}
+    .strengh-time{margin-bottom:.533333rem;color:#aab5bd;font-size:.293333rem}
+    .strengh-time em{float:right}
+    .strengh-tit{position:absolute;top:0;overflow:hidden;width:100%;height:.426667rem;color:#242c35;text-align:center;font-size:.426667rem;line-height:.426667rem}
+    .strengh-tit em{float:left;display:inline-block;width:4.133333rem}
+    .strengh-tit em:nth-child(2){display:inline-block;width:.933333rem;text-align:center}
+    .strengh-tit em:nth-child(1){text-align:right}
+    .strengh-tit em:nth-child(3){text-align:left}
+    .strengh-item .zhzl-bfb-left,.strengh-item .zhzl-bfb-right{top:inherit;bottom:.293333rem;color:#515e6d;font-size:.346667rem}
+    .strengh-item .zhzl-vs-left,.strengh-item .zhzl-vs-right{height:.16rem}
+    .strengh-item{box-sizing:border-box;margin:0;padding-top:.666667rem;height:1.333333rem}
+    .strengh-cont{box-sizing:border-box;padding:.266667rem .4rem .666667rem;height:3.173333rem;border-bottom:1px solid #eaeaea}
+    .strengh-time{margin-bottom:.533333rem;color:#aab5bd;font-size:.293333rem}
+    .strengh-time em{float:right}
+    .strengh-tit{position:absolute;top:0;overflow:hidden;width:100%;height:.426667rem;color:#242c35;text-align:center;font-size:.426667rem;line-height:.426667rem}
+    .strengh-tit em{float:left;display:inline-block;width:4.133333rem}
+    .strengh-tit em:nth-child(2){display:inline-block;width:.933333rem;text-align:center}
+    .strengh-tit em:nth-child(1){text-align:right}
+    .strengh-tit em:nth-child(3){text-align:left}
+    .strengh-item .zhzl-bfb-left,.strengh-item .zhzl-bfb-right{top:inherit;bottom:.293333rem;color:#515e6d;font-size:.346667rem}
+    .strengh-item .zhzl-vs-left,.strengh-item .zhzl-vs-right{height:.16rem}
+    .each-resone-all{position:absolute;bottom:.106667rem;width:100%}
+    .each-resone-all .zhzl-vs-left{margin-right:-.0533rem}
+
 </style>
