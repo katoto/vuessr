@@ -1,7 +1,7 @@
 <template>
     <div class="match-wrap wrapper l-full l-flex-column">
         <!--头部-->
-        <div class="pl-head-box">
+        <div class="pl-head-box" v-if="!isApp">
             <div class="pl-head">
                 <a class="back-icon pl-back"  onClick="history.back()">返回</a>
                 {{tab=='football'?'足球赛事中心':'篮球赛事中心'}}
@@ -32,6 +32,9 @@
                 } else {
                     return 'basketball'
                 }
+            },
+            isApp () {
+                return this.$store.state.isApp
             }
         }
     }
