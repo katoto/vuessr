@@ -1,12 +1,13 @@
 <template>
-    <div class="main" :class="{'top_0': noEmptyFlag}">
-        <div v-if="teamInfo">
-            <team-strength :strength="teamInfo.teamstrength" :score="teamInfo.finalscore" v-if="teamInfo.teamstrength"></team-strength>
-            <div class="main-box">
-                <div class="box-tit">
-                    <h2> 赛事排名</h2> </div>
-                <table width="100%" cellpadding="0" cellspacing="0" class="table" v-if="noEmptyFlag">
-                    <tbody>
+    <div class="l-full l-scroll-y">
+        <div class="main" :class="{'top_0': noEmptyFlag}">
+            <div v-if="teamInfo">
+                <team-strength :strength="teamInfo.teamstrength" :score="teamInfo.finalscore" v-if="teamInfo.teamstrength"></team-strength>
+                <div class="main-box">
+                    <div class="box-tit">
+                        <h2> 赛事排名</h2> </div>
+                    <table width="100%" cellpadding="0" cellspacing="0" class="table" v-if="noEmptyFlag">
+                        <tbody>
                         <tr>
                             <th align="left">赛季</th>
                             <th width="15%">排名</th>
@@ -21,13 +22,15 @@
                             <td>{{rank.lost}}</td>
                             <td>{{rank.winrate}}%</td>
                         </tr>
-                    </tbody>
-                </table>
-                <div class="member-list member-empty" v-else>暂无数据</div>
+                        </tbody>
+                    </table>
+                    <div class="member-list member-empty" v-else>暂无数据</div>
+                </div>
+                <intro-box :introStr="teamInfo.introduction" v-if="teamInfo"></intro-box>
             </div>
-            <intro-box :introStr="teamInfo.introduction" v-if="teamInfo"></intro-box>
         </div>
     </div>
+
 </template>
 
 <script>
