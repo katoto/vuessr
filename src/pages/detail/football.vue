@@ -301,7 +301,7 @@
                     icon: 'http://m.500.com/favicon.ico',
                     link: location.href,
                     title: `${this.match.homesxname}vs${this.match.awaysxname} 实时比分`,
-                    desc: `关注最新比分动态， 请关注春哥网`,
+                    desc: `关注最新足球比分动态， 请关注500彩票网`,
                     from: '500彩票网'
                 })
                 this.$store.commit(mTypes.setDialog, {
@@ -313,7 +313,7 @@
                         },
                         onShare: () => {
                             this.$store.commit(mTypes.setDialog, {})
-                            this.doShare(nativeShare)
+                            setTimeout(() => this.doShare(nativeShare), 16.7)
                         },
                         onCollect: () => {
                             this.$store.dispatch(aTypes.requestConcern, this.match)

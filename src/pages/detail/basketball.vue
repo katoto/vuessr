@@ -277,8 +277,8 @@
                 nativeShare.setShareData({
                     icon: 'http://m.500.com/favicon.ico',
                     link: location.href,
-                    title: '实时比分',
-                    desc: `${this.baseInfo.homesxname}vs${this.baseInfo.awaysxname}`,
+                    title: '${this.baseInfo.awaysxname}vs${this.baseInfo.homesxname} 实时比分',
+                    desc: `关注最新篮球比分动态， 请关注500彩票网`,
                     from: '500彩票网'
                 })
                 this.$store.commit(mTypes.setDialog, {
@@ -290,7 +290,7 @@
                         },
                         onShare: () => {
                             this.$store.commit(mTypes.setDialog, {})
-                            this.doShare(nativeShare)
+                            setTimeout(() => this.doShare(nativeShare), 16.7)
                         },
                         onCollect: () => {
                             this.$store.dispatch(aTypes.requestConcern, this.baseInfo)
