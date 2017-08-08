@@ -44,6 +44,6 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
     .l-full{ position: absolute; top:0; left:0; right:0; bottom:0 }
 </style>
