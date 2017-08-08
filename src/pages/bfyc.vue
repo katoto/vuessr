@@ -66,6 +66,6 @@ export default{
     .ui-head-l span:active,.ui-head-r span:active{background-color:#5c788f}
     .ui-head-l span:after{left:.4rem}
     .ui-head-r span:after{right:.4rem}
-    .ui-head-btn1:after{position:absolute;top:50%;width:.306667rem;height:.48rem;background:url(../assets/images/bfyc/return.png) no-repeat;background-size:cover;content:'';-webkit-transform:translateY(-50%);transform:translateY(-50%)}
+    .ui-head-btn1:after{position:absolute;top:50%;width:.306667rem;height:.48rem;background:url('~assets/images/bfyc/return.png') no-repeat;background-size:cover;content:'';-webkit-transform:translateY(-50%);transform:translateY(-50%)}
 
 </style>
