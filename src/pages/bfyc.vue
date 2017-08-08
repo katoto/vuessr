@@ -30,19 +30,19 @@ export default{
     computed: {
         title () {
             switch (this.$route.path.substring(this.$route.path.lastIndexOf('/'))) {
-                case '/predict': return '精选预测'
-                case '/result':                  // 战绩特征3个tab
-                case '/asian':
-                case '/bigsmall': return '战绩特征'
-                case '/strength': return '实力对比'
-                case '/hotcool': return '冷热分布'
-                default: return '比分预测'
+            case '/predict': return '精选预测'
+            case '/result':                  // 战绩特征3个tab
+            case '/asian':
+            case '/bigsmall': return '战绩特征'
+            case '/strength': return '实力对比'
+            case '/hotcool': return '冷热分布'
+            default: return '比分预测'
             }
         }
 
     }
 
-    }
+}
 </script>
 <style scoped>
     .v124-wrap{width:100%;height:100%;background:#efefef}

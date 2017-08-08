@@ -138,7 +138,7 @@
             Prompt
         },
         computed: {
-            cur() {
+            cur () {
                 return this.$store.state.bfyc.predict.curr_expect
             },
             predict () {
@@ -189,12 +189,12 @@
             predictResult (pr) {
                 //                3-主胜 1-平局 0-主负
                 switch (pr) {
-                    case '1':
-                        return '平局'
-                    case '0':
-                        return '主负'
-                    case '3':
-                        return '主胜'
+                case '1':
+                    return '平局'
+                case '0':
+                    return '主负'
+                case '3':
+                    return '主胜'
                 }
             },
             fdate (cur) {
