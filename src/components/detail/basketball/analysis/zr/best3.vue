@@ -16,7 +16,7 @@
                                     {{best3[type].away[0].number}}号
                                 </p>
                                 <p>
-                                    {{best3[type].away[0].player}}
+                                    {{best3[type].away[0].player | truncate(4)}}
                                 </p>
                             </div>
                         </li>
@@ -27,7 +27,7 @@
                                     {{best3[type].home[0].number}}号
                                 </p>
                                 <p>
-                                    {{best3[type].home[0].player}}
+                                    {{best3[type].home[0].player | truncate(4)}}
                                 </p>
                             </div>
                             <div class="qy-icon">
