@@ -105,5 +105,16 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped>
+    .gl-box{background:#fff}
+    .time-item{float:right;font-size:.293333rem}
+    .time-item li{background:#efefef;color:#aab5bd;height:.613333rem;line-height:.613333rem;padding:0 .2rem;margin-left:.133333rem;text-align:center;border-radius:.306667rem;border:1px solid #dadee4;float:left;box-sizing:border-box}
+    .time-item .time-item-cur{color:#242c35;background:#fff;border:1px solid #dadee4}
+
+    .infoTips{padding:.266667rem .4rem;line-height:.533333rem;color:#515e6d;display:-webkit-box;display:-ms-flexbox;display:flex;border-top:1px solid #f4f4f4}
+    .infoTips .icon{display:block;width:.88rem;height:.293333rem;background:url(~assets/style/images/detail/icon_sprite.png) no-repeat -.613333rem 0;background-size:1.92rem;margin-top:.106667rem}
+    .infoTips p{-webkit-box-flex:1;-ms-flex:1;flex:1;padding-left:.213333rem}
+
+    .feed-back{width:100%;height:1.733333rem;background:#fff;border-top:1px solid #eaeaea}
+    .feed-box{color:#787878;line-height:1.733333rem;text-align:center}
 </style>
