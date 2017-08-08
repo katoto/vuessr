@@ -51,14 +51,26 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .top_0 {
         margin-top: 0;
     }
+    .back-icon:before {
+        width: .32rem;
+        height: .493333rem;
+        content: '';
+        position: absolute;
+        left: .266667rem;
+        top: 0.24rem;
+        background-position: center 0;
+        margin-top: auto;
+    }
 
-    .back-icon:before{background:url(/mobile/touch/images/bifen/detail-icon.png) no-repeat;background-size:.533333rem 13.333333rem}
+    .back-icon:before {
+        background: url(http://tccache.500.com/mobile/touch/images/bifen/detail-icon.png) no-repeat;
+        background-size: .533333rem 13.333333rem;
+    }
     .back-icon{width:1.066667rem;height:1.173333rem;display:inline-block;text-indent:-999px;position:absolute;left:0;z-index:6}
-    .back-icon:before{width:.32rem;height:.493333rem;content:'';position:absolute;left:.266667rem;top:0.24rem;background-position:center 0}
     .matches .list-view-wrapper {
         background: #fff;
         margin-top: .266667rem;

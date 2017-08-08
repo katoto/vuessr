@@ -64,7 +64,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
     .main{width:100%;padding-top:.266667rem}
     .main-box{width:100%;margin-bottom:.266667rem;background:#fff;border-top:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1}
     .box-tit{height:1.066667rem;border-bottom:1px solid #f1f1f1}
