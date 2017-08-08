@@ -68,3 +68,10 @@
 
     }
 </script>
+<style scoped>
+    .hotc-list{padding-top:.266667rem;background:#fff}
+    .tag-game-over{position:relative;width:100%;height:.8rem;border-bottom:1px solid #eaeaea;background:#efefef;color:#aab5bd;text-align:center;font-size:.293333rem;line-height:.8rem}
+    .tag-game-over:before{position:absolute;top:50%;left:50%;display:inline-block;margin-left:-1rem;width:.4rem;height:1px;background:#aab5bd;content:""}
+    .tag-game-over:after{position:absolute;top:50%;right:50%;display:inline-block;margin-right:-1rem;width:.4rem;height:1px;background:#aab5bd;content:""}
+
+</style>

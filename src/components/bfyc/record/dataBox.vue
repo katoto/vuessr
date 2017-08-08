@@ -37,7 +37,7 @@ export default {
             resultObj: {
                 '3': {
                     class: '',
-                    desc: '连赢'
+                    desc: '连胜'
                 },
                 '1': {
                     class: 'always-draw',
@@ -45,7 +45,7 @@ export default {
                 },
                 '0': {
                     class: 'always-fail',
-                    desc: '连输'
+                    desc: '连负'
                 }
             },
             recordType: {
@@ -71,5 +71,21 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+    .hotc-left{float:left;padding-top:.24rem;width:5.6rem;height:.933333rem}
+    .hot-cool-wrap .gl-nav:first-child{border-top:none}
+    .hotc-item{clear:both;overflow:hidden;padding:.4rem .4rem;border-bottom:1px solid #eaeaea;background:#fff;zoom:1}
+    .record-item{padding:.6rem .4rem}
+    .record-item .hotc-right{float:left}
+    .record-item .hotc-left{margin-left:.533rem;padding-top:0;width:6.906667rem}
+    .record-item .hotc-right{padding:.213333rem 0;height:.64rem;line-height:.64rem}
+    .record-item .right-predict{width:1.68rem;font-size:.8rem}
+    .record-item .right-predict em{margin-left:.04rem;font-size:.293333rem}
+    .record-item .right-predict i{display:inline-block;width:.88rem;text-align:center}
+    .record-item .hotc-info-time em{margin-left:.533333rem}
+    .hotc-info-tit{margin-bottom:.266667rem;height:.4rem;color:#242c35;font-size:.426667rem}
+    .hotc-info-time{height:.293333rem;color:#aab5bd;font-size:.293333rem}
+    .hotc-right{float:right;padding:.226667rem 0;height:1rem;border-radius:.053333rem;background:#d25138;box-shadow:.026667rem .026667rem .106667rem #e8a89b;color:#fff;text-align:center}
+    .always-fail{background:#437ba8;box-shadow:.026667rem .026667rem .106667rem #729cbd}
+    .always-draw{background:#36a171;box-shadow:.026667rem .026667rem .106667rem #68b894}
 </style>

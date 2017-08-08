@@ -49,6 +49,9 @@ const mutationsInfo = mapMutations({
     setPredict (state, predict) {
         state.predict = predict
     },
+    setCurrExpect (state, curr_expect) {
+        state.predict.curr_expect = curr_expect
+    },
     setHotcool (state, hotcool) {
         state.hotcool = hotcool
     },

@@ -33,5 +33,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+    .hot-cool-wrap .gl-nav:first-child{border-top:none}
+
 </style>
