@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import {mTypes} from '~store/lqdetail'
 export default {
     props: {
         best3: {
@@ -107,6 +108,11 @@ export default {
                 return input
             }
             return input.slice(0, length) + (tail || '...')
+        }
+    },
+    watch: {
+        Best3TypeStatus() {
+            this.$store.commit(mTypes.updateScTime)
         }
     }
 }
