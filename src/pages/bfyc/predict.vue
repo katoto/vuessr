@@ -5,15 +5,15 @@
         <!--顶部的时间-->
         <section class="hotc-header">
             {{cur|fdate}}
-            <ul>
-                <li :class="{'cur': expect_list && cur === expect_list[0]}"
+            <ul v-if="expect_list">
+                <li :class="{'cur':  cur === expect_list[0]}"
                     v-tap="{methods: changeExpect , expect: expect_list && expect_list[0]}">昨日
                 </li>
-                <li :class="{'cur': expect_list && cur === expect_list[1]}"
+                <li :class="{'cur':  cur === expect_list[1]}"
                     v-tap="{methods: changeExpect , expect: expect_list && expect_list[1]}">今日
                 </li>
-                <li :class="{'cur': expect_list && cur === expect_list[2]}"
-                    v-tap="{methods: changeExpect , expect: expect_list && expect_list[2]}">明日
+                <li :class="{'cur':  cur === expect_list[2]}"
+                    v-tap="{methods: changeExpect , expect:  expect_list[2]}">明日
                 </li>
             </ul>
         </section>
@@ -119,7 +119,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import {aTypes} from '~store/bfyc.js'
+    import {mTypes, aTypes} from '~store/bfyc.js'
     import Prompt from '~components/prompt.vue'
     export default {
         async asyncData ({store}) {
@@ -137,12 +137,10 @@
         components: {
             Prompt
         },
-        data () {
-            return {
-                cur: ''
-            }
-        },
         computed: {
+            cur () {
+                return this.$store.state.bfyc.predict.curr_expect
+            },
             predict () {
                 return this.$store.state.bfyc.predict
             },
@@ -178,15 +176,9 @@
         mounted () {
             this.$store.dispatch(aTypes.getPredict)
         },
-        watch: {
-            curr_expect (currExpect) {
-                this.cur = currExpect
-            }
-        },
-
         methods: {
             changeExpect ({expect}) {
-                this.cur = expect
+                this.$store.commit(mTypes.setCurrExpect, expect)
                 this.$store.dispatch(aTypes.getPredict, this.cur)
             },
             goAnalysis ({fid}) {
@@ -195,7 +187,7 @@
         },
         filters: {
             predictResult (pr) {
-            //                3-主胜 1-平局 0-主负
+                //                3-主胜 1-平局 0-主负
                 switch (pr) {
                 case '1':
                     return '平局'
@@ -211,3 +203,35 @@
         }
     }
 </script>
+<style scoped>
+    .v124-wrap{width:100%;height:100%;background:#efefef}
+    .hotc-header{box-sizing:border-box;padding:0 .4rem;height:1.173333rem;border-bottom:1px solid #eaeaea;background:#fff;color:#aab5bd;font-size:.346667rem;line-height:1.173333rem}
+    .hotc-header ul{float:right;clear:both;zoom:1}
+    .hotc-header ul li{float:left;box-sizing:border-box;width:.773333rem;height:1.173333rem;line-height:1.173333rem}
+    .hotc-header ul li:nth-child(2){margin:0 .533333rem}
+    .hotc-header ul .cur{border-bottom:3px solid #242c35;color:#242c35}
+    .hot-cool-wrap .gl-nav:first-child{border-top:none}
+    .hotc-list{padding-top:.266667rem;background:#fff}
+    .hotc-item{clear:both;overflow:hidden;padding:.4rem .4rem;border-bottom:1px solid #eaeaea;background:#fff;zoom:1}
+    .notice-predict{margin:0 auto;padding:.36rem 0;width:9.2rem;height:.333333rem;border:1px solid #eaeaea;border-radius:.08rem;box-shadow:.013333rem .013333rem .026667rem .013333rem rgba(239,239,239,.5)}
+    .notice-predict p{padding-left:.133333rem;height:.333333rem;border-left:.053333rem solid #d25138;color:#515e6d;font-size:.373333rem;line-height:.333333rem}
+    .notice-predict p em{color:#d25138}
+    .hotc-item-going .left-statue{display:none}
+    .hotc-left{float:left;padding-top:.24rem;width:5.6rem;height:.933333rem}
+    .hotc-info-tit{margin-bottom:.266667rem;height:.4rem;color:#242c35;font-size:.426667rem}
+    .hotc-info-time{height:.293333rem;color:#aab5bd;font-size:.293333rem}
+    .hotc-right{float:right;padding:.226667rem 0;height:1rem;border-radius:.053333rem;background:#d25138;box-shadow:.026667rem .026667rem .106667rem #e8a89b;color:#fff;text-align:center}
+    .left-statue{float:left;box-sizing:border-box;width:.72rem;height:1rem;border-right:1px solid rgba(255,255,255,.5);color:rgba(255,255,255,.8);font-size:.373333rem;line-height:140%}
+    .right-predict{float:left;width:2.213333rem}
+    .right-predict p{height:.64rem;font-size:.64rem}
+    .right-predict p:nth-child(1){text-indent:.12rem;line-height:.506667rem}
+    .right-predict p:nth-child(2){margin-top:.026667rem;height:.373333rem;font-size:.373333rem;line-height:.373333rem}
+    .right-predict p em{font-size:.293333rem}
+    .tag-game-over{position:relative;width:100%;height:.8rem;border-bottom:1px solid #eaeaea;background:#efefef;color:#aab5bd;text-align:center;font-size:.293333rem;line-height:.8rem}
+    .tag-game-over:before{position:absolute;top:50%;left:50%;display:inline-block;margin-left:-1rem;width:.4rem;height:1px;background:#aab5bd;content:""}
+    .tag-game-over:after{position:absolute;top:50%;right:50%;display:inline-block;margin-right:-1rem;width:.4rem;height:1px;background:#aab5bd;content:""}
+    .statue-hit-no{background:#bcd0de;box-shadow:.026667rem .026667rem .106667rem #dde7ee}
+    .txt-predict{padding:.533333rem 0;background:#efefef;color:#aab5bd;text-align:center;font-size:.293333rem}
+
+
+</style>
