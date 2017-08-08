@@ -342,7 +342,7 @@
     }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 .detailTop {
     position: relative;
 }

@@ -26,4 +26,11 @@ export default {
 </script>
 
 <style lang="css">
+    .main-box{width:100%;margin-bottom:.266667rem;background:#fff;border-top:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1}
+    .box-tit{height:1.066667rem;border-bottom:1px solid #f1f1f1}
+    .box-tit h2{font-size:.4rem;padding-left:.533333rem;line-height:1.066667rem}
+    .score{float:right;font-size: 0.32rem;margin-right: 0.533333rem}
+    .score i{font-size: 0.426667rem;color: #f63f3f;}
+    .score-cont{ width:100%;text-align: center; padding-top: 0.266667rem}
+
 </style>

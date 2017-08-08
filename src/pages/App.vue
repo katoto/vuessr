@@ -32,5 +32,10 @@
     }
 </script>
 <style>
-
+    body {
+        font-size: 15px;
+        -webkit-text-size-adjust: none;
+        font-family: Microsoft YaHei,Arial;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
 </style>
