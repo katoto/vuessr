@@ -52,7 +52,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
     .schedule-itm{clear:both;box-sizing:border-box;height:1.333333rem;border-bottom: 1px solid #f4f4f4;
         font-size: 0.293333rem;color: #999999; background: #fff;}
     .l-flex-row{ display:-webkit-box; -webkit-box-orient: horizontal; display:flex; flex-flow: row; width: 100%}

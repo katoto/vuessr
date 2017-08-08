@@ -39,7 +39,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
     .l-full{ position: absolute; top:0; left:0; right:0; bottom:0 }
     .schedule-foot .who-gamer-home em, .schedule-foot .who-gamer-guest em{ display: inline-block;
         width: 1.7rem; text-align:center;}

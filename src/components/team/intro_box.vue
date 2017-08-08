@@ -21,7 +21,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
     .main-box{width:100%;margin-bottom:.266667rem;background:#fff;border-top:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1}
     .box-tit{height:1.066667rem;border-bottom:1px solid #f1f1f1}
     .box-tit h2{font-size:.4rem;padding-left:.533333rem;line-height:1.066667rem}

@@ -85,7 +85,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
     .l-scroll-y{overflow: auto;-webkit-overflow-scrolling:touch;}
     .l-full{ position: absolute; top:0; left:0; right:0; bottom:0 }
     .main{width:100%;padding-top:.266667rem}
