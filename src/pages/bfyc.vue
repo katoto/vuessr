@@ -36,11 +36,11 @@ export default{
             default: return '比分预测'
             }
         },
-        isApp() {
+        isApp () {
             return this.$store.state.isApp
         }
 
     }
 
-    }
+}
 </script>

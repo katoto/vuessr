@@ -33,7 +33,7 @@
                     return 'basketball'
                 }
             },
-            isApp() {
+            isApp () {
                 return this.$store.state.isApp
             }
         }

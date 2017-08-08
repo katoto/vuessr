@@ -17,7 +17,7 @@
                 }
             })
 
-            if(window && (window.EsApp)) {
+            if (window && (window.EsApp)) {
                 this.$store.commit('setIsApp', true)
             }
         },
