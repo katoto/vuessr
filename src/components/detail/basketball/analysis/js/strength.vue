@@ -274,5 +274,6 @@ export default {
     .noborder{border:0}
     .zd-arrow{width:.533333rem;height:.177rem;position:absolute;top:50%;left:50%;margin:-.2rem 0 0 -.266667rem;background-position:center -10.84rem}
     .rotate180{-webkit-animation:all .2s linear;animation:all .2s linear;-webkit-transform:rotate(180deg);transform:rotate(180deg)}
+    .wua{position:relative;width:100%;height:.16rem}
 
 </style>

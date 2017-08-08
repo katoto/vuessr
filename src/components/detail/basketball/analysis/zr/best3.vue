@@ -1,5 +1,5 @@
 <template>
-    <div class="tContent" style="display:block">
+    <div class="tContent">
     	<div class="zj-nav">
     		球员-数据王
     	</div>
@@ -112,5 +112,180 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped>
+    .tContent {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0)
+    }
+
+    .gl-box,
+    .zr-box {
+        background: #fff
+    }
+    .qy-databox {
+        padding: 0 .4rem 0 .4rem
+    }
+    .dataItem {
+        display: table;
+        height: 1.333333rem;
+        width: 100%
+    }
+
+    .dataItem li {
+        display: table-cell;
+        color: #515e6d;
+        vertical-align: middle;
+        height: 1.733333rem
+    }
+
+    .dataItem .itemL {
+        text-align: left;
+        width: 2.8rem;
+        padding-left: .4rem
+    }
+
+    .dataItem .itemC {
+        text-align: center;
+        color: #aab5bd
+    }
+
+    .dataItem .itemR {
+        text-align: right;
+        width: 2.8rem;
+        padding-right: .4rem
+    }
+
+    [data-dpr="1"] .dataItem .num {
+        font-size:   23px
+    }
+
+    [data-dpr="2"] .dataItem .num {
+        font-size: 46px
+    }
+
+    [data-dpr="3"] .dataItem .num {
+        font-size: 69px
+    }
+
+    .dataItem .red2 {
+
+        color: #d3553d
+    }
+    .dataItem .green2 {
+        color: #36a171
+    }
+
+    .dataItem .blue {
+        color: #437ba8
+    }
+
+    .dataItem .item-info {
+        display: block;
+        color: #aab5bd
+    }
+
+    [data-dpr="1"] .dataItem .item-info {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .dataItem .item-info {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .dataItem .item-info {
+        font-size: 33px
+    }
+
+    .dataItem .item-tit {
+        color: #242c35;
+        display: block;
+        height: .72rem;
+        line-height: .72rem
+    }
+
+    [data-dpr="1"] .dataItem .item-tit {
+        font-size: 16px
+    }
+
+    [data-dpr="2"] .dataItem .item-tit {
+        font-size: 32px
+    }
+
+    [data-dpr="3"] .dataItem .item-tit {
+        font-size: 48px
+    }
+    .qy-icon {
+        width: 1.2rem;
+        height: .8rem;
+        line-height: .8rem;
+        text-align: center;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: -.56rem
+    }
+
+    .qy-icon img {
+        max-width: 1.2rem
+    }
+    .qy-info {
+        color: #aab5bd;
+        font-size: .293333rem
+    }
+    .fx-zr-box .itemR .qy-icon {
+        right: 0;
+        left: inherit
+    }
+
+    .fx-zr-box .itemC {
+        width: 3.466667rem;
+        height: 1.733333rem;
+        line-height: 1.733333rem;
+        overflow: hidden;
+        clear: both
+    }
+    .fx-zr-box .itemL{padding-left:1.4rem;width:1.533333rem}
+    .fx-zr-box .itemR{padding-right:1.4rem;width:1.533333rem}
+    .fx-zr-box .itemL,.fx-zr-box .itemR{position:relative}
+
+
+    .itemC .qy-score {
+        font-size: .56rem;
+        color: #515e6d;
+        float: left;
+        width: 1.2rem;
+        text-align: right
+    }
+
+    .itemC .qy-score:last-child {
+        float: right;
+        text-align: left
+    }
+    .other-qy {
+        padding: 0 .4rem
+    }
+    .other-qy {
+        border-bottom: 1px solid #efefef;
+        padding-bottom: .266667rem
+    }
+    .other-qy .dataItem,
+    .other-qy li {
+        height: .8rem
+    }
+
+    .other-qy .itemC {
+        height: .8rem;
+        line-height: .8rem
+    }
+
+    .other-qy .itemC .qy-score {
+        font-size: .346667rem;
+        color: #515e6d
+    }
+
+
+
+    .feed-back{width:100%;height:1.733333rem;background:#fff;border-top:1px solid #eaeaea}
+    .feed-box{color:#787878;line-height:1.733333rem;text-align:center}
+
 </style>

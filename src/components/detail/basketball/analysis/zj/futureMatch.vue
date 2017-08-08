@@ -206,4 +206,8 @@ export default {
     [data-dpr="2"] .zhedie-box-wl .fx-table tr td:first-child span{font-size:24px}
     [data-dpr="3"] .zhedie-box-wl .fx-table tr td:first-child span{font-size:36px;}
     .zhedie-box-wl .fx-table tr th:first-child span{color:#5c788f}
+
+    .feed-back{width:100%;height:1.733333rem;background:#fff;border-top:1px solid #eaeaea}
+    .feed-box{color:#787878;line-height:1.733333rem;text-align:center}
+
 </style>

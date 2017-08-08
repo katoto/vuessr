@@ -315,11 +315,9 @@ export default {
     .mcjs-tit{font-size:.426667rem;color:#242c35;font-weight:700;height:.8rem;line-height:.8rem}
     .mcjs-detail p{line-height:.666667rem}
     .gxsj{width:.2rem;height:.2rem;display:inline-block;background:url(~assets/style/images/detail/qhsj.png) no-repeat;background-size:cover;margin-left:.053333rem}
-
-    .fczs-cont{overflow:hidden;clear:both;margin-top:.4rem}
-    .fczs{width:3.6rem;float:left;height:.933333rem;margin-left:.106667rem;padding-top:.133333rem}
-    .fczs-jt{width:.706667rem;height:.426667rem;line-height:.426667rem;background:#5c788f;color:#fff;font-size:.32rem;text-align:right;border-radius:.106667rem;margin-bottom:.133333rem;position:relative;padding-right:.48rem}
-    .fczs-cont .pm-img{width:1.066667rem;height:1.066667rem}
-    .fczs-cont .pm-img img{width:auto;max-width:100%;max-height:100%}
+    .lq-img,.pm-img,.ps-img{width:.6rem;position:relative;float:left}
+    .pm-img{height:1.066667rem}
+    .ps-img{height:.8rem}
+    .lq-img{height:1.06667rem}
 
 </style>

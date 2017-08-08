@@ -389,6 +389,7 @@ export default {
 	.gray-k {
 		background: #c2c2c2
 	}
+	.fx-table tr td .color9,.fx-table tr td .colorc{color:#aab5bd;}
 
 	.bkb-icon{width:.546667rem;height:1.093333rem;display:inline-block;background:url(~assets/style/images/detail/bkb.png) no-repeat;background-size:cover;position:absolute;top:.76rem;left:1.52rem}
 
