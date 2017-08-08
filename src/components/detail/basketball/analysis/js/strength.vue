@@ -117,7 +117,7 @@ export default {
             let colorObj = {}
             for (var type in this.strengthType) {
                 if (this.strengthType.hasOwnProperty(type)) {
-                    colorObj[type] = this.makeColorClass(type)
+                    colorObj[type] = this.makeColorClass(type, true)
                 }
             }
             return colorObj
@@ -126,7 +126,7 @@ export default {
             let colorObj = {}
             for (var type in this.strengthType) {
                 if (this.strengthType.hasOwnProperty(type)) {
-                    colorObj[type] = this.makeColorClass(type, true)
+                    colorObj[type] = this.makeColorClass(type)
                 }
             }
             return colorObj
@@ -135,7 +135,7 @@ export default {
             let widthObj = {}
             for (var type in this.strengthType) {
                 if (this.strengthType.hasOwnProperty(type)) {
-                    widthObj[type] = this.makeWidthStyle(type)
+                    widthObj[type] = this.makeWidthStyle(type, true)
                 }
             }
             return widthObj
@@ -144,7 +144,7 @@ export default {
             let widthObj = {}
             for (var type in this.strengthType) {
                 if (this.strengthType.hasOwnProperty(type)) {
-                    widthObj[type] = this.makeWidthStyle(type, true)
+                    widthObj[type] = this.makeWidthStyle(type)
                 }
             }
             return widthObj
@@ -181,15 +181,15 @@ export default {
         }
     },
     methods: {
-        makeColorClass (type, isReverse, classL = 'zhzl-gray', classS = 'zhzl-green') { // isReverse 作用是为了反转左右的参数
+        makeColorClass (type, isReverse, classL = 'zhzl-green', classS = 'zhzl-gray') { // isReverse=true时，为客队
             let home = +(this.strength[type].home_percent)
             let away = +(this.strength[type].away_percent)
             if (isReverse) { return home <= away ? classL : classS }
             return home >= away ? classL : classS
         },
-        makeWidthStyle (type, isReverse) {
-            if (isReverse) { return `width: ${this.strength[type].home_percent}%` }
-            return `width: ${this.strength[type].away_percent}%`
+        makeWidthStyle (type, isReverse) { // isReverse=true时，为客队
+            if (isReverse) { return `width: ${this.strength[type].away_percent}%` }
+            return `width: ${this.strength[type].home_percent}%`
         },
         openStatBox () {
             this.$store.commit(mTypes.setDialog, {
