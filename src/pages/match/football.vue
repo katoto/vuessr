@@ -4,7 +4,7 @@
             <h1 class="hot-match-tit">热门</h1>
             <ul class="hot-match-list" v-for="list in footMatch">
                 <li class="hot-match-item">
-                    <a class="link-all-match" :href=" '#/football-league/integral/'+list.seasonid">
+                    <a class="link-all-match" :href=" '/center/footballmatch/'+list.seasonid + '/integral'">
                         <em class="match-icon">
                             <img :src="list['matchlogo']">
                         </em>
@@ -15,7 +15,7 @@
 
             <div class="all-match">
                 <!--<a href="#/match/football" class="link-all-match">全部赛事<i class="icon-more"></i></a>-->
-                <router-link :to="{name:'center-football-europe'}">
+                <router-link :to="{name:'center-football-league'}">
                     <span class="link-all-match">全部赛事<i class="icon-more"></i></span>
                 </router-link>
             </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import {mTypes, aTypes} from '~store/center'
+    import {aTypes} from '~store/center'
     export default{
         async asyncData ({store}) {
             await store.dispatch(aTypes.getFootballHot)

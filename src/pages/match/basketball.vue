@@ -5,7 +5,7 @@
 
             <ul class="hot-match-list" v-for="list in match">
                 <li class="hot-match-item">
-                    <a class="link-all-match" :href="'#/basketball-league/rank/'+list['seasonid']">
+                    <a class="link-all-match" :href=" '/center/basketballmatch/'+list['seasonid'] + '/rank'">
                         <em class="match-icon">
                             <img :src="list['matchlogo']">
                         </em>

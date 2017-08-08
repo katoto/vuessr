@@ -91,12 +91,10 @@ const BasketballMatchSchedule = () => import('~pages/match/basketball/match/sche
 const BasketballMatchStatistics = () => import('~pages/match/basketball/match/statistics.vue')
 
 const FootballLeague = () => import('~pages/match/football_league.vue')
-const FootballEurope = () => import('~pages/match/football/europe.vue')
-const FootballAsian = () => import('~pages/match/football/asian.vue')
-const FootballAmerica = () => import('~pages/match/football/america.vue')
-const FootballAfrica = () => import('~pages/match/football/africa.vue')
-const FootballCups = () => import('~pages/match/football/cups.vue')
-
+const FootballMatch = () => import('~pages/match/football/match.vue')
+const FootballMatchIntegral = () => import('~pages/match/football/match/integral.vue')
+const FootballMatchSchedule = () => import('~pages/match/football/match/schedule.vue')
+const FootballMatchStatistics = () => import('~pages/match/football/match/statistics.vue')
 export function createRouter () {
     return new VueRouter({
         mode: 'history',
@@ -434,32 +432,27 @@ export function createRouter () {
                     {
                         path: 'footballleague',
                         component: FootballLeague,
-                        name: 'center-football-league',
+                        name: 'center-football-league'
+                    },
+                    {
+                        path: 'footballmatch/:seasonid',
+                        component: FootballMatch,
+                        name: 'center-football-match',
                         children: [
                             {
-                                path: 'europe',
-                                component: FootballEurope,
-                                name: 'center-football-league-europe'
+                                path: 'integral',
+                                component: FootballMatchIntegral,
+                                name: 'center-football-match-integral'
                             },
                             {
-                                path: 'asian',
-                                component: FootballAsian,
-                                name: 'center-football-league-asian'
+                                path: 'schedule',
+                                component: FootballMatchSchedule,
+                                name: 'center-football-match-schedule'
                             },
                             {
-                                path: 'america',
-                                component: FootballAmerica,
-                                name: 'center-football-league-america'
-                            },
-                            {
-                                path: 'africa',
-                                component: FootballAfrica,
-                                name: 'center-football-league-africa'
-                            },
-                            {
-                                path: 'cups',
-                                component: FootballCups,
-                                name: 'center-football-league-cups'
+                                path: 'statistics',
+                                component: FootballMatchStatistics,
+                                name: 'center-football-match-statistics'
                             }
                         ]
                     }

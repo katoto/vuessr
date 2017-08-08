@@ -13,13 +13,13 @@
                 </div>
             </div>
             <nav class="sk-tab">
-                <a :class="{'cur':~$route.path.indexOf('/schedule')}" :href=" '/center/basketballmatch/' + match.seasonid + '/schedule' ">
+                <a :class="{'cur':~$route.path.indexOf('/schedule')}" :href=" '/center/footballmatch/' + match.seasonid + '/schedule' ">
                     赛程<i :class="{'sktab-arrow':~$route.path.indexOf('/schedule')}"></i>
                 </a>
-                <a :class="{'cur':~$route.path.indexOf('/rank')}" :href=" '/center/basketballmatch/' + match.seasonid + '/rank' ">
-                    排名<i :class="{'sktab-arrow':~$route.path.indexOf('/rank')}"></i>
+                <a :class="{'cur':~$route.path.indexOf('/integral')}" :href=" '/center/footballmatch/' + match.seasonid + '/integral' ">
+                    积分榜<i :class="{'sktab-arrow':~$route.path.indexOf('/integral')}"></i>
                 </a>
-                <a :class="{'cur':~$route.path.indexOf('/statistics')}" :href=" '/center/basketballmatch/' + match.seasonid + '/statistics' ">
+                <a :class="{'cur':~$route.path.indexOf('/statistics')}" :href=" '/center/footballmatch/' + match.seasonid + '/statistics' ">
                     统计<i :class="{'sktab-arrow':~$route.path.indexOf('/statistics')}"></i>
                 </a>
             </nav>
@@ -34,16 +34,16 @@
     import {aTypes} from '~store/center'
     export default{
         async asyncData ({store, route: {params}}) {
-            await store.dispatch(aTypes.getBasketHead, {seasonid: params.seasonid})
+            await store.dispatch(aTypes.getFootHead, {seasonid: params.seasonid})
         },
         computed: {
             match () {
-                return this.$store.state.center.basketballMatch.head
+                return this.$store.state.center.footballMatch.head
             }
         },
         methods: {
             fetchData () {
-                this.$store.dispatch(aTypes.getBasketHead, {seasonid: this.$route.params.seasonid})
+                this.$store.dispatch(aTypes.getFootHead, {seasonid: this.$route.params.seasonid})
             }
         },
         mounted () {
@@ -56,6 +56,3 @@
         }
     }
 </script>
-
-<style scoped>
-</style>
