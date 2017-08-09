@@ -28,8 +28,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="zhzl-bfb-left">{{statistic.h_ballcontrol_rate}}<i>%</i></div>
-                <div class="zhzl-bfb-right">{{statistic.a_ballcontrol_rate}}<i>%</i></div>
+                <div class="zhzl-bfb-left">{{parseInt(statistic.h_ballcontrol_rate)}}<i>%</i></div>
+                <div class="zhzl-bfb-right">{{parseInt(statistic.a_ballcontrol_rate)}}<i>%</i></div>
             </div>
             <div class="zhedie">
                 <ul class="zhzl-list">
@@ -146,6 +146,12 @@
         top: 0;
         background: #bcd0de
     }
+
+    .wua{position:relative;width:100%;height:.16rem}
+    .zhzl-vs div:first-child.zhzl-green .hh{border-top:.16rem solid #5c788f;border-right:.16rem solid transparent;right:-.13rem;position:absolute;content:'';width:0;height:0;z-index:1}
+    .zhzl-vs div:last-child.zhzl-green .hh{border-top:.17rem solid #5c788f;border-left:.16rem solid transparent;left:-.13rem;position:absolute;content:'';width:0;height:0}
+    .zhzl-gray .hh{border:0}
+
 
     .zhzl-vs-left {
         right: 0;

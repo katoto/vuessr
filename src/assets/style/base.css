@@ -127,4 +127,6 @@ ul, li{
     font-size: 0.4rem;
     padding: 0.22rem 0;
     text-align: center;
+    height:1.333333rem;line-height:1.333333rem;background:#fff
 }
+.ui-empty-font:active{background:#fff!important}
