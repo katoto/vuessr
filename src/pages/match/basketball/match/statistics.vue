@@ -19,7 +19,7 @@
             </div>
 
             <!--right scroll-->
-            <div class="plright l-flex-l l-flex-column" v-if="statisList">
+            <div class="plright l-flex-l l-flex-column" v-if="statisList && statisList.length">
                 <h2 class="average-tit">
                     <em>球队</em>{{tabInfo[tab]}}
                 </h2>
@@ -36,7 +36,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="plright l-flex-l l-flex-column" v-if="!statisList">
+            <div class="plright l-flex-l l-flex-column" v-if="!statisList || !statisList.length" style="flex:1">
                 <div class="ui-empty">
                     <img class="w240" src="http://tccache.500.com/mobile/widget/empty/images/12.png">
                     <div class="ui-empty-gfont">暂无数据</div>
@@ -104,5 +104,8 @@
 
     ul.average-list.l-srcoll-y{
         overflow: auto;
+    }
+    .plright.l-flex-l.l-flex-column {
+        flex: 1;
     }
 </style>

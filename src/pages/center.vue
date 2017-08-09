@@ -39,6 +39,27 @@
 </script>
 
 <style scoped>
+    .wrapper {
+        background: #f4f4f4;
+        width: 100%;
+        height: 100%;
+    }
+    .l-full {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .l-flex-column {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        display: flex;
+        flex-flow: column;
+        height: 100%;
+    }
+    .pl-head-box{height:1.12rem}
+    .pl-head{background:#f63f3f;height:1.12rem;line-height:1.12rem;width:100%;font-size:.48rem;  color:#fff;text-align:center;z-index:2}
     .match-tab {
         background: #fff;
         height: 1.066667rem;
