@@ -16,7 +16,7 @@
                                     {{best3[type].away[0].number}}号
                                 </p>
                                 <p>
-                                    {{best3[type].away[0].player}}
+                                    {{best3[type].away[0].player | truncate(4)}}
                                 </p>
                             </div>
                         </li>
@@ -27,7 +27,7 @@
                                     {{best3[type].home[0].number}}号
                                 </p>
                                 <p>
-                                    {{best3[type].home[0].player}}
+                                    {{best3[type].home[0].player | truncate(4)}}
                                 </p>
                             </div>
                             <div class="qy-icon">
@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import {mTypes} from '~store/lqdetail'
 export default {
     props: {
         best3: {
@@ -107,6 +108,11 @@ export default {
                 return input
             }
             return input.slice(0, length) + (tail || '...')
+        }
+    },
+    watch: {
+        Best3TypeStatus () {
+            this.$store.commit(mTypes.updateScTime)
         }
     }
 }

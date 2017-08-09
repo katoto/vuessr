@@ -164,12 +164,12 @@ export default {
         }
     },
     filters: {
-        avgResultFmt(input) {
+        avgResultFmt (input) {
             return `场均得分${input.avar_get}分，场均失${input.avar_lost}分， 大分${input.big_ball}次，小分${input.small_ball}次`
         },
-		allResultFmt(input) {
-			return `场均分差${input.avar_sub}分，场均总分${input.avar_all}， 大分${input.big_ball}次，小分${input.small_ball}次`
-		},
+        allResultFmt (input) {
+            return `场均分差${input.avar_sub}分，场均总分${input.avar_all}， 大分${input.big_ball}次，小分${input.small_ball}次`
+        },
         resultFmt (input, key) {
             let result = input['result' + key]
             let preStr = ''

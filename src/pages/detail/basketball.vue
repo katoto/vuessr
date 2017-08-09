@@ -277,7 +277,7 @@
                 nativeShare.setShareData({
                     icon: 'http://m.500.com/favicon.ico',
                     link: location.href,
-                    title: '${this.baseInfo.awaysxname}vs${this.baseInfo.homesxname} 实时比分',
+                    title: `${this.baseInfo.awaysxname}vs${this.baseInfo.homesxname} 实时比分`,
                     desc: `关注最新篮球比分动态， 请关注500彩票网`,
                     from: '500彩票网'
                 })
