@@ -1,96 +1,97 @@
 <template>
     <div class="zhedie-box zhedie-box-wl">
-    	<div>
-    		<div class="zj-nav">
-    			未来赛事
-    		</div>
-    		<div class="zhedie show">
+        <div>
+            <div class="zj-nav">
+                未来赛事
+            </div>
+            <div class="zhedie show">
                 <template v-if="noEmptyFlag">
-                    <table width="100%" cellpadding="0" cellspacing="0" class="fx-table" v-for="hoa in ['away', 'home']">
+                    <table width="100%" cellpadding="0" cellspacing="0" class="fx-table"
+                           v-for="hoa in ['away', 'home']">
                         <tbody>
-                            <tr>
-                                <th width="22%">
-                                    <span class="color3 f28">{{baseInfo[hoa + 'sxname']}}</span>
-                                </th>
-                                <th width="20%">
-                                    日期
-                                </th>
-                                <th width="17%">
-                                    <div class="textright">
-                                        主队
-                                    </div>
-                                </th>
-                                <th width="7%">
-                                </th>
-                                <th width="17%">
-                                    <div class="textleft">
-                                        客队
-                                    </div>
-                                </th>
-                                <th>
-                                    相隔
-                                </th>
-                            </tr>
-                            <tr v-for="list in futureMatch[hoa]">
-                                <td>
-                                    <span class="color9">{{list.simpleleague}}</span>
-                                </td>
-                                <td>
-                                    {{list.matchdate}}
-                                </td>
-                                <td>
-                                    <div class="textright">
-                                        {{list.homesxname}}
-                                    </div>
-                                </td>
-                                <td>
-                                    vs
-                                </td>
-                                <td>
-                                    <div class="textleft">
-                                        {{list.awaysxname}}
-                                    </div>
-                                </td>
-                                <td>
-                                    {{list.xdays}}
-                                </td>
-                            </tr>
+                        <tr>
+                            <th width="22%">
+                                <span class="color3 f28">{{baseInfo[hoa + 'sxname']}}</span>
+                            </th>
+                            <th width="20%">
+                                日期
+                            </th>
+                            <th width="17%">
+                                <div class="textright">
+                                    主队
+                                </div>
+                            </th>
+                            <th width="7%">
+                            </th>
+                            <th width="17%">
+                                <div class="textleft">
+                                    客队
+                                </div>
+                            </th>
+                            <th>
+                                相隔
+                            </th>
+                        </tr>
+                        <tr v-for="list in futureMatch[hoa]">
+                            <td>
+                                <span class="color9">{{list.simpleleague}}</span>
+                            </td>
+                            <td>
+                                {{list.matchdate}}
+                            </td>
+                            <td>
+                                <div class="textright">
+                                    {{list.homesxname}}
+                                </div>
+                            </td>
+                            <td>
+                                vs
+                            </td>
+                            <td>
+                                <div class="textleft">
+                                    {{list.awaysxname}}
+                                </div>
+                            </td>
+                            <td>
+                                {{list.xdays}}
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </template>
-                <div class="feed-back" v-else>
-                    <div class="feed-box">
-                        <em>暂无数据</em>
-                    </div>
-                </div>
-    		</div>
-    	</div>
+                <feed-back-no-data v-else></feed-back-no-data>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-export default {
-    props: {
-        futureMatch: {
-            type: Object,
-            required: true
-        }
-    },
-    computed: {
-        baseInfo () {
-            return this.$store.state.lqdetail.baseInfo
+    import feedBackNoData from '~components/detail/feedBackNoData.vue'
+    export default {
+        props: {
+            futureMatch: {
+                type: Object,
+                required: true
+            }
         },
-        noEmptyFlag () {
-            return this.noEmpty(this.futureMatch.home) && this.noEmpty(this.futureMatch.away)
-        }
-    },
-    methods: {
-        noEmpty (obj) {
-            if (obj) return !!Object.keys(obj).length
-            return false
+        components: {
+            feedBackNoData
+        },
+        computed: {
+            baseInfo () {
+                return this.$store.state.lqdetail.baseInfo
+            },
+            noEmptyFlag () {
+                return this.noEmpty(this.futureMatch.home) && this.noEmpty(this.futureMatch.away)
+            }
+        },
+        methods: {
+            noEmpty (obj) {
+                if (obj) return !!Object.keys(obj).length
+                return false
+            }
         }
     }
-}
 </script>
 
 <style scoped>
@@ -145,7 +146,6 @@ export default {
         font-size: 36px
     }
 
-
     .fx-table tr td .color9,
     .fx-table tr td .colorc {
         color: #aab5bd
@@ -198,16 +198,23 @@ export default {
         font-size: 34.5px
     }
 
+    .zhedie-box-wl .fx-table tr th:first-child span {
+        color: #5c788f
+    }
+
+    [data-dpr="1"] .zhedie-box-wl .fx-table tr td:first-child span {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .zhedie-box-wl .fx-table tr td:first-child span {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .zhedie-box-wl .fx-table tr td:first-child span {
+        font-size: 36px;
+    }
 
     .zhedie-box-wl .fx-table tr th:first-child span {
         color: #5c788f
     }
-    [data-dpr="1"] .zhedie-box-wl .fx-table tr td:first-child span{font-size:12px}
-    [data-dpr="2"] .zhedie-box-wl .fx-table tr td:first-child span{font-size:24px}
-    [data-dpr="3"] .zhedie-box-wl .fx-table tr td:first-child span{font-size:36px;}
-    .zhedie-box-wl .fx-table tr th:first-child span{color:#5c788f}
-
-    .feed-back{width:100%;height:1.733333rem;background:#fff;border-top:1px solid #eaeaea}
-    .feed-box{color:#787878;line-height:1.733333rem;text-align:center}
-
 </style>

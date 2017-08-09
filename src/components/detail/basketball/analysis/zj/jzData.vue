@@ -5,17 +5,15 @@
                  历史交战
             </div>
             <fight-box :matchesObj='jzData' :isJz='isJz' v-if="noEmptyFlag"></fight-box>
-            <div class="feed-back" v-else>
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
+            <feed-back-no-data v-else></feed-back-no-data>
         </div>
     </div>
 </template>
 
 <script>
 import fightBox from '~components/detail/basketball/analysis/zj/fightBox.vue'
+import feedBackNoData from '~components/detail/feedBackNoData.vue'
+
 export default {
     data () {
         return {
@@ -23,7 +21,7 @@ export default {
         }
     },
     components: {
-        fightBox
+        fightBox, feedBackNoData
     },
     computed: {
         noEmptyFlag () {
@@ -53,26 +51,5 @@ export default {
 
     .zhedie-box:last-child {
         margin-bottom: 0
-    }
-
-    .feed-back {
-        width: 100%;
-        height: 1.733333rem;
-        background: #fff;
-        border-top: 1px solid #eaeaea
-    }
-    .feed-box {
-        color: #787878;
-        line-height: 1.733333rem;
-        text-align: center
-    }
-    [data-dpr="1"] .feed-box {
-        font-size: 13px
-    }
-    [data-dpr="2"] .feed-box {
-        font-size: 26px
-    }
-    [data-dpr="3"] .feed-box {
-        font-size: 39px
     }
 </style>

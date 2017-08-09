@@ -2,7 +2,7 @@
 <template>
     <div>
         <div v-if="eventList && eventList.length">
-            <div class="jie-detail jie-detail-nomb">
+            <div class="jie-detail">
                 <div class="jie-detailL">
                     <div class="t-nav"></div>
                     <ul class="t-detail" v-if="match">
@@ -46,11 +46,11 @@
                 </div>
             </div>
             <!--<me-sports src="detail-page/comment/me-sports.html" match.status == StatusCode.NOT_STARTED || eventlist == null" requesting="{{isRequesting}}" leagueid="{{match.matchid}}" on-size="hasNews=!!$event.args[0]" init-size="{{match.status == StatusCode.NOT_STARTED?5:3}}" homeid="{{match.homeid}}" awayid="{{match.awayid}}" status="{{match.status}}" matchtime="{{match.matchdate}}" vtype="2"></me-sports>-->
-
+            <me-sports v-if="news" :news="news.news" :init-size="3" @rs="refreshScroll"></me-sports>
             <div class="gl-nav">文字直播</div>
             <div class="zhedie-box" v-if="eventList && eventList.length" v-for="(item,index) in eventList">
                 <div class="zhedie-nav" :class="{'dang-list-l-on': isActive[index]}" v-tap="{methods:()=>changeSelect(index)}">
-                    {{item[0].desc.replace('结束','')}}
+                    {{nameList[index]}}
                     <span class="live" v-if=" Number(match.status) >= 2 && Number(match.status) <= 10 && index == 0">Live</span>
                     <span class="sh-arrow" :class="{'rotate180': !isActive[index]}"></span>
                 </div>
@@ -71,11 +71,8 @@
                     </div>
                 </div>
             </div>
-            <div class="sk-btips">500彩票网提示：
-                <br>以上数据仅供参考，请以官方公布的数据为准
-            </div>
+            <skbtips></skbtips>
         </div>
-        <me-sports v-if="news" :news="news.news" :init-size="3" @rs="refreshScroll"></me-sports>
         <div v-if="!news || (news && !news.news) || !eventList || !eventList.length">
            <no-data></no-data>
 
@@ -88,7 +85,7 @@
     import meSports from '~components/detail/meSports.vue'
     import noData from '~components/no_data.vue'
     import {BasketballStatusCode as StatusCode} from '~common/constants'
-
+    import skbtips from '~components/detail/skbtips.vue'
     export default{
         async asyncData ({store, route: {params}}) {
             const {status, matchtime, homeid, awayid, matchid} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
@@ -99,7 +96,7 @@
         },
 
         components: {
-            noData, meSports
+            noData, meSports, skbtips
 
         },
         data () {
@@ -211,7 +208,7 @@
 <style scoped>
     .jie-detail {
         background: #fff;
-        margin: 0 auto .266667rem
+        margin: 0 auto
     }
 
     .jie-detail:after {
@@ -570,26 +567,6 @@
 
     .zhedie-box:last-child {
         margin-bottom: 0
-    }
-    .sk-btips {
-        color: #999;
-        text-align: center;
-        height: 1rem;
-        padding: .533333rem 0;
-        background: #efefef;
-        line-height: .506667rem
-    }
-
-    [data-dpr="1"] .sk-btips {
-        font-size: 11px
-    }
-
-    [data-dpr="2"] .sk-btips {
-        font-size: 22px
-    }
-
-    [data-dpr="3"] .sk-btips {
-        font-size: 33px
     }
 
     .red-zf {

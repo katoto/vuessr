@@ -10,20 +10,18 @@
                 <fight-box :matchesObj='recentRecord.hlist' v-if="noEmptyFlag_away">
                 </fight-box>
             </template>
-            <div class="feed-back" v-else>
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
+            <feed-back-no-data v-else></feed-back-no-data>
         </div>
     </div>
 </template>
 
 <script>
 import fightBox from '~components/detail/basketball/analysis/zj/fightBox.vue'
+import feedBackNoData from '~components/detail/feedBackNoData.vue'
+
 export default {
     components: {
-        fightBox
+        fightBox, feedBackNoData
     },
     computed: {
         noEmptyFlag () {
@@ -60,8 +58,4 @@ export default {
         margin-bottom: 0
     }
 
-
-
-    .feed-back{width:100%;height:1.733333rem;background:#fff;border-top:1px solid #eaeaea}
-    .feed-box{color:#787878;line-height:1.733333rem;text-align:center}
 </style>

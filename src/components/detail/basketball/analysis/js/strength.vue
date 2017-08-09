@@ -60,11 +60,7 @@
                 <div class="zhzl-tips">数据来自NBA常规赛球队场均统计</div>
             </div>
         </template>
-        <div class="feed-back" v-else>
-            <div class="feed-box">
-                <em>暂无数据</em>
-            </div>
-        </div>
+        <feed-back-no-data v-else></feed-back-no-data>
         <div class="box-arrow noborder" v-tap="{methods: () => collaFlag = !collaFlag}" v-if="noEmptyFlag">
         	<div class="zd-arrow" :class="{'rotate180': collaFlag}">
         	</div>
@@ -76,10 +72,11 @@
 <script>
 import {mTypes} from '~store/lqdetail'
 import statsBox from '~components/detail/basketball/analysis/js/statsBox.vue'
+import feedBackNoData from '~components/detail/feedBackNoData.vue'
 
 export default {
     components: {
-        statsBox
+        statsBox, feedBackNoData
     },
     props: {
         baseInfo: {
@@ -276,26 +273,5 @@ export default {
     .rotate180{-webkit-animation:all .2s linear;animation:all .2s linear;-webkit-transform:rotate(180deg);transform:rotate(180deg)}
     .wua{position:relative;width:100%;height:.16rem}
 
-
-    .feed-back {
-        width: 100%;
-        height: 1.733333rem;
-        background: #fff;
-        border-top: 1px solid #eaeaea
-    }
-    .feed-box {
-        color: #787878;
-        line-height: 1.733333rem;
-        text-align: center
-    }
-    [data-dpr="1"] .feed-box {
-        font-size: 13px
-    }
-    [data-dpr="2"] .feed-box {
-        font-size: 26px
-    }
-    [data-dpr="3"] .feed-box {
-        font-size: 39px
-    }
 
 </style>

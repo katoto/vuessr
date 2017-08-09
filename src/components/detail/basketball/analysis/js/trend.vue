@@ -103,11 +103,8 @@
                 <span><em class="zx">——</em>本场大小分盘口</span>
             </div>
         </template>
-        <div class="feed-back" v-else>
-            <div class="feed-box">
-                <em>暂无数据</em>
-            </div>
-        </div>
+        <feed-back-no-data v-else></feed-back-no-data>
+
 
     </div>
 
@@ -115,6 +112,8 @@
 
 <script>
 import {mTypes, aTypes} from '~store/lqdetail'
+import feedBackNoData from '~components/detail/feedBackNoData.vue'
+
 export default {
     props: {
         baseInfo: {
@@ -125,6 +124,9 @@ export default {
             type: Object,
             required: true
         }
+    },
+    components: {
+        feedBackNoData
     },
     data () {
         return {
