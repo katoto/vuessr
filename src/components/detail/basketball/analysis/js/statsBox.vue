@@ -9,11 +9,17 @@
                     <tbody>
                         <tr>
                             <th width="30%"></th>
-                            <th width="35%" colspan="2" v-for="hoa in ['away', 'home']">
+                            <th width="35%" colspan="2">
                                 <span class="jcsj-img">
-                    				<img :src="baseInfo[hoa + 'logo']">
+                    				<img :src="baseInfo.awaylogo">
                     			</span>
-                                <em>{{baseInfo[hoa + 'sxname']}}</em>
+                                <em>{{baseInfo.awaysxname}}</em>
+                            </th>
+                            <th width="35%" colspan="2">
+                                <em>{{baseInfo.homesxname}}</em>
+                                <span class="jcsj-img">
+                    				<img :src="baseInfo.homelogo">
+                    			</span>
                             </th>
                         </tr>
                         <tr>
@@ -25,10 +31,10 @@
                         </tr>
                         <tr v-for="(name, type) in statsType">
                             <td>{{name}}</td>
-                            <td v-if="noEmptyFlag">{{stats[type].home_per}}</td>
-                            <td v-if="noEmptyFlag">{{stats[type].home_rank}}</td>
                             <td v-if="noEmptyFlag">{{stats[type].away_per}}</td>
                             <td v-if="noEmptyFlag">{{stats[type].away_rank}}</td>
+                            <td v-if="noEmptyFlag">{{stats[type].home_per}}</td>
+                            <td v-if="noEmptyFlag">{{stats[type].home_rank}}</td>
                         </tr>
                     </tbody>
                 </table>
