@@ -134,6 +134,8 @@
         min-width: .933333rem;
         overflow: hidden;
     }
+    .fen-bf .score{position:absolute;left:50%;-webkit-transform:translate(-50%,0);transform:translate(-50%,0)}
+
     .fen-bf-lq .score {
         position: absolute;
         left: 50%;

@@ -15,7 +15,7 @@
                 <div class="zhud-jq">
                     主
                     <span class="jiaoq-qz">
-                            <img src="http://live.m.500.com/mobile/touch/images/bifen/v126/jiaoq.png" alt="角球图标">
+                            <img src="~assets/style/images/detail/jiaoq.png" alt="角球图标">
                             <em>{{statistic.h_corner_count}}</em>
                         </span>
                 </div>
@@ -42,7 +42,7 @@
                 <!--客队角球-->
                 <div class="zhud-jq ked-jq">
                         <span class="jiaoq-qz">
-                            <img src="http://live.m.500.com/mobile/touch/images/bifen/v126/jiaoq.png" alt="角球图标">
+                            <img src="~assets/style/images/detail/jiaoq.png" alt="角球图标">
                             <em>{{statistic.a_corner_count}}</em>
                         </span>
                     客

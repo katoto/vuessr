@@ -81,9 +81,6 @@
         border: 1px solid #dadee4
     }
     .main-inner {
-        min-height: 15.44rem;
-        width: 100%;
-        overflow-x: hidden;
         color: #242c35
     }
     .sk-detail-tap-box {
