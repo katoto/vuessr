@@ -294,7 +294,7 @@
                         },
                         onCollect: () => {
                             this.$store.dispatch(aTypes.requestConcern, this.baseInfo)
-                            this.$store.commit(mTypes.setDialog, {})
+                            // this.$store.commit(mTypes.setDialog, {})
                         }
                     }
                 })

@@ -317,7 +317,7 @@
                         },
                         onCollect: () => {
                             this.$store.dispatch(aTypes.requestConcern, this.match)
-                            this.$store.commit(mTypes.setDialog, {})
+                            // this.$store.commit(mTypes.setDialog, {})
                         },
                         onReply: () => {
                             this.$store.dispatch('ensureLogin')
