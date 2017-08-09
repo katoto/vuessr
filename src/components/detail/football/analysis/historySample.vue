@@ -19,12 +19,12 @@
                             <table cellpadding="0" cellspacing="0" width="100%">
                                 <tbody>
                                 <tr>
-                                    <td width="40%">{{info.homesxname|truncate(4,'')}}</td>
+                                    <td width="40%">{{info.homesxname|truncate(4)}}</td>
                                     <td width="10%" class="textcenter">{{info.homescore}}</td>
                                     <td><span class="state" :class="{'red': info.result == 0, 'green': info.result == 1, 'blue': info.result == 2}"> {{['主胜', '平', '主负'][info.result]||'--'}}</span></td>
                                 </tr>
                                 <tr>
-                                    <td>{{info.awaysxname|truncate(4,'')}}</td>
+                                    <td>{{info.awaysxname|truncate(4)}}</td>
                                     <td class="textcenter">{{info.awayscore}}</td>
                                     <td></td>
                                 </tr>
@@ -95,9 +95,9 @@
             }
         },
         filters: {
-            truncate: (val, num, tail) => {
+            truncate: (val, num) => {
                 if (val.length > num) {
-                    return val.substr(0, num) + (tail || '...')
+                    return val.substr(0, num)
                 } else {
                     return val
                 }
