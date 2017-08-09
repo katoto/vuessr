@@ -94,10 +94,14 @@
     a {
         color: inherit;
     }
+    .sk-detail-tap-box2 {
+        margin-bottom: .266667rem
+    }
     .sk-detail-tap-box {
         text-align: center;
         height: 1.173333rem;
         padding: 0 .4rem;
+        background: #fff
     }
     .sk-detail-tap {
         border-bottom: 1px solid #e8e8e8;
