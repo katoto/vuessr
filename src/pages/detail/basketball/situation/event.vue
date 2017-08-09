@@ -2,7 +2,7 @@
 <template>
     <div>
         <div v-if="eventList && eventList.length">
-            <div class="jie-detail jie-detail-nomb">
+            <div class="jie-detail">
                 <div class="jie-detailL">
                     <div class="t-nav"></div>
                     <ul class="t-detail" v-if="match">
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <!--<me-sports src="detail-page/comment/me-sports.html" match.status == StatusCode.NOT_STARTED || eventlist == null" requesting="{{isRequesting}}" leagueid="{{match.matchid}}" on-size="hasNews=!!$event.args[0]" init-size="{{match.status == StatusCode.NOT_STARTED?5:3}}" homeid="{{match.homeid}}" awayid="{{match.awayid}}" status="{{match.status}}" matchtime="{{match.matchdate}}" vtype="2"></me-sports>-->
-
+            <me-sports v-if="news" :news="news.news" :init-size="3" @rs="refreshScroll"></me-sports>
             <div class="gl-nav">文字直播</div>
             <div class="zhedie-box" v-if="eventList && eventList.length" v-for="(item,index) in eventList">
                 <div class="zhedie-nav" :class="{'dang-list-l-on': isActive[index]}" v-tap="{methods:()=>changeSelect(index)}">
@@ -73,7 +73,6 @@
             </div>
             <skbtips></skbtips>
         </div>
-        <me-sports v-if="news" :news="news.news" :init-size="3" @rs="refreshScroll"></me-sports>
         <div v-if="!news || (news && !news.news) || !eventList || !eventList.length">
            <no-data></no-data>
 
@@ -209,7 +208,7 @@
 <style scoped>
     .jie-detail {
         background: #fff;
-        margin: 0 auto .266667rem
+        margin: 0 auto
     }
 
     .jie-detail:after {

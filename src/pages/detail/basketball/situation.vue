@@ -20,7 +20,7 @@
 
 
         <div class="ui-empty" v-if="!news &&(match.status == StatusCode.NOT_STARTED || match.status == StatusCode.CHANGED || match.status == StatusCode.REMOVED || match.status == StatusCode.CANCELED || match.status == StatusCode.PAUSED)">
-            <img src="http://tccache.500.com/mobile/widget/empty/images/07.png" class="w240">
+            <img src="~assets/style/images/detail/07.png" class="w240">
             <div class="ui-empty-dfont">比赛时间 {{match.matchtime.substr(5, 11)}}</div>
             <div class="ui-empty-gfont">先去分析栏目看看吧</div>
         </div>
