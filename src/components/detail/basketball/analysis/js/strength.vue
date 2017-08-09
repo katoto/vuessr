@@ -276,4 +276,26 @@ export default {
     .rotate180{-webkit-animation:all .2s linear;animation:all .2s linear;-webkit-transform:rotate(180deg);transform:rotate(180deg)}
     .wua{position:relative;width:100%;height:.16rem}
 
+
+    .feed-back {
+        width: 100%;
+        height: 1.733333rem;
+        background: #fff;
+        border-top: 1px solid #eaeaea
+    }
+    .feed-box {
+        color: #787878;
+        line-height: 1.733333rem;
+        text-align: center
+    }
+    [data-dpr="1"] .feed-box {
+        font-size: 13px
+    }
+    [data-dpr="2"] .feed-box {
+        font-size: 26px
+    }
+    [data-dpr="3"] .feed-box {
+        font-size: 39px
+    }
+
 </style>
