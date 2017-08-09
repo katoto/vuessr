@@ -56,22 +56,22 @@
                 </div>
             </template>
     	</div>
-        <div class="feed-back" v-else>
-            <div class="feed-box">
-                <em>暂无数据</em>
-            </div>
-        </div>
+        <feed-back-no-data v-else></feed-back-no-data>
     </div>
 </template>
 
 <script>
 import {mTypes} from '~store/lqdetail'
+import feedBackNoData from '~components/detail/feedBackNoData.vue'
 export default {
     props: {
         best3: {
             type: Object,
             required: true
         }
+    },
+    components: {
+        feedBackNoData
     },
     data () {
         return {
@@ -288,10 +288,4 @@ export default {
         font-size: .346667rem;
         color: #515e6d
     }
-
-
-
-    .feed-back{width:100%;height:1.733333rem;background:#fff;border-top:1px solid #eaeaea}
-    .feed-box{color:#787878;line-height:1.733333rem;text-align:center}
-
 </style>

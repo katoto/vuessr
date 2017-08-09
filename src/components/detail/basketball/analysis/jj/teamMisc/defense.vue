@@ -15,11 +15,7 @@
                 </p>
             </div>
         </div>
-        <div class="feed-back" v-else>
-            <div class="feed-box">
-                <em>暂无数据</em>
-            </div>
-        </div>
+        <feed-back-no-data v-else></feed-back-no-data>
     </div>
 </template>
 
@@ -27,10 +23,11 @@
 import {mTypes} from '~store/lqdetail'
 import wordBox from '~components/detail/basketball/analysis/jj/wordBox.vue'
 import dataBox from '~components/detail/basketball/analysis/jj/teamMisc/dataBox.vue'
+import feedBackNoData from '~components/detail/feedBackNoData.vue'
 
 export default {
     components: {
-        dataBox
+        dataBox, feedBackNoData
     },
     props: {
         defense: {
@@ -115,6 +112,4 @@ export default {
     .infoTips .icon{display:block;width:.88rem;height:.293333rem;background:url(~assets/style/images/detail/icon_sprite.png) no-repeat -.613333rem 0;background-size:1.92rem;margin-top:.106667rem}
     .infoTips p{-webkit-box-flex:1;-ms-flex:1;flex:1;padding-left:.213333rem}
 
-    .feed-back{width:100%;height:1.733333rem;background:#fff;border-top:1px solid #eaeaea}
-    .feed-box{color:#787878;line-height:1.733333rem;text-align:center}
 </style>

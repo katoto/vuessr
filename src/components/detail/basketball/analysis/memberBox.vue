@@ -38,11 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="feed-back" v-else>
-            <div class="feed-box">
-                <em>暂无数据</em>
-            </div>
-        </div>
+        <feed-back-no-data v-else></feed-back-no-data>
         <div class="box-arrow noborder" v-if="members" v-tap="{methods: collap, lenght: members.length}">
             <div class="zd-arrow" :class="{'rotate180': moreFlag}">
             </div>
@@ -57,6 +53,7 @@ import {
     aTypes
 } from '~store/lqdetail'
 import wordBox from '~components/detail/basketball/analysis/jj/wordBox.vue'
+import feedBackNoData from '~components/detail/feedBackNoData.vue'
 import {Scroller} from 'scroller'
 
 export default {
@@ -83,6 +80,9 @@ export default {
         isJj: {
             type: Boolean
         }
+    },
+    components: {
+        feedBackNoData
     },
     data () {
         return {
@@ -310,7 +310,5 @@ export default {
     .dataBox{border-bottom:0;padding-bottom:0;padding-top:.2rem}
     .dataBox{padding:.4rem .4rem .266667rem .4rem;border-bottom:1px solid #f4f4f4;text-align:center}
 
-    .feed-back{width:100%;height:1.733333rem;background:#fff;border-top:1px solid #eaeaea}
-    .feed-box{color:#787878;line-height:1.733333rem;text-align:center}
 
 </style>
