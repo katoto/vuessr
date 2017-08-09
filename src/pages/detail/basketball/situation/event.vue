@@ -76,7 +76,7 @@
             </div>
         </div>
         <me-sports v-if="news" :news="news.news" :init-size="3" @rs="refreshScroll"></me-sports>
-        <div v-if="!news && ! eventList">
+        <div v-if="!news || (news && !news.news) || !eventList || !eventList.length">
            <no-data></no-data>
 
         </div>
