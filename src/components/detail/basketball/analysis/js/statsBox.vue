@@ -9,7 +9,14 @@
                         <th width="30%"></th>
                         <th width="35%" colspan="2" v-for="hoa in ['away', 'home']">
                                 <span class="jcsj-img">
-                    				<img :src="baseInfo[hoa + 'logo']">
+                    				<img :src="baseInfo.awaylogo">
+                    			</span>
+                                <em>{{baseInfo.awaysxname}}</em>
+                            </th>
+                            <th width="35%" colspan="2">
+                                <em>{{baseInfo.homesxname}}</em>
+                                <span class="jcsj-img">
+                    				<img :src="baseInfo.homelogo">
                     			</span>
                             <em>{{baseInfo[hoa + 'sxname']}}</em>
                         </th>

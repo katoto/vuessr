@@ -8,6 +8,7 @@
         </div>
         <template v-if="noEmptyFlag">
             <div class="zhedie show">
+                <!-- away status -->
                 <div class="jqzs-fc" v-if="trend.away">
                     <div class="pm-namel fczs-cont ">
                         <div class="pm-img">
@@ -20,24 +21,24 @@
                     </div>
                     <div class="vic-cont">
                         <template  v-if="vtype === 1">
-                            <div class="line-horiz" v-if="trend.home.level" :style="trendTopHome"><em>{{trend.home.level}}</em></div>
+                            <div class="line-horiz" v-if="trend.away.level" :style="trendTopAway"><em>{{trend.away.level}}</em></div>
                             <ul class="vic-list vic-list-fc">
                                 <li class="vic-item-empty" v-tap="{methods: () => trendFid = item.fid}" :class="{'vic-item-lose': item.value<0,'vic-item-win': item.value>0,'vic-item-coming':!item.value&&item.fid}" v-for="(item, idx) in trend.away.coords">
                                     <span :style="trendHeightAway[idx]">
                                         <em class="line-ver" v-if="item.value&&item.fid&&trendFid&&trendFid==item.fid"><i>{{item.matchdate.substring(5,10)}}<br>{{item.awaysxname}}{{item.awayscore}}:{{item.homescore}}{{item.homesxname}}</i></em>
                                     </span>
-                                    <span v-if="!item.value&&!item.fid" ></span>
+                                    <!-- <span v-if="!item.value&&!item.fid" ></span> -->
                                 </li>
                             </ul>
                         </template>
                         <template v-if="vtype === 2">
-                            <div class="line-horiz" v-if="trend.home.level" :style="trendTotalTopHome"><em>{{trend.home.level}}</em></div>
+                            <div class="line-horiz" v-if="trend.away.level" :style="trendTotalTopAway"><em>{{trend.away.level}}</em></div>
                             <ul class="vic-list">
                                 <li class="vic-item-empty" v-tap="{methods: () => trendFid = item.fid}" :class="{'vic-item-lose':item.state=='0','vic-item-win':item.state=='3','vic-item-coming':!item.state}" v-for="(item, idx) in trend.away.coords"  v-if="vtype === 2">
                                     <span :style="totalTrendHeightAway[idx]">
                                         <em class="line-ver" v-if="item.value&&item.fid&&trendFid&&trendFid==item.fid"><i>{{item.matchdate.substring(5,10)}}<br>{{item.awaysxname}}{{item.awayscore}}:{{item.homescore}}{{item.homesxname}}</i></em>
                                     </span>
-                                    <span v-if="!item.value&&!item.fid" ></span>
+                                    <!-- <span v-if="!item.value&&!item.fid" ></span> -->
                                 </li>
                             </ul>
                         </template>
@@ -45,6 +46,8 @@
                     <p class="jqzs-notice" v-if="vtype === 1"> 近20天分差走势</p>
                     <p class="jqzs-notice" v-if="vtype === 2"> 近20天总分走势</p>
                 </div>
+
+                <!-- home status -->
                 <div class="jqzs-fc" v-if="trend.home">
                     <div class="pm-namel fczs-cont ">
                         <div class="pm-img">
@@ -55,26 +58,27 @@
                             <div class="fczs-txt">近期状态</div>
                         </div>
                     </div>
+
                     <div class="vic-cont ">
                         <template  v-if="vtype === 1">
-                            <div class="line-horiz" v-if="trend.home.level" :style="trendTopAway"><em>{{trend.away.level}}</em></div>
+                            <div class="line-horiz" v-if="trend.home.level" :style="trendTopHome"><em>{{0 - trend.home.level}}</em></div>
                             <ul class="vic-list vic-list-fc">
                                 <li class="vic-item-empty" v-tap="{methods: () => trendFid = item.fid}" :class="{'vic-item-lose': item.value<0,'vic-item-win': item.value>0,'vic-item-coming':!item.value&&item.fid}" v-for="(item, idx) in trend.home.coords">
                                     <span :style="trendHeightHome[idx]">
                                         <em class="line-ver" v-if="item.value&&item.fid&&trendFid&&trendFid==item.fid"><i>{{item.matchdate.substring(5,10)}}<br>{{item.awaysxname}}{{item.awayscore}}:{{item.homescore}}{{item.homesxname}}</i></em>
                                     </span>
-                                    <span v-if="!item.value&&!item.fid" ></span>
+                                    <!-- <span v-if="!item.value&&!item.fid" ></span> -->
                                 </li>
                             </ul>
                         </template>
                         <template v-if="vtype === 2">
-                            <div class="line-horiz" v-if="trend.home.level" :style="trendTotalTopAway"><em>{{trend.away.level}}</em></div>
+                            <div class="line-horiz" v-if="trend.home.level" :style="trendTotalTopHome"><em>{{trend.home.level}}</em></div>
                             <ul class="vic-list">
                                 <li class="vic-item-empty" v-tap="{methods: () => trendFid = item.fid}" :class="{'vic-item-lose':item.state=='0','vic-item-win':item.state=='3','vic-item-coming':!item.state}" v-for="(item, idx) in trend.home.coords">
                                     <span :style="totalTrendHeightHome[idx]">
                                         <em class="line-ver" v-if="item.value&&item.fid&&trendFid&&trendFid==item.fid"><i>{{item.matchdate.substring(5,10)}}<br>{{item.awaysxname}}{{item.awayscore}}:{{item.homescore}}{{item.homesxname}}</i></em>
                                     </span>
-                                    <span v-if="!item.value&&!item.fid" ></span>
+                                    <!-- <span v-if="!item.value&&!item.fid" ></span> -->
                                 </li>
                             </ul>
                         </template>
@@ -161,24 +165,24 @@ export default {
         trendHeightHome () {
             if (this.vtype === 2) return []
             return this.trend.home.coords.map((item) => {
-                if (!item.value) return ''
+                if (!item.value) return 'height: 0%'
                 return `height: ${this.makeTrendHeight(item.value, 20)}%`
             })
         },
         trendHeightAway () {
             if (this.vtype === 2) return []
             return this.trend.away.coords.map((item) => {
-                if (!item.value) return ''
+                if (!item.value) return 'height: 0%'
                 return `height: ${this.makeTrendHeight(item.value, 20)}%`
             })
         },
         trendTopHome () {
             if (this.vtype === 2) return ''
-            return `top: ${this.makeTrendTop(this.trend.home.level, 20)}%`
+            return `top: ${this.makeTrendTop(0 - this.trend.home.level, 20)}%`
         },
         trendTopAway () {
             if (this.vtype === 2) return ''
-            return `top: ${this.makeTrendTop(0 - this.trend.home.level, 20)}%`
+            return `top: ${this.makeTrendTop(this.trend.away.level, 20)}%`
         },
         trendTotalTopHome () {
             if (this.vtype === 1) return ''

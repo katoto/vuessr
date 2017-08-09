@@ -65,7 +65,7 @@
                 <em>暂无数据</em>
             </div>
         </div>
-        <div class="box-arrow noborder" v-tap="{methods: () => collaFlag = !collaFlag}">
+        <div class="box-arrow noborder" v-tap="{methods: () => collaFlag = !collaFlag}" v-if="noEmptyFlag">
         	<div class="zd-arrow" :class="{'rotate180': collaFlag}">
         	</div>
         </div>

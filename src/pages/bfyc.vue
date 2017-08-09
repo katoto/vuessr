@@ -1,7 +1,7 @@
 <template>
     <div class="v124-wrap l-full l-flex-column">
         <!--head begin-->
-        <header id="uiHead" class="ui-head" v-if="!isApp">
+        <header id="uiHead" class="ui-head">
             <div class="ui-head-in">
                 <div class="ui-head-l">
                     <span class="ui-head-btn1" onclick="history.back()">返回</span>

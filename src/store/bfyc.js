@@ -7,7 +7,8 @@ const initState = {
     predict: null,
     hotcool: null,
     record: null,
-    strength: null
+    strength: null,
+    currExpect: null
 }
 const actionsInfo = mapActions({
     async getPredict ({commit}, expect) {
@@ -49,8 +50,8 @@ const mutationsInfo = mapMutations({
     setPredict (state, predict) {
         state.predict = predict
     },
-    setCurrExpect (state, curr_expect) {
-        state.predict.curr_expect = curr_expect
+    setCurrExpect (state, currExpect) {
+        state.predict.currExpect = currExpect
     },
     setHotcool (state, hotcool) {
         state.hotcool = hotcool

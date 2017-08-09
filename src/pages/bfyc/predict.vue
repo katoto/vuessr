@@ -125,12 +125,12 @@
         async asyncData ({store}) {
             if (store.state.bfyc.predict) {
                 return {
-                    cur: store.state.bfyc.predict.curr_expect
+                    cur: store.state.bfyc.predict.currExpect
                 }
             } else {
                 let predict = await store.dispatch(aTypes.getPredict)
                 return {
-                    cur: predict.curr_expect
+                    cur: predict.currExpect
                 }
             }
         },
@@ -139,7 +139,7 @@
         },
         computed: {
             cur () {
-                return this.$store.state.bfyc.predict.curr_expect
+                return this.$store.state.bfyc.predict.currExpect
             },
             predict () {
                 return this.$store.state.bfyc.predict
@@ -150,8 +150,8 @@
             expect_list () {
                 return this.predict && this.predict.expect_list
             },
-            curr_expect () {
-                return this.predict && this.predict.curr_expect
+            currExpect () {
+                return this.predict && this.predict.currExpect
             },
             matches () {
                 return this.predict && this.predict.matches

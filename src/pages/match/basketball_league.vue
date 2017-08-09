@@ -61,6 +61,3 @@
         color:inherit;
     }
 </style>
-
-
-
