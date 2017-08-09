@@ -93,6 +93,7 @@
 <style scoped>
     a {
         color: inherit;
+        display:block;
     }
     .sk-detail-tap-box2 {
         margin-bottom: .266667rem
