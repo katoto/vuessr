@@ -63,8 +63,11 @@ export default {
 </script>
 
 <style lang="css" scoped>
-    .l-scroll-y{overflow: auto;-webkit-overflow-scrolling:touch;}
-    .l-full{ position: absolute; top:0; left:0; right:0; bottom:0 }
     .main{width:100%;padding-top:.266667rem}
     .box-tit h2{font-size:.4rem;padding-left:.533333rem;line-height:1.066667rem}
+    .member{padding-top:0;padding-bottom:.8rem;background:#f4f4f4}
+    .member-list td{height:1.413333rem}
+    .member-list td:nth-child(2){ text-indent: 0.1333rem;}
+    .member-list td strong{font-size:.346667rem;font-weight:400}
+    .member-list td p{font-size:.266667rem;height:.346667rem;line-height:.346667rem;color:#999}
 </style>
