@@ -19,22 +19,71 @@
     </div>
     <div>
         <router-view></router-view>
-        <div class="sk-btips">
-            500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
-        </div>
+        <skbtips></skbtips>
     </div>
 </div>
 </template>
 
 <script>
-export default {}
+    import skbtips from '~components/detail/skbtips.vue'
+    export default {
+        components: {
+            skbtips
+        }
+    }
 </script>
 
-<style lang="css">
+<style scoped>
     .sk-detail-tap-box a:-webkit-any-link {
         color: inherit;
     }
     .sk-detail-tap-box a {
         display: block;
     }
+
+    /*二级tab*/
+    .sk-detail-tap-box {
+        text-align: center;
+        height: 1.173333rem;
+        padding: 0 .4rem;
+        background: #fff
+    }
+    .sk-detail-tap {
+        border-bottom: 1px solid #e8e8e8;
+        text-align: center;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        height: 1.173333rem;
+        line-height: 1.173333rem
+    }
+
+    [data-dpr="1"] .sk-detail-tap {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .sk-detail-tap {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .sk-detail-tap {
+        font-size: 36px
+    }
+    .sk-detail-tap li {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        color: #aab5bd;
+        height: 1.173333rem
+    }
+
+    .sk-detail-tap li:active {
+        background: #f4f4f4
+    }
+
+    .sk-detail-tap li.cur,
+    .sk-detail-tap li:active {
+        color: #242c35
+    }
+
 </style>

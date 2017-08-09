@@ -115,3 +115,187 @@
 
     }
 </script>
+<style scoped>
+    .tContent {
+        display: none;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0)
+    }
+    /*over*/
+    .pl-box-bd {
+        background: #fff;
+        border-bottom: 1px solid #f1f1f1
+    }
+
+    .pl-box-left,
+    .pl-box-right,
+    .pl-table tr th {
+        background: #fff;
+        height: .733333rem;
+        color: #aab5bd;
+        font-weight: 400
+    }
+
+    [data-dpr="1"] .pl-box-left,
+    [data-dpr="1"] .pl-box-right,
+    [data-dpr="1"] .pl-table tr th {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .pl-box-left,
+    [data-dpr="2"] .pl-box-right,
+    [data-dpr="2"] .pl-table tr th {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .pl-box-left,
+    [data-dpr="3"] .pl-box-right,
+    [data-dpr="3"] .pl-table tr th {
+        font-size: 33px
+    }
+    .pl-box-bd {
+        background: #fff;
+        border-bottom: 1px solid #f1f1f1
+    }
+
+    .pl-table tr th {
+        background: #fff;
+        height: .733333rem;
+        color: #aab5bd;
+        font-weight: 400
+    }
+    [data-dpr="1"] .pl-table tr th {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .pl-table tr th {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .pl-table tr th {
+        font-size: 33px
+    }
+    .pl-table {
+        background: #fff
+    }
+
+    .pl-table tr td {
+        border-bottom: 1px solid #f4f4f4;
+        text-align: center;
+        height: 1.733333rem;
+        line-height: .6rem;
+        color: #242c35;
+        word-break: break-all
+    }
+
+    [data-dpr="1"] .pl-table tr td {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .pl-table tr td {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .pl-table tr td {
+        font-size: 36px
+    }
+
+    .pl-table tr:active {
+        background-color: #f4f4f4
+    }
+
+    .pl-table tr.noLink:active {
+        background-color: #fff
+    }
+
+    .yb-box .pl-table tr:active {
+        background-color: #fff
+    }
+
+    .pl-table tr td:first-child,
+    .pl-table tr th:first-child {
+        line-height: normal;
+        padding-left: .4rem
+    }
+
+    .pl-table tr td:first-child .color3 {
+        color: #242c35
+    }
+
+    .pl-table tr td:last-child,
+    .pl-table tr th:last-child {
+        text-align: right;
+        padding-right: .4rem
+    }
+
+    [data-dpr="1"] .pl-table .f24 {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .pl-table .f24 {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .pl-table .f24 {
+        font-size: 36px
+    }
+    .pl-table tr td:first-child,
+    .pl-table tr th:first-child {
+        line-height: normal;
+        padding-left: .4rem
+    }
+    /*网站说明*/
+    .sk-btips {
+        color: #999;
+        text-align: center;
+        height: 1rem;
+        padding: .533333rem 0;
+        background: #efefef;
+        line-height: .506667rem
+    }
+
+    [data-dpr="1"] .sk-btips {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .sk-btips {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .sk-btips {
+        font-size: 33px
+    }
+    .colorc {
+        color: #ccc
+    }
+    /*over*/
+
+    .pl-table .green,
+    .pl-table .pl-num .green {
+        color: #36a171
+    }
+
+    .pl-table .pl-num .red,
+    .pl-table .red {
+        color: #d3553d
+    }
+    .pl-cont .red {
+        color: #d3553d
+    }
+    .pl-cont .green {
+        color: #36a171
+    }
+
+
+    .jiang,.sheng{position:relative}
+    [data-dpr="1"] .jiang,[data-dpr="1"] .sheng{font-size:12px}
+    [data-dpr="2"] .jiang,[data-dpr="2"] .sheng{font-size:24px}
+    [data-dpr="3"] .jiang,[data-dpr="3"] .sheng{font-size:36px}
+    .jiang:after,.sheng:after{position:absolute;right:-.466667rem;top:-.106667rem}
+    [data-dpr="1"] .jiang:after,[data-dpr="1"] .sheng:after{font-size:12px}
+    [data-dpr="2"] .jiang:after,[data-dpr="2"] .sheng:after{font-size:24px}
+    [data-dpr="3"] .jiang:after,[data-dpr="3"] .sheng:after{font-size:36px}
+    .sheng:after{content:'升';color:#d3553d}
+    .jiang:after{content:'降';color:#36a171}
+
+</style>

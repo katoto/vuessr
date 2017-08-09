@@ -1,6 +1,7 @@
 <template>
     <div class="popBox plxqBox plxqBoxer slide-bottom-to-top">
-        <div class="l-full l-flex-column ">
+        <div class="l-full l-flex-column">
+            <div class="popTopbar" v-tap="{methods: showTips}"></div>
             <div class="popInner box-yc" style="z-index: 2">
                 <div class="full-scroll">
                     <!--顶部标题切换tab-->
@@ -167,3 +168,66 @@
         }
     }
 </script>
+<style scoped>
+    .popBox {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 91;
+        color: #242c35;
+        overflow: hidden
+    }
+    .popBox .l-flex-column {
+        position: relative;
+        z-index: 5
+    }
+    .popTopbar {
+        height: 1.173333rem;
+        width: 100%
+    }
+
+    .popInner {
+        background: #fff;
+        display: block;
+        border-radius: .186667rem .186667rem 0 0;
+        width: 100%;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        position: relative;
+        overflow: hidden
+    }
+
+    .popInner .full-scroll{overflow-x:hidden;border-radius:.186667rem .186667rem 0 0}
+    .full-scroll{position:absolute;top:0;right:0;left:0;bottom:0;overflow:auto;-webkit-overflow-scrolling:touch}
+
+
+    .popFooter .bc,.popFooter .qx{color:#242c35;font-size:.4rem;height:1.32rem;line-height:1.32rem;width:1.066667rem}
+    .popFooter .qx{float:left;padding-left:.4rem}
+    .popFooter .bc{float:right;padding-right:.4rem;opacity:.5}
+    .popFooter .had-bc{color:#d76650;opacity:1}
+
+    .popFooter{border-top:1px solid #e8e8e8;background:#fff;width:100%;height:1.32rem;text-align:center;position:relative}
+    .popFooter:active{background:#eee}
+    .popFooter-act:active{background:#fff}
+    .popFooter h2{display:inline-block;margin:0 auto;padding:0 .133333rem;white-space:nowrap;line-height:1.32rem;color:#242c35}
+
+
+    .gsdz-list-box{border-bottom:1px solid #f4f4f4}
+    .gsdz-list{color:#242c35;font-size:.4rem;overflow:hidden;width:5.6rem;margin:0 auto}
+    .gsdz-list li{width:1.733333rem;margin:0 .533333rem;text-align:center;float:left;height:1.2rem;line-height:1.2rem;border-bottom:.04rem solid #fff;opacity:.8}
+    .gsdz-list .cur{border-bottom:.04rem solid #242c35;opacity:1}
+    .my-companys{padding:0 .4rem}
+    .company-item{border-bottom:1px solid #eaeaea;height:1.066667rem;line-height:1.066667rem}
+    .com-name em{display:inline-block;width:.373333rem;height:.373333rem;border-radius:50%;border:1px solid #d76650;color:#d76650;position:relative;top:.093333rem;margin-right:.333333rem}
+    .com-name em:before{content:"";display:inline-block;width:.186667rem;height:1px;background:#d76650;position:absolute;top:50%;margin-top:-1px;left:50%;margin-left:-.093333rem}
+    .com-zd{float:right;color:#5c788f}
+    .had-zd{color:#5c788f;opacity:.5}
+    .company-notice{font-size:.32rem;color:#aab5bd;text-align:center;margin:.533333rem 0}
+    .zlgs{width:.346667rem;height:.346667rem;border-radius:.066667rem;display:inline-block;background:#d76650;color:#fff;font-size:.24rem;line-height:.346667rem;text-align:center;margin-left:.266667rem;margin-right:.053333rem;position:relative;bottom:.02rem}
+    .jys{background:#36a171;width:.346667rem;height:.346667rem;border-radius:.066667rem;display:inline-block;color:#fff;font-size:.24rem;line-height:.346667rem;text-align:center;margin-left:.266667rem;margin-right:.053333rem;position:relative;bottom:.02rem}
+    .zmpx{height:.666667rem;line-height:.666667rem;font-size:.32rem;color:rgba(36,44,53,.5);background:#f4f4f4;padding:0 .4rem;border:1px solid #eaeaea}
+    .company-items{width:9.2rem;margin:0 auto}
+</style>

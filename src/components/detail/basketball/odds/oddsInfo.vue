@@ -238,3 +238,189 @@
         }
     }
 </script>
+
+<style scoped>
+    .popTopbar {
+        height: 1.173333rem;
+        width: 100%
+    }
+    .popInner {
+        background: #fff;
+        display: block;
+        border-radius: .186667rem .186667rem 0 0;
+        width: 100%;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        position: relative;
+        overflow: hidden
+    }
+
+    .popInner .full-scroll {
+        overflow-x: hidden;
+        border-radius: .186667rem .186667rem 0 0
+    }
+    .plleft {
+        width: 2rem;
+        color: #242c35;
+        overflow: hidden;
+        float: left;
+        height: 100%;
+        background: #f4f4f4
+    }
+
+    [data-dpr="1"] .plleft {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .plleft {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .plleft {
+        font-size: 36px
+    }
+    .plleft-list li {
+        line-height: 1.226667rem;
+        height: 1.226667rem;
+        text-align: center;
+        background: #f4f4f4;
+        overflow: hidden;
+        color: #666a6f
+    }
+
+    .plleft-list li.cur {
+        background: #fff;
+        position: relative;
+        color: #242c35
+    }
+    .plright {
+        width: 7.733333rem;
+        float: right;
+        background: #fff;
+        position: relative;
+        border-radius: 0 .186667rem 0 0
+    }
+    .pl-cont {
+        position: relative;
+        width: 100%;
+        height: 14rem;
+        overflow: hidden
+    }
+    .plxq-table {
+        text-align: center;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0)
+    }
+
+    [data-dpr="1"] .plxq-table {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .plxq-table {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .plxq-table {
+        font-size: 33px
+    }
+    .plxq-table tr th {
+        line-height: 1.066667rem;
+        height: 1.066667rem;
+        color: #aab5bd;
+        border-bottom: 1px solid #f4f4f4;
+        font-weight: 400
+    }
+    .gxsj {
+        width: .2rem;
+        height: .2rem;
+        display: inline-block;
+        background: url(~assets/style/images/detail/qhsj.png) no-repeat;
+        background-size: cover;
+        margin-left: .053333rem
+    }
+
+    .plxq-table tr td {
+        border-bottom: 1px solid #f4f4f4;
+        height: 1.066667rem
+    }
+
+    [data-dpr="1"] .plxq-table tr td {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .plxq-table tr td {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .plxq-table tr td {
+        font-size: 33px
+    }
+
+    [data-dpr="1"] .f24 {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .f24 {
+        font-size: 24px
+    }
+    [data-dpr="3"] .f24 {
+        font-size: 36px
+    }
+    .popFooter {
+        border-top: 1px solid #e8e8e8;
+        background: #fff;
+        width: 100%;
+        height: 1.32rem;
+        text-align: center;
+        position: relative
+    }
+
+    .popFooter:active {
+        background: #eee
+    }
+
+    .popFooter-act:active {
+        background: #fff
+    }
+
+    .popFooter h2 {
+        display: inline-block;
+        margin: 0 auto;
+        padding: 0 .133333rem;
+        white-space: nowrap;
+        line-height: 1.32rem;
+        color: #242c35
+    }
+    .arrow {
+        overflow: hidden;
+        height: .333333rem;
+        width: .6rem;
+        position: absolute;
+        left: .4rem;
+        top: .493333rem
+    }
+
+    .arrow:before {
+        content: '';
+        height: .16rem;
+        width: .16rem;
+        display: block;
+        border: .053333rem solid #333;
+        border-right-width: 0;
+        border-top-width: 0;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        position: absolute;
+        bottom: .093333rem;
+        left: .093333rem
+    }
+
+    .pl-cont .red {
+        color: #d3553d
+    }
+
+    .pl-cont .green {
+        color: #36a171
+    }
+</style>

@@ -96,18 +96,18 @@
         },
         data () {
             return {
-                isHide: true,  // 弹层是否显示
+                isHide: true, // 弹层是否显示
                 isShow: false, // 列表展示区域是否显示
                 switchId: '',
                 stageId: '',
-                currSelect: '',  // 当前被选中的选框
-                selected: {},    // 所有选框对象
+                currSelect: '', // 当前被选中的选框
+                selected: {}, // 所有选框对象
                 isForward: true,
                 isBehind: true
             }
         },
         computed: {
-            choiceNum () {    // 总共有多少个choice
+            choiceNum () { // 总共有多少个choice
                 return this.footChoice && this.footChoice.choice_list.length - 1
             },
             footSchedule () {
@@ -167,12 +167,12 @@
                     this.isForward = true
                     this.isBehind = false
                 }
-                if (this.currSelect !== this.currChoice) {   // 有个延迟
+                if (this.currSelect !== this.currChoice) { // 有个延迟
                     setTimeout(() => {
                         this.isHide = true
                         this.isShow = false
                     }, 200)
-                } else {    // 初始进入
+                } else { // 初始进入
                     this.isHide = true
                     this.isShow = false
                 }
@@ -189,7 +189,7 @@
                 this.$set(this.selected, this.currSelect, false)
                 this.currSelect--
                 this.$set(this.selected, this.currSelect, true)
-                if (this.currSelect >= 0 && this.isHide) {   // 弹出层隐藏时执行
+                if (this.currSelect >= 0 && this.isHide) { // 弹出层隐藏时执行
                     this.goShow({index: this.currSelect})
                 }
                 this.isBehind = true
@@ -199,7 +199,7 @@
                 this.$set(this.selected, this.currSelect, false)
                 this.currSelect++
                 this.$set(this.selected, this.currSelect, true)
-            // alert(this.currSelect);
+                // alert(this.currSelect);
                 if (this.currSelect <= this.choiceNum && this.isHide) {
                     this.goShow({index: this.currSelect})
                 }

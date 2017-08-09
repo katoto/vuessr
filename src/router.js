@@ -77,11 +77,9 @@ const TeamFootballGl = () => import('~pages/team/football/gl.vue')
 const TeamFootballSc = () => import('~pages/team/football/sc.vue')
 const TeamFootballZr = () => import('~pages/team/football/zr.vue')
 
-
 const TeamBasketball = () => import('~pages/team/basketball.vue')
 const TeamBasketballGl = () => import('~pages/team/basketball/gl.vue')
 const TeamBasketballSc = () => import('~pages/team/basketball/sc.vue')
-
 
 const Center = () => import('~pages/center.vue')
 

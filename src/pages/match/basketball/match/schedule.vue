@@ -77,13 +77,13 @@
     export default{
         data () {
             return {
-                isHide: true,  // 弹层是否显示
+                isHide: true, // 弹层是否显示
                 isShow: false, // 列表展示区域是否显示
                 stageId: '',
-                currSelect: '',  // 当前被选中的选框
-                selected: {},    // 所有选框对象
-                tapname: '',   // 季前赛
-                tapshow: '',   // 3月
+                currSelect: '', // 当前被选中的选框
+                selected: {}, // 所有选框对象
+                tapname: '', // 季前赛
+                tapshow: '', // 3月
                 isForward: true,
                 isBehind: true
             }
@@ -98,7 +98,7 @@
             basketChoice () {
                 return this.$store.state.center.basketballMatch.schedule.basketchoice
             },
-            numChoice () {    // 总共有多少个choice
+            numChoice () { // 总共有多少个choice
                 return this.basketChoice && this.basketChoice.choice_list.length - 1
             }
         },
@@ -113,17 +113,17 @@
                 this.isHide = true
                 this.isShow = false
             },
-            'basketChoice' (val) {   // 后端数据太恶心了，不是我故意把这里做成这样的
-//                console.log(val)
-//                console.log(val.choice_list[val.curr_choice].nav)
+            'basketChoice' (val) { // 后端数据太恶心了，不是我故意把这里做成这样的
+            //                console.log(val)
+            //                console.log(val.choice_list[val.curr_choice].nav)
                 this.stageId = val.curr_stid
                 let tmp = val.choice_list[val.curr_choice].nav
-//                console.log(tmp)
+                //                console.log(tmp)
 
-                if (tmp) {   // 二维
+                if (tmp) { // 二维
                     for (let i = 0, len = tmp.length; i < len; i++) {
                         if (val.curr_stid === tmp[i].stageid) {
-                            this.currSelect = val.curr_choice + '&' + i   // 0&1
+                            this.currSelect = val.curr_choice + '&' + i // 0&1
                             break
                         }
                     }
@@ -135,7 +135,7 @@
                     this.tapshow = val.choice_list[row].nav[column].show
 
                     this.goShow({i: row, j: column})
-                } else {     // 一维
+                } else { // 一维
                     this.currSelect = val.curr_choice
                     if (this.currSelect === 0) { this.isForward = false }
                     if (this.currSelect === this.numChoice) { this.isBehind = false }
@@ -223,7 +223,7 @@
                 this.$set(this.selected, this.currSelect, false)
                 this.isForward = true
                 this.isBehind = false
-                if (this.tapshow) {   // 二维
+                if (this.tapshow) { // 二维
                     let idx = this.currSelect.indexOf('&')
                     let row = this.currSelect.substr(0, idx)
                     let column = this.currSelect.substr(idx + 1)

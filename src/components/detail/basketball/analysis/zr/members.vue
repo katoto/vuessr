@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="tContent" style="display:block" v-for="hoa in ['away', 'home']">
+    <div class="tContent" v-for="hoa in ['away', 'home']">
         <div class="gl-box fx-zr-box">
             <member-box ref="memBox" :baseInfo='baseInfo' :members='members[hoa]' :membersType='BasketballMemberType' :hoa="hoa" liW="33.6rem"></member-box>
         </div>
@@ -66,5 +66,12 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped>
+    .tContent {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0)
+    }
+    .gl-box,.zr-box{background:#fff}
+
+
 </style>

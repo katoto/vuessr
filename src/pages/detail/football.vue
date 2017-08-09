@@ -39,7 +39,8 @@
                                    match.status == StatusCode.MID ||
                                    match.status == StatusCode.LAST_HALF ||
                                    match.status == StatusCode.ENDED">
-                           <score :homescore="match.homescore" :new-homescore="newHomescore" :awayscore="match.awayscore" :new-awayscore="newAwayscore" @update="syncMatch"></score>
+
+                           <score :homescore="match.homescore" :new-homescore="newHomescore" :awayscore="match.awayscore" :new-awayscore="newAwayscore" @update="syncMatch" type="zq"></score>
                         </div>
 
                         <div
@@ -72,8 +73,7 @@
                     </div>
                     <div class="game-info">
                         <div v-if="match.status === StatusCode.FIRST_HALF || match.status === StatusCode.LAST_HALF"
-                             class="game-state f24">{{ match.match_at|matchAtFmt(match.status ==
-                            StatusCode.FIRST_HALF)}}<i class="dian">'</i>
+                             class="game-state f24">{{ match.match_at|matchAtFmt(match.status == StatusCode.FIRST_HALF)}}<i class="dian">'</i>
                         </div>
                         <div v-if="match.status === StatusCode.MID" class="game-state f24">中场休息</div>
                         <div v-if="match.status === StatusCode.ENDED" class="game-state f24">完场</div>
@@ -133,7 +133,7 @@
             </detail-scroller>
 
         </div>
-        <div v-if="outer.component" class="popLayer"></div>
+        <div  v-if="outer.component" class="popLayer"></div>
         <transition name="slide">
             <div v-if="outer.component" class="l-full" style="z-index: 101">
                 <component :is="outer.component" :params="outer.params"></component>
@@ -145,16 +145,7 @@
         </div>
 
 
-        <div v-if="~$route.path.indexOf('/comment')">
-            <div class="comm-enter">
-                <div class="enter-ipt" v-tap="{methods: beginEdit}">
-                    <i class="ipt-icon"></i>
-                    <p class="ipt-txt">我来说两句…</p>
-                    <span class="ipt-count">{{total}}评</span>
-                </div>
-            </div>
-        </div>
-
+        <comm-enter v-if="~$route.path.indexOf('/comment')" :total="total" @edit="beginEdit"></comm-enter>
         <refresh/>
         <toast v-if="toast.visible" :msg="toast.msg"/>
 
@@ -171,7 +162,7 @@
     import copy from '~components/detail/copy.vue'
     import score from '~components/detail/score.vue'
     import {aTypes, mTypes} from '~store/zqdetail'
-
+    import commEnter from '~components/detail/commEnter.vue'
     if (process.env.VUE_ENV !== 'server') {
         require('nativeshare')
     }
@@ -188,6 +179,9 @@
             }
         },
         computed: {
+            refreshTime () { // 用户点击刷新按钮时间戳
+                return this.$store.state.refreshTime
+            },
             socketData () { // websocket推送过来的数据
                 return this.$store.getters.getSocketData
             },
@@ -225,7 +219,7 @@
             }
         },
         components: {
-            detailScroller, refresh, editor, toast, score
+            detailScroller, refresh, editor, toast, score, commEnter
         },
         destroyed () {
             this.$store.dispatch('unsubscribeAll')
@@ -240,10 +234,8 @@
             changeHeader (status) {
                 if (status) {
                     this.showScore = true
-                    this.$el.querySelector('.detailTop').className = 'detailTop topBarMove'
                 } else {
                     this.showScore = false
-                    this.$el.querySelector('.detailTop').className = 'detailTop topBarMove2'
                 }
             },
             closeEditor () {
@@ -309,7 +301,7 @@
                     icon: 'http://m.500.com/favicon.ico',
                     link: location.href,
                     title: `${this.match.homesxname}vs${this.match.awaysxname} 实时比分`,
-                    desc: `关注最新比分动态， 请关注春哥网`,
+                    desc: `关注最新足球比分动态， 请关注500彩票网`,
                     from: '500彩票网'
                 })
                 this.$store.commit(mTypes.setDialog, {
@@ -321,7 +313,7 @@
                         },
                         onShare: () => {
                             this.$store.commit(mTypes.setDialog, {})
-                            this.doShare(nativeShare)
+                            setTimeout(() => this.doShare(nativeShare), 16.7)
                         },
                         onCollect: () => {
                             this.$store.dispatch(aTypes.requestConcern, this.match)
@@ -342,6 +334,9 @@
             }
         },
         watch: {
+            refreshTime () {
+                this.fetchData()
+            },
             socketData ({data, stamp}) { // websocket推送过来的数据
                 data.fid = data.fid + ''
                 if (stamp === pushEvents.FOOTBALL_INFO) {
@@ -392,42 +387,480 @@
 
     }
 </script>
+
 <style>
+    .f20{font-size:0.266rem}
+    .f24{font-size:0.32rem}
+    .f26{font-size:0.346rem}
+    .f28{font-size:0.373rem}
+    .f30{font-size:0.4rem}
+    .responsive {
+        width: 100%;
+        display: flex;
+    }
+    .each-resone {
+        flex: 1;
+        display: block;
+        width: 100%;
+    }
+    /*头部*/
+    .back-icon:before, .zj-nav .cur:after {
+        background: url(~assets/style/images/detail/detail-icon.png) no-repeat;
+        background-size: .533333rem 13.333333rem
+    }
+    /*详情页顶部*/
     .detailTop {
         position: relative;
+        width: 100%;
+        height: 1.173rem;
+        background: #242c35;
+    }
+    [data-dpr="1"] .detailTop {
+        height: 44px
     }
 
-    .detailTop:after {
-        content: '';
-        z-index: -1;
+    [data-dpr="2"] .detailTop  {
+        height: 88px
+    }
+
+    [data-dpr="3"] .detailTop  {
+        height: 132px
+    }
+
+    .back-icon {
+        width: 1.066667rem;
+        height: 1.173rem;
+        display: inline-block;
+        text-indent: -999px;
         position: absolute;
-        background-color: #242c35;
-        top: 0;
         left: 0;
-        right: 0;
-        height: 1.1893rem;
-    }
-
-    .zq-header {
-        position: relative;
         top: 0;
     }
-
-    .navigator {
-        top: 0
+    .back-icon:before {
+        width: .32rem;
+        height: .493333rem;
+        content: '';
+        position: absolute;
+        left: .266667rem;
+        top: 50%;
+        background-position: center 0;
+        margin-top: -.246667rem;
     }
+    .back-icon:active {
+        opacity: .6;
+    }
+    .yb-head .back-icon:before, .plxq .back-icon:before {
+        margin-top: 0;
+    }
+    .detailTop .link-index {
+        color: #fff;
+        height: .5867rem;
+        line-height: .5867rem;
+        border-left: 1px solid #505354;
+        display: inline-block;
+        position: absolute;
+        left: 1.066667rem;
+        top: 50%;
+        margin-top: -.2933rem;
+        padding-left: .346667rem;
+        z-index: 6
+    }
+    .detailTop .r-sn {
+        color: #909396;
+        position: absolute;
+        left: 50%;
+        margin-left: -2rem;
+        height: 1.173rem;
+        line-height: 1.173rem;
+        width: 100%;
+        text-align: center;
+        width: 4rem;
+    }
+    .detailTop .r-sn:active {
+        color: #fff;
+    }
+
+    .detailTop .sk-gz {
+        width: 1.173rem;
+        display: inline-block;
+        height: 1.173rem;
+        position: relative;
+    }
+    .detailTop .topR {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 1.173rem;
+        height: 1.173rem;
+    }
+    .detailTop .sk-gz:after {
+        position: absolute;
+        content: '';
+        width: 0.5333rem;
+        height: 0.5333rem;
+        left: 50%;
+        top: 50%;
+        margin-left: -0.2667rem;
+        margin-top: -0.2667rem;
+        background-position: center -.54rem;
+    }
+    .detailTop .sk-gz.cur:after {
+        background-position: center -1.1567rem;
+    }
+    .detailTop .fen-box {
+        position: absolute;
+        width: 8rem;
+        height: 1.173rem;
+        line-height: 1.173rem;
+        text-align: center;
+        left: 50%;
+        margin-left: -4rem;
+        top: 0;
+        color: #fff;
+        opacity: 0;
+        overflow: hidden;
+        transform: translateY(-500%);
+        z-index: 10;
+    }
+    .detailTop .itm-bf {
+        height: 0.7733rem;
+        line-height: 0.7733rem;
+        padding: 0.2rem;
+    }
+    .detailTop .itm-team {
+        position: relative;
+        width: 2rem;
+        overflow: hidden;
+    }
+    .detailTop .itm-team:first-child {
+        text-align: right
+    }
+    .detailTop .itm-team:last-child {
+        text-align: left;
+    }
+    .detailTop .fen-bf, .detailTop .fen-bf-lq {
+        width: 0.9rem;
+        height: 0.7733rem;
+        line-height: 0.7733rem;
+        font-size: 0.4rem;
+        float: left;
+    }
+    .detailTop .fen-bf-lq {
+        width: 1.1rem;
+    }
+    .detailTop .fen-ld {
+        font-size: 0.586rem;
+        line-height: 0.6933rem;
+        float: left;
+    }
+
+    /*详情页头部*/
+    .zq-header {
+        width: 100%;
+        height: 3.2rem;
+        background: #242c35;
+    }
+    .zq-header .itm-bf {
+        color: #fff;
+        position: absolute;
+        top: 0.2667rem;
+        width: 100%;
+    }
+    .left-img, .right-img {
+        width: 2rem;
+        text-align: center;
+        top: 0.2667rem;
+        position: absolute;
+        z-index: 9;
+    }
+    .left-img {
+        left: 1.213333rem
+    }
+    .right-img {
+        right: 1.213333rem
+    }
+    .left-img:active, .right-img:active {
+        background: rgba(255, 255, 255, .1)
+    }
+    .left-name, .right-name {
+        color: #fff;
+        position: relative;
+        display: inline-block;
+        margin-top: 0.1333rem;
+    }
+    .img-box {
+        height: 1.05rem
+    }
+    .img-box img {
+        width: 0.9067rem;
+    }
+    .zhu-ke {
+        font-size:0.293rem;
+        color: #ccc;
+        position: absolute;
+    }
+    .right-name .zhu-ke {
+        right: -.266667rem
+    }
+    .left-name .zhu-ke {
+        left: -.266667rem
+    }
+    .fen-box {
+        width: 100%;
+        text-align: center;
+        position: relative;
+        height: 2rem;
+    }
+    .fen-box .zhongli {
+        position: absolute;
+        bottom: 0.053333rem;
+        color: rgba(255, 255, 255, .5);
+        left: -.7rem;
+    }
+    .fen-box .header-pm {
+        color: rgba(255, 255, 255, .3);
+        height: 0.6667rem;
+        line-height: 0.6667rem;
+    }
+    .itm-bf:after {
+        content: '';
+        clear: both;
+        display: block;
+        height: 0;
+        visibility: hidden
+    }
+
+
+    .wks, .gaix {
+        color: #fff;
+        height: 1.5rem;
+        line-height: 1.5rem
+    }
+    .wks {
+        font-size: 0.667rem;
+    }
+    .gaix {
+        font-size: 0.533rem;
+    }
+    .sk-tips {
+        position: absolute;
+        top: 3.2rem;
+        width: 100%;
+        color: #cad1c7;
+        font-size: 0.2933rem;
+        text-align: center
+    }
+    .fen-bf .score {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0)
+    }
+
+    .fen-bf {
+        width: 0.9333rem;
+    }
+    .fen-ld {
+        width: .626667rem;
+        font-size: 0.8rem;
+        overflow: hidden;
+        line-height: .82rem;
+        position: relative;
+        vertical-align: top
+    }
+
+    .fen-bf-active .score {
+        animation: changeScore 1s ease-in-out forwards
+    }
+    .fen-bf-active .score:last-child {
+        animation: changeScore2 10s ease-in-out forwards
+    }
+
+    .game-info {
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 1.44rem;
+    }
+    .game-info .game-state {
+        color: #fff;
+    }
+    .game-info .game-time {
+        color: rgba(255, 255, 255, .3);
+        height: 0.6667rem;
+        line-height: 0.6667rem;
+        margin-top: -0.0267rem;
+    }
+    .dian {
+        animation: dianstyle 1s ease-out 0s infinite alternate;
+        -webkit-animation: dianstyle 1s ease-out 0s infinite alternate;
+        font-size: 0.4rem;
+    }
+    @keyframes dianstyle {
+        0% {
+            opacity: 1
+        }
+        100% {
+            opacity: 0
+        }
+    }
+    @-webkit-keyframes dianstyle {
+        0% {
+            opacity: 1
+        }
+        100% {
+            opacity: 0
+        }
+    }
+
+    /*详情页导航*/
+    .navigator {
+        height: 1.173rem;
+        line-height: 1.173rem;
+        color: #d1d4d0;
+        font-size:0.4rem;
+        text-align: center;
+        width: 100%;
+        z-index: 9;
+        background: #fff;
+        position: -webkit-sticky;
+        position: sticky;
+        left: 0;
+        top: 1.173rem;
+    }
+    [data-dpr="1"] .navigator{font-size:15px}
+    [data-dpr="2"] .navigator{font-size:30px}
+    [data-dpr="3"] .navigator{font-size:45px}
+    .navigator ul {
+        display: flex;
+        border-bottom: 1px solid #e8e8e8;
+        /*no*/
+    }
+    .navigator li {
+        flex: 1;
+        display: block;
+        width: 100%;
+        height: 1.173rem;
+        overflow: hidden;
+        position: relative;
+    }
+    .navigator li:active {
+        background: #f4f4f4;
+    }
+    .navigator .nav-guess::after {
+        content: '';
+        display: block;
+        width: 35px;
+        height: 14px;
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAOCAMAAACSNVWDAAAAclBMVEUAAADlSTHlSTHlSTHlSTHlSTHkSTHlSTHlSTHlSTHlSTHlSTHlSTHlSTHlSTHkSTHlSTHkSTHlSTHkSTHkSTHkSTLkSTHlSTLkSTHlSTHkSTHkSTHkSTHkSTHlSjLkSTHlSTHlSTLlSTHkSTHkSTHlSTFTN8UVAAAAJXRSTlMAS3fMaSnfuKEj7sOmf1VDBPzWsINnOBEK9fLpq5ZyTz4xHXBj5h9i+AAAALpJREFUGNONkesOgjAMhY/TDYZyEwS8K3re/xVtwch+CSfZSZt9bdMUds3/WlsIMgeh5KygtoK022EjgcoBCW9oSIsoYPIv88yyjF6+nihOibyJ6VCNzFXzN+oEQBShCWbVsPHAtN5njHGv4JGmMAGzveMxMDbPX3Tob4iRrxCFzL7ANIsWfXf0XVscQ4aHkamdc9TkodaQIXNuf7tTdkTKi5oKpVhspPZiKglU5NmYPRM1UbnkFktu+gHlfC6LgIIIigAAAABJRU5ErkJggg==") no-repeat;
+        background-size: contain;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    .navigator li span {
+        color: rgba(36, 44, 53, .8);
+        position: relative;
+        z-index: 2;
+        display: inline-block;
+        white-space: nowrap;
+    }
+    .navigator li.cur span, .navigator li:active {
+        color: rgba(36, 44, 53, 1);
+    }
+    .navigator li .sktab-arrow {
+        height: 4px;
+        overflow: hidden;
+        background: #242c35;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        /*no*/
+        left: 0;
+        display: none;
+    }
+    .navigator li.cur .sktab-arrow {
+        display: block;
+    }
+    .navigator li.cur .sktab-arrow {
+        animation: arrowMove .4s ease-in-out both;
+    }
+    @keyframes arrowMove {
+        0% {
+            transform: scaleX(0)
+        }
+        50% {
+            transform: scaleX(1.2)
+        }
+        100% {
+            transform: scaleX(1)
+        }
+    }
+    /*详情页头部动效 start*/
+
+    .topBarMove .link-index, .topBarMove .r-sn, .topBarMove2 .fen-box {
+        animation: opacityC .4s ease both;
+        display: none;
+    }
+    .topBarMove2 .link-index, .topBarMove2 .r-sn, .topBarMove .fen-box {
+        animation: opacityC2 .4s ease both;
+    }
+    @keyframes opacityC {
+        0% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        99% {
+            opacity: 0;
+            transform: translateY(0);
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(-500%);
+        }
+    }
+    @keyframes opacityC2 {
+        0% {
+            opacity: 0;
+            transform: translateY(-500%);
+        }
+        1% {
+            opacity: 0;
+            transform: translateY(0);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .fen-bf{background:rgba(255,255,255,.06);font-family:Arial;border-radius:.053333rem;position:relative;overflow:hidden}
+
+
+    /*详情页头部动效 end*/
+
+    /*春哥增加*/
+    .popLayer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        z-index: 90;
+        background: rgba(0, 0, 0, .8)
+    }
+
 
     .sktab-arrow {
         border: none !important;
         margin-left: auto !important;
 
     }
-
     .slide-enter-active, .slide-leave-active {
         -webkit-transition: -webkit-transform .3s ease;
         transition: transform .3s ease;
     }
-
     .slide-enter-active, .slide-leave {
         -webkit-transform: translate(0, 0);
         transform: translate(0, 0);
@@ -437,6 +870,43 @@
         -webkit-transform: translate(0, 100%);
         transform: translate(0, 100%);
     }
-
+    .sk-point {
+        position: relative;
+        width: 1.333333rem;
+        height: 1.333333rem;
+        display: inline-block;
+    }
+    .sk-point:after {
+        content: "";
+        display: inline-block;
+        background: url(~assets/style/images/detail/share-point.png) no-repeat;
+        width: .48rem;
+        height: .106667rem;
+        background-size: cover;
+        position: absolute;
+        top: 50%;
+        margin-top: -.053333rem;
+        left: 50%;
+        margin-left: -.24rem;
+    }
+    .navigator .nav-yuce-liao{display:block;width:.4rem;height:.346667rem;line-height:.346667rem;position:absolute;top:.133333rem;right:-.44rem;text-align:center;background-color:#d25138;color:#fff;border-radius:.04rem;font-size:.266667rem;overflow:hidden;-webkit-transform-origin:0 100%;transform-origin:0 100%;-webkit-transform:scale(0);transform:scale(0)}
+    .navigator .nav-yuce-liao.enter{-webkit-animation:iScale .3s ease both;animation:iScale .3s ease both;-webkit-transform:scale(1);transform:scale(1)}
+    .navigator .nav-yuce-liao.leave{-webkit-animation:iScale2 .3s ease both;animation:iScale2 .3s ease both;-webkit-transform:scale(0);transform:scale(0)}
+    @-webkit-keyframes iScale{0%{-webkit-transform:scale(0);transform:scale(0)}
+        80%{-webkit-transform:scale(1.2);transform:scale(1.2)}
+        100%{-webkit-transform:scale(1);transform:scale(1)}
+    }
+    @keyframes iScale{0%{-webkit-transform:scale(0);transform:scale(0)}
+        80%{-webkit-transform:scale(1.2);transform:scale(1.2)}
+        100%{-webkit-transform:scale(1);transform:scale(1)}
+    }
+    @-webkit-keyframes iScale2{0%{-webkit-transform:scale(1);transform:scale(1)}
+        50%{-webkit-transform:scale(1.2);transform:scale(1.2)}
+        100%{-webkit-transform:scale(0);transform:scale(0)}
+    }
+    @keyframes iScale2{0%{-webkit-transform:scale(1);transform:scale(1)}
+        50%{-webkit-transform:scale(1.2);transform:scale(1.2)}
+        100%{-webkit-transform:scale(0);transform:scale(0)}
+    }
 
 </style>

@@ -25,13 +25,12 @@
 </template>
 
 <script>
-
 export default{
     computed: {
         title () {
             switch (this.$route.path.substring(this.$route.path.lastIndexOf('/'))) {
             case '/predict': return '精选预测'
-            case '/result':                  // 战绩特征3个tab
+            case '/result': // 战绩特征3个tab
             case '/asian':
             case '/bigsmall': return '战绩特征'
             case '/strength': return '实力对比'
