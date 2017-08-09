@@ -53,6 +53,7 @@
 <style scoped>
     a {
         color: inherit;
+        display:block;
     }
     .main-inner {
         min-height: 15.44rem;
