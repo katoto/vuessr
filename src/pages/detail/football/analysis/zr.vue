@@ -140,15 +140,13 @@
                 </table>
             </div>
         </div>
-        <div class="sk-btips">
-            500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
-        </div>
+        <skbtips></skbtips>
     </div>
 </template>
 
 <script>
     import {aTypes, mTypes} from '~store/zqdetail'
-
+    import skbtips from '~components/detail/skbtips.vue'
     export default {
         async asyncData ({store, route: {params}}) {
             const {homeid, awayid} = store.state.zqdetail.baseInfo
@@ -162,6 +160,9 @@
             return {
                 strengthInfoContentVisible: false
             }
+        },
+        components: {
+            skbtips
         },
         methods: {
             async fetchData () {
@@ -225,3 +226,214 @@
         }
     }
 </script>
+<style scoped>
+    .gl-box,
+    .zr-box {
+        background: #fff
+    }
+
+    .dataBox {
+        padding: .4rem .4rem .266667rem .4rem;
+        border-bottom: 1px solid #f4f4f4;
+        text-align: center
+    }
+    .dataItem {
+        display: table;
+        height: 1.333333rem;
+        width: 100%
+    }
+
+    .dataItem li {
+        display: table-cell;
+        color: #515e6d;
+        vertical-align: middle;
+        height: 1.733333rem
+    }
+
+    .dataItem .itemL {
+        text-align: left;
+        width: 2.8rem;
+        padding-left: .4rem
+    }
+
+    .dataItem .itemC {
+        text-align: center;
+        color: #aab5bd
+    }
+
+    .dataItem .itemR {
+        text-align: right;
+        width: 2.8rem;
+        padding-right: .4rem
+    }
+
+    [data-dpr="1"] .dataItem .num {
+        font-size:   23px
+    }
+
+    [data-dpr="2"] .dataItem .num {
+        font-size: 46px
+    }
+
+    [data-dpr="3"] .dataItem .num {
+        font-size: 69px
+    }
+    .dataItem .item-info {
+        display: block;
+        color: #aab5bd
+    }
+    .zr-box .dataItem .item-info {
+        color: #aab5bd;
+        display: block;
+        padding-top: .026667rem
+    }
+
+    [data-dpr="1"] .zr-box .dataItem .item-info {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .zr-box .dataItem .item-info {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .zr-box .dataItem .item-info {
+        font-size: 36px
+    }
+    .zr-box .dataItem,
+    .zr-box .dataItem li {
+        height: 1.066667rem
+    }
+    .zr-box .dataItem .num {
+        color: #242c35
+    }
+
+    [data-dpr="1"] .zr-box .dataItem .num {
+        font-size: 13px
+    }
+
+    [data-dpr="2"] .zr-box .dataItem .num {
+        font-size: 26px
+    }
+
+    [data-dpr="3"] .zr-box .dataItem .num {
+        font-size: 39px
+    }
+
+    .zr-box .dataItem:last-child {
+        padding-top: .106667rem
+    }
+    .zhedie-box {
+        background: #fff
+    }
+    .feed-back {
+        width: 100%;
+        height: 1.733333rem;
+        background: #fff;
+        border-top: 1px solid #eaeaea
+    }
+
+    .feed-box {
+        color: #787878;
+        line-height: 1.733333rem;
+        text-align: center
+    }
+
+    [data-dpr="1"] .feed-box {
+        font-size: 13px
+    }
+
+    [data-dpr="2"] .feed-box {
+        font-size: 26px
+    }
+
+    [data-dpr="3"] .feed-box {
+        font-size: 39px
+    }
+    [data-dpr="1"] .lq-zr {
+        font-size: 13px
+    }
+
+    [data-dpr="2"] .lq-zr {
+        font-size: 26px
+    }
+
+    [data-dpr="3"] .lq-zr {
+        font-size: 39px
+    }
+    .lq-zr tr th {
+        background: #fbfbfb;
+        line-height: .8rem;
+        color: #999;
+        padding-left: .75rem;
+        border: solid #f1f1f1;
+        border-width: 1px 0;
+        text-align: left;
+        font-weight: 400
+    }
+
+    [data-dpr="1"] .lq-zr tr th {
+        font-size: 13px
+    }
+
+    [data-dpr="2"] .lq-zr tr th {
+        font-size: 26px
+    }
+
+    [data-dpr="3"] .lq-zr tr th {
+        font-size: 39px
+    }
+
+    .lq-zr tr td {
+        padding-left: .266667rem;
+        line-height: 1.066667rem;
+        height: 1.066667rem
+    }
+
+    .lq-zr tr td:first-child {
+        border-right: 1px solid #f1f1f1
+    }
+
+    .lq-zr tr:first-child td {
+        padding-top: .4rem
+    }
+
+    .lq-zr tr:last-child td {
+        padding-bottom: .4rem
+    }
+    .qiuhao {
+        width: .4rem;
+        text-align: center;
+        display: inline-block
+    }
+
+    [data-dpr="1"] .qiuhao {
+        font-size: 10.5px
+    }
+
+    [data-dpr="2"] .qiuhao {
+        font-size: 21px
+    }
+
+    [data-dpr="3"] .qiuhao {
+        font-size: 31.5px
+    }
+    .gangwei {
+        color: #aab5bd;
+        padding-right: .266667rem;
+        float: right
+    }
+
+    [data-dpr="1"] .gangwei {
+        font-size: 10.5px
+    }
+
+    [data-dpr="2"] .gangwei {
+        font-size: 21px
+    }
+
+    [data-dpr="3"] .gangwei {
+        font-size: 31.5px
+    }
+
+
+</style>

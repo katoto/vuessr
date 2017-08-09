@@ -89,10 +89,173 @@
     }
 </script>
 <style scoped>
-    .ui-empty-font {
-        color: #b3b3b3;
-        font-size: 0.4rem;
-        padding: 0.22rem 0;
+    .tongji-box {
+        background: #fff;
+        padding: .266667rem 0 0;
         text-align: center;
+        color: #333
     }
+    .tongji-box .zhzl-box {
+        margin-top: 0
+    }
+    .zhzl-box {
+        height: .973333rem;
+        position: relative;
+        margin: .4rem .4rem 0
+    }
+    .zhzl-title {
+        color: #999;
+        padding-top: .186667rem;
+        text-align: center;
+        width: 100%;
+        line-height: .626667rem
+    }
+
+    [data-dpr="1"] .zhzl-title {
+        font-size: 13px
+    }
+
+    [data-dpr="2"] .zhzl-title {
+        font-size: 26px
+    }
+
+    [data-dpr="3"] .zhzl-title {
+        font-size: 39px
+    }
+    .zhzl-l,
+    .zhzl-r {
+        position: absolute;
+        bottom: 0;
+        transition: all .5s ease-in-out 0s;
+        -webkit-transition: all .5s ease-in-out 0s;
+        height: .16rem;
+        width: 0
+    }
+
+    .zhzl-l {
+        left: 0
+    }
+
+    .zhzl-r {
+        right: 0
+    }
+    .zhzl-vs-left,
+    .zhzl-vs-right {
+        height: .106667rem;
+        position: absolute;
+        top: 0;
+        background: #bcd0de
+    }
+
+    .zhzl-vs-left {
+        right: 0;
+        margin-right: .04rem
+    }
+    .gray-bg,
+    .zhzl-gray {
+        background: #bcd0de
+    }
+    .green-bg,
+    .zhzl-green {
+        background: #5c788f
+    }
+    .zhzl-bfb-left,
+    .zhzl-bfb-right {
+        position: absolute;
+        top: .066667rem;
+        color: #333
+    }
+
+    [data-dpr="1"] .zhzl-bfb-left,
+    [data-dpr="1"] .zhzl-bfb-right {
+        font-size: 23px
+    }
+
+    [data-dpr="2"] .zhzl-bfb-left,
+    [data-dpr="2"] .zhzl-bfb-right {
+        font-size: 46px
+    }
+
+    [data-dpr="3"] .zhzl-bfb-left,
+    [data-dpr="3"] .zhzl-bfb-right {
+        font-size: 69px
+    }
+
+    .zhzl-bfb-right {
+        right: 0
+    }
+
+    [data-dpr="1"] .zhzl-box i {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .zhzl-box i {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .zhzl-box i {
+        font-size: 36px
+    }
+    .zhzl-list {
+        margin: .533333rem .4rem 0
+    }
+
+    .zhzl-list li {
+        height: 1.08rem
+    }
+
+    .zhzl-left,
+    .zhzl-right {
+        color: #333;
+        width: 2.106667rem;
+        line-height: 1.066667rem
+    }
+
+    [data-dpr="1"] .zhzl-left,
+    [data-dpr="1"] .zhzl-right {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .zhzl-left,
+    [data-dpr="2"] .zhzl-right {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .zhzl-left,
+    [data-dpr="3"] .zhzl-right {
+        font-size: 33px
+    }
+
+    .zhzl-left {
+        text-align: left
+    }
+
+    .zhzl-right {
+        text-align: right
+    }
+    .each-resone {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        display: block;
+        width: 100%
+    }
+    .zhzl-classify {
+        color: #aab5bd;
+        line-height: .466667rem;
+        text-align: center
+    }
+
+    [data-dpr="1"] .zhzl-classify {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .zhzl-classify {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .zhzl-classify {
+        font-size: 33px
+    }
+
 </style>

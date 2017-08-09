@@ -35,7 +35,6 @@
         <me-sports v-if="match.status == StatusCode.NOT_STARTED && news" :news="news.news" :init-size="5"></me-sports>
     </div>
 </template>
-
 <script>
     import {BasketballStatusCode as StatusCode} from '~common/constants'
     import {mTypes, aTypes} from '~store/lqdetail'
@@ -94,5 +93,51 @@
 <style scoped>
     a {
         color: inherit;
+    }
+    .sk-detail-tap-box2 {
+        margin-bottom: .266667rem
+    }
+    .sk-detail-tap-box {
+        text-align: center;
+        height: 1.173333rem;
+        padding: 0 .4rem;
+        background: #fff
+    }
+    .sk-detail-tap {
+        border-bottom: 1px solid #e8e8e8;
+        text-align: center;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        height: 1.173333rem;
+        line-height: 1.173333rem
+    }
+
+    [data-dpr="1"] .sk-detail-tap {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .sk-detail-tap {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .sk-detail-tap {
+        font-size: 36px
+    }
+    .sk-detail-tap li {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        color: #aab5bd;
+        height: 1.173333rem
+    }
+
+    .sk-detail-tap li:active {
+        background: #f4f4f4
+    }
+
+    .sk-detail-tap li.cur,
+    .sk-detail-tap li:active {
+        color: #242c35
     }
 </style>

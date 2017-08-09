@@ -51,5 +51,17 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped>
+    .zhedie-box {
+        background: #fff
+    }
+
+    .zhedie-box:last-child {
+        margin-bottom: 0
+    }
+
+
+
+    .feed-back{width:100%;height:1.733333rem;background:#fff;border-top:1px solid #eaeaea}
+    .feed-box{color:#787878;line-height:1.733333rem;text-align:center}
 </style>

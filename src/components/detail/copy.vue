@@ -11,7 +11,7 @@
     </div>
 
 </template>
-<style>
+<style scoped>
     .c-share-copytip-linkwr {
         padding: .2rem .2rem;
         border: 1px dotted #d9d9d9;
@@ -24,6 +24,12 @@
         text-decoration: none;
         color: #333
     }
+    .alert-report{position:absolute;left:0;bottom:0;right:0;background:#f4f4f4;z-index:100;}
+    .alert-report p{height:1.333333rem;line-height:1.333333rem;background:#fff;font-size:.426667rem;text-align:center;margin-bottom:.266667rem}
+    .alert-report p:last-child{margin-bottom:0}
+    .alert-report p:nth-child(1){margin-bottom:0;border-bottom:2px solid #eaeaea}
+    .alert-report p:active{background:#eee}
+
 </style>
 <script>
     export default {

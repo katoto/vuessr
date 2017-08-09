@@ -208,3 +208,259 @@
         }
     }
 </script>
+<style scoped>
+
+    .bifa-stat,
+    .bifa-volume {
+        background: #fff
+    }
+    /*over*/
+    .fx-table {
+        margin-top: .053333rem
+    }
+    .fx-table {
+        margin-top: .053333rem
+    }
+
+    .fx-table tr th {
+        background: #fff;
+        border-bottom: 1px solid #f4f4f4;
+        height: .8rem;
+        line-height: .8rem;
+        color: #aab5bd;
+        font-weight: 400
+    }
+
+    [data-dpr="1"] .fx-table tr th {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .fx-table tr th {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .fx-table tr th {
+        font-size: 33px
+    }
+
+    .fx-table tr td {
+        line-height: 1.066667rem;
+        color: #242c35;
+        text-align: center
+    }
+
+    [data-dpr="1"] .fx-table tr td {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .fx-table tr td {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .fx-table tr td {
+        font-size: 36px
+    }
+
+    .red2 {
+        color: #d3553d
+    }
+
+    .green2 {
+        color: #36a171
+    }
+    /*提点*/
+    .infoTips {
+        padding: .266667rem .4rem;
+        line-height: .533333rem;
+        color: #515e6d;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        border-top: 1px solid #f4f4f4
+    }
+
+    .infoTips .icon {
+        display: block;
+        width: .88rem;
+        height: .293333rem;
+        background: url(~assets/style/images/detail/icon_sprite.png) no-repeat -.613333rem 0;
+        background-size: 1.92rem;
+        margin-top: .106667rem
+    }
+
+    .infoTips p {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        padding-left: .213333rem
+    }
+    .bifa-stat,
+    .bifa-volume {
+        background: #fff
+    }
+    .bili-box {
+        position: relative;
+        padding: .8rem 0;
+        border-bottom: 1px solid #f4f4f4
+    }
+    .bili-tips {
+        line-height: .96rem;
+        color: rgba(170, 181, 189, .5);
+        text-align: center
+    }
+
+    [data-dpr="1"] .bili-tips {
+        font-size: 10px
+    }
+
+    [data-dpr="2"] .bili-tips {
+        font-size: 20px
+    }
+
+    [data-dpr="3"] .bili-tips {
+        font-size: 30px
+    }
+    .volumeAll {
+        padding: .533333rem .4rem
+    }
+    .bifa-volume .volumeAll {
+        padding-bottom: 0
+    }
+
+    .all-qushi1,
+    .all-qushi2,
+    .dae-fenbu {
+        height: 5.866667rem;
+        width: 9.2rem;
+        margin-bottom: .266667rem
+    }
+    .volumeChart {
+        width: 3.333333rem;
+        height: 3.333333rem
+    }
+    .chart .info {
+        width: 2.4rem;
+        height: .4rem;
+        background-position: center -1.96rem;
+        position: absolute;
+        bottom: 1.7rem;
+        left: 50%;
+        margin-left: -1.2rem;
+        z-index: 3;
+        text-align: center;
+        color: #aab5bd
+    }
+
+    .chart .info em {
+        display: block;
+        color: #515e6d
+    }
+    .wdl-box {
+        position: absolute;
+        right: 2.213333rem;
+        top: 1.16rem
+    }
+    .bifa-volume .wdl-box {
+        left: 5.8rem;
+        right: auto;
+        width: 4.3rem
+    }
+    .wins {
+        color: #d3553d
+    }
+
+    .draws {
+        color: #36a171
+    }
+
+    .losses {
+        color: #437ba8
+    }
+
+    .wins span {
+        display: inline-block;
+        vertical-align: middle
+    }
+
+    .wdl-bili {
+        display: inline-block;
+        width: 1.626667rem;
+        margin-right: .2rem
+    }
+    .wdl-bili .wdl-bfh,
+    .wdl-bili .wdl-mun {
+        position: relative;
+        top: .026667rem
+    }
+
+    [data-dpr="1"] .wdl-bfh {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .wdl-bfh {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .wdl-bfh {
+        font-size: 36px
+    }
+
+    .wdl-tips {
+        color: #aab5bd
+    }
+    .wdl-mun {
+        font-size: .5067rem
+    }
+    .wdl-count {
+        color: #aab5bd;
+        margin-left: .266667rem
+    }
+    .bifa-volume .chart {
+        margin-left: .8rem
+    }
+    .chart {
+        position: relative;
+        width: 3.326667rem;
+        height: 3.326667rem;
+        margin-left: 1.946667rem
+    }
+    .draws,
+    .losses,
+    .wins {
+        font-size: 0;
+        line-height: .746667rem;
+        position: relative
+    }
+    .draws:after,
+    .losses:after,
+    .wins:after {
+        width: .146667rem;
+        height: .146667rem;
+        content: '';
+        position: absolute;
+        left: -.266667rem;
+        top: .333333rem
+    }
+    .wins-k,
+    .wins:after {
+        background: #d3553d
+    }
+    .draws-k,
+    .draws:after {
+        background: #36a171
+    }
+    .losses-k,
+    .losses:after {
+        background: #437ba8
+    }
+    /*over*/
+    .feed-back{width:100%;height:1.733333rem;background:#fff;border-top:1px solid #eaeaea}
+    .feed-box{color:#787878;line-height:1.733333rem;text-align:center}
+    [data-dpr="1"] .feed-box{font-size:13px}
+    [data-dpr="2"] .feed-box{font-size:26px}
+    [data-dpr="3"] .feed-box{font-size:39px}
+    .feed-box i{width:.4666rem;height:.4533rem;display:inline-block;background:url(/mobile/touch/images/bifen/icon_sprite.png) no-repeat;background-size:1.92rem;margin-right:.1333rem;position:relative;top:.1rem}
+    .feed-box:active{background:#eee}
+
+
+</style>

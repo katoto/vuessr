@@ -53,3 +53,86 @@
         display: block;
     }
 </style>
+<style scoped>
+
+    /*弹层点击*/
+    .time-item {
+        float: right;
+        font-size: .293333rem
+    }
+
+    .time-item li {
+        background: #efefef;
+        color: #aab5bd;
+        height: .613333rem;
+        line-height: .613333rem;
+        padding: 0 .2rem;
+        margin-left: .133333rem;
+        text-align: center;
+        border-radius: .306667rem;
+        border: 1px solid #dadee4;
+        float: left;
+        box-sizing: border-box
+    }
+
+    .time-item .time-item-cur {
+        color: #242c35;
+        background: #fff;
+        border: 1px solid #dadee4
+    }
+    .main-inner {
+        min-height: 15.44rem;
+        width: 100%;
+        overflow-x: hidden;
+        color: #242c35
+    }
+    .sk-detail-tap-box {
+        text-align: center;
+        height: 1.173333rem;
+        padding: 0 .4rem;
+        background: #fff
+    }
+    .sk-detail-tap {
+        border-bottom: 1px solid #e8e8e8;
+        text-align: center;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        height: 1.173333rem;
+        line-height: 1.173333rem
+    }
+
+    [data-dpr="1"] .sk-detail-tap {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .sk-detail-tap {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .sk-detail-tap {
+        font-size: 36px
+    }
+    .sk-detail-tap li {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        color: #aab5bd;
+        height: 1.173333rem
+    }
+
+    .sk-detail-tap li:active {
+        background: #f4f4f4
+    }
+
+    .sk-detail-tap li.cur,
+    .sk-detail-tap li:active {
+        color: #242c35
+    }
+    .pl-cont .red {
+        color: #d3553d
+    }
+    .pl-cont .green {
+        color: #36a171
+    }
+</style>

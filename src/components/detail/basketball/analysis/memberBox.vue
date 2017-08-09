@@ -284,5 +284,33 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped>
+    .time-item{float:right;font-size:.293333rem}
+    .time-item li{background:#efefef;color:#aab5bd;height:.613333rem;line-height:.613333rem;padding:0 .2rem;margin-left:.133333rem;text-align:center;border-radius:.306667rem;border:1px solid #dadee4;float:left;box-sizing:border-box}
+    .time-item .time-item-cur{color:#242c35;background:#fff;border:1px solid #dadee4}
+    .zr-detail{overflow:hidden;width:9.2rem;position:relative}
+    .zr-detail-left{float:left;width:2.266667rem;color:#242c35;font-size:.32rem;position:absolute;left:0;text-align:left}
+    .zr-detail-left li{height:1.066667rem;line-height:1.066667rem;width:2.266667rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .zr-detail-right .zr-detailer{width:40.133333rem;height:1.066667rem}
+    .table-zs .zr-detailer{width:36.933333rem}
+    .table-ybhh .zr-detailer{width:36.8rem}
+    .table-sslfz .zr-detailer{width:33.6rem}
+    .zr-detail-left .zr-detail-tit,.zr-detail-right .zr-detail-tit{height:.706667rem;line-height:.706667rem;color:#aab5bd}
+    .zr-detail-right li ul li{float:left;width:1.6rem}
+    .zr-detailer ul{height:1.066667rem;line-height:1.066667rem}
+    .zr-detail-tit ul{height:.706667rem;line-height:.706667rem}
+    .scroll-cont{width:7.066667rem;overflow:hidden;float:left;position:relative;left:2.066667rem}
+    .scroll-cont .zr-detail-right{overflow:hidden}
+    .table-qy .zr-detailer{width:25.733333rem}
+    .table-tj .zr-detailer{width:9rem}
+    .table-tj .zr-detailer ul li:nth-child(1){width:1rem}
+    .table-tj li ul li{width:1rem}
+    .zr-detail-left li em{width:.4rem;height:.4rem;background:#d25138;font-size:.293333rem;color:#fff;line-height:.4rem;text-align:center;display:inline-block;margin-left:.133333rem;border-radius:.066667rem}
+
+    .dataBox{border-bottom:0;padding-bottom:0;padding-top:.2rem}
+    .dataBox{padding:.4rem .4rem .266667rem .4rem;border-bottom:1px solid #f4f4f4;text-align:center}
+
+    .feed-back{width:100%;height:1.733333rem;background:#fff;border-top:1px solid #eaeaea}
+    .feed-box{color:#787878;line-height:1.733333rem;text-align:center}
+
 </style>

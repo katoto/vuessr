@@ -58,7 +58,7 @@
 
             <div class="sk-btips" v-if="europe && europe.odds && europe.odds.length">
                 共{{europe.all_num}}家公司为你提供数据，其中主流公司{{europe.main_num}}家<br>
-                <span>500彩票网提示：以上数据仅供参考，请以官方公布的数据为准</span>
+                <span class="colorc">500彩票网提示：以上数据仅供参考，请以官方公布的数据为准</span>
             </div>
         </div>
 </template>
@@ -123,3 +123,171 @@
 
     }
 </script>
+<style scoped>
+
+    .pl-box-bd {
+        background: #fff;
+        border-bottom: 1px solid #f1f1f1
+    }
+
+    .pl-box-left,
+    .pl-box-right,
+    .pl-table tr th {
+        background: #fff;
+        height: .733333rem;
+        color: #aab5bd;
+        font-weight: 400
+    }
+
+    [data-dpr="1"] .pl-box-left,
+    [data-dpr="1"] .pl-box-right,
+    [data-dpr="1"] .pl-table tr th {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .pl-box-left,
+    [data-dpr="2"] .pl-box-right,
+    [data-dpr="2"] .pl-table tr th {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .pl-box-left,
+    [data-dpr="3"] .pl-box-right,
+    [data-dpr="3"] .pl-table tr th {
+        font-size: 33px
+    }
+    .pl-box-bd {
+        background: #fff;
+        border-bottom: 1px solid #f1f1f1
+    }
+
+    .pl-table tr th {
+        background: #fff;
+        height: .733333rem;
+        color: #aab5bd;
+        font-weight: 400
+    }
+    [data-dpr="1"] .pl-table tr th {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .pl-table tr th {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .pl-table tr th {
+        font-size: 33px
+    }
+    .pl-table {
+        background: #fff
+    }
+
+    .pl-table tr td {
+        border-bottom: 1px solid #f4f4f4;
+        text-align: center;
+        height: 1.733333rem;
+        line-height: .6rem;
+        color: #242c35;
+        word-break: break-all
+    }
+
+    [data-dpr="1"] .pl-table tr td {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .pl-table tr td {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .pl-table tr td {
+        font-size: 36px
+    }
+
+    .pl-table tr:active {
+        background-color: #f4f4f4
+    }
+
+    .pl-table tr.noLink:active {
+        background-color: #fff
+    }
+
+    .yb-box .pl-table tr:active {
+        background-color: #fff
+    }
+
+    .pl-table tr td:first-child,
+    .pl-table tr th:first-child {
+        line-height: normal;
+        padding-left: .4rem
+    }
+
+    .pl-table tr td:first-child .color3 {
+        color: #242c35
+    }
+
+    .pl-table tr td:last-child,
+    .pl-table tr th:last-child {
+        text-align: right;
+        padding-right: .4rem
+    }
+
+    [data-dpr="1"] .pl-table .f24 {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .pl-table .f24 {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .pl-table .f24 {
+        font-size: 36px
+    }
+    .pl-table tr td:first-child,
+    .pl-table tr th:first-child {
+        line-height: normal;
+        padding-left: .4rem
+    }
+/*网站说明*/
+    .sk-btips {
+        color: #999;
+        text-align: center;
+        height: 1rem;
+        padding: .533333rem 0;
+        background: #efefef;
+        line-height: .506667rem
+    }
+
+    [data-dpr="1"] .sk-btips {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .sk-btips {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .sk-btips {
+        font-size: 33px
+    }
+    .colorc {
+        color: #ccc
+    }
+    .pl-table .green,
+    .pl-table .pl-num .green {
+        color: #36a171
+    }
+    .pl-table .pl-return {
+        display: block;
+        color: #242c35;
+    }
+    .pl-table .pl-num .red,
+    .pl-table .red {
+        color: #d3553d
+    }
+    .pl-cont .red {
+        color: #d3553d
+    }
+    .pl-cont .green {
+        color: #36a171
+    }
+
+</style>
