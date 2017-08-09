@@ -4,7 +4,7 @@
         <div class="alert-share hide" style="display: block;">
             <div class="icons-cont">
                 <div class="collec-box" v-tap="{methods: doCollect}">
-                    <span class="star-cllect" :class="{'star-cllected': params.initFocus === '1'}"></span>
+                    <span class="star-cllect" :class="{'star-cllected': params.match.isfocus === '1'}"></span>
                     <!--收藏成功用 star-cllected-->
                     <p>收藏</p>
                 </div>
@@ -91,7 +91,6 @@
         height: 1.333333rem;
         position: relative;
     }
-
     .star-cllect {
         width: .64rem;
         height: .6rem;
@@ -99,6 +98,8 @@
         background: url(~assets/style/images/detail/collect.png) no-repeat;
         background-size: cover;
     }
+    .star-cllected{width:.64rem;height:.6rem;display:inline-block;background:url(~assets/style/images/detail/collected.png) no-repeat;background-size:cover}
+
     .share-icon {
         width: .56rem;
         height: .626667rem;

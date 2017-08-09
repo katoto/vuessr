@@ -307,7 +307,7 @@
                 this.$store.commit(mTypes.setDialog, {
                     component: share,
                     params: {
-                        initFocus: this.match.isfocus, // 初始状态
+                        match: this.match, // 初始状态
                         onClose: () => {
                             this.$store.commit(mTypes.setDialog, {})
                         },
@@ -315,9 +315,18 @@
                             this.$store.commit(mTypes.setDialog, {})
                             setTimeout(() => this.doShare(nativeShare), 16.7)
                         },
-                        onCollect: () => {
-                            this.$store.dispatch(aTypes.requestConcern, this.match)
-                            // this.$store.commit(mTypes.setDialog, {})
+                        onCollect: async () => {
+                            await this.$store.dispatch('ensureLogin')
+                            try {
+                                await this.$store.dispatch(aTypes.requestConcern, this.match)
+                                if (this.match.isfocus === '1') {
+                                    this.$store.dispatch('showToast', '收藏成功')
+                                } else {
+                                    this.$store.dispatch('showToast', '取消收藏成功')
+                                }
+                            } catch (e) {
+                                this.$store.dispatch('showToast', e.message)
+                            }
                         },
                         onReply: () => {
                             this.$store.dispatch('ensureLogin')
