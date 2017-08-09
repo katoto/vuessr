@@ -71,9 +71,7 @@
                     </div>
                 </div>
             </div>
-            <div class="sk-btips">500彩票网提示：
-                <br>以上数据仅供参考，请以官方公布的数据为准
-            </div>
+            <skbtips></skbtips>
         </div>
         <me-sports v-if="news" :news="news.news" :init-size="3" @rs="refreshScroll"></me-sports>
         <div v-if="!news || (news && !news.news) || !eventList || !eventList.length">
@@ -88,7 +86,7 @@
     import meSports from '~components/detail/meSports.vue'
     import noData from '~components/no_data.vue'
     import {BasketballStatusCode as StatusCode} from '~common/constants'
-
+    import skbtips from '~components/detail/skbtips.vue'
     export default{
         async asyncData ({store, route: {params}}) {
             const {status, matchtime, homeid, awayid, matchid} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
@@ -99,7 +97,7 @@
         },
 
         components: {
-            noData, meSports
+            noData, meSports, skbtips
 
         },
         data () {
@@ -570,26 +568,6 @@
 
     .zhedie-box:last-child {
         margin-bottom: 0
-    }
-    .sk-btips {
-        color: #999;
-        text-align: center;
-        height: 1rem;
-        padding: .533333rem 0;
-        background: #efefef;
-        line-height: .506667rem
-    }
-
-    [data-dpr="1"] .sk-btips {
-        font-size: 11px
-    }
-
-    [data-dpr="2"] .sk-btips {
-        font-size: 22px
-    }
-
-    [data-dpr="3"] .sk-btips {
-        font-size: 33px
     }
 
     .red-zf {

@@ -143,13 +143,7 @@
                     <em>暂无数据</em>
                 </div>
             </div>
-            <div class="item-loader" v-if="!strengthInfo">
-                <div class="la-ball-pulse la-2x">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <item-loader v-if="!strengthInfo"></item-loader>
 
         </div>
         <div class="gl-box">
@@ -194,13 +188,8 @@
                     <em>暂无数据</em>
                 </div>
             </div>
-            <div class="item-loader" v-if="!compareInfo">
-                <div class="la-ball-pulse la-2x">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <item-loader v-if="!compareInfo"></item-loader>
+
         </div>
 
 
@@ -273,13 +262,7 @@
                     <em>暂无数据</em>
                 </div>
             </div>
-            <div class="item-loader" v-if="!compareInfo">
-                <div class="la-ball-pulse la-2x">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <item-loader v-if="!compareInfo"></item-loader>
         </div>
         <div class="gl-box" >
             <div class="gl-nav"> <span class="i-po">半全场</span> </div>
@@ -350,13 +333,7 @@
                     <em>暂无数据</em>
                 </div>
             </div>
-            <div class="item-loader" v-if="!compareInfo">
-                <div class="la-ball-pulse la-2x">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <item-loader v-if="!compareInfo"></item-loader>
         </div>
         <div class="gl-box jishu-sjtj" >
             <div class="gl-nav">事件统计</div>
@@ -488,13 +465,7 @@
                     <em>暂无数据</em>
                 </div>
             </div>
-            <div class="item-loader" v-if="!compareInfo">
-                <div class="la-ball-pulse la-2x">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <item-loader v-if="!compareInfo"></item-loader>
         </div>
         <skbtips></skbtips>
     </div>
@@ -503,6 +474,7 @@
 <script>
     import {aTypes, mTypes} from '~store/zqdetail'
     import skbtips from '~components/detail/skbtips.vue'
+    import itemLoader from '~components/detail/itemLoader.vue'
     export default {
         async asyncData ({store, route: {params}}) {
             const {stageid, matchtime, homeid, awayid, league_id} = store.state.zqdetail.baseInfo
@@ -522,7 +494,7 @@
             }
         },
         components: {
-            skbtips
+            skbtips, itemLoader
         },
         methods: {
             async fetchData () {

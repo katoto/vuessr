@@ -201,9 +201,7 @@
                 </div>
             </div>
 
-            <div class="sk-btips">
-                500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
-            </div>
+            <skbtips></skbtips>
         </div>
 
         <div v-else>
@@ -216,6 +214,7 @@
 <script>
     import {aTypes, mTypes} from '~store/lqdetail'
 //    import meSports from '~components/detail/basketball/situation/meSports.vue'
+    import skbtips from '~components/detail/skbtips.vue'
     import noData from '~components/no_data.vue'
     import slide from '~components/detail/basketball/situation/slide.vue'
     export default{
@@ -226,7 +225,7 @@
         },
 
         components: {
-            slide, noData
+            slide, noData, skbtips
         },
         data () {
             return {
@@ -475,26 +474,6 @@
     }
     .table-tj li ul li {
         width: 1rem
-    }
-    .sk-btips {
-        color: #999;
-        text-align: center;
-        height: 1rem;
-        padding: .533333rem 0;
-        background: #efefef;
-        line-height: .506667rem
-    }
-
-    [data-dpr="1"] .sk-btips {
-        font-size: 11px
-    }
-
-    [data-dpr="2"] .sk-btips {
-        font-size: 22px
-    }
-
-    [data-dpr="3"] .sk-btips {
-        font-size: 33px
     }
     .zhedie-box {
         background: #fff
