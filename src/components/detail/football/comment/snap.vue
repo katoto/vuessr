@@ -449,4 +449,25 @@
     .base-box .data-detail ul li:nth-child(2){text-align:right}
     .data-detail ul li p:nth-child(1){color:#515e6d;font-size:.4rem}
     .data-detail ul li p:nth-child(2){font-size:.32rem;color:rgba(81,94,109,.5)}
+
+    .itmMove{-webkit-animation:itmMove4 .8s ease-in-out forwards;animation:itmMove4 .8s ease-in-out forwards}
+    .itmMove i:last-child{-webkit-animation:itmMove3 2s ease-in-out forwards;animation:itmMove3 2s ease-in-out forwards}
+    @-webkit-keyframes itmMove4{0%{-webkit-transform:translate(0,0);transform:translate(0,0)}
+        100%{-webkit-transform:translate(0,-50%);transform:translate(0,-50%)}
+    }
+    @keyframes itmMove4{0%{-webkit-transform:translate(0,0);transform:translate(0,0)}
+        100%{-webkit-transform:translate(0,-50%);transform:translate(0,-50%)}
+    }
+    @-webkit-keyframes itmMove3{0%{color:#309b56}
+        30%{color:#27e1e1}
+        50%{color:#27e1e1}
+        80%{color:#27e1e1}
+        100%{color:#309b56}
+    }
+    @keyframes itmMove3{0%{color:#309b56}
+        30%{color:#27e1e1}
+        50%{color:#27e1e1}
+        80%{color:#27e1e1}
+        100%{color:#309b56}
+    }
 </style>
