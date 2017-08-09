@@ -111,6 +111,16 @@
 </script>
 
 <style scoped>
+    body,html{height:100%;-webkit-user-select:none;user-select:none;outline:0;-webkit-tap-highlight-color:rgba(0,0,0,0);-moz-tap-highlight-color:rgba(0,0,0,0);-ms-tap-highlight-color:rgba(0,0,0,0);tap-highlight-color:rgba(0,0,0,0)}
+    body,dd,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,hr,input,label,li,ol,p,ul{margin:0;padding:0;font-weight:400}
+    body{font-size:15px;-webkit-text-size-adjust:none;font-family:Microsoft YaHei,Arial; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+    a{text-decoration:none}
+    em,i,s{font-style:normal}
+    li,ul{list-style:none}
+    table{border-collapse:collapse}
+    td{empty-cells:show;color:#333; padding:0;}
+    button{border:0}
+    cite,i{font-style:normal}
     .l-flex-column{ display:-webkit-box; -webkit-box-orient: vertical; display:flex; flex-flow: column;height: 100% }
     .l-flex-1{ -webkit-box-flex: 1; flex:1;overflow: hidden}
     .l-scroll-y{overflow: auto;-webkit-overflow-scrolling:touch;}
@@ -123,15 +133,12 @@
     .back-icon{width:1.066667rem;height:1.173333rem;display:inline-block;text-indent:-999px;position:absolute;left:0;z-index:6}
     .back-icon:before{width:.32rem;height:.493333rem;content:'';position:absolute;left:.266667rem;top:0.24rem;background-position:center 0}
     .match-tab{ background:#fff;height: 1.066667rem; line-height:1.066667rem;width: 100%;overflow: hidden;}
-    .match-tab-itm{float:left;width: 50%; text-align: center; color: #333; font-size: 0.4rem;
-        border-bottom: 1px solid #f1f1f1;}
+    .match-tab-itm{float:left;width: 50%; text-align: center; color: #333; font-size: 0.4rem; border-bottom: 1px solid #f1f1f1;}
     .match-tab .cur{ border-bottom: 3px solid #ff0000; color: #ff0000; height: 1.053333rem; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
     .hot-match-tit{ height: 0.8rem; line-height:0.8rem;font-size: 0.373333rem; color: #666666; padding-left: 0.533333rem;}
     .hot-match-list{ background: #fff; border-top: 1px solid #f1f1f1;width: 100%; color: #333; font-size: 0.373333rem;}
-    .hot-match-item{ height: auto; line-height:1.33333rem;border-bottom: 1px solid #f1f1f1;
-        position:relative; }
-    .match-icon{width: 0.586667rem; height: 0.586667rem; line-height:0.586667rem;display: inline-block; position:relative;
-        top:11%;text-align: center;}
+    .hot-match-item{ height: auto; line-height:1.33333rem;border-bottom: 1px solid #f1f1f1;  position:relative; }
+    .match-icon{width: 0.586667rem; height: 0.586667rem; line-height:0.586667rem;display: inline-block; position:relative;  top:11%;text-align: center;}
     .match-icon img{ max-width: 100%; height: 100%;}
     .match-tit{margin-left:0.266667rem;}
     .link-all-match{font-size:0.373333rem; color: #333; display: block; padding-left: 0.533333rem;  position: relative;height:1.333333rem}
@@ -139,4 +146,8 @@
     .match-list-detail .hot-match-item{ padding-left: 0.96rem; border-top: none; height: 1.066667rem; line-height: 1.066667rem}
     .match-list-detail .hot-match-item:last-child{border-bottom: 0;}
     .match-list-tab .match-tab-itm{ width: 20%;}
+    .icon-open{ width: 0.266667rem; height:0.16rem; display: inline-block;
+        background: url('~assets/images/match/click-to-open.png'); position: absolute; right: 0.533333rem;
+        top: 50%; margin-top: -0.13333rem; background-size: cover}
+    .icon-close{background: url('~assets/images/match/click-to-close.png') no-repeat;background-size: cover }
 </style>
