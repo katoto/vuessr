@@ -36,6 +36,11 @@ export default {
     mounted() {
         let myChart = echarts.init(document.getElementById('score-cont'))
         myChart.setOption(this.getOptions())
+        let self = this
+        window.onresize = function () {
+            myChart.resize();
+            myChart.setOption(self.getOptions())
+        };
     },
     methods: {
         getOptions() {
@@ -50,6 +55,9 @@ export default {
                 return this.strength[type][0]
             })
 
+            let fontSize = lib.flexible.rem2px(0.375)
+            console.log(fontSize)
+
             return {
                 radar: {
                     indicator: indicatorArr,
@@ -57,7 +65,7 @@ export default {
                     name: {
                        textStyle: {
                            color:'rgb(120, 120, 120)',
-                           fontSize: '50',
+                           fontSize: fontSize,
                            fontFamily: 'Microsoft YaHei'
                        }
                    },
