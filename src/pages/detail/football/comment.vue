@@ -1,5 +1,5 @@
 <template>
-    <div id="comment-content">
+    <div class="comment-content">
         <snap v-if="vote" :eventlist="eventlist" :statistic="statistic" :match="match" :online="online" :vote="vote"></snap>
 
 
@@ -53,12 +53,6 @@
         暂无更多评论…</p>
     </div>
 </template>
-<style>
-
-
-
-    .ui-empty-font{color:#b3b3b3;font-size:0.4rem;padding:0.22rem 0;text-align:center;}
-</style>
 
 <script>
     import snap from '~components/detail/football/comment/snap.vue'
@@ -242,7 +236,7 @@
     }
 </script>
 <style scoped>
-
+    .ui-empty-font{color:#b3b3b3;font-size:0.4rem;padding:0.22rem 0;text-align:center;}
     .volumeTab {
         float: right
     }

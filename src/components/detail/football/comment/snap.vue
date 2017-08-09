@@ -1,5 +1,5 @@
 <template>
-    <div style="height: 3.186667rem;margin-top: .26rem;overflow: hidden;" class="snap-container">
+    <div class="snap-container">
         <div class="l-box-vertical-center-justify snap-content" style="height: 100%; "
              :style="{width: (statistic&&eventlist&&(match.status=='1'||match.status=='2'||match.status=='3'||match.status=='4'))?'19.4rem':'auto'}">
 
@@ -311,9 +311,11 @@
 </script>
 
 <style scoped>
-    .swiper-container {
-        width: 10rem;
-        border: none
+    .snap-container{
+        height: 3.4rem;overflow: hidden;position: relative;
+    }
+    .snap-content{
+        margin: .26rem 0;
     }
     .swiper-slide {
         width: 9.2rem
