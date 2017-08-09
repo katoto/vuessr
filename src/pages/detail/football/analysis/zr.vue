@@ -45,18 +45,8 @@
                     </li>
                 </ul>
             </div>
-            <div class="feed-back" v-if="teamworth&&!teamworth.coach">
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
-            <div class="item-loader" v-if="!teamworth">
-                <div class="la-ball-pulse la-2x">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <feed-back-no-data v-if="teamworth&&!teamworth.coach"></feed-back-no-data>
+            <item-loader v-if="!teamworth"></item-loader>
         </div>
 
         <div class="zhedie-box" v-if="formation&&formation.alineup">
@@ -117,12 +107,7 @@
             <div class="zj-nav">
                 {{name}}
             </div>
-            <div class="feed-back"
-                 v-if="!lineup[type] || !lineup[type].length">
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
+            <feed-back-no-data v-if="!lineup[type] || !lineup[type].length"></feed-back-no-data>
             <div class="zhedie" v-if="lineup[type] && lineup[type].length">
                 <table width="100%" cellpadding="0" cellspacing="0" class="lq-zr">
                     <tbody>
@@ -147,6 +132,8 @@
 <script>
     import {aTypes, mTypes} from '~store/zqdetail'
     import skbtips from '~components/detail/skbtips.vue'
+    import feedBackNoData from '~components/detail/feedBackNoData.vue'
+    import itemLoader from '~components/detail/itemLoader.vue'
     export default {
         async asyncData ({store, route: {params}}) {
             const {homeid, awayid} = store.state.zqdetail.baseInfo
@@ -162,7 +149,7 @@
             }
         },
         components: {
-            skbtips
+            skbtips, feedBackNoData, itemLoader
         },
         methods: {
             async fetchData () {
@@ -325,30 +312,7 @@
     .zhedie-box {
         background: #fff
     }
-    .feed-back {
-        width: 100%;
-        height: 1.733333rem;
-        background: #fff;
-        border-top: 1px solid #eaeaea
-    }
 
-    .feed-box {
-        color: #787878;
-        line-height: 1.733333rem;
-        text-align: center
-    }
-
-    [data-dpr="1"] .feed-box {
-        font-size: 13px
-    }
-
-    [data-dpr="2"] .feed-box {
-        font-size: 26px
-    }
-
-    [data-dpr="3"] .feed-box {
-        font-size: 39px
-    }
     [data-dpr="1"] .lq-zr {
         font-size: 13px
     }
@@ -434,6 +398,29 @@
     [data-dpr="3"] .gangwei {
         font-size: 31.5px
     }
+
+    .responsive{/* width:100%; *//* display:-webkit-box; */display:-ms-flexbox;display:flex;}
+    .each-resone{-webkit-box-flex:1;-ms-flex:1;flex:1;display:block;width:100%}
+
+    .zuqiuc{background:url(~assets/style/images/detail/zuqiuc.jpg) no-repeat;height:17.053333rem;background-size:contain;padding-top:1.053333rem;position:relative}
+    .person,.person-mr{width:.72rem;height:.72rem;line-height:.72rem;display:inline-block;border-radius:100%;text-align:center;margin-bottom:.05rem;position:relative}
+    [data-dpr="1"] .person,[data-dpr="1"] .person-mr{font-size:11px}
+    [data-dpr="2"] .person,[data-dpr="2"] .person-mr{font-size:22px}
+    [data-dpr="3"] .person,[data-dpr="3"] .person-mr{font-size:33px}
+    .person img{width:.72rem;height:.72rem;position:absolute;left:0;top:0;border-radius:100%;background:#fff}
+    .zx-table:nth-child(1) .person{background:#afe6b7;color:#488044;border:.04rem solid #488044}
+    .zx-table:nth-child(2) .person{background:#3e833c;color:#ace6b5;border:.04rem solid #ace6b5}
+    .zx-table{height:7.96rem;color:#fff;text-align:center;width:100%;margin-top:.08rem}
+    [data-dpr="1"] .zx-table{font-size:10px}
+    [data-dpr="2"] .zx-table{font-size:20px}
+    [data-dpr="3"] .zx-table{font-size:30px}
+    .zx-table tr td{height:.24rem;color:#fff}
+    .ke-zx,.zhu-zx{height:.906667rem;line-height:.906667rem;font-size:.36rem;color:#fff;position:absolute}
+    .zhu-zx{left:.4rem;top:.026667rem}
+    .ke-zx{right:.4rem;bottom:.026667rem}
+    .zx-ul li{margin-right:.133333rem}
+    .zx-ul li:last-child{margin-right:0}
+    .person-mr{border:.04rem solid #c8ffd3;background-position:center -8.48rem}
 
 
 </style>

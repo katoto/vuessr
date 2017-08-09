@@ -284,12 +284,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="feed-back" v-else>
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
-
+            <feed-back-no-data v-else></feed-back-no-data>
         </div>
 
 
@@ -471,11 +466,7 @@
             recentRecord.away.matches == 0)" message="很抱歉，没有数据" type="no-data" text-type>
                 </widget-prompt-view>-->
             </div>
-            <div class="feed-back" v-else>
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
+            <feed-back-no-data v-else></feed-back-no-data>
 
         </div>
 
@@ -599,6 +590,7 @@
 
     import Filter from '~components/detail/football/analysis/filter.vue'
     import skbtips from '~components/detail/skbtips.vue'
+    import feedBackNoData from '~components/detail/feedBackNoData.vue'
     export default {
         async asyncData ({store, route: {params}}) {
             const {stageid, matchtime, homeid, awayid, matchgroup} = store.state.zqdetail.baseInfo
@@ -619,7 +611,7 @@
             })
         },
         components: {
-            skbtips
+            skbtips, feedBackNoData
         },
         data () {
             return {

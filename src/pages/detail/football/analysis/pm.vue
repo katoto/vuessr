@@ -32,18 +32,8 @@
                 </div>
                 <div class="infoTips" v-if="poissonInfo.presnetations"><i class="icon"></i><p class="f24">{{poissonInfo.presnetations}}</p>	</div>
             </template>
-            <div class="feed-back" v-if="poissonInfo&&!poissonInfo.aomen">
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
-            <div class="item-loader" v-if="!poissonInfo">
-                <div class="la-ball-pulse la-2x">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <feed-back-no-data v-if="poissonInfo&&!poissonInfo.aomen"></feed-back-no-data>
+            <item-loader v-if="!poissonInfo"></item-loader>
         </div>
 
         <div class="gl-box box-tongp">
@@ -89,18 +79,9 @@
                 </div>
             </template>
 
-            <div class="feed-back" v-if="probability&&!probability.rate">
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
-            <div class="item-loader" v-if="!probability">
-                <div class="la-ball-pulse la-2x">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <feed-back-no-data v-if="probability&&!probability.rate"></feed-back-no-data>
+
+            <item-loader v-if="!probability"></item-loader>
         </div>
 
         <div class="gl-box box-panl" >
@@ -174,19 +155,8 @@
                 </div>
                 <div class="bili-tips">数据来自本赛事主客场相同的近期比赛统计</div>
             </template>
-
-            <div class="feed-back" v-if="handicapFeature&&!handicapFeature.europe">
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
-            <div class="item-loader" v-if="!handicapFeature">
-                <div class="la-ball-pulse la-2x">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <feed-back-no-data v-if="handicapFeature&&!handicapFeature.europe"></feed-back-no-data>
+            <item-loader v-if="!handicapFeature"></item-loader>
         </div>
         <!-- TODO 这里后面需要补上
         <div class="gl-box" drunk-if="from!='app_online'&&(hasUserBetPercent_spf || hasUserBetPercent_nspf)">
@@ -251,18 +221,8 @@
                     <td>{{coldHotInfo.lost.renqi?(coldHotInfo.lost.renqi+'%'):'--'}}</td>
                 </tr>
                 </tbody></table>
-            <div class="feed-back" v-if="coldHotInfo&&!coldHotInfo.win">
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
-            <div class="item-loader" v-if="!coldHotInfo">
-                <div class="la-ball-pulse la-2x">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <feed-back-no-data v-if="coldHotInfo&&!coldHotInfo.win"></feed-back-no-data>
+            <item-loader v-if="!coldHotInfo"></item-loader>
         </div>
         <skbtips></skbtips>
     </div>
@@ -273,6 +233,8 @@
 
     import HistorySample from '~components/detail/football/analysis/historySample.vue'
     import skbtips from '~components/detail/skbtips.vue'
+    import itemLoader from '~components/detail/itemLoader.vue'
+    import feedBackNoData from '~components/detail/feedBackNoData.vue'
     export default {
         async asyncData ({store, route: {params}}) {
             const {stageid, matchtime, homeid, awayid, league_id} = store.state.zqdetail.baseInfo
@@ -292,7 +254,7 @@
             }
         },
         components: {
-            skbtips
+            skbtips, itemLoader, feedBackNoData
         },
         methods: {
             async fetchData () {
