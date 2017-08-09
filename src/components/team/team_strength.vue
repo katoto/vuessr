@@ -41,7 +41,7 @@ export default {
         getOptions() {
             let indicatorArr = Object.keys(this.strengthType).map((type) => {
                 return {
-                    text: this.strengthType[type] + this.strength[type][1] + (type === "shoot" ? '%' : ''),
+                    text: this.strengthType[type] + " " + this.strength[type][1] + (type === "shoot" ? '%' : ''),
                     max: 1
                 }
             })
@@ -51,15 +51,37 @@ export default {
             })
 
             return {
-                tooltip: {},
                 radar: {
-                    indicator: indicatorArr
+                    indicator: indicatorArr,
+                    center: ['50%', '50%'],
+                    name: {
+                       textStyle: {
+                           color:'rgb(120, 120, 120)',
+                           fontSize: '50',
+                           fontFamily: 'Microsoft YaHei'
+                       }
+                   },
                 },
                 series: [{
                     type: 'radar',
                     data : [
                          {
-                            value : valueArr
+                            value : valueArr,
+                             areaStyle: {
+                                 normal: {
+                                     opacity: 0.5,
+                                     color: new echarts.graphic.RadialGradient(0.5, 0.5, 1, [
+                                         {
+                                             color: '#e4dce3',
+                                             offset: 0
+                                         },
+                                         {
+                                             color: '#d18962',
+                                             offset: 1
+                                         }
+                                     ])
+                                 }
+                             }
                         }
                     ]
                 }]
