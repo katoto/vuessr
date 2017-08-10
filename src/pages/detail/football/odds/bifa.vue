@@ -147,14 +147,10 @@
                     </tbody>
                 </table>
             </div>
-            <div class="feed-back" v-if="!bifa.all_trade && !bifa.big_trade">
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
-
+            <feed-back-no-data v-if="!bifa.all_trade && !bifa.big_trade"></feed-back-no-data>
         </div>
     </div>
+    <item-loader v-else></item-loader>
 </template>
 <script>
     import {aTypes, mTypes} from '~store/zqdetail'
@@ -162,6 +158,8 @@
     import echartBigTrade from '~components/detail/football/odds/echartBigTrade.vue'
     import echartBigTradeBar from '~components/detail/football/odds/echartBigTradeBar.vue'
     import echartAllTrade from '~components/detail/football/odds/echartAllTrade.vue'
+    import itemLoader from '~components/detail/itemLoader.vue'
+    import feedBackNoData from '~components/detail/feedBackNoData.vue'
 
     export default {
         async asyncData ({store, route: {params: {fid}}}) {
@@ -175,7 +173,7 @@
             }
         },
         components: {
-            echartPip, echartBigTrade, echartAllTrade, echartBigTradeBar
+            echartPip, echartBigTrade, echartAllTrade, echartBigTradeBar, itemLoader, feedBackNoData
         },
         data () {
             return {
@@ -453,14 +451,6 @@
     .losses:after {
         background: #437ba8
     }
-    /*over*/
-    .feed-back{width:100%;height:1.733333rem;background:#fff;border-top:1px solid #eaeaea}
-    .feed-box{color:#787878;line-height:1.733333rem;text-align:center}
-    [data-dpr="1"] .feed-box{font-size:13px}
-    [data-dpr="2"] .feed-box{font-size:26px}
-    [data-dpr="3"] .feed-box{font-size:39px}
-    .feed-box i{width:.4666rem;height:.4533rem;display:inline-block;background:url(/mobile/touch/images/bifen/icon_sprite.png) no-repeat;background-size:1.92rem;margin-right:.1333rem;position:relative;top:.1rem}
-    .feed-box:active{background:#eee}
 
 
 </style>

@@ -44,13 +44,10 @@
             </table>
         </div>
 
-        <div class="sk-btips" v-if="daxiaopan.odds && daxiaopan.odds.length">
-            共{{daxiaopan.all_num}}家公司为你提供数据，其中主流公司{{daxiaopan.main_num}}家
-            <br>
-            <span>500彩票网提示：以上数据仅供参考，请以官方公布的数据为准</span>
-        </div>
-    </div>
+        <odds-skbtips v-if="daxiaopan.odds && daxiaopan.odds.length" :main="daxiaopan.main_num" :all="daxiaopan.all_num"></odds-skbtips>
 
+    </div>
+    <item-loader v-else></item-loader>
 
 </template>
 
@@ -58,12 +55,15 @@
     import {aTypes, mTypes} from '~store/zqdetail'
     import oddsInfo from '~components/detail/football/odds/oddsInfo.vue'
     import noData from '~components/no_data.vue'
+    import itemLoader from '~components/detail/itemLoader.vue'
+    import oddsSkbtips from '~components/detail/oddsSkbtips.vue'
+
     export default {
         async asyncData ({store, route: {params}}) {
         //            await store.dispatch(aTypes.getOddsDxp, params.fid)
         },
         components: {
-            noData
+            noData, itemLoader, oddsSkbtips
         },
         watch: {
             loaded (loaded) {
@@ -244,27 +244,7 @@
         line-height: normal;
         padding-left: .4rem
     }
-    /*网站说明*/
-    .sk-btips {
-        color: #999;
-        text-align: center;
-        height: 1rem;
-        padding: .533333rem 0;
-        background: #efefef;
-        line-height: .506667rem
-    }
 
-    [data-dpr="1"] .sk-btips {
-        font-size: 11px
-    }
-
-    [data-dpr="2"] .sk-btips {
-        font-size: 22px
-    }
-
-    [data-dpr="3"] .sk-btips {
-        font-size: 33px
-    }
     .colorc {
         color: #ccc
     }
