@@ -77,7 +77,7 @@
 <script>
     import logo from '~directives/logo'
     export default{
-        props:['rankList'],
+        props: ['rankList'],
         directives: {
             logo
         }

@@ -33,8 +33,8 @@
     import home from '~components/match/football/home.vue'
     import away from '~components/match/football/away.vue'
     export default{
-        components:{
-           all, away, home
+        components: {
+            all, away, home
         },
         data () {
             return {

@@ -75,4 +75,3 @@
     .match-list-b .match-tab-itm{ width: 25%;}
     .match-list-b { margin-bottom:0.333333rem}
 </style>
-

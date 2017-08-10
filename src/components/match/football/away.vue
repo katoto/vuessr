@@ -56,10 +56,10 @@
         directives: {
             style, logo
         },
-        components:{
+        components: {
             viewEmpty
         },
-        props:['awayData']
+        props: ['awayData']
     }
 </script>
 

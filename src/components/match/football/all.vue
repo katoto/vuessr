@@ -95,10 +95,10 @@
         directives: {
             style, logo
         },
-        components:{
+        components: {
             viewEmpty
         },
-        props:['allData']
+        props: ['allData']
     }
 </script>
 

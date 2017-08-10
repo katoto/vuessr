@@ -77,7 +77,7 @@
     import logo from '~directives/logo'
     import viewEmpty from '~components/match/view_empty.vue'
     export default{
-        components:{
+        components: {
             viewEmpty
         },
         data () {

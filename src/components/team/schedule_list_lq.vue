@@ -43,7 +43,7 @@ export default {
         },
         scoreFmt (match) {
             if (match.homescore && match.awayscore) {
-                return `${match.awayscore}<i>:</i>${match.homescore}`
+                return `${match.awayscore}<i style="color: #999; margin:0 0.13333rem; display: inline-block;">:</i>${match.homescore}`
             } else {
                 return 'vs'
             }
@@ -55,8 +55,6 @@ export default {
 <style lang="css" scoped>
     .schedule-itm{clear:both;box-sizing:border-box;height:1.333333rem;border-bottom: 1px solid #f4f4f4;
         font-size: 0.293333rem;color: #999999; background: #fff;}
-    .l-flex-row{ display:-webkit-box; -webkit-box-orient: horizontal; display:flex; flex-flow: row; width: 100%}
-    .l-flex-1{ -webkit-box-flex: 1; flex:1;overflow: hidden}
     .when-game{width: 2.773333rem; text-align: left;margin-left: 0.533333rem;clear:both;font-size: 0.266667rem}
     .game-time,.game-league{display: inline-block;width: 3.7rem}
     .game-time{margin-top: 0.3rem;color: #999;}

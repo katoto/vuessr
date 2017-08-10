@@ -48,7 +48,7 @@
     import {aTypes} from '~store/center'
     import viewEmpty from '~components/match/view_empty.vue'
     export default{
-        components:{
+        components: {
             viewEmpty
         },
         data () {

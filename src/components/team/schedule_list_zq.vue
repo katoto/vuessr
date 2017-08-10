@@ -39,7 +39,7 @@ export default {
         },
         scoreFmt (match) {
             if (match.homescore && match.awayscore) {
-                return `${match.homescore}<i>:</i>${match.awayscore}`
+                return `${match.homescore}<i style="color: #999; margin:0 0.13333rem; display: inline-block;">:</i>${match.awayscore}`
             } else {
                 return 'vs'
             }
