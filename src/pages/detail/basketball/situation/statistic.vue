@@ -1,6 +1,6 @@
 
 <template>
-    <div>
+    <div v-if="statistic">
         <div v-if="home">
 
             <div class="zhedie-box">
@@ -209,10 +209,12 @@
 
         </div>
     </div>
+    <item-loader v-else></item-loader>
 </template>
 
 <script>
     import {aTypes, mTypes} from '~store/lqdetail'
+    import itemLoader from '~components/detail/itemLoader.vue'
 //    import meSports from '~components/detail/basketball/situation/meSports.vue'
     import skbtips from '~components/detail/skbtips.vue'
     import noData from '~components/no_data.vue'
@@ -225,7 +227,7 @@
         },
 
         components: {
-            slide, noData, skbtips
+            slide, noData, skbtips, itemLoader
         },
         data () {
             return {
@@ -243,11 +245,14 @@
             match () {
                 return this.$store.state.lqdetail.baseInfo
             },
+            statistic () {
+                return this.$store.state.lqdetail.situation.statistic
+            },
             home () {
-                return this.$store.state.lqdetail.situation.statistic && this.$store.state.lqdetail.situation.statistic.home
+                return this.statistic && this.statistic.home
             },
             away () {
-                return this.$store.state.lqdetail.situation.statistic && this.$store.state.lqdetail.situation.statistic.away
+                return this.statistic && this.statistic.away
             }
 
         },

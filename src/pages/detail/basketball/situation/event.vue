@@ -1,6 +1,6 @@
 
 <template>
-    <div>
+    <div v-if="news || eventList">
         <div v-if="eventList && eventList.length">
             <div class="jie-detail">
                 <div class="jie-detailL">
@@ -78,6 +78,7 @@
 
         </div>
     </div>
+    <item-loader v-else></item-loader>
 </template>
 
 <script>
@@ -86,6 +87,8 @@
     import noData from '~components/no_data.vue'
     import {BasketballStatusCode as StatusCode} from '~common/constants'
     import skbtips from '~components/detail/skbtips.vue'
+    import itemLoader from '~components/detail/itemLoader.vue'
+
     export default{
         async asyncData ({store, route: {params}}) {
             const {status, matchtime, homeid, awayid, matchid} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
@@ -96,7 +99,7 @@
         },
 
         components: {
-            noData, meSports, skbtips
+            noData, meSports, skbtips, itemLoader
 
         },
         data () {
