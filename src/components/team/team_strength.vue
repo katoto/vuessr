@@ -56,28 +56,18 @@ export default {
             })
 
             let fontSize = lib.flexible.rem2px(0.375)
-            console.log(fontSize)
 
             return {
                 radar: {
                     indicator: indicatorArr,
                     center: ['50%', '50%'],
                     name: {
-<<<<<<< HEAD
-                        textStyle: {
-                            color: 'rgb(120, 120, 120)',
-                            fontSize: '50',
-                            fontFamily: 'Microsoft YaHei'
-                        }
-                    }
-=======
                        textStyle: {
                            color:'rgb(120, 120, 120)',
                            fontSize: fontSize,
                            fontFamily: 'Microsoft YaHei'
                        }
                    },
->>>>>>> team
                 },
                 series: [{
                     type: 'radar',
