@@ -38,9 +38,9 @@ export default {
         myChart.setOption(this.getOptions())
         let self = this
         window.onresize = function () {
-            myChart.resize();
+            myChart.resize()
             myChart.setOption(self.getOptions())
-        };
+        }
     },
     methods: {
         getOptions () {
@@ -55,19 +55,20 @@ export default {
                 return this.strength[type][0]
             })
 
-            let fontSize = lib.flexible.rem2px(0.375)
+            let fontSize = window.lib.flexible.rem2px(0.375)
 
             return {
                 radar: {
                     indicator: indicatorArr,
                     center: ['50%', '50%'],
                     name: {
-                       textStyle: {
-                           color:'rgb(120, 120, 120)',
-                           fontSize: fontSize,
-                           fontFamily: 'Microsoft YaHei'
-                       }
-                   },
+                        textStyle: {
+                            color: 'rgb(120, 120, 120)',
+                            fontSize: fontSize,
+                            fontFamily: 'Microsoft YaHei'
+                        }
+                    }
+
                 },
                 series: [{
                     type: 'radar',

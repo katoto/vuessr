@@ -31,7 +31,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="member-list member-empty" v-if="!statisticList.scores">暂无数据</div>
+                <div class="member-list member-empty" v-if="!statisticList.scores || !statisticList.scores.length">暂无数据</div>
             </div>
             <div class="main-box">
                 <div class="box-tit">
@@ -62,7 +62,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="member-list member-empty" v-if="!statisticList.assists">暂无数据</div>
+                <div class="member-list member-empty" v-if="!statisticList.assists || !statisticList.assists.length">暂无数据</div>
             </div>
         </div>
     </div>
@@ -98,3 +98,18 @@
         }
     }
 </script>
+<style scoped>
+    .member{padding-top:0;padding-bottom:.8rem;background:#f4f4f4}
+    .member .main-box{margin-bottom:0}
+    .member .box-tit{background:#f4f4f4;height:.773333rem; position: -webkit-sticky;position: sticky;top: 0;}
+    .member .box-tit h2{line-height:.773333rem;font-size:.373333rem;color:#666}
+    .member-list{padding:0.106667rem .533333rem;background-color:#fff}
+    .member-face{width:.8rem;height:.8rem;border-radius:50% 50%}
+    .member-list td{height:1.413333rem}
+    .member-list td:nth-child(2){ text-indent: 0.1333rem;}
+    .member-list td strong{font-size:.346667rem;font-weight:400}
+    .member-list td p{font-size:.266667rem;height:.346667rem;line-height:.346667rem;color:#999}
+    .member-empty {height:1.013333rem;color:#999;font-size:.373333rem;text-align:center; line-height: 1.01333rem;}
+    .box-tit{height:1.066667rem;border-bottom:1px solid #f1f1f1}
+    .box-tit h2{font-size:.4rem;padding-left:.533333rem;line-height:1.066667rem}
+</style>
