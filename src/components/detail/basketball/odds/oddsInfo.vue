@@ -94,7 +94,7 @@
                                     <th width="30%" v-tap="{methods:updateCustomOddsInfo}">更新时间
                                         <em class="gxsj" id="gxsj"></em></th>
                                 </tr>
-                                <tr drunk-repeat="info,index in oddsInfo">
+                                <tr v-for="info,index in oddsInfo">
                                     <td><span class="f24" :class="{'red': info.b == 1, 'green': info.b == -1}">{{info.big}}</span>
                                     </td>
                                     <td><span class="color6 f24" :class="{'red': info.pk == 1, 'green': info.pk == -1}">{{info.handi}}</span>
