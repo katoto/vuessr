@@ -54,8 +54,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <div class="inte-look zhedie"
-                     onclick="location.href='match_center/index.html#/basketballleague/rank/366'">完整积分榜&gt;
+                <div class="inte-look zhedie" v-tap="{methods: () => {$router.push(`/center/basketballmatch/${baseInfo.seasonid}/rank`)}}">完整积分榜&gt;
                 </div>
             </div>
             <feed-back-no-data v-else></feed-back-no-data>
@@ -67,6 +66,10 @@
     import feedBackNoData from '~components/detail/feedBackNoData.vue'
     export default {
         props: {
+            baseInfo: {
+                type: Object,
+                required: true
+            },
             nbarank: {
                 type: Object,
                 required: true
