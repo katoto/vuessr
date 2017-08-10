@@ -50,14 +50,14 @@
                                 <!--右边的参赛队伍和结果-->
                                 <div class="who-game l-flex-1 l-flex-row">
                                     <div class="who-gamer who-gamer-home l-flex-1">
-                                        <img v-logo="list.homelogo"/>
+                                        <img v-logo="list.awaylogo"/>
                                         <em>{{list.awaysxname}}</em>
                                     </div>
 
                                     <em class="who-win" v-if="list.homescore">{{list.awayscore}}<i>:</i>{{list.homescore}}</em>
                                     <em class="who-win no-start" v-if="!list.homescore">vs</em>
                                     <div class="who-gamer who-gamer-guest l-flex-1">
-                                        <img v-logo="list.awaylogo"/><em>{{list.homesxname}}</em>
+                                        <img v-logo="list.homelogo"/><em>{{list.homesxname}}</em>
                                     </div>
                                 </div>
                             </li>
@@ -67,6 +67,7 @@
                 </div>
             </div>
         </section>
+        <view-empty v-if="!basketChoice"></view-empty>
 
     </div>
 </template>
@@ -74,7 +75,11 @@
 <script>
     import {aTypes} from '~store/center'
     import logo from '~directives/logo'
+    import viewEmpty from '~components/match/view_empty.vue'
     export default{
+        components:{
+            viewEmpty
+        },
         data () {
             return {
                 isHide: true, // 弹层是否显示
@@ -264,13 +269,55 @@
     }
 </script>
 <style scoped>
-    /*.ui-empty{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);text-align:center;display:inline-block;}*/
-    .ui-empty{padding:2.72rem 0;text-align:center;}
-    .ui-empty img{margin-bottom:0.933333rem;}
-    .ui-empty .w240{width:3.2rem;}
-    .ui-empty-gfont{font-size:0.4rem;color:#b3b3b3;margin-bottom:0.773333rem;padding:0 0.5rem;}
-
-    ul.average-list.l-srcoll-y{
-        overflow: auto;
-    }
+    .sk-detail-tap-box{text-align:center}
+    .sk-detail-tap li{width:2rem;height:.773333rem;line-height:.773333rem;color:#787878;float:left}
+    .sk-detail-tap li.cur{background:#999;color:#fff}
+    .turn-box{ position: relative; height: 1.333333rem;}
+    .turn-boxer{ display: inline-block; width: 1.333333rem;height: 100px; text-align: center;}
+    .turn-boxer-prev{float: left;}
+    .turn-boxer-next{ float: right;}
+    .turn-to{ width:0.186667rem;height:0.293333rem;position: absolute; top: 0.506667rem;display: inline-block; }
+    .boxer-h{height:1.28rem}
+    .num-turn{min-width:2.8rem; height: 0.8rem;line-height:0.8rem; color: #787878;font-size: 0.346667rem;position: absolute;top: 50%;  margin-top: -0.4rem; left: 50%; margin-left: -1.4rem; text-align: center;}
+    .num-turner{display: inline-block;width:0.133333rem;height:0.08rem;background:url('~assets/images/match/drop.png');  background-size: cover;margin-left: 0.08rem;margin-bottom:0.053333rem}
+    .look-prev-have{left: 0.533333rem;background:url('~assets/images/match/sprite.png') 0 0 no-repeat; background-size: cover}
+    .look-next-have{right: 0.533333rem;background:url('~assets/images/match/sprite.png') -0.373333rem 0 no-repeat; background-size: cover;}
+    .alert-turns{ width: 100%;  z-index: 5; height:auto;}
+    .hide{ display: none;}
+    .ui-navbox-item{background:#f4f4f4;position:relative;z-index:2; overflow: scroll;}
+    .nav-box-tit{padding-left: 0.533333rem; color: #999; font-size: 0.32rem; height: 0.533333rem;}
+    .ui-navbox-item ul{padding:0 .373333rem .373333rem .453333rem;overflow:hidden;font-size:.4rem}
+    .ui-navbox-item li{float:left;width:23.5%;list-style:none;font-size: 0.32rem; margin-right: 0.133333rem;margin-bottom: 0.266667rem; background: #fff;border-radius:.106667rem;}
+    .ui-navbox-item li span{display:block;height:1.066667rem;line-height:1.066667rem;border:1px solid #f1f1f1; text-align:center;position:relative;color:#333;text-decoration:none;border-radius:.106667rem;}
+    .ui-navbox-item li.select span:after{position:absolute;bottom:-1px;right:-1px;width:.906667rem;height:.76rem;content:"";background-position:center 0;}
+    .ui-navbox-item li.select span{border-color:#f63f3f;color:#f63f3f;border-radius:.106667rem;}
+    .ui-navbox-item li:nth-child(4n) span{margin-right:0;}
+    .ui-navbox-item li.select span:after{background:url('~assets/images/match/m-icon.png') no-repeat;background-size:.906667rem 2.533333rem}
+    .alert-turns{ width: 100%;  z-index: 5; height:auto;}
+    .schedule-cont{ margin-top:0.266667rem; background: #fff; width: 100%;}
+    .schedule-itm{clear:both;box-sizing:border-box;height:1.333333rem;border-bottom: 1px solid #f4f4f4;  font-size: 0.293333rem;color: #999999; background: #fff;}
+    .home-sc-cont{margin-top: 0;}
+    .home-sc-cont{margin-bottom: 0.266667rem;}
+    .home-sc-cont .schedule-itm{height: 1.333333rem;}
+    .home-sc-cont .who-game{height: 1.333333rem;line-height: 1.333333rem;}
+    .home-sc-cont .when-game{height: 1.333333rem;}
+    .home-sc-cont .game-time{ margin-top: 0.5rem; font-size: 0.32rem}
+    .when-game{width: 2.773333rem; text-align: left;margin-left: 0.533333rem;clear:both;font-size: 0.266667rem}
+    .game-time,.game-league{display: inline-block;width: 3.7rem}
+    .game-time{margin-top: 0.3rem;color: #999;}
+    .who-game{color: #333333; font-size:0.346667rem;height: 1.333333rem;line-height:1.333333rem;margin-right: 0.533333rem;}
+    .who-gamer{ width: 0;}
+    .who-gamer-home{ text-align: right; position: relative; }
+    .who-gamer-home img{position: absolute;left: 0; top:50%; margin-top:-0.30666rem}
+    .who-gamer-home img,.who-gamer-guest img{max-width: 0.506667rem; max-height: 0.506667rem;}
+    .who-gamer-home em, .who-gamer-guest em{ display: inline-block; width: 1.5rem; text-align:center;}
+    .schedule-foot .who-gamer-home em, .schedule-foot .who-gamer-guest em{ display: inline-block; width: 1.7rem; text-align:center;}
+    .who-win{width: 1.733333rem; text-align: center;display:inline-block; background: #f4f4f4; height: 0.64rem;height: 0.64rem; line-height: 0.64rem;position: relative;top: 50%;margin-top: -0.32rem; margin-left:0.133333rem;  margin-right: 0.133333rem;border-radius: 0.066667rem;}
+    .who-win i{ color: #999; margin:0 0.13333rem; display: inline-block;}
+    .schedule-foot .who-win{ width: 1.173333rem}
+    .schedule-foot .when-game{ width: 3rem;}
+    .no-start{ color:#999; background: none; font-size: 0.32rem}
+    .who-gamer-guest{text-align: left; position: relative;}
+    .who-gamer-guest img{position: absolute;right: 0; top:50%; margin-top: -0.30666rem;}
+    .home-sc-cont{margin-top: 0;}
 </style>
