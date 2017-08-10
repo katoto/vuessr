@@ -46,11 +46,7 @@
                 <i class="icon"></i>
                 <p class="f24">{{bifa.presentations}}</p>
             </div>
-            <div class="feed-back" v-if="!bifa.spdex_data">
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
+            <feed-back-no-data v-if="!bifa.spdex_data"></feed-back-no-data>
 
         </div>
         <div class="bifa-stat bifa-volume">
