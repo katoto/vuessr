@@ -1,19 +1,20 @@
 <!--ui: http://ui.touch500.boss.com/touch/bifen/v124/predict.html-->
 <template>
-    <div class="v124-wrap l-full l-flex-column">
+    <div class="v124-wrap l-full l-flex-column" v-if="predict">
 
         <!--顶部的时间-->
         <section class="hotc-header">
             {{cur|fdate}}
-            <ul v-if="expect_list">
-                <li :class="{'cur':  cur === expect_list[0]}"
+            <!-- 我也不想这么写，谁叫服务端没数据时连expect_list都没有-->
+            <ul>
+                <li :class="{'cur':  currExpect && currExpect === (expect_list && expect_list[0])}"
                     v-tap="{methods: changeExpect , expect: expect_list && expect_list[0]}">昨日
                 </li>
-                <li :class="{'cur':  cur === expect_list[1]}"
+                <li :class="{'cur':  currExpect && currExpect === (expect_list && expect_list[1])}"
                     v-tap="{methods: changeExpect , expect: expect_list && expect_list[1]}">今日
                 </li>
-                <li :class="{'cur':  cur === expect_list[2]}"
-                    v-tap="{methods: changeExpect , expect:  expect_list[2]}">明日
+                <li :class="{'cur':  currExpect && currExpect === (expect_list && expect_list[2])}"
+                    v-tap="{methods: changeExpect , expect: expect_list && expect_list[2]}">明日
                 </li>
             </ul>
         </section>
@@ -73,31 +74,31 @@
                             <!--已完场-->
                             <div class="tag-game-over" v-if="curStatus.history&&curStatus.latest">已完场</div>
 
-                            <ul>
-                                <template v-for="match in matches" v-if="match.status === '4'">
-                                    <li class="hotc-item" v-tap="{methods: goAnalysis, fid: match.fid}">
-                                        <div class="hotc-left">
-                                            <div class="hotc-info-tit">{{match.homesxname}}
-                                                {{match.homescore}}:{{match.awayscore}} {{match.awaysxname}}
+                                <ul>
+                                    <template v-for="match in matches" v-if="match.status === '4'">
+                                        <li class="hotc-item" v-tap="{methods: goAnalysis, fid: match.fid}">
+                                            <div class="hotc-left">
+                                                <div class="hotc-info-tit">{{match.homesxname}}
+                                                    {{match.homescore}}:{{match.awayscore}} {{match.awaysxname}}
+                                                </div>
+                                                <div class="hotc-info-time">
+                                                    {{match.order}} {{match.simpleleague}}
+                                                    {{match.matchtime.substr(5)}}
+                                                </div>
                                             </div>
-                                            <div class="hotc-info-time">
-                                                {{match.order}} {{match.simpleleague}}
-                                                {{match.matchtime.substr(5)}}
-                                            </div>
-                                        </div>
 
-                                        <!--未中 加上statue-hit-no-->
-                                        <div class="hotc-right" :class="{'statue-hit-no': match.cell.on_target === '0'}">
-                                            <div class="left-statue">未<br/>中</div>
-                                            <div class="right-predict">
-                                                <p>{{match.cell.probability}}<em>%</em></p>
-                                                <p>{{match.cell.predict_result|predictResult}}
-                                                    {{match.cell.predict_reback}}</p>
+                                            <!--未中 加上statue-hit-no-->
+                                            <div class="hotc-right" :class="{'statue-hit-no': match.cell.on_target === '0'}">
+                                                <div class="left-statue">未<br/>中</div>
+                                                <div class="right-predict">
+                                                    <p>{{match.cell.probability}}<em>%</em></p>
+                                                    <p>{{match.cell.predict_result|predictResult}}
+                                                        {{match.cell.predict_reback}}</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                </template>
-                            </ul>
+                                        </li>
+                                    </template>
+                                </ul>
 
                             <p class="txt-predict">
                                 赛前随赔率变化，预测概率也将有所变化。
@@ -106,10 +107,8 @@
 
                             </p>
                         </template>
-                        <prompt v-else type="no-data" tip0="暂无数据"/>
                     </template>
-                    <prompt v-else type="loading" tip0="正在加载中..."/>
-
+                    <prompt v-else type="no-data" tip0="暂无数据"/>
 
                 </section>
 
@@ -139,7 +138,7 @@
         },
         computed: {
             cur () {
-                return this.$store.state.bfyc.predict.curr_expect
+                return this.$store.state.bfyc.currExpect
             },
             predict () {
                 return this.$store.state.bfyc.predict
@@ -148,10 +147,10 @@
                 return this.predict && this.predict.good_news
             },
             expect_list () {
-                return this.predict && this.predict.expect_list
+                return this.$store.state.bfyc.expectList
             },
-            curr_expect () {
-                return this.predict && this.predict.curr_expect
+            currExpect () {
+                return this.$store.state.bfyc.currExpect
             },
             matches () {
                 return this.predict && this.predict.matches
@@ -174,7 +173,7 @@
             }
         },
         mounted () {
-            this.$store.dispatch(aTypes.getPredict)
+            this.fetchData()
         },
         methods: {
             changeExpect ({expect}) {
@@ -183,6 +182,11 @@
             },
             goAnalysis ({fid}) {
                 this.$router.push(`/detail/football/${fid}/predict`)
+            },
+            async fetchData() {
+                await this.$store.dispatch(aTypes.getPredict)
+                this.$store.commit(mTypes.setCurrExpect, this.$store.state.bfyc.predict.curr_expect)
+                this.$store.commit(mTypes.setExpectList, this.$store.state.bfyc.predict.expect_list)
             }
         },
         filters: {
