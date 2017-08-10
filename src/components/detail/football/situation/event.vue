@@ -450,5 +450,6 @@
     [data-dpr="3"] .d-zt {
         font-size: 39px
     }
+    .red-card,.red-yellow-card{background:#ff3d10}
 
 </style>
