@@ -63,21 +63,13 @@ export default {
                     indicator: indicatorArr,
                     center: ['50%', '50%'],
                     name: {
-<<<<<<< HEAD
-                        textStyle: {
-                            color: 'rgb(120, 120, 120)',
-                            fontSize: '50',
-                            fontFamily: 'Microsoft YaHei'
-                        }
-                    }
-=======
-                       textStyle: {
+                textStyle: {
                            color:'rgb(120, 120, 120)',
                            fontSize: fontSize,
                            fontFamily: 'Microsoft YaHei'
                        }
                    },
->>>>>>> team
+
                 },
                 series: [{
                     type: 'radar',
