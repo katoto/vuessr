@@ -111,21 +111,6 @@
 </script>
 
 <style scoped>
-    body,html{height:100%;-webkit-user-select:none;user-select:none;outline:0;-webkit-tap-highlight-color:rgba(0,0,0,0);-moz-tap-highlight-color:rgba(0,0,0,0);-ms-tap-highlight-color:rgba(0,0,0,0);tap-highlight-color:rgba(0,0,0,0)}
-    body,dd,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,hr,input,label,li,ol,p,ul{margin:0;padding:0;font-weight:400}
-    body{font-size:15px;-webkit-text-size-adjust:none;font-family:Microsoft YaHei,Arial; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
-    a{text-decoration:none}
-    em,i,s{font-style:normal}
-    li,ul{list-style:none}
-    table{border-collapse:collapse}
-    td{empty-cells:show;color:#333; padding:0;}
-    button{border:0}
-    cite,i{font-style:normal}
-    .l-flex-column{ display:-webkit-box; -webkit-box-orient: vertical; display:flex; flex-flow: column;height: 100% }
-    .l-flex-1{ -webkit-box-flex: 1; flex:1;overflow: hidden}
-    .l-scroll-y{overflow: auto;-webkit-overflow-scrolling:touch;}
-    .l-full{ position: absolute; top:0; left:0; right:0; bottom:0 }
-    .l-relative{ position:relative;}
     .pl-head-box{height:1.12rem}
     .pl-head{background:#f63f3f;height:1.12rem;line-height:1.12rem;width:100%;font-size:.48rem;color:#fff;text-align:center;z-index:2}
     .pl-back:before{top:.266667rem}
@@ -146,8 +131,7 @@
     .match-list-detail .hot-match-item{ padding-left: 0.96rem; border-top: none; height: 1.066667rem; line-height: 1.066667rem}
     .match-list-detail .hot-match-item:last-child{border-bottom: 0;}
     .match-list-tab .match-tab-itm{ width: 20%;}
-    .icon-open{ width: 0.266667rem; height:0.16rem; display: inline-block;
-        background: url('~assets/images/match/click-to-open.png'); position: absolute; right: 0.533333rem;
-        top: 50%; margin-top: -0.13333rem; background-size: cover}
+    .icon-open{ width: 0.266667rem; height:0.16rem; display: inline-block; background: url('~assets/images/match/click-to-open.png'); position: absolute; right: 0.533333rem; top: 50%; margin-top: -0.13333rem; background-size: cover}
     .icon-close{background: url('~assets/images/match/click-to-close.png') no-repeat;background-size: cover }
+    .hide{ display: none;}
 </style>

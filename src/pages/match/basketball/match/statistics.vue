@@ -37,10 +37,7 @@
                 </ul>
             </div>
             <div class="plright l-flex-l l-flex-column" v-if="!statisList || !statisList.length" style="flex:1">
-                <div class="ui-empty">
-                    <img class="w240" src="http://tccache.500.com/mobile/widget/empty/images/12.png">
-                    <div class="ui-empty-gfont">暂无数据</div>
-                </div>
+               <view-empty></view-empty>
             </div>
 
         </div>
@@ -49,7 +46,11 @@
 
 <script>
     import {aTypes} from '~store/center'
+    import viewEmpty from '~components/match/view_empty.vue'
     export default{
+        components:{
+            viewEmpty
+        },
         data () {
             return {
                 tab: 'score',
@@ -97,15 +98,22 @@
 </script>
 
 <style scoped>
-    .ui-empty{padding:2.72rem 0;text-align:center;}
-    .ui-empty img{margin-bottom:0.933333rem;}
-    .ui-empty .w240{width:3.2rem;}
-    .ui-empty-gfont{font-size:0.4rem;color:#b3b3b3;margin-bottom:0.773333rem;padding:0 0.5rem;}
-
-    ul.average-list.l-srcoll-y{
-        overflow: auto;
-    }
     .plright.l-flex-l.l-flex-column {
         flex: 1;
     }
+    .count-main{ background: #fff; width: 100%; flex-direction:row; display: flex;display:-moz-box;display:-webkit-box;display:box;}
+    .average-tit{ height: 1.226667rem; line-height: 1.226667rem; text-align: right; color: #999;font-size: 0.266667rem; border-bottom:1px solid #f4f4f4;padding:0 0.53333rem;}
+    .average-list{padding:0 0.53333rem;}
+    .average-tit em{ float: left; margin-left: 1.2rem}
+    .average-item{height:1.146667rem; line-height:1.146667rem; font-size: 0.346667rem; color: #333333;  border-bottom:1px solid #f4f4f4;display: inline-block;width: 100%; }
+    .aver-team{ float: left;}
+    .aver-team-img{ height: 1.226667rem;width: 0.506667rem; position: relative;}
+    .aver-team-img img{max-width:0.506667rem; max-height:0.506667rem; position: absolute; top: 50%;margin-top: -0.18rem;}
+    .aver-turn{ font-size:0.293333rem; color: #999; margin-right:0.133333rem;display: inline-block;width: 0.346667rem;  text-align: center;}
+    .aver-team-name{ margin-left:0.64rem;}
+    .aver-score{ float: right;}
+    .plleft{width:1.96rem;font-size:.293333rem;color:#333;background:#efeff4;  box-shadow:-1px 1px 0 #e2e2e2 inset;}
+    .plleft-list li{line-height:1.226667rem;color:#787878;height:1.226667rem;text-align:center;background:#efeff4;border-right:1px solid #e2e2e2;overflow:hidden}
+    .plleft-list li.cur{background:#fff;position:relative;border-right:1px solid #fff;color: #333;}
+    .plright{width: 6.933333rem;background: #fff;  }
 </style>

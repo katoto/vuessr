@@ -50,20 +50,6 @@
 </script>
 
 <style scoped>
-    body,html{height:100%;-webkit-user-select:none;user-select:none;outline:0;-webkit-tap-highlight-color:rgba(0,0,0,0);-moz-tap-highlight-color:rgba(0,0,0,0);-ms-tap-highlight-color:rgba(0,0,0,0);tap-highlight-color:rgba(0,0,0,0)}
-    body,dd,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,hr,input,label,li,ol,p,ul{margin:0;padding:0;font-weight:400}
-    body{font-size:15px;-webkit-text-size-adjust:none;font-family:Microsoft YaHei,Arial; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
-    a{text-decoration:none}
-    em,i,s{font-style:normal}
-    li,ul{list-style:none}
-    table{border-collapse:collapse}
-    td{empty-cells:show;color:#333; padding:0;}
-    button{border:0}
-    cite,i{font-style:normal}
-    .l-flex-1{ -webkit-box-flex: 1; flex:1;overflow: hidden}
-    .l-scroll-y{overflow: auto;-webkit-overflow-scrolling:touch;}
-    .l-full{ position: absolute; top:0; left:0; right:0; bottom:0 }
-    .l-relative{ position:relative;}
     .hot-match-tit{ height: 0.8rem; line-height:0.8rem;font-size: 0.373333rem; color: #666666; padding-left: 0.533333rem;}
     .hot-match-list{ background: #fff; border-top: 1px solid #f1f1f1;width: 100%; color: #333; font-size: 0.373333rem;}
     .hot-match-item{ height: auto; line-height:1.33333rem;border-bottom: 1px solid #f1f1f1;  position:relative; }
