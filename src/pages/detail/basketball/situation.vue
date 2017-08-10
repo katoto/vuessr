@@ -21,8 +21,9 @@
 
         <div class="ui-empty" v-if="!news &&(match.status == StatusCode.NOT_STARTED || match.status == StatusCode.CHANGED || match.status == StatusCode.REMOVED || match.status == StatusCode.CANCELED || match.status == StatusCode.PAUSED)">
             <img src="~assets/style/images/detail/07.png" class="w240">
-            <div class="ui-empty-dfont">比赛时间 {{match.matchtime.substr(5, 11)}}</div>
-            <div class="ui-empty-gfont">先去分析栏目看看吧</div>
+            <div class="ui-empty-dfont" v-if="match.status == StatusCode.NOT_STARTED">比赛时间 {{match.matchtime.substr(5, 11)}}</div>
+            <div class="ui-empty-dfont" v-else>{{StatusDesc[match.status]}}</div>
+            <div class="ui-empty-gfont" v-if="match.status == StatusCode.NOT_STARTED">先去分析栏目看看吧</div>
         </div>
         <!--<widget-prompt-view src="widget/prompt.html"-->
         <!--drunk-if="hasNews===false&&(match.status == StatusCode.NOT_STARTED || match.status == StatusCode.CHANGED || match.status == StatusCode.REMOVED || match.status == StatusCode.CANCELED || match.status == StatusCode.PAUSED)"-->
@@ -36,7 +37,7 @@
     </div>
 </template>
 <script>
-    import {BasketballStatusCode as StatusCode} from '~common/constants'
+    import {BasketballStatusCode as StatusCode, BasketballStatusDesc as StatusDesc} from '~common/constants'
     import {mTypes, aTypes} from '~store/lqdetail'
     import meSports from '~components/detail/meSports.vue'
     import noData from '~components/no_data.vue'
@@ -52,7 +53,8 @@
         },
         data () {
             return {
-                StatusCode
+                StatusCode,
+                StatusDesc
             }
         },
         computed: {

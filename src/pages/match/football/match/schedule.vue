@@ -180,8 +180,8 @@
                     switchid: this.switchId,
                     roundtype: this.typeId
                 })
-//                console.log(this.switchId)
-//                console.log(this.typeId)
+            //                console.log(this.switchId)
+            //                console.log(this.typeId)
             },
             goForward () {
                 this.$set(this.selected, this.currSelect, false)

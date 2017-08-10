@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="rangfenpan">
         <div class="pl-box-hd">
             <table cellspacing="0" cellpadding="0" border="0" class="pl-table" width="100%">
                 <tbody><tr>
@@ -55,18 +55,18 @@
                 </tbody>
             </table>
         </div>
-        <div class="sk-btips" v-if="rangfenpan && rangfenpan.odds">
-            共{{rangfenpan.all_num || 0}}家公司为你提供数据，其中主流公司{{rangfenpan.main_num || 0}}家
-            <br>
-            <span>500彩票网提示：以上数据仅供参考，请以官方公布的数据为准</span>
-        </div>
+
+        <odds-skbtips v-if="rangfenpan.odds && rangfenpan.odds.length" :all="rangfenpan.all_num||0" :main="rangfenpan.main_num || 0"></odds-skbtips>
     </div>
+    <item-loader v-else></item-loader>
 </template>
 
 <script>
     import {aTypes, mTypes} from '~store/lqdetail'
     import noData from '~components/no_data.vue'
     import oddsInfo from '~components/detail/basketball/odds/oddsInfo.vue'
+    import oddsSkbtips from '~components/detail/oddsSkbtips.vue'
+    import itemLoader from '~components/detail/itemLoader.vue'
     export default{
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getOddsHandicap, {
@@ -74,7 +74,7 @@
             })
         },
         components: {
-            noData
+            noData, itemLoader, oddsSkbtips
         },
         computed: {
             refreshTime () { // 用户点击刷新按钮时间戳
@@ -249,26 +249,5 @@
         display: block;
         color: #242c35
     }
-    .sk-btips {
-        color: #999;
-        text-align: center;
-        height: 1rem;
-        padding: .533333rem 0;
-        background: #efefef;
-        line-height: .506667rem
-    }
-
-    [data-dpr="1"] .sk-btips {
-        font-size: 11px
-    }
-
-    [data-dpr="2"] .sk-btips {
-        font-size: 22px
-    }
-
-    [data-dpr="3"] .sk-btips {
-        font-size: 33px
-    }
-
 
 </style>

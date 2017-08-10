@@ -663,5 +663,6 @@
 
     .feed-back{width:100%;height:1.733333rem;background:#fff;border-top:1px solid #eaeaea}
     .feed-box{color:#787878;line-height:1.733333rem;text-align:center}
-
+    .box-arrow{height:1.066667rem;position:relative}
+    .box-arrow:active{background:#f4f4f4}
 </style>

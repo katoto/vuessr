@@ -11,7 +11,7 @@
             </iframe>
         </div>
 
-        <template v-if="!feature.a[match.status]">
+        <template v-if="!feature.a[match.status] && match.status !== ''">
 
             <event :eventlist="situation.eventlist" :status="match.status"></event>
             <statistic :statistic="situation.statistic"></statistic>
@@ -22,10 +22,11 @@
         </template>
         <template v-else>
             <me-sports v-if="situation.news && situation.news.length" :news="situation.news"  :init-size="match.status == StatusCode.NOT_STARTED?5:3"></me-sports>
-            <div class="ui-empty" v-else>
+            <div class="ui-empty" v-if="(!situation.news || !situation.news.length) && !match.video">
                 <img src="~assets/style/images/detail/07.png" class="w240">
-                <div class="ui-empty-dfont">比赛时间 {{match.matchtime.substr(5, 11)}}</div>
-                <div class="ui-empty-gfont">先去分析栏目看看吧</div>
+                <div class="ui-empty-dfont" v-if="match.status === StatusCode.NOT_STARTED || match.status === ''">比赛时间 {{match.matchtime.substr(5, 11)}}</div>
+                <div class="ui-empty-dfont" v-else>{{StatusDesc[match.status === '' ? '0' : match.status]}}</div>
+                <div class="ui-empty-gfont" v-if="match.status === StatusCode.NOT_STARTED || match.status === ''">先去分析栏目看看吧</div>
             </div>
         </template>
 
@@ -36,7 +37,7 @@
 
 <script scoped>
     import {mTypes, aTypes} from '~store/zqdetail'
-    import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
+    import {FootballStatusCode as StatusCode, pushEvents, FootballStatusDesc as StatusDesc} from '~common/constants'
     import event from '~components/detail/football/situation/event.vue'
     import meSports from '~components/detail/meSports.vue'
     import statistic from '~components/detail/football/situation/statistic.vue'
@@ -59,7 +60,8 @@
                         [StatusCode.REMOVED]: true
                     }
                 },
-                StatusCode
+                StatusCode,
+                StatusDesc
             }
         },
         components: {
