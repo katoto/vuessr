@@ -44,6 +44,9 @@
             fetchData () {
                 this.$store.dispatch(aTypes.getBasketballMatchRank, {seasonid: this.$route.params.seasonid})
             }
+        },
+        mounted(){
+            this.fetchData()
         }
     }
 </script>

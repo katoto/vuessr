@@ -89,10 +89,6 @@
                 case 'away': { if (!this.awayData) return this.getAway() }
                 }
             },
-            goTeam (idx) {
-                location.href = '#/football/team/' + idx
-            // console.log(location.href);
-            }
         }
     }
 </script>

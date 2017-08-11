@@ -21,7 +21,7 @@
                             <th>净</th>
                             <th>积分</th>
                         </tr>
-                        <tr v-for="lst in allData.values[idx]" @click="goTeam">
+                        <tr v-for="lst in allData.values[idx]" v-tap="{methods:goTeam,teamid:lst.teamid}">
                             <td>
                                 <em class="cate-cont">
                                     <i class="game-category " v-style="lst.color">{{lst.order}}</i>
@@ -56,7 +56,7 @@
                             <th>净</th>
                             <th>积分</th>
                         </tr>
-                        <tr  v-for="item in allData.values" @click="goTeam(item.teamid)">
+                        <tr  v-for="item in allData.values" v-tap="{methods:goTeam,teamid:item.teamid}">
                             <td>
                                 <em class="cate-cont"><i class="game-category" v-style="item.color">{{item.order}}</i></em>
                                 <em class="gamer-cont">
@@ -98,7 +98,12 @@
         components: {
             viewEmpty
         },
-        props: ['allData']
+        props: ['allData'],
+        methods:{
+            goTeam ({teamid}) {
+                this.$router.push(`/team/football/${teamid}/sc/`)
+            }
+        }
     }
 </script>
 
