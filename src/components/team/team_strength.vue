@@ -36,10 +36,9 @@ export default {
     mounted() {
         let myChart = echarts.init(document.getElementById('score-cont'))
         myChart.setOption(this.getOptions())
-        let self = this
-        window.onresize = function () {
+        window.onresize = () => {
             myChart.resize();
-            myChart.setOption(self.getOptions())
+            myChart.setOption(this.getOptions())
         };
     },
     methods: {
