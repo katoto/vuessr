@@ -53,7 +53,7 @@
         top: 0
 
     }
-    .in-tab{padding-top:.146667rem;height:.933333rem;background:url(/mobile/touch/images/bifen/index-header.jpg) no-repeat 0 bottom;background-size:100%;position:fixed;left:0;top:1.16rem;z-index:9;-webkit-transform:translateZ(0);transform:translateZ(0)}
+    .in-tab{padding-top:.146667rem;height:.933333rem;background:url(/mobile/touch/images/bifen/index-header.jpg) no-repeat 0 bottom;background-size:100%;left:0;top:1.16rem;z-index:9;-webkit-transform:translateZ(0);transform:translateZ(0)}
     .in-tab a{-webkit-box-flex:1;box-flex:1;-ms-flex:1;flex:1;display:block;width:.2rem;color:rgba(255,255,255,.8);position:relative;text-align:center;height:.933333rem;line-height:.933333rem}
     [data-dpr="1"] .in-tab a{font-size:14.5px}
     [data-dpr="2"] .in-tab a{font-size:29px}
@@ -67,7 +67,7 @@
     .tab-arrow{border:.133333rem solid;border-color:rgba(255,255,255,0) rgba(255,255,255,0) rgba(255,255,255,1) rgba(255,255,255,0);position:absolute;bottom:-.013333rem;left:49%;display:none}
     .in-tab a.cur .tab-arrow{display:block}
 
-    .ui-navbox-weebox{position:fixed;left:0;width:100%;top:2.18rem;z-index:10}
+    .ui-navbox-weebox{left:0;width:100%;top:2.18rem;z-index:10}
     .ui-navbox-item{background:#fff;position:relative;z-index:2}
     .ui-navbox-item ul{padding:0 .373333rem .373333rem .453333rem;overflow:hidden}
     [data-dpr="1"] .ui-navbox-item ul{font-size:15px}
@@ -80,7 +80,7 @@
     .ui-navbox-item li:nth-child(3n-2) span{margin:.266667rem .133333rem 0 0}
     .ui-navbox-item li:nth-child(3n-1) span{margin:.266667rem .133333rem 0}
     .ui-navbox-item li:nth-child(3n) span{margin:.266667rem 0 0 .133333rem}
-    .qi-list-box{height:.933333rem;width:100%;position:fixed;left:0;top:2.24rem;z-index:9;-webkit-transform:translateZ(0);transform:translateZ(0)}
+    .qi-list-box{height:.933333rem;width:100%;left:0;top:2.24rem;z-index:9;-webkit-transform:translateZ(0);transform:translateZ(0)}
     .qi-list{width:100%;line-height:.933333rem;height:.933333rem;background:#fff;text-align:center;border-bottom:1px solid #e2e2e2}
     [data-dpr="1"] .qi-list{font-size:13.5px}
     [data-dpr="2"] .qi-list{font-size:27px}
@@ -91,7 +91,7 @@
     .qi-list li:active{color:#000}
     .qi-list li.qiqh{-webkit-box-flex:2;box-flex:2;-ms-flex:2;flex:2}
     .qi-arrow{border-style:solid;border-color:#999 #fff #fff #fff;border-width:.133333rem .106667rem;display:inline-block;margin-left:.05rem;vertical-align:-.053333rem;content:''}
-    .qi-pop-box{top:3.173333rem;z-index:10;position:fixed;left:0;width:100%}
+    .qi-pop-box{top:3.173333rem;z-index:10;left:0;width:100%}
     .qi-list li.qi-gray{color:#ccc}
     .gz-tips{text-align:center;color:#999;line-height:.933333rem;height:.933333rem;background:#fff;width:100%;border-bottom:1px solid #e2e2e2}
     [data-dpr="1"] .gz-tips{font-size:11.5px}

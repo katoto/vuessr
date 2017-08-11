@@ -12,7 +12,7 @@
                 </li>
             </ul>
             <div class="headernavR">
-                <a href="/center/football" class="league-icon"></a>
+                <a href="/center/football" class="">赛事中心</a>
                 <a class="sx-icon" v-tap="{methods: triggerFilter}"></a>
             </div>
         </div>
@@ -53,7 +53,7 @@
         -webkit-transform: translate(0, 100%);
         transform: translate(0, 100%);
     }
-    .headernav{width:100%;height:1.173333rem;line-height:1.173333rem;position:fixed;left:0;top:0;z-index:9;text-align:center;background:url(/mobile/touch/images/bifen/index-header.jpg);background-size:100%}
+    .headernav{width:100%;height:1.173333rem;line-height:1.173333rem;left:0;top:0;z-index:9;text-align:center;background:url(/mobile/touch/images/bifen/index-header.jpg);background-size:100%}
     .headernavL{position:absolute;left:0}
     .headernavR{position:absolute;right:0;top:0}
     .guanzhu,.gz-fly,.gz-tips-icon,.home-icon:before,.league-icon:before,.qi-arrow,.sx-icon:before,.toggle-arrow{background:url(/mobile/touch/images/bifen/s-icon.png) no-repeat;background-size:.533333rem 3.6rem}
