@@ -30,10 +30,11 @@ const initState = {
         js: {
             strength: null,
             trend: {
-                1: null,
-                2: null
+                '1': null,
+                '2': null
             },
-            stats: null
+            stats: null,
+            vtype: '1'
         },
         zr: {
             members: null,
@@ -353,6 +354,9 @@ const mutationsInfo = mapMutations({
     },
     changeConcernStatus (state, status) {
         state.baseInfo.isfocus = status
+    },
+    setVtype (state, vtype) {
+        state.analysis.js.vtype = vtype
     },
     reset (state) {
         const iState = JSON.parse(JSON.stringify(initState))

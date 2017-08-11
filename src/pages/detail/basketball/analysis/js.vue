@@ -1,8 +1,8 @@
 <template>
-    <div class="">
+    <div>
         <strength :baseInfo='baseInfo' :strength='strength' :stats='stats' v-if="strength"></strength>
-        <trend :baseInfo='baseInfo' :trends='trend' v-if="trend"></trend>
-        <item-loader v-if="!(strength && trend)"></item-loader>
+        <trend :baseInfo='baseInfo' :trends='trend' :vtype="vtype" v-if="trend"></trend>
+        <item-loader v-if="!loaded"></item-loader>
     </div>
 </template>
 
@@ -41,8 +41,11 @@ export default {
         stats () {
             return this.analysis.js.stats
         },
+        vtype() {
+            return this.analysis.js.vtype
+        },
         trend () {
-            return this.analysis.js.trend['1']
+            return this.analysis.js.trend[this.vtype]
         }
     },
     methods: {
