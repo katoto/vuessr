@@ -131,7 +131,7 @@
     </transition>
 
     <div v-if="~$route.path.indexOf('/comment') && showEditor">
-        <editor :reply-name="replyName" type="1" @send="onSend" @close="closeEditor"></editor>
+        <editor :reply-name="replyName" type="2" @send="onSend" @close="closeEditor"></editor>
     </div>
 
 
