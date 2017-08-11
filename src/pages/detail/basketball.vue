@@ -317,7 +317,7 @@
             goTeam ({teamId}) {
                 this.$router.push(`/team/basketball/${teamId}/curr/sc`)
             },
-            goLeague({seasonid}){
+            goLeague ({seasonid}) {
                 this.$router.push(`/center/basketballmatch/${seasonid}/rank`)
             }
         },

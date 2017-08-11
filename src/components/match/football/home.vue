@@ -60,7 +60,7 @@
             viewEmpty
         },
         props: ['homeData'],
-        methods:{
+        methods: {
             goTeam ({teamid}) {
                 console.log('1111111111')
                 console.log(teamid)

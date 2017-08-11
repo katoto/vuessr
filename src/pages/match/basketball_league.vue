@@ -33,7 +33,6 @@
 
 
 <script>
-    import {aTypes} from '~store/center'
     export default{
         data () {
             return {

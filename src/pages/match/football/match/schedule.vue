@@ -208,7 +208,7 @@
                 this.isHide = false
                 this.isShow = true
             },
-            goDetail ({fid}){
+            goDetail ({fid}) {
                 this.$router.push(`/detail/football/${fid}/analysis/zj`)
             }
         }

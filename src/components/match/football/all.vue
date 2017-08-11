@@ -99,7 +99,7 @@
             viewEmpty
         },
         props: ['allData'],
-        methods:{
+        methods: {
             goTeam ({teamid}) {
                 this.$router.push(`/team/football/${teamid}/sc/`)
             }
