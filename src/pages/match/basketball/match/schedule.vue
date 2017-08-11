@@ -42,7 +42,7 @@
                 <div class="schedule-wrap" :class="{'hide':isShow}" v-if="basketSchedule">
                     <section class="schedule-cont home-sc-cont l-scroll-y">
                         <ul class="schedule-list" >
-                            <li class="schedule-itm  l-flex-row" v-for="list in basketSchedule">
+                            <li class="schedule-itm  l-flex-row" v-for="list in basketSchedule" v-tap="{methods:goDetail,fid:list.fid}">
                                 <!--左边的参赛时间-->
                                 <div class="when-game">
                                     <em class="game-time">{{list.matchtime.substr(5, 11)}}</em>
@@ -263,8 +263,10 @@
             goSelect () {
                 this.isHide = false
                 this.isShow = true
+            },
+            goDetail ({fid}){
+                this.$router.push(`/detail/basketball/${fid}/analysis/zj`)
             }
-
         }
     }
 </script>

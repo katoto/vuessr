@@ -18,7 +18,7 @@
                 <th>胜差</th>
                 <th align="right">状态</th>
             </tr>
-            <tr v-for="list in rankList.values.east">
+            <tr v-for="list in rankList.values.east" v-tap="{methods:goTeam,teamid:list.teamid}">
                 <td>
                     <em class="cate-cont"><i class="game-category ">{{list.order}}</i></em>
                     <em class="gamer-cont">
@@ -54,7 +54,7 @@
                 <th>胜差</th>
                 <th align="right">状态</th>
             </tr>
-            <tr v-for="list in rankList.values.west">
+            <tr v-for="list in rankList.values.west" v-tap="{methods:goTeam,teamid:list.teamid}">
                 <td>
                     <em class="cate-cont"><i class="game-category ">{{list.order}}</i></em>
                     <em class="gamer-cont">
@@ -80,6 +80,11 @@
         props: ['rankList'],
         directives: {
             logo
+        },
+        methods:{
+            goTeam ({teamid}) {
+                this.$router.push(`/team/basketball/${teamid}/curr/gl/`)
+            }
         }
     }
 </script>

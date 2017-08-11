@@ -266,6 +266,7 @@
                             </div>
                         </td>
                         <td onclick="_hmt.push(['_trackEvent','zq_detail','click','analysis_zj_ls2'])"
+                            data-p2="zq_detail"  data-p4="analysis_zj_ls2"
                             v-tap="{methods:toggleFightingInfoResultType}">
                             <div v-if="fightingInfoResultType == 'result1'"
                                  :class="{'red-k': info.result1 == '胜', 'blue-k': info.result1 == '负', 'green-k': info.result1 == '平', 'gray-k': !info.result1}">

@@ -16,7 +16,7 @@
                 <th>胜差</th>
                 <th align="right">状态</th>
             </tr>
-            <tr v-for="item in rankList.values">
+            <tr v-for="item in rankList.values" v-tap="{methods:goTeam,teamid:item.teamid}">
                 <td>
                     <em class="cate-cont"><i class="game-category ">{{item.order}}</i></em>
                     <em class="gamer-cont">
@@ -42,6 +42,11 @@
         props: ['rankList'],
         directives: {
             logo
+        },
+        methods:{
+            goTeam ({teamid}) {
+                this.$router.push(`/team/basketball/${teamid}/curr/gl/`)
+            }
         }
     }
 </script>

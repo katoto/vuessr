@@ -19,7 +19,7 @@
                         <th>净</th>
                         <th>积分</th>
                     </tr>
-                    <tr  v-for="item in homeData.values" @click="goTeam(item.teamid)">
+                    <tr  v-for="item in homeData.values" v-tap="{methods:goTeam,teamid:item.teamid}">
                         <td>
                             <em class="cate-cont"><i class="game-category" v-style="item.color">{{item.order}}</i></em>
                             <em class="gamer-cont">
@@ -59,7 +59,14 @@
         components: {
             viewEmpty
         },
-        props: ['homeData']
+        props: ['homeData'],
+        methods:{
+            goTeam ({teamid}) {
+                console.log('1111111111')
+                console.log(teamid)
+                this.$router.push(`/team/football/${teamid}/sc/`)
+            }
+        }
     }
 </script>
 
