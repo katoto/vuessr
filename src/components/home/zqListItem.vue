@@ -110,6 +110,77 @@
         </div>
     </li>
 </template>
+<style scoped>
+    .list-item{text-align:center;padding:.5rem .266667rem .2rem;border-bottom:1px solid #e2e2e2;height:1.88rem;position:relative}
+    .list-item:after{content:'';clear:both;display:block;height:0;visibility:hidden}
+    .list-item:active{-webkit-tap-highlight-color:rgba(244,244,244,.6)}
+    .list-tit{height:.5333rem;line-height:.5333rem;color:#ccc;display:table;width:100%}
+    .list-tit .list-day,.list-tit .list-state,.list-tit .list-time{display:table-cell}
+    .list-tit .list-day{text-align:left;width:3.4rem}
+    .list-tit .list-time{text-align:right;width:3.4rem}
+    .list-tit .list-state .dian{animation:dianstyle 1s ease-out 0s infinite alternate;-webkit-animation:dianstyle 1s ease-out 0s infinite alternate}
+    @keyframes dianstyle{0%{opacity:1}
+        100%{opacity:0}
+    }
+    @-webkit-keyframes dianstyle{0%{opacity:1}
+        100%{opacity:0}
+    }
+    .list-team{height:1rem;line-height:1rem;display:-webkit-box;display:-ms-flexbox;display:flex;width:100%;overflow:hidden}
+    .list-team .team-l{display:inline-block;text-align:left;width:3.4rem;font-size:.4rem}
+    .list-team .team-site{position:relative;top:-.08rem;margin-left:.08rem}
+    .list-team .team-r{display:inline-block;text-align:right;width:3.4rem;vertical-align:middle;font-size:.4rem}
+    .list-team .team-c{-webkit-box-flex:1;-ms-flex:1;flex:1;font-size:.6667rem}
+    .list-team .green{color:#309b56}
+    .list-team .score{width:100%;display:-webkit-box;display:-ms-flexbox;display:flex;height:.8rem;line-height:.8rem;overflow:hidden;padding-top:.1rem}
+    .list-team .score .score-itm{-webkit-box-flex:1;-ms-flex:1;flex:1;display:block;width:100%;text-align:right}
+    .list-team .score .score-itm:last-child{text-align:left}
+    .list-team .score .score-itm i{display:block;text-align:right;white-space:nowrap}
+    .list-team .score .score-itm:last-child i{text-align:left}
+    .list-team .score .score-c{display:inline-block;width:.5333rem;text-align:center;margin-top:-.08rem}
+    .list-team .score .itmMove{-webkit-animation:itmMove .8s ease-in-out forwards;animation:itmMove .8s ease-in-out forwards}
+    .list-team .score .itmMove i:last-child{-webkit-animation:itmMove2 2s ease-in-out forwards;animation:itmMove2 2s ease-in-out forwards}
+    @-webkit-keyframes itmMove{0%{-webkit-transform:translate(0,0);transform:translate(0,0)}
+        100%{-webkit-transform:translate(0,-100%);transform:translate(0,-100%)}
+    }
+    @keyframes itmMove{0%{-webkit-transform:translate(0,0);transform:translate(0,0)}
+        100%{-webkit-transform:translate(0,-100%);transform:translate(0,-100%)}
+    }
+    @-webkit-keyframes itmMove2{0%{color:#309b56}
+        30%{color:#27e1e1}
+        50%{color:#27e1e1}
+        80%{color:#27e1e1}
+        100%{color:#309b56}
+    }
+    @keyframes itmMove2{0%{color:#309b56}
+        30%{color:#27e1e1}
+        50%{color:#27e1e1}
+        80%{color:#27e1e1}
+        100%{color:#309b56}
+    }
+    .list-team .score.vs-zq-active .score-itm{-webkit-animation:changeScoreT 1s ease-in-out forwards;animation:changeScoreT 1s ease-in-out forwards}
+    .list-team .score.vs-zq-active .score-item i:last-child{-webkit-animation:changeScoreZQ 3s ease-in-out forwards;animation:changeScoreZQ 3s ease-in-out forwards}
+    @-webkit-keyframes changeScoreT{0%{-webkit-transform:translate(0,0);transform:translate(0,0)}
+        100%{-webkit-transform:translate(0,-100%);transform:translate(0,-100%)}
+    }
+    @keyframes changeScoreT{0%{-webkit-transform:translate(0,0);transform:translate(0,0)}
+        100%{-webkit-transform:translate(0,-100%);transform:translate(0,-100%)}
+    }
+    @-webkit-keyframes changeScoreZQ{0%{color:#309b56}
+        10%{color:#27e1e1}
+        90%{color:#27e1e1}
+        100%{color:#309b56}
+    }
+    @keyframes changeScoreZQ{0%{color:#309b56}
+        10%{color:#27e1e1}
+        90%{color:#27e1e1}
+        100%{color:#309b56}
+    }
+    .list-team .team img{display:inline-block;vertical-align:middle;margin-top:-.08rem;width:.64rem;height:.64rem}
+    .list-team .team-l img{margin-right:.16rem}
+    .list-team .team-r img{margin-left:.16rem}
+    .list-team .team .red-pai{display:inline-block;vertical-align:middle;background:#f63f3f;padding:0 .053333rem;height:.45rem;line-height:.45rem;color:#fff;margin:-.08rem .08rem 0}
+    .list-info{color:#999}
+</style>
 <script>
     import {FootballStatusCode as StatusCode} from '~common/constants'
     import scrollText from '~directives/scroll_text'
