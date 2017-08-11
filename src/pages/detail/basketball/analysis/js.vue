@@ -41,7 +41,7 @@ export default {
         stats () {
             return this.analysis.js.stats
         },
-        vtype() {
+        vtype () {
             return this.analysis.js.vtype
         },
         trend () {
