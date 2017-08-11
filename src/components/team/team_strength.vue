@@ -9,7 +9,8 @@
 </template>
 
 <script>
-import echarts from 'echarts'
+import echarts from 'echarts/lib/echarts'
+import 'echarts/lib/chart/radar'
 export default {
     props: {
         strength: {
@@ -23,7 +24,6 @@ export default {
     },
     data () {
         return {
-            echarts,
             strengthType: {
                 shoot: '投篮命中率',
                 attack: '得分',
