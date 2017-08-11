@@ -88,7 +88,7 @@
                 case 'home': { if (!this.homeData) return this.getHome(); break }
                 case 'away': { if (!this.awayData) return this.getAway() }
                 }
-            },
+            }
         }
     }
 </script>

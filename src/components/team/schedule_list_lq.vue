@@ -31,7 +31,7 @@ export default {
                 return !(match.homescore && match.awayscore)
             })
         },
-        firstNoStartId() {
+        firstNoStartId () {
             return this.noStartStatus.indexOf(true)
         },
         scoreText () {
@@ -51,13 +51,13 @@ export default {
                 return 'vs'
             }
         },
-        goNoStartMatch() {
+        goNoStartMatch () {
             var noStartDom = this.$el.querySelector('#match' + this.firstNoStartId)
-            if(!noStartDom) return
+            if (!noStartDom) return
             this.$el.parentElement.scrollTop = noStartDom.offsetTop
         }
     },
-    mounted() {
+    mounted () {
         this.goNoStartMatch()
     }
 }

@@ -43,7 +43,7 @@
         directives: {
             logo
         },
-        methods:{
+        methods: {
             goTeam ({teamid}) {
                 this.$router.push(`/team/basketball/${teamid}/curr/gl/`)
             }
