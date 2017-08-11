@@ -44,7 +44,7 @@
 
         <div class="ui-empty-font" v-if="end&&commentList.length===0">暂无评论</div>
 
-        <div class="item-loader" v-if="!(vote && commentList)">
+        <div class="item-loader" v-if="$store.state.refreshing">
             <div class="la-ball-pulse la-2x">
                 <span></span>
                 <span></span>
@@ -82,6 +82,9 @@ export default {
         },
         reachEndTime () {
             return this.$store.state.lqdetail.reachEndTime
+        },
+        replyTime () {           // 发送评论后会变化，然后自动刷新页面
+            return this.comment.replyTime
         },
         baseInfo () {
             return this.$store.state.lqdetail.baseInfo

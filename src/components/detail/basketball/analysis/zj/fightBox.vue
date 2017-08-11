@@ -176,7 +176,7 @@ export default {
             if (result === '') return '-'
 
             switch (key) {
-            case 1: preStr = `[${(input.sub - 0).toFixed(1)}]`; break
+            case 1: preStr = `[${(input.sub - 0)}]`; break
             case 2: preStr = (input.rangfen - 0).toFixed(1); break
             case 3: preStr = (input.zongfen - 0).toFixed(1); break
             }
