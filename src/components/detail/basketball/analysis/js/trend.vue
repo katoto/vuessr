@@ -153,14 +153,14 @@ export default {
         totalTrendHeightHome () {
             if (this.vtype === 1) return []
             return this.trend.home.coords.map((item) => {
-                if (!item.value) return ''
+                if (!item.value) return 'height: 0%'
                 return `height: ${this.makeTotalTrendHeight(item.value - 170, 75)}%`
             })
         },
         totalTrendHeightAway () {
             if (this.vtype === 1) return []
             return this.trend.away.coords.map((item) => {
-                if (!item.value) return ''
+                if (!item.value) return 'height: 0%'
                 return `height: ${this.makeTotalTrendHeight(item.value - 170, 75)}%`
             })
         },
