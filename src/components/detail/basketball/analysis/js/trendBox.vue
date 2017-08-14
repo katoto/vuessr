@@ -10,9 +10,9 @@
             </div>
         </div>
 
-        <div class="vic-cont ">
+        <div class="vic-cont">
             <template>
-                <div class="line-horiz" v-if="trends[hoa].level" :style="trendTop"><em>{{trends[hoa].level}}</em></div>
+                <div class="line-horiz" v-if="trends[hoa].level" :style="trendTop"><em>{{hoa === 'home' ? 0 - trends[hoa].level : trends[hoa].level}}</em></div>
                 <ul class="vic-list" :class="{'vic-list-fc': type === '分差'}">
                     <li class="vic-item-empty" v-tap="{methods: () => trendFid = item.fid}" :class="{'vic-item-lose':item.state=='0','vic-item-win':item.state=='3','vic-item-coming':!item.state}" v-for="(item, idx) in trends[hoa].coords">
                         <span :style="trendHeight[idx]">
