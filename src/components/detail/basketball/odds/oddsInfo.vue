@@ -1,3 +1,4 @@
+
 <template>
     <div class="popBox l-full l-flex-column  slide-bottom-to-top">
         <div class="popTopbar" v-tap="{methods: closeDialog}"></div>
@@ -90,7 +91,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <no-match v-if="!oddsInfo || !oddsInfo.length"></no-match>
+                            <no-match v-if="oddsInfo && !oddsInfo.length"></no-match>
                         </template>
                     </div>
                 </div>
