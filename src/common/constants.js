@@ -178,7 +178,7 @@ export const BasketballMemberType = {
         // 'off_efficiency': '进攻效率',
         // 'def_efficiency': '防守效率',
         // 'hit': '命中'
-    },
+    }
 
 }
 

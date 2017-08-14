@@ -101,7 +101,7 @@ export default {
             if (obj) { return !!Object.keys(obj).length }
             return false
         },
-        collap({type}) {
+        collap ({type}) {
             this.Best3TypeStatus[type] = !this.Best3TypeStatus[type]
             this.$store.commit(mTypes.updateScTime)
         }

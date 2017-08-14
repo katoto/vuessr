@@ -107,7 +107,7 @@ export default {
             boxWidth: '',
             widStyle: {
                 '1': 'table-cj',
-                '2': 'table-zs' ,
+                '2': 'table-zs',
                 '3': 'table-ybhh',
                 '4': 'table-sslfz'
             },
@@ -242,7 +242,7 @@ export default {
                 }
             })
         },
-        initConfig() {
+        initConfig () {
             if (!this.noEmptyFlag) return
             this.container = this.$el.querySelector('.scroll-cont')
             this.content = this.$el.querySelector('.zr-detail-right')
@@ -302,7 +302,7 @@ export default {
     watch: {
         vtype (vtype) {
             this.scrollTo(0, false)
-            this.raf(()=>{
+            this.raf(() => {
                 this.initConfig()
             })
             this.updateMembersData(vtype, this.hoa)

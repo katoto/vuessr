@@ -7,13 +7,13 @@
 
 <script>
 export default {
-    data() {
+    data () {
         return {
             moreFlag: false
         }
     },
     methods: {
-        collap() {
+        collap () {
             this.moreFlag = !this.moreFlag
             this.$emit('collap', this.moreFlag)
         }
