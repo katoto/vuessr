@@ -4,6 +4,7 @@
     </div>
 </template>
 <script>
+    import '~assets/style/public/reset.css'
     import Vue from 'vue'
     import vueTap from 'v-tap'
     import '~assets/style/base.css'
@@ -31,11 +32,3 @@
         }
     }
 </script>
-<style>
-    body {
-        font-size: 15px;
-        -webkit-text-size-adjust: none;
-        font-family: Microsoft YaHei,Arial;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    }
-</style>

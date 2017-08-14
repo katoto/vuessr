@@ -116,3 +116,16 @@ export default {
     BBallStatusCode:BBallStatusCode
 }
 */
+export const FootballStatusDesc = {
+    [FootballStatusCode.UNSURE]: '本场比赛待定',
+    [FootballStatusCode.CANCELED]: '本场比赛被取消',
+    [FootballStatusCode.REMOVED]: '本场比赛腰斩',
+    [FootballStatusCode.CHANGED]: '本场比赛改期进行',
+    [FootballStatusCode.PAUSED]: '本场比赛已中断',
+    [FootballStatusCode.ENDED]: '本场比赛已完场'
+}
+
+export const BasketballStatusDesc = {
+    [BasketballStatusCode.CHANGED]: '本场比赛改期进行',
+    [BasketballStatusCode.ENDED]: '本场比赛已完场'
+}

@@ -14,7 +14,7 @@
                             <th width="20%">积分</th>
                         </tr>
                         <tr>
-                            <td align="left">{{teamInfo.teamrank | seasonFmt}}</td>
+                            <td align="left">{{teamInfo.teamrank | seasonFmt(isCountry)}}</td>
                             <td>{{teamInfo.teamrank.rank}}</td>
                             <td>{{teamInfo.teamrank.rankchange}}</td>
                             <td>{{teamInfo.teamrank.point}}</td>
@@ -77,8 +77,8 @@ export default {
         }
     },
     filters: {
-        seasonFmt: (rank) => {
-            return this.isCountry ? rank.year + '.' + rank.month : rank.seasonyear + ' ' + rank.simplegbname
+        seasonFmt: (rank, isCountry) => {
+            return isCountry ? rank.year + '.' + rank.month : rank.seasonyear + ' ' + rank.simplegbname
         }
     }
 

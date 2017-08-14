@@ -1,13 +1,13 @@
 <template >
     <ul class="list-view-wrapper">
-        <li trackby="$index" class="list-view-item" v-for="(match, idx) in teamMatches" v-tap="{methods: goDetail, fid: match.fid}">
+        <li trackby="$index" class="list-view-item" v-for="(match, idx) in teamMatches" v-tap="{methods: goDetail, fid: match.fid}" :id="'match' + idx">
             <div class="schedule-itm l-flex-row">
                 <div class="when-game"> <em class="game-time">{{match.matchtime.substr(5, 11)}}</em> <em class="game-league">{{match.simplegbname + ' ' + match.stagegbname}}</em> </div>
                 <div class="who-game l-flex-1 l-flex-row">
                     <div class="who-gamer who-gamer-home l-flex-1">
                         <img :src="match.awaylogo"><em>{{match.awaysxname}}</em>
                     </div>
-                    <em class="who-win" :class="{'no-start': startStatus[idx]}" v-html="scoreText[idx]"></em>
+                    <em class="who-win" :class="{'no-start': noStartStatus[idx]}" v-html="scoreText[idx]"></em>
                     <div class="who-gamer who-gamer-guest l-flex-1">
                         <img :src="match.homelogo"> <em>{{match.homesxname}}</em>
                     </div>
@@ -26,10 +26,13 @@ export default {
         }
     },
     computed: {
-        startStatus () {
+        noStartStatus () {
             return this.teamMatches.map((match) => {
                 return !(match.homescore && match.awayscore)
             })
+        },
+        firstNoStartId () {
+            return this.noStartStatus.indexOf(true)
         },
         scoreText () {
             return this.teamMatches.map((match) => {
@@ -39,15 +42,23 @@ export default {
     },
     methods: {
         goDetail ({fid}) {
-            this.$router.push(`/detail/basketball/${fid}/situation`)
+            this.$router.push(`/detail/basketball/${fid}/situation/event`)
         },
         scoreFmt (match) {
             if (match.homescore && match.awayscore) {
-                return `${match.awayscore}<i>:</i>${match.homescore}`
+                return `${match.awayscore}<i style="color: #999; margin:0 0.13333rem; display: inline-block;">:</i>${match.homescore}`
             } else {
                 return 'vs'
             }
+        },
+        goNoStartMatch () {
+            var noStartDom = this.$el.querySelector('#match' + this.firstNoStartId)
+            if (!noStartDom) return
+            this.$el.parentElement.scrollTop = noStartDom.offsetTop
         }
+    },
+    mounted () {
+        this.goNoStartMatch()
     }
 }
 </script>
@@ -55,8 +66,6 @@ export default {
 <style lang="css" scoped>
     .schedule-itm{clear:both;box-sizing:border-box;height:1.333333rem;border-bottom: 1px solid #f4f4f4;
         font-size: 0.293333rem;color: #999999; background: #fff;}
-    .l-flex-row{ display:-webkit-box; -webkit-box-orient: horizontal; display:flex; flex-flow: row; width: 100%}
-    .l-flex-1{ -webkit-box-flex: 1; flex:1;overflow: hidden}
     .when-game{width: 2.773333rem; text-align: left;margin-left: 0.533333rem;clear:both;font-size: 0.266667rem}
     .game-time,.game-league{display: inline-block;width: 3.7rem}
     .game-time{margin-top: 0.3rem;color: #999;}

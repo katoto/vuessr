@@ -2,13 +2,7 @@
     <div>
         <team-misc :teamMisc="teamMisc" v-if="teamMisc"></team-misc>
         <members-advanced :baseInfo="baseInfo" :membersAdvanced="membersAdvanced" v-if="membersAdvanced"></members-advanced>
-        <div class="item-loader" v-if="!(teamMisc && membersAdvanced)">
-            <div class="la-ball-pulse la-2x">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
+        <item-loader  v-if="!(teamMisc && membersAdvanced)"></item-loader>
     </div>
 </template>
 
@@ -16,6 +10,7 @@
 import {mTypes, aTypes} from '~store/lqdetail'
 import teamMisc from '~components/detail/basketball/analysis/jj/teamMisc.vue'
 import membersAdvanced from '~components/detail/basketball/analysis/jj/membersAdvanced.vue'
+import itemLoader from '~components/detail/itemLoader.vue'
 export default {
     async asyncData ({store, route: {params}}) {
         const {homeid, awayid, seasonid} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
@@ -23,7 +18,8 @@ export default {
     },
     components: {
         teamMisc,
-        membersAdvanced
+        membersAdvanced,
+        itemLoader
     },
     computed: {
         baseInfo () {
@@ -66,6 +62,3 @@ export default {
     }
 }
 </script>
-
-<style lang="css">
-</style>

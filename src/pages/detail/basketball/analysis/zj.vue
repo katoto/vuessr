@@ -6,13 +6,7 @@
         <recent-record :recentRecord='recentRecord' v-if="recentRecord"></recent-record>
         <future-match :futureMatch='futureMatch' v-if="futureMatch"></future-match>
         <macau-news :macauNews='macauNews' v-if="macauNews"></macau-news>
-        <div class="item-loader" v-if="!(nbarank && nbarank.all && leaguerank && recentRecord && futureMatch && macauNews)">
-            <div class="la-ball-pulse la-2x">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
+        <item-loader v-if="!(nbarank && nbarank.all && leaguerank && recentRecord && futureMatch && macauNews)"></item-loader>
     </div>
 </template>
 
@@ -24,6 +18,7 @@ import jzData from '~components/detail/basketball/analysis/zj/jzData.vue'
 import recentRecord from '~components/detail/basketball/analysis/zj/recentRecord.vue'
 import futureMatch from '~components/detail/basketball/analysis/zj/futureMatch.vue'
 import macauNews from '~components/detail/basketball/analysis/zj/macauNews.vue'
+import itemLoader from '~components/detail/itemLoader.vue'
 
 export default {
     async asyncData ({store, route: {params}}) {
@@ -37,7 +32,8 @@ export default {
         jzData,
         recentRecord,
         futureMatch,
-        macauNews
+        macauNews,
+        itemLoader
     },
     computed: {
         baseInfo () {
@@ -96,6 +92,3 @@ export default {
     }
 }
 </script>
-
-<style lang="css">
-</style>

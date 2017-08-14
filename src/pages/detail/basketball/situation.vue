@@ -20,9 +20,10 @@
 
 
         <div class="ui-empty" v-if="!news &&(match.status == StatusCode.NOT_STARTED || match.status == StatusCode.CHANGED || match.status == StatusCode.REMOVED || match.status == StatusCode.CANCELED || match.status == StatusCode.PAUSED)">
-            <img src="http://tccache.500.com/mobile/widget/empty/images/07.png" class="w240">
-            <div class="ui-empty-dfont">比赛时间 {{match.matchtime.substr(5, 11)}}</div>
-            <div class="ui-empty-gfont">先去分析栏目看看吧</div>
+            <img src="~assets/style/images/detail/07.png" class="w240">
+            <div class="ui-empty-dfont" v-if="match.status == StatusCode.NOT_STARTED">比赛时间 {{match.matchtime.substr(5, 11)}}</div>
+            <div class="ui-empty-dfont" v-else>{{StatusDesc[match.status]}}</div>
+            <div class="ui-empty-gfont" v-if="match.status == StatusCode.NOT_STARTED">先去分析栏目看看吧</div>
         </div>
         <!--<widget-prompt-view src="widget/prompt.html"-->
         <!--drunk-if="hasNews===false&&(match.status == StatusCode.NOT_STARTED || match.status == StatusCode.CHANGED || match.status == StatusCode.REMOVED || match.status == StatusCode.CANCELED || match.status == StatusCode.PAUSED)"-->
@@ -35,9 +36,8 @@
         <me-sports v-if="match.status == StatusCode.NOT_STARTED && news" :news="news.news" :init-size="5"></me-sports>
     </div>
 </template>
-
 <script>
-    import {BasketballStatusCode as StatusCode} from '~common/constants'
+    import {BasketballStatusCode as StatusCode, BasketballStatusDesc as StatusDesc} from '~common/constants'
     import {mTypes, aTypes} from '~store/lqdetail'
     import meSports from '~components/detail/meSports.vue'
     import noData from '~components/no_data.vue'
@@ -53,7 +53,8 @@
         },
         data () {
             return {
-                StatusCode
+                StatusCode,
+                StatusDesc
             }
         },
         computed: {
@@ -94,5 +95,52 @@
 <style scoped>
     a {
         color: inherit;
+        display:block;
+    }
+    .sk-detail-tap-box2 {
+        margin-bottom: .266667rem
+    }
+    .sk-detail-tap-box {
+        text-align: center;
+        height: 1.173333rem;
+        padding: 0 .4rem;
+        background: #fff
+    }
+    .sk-detail-tap {
+        border-bottom: 1px solid #e8e8e8;
+        text-align: center;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        height: 1.173333rem;
+        line-height: 1.173333rem
+    }
+
+    [data-dpr="1"] .sk-detail-tap {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .sk-detail-tap {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .sk-detail-tap {
+        font-size: 36px
+    }
+    .sk-detail-tap li {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        color: #aab5bd;
+        height: 1.173333rem
+    }
+
+    .sk-detail-tap li:active {
+        background: #f4f4f4
+    }
+
+    .sk-detail-tap li.cur,
+    .sk-detail-tap li:active {
+        color: #242c35
     }
 </style>

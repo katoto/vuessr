@@ -18,7 +18,8 @@
                     </li>
                 </template>
 
-                <li class="box-arrow" v-if="predictRecommend.articles.length>2" v-tap="{methods: ()=>isArticle=!isArticle}">
+                <li class="box-arrow" v-if="predictRecommend.articles.length>2"
+                    v-tap="{methods: ()=>isArticle=!isArticle}">
                     <div class="zd-arrow" :class="{'rotate180':!isArticle}"></div>
                 </li>
             </ul>
@@ -57,7 +58,9 @@
                         </ul>
                     </div>
 
-                    <echart-bar-line v-if="predictEurope" v-tap="{methods: selectTab, tab: 'europe'}"  class="chart-yuce" name-bar="主胜概率" name-line="赔率趋势" :data-bar="predictEurope.outter.chart.nbars" :data-line="predictEurope.outter.chart.curve"></echart-bar-line>
+                    <echart-bar-line v-if="predictEurope" v-tap="{methods: selectTab, tab: 'europe'}" class="chart-yuce"
+                                     name-bar="主胜概率" name-line="赔率趋势" :data-bar="predictEurope.outter.chart.nbars"
+                                     :data-line="predictEurope.outter.chart.curve"></echart-bar-line>
 
                 </template>
 
@@ -71,8 +74,9 @@
 
         <div class="gl-box box-yc" v-if="predictAsian">
             <div class="gl-nav">
-                亚盘{{predictAsian && predictAsian.inner && predictAsian.inner.this_match.curr_odds[1]?('（盘口：'+predictAsian.inner.this_match.curr_odds[1]+'）'):'--'}}
-                <span class="yc-more" ></span></div>
+                亚盘{{predictAsian && predictAsian.inner &&
+                predictAsian.inner.this_match.curr_odds[1]?('（盘口：'+predictAsian.inner.this_match.curr_odds[1]+'）'):'--'}}
+                <span class="yc-more"></span></div>
             <div class="box-ycInner">
                 <template v-if="predictAsian.outter">
                     <div class="dataBox" v-tap="{methods: selectTab, tab: 'asian'}">
@@ -98,7 +102,9 @@
                         </ul>
                     </div>
 
-                    <echart-bar-line v-tap="{methods: selectTab, tab: 'asian'}" class="chart-yuce" name-bar="赢盘概率" name-line="赔率趋势" :data-bar="predictAsian.outter.chart.nbars" :data-line="predictAsian.outter.chart.curve"></echart-bar-line>
+                    <echart-bar-line v-tap="{methods: selectTab, tab: 'asian'}" class="chart-yuce" name-bar="赢盘概率"
+                                     name-line="赔率趋势" :data-bar="predictAsian.outter.chart.nbars"
+                                     :data-line="predictAsian.outter.chart.curve"></echart-bar-line>
 
                 </template>
 
@@ -113,7 +119,8 @@
 
         <div class="gl-box box-yc" v-if="predictDaXiao">
             <div class="gl-nav">
-                大小盘{{predictDaXiao.inner && predictDaXiao.inner.this_match.curr_odds[1]?('（盘口：'+predictDaXiao.inner.this_match.curr_odds[1]+'）'):''}}
+                大小盘{{predictDaXiao.inner &&
+                predictDaXiao.inner.this_match.curr_odds[1]?('（盘口：'+predictDaXiao.inner.this_match.curr_odds[1]+'）'):''}}
                 <span class="yc-more"></span>
             </div>
             <div class="box-ycInner">
@@ -141,7 +148,9 @@
                         </ul>
                     </div>
 
-                    <echart-bar-line v-tap="{methods: selectTab, tab: 'daxiao'}"  class="chart-yuce" name-bar="大球概率" name-line="赔率趋势" :data-bar="predictDaXiao.outter.chart.nbars" :data-line="predictDaXiao.outter.chart.curve"></echart-bar-line>
+                    <echart-bar-line v-tap="{methods: selectTab, tab: 'daxiao'}" class="chart-yuce" name-bar="大球概率"
+                                     name-line="赔率趋势" :data-bar="predictDaXiao.outter.chart.nbars"
+                                     :data-line="predictDaXiao.outter.chart.curve"></echart-bar-line>
 
                 </template>
 
@@ -156,7 +165,7 @@
 
         <div class="gl-box box-yc" v-if="predictScore">
 
-            <div class="gl-nav">比分与进球 <span class="yc-more" ></span></div>
+            <div class="gl-nav">比分与进球 <span class="yc-more"></span></div>
             <div class="box-ycInner box-yc-bifen">
 
                 <template v-if="predictScore.outter">
@@ -164,35 +173,43 @@
                         <ul class="dataItem">
                             <li class="itemL"
                                 :class="{'red2':predictScore.outter.score[0].prob>predictScore.outter.score[1].prob&&predictScore.outter.score[0].prob>predictScore.outter.score[2].prob}">
-                                <em class="num">{{predictScore.outter.score[0].prob}}</em> <span class="numSub">%</span> <span
-                                    class="item-info2">{{predictScore.outter.score[0].score}}</span></li>
+                                <em class="num">{{predictScore.outter.score[0].prob}}</em> <span class="numSub">%</span>
+                                <span
+                                        class="item-info2">{{predictScore.outter.score[0].score}}</span></li>
                             <li class="itemC"
                                 :class="{'red2':predictScore.outter.score[1].prob>predictScore.outter.score[0].prob&&predictScore.outter.score[1].prob>predictScore.outter.score[2].prob}">
-                                <em class="num">{{predictScore.outter.score[1].prob}}</em> <span class="numSub">%</span> <span
-                                    class="item-info2">{{predictScore.outter.score[1].score}}</span></li>
+                                <em class="num">{{predictScore.outter.score[1].prob}}</em> <span class="numSub">%</span>
+                                <span
+                                        class="item-info2">{{predictScore.outter.score[1].score}}</span></li>
                             <li class="itemR"
                                 :class="{'red2':predictScore.outter.score[2].prob>predictScore.outter.score[0].prob&&predictScore.outter.score[2].prob>predictScore.outter.score[1].prob}">
-                                <em class="num">{{predictScore.outter.score[2].prob}}</em> <span class="numSub">%</span> <span
-                                    class="item-info2">{{predictScore.outter.score[2].score}}</span></li>
+                                <em class="num">{{predictScore.outter.score[2].prob}}</em> <span class="numSub">%</span>
+                                <span
+                                        class="item-info2">{{predictScore.outter.score[2].score}}</span></li>
                         </ul>
                         <ul class="dataItem">
                             <li class="itemL"
                                 :class="{'red2':predictScore.outter.nums[0].prob>predictScore.outter.nums[1].prob&&predictScore.outter.nums[0].prob>predictScore.outter.nums[2].prob}">
-                                <em class="num">{{predictScore.outter.nums[0].prob}}</em> <span class="numSub">%</span> <span
-                                    class="item-info2">{{predictScore.outter.nums[0].num}}球</span></li>
+                                <em class="num">{{predictScore.outter.nums[0].prob}}</em> <span class="numSub">%</span>
+                                <span
+                                        class="item-info2">{{predictScore.outter.nums[0].num}}球</span></li>
                             <li class="itemC"
                                 :class="{'red2':predictScore.outter.nums[1].prob>predictScore.outter.nums[0].prob&&predictScore.outter.nums[1].prob>predictScore.outter.nums[2].prob}">
-                                <em class="num">{{predictScore.outter.nums[1].prob}}</em> <span class="numSub">%</span> <span
-                                    class="item-info2">{{predictScore.outter.nums[1].num}}球</span></li>
+                                <em class="num">{{predictScore.outter.nums[1].prob}}</em> <span class="numSub">%</span>
+                                <span
+                                        class="item-info2">{{predictScore.outter.nums[1].num}}球</span></li>
                             <li class="itemR"
                                 :class="{'red2':predictScore.outter.nums[2].prob>predictScore.outter.nums[0].prob&&predictScore.outter.nums[2].prob>predictScore.outter.nums[1].prob}">
-                                <em class="num">{{predictScore.outter.nums[2].prob}}</em> <span class="numSub">%</span> <span
-                                    class="item-info2">{{predictScore.outter.nums[2].num}}球</span></li>
+                                <em class="num">{{predictScore.outter.nums[2].prob}}</em> <span class="numSub">%</span>
+                                <span
+                                        class="item-info2">{{predictScore.outter.nums[2].num}}球</span></li>
                         </ul>
                     </div>
 
 
-                    <echart-position class="chart-yuce" style="height: 5.2rem" :name1="match.homesxname+'(主)'" :name2="match.awaysxname" :data1="predictScore.u.hu" :data2="predictScore.u.au"></echart-position>
+                    <echart-position class="chart-yuce" style="height: 5.2rem" :name1="match.homesxname+'(主)'"
+                                     :name2="match.awaysxname" :data1="predictScore.u.hu"
+                                     :data2="predictScore.u.au"></echart-position>
 
                 </template>
 
@@ -206,9 +223,9 @@
         </div>
 
         <div class="gl-box box-yc" v-if="predictHalf">
-            <div class="gl-nav">半场 <span class="yc-more" ></span></div>
+            <div class="gl-nav">半场 <span class="yc-more"></span></div>
             <div class="box-ycInner">
-                <div class="dataBox" v-if="predictHalf.outter"  v-tap="{methods: selectTab, tab: 'half'}">
+                <div class="dataBox" v-if="predictHalf.outter" v-tap="{methods: selectTab, tab: 'half'}">
                     <ul class="dataItem">
                         <li class="itemL"
                             :class="{'red2':predictHalf.outter.prob.win>predictHalf.outter.prob.draw&&predictHalf.outter.prob.win>predictHalf.outter.prob.lost}">
@@ -226,16 +243,19 @@
                     <ul class="dataItem">
                         <li class="itemL"
                             :class="{'red2':predictHalf.outter.score[0].prob>predictHalf.outter.score[1].prob&&predictHalf.outter.score[0].prob>predictHalf.outter.score[2].prob}">
-                            <em class="num">{{predictHalf.outter.score[0].prob}}</em> <span class="numSub">%</span> <span
-                                class="item-info2">{{predictHalf.outter.score[0].score}}</span></li>
+                            <em class="num">{{predictHalf.outter.score[0].prob}}</em> <span class="numSub">%</span>
+                            <span
+                                    class="item-info2">{{predictHalf.outter.score[0].score}}</span></li>
                         <li class="itemC"
                             :class="{'red2':predictHalf.outter.score[1].prob>predictHalf.outter.score[0].prob&&predictHalf.outter.score[1].prob>predictHalf.outter.score[2].prob}">
-                            <em class="num">{{predictHalf.outter.score[1].prob}}</em> <span class="numSub">%</span> <span
-                                class="item-info2">{{predictHalf.outter.score[1].score}}</span></li>
+                            <em class="num">{{predictHalf.outter.score[1].prob}}</em> <span class="numSub">%</span>
+                            <span
+                                    class="item-info2">{{predictHalf.outter.score[1].score}}</span></li>
                         <li class="itemR"
                             :class="{'red2':predictHalf.outter.score[2].prob>predictHalf.outter.score[0].prob&&predictHalf.outter.score[2].prob>predictHalf.outter.score[1].prob}">
-                            <em class="num">{{predictHalf.outter.score[2].prob}}</em> <span class="numSub">%</span> <span
-                                class="item-info2">{{predictHalf.outter.score[2].score}}</span></li>
+                            <em class="num">{{predictHalf.outter.score[2].prob}}</em> <span class="numSub">%</span>
+                            <span
+                                    class="item-info2">{{predictHalf.outter.score[2].score}}</span></li>
                     </ul>
                     <ul class="dataItem">
                         <li class="itemL"
@@ -260,17 +280,9 @@
             </div>
         </div>
 
-        <div class="sk-btips" v-if="predictRecommend||predictEurope||predictAsian||predictDaXiao||predictScore">
-            500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
-        </div>
+        <skbtips v-if="predictRecommend||predictEurope||predictAsian||predictDaXiao||predictScore"></skbtips>
 
-        <div class="item-loader" v-else>
-            <div class="la-ball-pulse la-2x">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
+        <item-loader v-else></item-loader>
     </div>
 </template>
 <script>
@@ -279,6 +291,8 @@
     import daxiaoPop from '~components/detail/football/predict/daxiaoPop.vue'
     import scorePop from '~components/detail/football/predict/scorePop.vue'
     import halfPop from '~components/detail/football/predict/halfPop.vue'
+    import skbtips from '~components/detail/skbtips.vue'
+    import itemLoader from '~components/detail/itemLoader.vue'
 
     import echartBarLine from '~components/detail/football/predict/echartBarLine.vue'
     import echartPosition from '~components/detail/football/predict/echartPosition.vue'
@@ -293,7 +307,7 @@
             }
         },
         components: {
-            echartBarLine, echartPosition
+            echartBarLine, echartPosition, skbtips, itemLoader
         },
         methods: {
             async fetchData () {
@@ -377,9 +391,278 @@
         }
     }
 </script>
-<style>
-    .chart-position {
-        height: 5.2rem
+<style scoped>
+    /*over*/
+    /*弹层小按钮*/
+    .yc-more {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 1.066667rem;
+        height: 1.066667rem
     }
+
+    .yc-more:after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: .4rem;
+        bottom: .2rem;
+        width: .346667rem;
+        height: .346667rem;
+        background: url(~assets/style/images/detail/icon_sprite.png) no-repeat -1.6rem 0;
+        background-size: 1.92rem
+    }
+
+    /*over*/
+    .gl-box,
+    .zr-box {
+        background: #fff
+    }
+
+    .dataBox {
+        padding: .4rem .4rem .266667rem .4rem;
+        border-bottom: 1px solid #f4f4f4;
+        text-align: center
+    }
+
+    .dataItem {
+        display: table;
+        height: 1.333333rem;
+        width: 100%
+    }
+
+    .dataItem li {
+        display: table-cell;
+        color: #515e6d;
+        vertical-align: middle;
+        height: 1.733333rem
+    }
+
+    .dataItem .itemL {
+        text-align: left;
+        width: 2.8rem;
+        padding-left: .4rem
+    }
+
+    .dataItem .itemC {
+        text-align: center;
+        color: #aab5bd
+    }
+
+    .dataItem .itemR {
+        text-align: right;
+        width: 2.8rem;
+        padding-right: .4rem
+    }
+
+    [data-dpr="1"] .dataItem .num {
+        font-size: 23px
+    }
+
+    [data-dpr="2"] .dataItem .num {
+        font-size: 46px
+    }
+
+    [data-dpr="3"] .dataItem .num {
+        font-size: 69px
+    }
+
+    .dataItem .red2 {
+        color: #d3553d
+    }
+
+    .dataItem .green2 {
+        color: #36a171
+    }
+
+    .dataItem .blue {
+        color: #437ba8
+    }
+
+    .dataItem .item-info {
+        display: block;
+        color: #aab5bd
+    }
+
+    [data-dpr="1"] .dataItem .item-info {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .dataItem .item-info {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .dataItem .item-info {
+        font-size: 33px
+    }
+
+    .dataItem .item-tit {
+        color: #242c35;
+        display: block;
+        height: .72rem;
+        line-height: .72rem
+    }
+
+    [data-dpr="1"] .dataItem .item-tit {
+        font-size: 16px
+    }
+
+    [data-dpr="2"] .dataItem .item-tit {
+        font-size: 32px
+    }
+
+    [data-dpr="3"] .dataItem .item-tit {
+        font-size: 48px
+    }
+
+    .chart-yuce {
+        width: 9.2rem;
+        height: 5.866667rem;
+        margin: 0 auto
+    }
+
     /* flag */
+    /*弹窗start*/
+
+    /*over*/
+    .hide {
+        display: none
+    }
+
+    .list-yuce li {
+        height: 1.893333rem;
+        padding: .266667rem .4rem 0 .4rem;
+        border-bottom: 1px solid #f4f4f4
+    }
+
+    .list-yuce .title {
+        height: .933333rem;
+        line-height: .933333rem
+    }
+
+    .list-yuce .title span {
+        display: block;
+        float: left;
+        width: 8.213333rem;
+        color: #242c35;
+        font-size: .426667rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis
+    }
+
+    .list-yuce .title i {
+        display: inline-block;
+        float: right;
+        width: .666667rem;
+        height: .346667rem;
+        line-height: .346667rem;
+        background: #d25138;
+        color: #fff;
+        text-align: center;
+        margin-top: .266667rem;
+        border-radius: .04rem;
+        font-size: .266667rem
+    }
+
+    .list-yuce .info {
+        color: #aab5bd;
+        height: .4rem;
+        line-height: .4rem;
+        padding-top: .08rem
+    }
+
+    [data-dpr="1"] .list-yuce .info {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .list-yuce .info {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .list-yuce .info {
+        font-size: 33px
+    }
+
+    .list-yuce .info span {
+        display: inline-block;
+        margin-right: .4rem;
+        padding-left: .293333rem;
+        position: relative
+    }
+
+    .list-yuce .info span:first-child {
+        padding-left: 0
+    }
+
+    .list-yuce .face {
+        display: inline-block;
+        width: .4rem;
+        height: .4rem;
+        overflow: hidden;
+        border-radius: 100%;
+        vertical-align: middle;
+        margin-right: .133333rem;
+        position: relative;
+        top: -1px
+    }
+
+    .list-yuce li img {
+        width: .4rem;
+        height: .4rem
+    }
+
+    .list-yuce .time::after, .list-yuce .view::after {
+        display: inline-block;
+        content: '';
+        width: .266667rem;
+        height: .266667rem;
+        background: url(~assets/style/images/detail/icon_sprite.png) no-repeat 0 -.586667rem;
+        background-size: 1.92rem;
+        position: absolute;
+        left: 0;
+        top: .066667rem
+    }
+
+    .list-yuce .view::after {
+        background-position: -.36rem -.586667rem
+    }
+
+    .list-yuce .box-arrow {
+        height: .8rem;
+        padding-top: 0;
+        margin-top: -.026667rem;
+        background: #fff
+    }
+
+
+    .collec-box p {
+        height: .32rem;
+        line-height: .32rem;
+        margin-top: .133333rem;
+        position: absolute;
+        bottom: 0;
+        width: 1.333333rem;
+        text-align: center;
+        left: 0
+    }
+
+
+    .hot-cool-wrap .gl-nav:first-child {
+        border-top: none
+    }
+
+    .zd-arrow{width:.533333rem;height:.177rem;position:absolute;top:50%;left:50%;margin:-.2rem 0 0 -.266667rem;background-position:center -10.84rem}
+    .rotate180{-webkit-animation:all .2s linear;animation:all .2s linear;-webkit-transform:rotate(180deg);transform:rotate(180deg)}
+    .dataItem .item-info2{display:block}
+    [data-dpr="1"] .dataItem .item-info2{font-size:10px}
+    [data-dpr="2"] .dataItem .item-info2{font-size:20px}
+    [data-dpr="3"] .dataItem .item-info2{font-size:30px}
+
+    .feed-back{width:100%;height:1.733333rem;background:#fff;border-top:1px solid #eaeaea}
+    .feed-box{color:#787878;line-height:1.733333rem;text-align:center}
+    .box-arrow{height:1.066667rem;position:relative}
+    .box-arrow:active{background:#f4f4f4}
 </style>

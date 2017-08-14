@@ -32,18 +32,8 @@
                 </div>
                 <div class="infoTips" v-if="poissonInfo.presnetations"><i class="icon"></i><p class="f24">{{poissonInfo.presnetations}}</p>	</div>
             </template>
-            <div class="feed-back" v-if="poissonInfo&&!poissonInfo.aomen">
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
-            <div class="item-loader" v-if="!poissonInfo">
-                <div class="la-ball-pulse la-2x">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <feed-back-no-data v-if="poissonInfo&&!poissonInfo.aomen"></feed-back-no-data>
+            <item-loader v-if="!poissonInfo"></item-loader>
         </div>
 
         <div class="gl-box box-tongp">
@@ -89,18 +79,9 @@
                 </div>
             </template>
 
-            <div class="feed-back" v-if="probability&&!probability.rate">
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
-            <div class="item-loader" v-if="!probability">
-                <div class="la-ball-pulse la-2x">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <feed-back-no-data v-if="probability&&!probability.rate"></feed-back-no-data>
+
+            <item-loader v-if="!probability"></item-loader>
         </div>
 
         <div class="gl-box box-panl" >
@@ -174,19 +155,8 @@
                 </div>
                 <div class="bili-tips">数据来自本赛事主客场相同的近期比赛统计</div>
             </template>
-
-            <div class="feed-back" v-if="handicapFeature&&!handicapFeature.europe">
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
-            <div class="item-loader" v-if="!handicapFeature">
-                <div class="la-ball-pulse la-2x">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <feed-back-no-data v-if="handicapFeature&&!handicapFeature.europe"></feed-back-no-data>
+            <item-loader v-if="!handicapFeature"></item-loader>
         </div>
         <!-- TODO 这里后面需要补上
         <div class="gl-box" drunk-if="from!='app_online'&&(hasUserBetPercent_spf || hasUserBetPercent_nspf)">
@@ -251,22 +221,10 @@
                     <td>{{coldHotInfo.lost.renqi?(coldHotInfo.lost.renqi+'%'):'--'}}</td>
                 </tr>
                 </tbody></table>
-            <div class="feed-back" v-if="coldHotInfo&&!coldHotInfo.win">
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
-            <div class="item-loader" v-if="!coldHotInfo">
-                <div class="la-ball-pulse la-2x">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <feed-back-no-data v-if="coldHotInfo&&!coldHotInfo.win"></feed-back-no-data>
+            <item-loader v-if="!coldHotInfo"></item-loader>
         </div>
-        <div class="sk-btips">
-            500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
-        </div>
+        <skbtips></skbtips>
     </div>
 </template>
 
@@ -274,6 +232,9 @@
     import {aTypes, mTypes} from '~store/zqdetail'
 
     import HistorySample from '~components/detail/football/analysis/historySample.vue'
+    import skbtips from '~components/detail/skbtips.vue'
+    import itemLoader from '~components/detail/itemLoader.vue'
+    import feedBackNoData from '~components/detail/feedBackNoData.vue'
     export default {
         async asyncData ({store, route: {params}}) {
             const {stageid, matchtime, homeid, awayid, league_id} = store.state.zqdetail.baseInfo
@@ -291,6 +252,9 @@
             return {
                 strengthInfoContentVisible: false
             }
+        },
+        components: {
+            skbtips, itemLoader, feedBackNoData
         },
         methods: {
             async fetchData () {
@@ -373,3 +337,349 @@
         }
     }
 </script>
+<style scoped>
+    .zhzl-vs div:first-child.zhzl-green .hh {
+        border-top: .16rem solid #5c788f;
+        border-right: .16rem solid transparent;
+        right: -.13rem;
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 0;
+        z-index: 1
+    }
+
+    .zhzl-vs div:last-child.zhzl-green .hh {
+        border-top: .17rem solid #5c788f;
+        border-left: .16rem solid transparent;
+        left: -.13rem;
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 0
+    }
+
+
+    .gl-box,
+    .zr-box {
+        background: #fff
+    }
+    .dataBox {
+        padding: .4rem .4rem .266667rem .4rem;
+        border-bottom: 1px solid #f4f4f4;
+        text-align: center
+    }
+
+    .dataItem {
+        display: table;
+        height: 1.333333rem;
+        width: 100%
+    }
+
+    .dataItem li {
+        display: table-cell;
+        color: #515e6d;
+        vertical-align: middle;
+        height: 1.733333rem
+    }
+    .dataItem .itemL {
+        text-align: left;
+        width: 2.8rem;
+        padding-left: .4rem
+    }
+
+    .dataItem .itemC {
+        text-align: center;
+        color: #aab5bd
+    }
+
+    .dataItem .itemR {
+        text-align: right;
+        width: 2.8rem;
+        padding-right: .4rem
+    }
+
+    [data-dpr="1"] .dataItem .num {
+        font-size: 23px
+    }
+
+    [data-dpr="2"] .dataItem .num {
+        font-size: 46px
+    }
+
+    [data-dpr="3"] .dataItem .num {
+        font-size: 69px
+    }
+    .infoTips {
+        padding: .266667rem .4rem;
+        line-height: .533333rem;
+        color: #515e6d;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        border-top: 1px solid #f4f4f4
+    }
+
+    .infoTips .icon {
+        display: block;
+        width: .88rem;
+        height: .293333rem;
+        background: url(~assets/style/images/detail/icon_sprite.png) no-repeat -.613333rem 0;
+        background-size: 1.92rem;
+        margin-top: .106667rem
+    }
+    .infoTips p {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        padding-left: .213333rem
+    }
+
+
+    .opgl-tips {
+        border-top: 1px solid #f4f4f4;
+        padding: .266667rem .4rem;
+        position: relative
+    }
+
+    [data-dpr="1"] .opgl-tips {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .opgl-tips {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .opgl-tips {
+        font-size: 33px
+    }
+
+    .opgl-tips p {
+        line-height: .48rem;
+        color: #515e6d
+    }
+    .chupei {
+        padding-right: .133333rem
+    }
+    .color9{color: #999;}
+    .opgl-tips .yb-btn {
+        position: absolute;
+        top: .266667rem;
+        right: .4rem;
+        display: block;
+        line-height: .48rem;
+        color: #515e6d
+    }
+    /*清除浮动*/
+    .clear {
+        zoom: 1
+    }
+    .clear:after {
+        content: '';
+        clear: both;
+        display: block;
+        height: 0;
+        visibility: hidden
+    }
+    /*over*/
+    .feed-box {
+        color: #787878;
+        line-height: 1.733333rem;
+        text-align: center
+    }
+    .fx-table {
+        margin-top: .053333rem
+    }
+
+    .fx-table tr th {
+        background: #fff;
+        border-bottom: 1px solid #f4f4f4;
+        height: .8rem;
+        line-height: .8rem;
+        color: #aab5bd;
+        font-weight: 400
+    }
+
+    [data-dpr="1"] .fx-table tr th {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .fx-table tr th {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .fx-table tr th {
+        font-size: 33px
+    }
+
+    .fx-table tr td {
+        line-height: 1.066667rem;
+        color: #242c35;
+        text-align: center
+    }
+
+    [data-dpr="1"] .fx-table tr td {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .fx-table tr td {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .fx-table tr td {
+        font-size: 36px
+    }
+
+    .fx-table tr .win {
+        color: #d3553d
+    }
+
+    .fx-table tr .lose {
+        color: #437ba8
+    }
+
+    .fx-table tr td .color9,
+    .fx-table tr td .colorc {
+        color: #aab5bd
+    }
+
+    .fx-table tr td:first-child,
+    .fx-table tr th:first-child {
+        padding-left: .4rem;
+        text-align: left;
+        position: relative
+    }
+
+    .fx-table tr td:last-child,
+    .fx-table tr th:last-child {
+        padding-right: .4rem;
+        text-align: right
+    }
+
+    .fx-table tr:last-child td {
+        padding-bottom: .25rem
+    }
+
+    .fx-table tr td:first-child span {
+        display: block;
+        height: .426667rem;
+        line-height: .426667rem
+    }
+
+    [data-dpr="1"] .fx-table tr td:first-child span {
+        font-size: 10px
+    }
+
+    [data-dpr="2"] .fx-table tr td:first-child span {
+        font-size: 20px
+    }
+
+    [data-dpr="3"] .fx-table tr td:first-child span {
+        font-size: 30px
+    }
+
+    [data-dpr="1"] .fx-table tr td:first-child span.f23 {
+        font-size: 11.5px
+    }
+
+    [data-dpr="2"] .fx-table tr td:first-child span.f23 {
+        font-size: 23px
+    }
+
+    [data-dpr="3"] .fx-table tr td:first-child span.f23 {
+        font-size: 34.5px
+    }
+    .dataTit {
+        position: relative;
+        margin: .533333rem auto 0;
+        padding: 0 14px;
+        display: inline-block;
+        color: #aab5bd
+    }
+
+    .dataTit:first-child {
+        margin-top: .266667rem
+    }
+
+    .dataTit:after,
+    .dataTit:before {
+        content: '';
+        display: block;
+        width: .4rem;
+        height: 1px;
+        overflow: hidden;
+        background: #bbc4ca;
+        position: absolute;
+        top: 50%
+    }
+
+    .dataTit:before {
+        left: -.533333rem
+    }
+
+    .dataTit:after {
+        right: -.533333rem
+    }
+    .dataItem .item-tit {
+        color: #242c35;
+        display: block;
+        height: .72rem;
+        line-height: .72rem
+    }
+
+    [data-dpr="1"] .dataItem .item-tit {
+        font-size: 16px
+    }
+
+    [data-dpr="2"] .dataItem .item-tit {
+        font-size: 32px
+    }
+
+    [data-dpr="3"] .dataItem .item-tit {
+        font-size: 48px
+    }
+    .box-bsyp .dataItem li {
+        height: 1.333333rem
+    }
+
+    [data-dpr="1"] .box-bsyp .dataItem .num {
+        font-size: 18px
+    }
+
+    [data-dpr="2"] .box-bsyp .dataItem .num {
+        font-size: 36px
+    }
+
+    [data-dpr="3"] .box-bsyp .dataItem .num {
+        font-size: 54px
+    }
+
+    [data-dpr="1"] .box-panl .dataItem .item-tit {
+        font-size: 13px
+    }
+
+    [data-dpr="2"] .box-panl .dataItem .item-tit {
+        font-size: 26px
+    }
+
+    [data-dpr="3"] .box-panl .dataItem .item-tit {
+        font-size: 39px
+    }
+
+    .box-panl .dataBox {
+        border-bottom: 0
+    }
+    .dataItem .red2 {
+        color: #d3553d
+    }
+    .dataItem .green2 {
+        color: #36a171
+    }
+
+
+    .dataItem .item-info{display:block;color:#aab5bd}
+    .bili-tips{line-height:.96rem;color:rgba(170,181,189,.5);text-align:center}
+    [data-dpr="1"] .bili-tips{font-size:10px}
+    [data-dpr="2"] .bili-tips{font-size:20px}
+    [data-dpr="3"] .bili-tips{font-size:30px}
+</style>

@@ -205,7 +205,6 @@
                   drunk-on="click: filterVisible = true, currFilterOptions = fightingFilterOptions, $event.stopPropagation()">筛选</span>
                 历史交战
             </div>
-
             <div class="zhedie" v-if="fightingInfo.matches">
                 <div class="zd-detail">
                     <div class="gaik clear">
@@ -267,6 +266,7 @@
                             </div>
                         </td>
                         <td onclick="_hmt.push(['_trackEvent','zq_detail','click','analysis_zj_ls2'])"
+                            data-p2="zq_detail"  data-p4="analysis_zj_ls2"
                             v-tap="{methods:toggleFightingInfoResultType}">
                             <div v-if="fightingInfoResultType == 'result1'"
                                  :class="{'red-k': info.result1 == '胜', 'blue-k': info.result1 == '负', 'green-k': info.result1 == '平', 'gray-k': !info.result1}">
@@ -285,12 +285,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="feed-back" v-else>
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
-
+            <feed-back-no-data v-else></feed-back-no-data>
         </div>
 
 
@@ -472,11 +467,7 @@
             recentRecord.away.matches == 0)" message="很抱歉，没有数据" type="no-data" text-type>
                 </widget-prompt-view>-->
             </div>
-            <div class="feed-back" v-else>
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>
+            <feed-back-no-data v-else></feed-back-no-data>
 
         </div>
 
@@ -591,9 +582,7 @@
                 </div>
             </div>-->
         </div>
-        <div class="sk-btips">
-            500彩票网提示：<br>以上数据仅供参考，请以官方公布的数据为准
-        </div>
+        <skbtips></skbtips>
     </div>
 </template>
 
@@ -601,7 +590,8 @@
     import {aTypes, mTypes} from '~store/zqdetail'
 
     import Filter from '~components/detail/football/analysis/filter.vue'
-
+    import skbtips from '~components/detail/skbtips.vue'
+    import feedBackNoData from '~components/detail/feedBackNoData.vue'
     export default {
         async asyncData ({store, route: {params}}) {
             const {stageid, matchtime, homeid, awayid, matchgroup} = store.state.zqdetail.baseInfo
@@ -620,6 +610,9 @@
                 jzlimit: 6,
                 jzhoa: 0
             })
+        },
+        components: {
+            skbtips, feedBackNoData
         },
         data () {
             return {
@@ -799,3 +792,455 @@
         }
     }
 </script>
+<style scoped>
+    .zhedie-box {
+        background: #fff
+    }
+
+    /*over*/
+    .volumeTab {
+        float: right
+    }
+
+    .volumeTab li {
+        float: left;
+        color: #aab5bd;
+        display: inline-block;
+        text-align: center;
+        height: .613333rem;
+        line-height: .613333rem;
+        background: #efefef;
+        border: 1px solid #dadee4;
+        margin-left: .24rem;
+        border-radius: .306667rem;
+        padding: 0 .24rem
+    }
+
+    .volumeTab li.cur,
+    .volumeTab li:active {
+        color: #333;
+        background: #fff
+    }
+    .show{
+        display: block;}
+    .fx-table {
+        margin-top: .053333rem
+    }
+
+    .fx-table tr th {
+        background: #fff;
+        border-bottom: 1px solid #f4f4f4;
+        height: .8rem;
+        line-height: .8rem;
+        color: #aab5bd;
+        font-weight: 400
+    }
+
+    [data-dpr="1"] .fx-table tr th {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .fx-table tr th {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .fx-table tr th {
+        font-size: 33px
+    }
+
+    .fx-table tr td {
+        line-height: 1.066667rem;
+        color: #242c35;
+        text-align: center
+    }
+
+    [data-dpr="1"] .fx-table tr td {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .fx-table tr td {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .fx-table tr td {
+        font-size: 36px
+    }
+    .fx-table tr .win {
+        color: #d3553d
+    }
+
+    .fx-table tr .lose {
+        color: #437ba8
+    }
+
+    .fx-table tr td .color9,
+    .fx-table tr td .colorc {
+        color: #aab5bd
+    }
+
+    .fx-table tr td:first-child,
+    .fx-table tr th:first-child {
+        padding-left: .4rem;
+        text-align: left;
+        position: relative
+    }
+
+    .fx-table tr td:last-child,
+    .fx-table tr th:last-child {
+        padding-right: .4rem;
+        text-align: right
+    }
+
+    .fx-table tr:last-child td {
+        padding-bottom: .25rem
+    }
+
+    .fx-table tr td:first-child span {
+        display: block;
+        height: .426667rem;
+        line-height: .426667rem
+    }
+
+    [data-dpr="1"] .fx-table tr td:first-child span {
+        font-size: 10px
+    }
+
+    [data-dpr="2"] .fx-table tr td:first-child span {
+        font-size: 20px
+    }
+
+    [data-dpr="3"] .fx-table tr td:first-child span {
+        font-size: 30px
+    }
+
+    [data-dpr="1"] .fx-table tr td:first-child span.f23 {
+        font-size: 11.5px
+    }
+
+    [data-dpr="2"] .fx-table tr td:first-child span.f23 {
+        font-size: 23px
+    }
+
+    [data-dpr="3"] .fx-table tr td:first-child span.f23 {
+        font-size: 34.5px
+    }
+    .rank-team {
+        text-align: left
+    }
+
+    .rank-team img {
+        width: .533333rem;
+        height: .533333rem;
+        vertical-align: middle;
+        margin-right: .08rem;
+        position: relative;
+        top: -.026667rem
+    }
+    .ui-empty-font {
+        height: 1.333333rem;
+        line-height: 1.333333rem;
+        background: #fff
+    }
+
+    .ui-empty-font:active {
+        background: #fff!important
+    }
+    .zd-detail {
+        background: #fff;
+        height: 1.84rem
+    }
+    .gaik {
+        margin: 0 .4rem;
+        height: .84rem;
+        line-height: .84rem;
+        padding: .293333rem 0 0
+    }
+    /*清除浮动*/
+    .clear {
+        zoom: 1
+    }
+    .clear:after {
+        content: '';
+        clear: both;
+        display: block;
+        height: 0;
+        visibility: hidden
+    }
+    /*over*/
+    .gaik .fl {
+        margin-right: .32rem
+    }
+    .color3 {
+        color: #333
+    }
+    [data-dpr="1"] .gaik .f30 {
+        font-size: 14px
+    }
+
+    [data-dpr="2"] .gaik .f30 {
+        font-size: 28px
+    }
+
+    [data-dpr="3"] .gaik .f30 {
+        font-size: 42px
+    }
+    .total-tips {
+        margin: 0 .4rem;
+        color: #aab5bd
+    }
+
+    [data-dpr="1"] .total-tips {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .total-tips {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .total-tips {
+        font-size: 33px
+    }
+    .fx-table {
+        margin-top: .053333rem
+    }
+    .fx-table tr th {
+        background: #fff;
+        border-bottom: 1px solid #f4f4f4;
+        height: .8rem;
+        line-height: .8rem;
+        color: #aab5bd;
+        font-weight: 400
+    }
+
+    [data-dpr="1"] .fx-table tr th {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .fx-table tr th {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .fx-table tr th {
+        font-size: 33px
+    }
+
+    .fx-table tr td {
+        line-height: 1.066667rem;
+        color: #242c35;
+        text-align: center
+    }
+
+    [data-dpr="1"] .fx-table tr td {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .fx-table tr td {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .fx-table tr td {
+        font-size: 36px
+    }
+
+    .fx-table tr .win {
+        color: #d3553d
+    }
+
+    .fx-table tr .lose {
+        color: #437ba8
+    }
+
+    .fx-table tr td .color9,
+    .fx-table tr td .colorc {
+        color: #aab5bd
+    }
+
+    .fx-table tr td:first-child,
+    .fx-table tr th:first-child {
+        padding-left: .4rem;
+        text-align: left;
+        position: relative
+    }
+
+    .fx-table tr td:last-child,
+    .fx-table tr th:last-child {
+        padding-right: .4rem;
+        text-align: right
+    }
+
+    .fx-table tr:last-child td {
+        padding-bottom: .25rem
+    }
+
+    .fx-table tr td:first-child span {
+        display: block;
+        height: .426667rem;
+        line-height: .426667rem
+    }
+
+    [data-dpr="1"] .fx-table tr td:first-child span {
+        font-size: 10px
+    }
+
+    [data-dpr="2"] .fx-table tr td:first-child span {
+        font-size: 20px
+    }
+
+    [data-dpr="3"] .fx-table tr td:first-child span {
+        font-size: 30px
+    }
+
+    [data-dpr="1"] .fx-table tr td:first-child span.f23 {
+        font-size: 11.5px
+    }
+
+    [data-dpr="2"] .fx-table tr td:first-child span.f23 {
+        font-size: 23px
+    }
+
+    [data-dpr="3"] .fx-table tr td:first-child span.f23 {
+        font-size: 34.5px
+    }
+    .textright {
+        text-align: right
+    }
+    .blue-k,
+    .gray-k,
+    .green-k,
+    .red-k {
+        width: 1.28rem;
+        height: .533333rem;
+        line-height: .533333rem;
+        padding-right: .106667rem;
+        color: #fff;
+        float: right
+    }
+
+    [data-dpr="1"] .blue-k,
+    [data-dpr="1"] .gray-k,
+    [data-dpr="1"] .green-k,
+    [data-dpr="1"] .red-k {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .blue-k,
+    [data-dpr="2"] .gray-k,
+    [data-dpr="2"] .green-k,
+    [data-dpr="2"] .red-k {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .blue-k,
+    [data-dpr="3"] .gray-k,
+    [data-dpr="3"] .green-k,
+    [data-dpr="3"] .red-k {
+        font-size: 33px
+    }
+    .green-k {
+        background: #36a171
+    }
+    .red-k {
+        background: #d25138
+    }
+    .blue-k {
+        background: #437ba8
+    }
+    .gray-k {
+        background: #c2c2c2
+    }
+    .saixuan {
+        color: #333;
+        display: inline-block;
+        text-align: center;
+        height: .613333rem;
+        line-height: .613333rem;
+        background: #fff;
+        border: .013333rem solid #dadee4;
+        border-radius: .306667rem;
+        padding: 0 .24rem;
+        position: absolute;
+        right: .4rem;
+        top: .333333rem
+    }
+
+    .saixuan:active {
+        background: #efefef
+    }
+    .pm-namel {
+        background: #fff;
+        line-height: 1.066667rem;
+        padding: .213333rem .4rem 0;
+        color: #333
+    }
+
+    [data-dpr="1"] .pm-namel {
+        font-size: 14px
+    }
+
+    [data-dpr="2"] .pm-namel {
+        font-size: 28px
+    }
+
+    [data-dpr="3"] .pm-namel {
+        font-size: 42px
+    }
+    .suggest-power {
+        padding-left: .266667rem
+    }
+
+    [data-dpr="1"] .suggest-power {
+        font-size: 12px
+    }
+
+    [data-dpr="2"] .suggest-power {
+        font-size: 24px
+    }
+
+    [data-dpr="3"] .suggest-power {
+        font-size: 36px
+    }
+
+    .suggest-stars {
+        vertical-align: middle;
+        padding-left: .266667rem;
+        height: .4rem;
+        line-height: .4rem;
+        position: relative
+    }
+
+    .ico-star {
+        display: none;
+        width: .386667rem;
+        height: .386667rem;
+        background: url(~assets/style/images/detail/star.png) no-repeat center -.533333rem;
+        background-size: .386667rem
+    }
+
+    .ico-star-active {
+        display: inline-block
+    }
+    .macao-txt {
+        color: #787878;
+        padding: 0 .4rem .48rem;
+        text-align: justify
+    }
+
+    [data-dpr="1"] .macao-txt {
+        font-size: 13px
+    }
+
+    [data-dpr="2"] .macao-txt {
+        font-size: 26px
+    }
+
+    [data-dpr="3"] .macao-txt {
+        font-size: 39px
+    }
+
+
+    .inte-look{height:1.066667rem;line-height:1.066667rem;background:#fff;color:#515e6d;position:relative;text-align:right;border-top:1px solid #ededed;padding-right:.4rem}
+    [data-dpr="1"] .inte-look{font-size:12px}
+    [data-dpr="2"] .inte-look{font-size:24px}
+    [data-dpr="3"] .inte-look{font-size:36px}
+
+</style>

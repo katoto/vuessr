@@ -1,11 +1,11 @@
 <template >
     <ul class="list-view-wrapper">
-        <li trackby="$index" class="list-view-item" v-for="(match, idx) in teamMatches" v-tap="{methods: goDetail, fid: match.fid}">
+        <li trackby="$index" class="list-view-item" v-for="(match, idx) in teamMatches" v-tap="{methods: goDetail, fid: match.fid}" :id="'match' + idx">
             <div class="schedule-itm l-flex-row">
                 <div class="when-game"> <em class="game-time">{{match.matchtime.substr(5, 11)}}</em> <em class="game-league">{{match.simplegbname + ' ' + match.stagegbname}}</em> </div>
                 <div class="who-game l-flex-1 l-flex-row">
                     <div class="who-gamer who-gamer-home l-flex-1"> <img :src="match.homelogo"> <em>{{match.homesxname}}</em> </div>
-                    <em class="who-win" :class="{'no-start': startStatus[idx]}" v-html="scoreText[idx]"></em>
+                    <em class="who-win" :class="{'no-start': noStartStatus[idx]}" v-html="scoreText[idx]"></em>
                     <div class="who-gamer who-gamer-guest l-flex-1"> <img :src="match.awaylogo"><em>{{match.awaysxname}}</em> </div>
                 </div>
             </div>
@@ -22,10 +22,13 @@ export default {
         }
     },
     computed: {
-        startStatus () {
+        noStartStatus () {
             return this.teamMatches.map((match) => {
                 return !(match.homescore && match.awayscore)
             })
+        },
+        firstNoStartId () {
+            return this.noStartStatus.indexOf(true)
         },
         scoreText () {
             return this.teamMatches.map((match) => {
@@ -39,11 +42,19 @@ export default {
         },
         scoreFmt (match) {
             if (match.homescore && match.awayscore) {
-                return `${match.homescore}<i>:</i>${match.awayscore}`
+                return `${match.homescore}<i style="color: #999; margin:0 0.13333rem; display: inline-block;">:</i>${match.awayscore}`
             } else {
                 return 'vs'
             }
+        },
+        goNoStartMatch () {
+            var noStartDom = this.$el.querySelector('#match' + this.firstNoStartId)
+            if (!noStartDom) return
+            this.$el.parentElement.scrollTop = noStartDom.offsetTop
         }
+    },
+    mounted () {
+        this.goNoStartMatch()
     }
 }
 </script>

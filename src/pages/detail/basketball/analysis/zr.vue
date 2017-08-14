@@ -2,13 +2,7 @@
     <div>
         <best3 :best3='best3' v-if="best3"></best3>
         <members :baseInfo="baseInfo" :members='members' v-if="members"></members>
-        <div class="item-loader" v-if="!(best3 && members)">
-            <div class="la-ball-pulse la-2x">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
+        <item-loader v-if="!(best3 && members)"></item-loader>
     </div>
 </template>
 
@@ -16,6 +10,7 @@
 import {mTypes, aTypes} from '~store/lqdetail'
 import best3 from '~components/detail/basketball/analysis/zr/best3.vue'
 import members from '~components/detail/basketball/analysis/zr/members.vue'
+import itemLoader from '~components/detail/itemLoader.vue'
 export default {
     async asyncData ({store, route: {params}}) {
         const {homeid, awayid, seasonid} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
@@ -23,7 +18,8 @@ export default {
     },
     components: {
         best3,
-        members
+        members,
+        itemLoader
     },
     computed: {
         baseInfo () {
@@ -66,6 +62,3 @@ export default {
     }
 }
 </script>
-
-<style lang="css">
-</style>

@@ -2,15 +2,15 @@
     <div class="main-box">
         <div class="box-tit">
             <h2> 球队实力 <em class="score">综合<i>{{score}}</i></em></h2> </div>
-        <div class="score-cont" style="height:4.5rem">
-            <iframe class="chartjs-hidden-iframe" tabindex="-1" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe>
-            <canvas id="canvas" class="rader" height="1677" width="3726" style="display: block; width: 1242px; height: 559px;">
-            </canvas>
+        <div class="score-cont" id="score-cont" style="height:4.5rem" >
+
         </div>
     </div>
 </template>
 
 <script>
+import echarts from 'echarts/lib/echarts'
+import 'echarts/lib/chart/radar'
 export default {
     props: {
         strength: {
@@ -20,6 +20,79 @@ export default {
         score: {
             type: String,
             required: true
+        }
+    },
+    data () {
+        return {
+            strengthType: {
+                shoot: '投篮命中率',
+                attack: '得分',
+                rebound: '篮板',
+                assist: '助攻',
+                defense: '失分'
+            }
+        }
+    },
+    mounted () {
+        let myChart = echarts.init(document.getElementById('score-cont'))
+        myChart.setOption(this.getOptions())
+        window.onresize = () => {
+            myChart.resize()
+            myChart.setOption(this.getOptions())
+        }
+    },
+    methods: {
+        getOptions () {
+            let indicatorArr = Object.keys(this.strengthType).map((type) => {
+                return {
+                    text: this.strengthType[type] + ' ' + this.strength[type][1] + (type === 'shoot' ? '%' : ''),
+                    max: 1
+                }
+            })
+
+            let valueArr = Object.keys(this.strengthType).map((type) => {
+                return this.strength[type][0]
+            })
+
+            let fontSize = window.lib.flexible.rem2px(0.375)
+
+            return {
+                radar: {
+                    indicator: indicatorArr,
+                    center: ['50%', '50%'],
+                    name: {
+                        textStyle: {
+                            color: 'rgb(120, 120, 120)',
+                            fontSize: fontSize,
+                            fontFamily: 'Microsoft YaHei'
+                        }
+                    }
+
+                },
+                series: [{
+                    type: 'radar',
+                    data: [
+                        {
+                            value: valueArr,
+                            areaStyle: {
+                                normal: {
+                                    opacity: 0.5,
+                                    color: new echarts.graphic.RadialGradient(0.5, 0.5, 1, [
+                                        {
+                                            color: '#e4dce3',
+                                            offset: 0
+                                        },
+                                        {
+                                            color: '#d18962',
+                                            offset: 1
+                                        }
+                                    ])
+                                }
+                            }
+                        }
+                    ]
+                }]
+            }
         }
     }
 }

@@ -15,11 +15,7 @@
                 </p>
             </div>
         </div>
-        <div class="feed-back" v-else>
-            <div class="feed-box">
-                <em>暂无数据</em>
-            </div>
-        </div>
+        <feed-back-no-data v-else></feed-back-no-data>
     </div>
 </template>
 
@@ -27,10 +23,11 @@
 import {mTypes} from '~store/lqdetail'
 import wordBox from '~components/detail/basketball/analysis/jj/wordBox.vue'
 import dataBox from '~components/detail/basketball/analysis/jj/teamMisc/dataBox.vue'
+import feedBackNoData from '~components/detail/feedBackNoData.vue'
 
 export default {
     components: {
-        dataBox
+        dataBox, feedBackNoData
     },
     props: {
         defense: {
@@ -105,5 +102,14 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped>
+    .gl-box{background:#fff}
+    .time-item{float:right;font-size:.293333rem}
+    .time-item li{background:#efefef;color:#aab5bd;height:.613333rem;line-height:.613333rem;padding:0 .2rem;margin-left:.133333rem;text-align:center;border-radius:.306667rem;border:1px solid #dadee4;float:left;box-sizing:border-box}
+    .time-item .time-item-cur{color:#242c35;background:#fff;border:1px solid #dadee4}
+
+    .infoTips{padding:.266667rem .4rem;line-height:.533333rem;color:#515e6d;display:-webkit-box;display:-ms-flexbox;display:flex;border-top:1px solid #f4f4f4}
+    .infoTips .icon{display:block;width:.88rem;height:.293333rem;background:url(~assets/style/images/detail/icon_sprite.png) no-repeat -.613333rem 0;background-size:1.92rem;margin-top:.106667rem}
+    .infoTips p{-webkit-box-flex:1;-ms-flex:1;flex:1;padding-left:.213333rem}
+
 </style>

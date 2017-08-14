@@ -1,7 +1,7 @@
 <template>
     <div class="v124-wrap l-full l-flex-column">
         <!--head begin-->
-        <header id="uiHead" class="ui-head" v-if="!isApp">
+        <header id="uiHead" class="ui-head">
             <div class="ui-head-in">
                 <div class="ui-head-l">
                     <span class="ui-head-btn1" onclick="history.back()">返回</span>
@@ -25,13 +25,12 @@
 </template>
 
 <script>
-
 export default{
     computed: {
         title () {
             switch (this.$route.path.substring(this.$route.path.lastIndexOf('/'))) {
             case '/predict': return '精选预测'
-            case '/result':                  // 战绩特征3个tab
+            case '/result': // 战绩特征3个tab
             case '/asian':
             case '/bigsmall': return '战绩特征'
             case '/strength': return '实力对比'

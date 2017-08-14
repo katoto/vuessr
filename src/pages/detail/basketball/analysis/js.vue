@@ -1,14 +1,8 @@
 <template>
-    <div class="">
+    <div>
         <strength :baseInfo='baseInfo' :strength='strength' :stats='stats' v-if="strength"></strength>
-        <trend :baseInfo='baseInfo' :trends='trend' v-if="trend"></trend>
-        <div class="item-loader" v-if="!(strength && trend)">
-            <div class="la-ball-pulse la-2x">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
+        <trend :baseInfo='baseInfo' :trends='trend' :vtype="vtype" v-if="trend"></trend>
+        <item-loader v-if="!loaded"></item-loader>
     </div>
 </template>
 
@@ -16,7 +10,7 @@
 import {mTypes, aTypes} from '~store/lqdetail'
 import strength from '~components/detail/basketball/analysis/js/strength.vue'
 import trend from '~components/detail/basketball/analysis/js/trend.vue'
-
+import itemLoader from '~components/detail/itemLoader.vue'
 export default {
     async asyncData ({store, route: {params}}) {
         const {fid, seasonid, homeid, awayid, matchtime} = store.state.lqdetail.baseInfo// baseInfo 保证有数据了
@@ -25,7 +19,8 @@ export default {
     },
     components: {
         strength,
-        trend
+        trend,
+        itemLoader
     },
     computed: {
         refreshTime () { // 用户点击刷新按钮时间戳
@@ -46,8 +41,11 @@ export default {
         stats () {
             return this.analysis.js.stats
         },
+        vtype () {
+            return this.analysis.js.vtype
+        },
         trend () {
-            return this.analysis.js.trend['1']
+            return this.analysis.js.trend[this.vtype]
         }
     },
     methods: {
@@ -72,6 +70,3 @@ export default {
     }
 }
 </script>
-
-<style lang="css">
-</style>
