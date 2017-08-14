@@ -60,7 +60,7 @@
                     <section class="schedule-cont home-sc-cont " v-if="footSchedule.rettype === 'object' " v-for="idx in footSchedule.sort">
                         <h1 class="tit-round">{{idx}}</h1>
                         <ul class="schedule-list ">
-                            <li class="schedule-itm  l-flex-row" v-for="item in footSchedule.values[idx]">
+                            <li class="schedule-itm  l-flex-row" v-for="item in footSchedule.values[idx]" v-tap="{methods:goDetail,fid:item.fid}">
                                 <!--左边的参赛时间-->
                                 <div class="when-game">
                                     <em class="game-time">{{item.matchtime.substr(5,11)}}</em>
