@@ -18,12 +18,15 @@
             </div>
             <div class="gl-box gl-zjBox">
                 <data-box :data="data" :dataType="combatType"></data-box>
-                <div class="infoTips" v-if="teamMisc.combat.desc">
-                    <i class="icon"></i>
-                    <p class="f24">
-                        {{teamMisc.combat.desc}}
-                    </p>
-                </div>
+            </div>
+            <div class="infoTips" v-if="teamMisc.ratio.desc">
+                <i class="icon"></i>
+                <p class="f24">
+                    {{teamMisc.combat.desc}}
+                </p>
+            </div>
+            <div class="gl-box gl-zjBox">
+                <data-box :data="this.teamMisc.degree" :dataType="degreeType"></data-box>
             </div>
         </template>
         <div class="feed-back" v-else>
@@ -67,14 +70,20 @@ export default {
                 }
             },
             combatType: {
-                expect: {
+                real: {
                     zn: '实际战绩',
                     en: 'Win-Lost'
                 },
-                real: {
+                expect: {
                     zn: '期望战绩',
                     en: 'Expected W-L'
-                },
+                }
+                // sos: {
+                //     zn: '赛程强度',
+                //     en: 'SOS'
+                // }
+            },
+            degreeType: {
                 sos: {
                     zn: '赛程强度',
                     en: 'SOS'
@@ -118,8 +127,8 @@ export default {
         data () {
             return {
                 expect: this.teamMisc.combat.expect,
-                real: this.teamMisc.combat.real,
-                sos: this.teamMisc.degree.sos
+                real: this.teamMisc.combat.real
+                // sos: this.teamMisc.degree.sos
             }
         },
         noEmptyFlag () {

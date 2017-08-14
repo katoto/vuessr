@@ -1,7 +1,7 @@
 <template>
     <div v-if="analysis">
         <NBA-rank :baseInfo='baseInfo' :nbarank='nbarank.all' v-if="isNBA && nbarank"></NBA-rank>
-        <league-rank :baseInfo='baseInfo' :leaguerank='leaguerank' v-else-if='leaguerank'></league-rank>
+        <league-rank :baseInfo='baseInfo' :leaguerank='leaguerank' v-else-if='leaguerank && leaguerank.length'></league-rank>
         <jz-data :jzData='jzData' v-if="jzData"></jz-data>
         <recent-record :recentRecord='recentRecord' v-if="recentRecord"></recent-record>
         <future-match :futureMatch='futureMatch' v-if="futureMatch"></future-match>

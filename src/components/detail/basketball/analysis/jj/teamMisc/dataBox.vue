@@ -13,7 +13,7 @@
             </li>
             <li class="itemR"><em class="num">{{data[type].home_value}}</em>
                 <div class="dataItem-pm">
-                    联盟第{{data[type].away_rank}}
+                    联盟第{{data[type].home_rank}}
                 </div>
             </li>
         </ul>
@@ -37,6 +37,9 @@ export default {
 
 <style scoped>
     .dataBox{padding:.4rem .4rem .266667rem .4rem;border-bottom:1px solid #f4f4f4;text-align:center;}
+    .dataItem-pm {
+        color: #aab5bd;
+    }
     .dataItem{display:table;height:1.333333rem;width:100%}
     .dataItem li{display:table-cell;color:#515e6d;vertical-align:middle;height:1.733333rem}
     .dataItem .itemL{text-align:left;width:2.8rem;padding-left:.4rem}

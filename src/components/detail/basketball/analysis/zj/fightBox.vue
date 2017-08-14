@@ -218,18 +218,18 @@ export default {
 	[data-dpr="3"] .gaik .f30 {
 		font-size: 42px
 	}
-	.wins {
-		color: #d3553d
-	}
-	.tie {
-		color: #36a171
-	}
 
 	.lose {
 		color: #437ba8
 	}
 	.tcell {
 		display: table-cell
+	}
+	.win {
+		color: #d3553d;
+	}
+	cite, i {
+		font-style: normal;
 	}
 	.gaik .fl {
 		margin-right: .32rem

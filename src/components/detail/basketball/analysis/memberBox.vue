@@ -9,10 +9,10 @@
         <div class="zj-nav" v-else>
             {{baseInfo[hoa + 'sxname']}}
             <ul class="time-item" v-if="noEmptyFlag">
-                <li class="click-cj" :class="{'time-item-cur': vtype === 1}" v-tap="{methods: () => vtype = 1}">场均</li>
-                <li class="click-zs" :class="{'time-item-cur': vtype === 2}" v-tap="{methods: () => vtype = 2}">总数</li>
-                <li class="click-ybhh" :class="{'time-item-cur': vtype === 3}" v-tap="{methods: () => vtype = 3}">100回合</li>
-                <li class="click-sslfz" :class="{'time-item-cur': vtype === 4}" v-tap="{methods: () => vtype = 4}">36分钟</li>
+                <li class="click-cj" :class="{'time-item-cur': vtype === '1'}" v-tap="{methods: () => vtype = '1'}">场均</li>
+                <li class="click-zs" :class="{'time-item-cur': vtype === '2'}" v-tap="{methods: () => vtype = '2'}">总数</li>
+                <li class="click-ybhh" :class="{'time-item-cur': vtype === '3'}" v-tap="{methods: () => vtype = '3'}">100回合</li>
+                <li class="click-sslfz" :class="{'time-item-cur': vtype === '4'}" v-tap="{methods: () => vtype = '4'}">36分钟</li>
             </ul>
         </div>
 
@@ -22,28 +22,42 @@
                     <li class="zr-detail-tit">球员</li>
                     <li v-for="item in membersFmt">{{item.player | truncate(4)}}<em v-if="item.isinjury === '1'">伤</em></li>
                 </ul>
-                <div class="scroll-cont table-sslfz">
-                    <ul class="zr-detail-right" :style="{width: liW}">
+
+                <!-- 进阶模块 -->
+                <div class="scroll-cont table-qy" v-if="isJj">
+                    <ul class="zr-detail-right">
                         <li class="zr-detailer zr-detail-tit">
                             <ul>
-                                <li v-for="(name, type) in membersType">{{name}}</li>
+                                <li v-for="(name, type) in membersType[vtype]">{{name}}</li>
                             </ul>
                         </li>
                         <li class="zr-detailer zr-detailer-box" v-for="item in membersFmt">
                             <ul>
-                                <li v-for="(name, type) in membersType">{{item[type]}}</li>
+                                <li v-for="(name, type) in membersType[vtype]">{{item[type]}}</li>
                             </ul>
                         </li>
                     </ul>
                 </div>
+
+                <div class="scroll-cont" :class="widStyle[vtype]" v-else>
+                    <ul class="zr-detail-right">
+                        <li class="zr-detailer zr-detail-tit">
+                            <ul>
+                                <li v-for="(name, type) in membersType[vtype]">{{name}}</li>
+                            </ul>
+                        </li>
+                        <li class="zr-detailer zr-detailer-box" v-for="item in membersFmt">
+                            <ul>
+                                <li v-for="(name, type) in membersType[vtype]">{{item[type]}}</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
         </div>
         <feed-back-no-data v-else></feed-back-no-data>
-        <div class="box-arrow noborder" v-if="members" v-tap="{methods: collap, lenght: members.length}">
-            <div class="zd-arrow" :class="{'rotate180': moreFlag}">
-            </div>
-        </div>
-
+        <more v-if="members" @collap="openMore"></more>
     </div>
 </template>
 
@@ -54,9 +68,13 @@ import {
 } from '~store/lqdetail'
 import wordBox from '~components/detail/basketball/analysis/jj/wordBox.vue'
 import feedBackNoData from '~components/detail/feedBackNoData.vue'
+import more from '~components/detail/basketball/analysis/more.vue'
 import {Scroller} from 'scroller'
 
 export default {
+    components: {
+        feedBackNoData, more
+    },
     props: {
         baseInfo: {
             type: Object,
@@ -81,14 +99,18 @@ export default {
             type: Boolean
         }
     },
-    components: {
-        feedBackNoData
-    },
     data () {
         return {
             moreFlag: false,
             cutLen: 5,
-            vtype: 1,
+            vtype: '1',
+            boxWidth: '',
+            widStyle: {
+                '1': 'table-cj',
+                '2': 'table-zs' ,
+                '3': 'table-ybhh',
+                '4': 'table-sslfz'
+            },
             wordData: {
                 effective_rate: {
                     name: '效率值PER',
@@ -178,9 +200,8 @@ export default {
         }
     },
     methods: {
-        collap ({length}) {
-            this.moreFlag = !this.moreFlag
-            this.cutLen = this.moreFlag ? length : 5
+        openMore (moreFlag) {
+            this.cutLen = moreFlag ? this.members.length : 5
             this.$store.commit(mTypes.updateScTime)
         },
         noEmpty (obj) {
@@ -220,52 +241,55 @@ export default {
                     title: str
                 }
             })
+        },
+        initConfig() {
+            if (!this.noEmptyFlag) return
+            this.container = this.$el.querySelector('.scroll-cont')
+            this.content = this.$el.querySelector('.zr-detail-right')
+            const transform = typeof document.body.style.transform !== 'undefined' ? 'transform' : 'webkitTransform'
+            this.scrollerObj = new Scroller((left, top, zoom) => {
+                this.content.style[transform] = 'translate3d(' + (-left) + 'px,' + (-top) + 'px,0) scale(' + zoom + ')'
+            }, {
+                bouncing: false,
+                scrollingX: true,
+                Locking: false,
+                scrollingY: false,
+                animationDuration: 150
+            })
+            this.scrollerObj.setSnapSize(this.container.offsetWidth)
+            this.scrollerObj.setDimensions(this.container.offsetWidth, this.container.offsetHeight, this.content.offsetWidth, this.content.offsetHeight)
+            let latestX = 0
+            let latesY = 0
+            let needLockY = false
+            this.container.addEventListener('touchstart', (e) => {
+                latestX = e.touches[0].pageX
+                latesY = e.touches[0].pageY
+                this.scrollerObj.doTouchStart(e.touches, e.timeStamp)
+                e.preventDefault()
+            }, false)
+            this.container.addEventListener('touchmove', (e) => {
+                if (Math.abs(latestX - e.touches[0].pageX) > Math.abs(latesY - e.touches[0].pageY)) {
+                    needLockY = true
+                }
+                latestX = e.touches[0].pageX
+                latesY = e.touches[0].pageY
+
+                needLockY && e.stopPropagation()
+                this.scrollerObj.doTouchMove(e.touches, e.timeStamp, e.scale)
+            }, false)
+
+            this.container.addEventListener('touchend', (e) => {
+                needLockY = false
+                this.scrollerObj.doTouchEnd(e.timeStamp)
+            }, false)
+
+            this.container.addEventListener('touchcancel', (e) => {
+                this.scrollerObj.doTouchEnd(e.timeStamp)
+            }, false)
         }
     },
     mounted () {
-        if (!this.noEmptyFlag) return
-        this.container = this.$el.querySelector('.scroll-cont')
-        this.content = this.$el.querySelector('.zr-detail-right')
-        const transform = typeof document.body.style.transform !== 'undefined' ? 'transform' : 'webkitTransform'
-        this.scrollerObj = new Scroller((left, top, zoom) => {
-            this.content.style[transform] = 'translate3d(' + (-left) + 'px,' + (-top) + 'px,0) scale(' + zoom + ')'
-        }, {
-            bouncing: false,
-            scrollingX: true,
-            Locking: false,
-            scrollingY: false,
-            animationDuration: 150
-        })
-        this.scrollerObj.setSnapSize(this.container.offsetWidth)
-        this.scrollerObj.setDimensions(this.container.offsetWidth, this.container.offsetHeight, this.content.offsetWidth, this.content.offsetHeight)
-        let latestX = 0
-        let latesY = 0
-        let needLockY = false
-        this.container.addEventListener('touchstart', (e) => {
-            latestX = e.touches[0].pageX
-            latesY = e.touches[0].pageY
-            this.scrollerObj.doTouchStart(e.touches, e.timeStamp)
-            e.preventDefault()
-        }, false)
-        this.container.addEventListener('touchmove', (e) => {
-            if (Math.abs(latestX - e.touches[0].pageX) > Math.abs(latesY - e.touches[0].pageY)) {
-                needLockY = true
-            }
-            latestX = e.touches[0].pageX
-            latesY = e.touches[0].pageY
-
-            needLockY && e.stopPropagation()
-            this.scrollerObj.doTouchMove(e.touches, e.timeStamp, e.scale)
-        }, false)
-
-        this.container.addEventListener('touchend', (e) => {
-            needLockY = false
-            this.scrollerObj.doTouchEnd(e.timeStamp)
-        }, false)
-
-        this.container.addEventListener('touchcancel', (e) => {
-            this.scrollerObj.doTouchEnd(e.timeStamp)
-        }, false)
+        this.initConfig()
     },
     filters: {
         truncate (input, length, tail) {
@@ -278,6 +302,9 @@ export default {
     watch: {
         vtype (vtype) {
             this.scrollTo(0, false)
+            this.raf(()=>{
+                this.initConfig()
+            })
             this.updateMembersData(vtype, this.hoa)
         }
     }
@@ -301,7 +328,6 @@ export default {
     .zr-detail-tit ul{height:.706667rem;line-height:.706667rem}
     .scroll-cont{width:7.066667rem;overflow:hidden;float:left;position:relative;left:2.066667rem}
     .scroll-cont .zr-detail-right{overflow:hidden}
-    .table-qy .zr-detailer{width:25.733333rem}
     .table-tj .zr-detailer{width:9rem}
     .table-tj .zr-detailer ul li:nth-child(1){width:1rem}
     .table-tj li ul li{width:1rem}
@@ -309,6 +335,27 @@ export default {
 
     .dataBox{border-bottom:0;padding-bottom:0;padding-top:.2rem}
     .dataBox{padding:.4rem .4rem .266667rem .4rem;border-bottom:1px solid #f4f4f4;text-align:center}
-
-
+    .box-arrow{height:1.066667rem;position:relative}
+    .box-arrow:active{background:#f4f4f4}
+    .list-yuce .box-arrow{height:.8rem;padding-top:0;margin-top:-.026667rem;background:#fff}
+    .noborder{border:0}
+    .popDetail .more .zd-arrow{display:inline-block}
+    .popDetail .more-up .zd-arrow{transform:rotate(180deg);-webkit-transform:rotate(180deg)}
+    .back-icon:before,.black-ball,.dian-ball,.gl-tico:after,.green-arrow,.green-pl:after,.ipt-icon,.jiaohuan,.person-mr,.red-arrow,.red-ball,.red-pl:after,.saixuan:after,.sh-arrow,.sk-gz:after,.wuxiao-ball,.zan-icon,.zd-arrow,.zj-nav .cur:after{background:url(~assets/style/images/detail/detail-icon.png) no-repeat;background-size:.533333rem 13.333333rem}
+    .zd-arrow{width:.533333rem;height:.177rem;position:absolute;top:50%;left:50%;margin:-.2rem 0 0 -.266667rem;background-position:center -10.84rem}
+    .rotate180{-webkit-animation:all .2s linear;animation:all .2s linear;-webkit-transform:rotate(180deg);transform:rotate(180deg)}
+    .rotate180,.rotateborder{-webkit-transition:all .2s linear;transition:all .2s linear;-webkit-transform:rotate(180deg);transform:rotate(180deg)}
+    .table-zs .zr-detailer, .table-zs .zr-detail-right {
+        width: 36.933333rem;
+    }
+    .table-ybhh .zr-detailer, .table-ybhh .zr-detail-right {
+        width: 36.8rem;
+    }
+    .table-sslfz .zr-detailer, .table-sslfz .zr-detail-right {
+        width: 33.6rem;
+    }
+    .table-cj .zr-detailer, .table-cj .zr-detail-right {
+        width: 40.133333rem;
+    }
+    .table-qy .zr-detailer, .table-qy .zr-detail-right {width:25.733333rem}
 </style>
