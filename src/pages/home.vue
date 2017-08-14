@@ -1,20 +1,12 @@
 <template>
-    <div class="l-full l-flex-column" style="overflow: hidden">
-        <!--head begin-->
-        <div class="headernav">
-            <div class="headernavL"><a onclick="home.back()" class="home-icon">返回</a></div>
-            <ul class="toggle-cz">
-                <li :class="{'cur': ~$route.path.indexOf('/zq/')}">
-                    <router-link to="/home/zq/jczq/cur" replace>足球</router-link>
-                </li>
-                <li :class="{'cur': ~$route.path.indexOf('/lq/')}">
-                    <router-link to="/home/lq/jclq/cur" replace>篮球</router-link>
-                </li>
+    <div class="bifen-list l-full l-flex-column">
+        <div class="head-zone">
+            <div class="icon-return"><span></span></div>
+            <ul class="ball-tab">
+                <li :class="{cur: ~$route.path.indexOf('/zq/')}" v-tap="{methods: goTab, tab: 'zq'}">足球</li>
+                <li :class="{cur: ~$route.path.indexOf('/lq/')}"  v-tap="{methods: goTab, tab: 'lq'}">篮球</li>
             </ul>
-            <div class="headernavR">
-                <a href="/center/football" class="">赛事中心</a>
-                <a class="sx-icon" v-tap="{methods: triggerFilter}"></a>
-            </div>
+            <div class="search-league" v-tap="{methods: goLeague}"><span></span>联赛</div>
         </div>
 
 
@@ -36,45 +28,6 @@
     </div>
 
 </template>
-<style scoped>
-    .headernav {
-        position: relative;
-    }
-    .slide-enter-active, .slide-leave-active {
-        -webkit-transition: -webkit-transform .3s ease;
-        transition: transform .3s ease;
-    }
-    .slide-enter-active, .slide-leave {
-        -webkit-transform: translate(0, 0);
-        transform: translate(0, 0);
-    }
-
-    .slide-leave-active, .slide-enter {
-        -webkit-transform: translate(0, 100%);
-        transform: translate(0, 100%);
-    }
-    .headernav{width:100%;height:1.173333rem;line-height:1.173333rem;left:0;top:0;z-index:9;text-align:center;background:url(/mobile/touch/images/bifen/index-header.jpg);background-size:100%}
-    .headernavL{position:absolute;left:0}
-    .headernavR{position:absolute;right:0;top:0}
-    .guanzhu,.gz-fly,.gz-tips-icon,.home-icon:before,.league-icon:before,.qi-arrow,.sx-icon:before,.toggle-arrow{background:url(/mobile/touch/images/bifen/s-icon.png) no-repeat;background-size:.533333rem 3.6rem}
-    .exchange,.refresh-icon,.sx-list li.cur:after,.ui-navbox-item li.select span:after{background:url(/mobile/touch/images/bifen/m-icon.png) no-repeat;background-size:.906667rem 2.533333rem}
-    .home-icon,.league-icon,.sx-icon{width:1.066667rem;height:1.173333rem;display:inline-block;text-indent:-13.32rem;position:relative}
-    .home-icon:before,.league-icon:before,.sx-icon:before{position:absolute;content:' ';width:.533333rem;height:.533333rem;display:block}
-    .home-icon:before{width:.4rem;height:.493333rem;left:.266667rem;top:.366667rem;background-position:center 0}
-    .sx-icon:before{background-position:center -.58rem;right:.266667rem;top:.4rem}
-    .league-icon:before{background-position:center -3.093333rem;right:.266667rem;top:.4rem}
-    .home-icon:active,.league-icon:active,.sx-icon:active{opacity:.6}
-    .toggle-cz{border:1px solid #f7e3e3;line-height:.76rem;height:.76rem;border-radius:.106667rem;color:#fff;display:inline-block;position:relative;top:.25rem}
-    [data-dpr="1"] .toggle-cz{font-size:16.5px}
-    [data-dpr="2"] .toggle-cz{font-size:33px}
-    [data-dpr="3"] .toggle-cz{font-size:49.5px}
-    .toggle-cz li{display:inline-block;padding:0 .72rem;float:left}
-    .toggle-cz li.cur,.toggle-cz li:active{background:#d46e6f;font-weight:700}
-    .toggle-cz li:first-child.cur{border-radius:.106667rem 0 0 .106667rem}
-    .toggle-cz li:last-child.cur{border-radius:0 .106667rem .106667rem 0}
-    .saixuan-box{background:#f4f4f4;height:100%;width:100%}
-    .saix-h{height:4rem}
-</style>
 
 <script>
     import league from '~components/league.vue'
@@ -92,11 +45,138 @@
         methods: {
             triggerFilter () {
                 this.$store.commit(mTypes.filterTime)
+            },
+            goLeague () {
+                if (~this.$route.path.indexOf('/zq/')) {
+                    this.$router.push({name: 'center-football'})
+                } else {
+                    this.$router.push({name: 'center-basketball'})
+                }
+            },
+            goTab ({tab}) {
+                if (tab === 'zq') {
+                    this.$router.replace(`/home/${tab}/jczq/cur`)
+                } else {
+                    this.$router.replace(`/home/${tab}/jclq/cur`)
+                }
             }
         },
         mounted () {
-        //            入口
+            //            入口
         }
 
     }
 </script>
+
+<style scoped>
+    .bifen-list {
+        background: #fff;
+        width: 100%;
+        height: 100%;
+    }
+    .head-zone {
+        width: 9.2rem;
+        height: 1.2rem;
+        line-height: 1.2rem;
+        margin: 0 auto;
+        position: relative;
+    }
+    .icon-return {
+        width: .666667rem;
+        height: 1.2rem;
+        position: relative;
+    }
+
+    .icon-return:active,.search-league:active {
+        background: #f4f4f4
+    }
+
+    .icon-return span {
+        display: inline-block;
+        width: .306667rem;
+        height: .493333rem;
+        background: url(~assets/style/images/home/return.png) no-repeat;
+        background-size: cover;
+        position: absolute;
+        top: 50%;
+        margin-top: -.253333rem;
+        left: 0
+    }
+
+    .ball-tab {
+        width: 3.68rem;
+        height: .666667rem;
+        border: .026667rem solid #242c35;
+        color: #242c35;
+        border-radius: .133333rem;
+        clear: both;
+        overflow: hidden;
+        zoom:1;position: absolute;
+        left: 50%;
+        margin-left: -1.866667rem;
+        top: 50%;
+        margin-top: -.36rem
+    }
+
+    [data-dpr="1"] .ball-tab {
+        font-size: 14px
+    }
+
+    [data-dpr="2"] .ball-tab {
+        font-size: 28px
+    }
+
+    [data-dpr="3"] .ball-tab {
+        font-size: 42px
+    }
+
+    .ball-tab li {
+        width: 50%;
+        text-align: center;
+        height: .666667rem;
+        line-height: .666667rem;
+        float: left
+    }
+
+    .ball-tab .cur {
+        background: #242c35;
+        color: #fff
+    }
+
+    .search-league {
+        color: #aab5bd;
+        width: 1.333333rem;
+        text-align: right;
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 1.2rem;
+        line-height: 1.2rem
+    }
+
+    [data-dpr="1"] .search-league {
+        font-size: 13px
+    }
+
+    [data-dpr="2"] .search-league {
+        font-size: 26px
+    }
+
+    [data-dpr="3"] .search-league {
+        font-size: 39px
+    }
+
+    .search-league span {
+        width: .44rem;
+        height: .44rem;
+        display: inline-block;
+        background: url(~assets/style/images/home/league.png) no-repeat;
+        background-size: cover;
+        position: absolute;
+        top: 50%;
+        margin-top: -.226667rem;
+        left: 0
+    }
+
+
+</style>

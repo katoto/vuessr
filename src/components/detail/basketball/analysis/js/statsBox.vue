@@ -7,7 +7,7 @@
                     <tbody>
                     <tr>
                         <th width="30%"></th>
-                        <th width="35%" colspan="2" v-for="hoa in ['away', 'home']">
+                        <th width="35%" colspan="2">
                                 <span class="jcsj-img">
                     				<img :src="baseInfo.awaylogo">
                     			</span>
@@ -18,7 +18,6 @@
                                 <span class="jcsj-img">
                     				<img :src="baseInfo.homelogo">
                     			</span>
-                            <em>{{baseInfo[hoa + 'sxname']}}</em>
                         </th>
                     </tr>
                     <tr>
@@ -30,10 +29,10 @@
                     </tr>
                     <tr v-for="(name, type) in statsType">
                         <td>{{name}}</td>
-                        <td v-if="noEmptyFlag">{{stats[type].home_per}}</td>
-                        <td v-if="noEmptyFlag">{{stats[type].home_rank}}</td>
                         <td v-if="noEmptyFlag">{{stats[type].away_per}}</td>
                         <td v-if="noEmptyFlag">{{stats[type].away_rank}}</td>
+                        <td v-if="noEmptyFlag">{{stats[type].home_per}}</td>
+                        <td v-if="noEmptyFlag">{{stats[type].home_rank}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -64,16 +63,16 @@ export default {
                 'foul': '犯规',
                 'hit': '命中',
                 'shots': '出手',
-                'rate': '命中率',
-                '3hit': '3分命中',
+                'rate': '命中%',
+                '3hit': '3分',
                 '3shots': '3分出手',
-                '3rate': '3分命中率',
-                '2hit': '2分命中',
+                '3rate': '3分命中%',
+                '2hit': '2分',
                 '2shots': '2分出手',
-                '2rate': '2分命中率',
+                '2rate': '2分命中%',
                 'penalty_hit': '罚篮命中',
                 'penalty_num': '罚篮数',
-                'penalty_rate': '罚篮命中率',
+                'penalty_rate': '罚篮命中%',
                 'off_rebounds': '进攻篮板',
                 'def_rebounds': '防守篮板'
             }

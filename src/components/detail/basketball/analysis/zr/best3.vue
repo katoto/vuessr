@@ -5,7 +5,7 @@
     	</div>
     	<div class="gl-box fx-zr-box"  v-if="noEmptyFlag">
             <template  v-for="(name, type) in Best3Type">
-                <div class="qy-databox"  v-tap="{methods: () => Best3TypeStatus[type] = !Best3TypeStatus[type]}">
+                <div class="qy-databox"  v-tap="{methods: collap, type: type}">
                     <ul class="dataItem">
                         <li class="itemL">
                             <div class="qy-icon">
@@ -100,6 +100,10 @@ export default {
         noEmpty (obj) {
             if (obj) { return !!Object.keys(obj).length }
             return false
+        },
+        collap ({type}) {
+            this.Best3TypeStatus[type] = !this.Best3TypeStatus[type]
+            this.$store.commit(mTypes.updateScTime)
         }
     },
     filters: {
@@ -108,11 +112,6 @@ export default {
                 return input
             }
             return input.slice(0, length) + (tail || '...')
-        }
-    },
-    watch: {
-        Best3TypeStatus () {
-            this.$store.commit(mTypes.updateScTime)
         }
     }
 }

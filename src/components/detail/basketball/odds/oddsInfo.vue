@@ -90,7 +90,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <no-match v-if="oddsInfo && !oddsInfo.length"> </no-match>
+                            <no-match v-if="!oddsInfo || !oddsInfo.length"></no-match>
                         </template>
                     </div>
                 </div>
@@ -221,20 +221,6 @@
 </script>
 
 <style scoped>
-    .popBox {
-        position: absolute;
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 91;
-        color: #242c35;
-        overflow: hidden
-    }
-    .popBox .l-flex-column {
-        position: relative;
-        z-index: 5
-    }
     .popTopbar {
         height: 1.173333rem;
         width: 100%
@@ -419,3 +405,4 @@
         color: #36a171
     }
 </style>
+

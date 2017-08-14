@@ -18,8 +18,7 @@
             <!--<me-sports v-if="news && news.length" :news="situation.news" :init-size="3" @rs="refreshScroll"></me-sports>-->
         </template>
 
-
-        <div class="ui-empty" v-if="!news &&(match.status == StatusCode.NOT_STARTED || match.status == StatusCode.CHANGED || match.status == StatusCode.REMOVED || match.status == StatusCode.CANCELED || match.status == StatusCode.PAUSED)">
+        <div class="ui-empty" v-if="!news.length && (match.status == StatusCode.NOT_STARTED || match.status == StatusCode.CHANGED || match.status == StatusCode.REMOVED || match.status == StatusCode.CANCELED || match.status == StatusCode.PAUSED)" style="padding: 1.54rem 0;">
             <img src="~assets/style/images/detail/07.png" class="w240">
             <div class="ui-empty-dfont" v-if="match.status == StatusCode.NOT_STARTED">比赛时间 {{match.matchtime.substr(5, 11)}}</div>
             <div class="ui-empty-dfont" v-else>{{StatusDesc[match.status]}}</div>
@@ -33,7 +32,7 @@
         <!--</widget-prompt-view>-->
 
         <!--<me-sports src="detail-page/comment/me-sports.html" drunk-if="match.status == StatusCode.NOT_STARTED || eventlist == null" requesting="{{isRequesting}}" leagueid="{{match.matchid}}" on-size="hasNews=!!$event.args[0]" init-size="{{match.status == StatusCode.NOT_STARTED?5:3}}" homeid="{{match.homeid}}" awayid="{{match.awayid}}" status="{{match.status}}" matchtime="{{match.matchdate}}" vtype="2"></me-sports>-->
-        <me-sports v-if="match.status == StatusCode.NOT_STARTED && news" :news="news.news" :init-size="5"></me-sports>
+        <me-sports v-if="match.status == StatusCode.NOT_STARTED && news && news.length" :news="news.news" :init-size="5"></me-sports>
     </div>
 </template>
 <script>
@@ -143,4 +142,8 @@
     .sk-detail-tap li:active {
         color: #242c35
     }
+    .ui-empty{padding:2.72rem 0;text-align:center;}
+    .ui-empty img{margin-bottom:0.933333rem;}
+    .ui-empty .w240{width:3.2rem;}
+    .ui-empty-gfont{font-size:0.4rem;color:#b3b3b3;margin-bottom:0.773333rem;padding:0 0.5rem;}
 </style>

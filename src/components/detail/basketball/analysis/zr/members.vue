@@ -2,7 +2,7 @@
 <div>
     <div class="tContent" v-for="hoa in ['away', 'home']">
         <div class="gl-box fx-zr-box">
-            <member-box ref="memBox" :baseInfo='baseInfo' :members='members[hoa]' :membersType='BasketballMemberType' :hoa="hoa" liW="33.6rem"></member-box>
+            <member-box ref="memBox" :baseInfo='baseInfo' :members='members[hoa]' :membersType='BasketballMemberType' :hoa="hoa" liW="40.133333rem"></member-box>
         </div>
     </div>
 </div>
@@ -32,8 +32,6 @@ export default {
     },
     data () {
         return {
-            awayVtype: 1,
-            homeVtype: 1,
             BasketballMemberType
         }
     },
@@ -49,14 +47,6 @@ export default {
         }
     },
     watch: {
-        awayVtype (vtype) {
-            this.$refs.memBox[0].scrollTo(0, false)
-            this.updateMembersData(vtype, 'away')
-        },
-        homeVtype (vtype) {
-            this.$refs.memBox[1].scrollTo(0, false)
-            this.updateMembersData(vtype, 'home')
-        },
         loaded (loaded) {
             if (loaded) {
                 this.$store.commit(mTypes.updateScTime)

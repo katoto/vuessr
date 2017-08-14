@@ -2,7 +2,7 @@
     <div>
         <div class="tContent" style="display:block" v-for="hoa in ['away', 'home']">
             <div class="gl-box fx-zr-box">
-                <member-box ref="memBox" :baseInfo="baseInfo" :members='membersAdvanced[hoa]' :membersType='BasketballMemberAdvType' liW="25.73rem" :hoa="hoa" :isJj='isJj'></member-box>
+                <member-box ref="memBox" :baseInfo="baseInfo" :members='membersAdvanced[hoa]' :membersType='BasketballMemberType' liW="25.73rem" :hoa="hoa" :isJj='isJj'></member-box>
             </div>
         </div>
     </div>
@@ -33,7 +33,9 @@ export default {
     },
     data () {
         return {
-            BasketballMemberAdvType,
+            BasketballMemberType: {
+                '1': BasketballMemberAdvType
+            },
             wordData: {
                 effective_rate: {
                     name: '效率值PER',
