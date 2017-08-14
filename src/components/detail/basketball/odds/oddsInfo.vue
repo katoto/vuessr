@@ -90,7 +90,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <no-match v-if="oddsInfo || !oddsInfo.length"></no-match>
+                            <no-match v-if="oddsInfo && !oddsInfo.length"> </no-match>
                         </template>
                     </div>
                 </div>
