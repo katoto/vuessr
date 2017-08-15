@@ -1,98 +1,106 @@
 <template>
     <div class="l-full l-flex-column">
-        <div class="sk-detail-tap-box  turn-box" v-if="footChoice && footChoice.choice_list[currSelect]">
-            <!--如果后面没有了就用look-prev-none-->
-            <div class="boxer-h">
-                <em class="turn-boxer turn-boxer-prev">
-                    <i class="turn-to look-prev-have" v-if="isForward"  v-tap="{methods:goForward}"></i>
-                    <i class="turn-to" v-if="!isForward"></i>
-                </em>
-                <div class="num-turn" v-tap="{methods:goSelect}">{{footChoice.choice_list[currSelect].stagegbname}}<i class="num-turner"></i></div>
-                <!--如果后面没有了就用look-next-have-->
-                <em class="turn-boxer turn-boxer-next">
-                    <i class="turn-to look-next-have" v-if="isBehind"  v-tap="{methods:goBehind}"></i>
-                    <i class="turn-to" v-if="!isBehind"></i>
-                </em>
-            </div>
+       <template v-if="footChoice">
+           <div class="sk-detail-tap-box  turn-box" v-if="footChoice.choice_list[currSelect]">
+               <!--如果后面没有了就用look-prev-none-->
+               <div class="boxer-h">
+                   <em class="turn-boxer turn-boxer-prev">
+                       <i class="turn-to look-prev-have" v-if="isForward"  v-tap="{methods:goForward}"></i>
+                       <i class="turn-to" v-if="!isForward"></i>
+                   </em>
+                   <div class="num-turn" v-tap="{methods:goSelect}">{{footChoice.choice_list[currSelect].stagegbname}}<i class="num-turner"></i></div>
+                   <!--如果后面没有了就用look-next-have-->
+                   <em class="turn-boxer turn-boxer-next">
+                       <i class="turn-to look-next-have" v-if="isBehind"  v-tap="{methods:goBehind}"></i>
+                       <i class="turn-to" v-if="!isBehind"></i>
+                   </em>
+               </div>
 
-        </div>
-        <section class="l-flex-1 l-relative schedule-h">
-            <!--没有回合的情况-->
-            <div class="l-full l-scroll-y ">
-                <!--弹层-筛选轮次-->
-                <div class="alert-turns" :class="{'hide':isHide}">
-                    <div class="qi-pop-box">
-                        <div class="ui-navbox-item " v-if="footChoice && footChoice.choice_list">
-                            <ul>
-                                <li v-for="(item,index) in footChoice.choice_list" :class="{'select':selected[index]}" v-tap="{methods:goShow,index:index}">
-                                    <span>{{item.stagegbname}}</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="schedule-wrap schedule-foot" :class="{'hide':isShow}" v-if="footSchedule">
-                    <section class="schedule-cont home-sc-cont l-scroll-y" v-if="footSchedule.rettype === 'array' ">
-                        <ul class="schedule-list" >
-                            <li class="schedule-itm  l-flex-row" v-for="list in footSchedule.values" v-tap="{methods:goDetail,fid:list.fid}">
-                                <!--左边的参赛时间-->
-                                <div class="when-game">
-                                    <em class="game-time">{{list.matchtime.substr(5, 11)}}</em>
-                                </div>
-                                <!--右边的参赛队伍和结果-->
-                                <div class="who-game l-flex-1 l-flex-row">
-                                    <div class="who-gamer who-gamer-home l-flex-1">
-                                        <img v-logo="list.homelogo"/>
-                                        <em>{{list.homesxname}}</em>
-                                    </div>
+           </div>
+           <section class="l-flex-1 l-relative schedule-h">
+               <!--没有回合的情况-->
+               <div class="l-full l-scroll-y ">
+                   <!--弹层-筛选轮次-->
+                   <div class="alert-turns" :class="{'hide':isHide}">
+                       <div class="qi-pop-box">
+                           <div class="ui-navbox-item " v-if="footChoice && footChoice.choice_list">
+                               <ul>
+                                   <li v-for="(item,index) in footChoice.choice_list" :class="{'select':selected[index]}" v-tap="{methods:goShow,index:index}">
+                                       <span>{{item.stagegbname}}</span>
+                                   </li>
+                               </ul>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="schedule-wrap schedule-foot" :class="{'hide':isShow}" v-if="footSchedule">
+                       <section class="schedule-cont home-sc-cont l-scroll-y" v-if="footSchedule.rettype === 'array' ">
+                           <ul class="schedule-list" >
+                               <li class="schedule-itm  l-flex-row" v-for="list in footSchedule.values" v-tap="{methods:goDetail,fid:list.fid}">
+                                   <!--左边的参赛时间-->
+                                   <div class="when-game">
+                                       <em class="game-time">{{list.matchtime.substr(5, 11)}}</em>
+                                   </div>
+                                   <!--右边的参赛队伍和结果-->
+                                   <div class="who-game l-flex-1 l-flex-row">
+                                       <div class="who-gamer who-gamer-home l-flex-1">
+                                           <img :src="[list.homelogo?list.homelogo:'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png']"/>
+                                           <em>{{list.homesxname}}</em>
+                                       </div>
 
-                                    <em class="who-win" v-if="list.homescore">{{list.homescore}}<i>:</i>{{list.awayscore}}</em>
-                                    <em class="who-win no-start" v-if="!list.homescore">vs</em>
-                                    <div class="who-gamer who-gamer-guest l-flex-1">
-                                        <img v-logo="list.awaylogo"/><em>{{list.awaysxname}}</em>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </section>
-                    <!--有回合的展示区域-->
-                    <!--赛程列表 第一回合-->
-                    <section class="schedule-cont home-sc-cont " v-if="footSchedule.rettype === 'object' " v-for="idx in footSchedule.sort">
-                        <h1 class="tit-round">{{idx}}</h1>
-                        <ul class="schedule-list ">
-                            <li class="schedule-itm  l-flex-row" v-for="item in footSchedule.values[idx]" v-tap="{methods:goDetail,fid:item.fid}">
-                                <!--左边的参赛时间-->
-                                <div class="when-game">
-                                    <em class="game-time">{{item.matchtime.substr(5,11)}}</em>
-                                </div>
-                                <!--右边的参赛队伍和结果-->
-                                <div class="who-game l-flex-1 l-flex-row">
-                                    <div class="who-gamer who-gamer-home l-flex-1">
-                                        <img v-logo="item.homelogo"/>
-                                        <em>{{item.homesxname}}</em>
-                                    </div>
+                                       <em class="who-win" v-if="list.homescore">{{list.homescore}}<i>:</i>{{list.awayscore}}</em>
+                                       <em class="who-win no-start" v-if="!list.homescore">vs</em>
+                                       <div class="who-gamer who-gamer-guest l-flex-1">
+                                           <img :src="[list.awaylogo?list.awaylogo:'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png']"/><em>{{list.awaysxname}}</em>
+                                       </div>
+                                   </div>
+                               </li>
+                           </ul>
+                       </section>
+                       <!--有回合的展示区域-->
+                       <!--赛程列表 第一回合-->
+                       <section class="schedule-cont home-sc-cont " v-if="footSchedule.rettype === 'object' " v-for="idx in footSchedule.sort">
+                           <h1 class="tit-round">{{idx}}</h1>
+                           <ul class="schedule-list ">
+                               <li class="schedule-itm  l-flex-row" v-for="item in footSchedule.values[idx]" v-tap="{methods:goDetail,fid:item.fid}">
+                                   <!--左边的参赛时间-->
+                                   <div class="when-game">
+                                       <em class="game-time">{{item.matchtime.substr(5,11)}}</em>
+                                   </div>
+                                   <!--右边的参赛队伍和结果-->
+                                   <div class="who-game l-flex-1 l-flex-row">
+                                       <div class="who-gamer who-gamer-home l-flex-1">
+                                           <img :src="[item.homelogo?item.homelogo:'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png']"/>
+                                           <em>{{item.homesxname}}</em>
+                                       </div>
 
-                                    <em class="who-win" v-if="item.homescore">{{item.homescore}}<i>:</i>{{item.awayscore}}</em>
-                                    <em class="who-win no-start" v-if="!item.homescore">vs</em>
-                                    <div class="who-gamer who-gamer-guest l-flex-1">
-                                        <img v-logo="item.awaylogo"/><em>{{item.awaysxname}}</em>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </section>
-                </div>
-            </div>
-        </section>
+                                       <em class="who-win" v-if="item.homescore">{{item.homescore}}<i>:</i>{{item.awayscore}}</em>
+                                       <em class="who-win no-start" v-if="!item.homescore">vs</em>
+                                       <div class="who-gamer who-gamer-guest l-flex-1">
+                                           <img :src="[item.awaylogo?item.awaylogo:'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png']"/>
+                                           <em>{{item.awaysxname}}</em>
+                                       </div>
+                                   </div>
+                               </li>
+                           </ul>
+                       </section>
+                   </div>
+               </div>
+           </section>
+       </template>
+        <view-empty v-else></view-empty>
     </div>
 </template>
 
 <script>
     import {aTypes} from '~store/center'
     import logo from '~directives/logo'
+    import viewEmpty from '~components/match/view_empty.vue'
     export default{
         directives: {
             logo
+        },
+        components: {
+            viewEmpty
         },
         data () {
             return {
@@ -205,8 +213,12 @@
                 if (this.currSelect === this.choiceNum) { this.isBehind = false }
             },
             goSelect () {
-                this.isHide = false
-                this.isShow = true
+                this.isHide = !this.isHide
+                this.isShow = !this.isShow
+                console.log(this.isHide)
+                if (this.isHide) {
+                    this.goShow({index: this.currSelect})
+                }
             },
             goDetail ({fid}) {
                 this.$router.push(`/detail/football/${fid}/analysis/zj`)
