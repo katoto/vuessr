@@ -1,6 +1,6 @@
 
 <template>
-    <div v-if="news || eventList">
+    <div v-if="news || eventListList">
         <div v-if="eventList && eventList.length">
             <div class="jie-detail">
                 <div class="jie-detailL">
