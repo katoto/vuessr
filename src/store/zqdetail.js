@@ -226,6 +226,10 @@ const actionsInfo = mapActions({
             ajax.get(`/score/zq/lineup?fid=${fid}`)
         ])
         const [teamworth, formation, lineup] = result
+        // 阵型
+        if (formation && formation.alineup) {
+            formation.alineup.reverse()
+        }
         commit(mTypes.setAnalysisZr, {teamworth, formation, lineup})
     },
     async getPredict ({commit}, fid) {
