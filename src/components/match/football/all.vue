@@ -82,7 +82,7 @@
                 </li>
             </ul>
         </div>
-        <view-empty v-if="!allData || !allData.length"></view-empty>
+        <view-empty v-if="!allData.length"></view-empty>
     </section>
 
 </template>

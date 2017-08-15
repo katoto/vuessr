@@ -281,10 +281,10 @@
         },
         filters: {
             getWidth (data1, data2) { // 横条比例显示的数据处理
-                data1 = data1 - 0
-                data2 = data2 - 0
+                data1 = Number(data1)
+                data2 = Number(data2)
                 // let tmp = data1 + data2
-                if (data1 === 0) { return 'width:3%' }
+                if (data1 == 0) { return 'width:3%' }
                 // if (data1 === tmp) { return 'width:3%' }
                 return {width: data1 / (data1 + data2) * 100 + '%'}
             }

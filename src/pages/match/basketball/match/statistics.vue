@@ -2,7 +2,8 @@
     <section class="count-main">
         <div class="l-flex-row l-full">
             <!--left scroll-->
-            <div class="plleft l-flex-column">
+            <template v-if="statisList && statisList.length">
+                <div class="plleft l-flex-column">
                 <ul class="plleft-list l-scroll-y l-flex-1">
                     <li :class="{'cur':tab === 'score'}" v-tap="{methods:onTab, type:'score'}">得分</li>
                     <li :class="{'cur':tab === 'lost'}" v-tap="{methods:onTab, type:'lost'}">失分</li>
@@ -18,28 +19,29 @@
                 </ul>
             </div>
 
-            <!--right scroll-->
-            <div class="plright l-flex-l l-flex-column" v-if="statisList && statisList.length">
-                <h2 class="average-tit">
-                    <em>球队</em>{{tabInfo[tab]}}
-                </h2>
-                <ul class="average-list l-flex-l l-srcoll-y">
-                    <li class="average-item clear"  v-for="(list,index) in statisList">
-                        <div class="aver-team">
-                            <em class="aver-turn">{{index+1}}</em>
-                            <span class="aver-team-img">
+                <!--right scroll-->
+                <div class="plright l-flex-l l-flex-column">
+                    <h2 class="average-tit">
+                        <em>球队</em>{{tabInfo[tab]}}
+                    </h2>
+                    <ul class="average-list l-flex-l l-srcoll-y">
+                        <li class="average-item clear"  v-for="(list,index) in statisList">
+                            <div class="aver-team">
+                                <em class="aver-turn">{{index+1}}</em>
+                                <span class="aver-team-img">
                                     <img :src="list.teamlogo">
                                     <em class="aver-team-name">{{list.teamgbname}}</em>
                                 </span>
-                        </div>
-                        <span class="aver-score">{{list.value}}</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="plright l-flex-l l-flex-column" v-if="!statisList || !statisList.length" style="flex:1">
-               <view-empty></view-empty>
-            </div>
-
+                            </div>
+                            <span class="aver-score">{{list.value}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </template>
+            <!--<div class="plright l-flex-l l-flex-column" v-if="!statisList || !statisList.length" style="flex:1">-->
+               <!--<view-empty></view-empty>-->
+            <!--</div>-->
+            <view-empty v-else style="flex:1"></view-empty>
         </div>
     </section>
 </template>
