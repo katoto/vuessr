@@ -175,7 +175,8 @@
                 StatusCode,
                 showScore: false,
                 newHomescore: 0,
-                newAwayscore: 0
+                newAwayscore: 0,
+                _timeId: null
             }
         },
         computed: {
@@ -209,10 +210,11 @@
         },
         async mounted () {
             await this.fetchData()
-            if (this.match.status !== StatusCode.ENDED) {
+            if (this.match.status !== StatusCode.ENDED) { // 事件订阅
                 this.$store.dispatch(aTypes.subscribeInfo, [this.match.fid])
                 this.$store.dispatch(aTypes.subscribeEvent, [this.match.fid])
             }
+            this.updateMatchTime() // 定时更新比赛时间
             if (~this.$route.path.indexOf('/crazybet')) {
                 this.$refs.scroller.scrollTo(document.querySelector('.zq-header').offsetHeight, true)
                 this.$refs.scroller.switchStop(true)
@@ -223,6 +225,7 @@
         },
         destroyed () {
             this.$store.dispatch('unsubscribeAll')
+            if (this._timeId) clearInterval(this._timeId)
             this.$store.commit(mTypes.reset)
         },
         methods: {
@@ -340,6 +343,15 @@
                 //                    同步数据
                     this.$store.commit(mTypes.syncBaseInfo, this.socketData.data)
                 }
+            },
+            updateMatchTime () {
+                if (this._timeId) clearInterval(this._timeId)
+                if (this.match.status === StatusCode.ENDED || this.match.status === StatusCode.CANCELED) return
+                this._timeId = setInterval(() => {
+                    if (this.match.match_at && this.match.status !== StatusCode.MID && this.match.status !== StatusCode.NOT_STARTED && this.match.status) {
+                        this.$store.commit(mTypes.syncBaseInfo, {match_at: (this.match.match_at << 0) + 1})
+                    }
+                }, 5000)
             }
         },
         watch: {
@@ -349,8 +361,7 @@
             socketData ({data, stamp}) { // websocket推送过来的数据
                 data.fid = data.fid + ''
                 if (stamp === pushEvents.FOOTBALL_INFO) {
-                    if ((data.fid + '') === this.match.fid) {
-                        console.log(data.homescore)
+                    if (data.fid === this.match.fid) {
                         if (this.match.homescore === data.homescore && this.match.awayscore === data.awayscore) {
                             this.syncMatch()
                         } else {
