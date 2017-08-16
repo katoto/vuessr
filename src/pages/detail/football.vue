@@ -410,9 +410,6 @@
 </script>
 
 <style scoped>
-    .main-inner2 {
-        min-height: 15.44rem;;
-    }
     .f20{font-size:0.266rem}
     .f24{font-size:0.32rem}
     .f26{font-size:0.346rem}
