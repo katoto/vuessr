@@ -252,19 +252,6 @@
         position: relative;
         overflow: hidden
     }
-    .popInner .full-scroll {
-        overflow-x: hidden;
-        border-radius: .186667rem .186667rem 0 0
-    }
-    .plleft {
-        width: 2rem;
-        color: #242c35;
-        overflow: hidden;
-        float: left;
-        height: 100%;
-        background: #f4f4f4
-    }
-
     [data-dpr="1"] .plleft {
         font-size: 12px
     }
