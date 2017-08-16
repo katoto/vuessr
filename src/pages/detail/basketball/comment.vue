@@ -83,7 +83,7 @@ export default {
         reachEndTime () {
             return this.$store.state.lqdetail.reachEndTime
         },
-        replyTime () {           // 发送评论后会变化，然后自动刷新页面
+        replyTime () { // 发送评论后会变化，然后自动刷新页面
             return this.comment.replyTime
         },
         baseInfo () {

@@ -36,15 +36,9 @@
 
                 </table>
             </div>
-            <ul class="color-mean what-means" v-if="homeData.desc">
-                <li class="mean-item"  v-for="list in homeData.desc">
-                    <i class="game-category" v-style="list.color"></i>
-                    <em>{{list.name}}</em>
-                </li>
-            </ul>
         </div>
 
-        <view-empty v-if="!homeData || !homeData.length"></view-empty>
+        <view-empty v-if="!homeData.length"></view-empty>
     </section>
 </template>
 

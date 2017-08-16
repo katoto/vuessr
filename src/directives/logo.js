@@ -3,7 +3,7 @@
  */
 export default {
     bind (el, binding) {
-        let defaultUrl = '~assets/images/match/logo.png'
+        let defaultUrl = 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'
         el.src = binding.value
         el.addEventListener('error', () => {
             el.src = defaultUrl

@@ -675,6 +675,9 @@
     .dataItem .green2 {
         color: #36a171
     }
+    .box-tongp .dataItem .itemC .num, .box-tongp .dataItem .itemC span {
+        color: #515e6d;
+    }
 
 
     .dataItem .item-info{display:block;color:#aab5bd}

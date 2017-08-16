@@ -109,8 +109,7 @@
         </div>
 
 
-        <div class="inte-look zhedie" v-if="leagueRank && leagueRank.issame === '1'">完整积分榜&gt;</div>
-        <!--<div class="inte-look zhedie" v-if="leagueRank.issame == '1'" onclick="location.href='match_center/index.html#/footballleague/integral/{{match.seasonid}}'">完整积分榜&gt;</div>-->
+        <div class="inte-look zhedie" v-if="leagueRank && leagueRank.issame === '1'" v-tap="{methods: ()=>{$router.push('/center/footballmatch/'+match.seasonid+'/integral')}}">完整积分榜</div>
 
         <div class="zhedie-box zhedie-box-wl" v-if="cupRank && cupRank.length && match.stagemode==='2'">
             <div class="zj-nav">
@@ -712,10 +711,10 @@
                     this.$store.commit(mTypes.updateScTime)
                 }
             },
-            jzOption (jzOption) {
+            async jzOption (jzOption) {
                 const {matchtime, homeid, awayid} = this.match
                 const matchdate = matchtime.substr(0, 10)
-                this.$store.dispatch(aTypes.getAnalysisZjHis, {
+                await this.$store.dispatch(aTypes.getAnalysisZjHis, {
                     homeid,
                     awayid,
                     matchdate,
@@ -723,6 +722,7 @@
                     jzlimit: jzOption.limit,
                     jzhoa: jzOption.hoa
                 })
+                this.$store.commit(mTypes.updateScTime)
             },
             rcOption (rcOption) {
                 const {matchtime, homeid, awayid, stageid} = this.match
@@ -949,6 +949,10 @@
         background: #fff;
         height: 1.84rem
     }
+    .tcell{display:table-cell}
+    .win{color:#d3553d}
+    .tie{color:#36a171}
+    .lose{color:#437ba8}
     .gaik {
         margin: 0 .4rem;
         height: .84rem;
@@ -1242,5 +1246,11 @@
     [data-dpr="1"] .inte-look{font-size:12px}
     [data-dpr="2"] .inte-look{font-size:24px}
     [data-dpr="3"] .inte-look{font-size:36px}
+
+    .box-arrow{height:1.066667rem;position:relative}
+    .box-arrow:active{background:#f4f4f4}
+    .zd-arrow{width:.533333rem;height:.177rem;position:absolute;top:50%;left:50%;margin:-.2rem 0 0 -.266667rem;background-position:center -10.84rem}
+    .rotate180{-webkit-animation:all .2s linear;animation:all .2s linear;-webkit-transform:rotate(180deg);transform:rotate(180deg)}
+
 
 </style>

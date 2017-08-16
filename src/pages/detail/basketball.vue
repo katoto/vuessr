@@ -304,6 +304,10 @@
                             } catch (e) {
                                 this.$store.dispatch('showToast', e.message)
                             }
+                        },
+                        onReply: () => {
+                            this.$store.dispatch('ensureLogin')
+                            location.href = 'http://m.500.com/helpcenter/submituserproblem/'
                         }
                     }
                 })

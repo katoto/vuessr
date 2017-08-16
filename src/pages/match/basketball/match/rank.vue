@@ -1,6 +1,6 @@
 <template>
     <section class="l-full">
-        <div class="inte-main l-full l-scroll-y" v-if="rankList">
+        <div class="inte-main l-full l-scroll-y" v-if="rankList && isEmpty(rankList)">
             <!--有东西部之分-->
             <template v-if="rankList.rettype == 'object'">
                 <rank-object :rankList="rankList"></rank-object>
@@ -43,6 +43,9 @@
         methods: {
             fetchData () {
                 this.$store.dispatch(aTypes.getBasketballMatchRank, {seasonid: this.$route.params.seasonid})
+            },
+            isEmpty: function (obj) {
+                return Object.keys(obj).length
             }
         },
         mounted () {

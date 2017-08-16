@@ -267,4 +267,15 @@
     .pl-cont .green {
         color: #36a171
     }
+
+    .jiang,.sheng{position:relative}
+    [data-dpr="1"] .jiang,[data-dpr="1"] .sheng{font-size:12px}
+    [data-dpr="2"] .jiang,[data-dpr="2"] .sheng{font-size:24px}
+    [data-dpr="3"] .jiang,[data-dpr="3"] .sheng{font-size:36px}
+    .jiang:after,.sheng:after{position:absolute;right:-.466667rem;top:-.106667rem}
+    [data-dpr="1"] .jiang:after,[data-dpr="1"] .sheng:after{font-size:12px}
+    [data-dpr="2"] .jiang:after,[data-dpr="2"] .sheng:after{font-size:24px}
+    [data-dpr="3"] .jiang:after,[data-dpr="3"] .sheng:after{font-size:36px}
+    .sheng:after{content:'升';color:#d3553d}
+    .jiang:after{content:'降';color:#36a171}
 </style>
