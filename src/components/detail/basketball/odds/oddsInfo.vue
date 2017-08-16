@@ -398,11 +398,11 @@
         left: .093333rem
     }
 
-    .pl-cont .red {
+    .red {
         color: #d3553d
     }
 
-    .pl-cont .green {
+   .green {
         color: #36a171
     }
 </style>
