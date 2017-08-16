@@ -285,4 +285,22 @@
     .schedule-foot .who-win{ width: 1.173333rem}
     .schedule-foot .when-game{ width: 3rem;}
     .tit-round{text-indent: 0.533333rem;color: #787878; font-size: 0.32rem; height: 0.8rem; line-height: 0.8rem; text-align: left; border-top:1px solid #f4f4f4; border-bottom: 1px solid #f4f4f4;}
+    .look-prev-have::before{
+        position:absolute;
+        content: '';
+        top:-.5rem;
+        left:-.5rem;
+        bottom:-.5rem;
+        right:-.5rem;
+    }
+    .look-next-have::before{
+        display: block;
+        position:absolute;
+        content: '';
+        top:-.5rem;
+        left:-.5rem;
+        bottom:-.5rem;
+        right:-.5rem;
+    }
+
 </style>

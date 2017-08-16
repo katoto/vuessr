@@ -338,20 +338,21 @@
     .who-gamer-guest{text-align: left; position: relative;}
     .who-gamer-guest img{position: absolute;right: 0; top:50%; margin-top: -0.30666rem;}
     .home-sc-cont{margin-top: 0;}
-    .look-prev-have:before{
-        content:"";
+    .look-prev-have::before{
         position:absolute;
-        top:-10px;
-        right:-10px;
-        bottom:-10px;
-        left:-10px;
+        content: '';
+        top:-.5rem;
+        left:-.5rem;
+        bottom:-.5rem;
+        right:-.5rem;
     }
-    .look-next-have:before{
-        content:"";
+    .look-next-have::before{
+        display: block;
         position:absolute;
-        top:-10px;
-        right:-10px;
-        bottom:-10px;
-        left:-10px;
+        content: '';
+        top:-.5rem;
+        left:-.5rem;
+        bottom:-.5rem;
+        right:-.5rem;
     }
 </style>
