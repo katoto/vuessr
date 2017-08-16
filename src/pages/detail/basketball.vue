@@ -119,7 +119,7 @@
                 </ul>
             </div>
             <div class="navigator " style="width: 0"></div>
-            <div class="main-inner2">
+            <div class="main-inner2" style="min-height: 15.44rem">
                 <router-view></router-view>
             </div>
         </detail-scroller>
