@@ -371,6 +371,9 @@
 </script>
 
 <style scoped>
+    .main-inner2 {
+        min-height: 15.44rem;;
+    }
 .detailTop {
     position: relative;
 }
