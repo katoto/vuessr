@@ -37,7 +37,7 @@
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getFootHead, {seasonid: params.seasonid})
         },
-        directives:{
+        directives: {
             logo
         },
         computed: {

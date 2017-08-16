@@ -1,6 +1,6 @@
 <template>
     <div class="l-full l-flex-column">
-       <template v-if="basketChoice">
+       <template v-if="basketChoice && isEmpty(basketChoice)">
            <div class="sk-detail-tap-box  turn-box">
                <div class="boxer-h">
                    <em class="turn-boxer turn-boxer-prev">
@@ -272,14 +272,17 @@
             goSelect () {
                 this.isHide = !this.isHide
                 this.isShow = !this.isShow
-                console.log(this.isHide)
                 if (this.isHide) {
                     this.goShow({i: this.row, j: this.column})
                 }
             },
             goDetail ({fid}) {
                 this.$router.push(`/detail/basketball/${fid}/analysis/zj`)
+            },
+            isEmpty (obj) {
+                return Object.keys(obj).length
             }
+
         }
     }
 </script>
@@ -335,4 +338,20 @@
     .who-gamer-guest{text-align: left; position: relative;}
     .who-gamer-guest img{position: absolute;right: 0; top:50%; margin-top: -0.30666rem;}
     .home-sc-cont{margin-top: 0;}
+    .look-prev-have:before{
+        content:"";
+        position:absolute;
+        top:-10px;
+        right:-10px;
+        bottom:-10px;
+        left:-10px;
+    }
+    .look-next-have:before{
+        content:"";
+        position:absolute;
+        top:-10px;
+        right:-10px;
+        bottom:-10px;
+        left:-10px;
+    }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="l-full l-flex-column">
-       <template v-if="footChoice">
+       <template v-if="footChoice && isEmpty(footChoice)">
            <div class="sk-detail-tap-box  turn-box" v-if="footChoice.choice_list[currSelect]">
                <!--如果后面没有了就用look-prev-none-->
                <div class="boxer-h">
@@ -222,6 +222,9 @@
             },
             goDetail ({fid}) {
                 this.$router.push(`/detail/football/${fid}/analysis/zj`)
+            },
+            isEmpty (obj) {
+                return Object.keys(obj).length
             }
         }
     }
