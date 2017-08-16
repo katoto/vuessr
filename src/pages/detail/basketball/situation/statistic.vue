@@ -284,7 +284,7 @@
                 data1 = Number(data1)
                 data2 = Number(data2)
                 // let tmp = data1 + data2
-                if (data1 == 0) { return 'width:3%' }
+                if (data1 === 0) { return 'width:3%' }
                 // if (data1 === tmp) { return 'width:3%' }
                 return {width: data1 / (data1 + data2) * 100 + '%'}
             }
