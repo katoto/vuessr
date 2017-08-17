@@ -286,29 +286,29 @@ const actionsInfo = mapActions({
         }
     },
     async sendComment ({commit}, {vtype = '1', fid, parentid, content, isShare = false}) {
-        console.log({
-            vtype,
-            id: fid,
-            parentid,
-            ctx: content
-        })
-        if (parentid) {
-            await ajax.post(`/sns/score/reply?_t=${Date.now()}`, {
-                vtype,
-                id: fid,
-                parentid,
-                ctx: content
-            })
-        } else {
-            await ajax.post(`/sns/score/commit?_t=${Date.now()}`, {
-                vtype,
-                id: fid,
-                isshare: isShare ? '1' : '0',
-                ctx: content
-            })
-        }
+        try {
+            if (parentid) {
+                await ajax.post(`/sns/score/reply?_t=${Date.now()}`, {
+                    vtype,
+                    id: fid,
+                    parentid,
+                    ctx: content
+                }, {ignore: false})
+            } else {
+                await ajax.post(`/sns/score/commit?_t=${Date.now()}`, {
+                    vtype,
+                    id: fid,
+                    isshare: isShare ? '1' : '0',
+                    ctx: content
+                }, {ignore: false})
+            }
 
-        commit(mTypes.updateReplyTime)
+            commit(mTypes.updateReplyTime)
+        } catch (e) {
+            if (e.code === '102') {
+                platform.login()
+            }
+        }
     },
     async getCustomOdds (ignore, {ptype}) {
         try {
