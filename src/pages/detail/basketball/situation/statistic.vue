@@ -16,12 +16,12 @@
                                     <div class="each-resone l-relative">
                                         <!--:style="'width:' +getData(Number(away.zj[sf[idx]]),Number(home.zj[sf[idx]])) + '%' ">-->
 
-                                        <div class="zhzl-vs-left " :class="away.zj[sf[idx]] < home.zj[sf[idx]] ? 'zhzl-gray' : 'zhzl-green'"
+                                        <div class="zhzl-vs-left " :class="away.zj[sf[idx]]-0 < home.zj[sf[idx]]-0 ? 'zhzl-gray' : 'zhzl-green'"
                                              :style="away.zj[sf[idx]], home.zj[sf[idx]]|getWidth">
                                         </div>
                                     </div>
                                     <div class="each-resone l-relative">
-                                        <div class="zhzl-vs-right" :class="away.zj[sf[idx]] < home.zj[sf[idx]] ? 'zhzl-green' : 'zhzl-gray'"
+                                        <div class="zhzl-vs-right" :class="away.zj[sf[idx]]-0 < home.zj[sf[idx]]-0 ? 'zhzl-green' : 'zhzl-gray'"
                                              :style="home.zj[sf[idx]], away.zj[sf[idx]]|getWidth">
 
                                         </div>
