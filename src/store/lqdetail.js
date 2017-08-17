@@ -2,6 +2,7 @@
 import ajax from '~common/ajax'
 import {mapActions, mapMutations} from '~common/util'
 import { pushEvents } from '~common/constants'
+import platform from '~common/platform'
 const name = 'lqdetail'
 
 const initState = {
@@ -150,39 +151,51 @@ const actionsInfo = mapActions({
         })
     },
     onLike (ignore, {status, id}) {
-        return ajax.post(`/sns/score/like?_t=${Date.now()}`, {
-            status, id
-        })
+        try {
+            return ajax.post(`/sns/score/like?_t=${Date.now()}`, {
+                status, id
+            }, {ignore: false})
+        } catch (e) {
+            if (e.code === '102') {
+                platform.login()
+            }
+        }
     },
     onReport (ignore, id) {
-        return ajax.post(`/sns/score/report?_t=${Date.now()}`, {
-            id
-        })
+        try {
+            return ajax.post(`/sns/score/report?_t=${Date.now()}`, {
+                id
+            }, {ignore: false})
+        } catch (e) {
+            if (e.code === '102') {
+                platform.login()
+            }
+        }
     },
     async sendComment ({commit}, {vtype = '2', fid, parentid, content, isShare = false}) {
-        console.log({
-            vtype,
-            id: fid,
-            parentid,
-            ctx: content
-        })
-        if (parentid) {
-            await ajax.post(`/sns/score/reply?_t=${Date.now()}`, {
-                vtype,
-                id: fid,
-                parentid,
-                ctx: content
-            })
-        } else {
-            await ajax.post(`/sns/score/commit?_t=${Date.now()}`, {
-                vtype,
-                id: fid,
-                isshare: isShare ? '1' : '0',
-                ctx: content
-            })
-        }
+        try {
+            if (parentid) {
+                await ajax.post(`/sns/score/reply?_t=${Date.now()}`, {
+                    vtype,
+                    id: fid,
+                    parentid,
+                    ctx: content
+                }, {ignore: false})
+            } else {
+                await ajax.post(`/sns/score/commit?_t=${Date.now()}`, {
+                    vtype,
+                    id: fid,
+                    isshare: isShare ? '1' : '0',
+                    ctx: content
+                }, {ignore: false})
+            }
 
-        commit(mTypes.updateReplyTime)
+            commit(mTypes.updateReplyTime)
+        } catch (e) {
+            if (e.code === '102') {
+                platform.login()
+            }
+        }
     },
     async requestConcern ({commit, state}, {fid, expect}) {
         let origin = state.baseInfo.isfocus
@@ -195,8 +208,15 @@ const actionsInfo = mapActions({
             op = 'unset'
             statset = '0'
         }
-        await ajax.get(`/score/concern/focus?fid=${fid}&vtype=2&op=${op}&lotid=46&expect=${expect}`, {ignore: false})
-        commit(mTypes.changeConcernStatus, statset)
+
+        try {
+            await ajax.get(`/score/concern/focus?fid=${fid}&vtype=2&op=${op}&lotid=46&expect=${expect}`, {ignore: false})
+            commit(mTypes.changeConcernStatus, statset)
+        } catch (e) {
+            if (e.code === '102') {
+                platform.login()
+            }
+        }
     },
 
     // async getSituation ({commit}, {fid}) {

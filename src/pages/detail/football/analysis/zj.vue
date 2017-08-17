@@ -142,7 +142,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="inte-look zhedie">完整积分榜&gt;</div>
+            <div class="inte-look zhedie" v-tap="{methods: ()=>{$router.push('/center/footballmatch/'+match.seasonid+'/integral')}}">完整积分榜&gt;</div>
             <!--<div class="inte-look zhedie"  onclick="location.href='match_center/index.html#/footballleague/integral/{{match.seasonid}}'">完整积分榜&gt;</div>-->
 
         </div>

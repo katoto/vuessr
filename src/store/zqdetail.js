@@ -7,6 +7,7 @@
 import ajax from '~common/ajax'
 import { mapActions, mapMutations } from '~common/util'
 import { pushEvents } from '~common/constants'
+import platform from '~common/platform'
 const ns = 'zqdetail'
 const initState = {
     reachEndTime: 0, // 滚动到最后触发的时间戳
@@ -249,53 +250,77 @@ const actionsInfo = mapActions({
         return ajax.get(`/sns/score/commentlist?vtype=${type}&fid=${fid}&pn=${pageNo}&tab=${tab}&rn=${pageSize}&_t=` + new Date().getTime())
     },
     onLike (ignore, {status, id}) {
-        return ajax.post(`/sns/score/like?_t=${Date.now()}`, {
-            status, id
-        }, {ignore: false})
+        try {
+            return ajax.post(`/sns/score/like?_t=${Date.now()}`, {
+                status, id
+            }, {ignore: false})
+        } catch (e) {
+            if (e.code === '102') {
+                platform.login()
+            }
+        }
     },
     onReport (ignore, id) {
-        return ajax.post(`/sns/score/report?_t=${Date.now()}`, {
-            id
-        })
+        try {
+            return ajax.post(`/sns/score/report?_t=${Date.now()}`, {
+                id
+            }, {ignore: false})
+        } catch (e) {
+            if (e.code === '102') {
+                platform.login()
+            }
+        }
     },
     async onVote (ignore, {opt, id, vtype = '1', fid}) {
-        return ajax.post(`/sns/score/vote?_t=${Date.now()}`, {
-            opt,
-            id,
-            fid,
-            vtype
-        })
+        try {
+            return ajax.post(`/sns/score/vote?_t=${Date.now()}`, {
+                opt,
+                id,
+                fid,
+                vtype
+            }, {ignore: false})
+        } catch (e) {
+            if (e.code === '102') {
+                platform.login()
+            }
+        }
     },
     async sendComment ({commit}, {vtype = '1', fid, parentid, content, isShare = false}) {
-        console.log({
-            vtype,
-            id: fid,
-            parentid,
-            ctx: content
-        })
-        if (parentid) {
-            await ajax.post(`/sns/score/reply?_t=${Date.now()}`, {
-                vtype,
-                id: fid,
-                parentid,
-                ctx: content
-            })
-        } else {
-            await ajax.post(`/sns/score/commit?_t=${Date.now()}`, {
-                vtype,
-                id: fid,
-                isshare: isShare ? '1' : '0',
-                ctx: content
-            })
-        }
+        try {
+            if (parentid) {
+                await ajax.post(`/sns/score/reply?_t=${Date.now()}`, {
+                    vtype,
+                    id: fid,
+                    parentid,
+                    ctx: content
+                }, {ignore: false})
+            } else {
+                await ajax.post(`/sns/score/commit?_t=${Date.now()}`, {
+                    vtype,
+                    id: fid,
+                    isshare: isShare ? '1' : '0',
+                    ctx: content
+                }, {ignore: false})
+            }
 
-        commit(mTypes.updateReplyTime)
+            commit(mTypes.updateReplyTime)
+        } catch (e) {
+            if (e.code === '102') {
+                platform.login()
+            }
+        }
     },
     async getCustomOdds (ignore, {ptype}) {
         return ajax.get(`/score/concern/settings?vtype=1&ptype=${ptype}&_t=${Date.now()}`)
     },
     async updateCustomOdds (ignore, {ptype, items}) {
-        return ajax.get(`/score/concern/customize?vtype=1&ptype=${ptype}&item=${items.join(',')}&_t=${Date.now()}`, {ignore: false})
+        try {
+            return ajax.get(`/score/concern/customize?vtype=1&ptype=${ptype}&item=${items.join(',')}&_t=${Date.now()}`, {ignore: false})
+        } catch (e) {
+            if (e.code === '102') {
+                platform.login()
+            }
+        }
     },
     /**
    * 切换关注某场比赛
