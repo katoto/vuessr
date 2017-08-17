@@ -20,13 +20,13 @@
                     <span class="dataTit f22">泊松推算盘</span>
                     <ul class="dataItem">
                         <li class="itemL">
-                            <em class="num " drunk-class="{'red2':poissonInfo.poisson.home>poissonInfo.aomen.home,'green2':poissonInfo.poisson.home<poissonInfo.aomen.home}">{{poissonInfo.poisson.home}}</em>
+                            <em class="num " :class="{'red2':poissonInfo.poisson.home>poissonInfo.aomen.home,'green2':poissonInfo.poisson.home<poissonInfo.aomen.home}">{{poissonInfo.poisson.home}}</em>
                         </li>
                         <li class="itemC">
                             <span class="item-tit">{{poissonInfo.poisson.handi}}</span>
                         </li>
                         <li class="itemR">
-                            <em class="num " drunk-class="{'red2':poissonInfo.poisson.away>poissonInfo.aomen.away,'green2':poissonInfo.poisson.away<poissonInfo.aomen.away}">{{poissonInfo.poisson.away}}</em>
+                            <em class="num " :class="{'red2':poissonInfo.poisson.away>poissonInfo.aomen.away,'green2':poissonInfo.poisson.away<poissonInfo.aomen.away}">{{poissonInfo.poisson.away}}</em>
                         </li>
                     </ul>
                 </div>
@@ -678,8 +678,9 @@
     .box-tongp .dataItem .itemC .num, .box-tongp .dataItem .itemC span {
         color: #515e6d;
     }
-
-
+    .box-tongp .dataItem .red2 .item-info, .box-tongp .dataItem .red2 .num, .box-tongp .dataItem .red2 span {
+        color: #d3553d;
+    }
     .dataItem .item-info{display:block;color:#aab5bd}
     .bili-tips{line-height:.96rem;color:rgba(170,181,189,.5);text-align:center}
     [data-dpr="1"] .bili-tips{font-size:10px}
