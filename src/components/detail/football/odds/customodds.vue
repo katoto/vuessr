@@ -136,7 +136,9 @@
                 })
                 await this.$store.dispatch(aTypes.updateCustomOdds, {ptype: this.params.ptype, items})
                 this.$store.dispatch('showToast', '保存成功')
-                //                this.$store.commit('beginRefresh')
+
+                this.$store.commit('beginRefresh')
+
                 this.closeDialog()
             },
             closeDialog () {
