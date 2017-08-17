@@ -137,12 +137,7 @@
                 this.customOdds.company.custom.forEach(function (item) {
                     items.push(item.cid)
                 })
-                try {
-                    await this.$store.dispatch(aTypes.updateCustomOdds, {ptype: this.params.ptype, items})
-                } catch (e) {
-                    this.$store.dispatch('showToast', e.message)
-                    return this.closeDialog()
-                }
+                await this.$store.dispatch(aTypes.updateCustomOdds, {ptype: this.params.ptype, items})
                 //                console.log('----------');
                 //                console.log(items);
                 this.$store.dispatch('showToast', '保存成功')

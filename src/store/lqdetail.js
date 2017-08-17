@@ -276,6 +276,7 @@ const actionsInfo = mapActions({
             if (e.code === '102') {
                 platform.login()
             }
+            throw e
         }
     },
     async getOddsDetailEurope ({commit}, {fid, cid, date}) {
