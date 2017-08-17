@@ -182,8 +182,6 @@ const actions = {
         return true
     },
     login () {
-        let date = new Date() - 1
-        document.cookie = ';expires = ' + date
         platform.login()
     }
 }

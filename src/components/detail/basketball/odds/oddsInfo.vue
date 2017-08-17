@@ -19,81 +19,79 @@
                 </div>
 
                 <div class="l-flex-1 l-flex-column" style="width:0;border-radius: 0 .186667rem 0 0">
-                    <div class="l-flex-1 l-relative">
-                        <template>
-                            <div class="l-full l-scroll-y">
-                                <table cellpadding="0" cellspacing="0" border="0" width="100%" class="plxq-table">
-                                    <!--胜负-->
-                                    <tbody v-if="params.type === 'europe' && oddsInfo && oddsInfo.length">
-                                    <tr>
-                                        <th width="22%">主负</th>
-                                        <th width="16%">主胜</th>
-                                        <th width="22%">返还率</th>
-                                        <th width="36%" v-tap="{methods:updateCustomOddsInfo}">更新时间
+                    <template>
+                        <div class="l-full l-scroll-y">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%" class="plxq-table">
+                                <!--胜负-->
+                                <tbody v-if="params.type === 'europe' && oddsInfo && oddsInfo.length">
+                                <tr>
+                                    <th width="22%">主负</th>
+                                    <th width="16%">主胜</th>
+                                    <th width="22%">返还率</th>
+                                    <th width="36%" v-tap="{methods:updateCustomOddsInfo}">更新时间
                                         <!--drunk-on="tap:isOddsTimeNormal=!isOddsTimeNormal,updateCustomOddsInfo()">-->
-                                            <em class="gxsj"></em>
-                                        </th>
-                                    </tr>
-                                    <tr v-for="info in oddsInfo">
-                                        <td><span class="red f24" :class="{'red': info.l == 1, 'green': info.l == -1}">{{info.lost}}</span>
-                                        </td>
-                                        <td><span class="f24" :class="{'red': info.w == 1, 'green': info.w == -1}">{{info.win}}</span>
-                                        </td>
-                                        <td><span class="color6 f24">{{info.pay}}%</span></td>
-                                        <td v-tap="{methods:updateCustomOddsInfo}">
-                                            <span class="color9" v-if="!isOddsTimeNormal">{{info.time}}</span>
-                                            <span class="color9" v-if="isOddsTimeNormal">{{info.realtime.substring(5,16)}}</span>
-                                        </td>
-                                    </tr>
-                                    </tbody >
-                                    <!--让分盘-->
-                                    <tbody v-if="params.type === 'rangqiu' && oddsInfo && oddsInfo.length">
-                                    <tr>
-                                        <th width="22%">客队</th>
-                                        <th width="16%">盘口</th>
-                                        <th width="22%">主队</th>
-                                        <th width="30%" v-tap="{methods:updateCustomOddsInfo}">更新时间<em class="gxsj" id="gxsj"></em></th>
-                                    </tr>
-                                    <tr v-for="info,index in oddsInfo">
-                                        <td><span class="f24" :class="{'red': info.s2 == 1, 'green': info.s2 == -1}">{{info.a}}</span>
-                                        </td>
-                                        <td><span class="color6 f24">{{info.handi}}</span></td>
-                                        <td><span class="f24" :class="{'red': info.s1 == 1, 'green': info.s1 == -1}">{{info.h}}</span>
-                                        </td>
-                                        <td v-tap="{methods:updateCustomOddsInfo}">
-                                            <span class="color9" v-if="!isOddsTimeNormal">{{info.time}}</span>
-                                            <span class="color9" v-if="isOddsTimeNormal">{{info.realtime.substring(5,16)}}</span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
+                                        <em class="gxsj"></em>
+                                    </th>
+                                </tr>
+                                <tr v-for="info in oddsInfo">
+                                    <td><span class="red f24" :class="{'red': info.l == 1, 'green': info.l == -1}">{{info.lost}}</span>
+                                    </td>
+                                    <td><span class="f24" :class="{'red': info.w == 1, 'green': info.w == -1}">{{info.win}}</span>
+                                    </td>
+                                    <td><span class="color6 f24">{{info.pay}}%</span></td>
+                                    <td v-tap="{methods:updateCustomOddsInfo}">
+                                        <span class="color9" v-if="!isOddsTimeNormal">{{info.time}}</span>
+                                        <span class="color9" v-if="isOddsTimeNormal">{{info.realtime.substring(5,16)}}</span>
+                                    </td>
+                                </tr>
+                                </tbody >
+                                <!--让分盘-->
+                                <tbody v-if="params.type === 'rangqiu' && oddsInfo && oddsInfo.length">
+                                <tr>
+                                    <th width="22%">客队</th>
+                                    <th width="16%">盘口</th>
+                                    <th width="22%">主队</th>
+                                    <th width="30%" v-tap="{methods:updateCustomOddsInfo}">更新时间<em class="gxsj" id="gxsj"></em></th>
+                                </tr>
+                                <tr v-for="info,index in oddsInfo">
+                                    <td><span class="f24" :class="{'red': info.s2 == 1, 'green': info.s2 == -1}">{{info.a}}</span>
+                                    </td>
+                                    <td><span class="color6 f24">{{info.handi}}</span></td>
+                                    <td><span class="f24" :class="{'red': info.s1 == 1, 'green': info.s1 == -1}">{{info.h}}</span>
+                                    </td>
+                                    <td v-tap="{methods:updateCustomOddsInfo}">
+                                        <span class="color9" v-if="!isOddsTimeNormal">{{info.time}}</span>
+                                        <span class="color9" v-if="isOddsTimeNormal">{{info.realtime.substring(5,16)}}</span>
+                                    </td>
+                                </tr>
+                                </tbody>
 
-                                    <!--大小分-->
-                                    <tbody v-if="params.type === 'zongfen' && oddsInfo && oddsInfo.length">
-                                    <tr>
-                                        <th width="22%">大分</th>
-                                        <th width="16%">总分</th>
-                                        <th width="22%">小分</th>
-                                        <th width="30%" v-tap="{methods:updateCustomOddsInfo}">更新时间
-                                            <em class="gxsj" id="gxsj"></em></th>
-                                    </tr>
-                                    <tr v-for="info,index in oddsInfo">
-                                        <td><span class="f24" :class="{'red': info.b == 1, 'green': info.b == -1}">{{info.big}}</span>
-                                        </td>
-                                        <td><span class="color6 f24" :class="{'red': info.pk == 1, 'green': info.pk == -1}">{{info.handi}}</span>
-                                        </td>
-                                        <td><span class="f24" :class="{'red': info.s == 1, 'green': info.s == -1}">{{info.small}}</span>
-                                        </td>
-                                        <td v-tap="{methods:updateCustomOddsInfo}">
-                                            <span class="color9" v-if="!isOddsTimeNormal">{{info.time}}</span>
-                                            <span class="color9" v-if="isOddsTimeNormal">{{info.realtime.substring(5,16)}}</span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <no-match v-if="oddsInfo && !oddsInfo.length"></no-match>
-                        </template>
-                    </div>
+                                <!--大小分-->
+                                <tbody v-if="params.type === 'zongfen' && oddsInfo && oddsInfo.length">
+                                <tr>
+                                    <th width="22%">大分</th>
+                                    <th width="16%">总分</th>
+                                    <th width="22%">小分</th>
+                                    <th width="30%" v-tap="{methods:updateCustomOddsInfo}">更新时间
+                                        <em class="gxsj" id="gxsj"></em></th>
+                                </tr>
+                                <tr v-for="info,index in oddsInfo">
+                                    <td><span class="f24" :class="{'red': info.b == 1, 'green': info.b == -1}">{{info.big}}</span>
+                                    </td>
+                                    <td><span class="color6 f24" :class="{'red': info.pk == 1, 'green': info.pk == -1}">{{info.handi}}</span>
+                                    </td>
+                                    <td><span class="f24" :class="{'red': info.s == 1, 'green': info.s == -1}">{{info.small}}</span>
+                                    </td>
+                                    <td v-tap="{methods:updateCustomOddsInfo}">
+                                        <span class="color9" v-if="!isOddsTimeNormal">{{info.time}}</span>
+                                        <span class="color9" v-if="isOddsTimeNormal">{{info.realtime.substring(5,16)}}</span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <no-match v-if="oddsInfo && !oddsInfo.length"></no-match>
+                    </template>
                 </div>
             </div>
         </div>
