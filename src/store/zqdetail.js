@@ -311,7 +311,13 @@ const actionsInfo = mapActions({
         }
     },
     async getCustomOdds (ignore, {ptype}) {
-        return ajax.get(`/score/concern/settings?vtype=1&ptype=${ptype}&_t=${Date.now()}`)
+        try {
+            return ajax.get(`/score/concern/settings?vtype=1&ptype=${ptype}&_t=${Date.now()}`, {ignore: false})
+        } catch (e) {
+            if (e.code === '102') {
+                platform.login()
+            }
+        }
     },
     async updateCustomOdds (ignore, {ptype, items}) {
         try {

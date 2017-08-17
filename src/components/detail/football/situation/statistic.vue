@@ -40,12 +40,13 @@
                             <div class="responsive">
                                 <div class="each-resone l-relative">
                                     <div class="zhzl-vs-left " :class="{'green-bg': statistic['h' + type]-0>statistic['a' + type]-0, 'gray-bg':statistic['h' + type]-0<=statistic['a' + type]-0}"
-                                         :style="{width:(((statistic['h' + type] + statistic['a' + type])==0?0.02:(statistic['h' + type] / (statistic['h' + type]-0 - (-statistic['a' + type])))) * 100)+'%'}"></div>
+                                         :style="statistic['h' + type], statistic['a' + type]|getWidth"></div>
+                                         <!--:style="{width:(((statistic['h' + type] + statistic['a' + type])==0?0.02:(statistic['h' + type] / (statistic['h' + type]-0 - (-statistic['a' + type])))) * 100)+'%'}"></div>-->
                                 </div>
                                 <div class="each-resone l-relative">
-                                    <div class="zhzl-vs-right" :class="{'green-bg':statistic['h' + type]-0<statistic['a' + type]-0, 'gray-bg':statistic['h' + type]-0>=statistic['a' + type]-0}"
-                                         :style="{width: (((statistic['h' + type] + statistic['a' + type])==0?0.02:(statistic['a' + type] / (statistic['h' + type]-0 - (-statistic['a' + type])))) * 100) + '%'}">
-                                    </div>
+                                    <div class="zhzl-vs-right " :class="{'green-bg': statistic['h' + type]-0<statistic['a' + type]-0, 'gray-bg':statistic['h' + type]-0>=statistic['a' + type]-0}"
+                                         :style="statistic['a' + type], statistic['h' + type]|getWidth"></div>
+                                    <!--:style="{width:(((statistic['h' + type] + statistic['a' + type])==0?0.02:(statistic['h' + type] / (statistic['h' + type]-0 - (-statistic['a' + type])))) * 100)+'%'}"></div>-->
                                 </div>
                             </div>
                         </div>
@@ -83,6 +84,16 @@
                     _corner_count: '角球',
                     _freekick_count: '任意球'
                 }
+            }
+        },
+        filters: {
+            getWidth (data1, data2) { // 横条比例显示的数据处理
+                data1 = Number(data1)
+                data2 = Number(data2)
+                // let tmp = data1 + data2
+                if (data1 === 0) { return 'width:3%' }
+                // if (data1 === tmp) { return 'width:3%' }
+                return {width: data1 / (data1 + data2) * 100 + '%'}
             }
         }
 
