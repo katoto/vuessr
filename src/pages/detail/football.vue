@@ -350,7 +350,7 @@
                 if (this.match.status === StatusCode.ENDED || this.match.status === StatusCode.CANCELED) return
                 this._timeId = setInterval(() => {
                     if (this.match.match_at && this.match.status !== StatusCode.MID && this.match.status !== StatusCode.NOT_STARTED && this.match.status) {
-                        this.$store.commit(mTypes.syncBaseInfo, {match_at: (this.match.match_at << 0) + 1})
+                        this.$store.commit(mTypes.syncBaseInfo, {match_at: (this.match.match_at << 0) + 5})
                     }
                 }, 5000)
             }
