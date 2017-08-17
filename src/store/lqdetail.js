@@ -270,7 +270,13 @@ const actionsInfo = mapActions({
         return ajax.get(`/score/concern/settings?vtype=2&ptype=${ptype}&_t=${Date.now()}`)
     },
     async updateCustomOdds (ignore, {ptype, items}) {
-        return ajax.get(`/score/concern/customize?vtype=2&ptype=${ptype}&item=${items.join(',')}&_t=${Date.now()}`, {ignore: false})
+        try {
+            return await ajax.get(`/score/concern/customize?vtype=2&ptype=${ptype}&item=${items.join(',')}&_t=${Date.now()}`, {ignore: false})
+        } catch (e) {
+            if (e.code === '102') {
+                platform.login()
+            }
+        }
     },
     async getOddsDetailEurope ({commit}, {fid, cid, date}) {
         return ajax.get(`/score/lq/oneodds?fid=${fid}&cid=${cid}&vtype=europe&round=1&matchdate=${date}`)

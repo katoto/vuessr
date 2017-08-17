@@ -315,7 +315,7 @@ const actionsInfo = mapActions({
     },
     async updateCustomOdds (ignore, {ptype, items}) {
         try {
-            return ajax.get(`/score/concern/customize?vtype=1&ptype=${ptype}&item=${items.join(',')}&_t=${Date.now()}`, {ignore: false})
+            return await ajax.get(`/score/concern/customize?vtype=1&ptype=${ptype}&item=${items.join(',')}&_t=${Date.now()}`, {ignore: false})
         } catch (e) {
             if (e.code === '102') {
                 platform.login()
