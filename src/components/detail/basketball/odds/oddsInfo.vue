@@ -222,10 +222,25 @@
 </script>
 
 <style scoped>
+    .popBox {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 91;
+        color: #242c35;
+        overflow: hidden
+    }
+    .popBox .l-flex-column {
+        position: relative;
+        z-index: 5
+    }
     .popTopbar {
         height: 1.173333rem;
         width: 100%
     }
+
     .popInner {
         background: #fff;
         display: block;
@@ -237,20 +252,6 @@
         position: relative;
         overflow: hidden
     }
-
-    .popInner .full-scroll {
-        overflow-x: hidden;
-        border-radius: .186667rem .186667rem 0 0
-    }
-    .plleft {
-        width: 2rem;
-        color: #242c35;
-        overflow: hidden;
-        float: left;
-        height: 100%;
-        background: #f4f4f4
-    }
-
     [data-dpr="1"] .plleft {
         font-size: 12px
     }
@@ -398,11 +399,11 @@
         left: .093333rem
     }
 
-    .pl-cont .red {
+    .red {
         color: #d3553d
     }
 
-    .pl-cont .green {
+   .green {
         color: #36a171
     }
 </style>

@@ -3,6 +3,7 @@
  * Created by lichun on 2017/5/10.
  */
 import axios from 'axios'
+import platform from '~common/platform'
 
 const options = {}
 if (process.env.NODE_ENV === 'production') {
@@ -33,6 +34,8 @@ const ajax = function (url, config = {ignore: true}) {
                 return {}
             }
             return resp.data
+        } else if (resp.status === '102') {
+            platform.login()
         } else {
             const error = new Error(resp.message)
             error.code = resp.status

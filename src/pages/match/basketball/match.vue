@@ -5,7 +5,7 @@
                 <a class="back-icon" onClick="history.back()">返回</a>
                 <div class="info-c">
                     <div class="info-pic">
-                        <img :src="match.matchlogo">
+                        <img v-logo="match.matchlogo">
                     </div>
                     <div class="info-itm">
                         <h1>{{match.simplegbname}}</h1>
@@ -32,9 +32,13 @@
 
 <script>
     import {aTypes} from '~store/center'
+    import logo from '~directives/logo'
     export default{
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getBasketHead, {seasonid: params.seasonid})
+        },
+        directives: {
+            logo
         },
         computed: {
             match () {
