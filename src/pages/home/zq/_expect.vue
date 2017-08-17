@@ -7,37 +7,7 @@
 
             <!-- 联赛筛选 -->
             <filter-league style="float: right"></filter-league>
-            <!-- 联赛筛选弹窗 -->
-            <div class="alert-league alert-league-close hide">
-                <!-- 场次信息 -->
-                <div class="matches-info">
-                    <div class="matches-info-l"><span></span>竞彩</div>
-                    <div class="matches-info-r">共105场比赛，已选85场</div>
-                </div>
-                <!-- 杯赛选择 -->
-                <div class="cup-info fadeout">
-                    <ul>
-                        <li class="cur">巴西杯</li>
-                        <li>吉尼斯杯</li>
-                        <li>金杯奖</li>
-                        <li>墨西杯</li>
-                        <li>苏联赛杯</li>
-                        <li>欧冠</li>
-                        <li>女欧杯</li>
-                    </ul>
-                </div>
-                <!-- 全选、反选、五大联赛 -->
-                <ul class="select-all fadeout">
-                    <li>全选</li>
-                    <li class="cur">反选</li>
-                    <li>五大联赛</li>
-                </ul>
-                <!-- 确认按钮区 -->
-                <div class="btn-cont fadeout">
-                    <div class="btn-sure btn-l">取消</div>
-                    <div class="btn-sure btn-r">筛好了</div>
-                </div>
-            </div>
+
             <!-- 中超筛选弹窗 -->
             <div class="alert-csl alert-csl-close hide">
                 <div class="month-tit"><span></span>轮次</div>
@@ -77,7 +47,6 @@
 </template>
 <script>
     import MatchesScroller from '~components/matches_scroller.vue'
-    import expectSelect from '~components/home/expectSelect.vue'
     import zqListItem from '~components/home/zqListItem.vue'
     import filterTime from '~components/home/filterTime.vue'
     import filterLeague from '~components/home/filterLeague.vue'
@@ -136,7 +105,7 @@
 
         },
         components: {
-            MatchesScroller, expectSelect, zqListItem, filterTime, filterLeague
+            MatchesScroller, zqListItem, filterTime, filterLeague
         },
         computed: {
             refreshTime () { // 用户点击刷新按钮时间戳

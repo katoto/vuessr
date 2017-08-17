@@ -17,6 +17,9 @@
 
         </div>
         <refresh/>
+        <switch-comp></switch-comp>
+
+
         <transition name="slide">
             <league v-if="filter.show"
                     :matches="filter.matches"
@@ -31,12 +34,13 @@
 
 <script>
     import league from '~components/league.vue'
-    import refresh from '~components/refresh.vue'
+    import refresh from '~components/home/refresh.vue'
+    import switchComp from '~components/home/switch.vue'
     import {mTypes} from '~store/home'
 
     export default{
 
-        components: {league, refresh},
+        components: {league, refresh, switchComp},
         computed: {
             filter () {
                 return this.$store.state.home.filter
