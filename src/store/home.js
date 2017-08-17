@@ -22,11 +22,7 @@ const state = {
         matches: null,
         expectList: null,
         curExpect: null,
-        mymatch: null,
-        state: {
-            bjdc: null,
-            jczq: null
-        }
+        mymatch: null
     },
     lq: {
         jclq: {
@@ -53,12 +49,7 @@ const actionsInfo = mapActions({
         dispatch('subscribe', {stamp: pushEvents.BASKETBALL_INFO, data: eventList})
     },
     async fetchZqMatches ({commit}, {expect, tab}) {
-        let url = ``
-        if (tab === 'jczq' || tab === 'bjdc' || tab === 'all' || tab === 'sfc') {
-            url = `/score/zq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`
-        } else if (tab === 'hot') {
-            url = `/score/zq/hot?expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`
-        }
+        let url = `/score/zq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`
         const matchesInfo = await ajax.get(url)
         matchesInfo.matches.some(match => {
             if (match.status < 4) {

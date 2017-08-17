@@ -26,13 +26,12 @@
             </div>
         </div>
 
-        <!--<expect-select :expect-list="expectList" :cur-expect="curExpect" v-if="expectList"></expect-select>-->
-        <!--<div v-else class="loading">
-            <div class="icon"></div>
-            <div class="icon-shadow"></div>
-        </div>-->
         <div class="l-flex-1 l-relative">
-            <matches-scroller ref="scroller">
+            <div v-if="isLoading" class="loading">
+                <div class="icon"></div>
+                <div class="icon-shadow"></div>
+            </div>
+            <matches-scroller ref="scroller" v-else>
                 <ul class="list">
                     <zq-list-item v-for="match in showedMatches" :match="match" key="match.fid"></zq-list-item>
                 </ul>
@@ -54,7 +53,7 @@
     import {aTypes, mTypes} from '~store/home'
     export default {
         async asyncData ({store, route: {params: {expect, tab}}}) {
-            await Promise.all([store.dispatch(aTypes.getZqMetro), store.dispatch(aTypes.fetchZqMatches, {expect, tab})])
+            await Promise.all([store.dispatch(aTypes.fetchZqMatches, {expect, tab})])
         },
         data () {
             return {
@@ -63,20 +62,6 @@
             }
         },
         watch: {
-            filterTime () {
-                this.$store.commit(mTypes.initFilter, {
-                    matches: this.matches,
-                    inited: this.selectOptions,
-                    onOk: ({selectOptions, filteredMatches}) => {
-                        this.filteredMatches = filteredMatches
-                        this.selectOptions = selectOptions
-                        this.$store.commit(mTypes.endFilter)
-                    },
-                    onCancel: () => {
-                        this.$store.commit(mTypes.endFilter)
-                    }
-                })
-            },
             showedMatchesSize () {
                 this.$refs.scroller && this.$refs.scroller.update()
             },
@@ -114,9 +99,6 @@
             socketData () { // websocket推送过来的数据
                 return this.$store.getters.getSocketData
             },
-            filterTime () { // 用户点击筛选按钮时间戳
-                return this.$store.state.home.filter.filterTime
-            },
             zq () {
                 return this.$store.state.home.zq
             },
@@ -144,6 +126,19 @@
             },
             expectList () {
                 return this.zq.expectList
+            },
+            isLoading () {
+                if (this.zq.tab === this.$route.params.tab) {
+                    if (this.$route.params.expect === 'cur') {
+                        return false
+                    } else if (this.$route.params.expect === this.zq.curExpect) {
+                        return false
+                    } else {
+                        return true
+                    }
+                } else {
+                    return true
+                }
             }
         },
         mounted () {
@@ -152,7 +147,7 @@
         methods: {
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                await Promise.all([this.$store.dispatch(aTypes.getZqMetro), this.$store.dispatch(aTypes.fetchZqMatches, this.$route.params)])
+                await Promise.all([this.$store.dispatch(aTypes.fetchZqMatches, this.$route.params)])
                 this.$store.commit('endOneRefresh')
             }
         }
@@ -160,6 +155,33 @@
     }
 </script>
 <style scoped>
+    .loading{width:100%;height:2.5rem;text-align:center;position:relative}
+    .loading .icon{display:inline-block;width:.72rem;height:.72rem;border-radius:50% 50%;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAcCAMAAABMOI/cAAAAVFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////8wXzyWAAAAG3RSTlMA+YX8+vQb7dbNpnlvYkQ7FwzhuLOgj4xIQQXn8XA9AAAAgElEQVQoz+WPSRKEIBAEBQX3GZ19rP//08JWxCD05sm8kNVFEE1ywK0wv82gebbusAp49OFFAB+eXUap1/lQML+cfSnG+qIGuTvrc1q1zK1heou3ckeo6Hk3h5KhFP2DNJNqhQilWaSUuNktdp7KdBIA4sP5xTU+6Ellyxitwi1HmooaqKw566UAAAAASUVORK5CYII=) no-repeat center center #ffba00;background-size:.32rem .373333rem;-webkit-transform-origin:center bottom;transform-origin:center bottom;-webkit-animation:jump 1s infinite;animation:jump 1s infinite;position:absolute;left:50%;margin-left:-.36rem;z-index:2;margin-top:.3rem}
+    @-webkit-keyframes jump{0%{top:0;-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}
+        50%{top:.933333rem;height:.72rem;border-radius:.36rem .36rem;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}
+        55%{top:1.066667rem;height:.6rem;border-radius:.36rem .3rem;-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}
+        65%{top:.8rem;height:.72rem;border-radius:.36rem .36rem;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}
+        95%{top:0;-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}
+        100%{top:0;-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}
+    }
+    @keyframes jump{0%{top:0;-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}
+        50%{top:.933333rem;height:.72rem;border-radius:.36rem .36rem;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}
+        55%{top:1.066667rem;height:.6rem;border-radius:.36rem .3rem;-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}
+        65%{top:.8rem;height:.72rem;border-radius:.36rem .36rem;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}
+        95%{top:0;-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}
+        100%{top:0;-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}
+    }
+    .loading .icon-shadow{position:absolute;left:50%;margin-left:-.08rem;width:.16rem;height:.213333rem;background:rgba(20,20,20,.08);box-shadow:0 0 .16rem .24rem rgba(20,20,20,.05);border-radius:.08rem/.106667rem;-webkit-transform:scaleY(.1);transform:scaleY(.1);-webkit-animation:shrink 1s infinite;animation:shrink 1s infinite;z-index:1;top:2rem}
+    @-webkit-keyframes shrink{0%{top:1.8rem;-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}
+        50%{top:1.925rem;margin-left:-.025rem;width:.06rem;height:.02rem;background:rgba(20,20,20,.3);box-shadow:0 0 .06rem .12rem rgba(20,20,20,.1);border-radius:.06rem;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}
+        100%{top:1.8rem;margin-left:-.08rem;width:.16rem;height:.213333rem;background:rgba(20,20,20,.05);box-shadow:0 0 .16rem .24rem rgba(20,20,20,.05);border-radius:.08rem/.106667rem;-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}
+    }
+    @keyframes shrink{0%{top:1.8rem;-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}
+        50%{top:1.925rem;margin-left:-.025rem;width:.06rem;height:.02rem;background:rgba(20,20,20,.3);box-shadow:0 0 .06rem .12rem rgba(20,20,20,.1);border-radius:.06rem;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}
+        100%{top:1.8rem;margin-left:-.08rem;width:.16rem;height:.213333rem;background:rgba(20,20,20,.05);box-shadow:0 0 .16rem .24rem rgba(20,20,20,.05);border-radius:.08rem/.106667rem;-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}
+    }
+
+
     .qi-list-box {
         position: relative;
         top: 0;
@@ -177,7 +199,8 @@
         color: #aab5bd;
         font-size: .346667rem;
         clear: both;
-        zoom:1;position: relative
+        zoom: 1;
+        position: relative
     }
 
     .filter-time {
@@ -201,8 +224,8 @@
         line-height: 120px
     }
 
-    .filter-league,.filter-time {
-        box-shadow: 0 0 .133333rem rgba(22,34,29,.1)
+    .filter-league, .filter-time {
+        box-shadow: 0 0 .133333rem rgba(22, 34, 29, .1)
     }
 
     .filter-time .prev-day {
@@ -274,7 +297,7 @@
         transform: rotate(180deg)
     }
 
-    .filter-league:active,.filter-time .next-day:active,.filter-time .prev-day:active,.filter-time .today:active {
+    .filter-league:active, .filter-time .next-day:active, .filter-time .prev-day:active, .filter-time .today:active {
         background: #f4f4f4
     }
 
@@ -569,6 +592,6 @@
     }
 
     .one-game:active {
-        -webkit-tap-highlight-color: rgba(244,244,244,.6)
+        -webkit-tap-highlight-color: rgba(244, 244, 244, .6)
     }
 </style>
