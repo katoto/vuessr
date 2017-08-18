@@ -17,6 +17,7 @@
     }
 
     export default {
+        props: ['pos'],
         mounted () {
             this.config()
         },
@@ -38,10 +39,8 @@
                     this.myScroll.destroy()
                     this.myScroll = null
                 }
-                let oTop
-                if (window.__scroll_position && window.__scroll_position_path === location.href) {
-                    oTop = window.__scroll_position
-                } else {
+                let oTop = this.pos
+                if (!oTop) {
                     const firstEndEl = this.$el.querySelector('.__first_no_end')
                     oTop = firstEndEl && firstEndEl.offsetTop ? -(firstEndEl.offsetTop - this.itemHeight) : 0
                 }
@@ -94,8 +93,7 @@
             }
         },
         beforeDestroy () {
-            window.__scroll_position = this.myScroll.y
-            window.__scroll_position_path = location.href
+            this.$emit('position', this.myScroll.y)
         }
     }
 </script>
