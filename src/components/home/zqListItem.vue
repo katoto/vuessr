@@ -414,7 +414,7 @@
                     e: {
                         [StatusCode.MID]: true,
                         [StatusCode.FIRST_HALF]: true,
-                        [StatusCode.LAST_HALF]: true,
+                        [StatusCode.LAST_HALF]: true
                     }
                 },
                 StatusCode,
