@@ -24,8 +24,8 @@
                         <td>
                             <div class="rank-team"><img :src="match.homelogo">{{match.homesxname}}</div>
                         </td>
-                        <td>{{leagueRank.hometeam.leaguename}}</td>
-                        <td>{{leagueRank.hometeam.all&&leagueRank.hometeam.all.matches_count}}</td>
+                        <td>{{leagueRank.hometeam.leaguename||'--'}}</td>
+                        <td>{{leagueRank.hometeam.all&&leagueRank.hometeam.all.matches_count || '--'}}</td>
                         <td>
                             {{leagueRank.hometeam.all&&[leagueRank.hometeam.all.win,leagueRank.hometeam.all.draw,leagueRank.hometeam.all.lost].join('/')||'--'}}
                         </td>
@@ -42,8 +42,8 @@
                         <td>
                             <div class="rank-team"><img :src="match.awaylogo">{{match.awaysxname}}</div>
                         </td>
-                        <td>{{leagueRank.awayteam.leaguename}}</td>
-                        <td>{{leagueRank.awayteam.all&&leagueRank.awayteam.all.matches_count}}</td>
+                        <td>{{leagueRank.awayteam.leaguename || '--'}}</td>
+                        <td>{{leagueRank.awayteam.all&&leagueRank.awayteam.all.matches_count || '--'}}</td>
                         <td>
                             {{leagueRank.awayteam.all&&[leagueRank.awayteam.all.win,leagueRank.awayteam.all.draw,leagueRank.awayteam.all.lost].join('/')||'--'}}
                         </td>

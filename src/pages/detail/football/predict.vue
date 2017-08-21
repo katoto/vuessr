@@ -9,7 +9,7 @@
                         <div class="title clear"><span>{{c.title}}</span><i v-if="c.paytype=='1'">付费</i></div>
                         <div class="info">
                             <span>
-                                <i class="face"><img alt="小头像" :src="c.headimg"></i>{{c.nickname}}
+                                <i class="face"><img  v-logo="c.headimg"></i>{{c.nickname}}
                             </span>
                             <span class="time">{{c.publishtime.substring(5,16)}}</span>
                             <span class="view">{{c.hits}}</span>
@@ -296,10 +296,14 @@
 
     import echartBarLine from '~components/detail/football/predict/echartBarLine.vue'
     import echartPosition from '~components/detail/football/predict/echartPosition.vue'
+    import logo from '~directives/logo'
     import {mTypes, aTypes} from '~store/zqdetail'
     export default {
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getPredict, params.fid)
+        },
+        directives:{
+            logo
         },
         data () {
             return {
