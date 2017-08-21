@@ -37,7 +37,7 @@ export default {
         },
         capTip () {
             if (this.teamInfo) {
-                return this.teamInfo.homefieldcap ? (this.teamInfo.teamhomefield + '-容纳' + this.teamInfo.homefieldcap + '人') : ''
+                return this.teamInfo.homefieldcap ? (this.teamInfo.teamhomefield + '-容纳' + this.teamInfo.homefieldcap + '人') : this.teamInfo.teamhomefield
             }
         }
     },

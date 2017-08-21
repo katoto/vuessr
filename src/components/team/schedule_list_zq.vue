@@ -48,7 +48,7 @@ export default {
             }
         },
         goNoStartMatch () {
-            var noStartDom = this.$el.querySelector('#match' + this.firstNoStartId)
+            var noStartDom = this.$el.querySelector('#match' + (this.firstNoStartId - 1))
             if (!noStartDom) return
             this.$el.parentElement.scrollTop = noStartDom.offsetTop
         }
