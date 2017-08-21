@@ -33,7 +33,8 @@
             </div>
             <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
                 <ul class="list">
-                    <zq-list-item v-for="match in showedMatches" :match="match" key="match.fid"></zq-list-item>
+                    <zq-list-item v-for="match in showedMatches" :match="match" key="match.fid"
+                                  :view="view"></zq-list-item>
                 </ul>
             </matches-scroller>
 
@@ -52,28 +53,25 @@
     import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import {aTypes, mTypes} from '~store/home'
     const savedData = {}
-    let needData = false
     export default {
         async asyncData ({store, route: {params: {expect, tab}}}) {
-            await Promise.all([store.dispatch(aTypes.fetchZqMatches, {expect, tab})])
+            await store.dispatch(aTypes.fetchZqMatches, {expect, tab})
         },
         beforeRouteEnter (to, from, next) {
-            needData = from.name === 'football-detail-situation'
-            next()
+            next(vm => {
+                if (from.name && ~from.name.indexOf('football-detail')) {
+                    vm.position = savedData.position
+                    vm.selectOptions = savedData.selectOptions
+                    vm.filteredMatches = savedData.filteredMatches
+                }
+            })
         },
         beforeRouteLeave (to, from, next) {
-            if (to.name === 'football-detail-situation') {
+            if (~to.name.indexOf('football-detail')) {
                 savedData.selectOptions = this.selectOptions
                 savedData.filteredMatches = this.filteredMatches
             }
             next()
-        },
-        created () {
-            if (needData) {
-                this.position = savedData.position
-                this.selectOptions = savedData.selectOptions
-                this.filteredMatches = savedData.filteredMatches
-            }
         },
         data () {
             return {
@@ -90,9 +88,11 @@
                 this.showExpectList = false
                 this.filteredMatches = null
             },
+
             fidIndexMap (fidIndexMap) {
                 this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(fidIndexMap))
             },
+
             socketData ({data, stamp}) {
                 if (stamp === pushEvents.FOOTBALL_INFO) {
                     data.fid = data.fid + ''
@@ -102,9 +102,11 @@
                     }
                 }
             },
+
             '$route.path' () {
                 this.fetchData()
             },
+
             refreshTime () {
                 this.fetchData()
             }
@@ -113,28 +115,38 @@
         components: {
             MatchesScroller, zqListItem, filterTime, filterLeague
         },
+
         computed: {
             refreshTime () { // 用户点击刷新按钮时间戳
                 return this.$store.state.refreshTime
             },
+
             socketData () { // websocket推送过来的数据
                 return this.$store.getters.getSocketData
             },
+
             zq () {
                 return this.$store.state.home.zq
+            },
+            view () {
+                return this.$store.state.home.view
             },
             showedMatchesSize () {
                 return this.showedMatches && this.showedMatches.length
             },
+
             showedMatches () {
                 return this.filteredMatches || this.matches
             },
+
             matches () {
                 return this.zq.matches
             },
+
             curExpect () {
                 return this.zq.curExpect
             },
+
             fidIndexMap () { // matches 变化了， fidIndexMap一定会变化
                 const map = {}
                 if (!this.matches) return null
@@ -145,9 +157,11 @@
                 })
                 return map
             },
+
             expectList () {
                 return this.zq.expectList
             },
+
             isLoading () {
                 if (this.zq.tab === this.$route.params.tab) {
                     if (this.$route.params.expect === 'cur') {
@@ -162,9 +176,11 @@
                 }
             }
         },
+
         mounted () {
             this.fetchData()
         },
+
         methods: {
             setPosition (position) {
                 savedData.position = position
@@ -172,7 +188,7 @@
             },
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                await Promise.all([this.$store.dispatch(aTypes.fetchZqMatches, this.$route.params)])
+                await this.$store.dispatch(aTypes.fetchZqMatches, this.$route.params)
                 this.$store.commit('endOneRefresh')
             }
         }

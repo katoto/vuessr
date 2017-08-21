@@ -1,6 +1,9 @@
 <template>
 
-    <div class="refresh-icon" v-tap="{methods: emitRefresh}" :class="{'refresh-rotate': refreshing}"></div>
+    <div class="refresh-box">
+        <div class="refresh-icon" v-tap="{methods: emitRefresh}" :class="{'refresh-rotate': refreshing}"></div>
+
+    </div>
    <!-- <div class="refresh-box">
         <i id="sx" class="refresh-icon" :class="{'refresh-rotate': refreshing}" v-tap="{methods: emitRefresh}"></i>
     </div>-->
@@ -26,28 +29,30 @@
 
 <style scoped>
 
+
     .refresh-icon {
-        width: 1.546667rem;
-        height: 1.546667rem;
+        width: 1.066667rem;
+        height: 1.066667rem;
         background: url(~assets/style/images/home/refresh.png) no-repeat;
         background-size: cover;
-        position: fixed;
-        bottom: 1rem;
-        right: .4rem;
+        position: absolute;
+        left: 50%;
+        margin-left: -.533333rem;
+        top: 50%;
+        margin-top: -.533333rem
     }
 
     .refresh-box {
         width: 1.066667rem;
         height: 1.066667rem;
+        border-radius: 50%;
         position: fixed;
-        bottom: 1.706667rem;
-        right: .533333rem;
+        bottom: 1rem;
+        right: .4rem;
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
-        opacity: .9;
         z-index: 9;
-        -webkit-transform: rotate(45deg);
-        transform: rotate(45deg)
+        box-shadow: 0 0 .133333rem rgba(210,81,56,.36)
     }
     /*.refresh-icon {
         width: 1.066667rem;

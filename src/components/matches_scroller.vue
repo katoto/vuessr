@@ -19,7 +19,7 @@
     export default {
         props: ['pos'],
         mounted () {
-            this.config()
+            this.raf(this.config)
         },
         methods: {
             raf (cb) {

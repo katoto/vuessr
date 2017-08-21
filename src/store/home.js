@@ -16,6 +16,8 @@ const state = {
         onCancel: () => { // 点击取消回调
         }
     },
+    myState: {},
+    view: '0',
     zq: {
         metro: null,
         tab: 'jczq',
@@ -48,6 +50,10 @@ const actionsInfo = mapActions({
         const eventList = fidList.map(fid => 'LIVE:BASKETBALL:INFO:' + fid)
         dispatch('subscribe', {stamp: pushEvents.BASKETBALL_INFO, data: eventList})
     },
+    switchView ({commit, state}, view) {
+        view = view || (parseInt(state.view) + 1) % 3 + ''
+        commit(mTypes.setView, view)
+    },
     async fetchZqMatches ({commit}, {expect, tab}) {
         let url = `/score/zq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`
         const matchesInfo = await ajax.get(url)
@@ -61,6 +67,16 @@ const actionsInfo = mapActions({
         matchesInfo.tab = tab
         commit(mTypes.setZqMatches, matchesInfo)
         return matchesInfo
+    },
+    async getMyState ({commit}, {vtype = '1', lottery = 'jczq'}) {
+        const myState = await ajax.get(`/score/concern/state?vtype=${vtype}&lottery=${lottery}`)
+        const tmp = {}
+        if (myState.length) {
+            myState.forEach((stat) => {
+                tmp[stat.fid] = stat
+            })
+        }
+        commit(mTypes.setMyState, myState)
     },
 
     async getZqMetro ({commit}) {
@@ -113,6 +129,12 @@ const mutationsInfo = mapMutations({
         state.filter.inited = null
         state.filter.onOk = () => {}
         state.filter.onCancel = () => {}
+    },
+    setView (state, view) {
+        state.view = view
+    },
+    setMyState (state, myState) {
+        state.myState = myState
     },
     setZqMatches (state, data) {
         let {curr_expect, expect_list, matches, tab} = data

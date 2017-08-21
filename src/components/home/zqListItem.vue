@@ -4,7 +4,13 @@
         v-tap="{methods: goDetail, fid: match.fid}">
         <!-- 比赛时间信息 、猜球、有料、加时 -->
         <div class="game-info">
-            {{match.order}}&nbsp;&nbsp;{{match.simpleleague}}<span class="crazy-guess" v-if="match.iscrazybet==='1'">猜球</span><span class="crazy-guess">有料</span>
+            {{match.order}}&nbsp;&nbsp;{{match.simpleleague}}&nbsp;
+
+            <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '11'">加时 {{match.extra_time_score}}&nbsp;</span>
+            <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '13'">点球 {{match.spot_kick_score}}</span>
+
+            <template v-if="feature.d[match.status]"><span class="crazy-guess" v-if="match.extra_info.iscrazybet==='1'">猜球</span><span class="crazy-guess" v-if="match.extra_info.isrecommend">有料</span></template>
+
             <div class="game-info-r">{{match.matchtime.substring(5, 16)}}</div>
         </div>
         <!-- 比赛详细信息 -->
@@ -13,133 +19,85 @@
             <div class="game-detail-l l-flex-column">
                 <div class="game-item">
                     <div class="game-name"><img data-inited="0"  src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png" alt="主队图标" :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">阿森纳</div>
-                    <div class="game-lately">胜胜平平负负</div>
+                    <div class="game-lately" v-if="match.status === StatusCode.NOT_STARTED && view==='1'">{{match.extra_info.homerecord||'胜胜'}}</div>
+                    <template v-if="feature.e[match.status]"><!--正在开打-->
+                        <div class="game-lately score-half">
+                            <em class="first-half">{{match.homehalfscore}}</em>
+                            <em class="second-half">{{match.homescore}}</em>
+                        </div>
+                    </template>
+                    <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
+                        <div class="game-lately score-half">
+                            <em class="first-half">{{match.homehalfscore}}</em>
+                            <em class="second-half">{{match.homescore}}</em>
+                            <!--<em class="first-half">{{match.awayhalfscore}}</em>
+                            <em class="second-half">{{match.awayscore}}</em>-->
+                        </div>
+                    </template>
                 </div>
                 <div class="game-item ">
                     <div class="game-name"><img data-inited="0"  src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"  alt="客队图标" :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">切尔西西</div>
-                    <div class="game-lately">胜平胜平负负</div>
+
+                    <template v-if="match.status === StatusCode.NOT_STARTED">
+                        <div class="game-lately" v-if="view==='1'">{{match.extra_info.awayrecord}}</div>
+
+                    </template>
+                    <template v-if="feature.e[match.status]"><!--正在开打-->
+                        <div class="game-lately score-half">
+                            <em class="first-half">{{match.awayhalfscore}}</em>
+                            <em class="second-half">{{match.awayscore}}</em>
+                        </div>
+                    </template>
+                    <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
+                        <div class="game-lately score-half">
+                            <em class="first-half">{{match.awayhalfscore}}</em>
+                            <em class="second-half">{{match.awayscore}}</em>
+                        </div>
+                    </template>
+                </div>
+                <div class="odds-item" v-if="match.status === StatusCode.NOT_STARTED && view==='2'">
+                    <ul>
+                        <li>3.18</li>
+                        <li>2.16</li>
+                        <li>3.32</li>
+                    </ul>
                 </div>
             </div>
             <!-- 右边的关注、直播情况-->
             <div class="game-detail-r">
                 <!--<div class="btn-live">直播</div>-->
-                <!--<div class="follow">已关注</div>-->
-                <div class="live-time  live-timer" v-if="feature.b[match.status]">80'</div>
+                <template v-if="match.status === StatusCode.NOT_STARTED"><!--未开始-->
+                    <div class="follow had-follow" v-if="match.isfocus === '1'">已关注</div>
+                    <div class="follow" v-if="match.isfocus !== '1'">关注</div>
+                </template>
+                <template v-if="feature.e[match.status]"><!--正在开打-->
+                    <template v-if="match.extra_info.ishasvideo === '1'">
+                        <div class="btn-live">直播</div>
+                        <div class="live-time">80'</div>
+                    </template>
+                    <template v-else>
+                        <div class="live-time  live-timer">80'</div>
+                    </template>
+                </template>
+                <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
+                    <template v-if="match.extra_info.ishasvideo === '1'">
+                        <div class="btn-live btn-once">回放</div>
+                    </template>
+                    <template v-else>
+                        <div class="follow had-follow">已结束</div>
+                    </template>
+                </template>
+
+                <template v-if="feature.c[match.status]"><!--异常-->
+                    <div class="follow">{{StatusName[match.status]}}</div>
+                </template>
+
             </div>
         </div>
     </li>
 
 
-    <!--<li class="list-item" :class="{'__first_no_end': match._flag}"
-        v-tap="{methods: goDetail, fid: match.fid}">
-        <div class="list-tit">
-            <span class="list-day"> {{match.order}}&nbsp;&nbsp;{{match.simpleleague}}</span>
 
-            <span class="list-state color3" v-if="feature.a[match.status]">
-                                {{match.matchtime.substring(5, 16)}}
-                            </span>
-            <span class="list-state color3"
-                  v-if="match.status === StatusCode.ENDED">完场</span>
-
-            <span class="crazy-sports f20" v-if="match.iscrazybet==='1'">猜球</span>
-
-            <span class="list-state green"
-                  v-if="match.status === StatusCode.MID">中场休息</span>
-            <span class="list-state green"
-                  v-if="match.status === StatusCode.FIRST_HALF || match.status === StatusCode.LAST_HALF">
-                                {{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}
-                                <i class="dian">'</i>
-                            </span>
-            <span class="list-state green"
-                  v-if="match.status===StatusCode.ENDED && match.extra_statusid === StatusCode.SPOT_KICK_STARTED">
-                                点球 {{match.spot_kick_score}}
-                            </span>
-
-            <span class="list-time"
-                  v-if="feature.b[match.status]">
-								{{match.matchtime.substring(5, 16)}}
-                            </span>
-            <span class="list-time"
-                  v-if="feature.a[match.status]">
-                            </span>
-        </div>
-        <div class="list-team">
-            <div class="team team-l f30">
-                <img data-inited="0" src="http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png"
-                     :data-src="match.homelogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'">
-                {{match.homesxname | truncate(4)}}
-                <sub class="team-site f22"
-                     v-if="match.zlc == 1">(中)</sub>
-                <i class="red-pai f22"
-                   v-show="match.home_red_counts > 0">{{match.home_red_counts}}</i>
-            </div>
-
-            <div class="team-c"
-                 v-if="feature.b[match.status]"
-                 :class="{'green': match.status !== StatusCode.ENDED,'color3': match.status === StatusCode.ENDED}">
-                <p class="score">
-                    <em class="score-itm"
-                        v-scroll-text="{'score':match.homescore,'class':'itmMove',timeOut:1,oldClass:'score-itm',isEnd:match.status == StatusCode.ENDED}">
-
-                        <i>{{match.homescore}}</i>
-                        <i>{{match.homescore}}</i>
-                    </em>
-                    <span class="score-c">:</span>
-                    <em class="score-itm"
-                        v-scroll-text="{'score':match.awayscore,'class':'itmMove',timeOut:1,oldClass:'score-itm',isEnd:match.status == StatusCode.ENDED}">
-                        <i>{{match.awayscore}}</i>
-                        <i>{{match.awayscore}}</i>
-                    </em>
-                </p>
-            </div>
-            <div class="team-c"
-                 v-if="match.status === StatusCode.NOT_STARTED"
-                 @click.stop="onCollect(match.fid,match.isfocus)">
-                <i class="collect"
-                   :class="{'cur': match.isfocus==='1'}"></i>
-            </div>
-
-            <div class="team-c"
-                 v-if="match.status===StatusCode.CANCELED"><span class="f30 ffw">取消</span></div>
-            <div class="team-c"
-                 v-if="match.status===StatusCode.CHANGED"><span class="f30 ffw">改期</span></div>
-            <div class="team-c"
-                 v-if="match.status===StatusCode.REMOVED"><span class="f30 ffw">腰斩</span></div>
-            <div class="team-c"
-                 v-if="match.status===StatusCode.PAUSED"><span class="f30 ffw">中断</span></div>
-            <div class="team-c"
-                 v-if="match.status===StatusCode.UNSURE"><span class="f30 ffw">待定</span></div>
-
-            <div class="team team-r f30">
-                <i class="red-pai f22"
-                   v-if="match.away_red_counts>0">{{match.away_red_counts}}</i>
-                {{match.awaysxname | truncate(4)}}
-                <img data-inited="0" src="http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png"
-                     :data-src="match.awaylogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'">
-            </div>
-        </div>
-        <div class="list-info f22">
-            <span v-if="match.status === StatusCode.MID||match.status===StatusCode.LAST_HALF||match.status===StatusCode.ENDED">半场 {{match.homehalfscore}}:{{match.awayhalfscore}}&nbsp;</span>
-            <span v-if="match.status === StatusCode.ENDED && match.extra_statusid === StatusCode.EXTRA_STARTED">90'内 {{match.homescore}}:{{match.awayscore}}&nbsp;</span>
-            <span v-if="match.status === StatusCode.ENDED && match.extra_statusid === StatusCode.EXTRA_ENDED">90'内 {{match.homescore}}:{{match.awayscore}} 加时 {{match.extra_time_score}}&nbsp;</span>
-            <span v-if="match.status === StatusCode.ENDED && match.extra_statusid === StatusCode.SPOT_KICK_ENDED">90'内 {{match.homescore}}:{{match.awayscore}} {{match.extra_exist === '1' ? ('加时' + match.extra_time_score) : ''}} 点球 {{match.spot_kick_score}}</span>
-        </div>
-        <div class="tips-box"
-             v-if="$route.params.tab ==='hot'">
-					<span class="easily-selected"
-                          v-if="match.tags.indexOf(1)>-1">主胜易中</span>
-            <span class="easily-selected"
-                  v-if="~match.tags.indexOf(2)">平局易中</span>
-            <span class="easily-selected"
-                  v-if="~match.tags.indexOf(3)">主负易中</span>
-            <span class="highest-sales"
-                  v-if="~match.tags.indexOf(4)">热度最高</span>
-            <span class="attention"
-                  v-if="~match.tags.indexOf(5)">关注最多</span>
-            <span class="danguan"
-                  v-if="~match.tags.indexOf(6)">单关</span>
-        </div>
-    </li>-->
 </template>
 <style scoped>
     .one-game {
@@ -208,7 +166,8 @@
     .game-detail-l {
         float: left;
         width: 7.52rem;
-        border-right: 1px solid #eaeaea
+        border-right: 1px solid #eaeaea;
+        position: relative;
     }
 
     .game-item {
@@ -241,6 +200,21 @@
         left: 50%;
         left: 0
     }
+    .odds-item {
+        width: 1.6rem;
+        text-align: center;
+        color: #aab5bd;
+        font-size: .293333rem;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%)
+    }
+
+    .odds-item ul li {
+        line-height: .426667rem
+    }
 
     .game-lately {
         color: #aab5bd;
@@ -268,8 +242,19 @@
     }
 
     .follow {
-        color: #aab5bd;
-        line-height: 1.28rem
+        color: #d25138;
+        width: 1.2rem;
+        margin: 0 auto;
+        height: .533333rem;
+        border: 1px solid #eaeaea;
+        line-height: .533333rem;
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        left: 50%;
+        margin-left: -.6rem
     }
 
     [data-dpr="1"] .follow {
@@ -285,7 +270,8 @@
     }
 
     .had-follow {
-        color: #d25138
+        color: #aab5bd;
+        border: none
     }
 
     .btn-live {
@@ -380,7 +366,7 @@
 
 </style>
 <script>
-    import {FootballStatusCode as StatusCode} from '~common/constants'
+    import {FootballStatusCode as StatusCode, FootballStatusName as StatusName} from '~common/constants'
     import scrollText from '~directives/scroll_text'
 
     export default {
@@ -388,6 +374,10 @@
             match: {
                 required: true,
                 type: Object
+            },
+            view: {
+                required: true,
+                type: String
             }
         },
         data () {
@@ -406,9 +396,29 @@
                         [StatusCode.FIRST_HALF]: true,
                         [StatusCode.LAST_HALF]: true,
                         [StatusCode.ENDED]: true
+                    },
+                    c: {
+                        [StatusCode.CANCELED]: true,
+                        [StatusCode.CHANGED]: true,
+                        [StatusCode.REMOVED]: true,
+                        [StatusCode.PAUSED]: true,
+                        [StatusCode.UNSURE]: true
+                    },
+                    d: {
+                        [StatusCode.NOT_STARTED]: true,
+                        [StatusCode.MID]: true,
+                        [StatusCode.FIRST_HALF]: true,
+                        [StatusCode.LAST_HALF]: true,
+                        [StatusCode.ENDED]: true
+                    },
+                    e: {
+                        [StatusCode.MID]: true,
+                        [StatusCode.FIRST_HALF]: true,
+                        [StatusCode.LAST_HALF]: true,
                     }
                 },
-                StatusCode
+                StatusCode,
+                StatusName
             }
         },
         methods: {
