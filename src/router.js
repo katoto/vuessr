@@ -11,6 +11,7 @@ const Home = () => import('~pages/home.vue' /* webpackChunkName: "pages/home" */
 const Zq = () => import('~pages/home/zq.vue' /* webpackChunkName: "pages/home-zq" */)
 
 const ZqExpect = () => import('~pages/home/zq/_expect.vue' /* webpackChunkName: "pages/home-zq-jczq-expect" */)
+const ZqZs = () => import('~pages/home/zq/zs.vue' /* webpackChunkName: "pages/home-zq-zs" */)
 
 const Lq = () => import('~pages/home/lq.vue' /* webpackChunkName: "pages/home-lq" */)
 
@@ -119,7 +120,12 @@ export function createRouter () {
                             {
                                 path: ':tab/:expect',
                                 component: ZqExpect,
-                                name: 'home-zq-sfc-expect'
+                                name: 'home-zq-expect'
+                            },
+                            {
+                                path: 'zs',
+                                component: ZqZs,
+                                name: 'home-zq-zs'
                             },
                             {
                                 path: '*',

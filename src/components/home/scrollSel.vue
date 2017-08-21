@@ -1,14 +1,15 @@
 <template>
     <div class="item-tab">
         <ul>
-            <li class="cur" onclick="window.location.href='index.html'">竞彩</li>
-            <li>全部</li>
-            <li>猜球</li>
-            <li>热门</li>
-            <li onclick="window.location.href='zq-mark.html'">指数</li>
-            <li>关注</li>
-            <li>足球</li>
-            <li>篮球</li>
+            <li :class="{'cur': ~$route.path.indexOf('/jczq')}"><router-link to="/home/zq/jczq/cur" replace>竞彩</router-link></li>
+            <li :class="{'cur': ~$route.path.indexOf('/all')}"><router-link to="/home/zq/all/cur" replace>全部</router-link></li>
+            <li :class="{'cur': ~$route.path.indexOf('/crazybet')}"><router-link to="/home/zq/crazybet/cur" replace>猜球</router-link></li>
+            <li :class="{'cur': ~$route.path.indexOf('/hot')}"><router-link to="/home/zq/hot/cur" replace>热门</router-link></li>
+            <li :class="{'cur': ~$route.path.indexOf('/zs')}"><router-link to="/home/zq/zs" replace>指数</router-link></li>
+            <li :class="{'cur': ~$route.path.indexOf('/concern')}"><router-link to="/home/zq/concern/cur" replace>关注</router-link></li>
+            <li :class="{'cur': ~$route.path.indexOf('/sfc')}"><router-link to="/home/zq/sfc/cur" replace>足球</router-link></li>
+            <li :class="{'cur': ~$route.path.indexOf('/csl')}"><router-link to="/home/zq/csl/cur" replace>中超</router-link></li>
+            <li :class="{'cur': ~$route.path.indexOf('bjdc')}"><router-link to="/home/zq/bjdc/cur" replace>单场</router-link></li>
         </ul>
     </div>
 </template>
@@ -35,7 +36,9 @@
                 this.scrollerObj.setDimensions(this.$el.offsetWidth, this.$el.offsetHeight, this.content.offsetWidth, this.content.offsetHeight)
                 this.$el.addEventListener('touchstart', (e) => {
                     this.scrollerObj.doTouchStart(e.touches, e.timeStamp)
-                    e.preventDefault()
+                    if (e.target.tagName !== 'A') {
+                        e.preventDefault()
+                    }
                 }, false)
 
                 this.$el.addEventListener('touchmove', (e) => {
@@ -167,5 +170,9 @@
     }
 
 
+    a{
+        color: inherit;
+        display: block;
+    }
 
 </style>

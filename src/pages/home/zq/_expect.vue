@@ -7,37 +7,7 @@
 
             <!-- 联赛筛选 -->
             <filter-league style="float: right"></filter-league>
-            <!-- 联赛筛选弹窗 -->
-            <div class="alert-league alert-league-close hide">
-                <!-- 场次信息 -->
-                <div class="matches-info">
-                    <div class="matches-info-l"><span></span>竞彩</div>
-                    <div class="matches-info-r">共105场比赛，已选85场</div>
-                </div>
-                <!-- 杯赛选择 -->
-                <div class="cup-info fadeout">
-                    <ul>
-                        <li class="cur">巴西杯</li>
-                        <li>吉尼斯杯</li>
-                        <li>金杯奖</li>
-                        <li>墨西杯</li>
-                        <li>苏联赛杯</li>
-                        <li>欧冠</li>
-                        <li>女欧杯</li>
-                    </ul>
-                </div>
-                <!-- 全选、反选、五大联赛 -->
-                <ul class="select-all fadeout">
-                    <li>全选</li>
-                    <li class="cur">反选</li>
-                    <li>五大联赛</li>
-                </ul>
-                <!-- 确认按钮区 -->
-                <div class="btn-cont fadeout">
-                    <div class="btn-sure btn-l">取消</div>
-                    <div class="btn-sure btn-r">筛好了</div>
-                </div>
-            </div>
+
             <!-- 中超筛选弹窗 -->
             <div class="alert-csl alert-csl-close hide">
                 <div class="month-tit"><span></span>轮次</div>
@@ -56,15 +26,15 @@
             </div>
         </div>
 
-        <!--<expect-select :expect-list="expectList" :cur-expect="curExpect" v-if="expectList"></expect-select>-->
-        <!--<div v-else class="loading">
-            <div class="icon"></div>
-            <div class="icon-shadow"></div>
-        </div>-->
         <div class="l-flex-1 l-relative">
-            <matches-scroller ref="scroller">
+            <div v-if="isLoading" class="loading">
+                <div class="icon"></div>
+                <div class="icon-shadow"></div>
+            </div>
+            <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
                 <ul class="list">
-                    <zq-list-item v-for="match in showedMatches" :match="match" key="match.fid"></zq-list-item>
+                    <zq-list-item v-for="match in showedMatches" :match="match" key="match.fid"
+                                  :view="view"></zq-list-item>
                 </ul>
             </matches-scroller>
 
@@ -77,37 +47,40 @@
 </template>
 <script>
     import MatchesScroller from '~components/matches_scroller.vue'
-    import expectSelect from '~components/home/expectSelect.vue'
     import zqListItem from '~components/home/zqListItem.vue'
     import filterTime from '~components/home/filterTime.vue'
     import filterLeague from '~components/home/filterLeague.vue'
     import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import {aTypes, mTypes} from '~store/home'
+    const savedData = {}
     export default {
         async asyncData ({store, route: {params: {expect, tab}}}) {
-            await Promise.all([store.dispatch(aTypes.getZqMetro), store.dispatch(aTypes.fetchZqMatches, {expect, tab})])
+            await store.dispatch(aTypes.fetchZqMatches, {expect, tab})
+        },
+        beforeRouteEnter (to, from, next) {
+            next(vm => {
+                if (from.name && ~from.name.indexOf('football-detail')) {
+                    vm.position = savedData.position
+                    vm.selectOptions = savedData.selectOptions
+                    vm.filteredMatches = savedData.filteredMatches
+                }
+            })
+        },
+        beforeRouteLeave (to, from, next) {
+            if (~to.name.indexOf('football-detail')) {
+                savedData.selectOptions = this.selectOptions
+                savedData.filteredMatches = this.filteredMatches
+            }
+            next()
         },
         data () {
             return {
                 selectOptions: null,
-                filteredMatches: null
+                filteredMatches: null,
+                position: 0
             }
         },
         watch: {
-            filterTime () {
-                this.$store.commit(mTypes.initFilter, {
-                    matches: this.matches,
-                    inited: this.selectOptions,
-                    onOk: ({selectOptions, filteredMatches}) => {
-                        this.filteredMatches = filteredMatches
-                        this.selectOptions = selectOptions
-                        this.$store.commit(mTypes.endFilter)
-                    },
-                    onCancel: () => {
-                        this.$store.commit(mTypes.endFilter)
-                    }
-                })
-            },
             showedMatchesSize () {
                 this.$refs.scroller && this.$refs.scroller.update()
             },
@@ -115,9 +88,11 @@
                 this.showExpectList = false
                 this.filteredMatches = null
             },
+
             fidIndexMap (fidIndexMap) {
                 this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(fidIndexMap))
             },
+
             socketData ({data, stamp}) {
                 if (stamp === pushEvents.FOOTBALL_INFO) {
                     data.fid = data.fid + ''
@@ -127,42 +102,51 @@
                     }
                 }
             },
+
             '$route.path' () {
                 this.fetchData()
             },
+
             refreshTime () {
                 this.fetchData()
             }
 
         },
         components: {
-            MatchesScroller, expectSelect, zqListItem, filterTime, filterLeague
+            MatchesScroller, zqListItem, filterTime, filterLeague
         },
+
         computed: {
             refreshTime () { // 用户点击刷新按钮时间戳
                 return this.$store.state.refreshTime
             },
+
             socketData () { // websocket推送过来的数据
                 return this.$store.getters.getSocketData
             },
-            filterTime () { // 用户点击筛选按钮时间戳
-                return this.$store.state.home.filter.filterTime
-            },
+
             zq () {
                 return this.$store.state.home.zq
+            },
+            view () {
+                return this.$store.state.home.view
             },
             showedMatchesSize () {
                 return this.showedMatches && this.showedMatches.length
             },
+
             showedMatches () {
                 return this.filteredMatches || this.matches
             },
+
             matches () {
                 return this.zq.matches
             },
+
             curExpect () {
                 return this.zq.curExpect
             },
+
             fidIndexMap () { // matches 变化了， fidIndexMap一定会变化
                 const map = {}
                 if (!this.matches) return null
@@ -173,17 +157,38 @@
                 })
                 return map
             },
+
             expectList () {
                 return this.zq.expectList
+            },
+
+            isLoading () {
+                if (this.zq.tab === this.$route.params.tab) {
+                    if (this.$route.params.expect === 'cur') {
+                        return false
+                    } else if (this.$route.params.expect === this.zq.curExpect) {
+                        return false
+                    } else {
+                        return true
+                    }
+                } else {
+                    return true
+                }
             }
         },
+
         mounted () {
             this.fetchData()
         },
+
         methods: {
+            setPosition (position) {
+                savedData.position = position
+                this.position = position
+            },
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                await Promise.all([this.$store.dispatch(aTypes.getZqMetro), this.$store.dispatch(aTypes.fetchZqMatches, this.$route.params)])
+                await this.$store.dispatch(aTypes.fetchZqMatches, this.$route.params)
                 this.$store.commit('endOneRefresh')
             }
         }
@@ -191,6 +196,186 @@
     }
 </script>
 <style scoped>
+    .loading {
+        width: 100%;
+        height: 2.5rem;
+        text-align: center;
+        position: relative
+    }
+
+    .loading .icon {
+        display: inline-block;
+        width: .72rem;
+        height: .72rem;
+        border-radius: 50% 50%;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAcCAMAAABMOI/cAAAAVFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////8wXzyWAAAAG3RSTlMA+YX8+vQb7dbNpnlvYkQ7FwzhuLOgj4xIQQXn8XA9AAAAgElEQVQoz+WPSRKEIBAEBQX3GZ19rP//08JWxCD05sm8kNVFEE1ywK0wv82gebbusAp49OFFAB+eXUap1/lQML+cfSnG+qIGuTvrc1q1zK1heou3ckeo6Hk3h5KhFP2DNJNqhQilWaSUuNktdp7KdBIA4sP5xTU+6Ellyxitwi1HmooaqKw566UAAAAASUVORK5CYII=) no-repeat center center #ffba00;
+        background-size: .32rem .373333rem;
+        -webkit-transform-origin: center bottom;
+        transform-origin: center bottom;
+        -webkit-animation: jump 1s infinite;
+        animation: jump 1s infinite;
+        position: absolute;
+        left: 50%;
+        margin-left: -.36rem;
+        z-index: 2;
+        margin-top: .3rem
+    }
+
+    @-webkit-keyframes jump {
+        0% {
+            top: 0;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+        50% {
+            top: .933333rem;
+            height: .72rem;
+            border-radius: .36rem .36rem;
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out
+        }
+        55% {
+            top: 1.066667rem;
+            height: .6rem;
+            border-radius: .36rem .3rem;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+        65% {
+            top: .8rem;
+            height: .72rem;
+            border-radius: .36rem .36rem;
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out
+        }
+        95% {
+            top: 0;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+        100% {
+            top: 0;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+    }
+
+    @keyframes jump {
+        0% {
+            top: 0;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+        50% {
+            top: .933333rem;
+            height: .72rem;
+            border-radius: .36rem .36rem;
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out
+        }
+        55% {
+            top: 1.066667rem;
+            height: .6rem;
+            border-radius: .36rem .3rem;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+        65% {
+            top: .8rem;
+            height: .72rem;
+            border-radius: .36rem .36rem;
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out
+        }
+        95% {
+            top: 0;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+        100% {
+            top: 0;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+    }
+
+    .loading .icon-shadow {
+        position: absolute;
+        left: 50%;
+        margin-left: -.08rem;
+        width: .16rem;
+        height: .213333rem;
+        background: rgba(20, 20, 20, .08);
+        box-shadow: 0 0 .16rem .24rem rgba(20, 20, 20, .05);
+        border-radius: .08rem/.106667rem;
+        -webkit-transform: scaleY(.1);
+        transform: scaleY(.1);
+        -webkit-animation: shrink 1s infinite;
+        animation: shrink 1s infinite;
+        z-index: 1;
+        top: 2rem
+    }
+
+    @-webkit-keyframes shrink {
+        0% {
+            top: 1.8rem;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+        50% {
+            top: 1.925rem;
+            margin-left: -.025rem;
+            width: .06rem;
+            height: .02rem;
+            background: rgba(20, 20, 20, .3);
+            box-shadow: 0 0 .06rem .12rem rgba(20, 20, 20, .1);
+            border-radius: .06rem;
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out
+        }
+        100% {
+            top: 1.8rem;
+            margin-left: -.08rem;
+            width: .16rem;
+            height: .213333rem;
+            background: rgba(20, 20, 20, .05);
+            box-shadow: 0 0 .16rem .24rem rgba(20, 20, 20, .05);
+            border-radius: .08rem/.106667rem;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+    }
+
+    @keyframes shrink {
+        0% {
+            top: 1.8rem;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+        50% {
+            top: 1.925rem;
+            margin-left: -.025rem;
+            width: .06rem;
+            height: .02rem;
+            background: rgba(20, 20, 20, .3);
+            box-shadow: 0 0 .06rem .12rem rgba(20, 20, 20, .1);
+            border-radius: .06rem;
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out
+        }
+        100% {
+            top: 1.8rem;
+            margin-left: -.08rem;
+            width: .16rem;
+            height: .213333rem;
+            background: rgba(20, 20, 20, .05);
+            box-shadow: 0 0 .16rem .24rem rgba(20, 20, 20, .05);
+            border-radius: .08rem/.106667rem;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+    }
+
     .qi-list-box {
         position: relative;
         top: 0;
@@ -208,7 +393,8 @@
         color: #aab5bd;
         font-size: .346667rem;
         clear: both;
-        zoom:1;position: relative
+        zoom: 1;
+        position: relative
     }
 
     .filter-time {
@@ -232,8 +418,8 @@
         line-height: 120px
     }
 
-    .filter-league,.filter-time {
-        box-shadow: 0 0 .133333rem rgba(22,34,29,.1)
+    .filter-league, .filter-time {
+        box-shadow: 0 0 .133333rem rgba(22, 34, 29, .1)
     }
 
     .filter-time .prev-day {
@@ -305,7 +491,7 @@
         transform: rotate(180deg)
     }
 
-    .filter-league:active,.filter-time .next-day:active,.filter-time .prev-day:active,.filter-time .today:active {
+    .filter-league:active, .filter-time .next-day:active, .filter-time .prev-day:active, .filter-time .today:active {
         background: #f4f4f4
     }
 
@@ -600,6 +786,6 @@
     }
 
     .one-game:active {
-        -webkit-tap-highlight-color: rgba(244,244,244,.6)
+        -webkit-tap-highlight-color: rgba(244, 244, 244, .6)
     }
 </style>

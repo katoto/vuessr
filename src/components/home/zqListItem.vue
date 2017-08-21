@@ -1,188 +1,372 @@
 <template>
-    <li class="list-item" :class="{'__first_no_end': match._flag}"
+
+    <li class="one-game" :class="{'__first_no_end': match._flag}"
         v-tap="{methods: goDetail, fid: match.fid}">
-        <div class="list-tit">
-            <span class="list-day"> {{match.order}}&nbsp;&nbsp;{{match.simpleleague}}</span>
+        <!-- 比赛时间信息 、猜球、有料、加时 -->
+        <div class="game-info">
+            {{match.order}}&nbsp;&nbsp;{{match.simpleleague}}&nbsp;
 
-            <span class="list-state color3" v-if="feature.a[match.status]">
-                                {{match.matchtime.substring(5, 16)}}
-                            </span>
-            <span class="list-state color3"
-                  v-if="match.status === StatusCode.ENDED">完场</span>
+            <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '11'">加时 {{match.extra_time_score}}&nbsp;</span>
+            <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '13'">点球 {{match.spot_kick_score}}</span>
 
-            <span class="crazy-sports f20" v-if="match.iscrazybet==='1'">猜球</span>
+            <template v-if="feature.d[match.status]"><span class="crazy-guess" v-if="match.extra_info.iscrazybet==='1'">猜球</span><span class="crazy-guess" v-if="match.extra_info.isrecommend">有料</span></template>
 
-            <span class="list-state green"
-                  v-if="match.status === StatusCode.MID">中场休息</span>
-            <span class="list-state green"
-                  v-if="match.status === StatusCode.FIRST_HALF || match.status === StatusCode.LAST_HALF">
-                                {{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}
-                                <i class="dian">'</i>
-                            </span>
-            <span class="list-state green"
-                  v-if="match.status===StatusCode.ENDED && match.extra_statusid === StatusCode.SPOT_KICK_STARTED">
-                                点球 {{match.spot_kick_score}}
-                            </span>
-
-            <span class="list-time"
-                  v-if="feature.b[match.status]">
-								{{match.matchtime.substring(5, 16)}}
-                            </span>
-            <span class="list-time"
-                  v-if="feature.a[match.status]">
-                            </span>
+            <div class="game-info-r">{{match.matchtime.substring(5, 16)}}</div>
         </div>
-        <div class="list-team">
-            <div class="team team-l f30">
-                <img data-inited="0" src="http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png"
-                     :data-src="match.homelogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'">
-                {{match.homesxname | truncate(4)}}
-                <sub class="team-site f22"
-                     v-if="match.zlc == 1">(中)</sub>
-                <i class="red-pai f22"
-                   v-show="match.home_red_counts > 0">{{match.home_red_counts}}</i>
-            </div>
+        <!-- 比赛详细信息 -->
+        <div class="game-detail">
+            <!-- 左边的球队信息、近六场 -->
+            <div class="game-detail-l l-flex-column">
+                <div class="game-item">
+                    <div class="game-name"><img data-inited="0"  src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png" alt="主队图标" :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">阿森纳</div>
+                    <div class="game-lately" v-if="match.status === StatusCode.NOT_STARTED && view==='1'">{{match.extra_info.homerecord||'胜胜'}}</div>
+                    <template v-if="feature.e[match.status]"><!--正在开打-->
+                        <div class="game-lately score-half">
+                            <em class="first-half">{{match.homehalfscore}}</em>
+                            <em class="second-half">{{match.homescore}}</em>
+                        </div>
+                    </template>
+                    <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
+                        <div class="game-lately score-half">
+                            <em class="first-half">{{match.homehalfscore}}</em>
+                            <em class="second-half">{{match.homescore}}</em>
+                            <!--<em class="first-half">{{match.awayhalfscore}}</em>
+                            <em class="second-half">{{match.awayscore}}</em>-->
+                        </div>
+                    </template>
+                </div>
+                <div class="game-item ">
+                    <div class="game-name"><img data-inited="0"  src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"  alt="客队图标" :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">切尔西西</div>
 
-            <div class="team-c"
-                 v-if="feature.b[match.status]"
-                 :class="{'green': match.status !== StatusCode.ENDED,'color3': match.status === StatusCode.ENDED}">
-                <p class="score">
-                    <em class="score-itm"
-                        v-scroll-text="{'score':match.homescore,'class':'itmMove',timeOut:1,oldClass:'score-itm',isEnd:match.status == StatusCode.ENDED}">
+                    <template v-if="match.status === StatusCode.NOT_STARTED">
+                        <div class="game-lately" v-if="view==='1'">{{match.extra_info.awayrecord}}</div>
 
-                        <i>{{match.homescore}}</i>
-                        <i>{{match.homescore}}</i>
-                    </em>
-                    <span class="score-c">:</span>
-                    <em class="score-itm"
-                        v-scroll-text="{'score':match.awayscore,'class':'itmMove',timeOut:1,oldClass:'score-itm',isEnd:match.status == StatusCode.ENDED}">
-                        <i>{{match.awayscore}}</i>
-                        <i>{{match.awayscore}}</i>
-                    </em>
-                </p>
+                    </template>
+                    <template v-if="feature.e[match.status]"><!--正在开打-->
+                        <div class="game-lately score-half">
+                            <em class="first-half">{{match.awayhalfscore}}</em>
+                            <em class="second-half">{{match.awayscore}}</em>
+                        </div>
+                    </template>
+                    <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
+                        <div class="game-lately score-half">
+                            <em class="first-half">{{match.awayhalfscore}}</em>
+                            <em class="second-half">{{match.awayscore}}</em>
+                        </div>
+                    </template>
+                </div>
+                <div class="odds-item" v-if="match.status === StatusCode.NOT_STARTED && view==='2'">
+                    <ul>
+                        <li>3.18</li>
+                        <li>2.16</li>
+                        <li>3.32</li>
+                    </ul>
+                </div>
             </div>
-            <div class="team-c"
-                 v-if="match.status === StatusCode.NOT_STARTED"
-                 @click.stop="onCollect(match.fid,match.isfocus)">
-                <i class="collect"
-                   :class="{'cur': match.isfocus==='1'}"></i>
-            </div>
+            <!-- 右边的关注、直播情况-->
+            <div class="game-detail-r">
+                <!--<div class="btn-live">直播</div>-->
+                <template v-if="match.status === StatusCode.NOT_STARTED"><!--未开始-->
+                    <div class="follow had-follow" v-if="match.isfocus === '1'">已关注</div>
+                    <div class="follow" v-if="match.isfocus !== '1'">关注</div>
+                </template>
+                <template v-if="feature.e[match.status]"><!--正在开打-->
+                    <template v-if="match.extra_info.ishasvideo === '1'">
+                        <div class="btn-live">直播</div>
+                        <div class="live-time">80'</div>
+                    </template>
+                    <template v-else>
+                        <div class="live-time  live-timer">80'</div>
+                    </template>
+                </template>
+                <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
+                    <template v-if="match.extra_info.ishasvideo === '1'">
+                        <div class="btn-live btn-once">回放</div>
+                    </template>
+                    <template v-else>
+                        <div class="follow had-follow">已结束</div>
+                    </template>
+                </template>
 
-            <div class="team-c"
-                 v-if="match.status===StatusCode.CANCELED"><span class="f30 ffw">取消</span></div>
-            <div class="team-c"
-                 v-if="match.status===StatusCode.CHANGED"><span class="f30 ffw">改期</span></div>
-            <div class="team-c"
-                 v-if="match.status===StatusCode.REMOVED"><span class="f30 ffw">腰斩</span></div>
-            <div class="team-c"
-                 v-if="match.status===StatusCode.PAUSED"><span class="f30 ffw">中断</span></div>
-            <div class="team-c"
-                 v-if="match.status===StatusCode.UNSURE"><span class="f30 ffw">待定</span></div>
+                <template v-if="feature.c[match.status]"><!--异常-->
+                    <div class="follow">{{StatusName[match.status]}}</div>
+                </template>
 
-            <div class="team team-r f30">
-                <i class="red-pai f22"
-                   v-if="match.away_red_counts>0">{{match.away_red_counts}}</i>
-                {{match.awaysxname | truncate(4)}}
-                <img data-inited="0" src="http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png"
-                     :data-src="match.awaylogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'">
             </div>
-        </div>
-        <div class="list-info f22">
-            <span v-if="match.status === StatusCode.MID||match.status===StatusCode.LAST_HALF||match.status===StatusCode.ENDED">半场 {{match.homehalfscore}}:{{match.awayhalfscore}}&nbsp;</span>
-            <span v-if="match.status === StatusCode.ENDED && match.extra_statusid === StatusCode.EXTRA_STARTED">90'内 {{match.homescore}}:{{match.awayscore}}&nbsp;</span>
-            <span v-if="match.status === StatusCode.ENDED && match.extra_statusid === StatusCode.EXTRA_ENDED">90'内 {{match.homescore}}:{{match.awayscore}} 加时 {{match.extra_time_score}}&nbsp;</span>
-            <span v-if="match.status === StatusCode.ENDED && match.extra_statusid === StatusCode.SPOT_KICK_ENDED">90'内 {{match.homescore}}:{{match.awayscore}} {{match.extra_exist === '1' ? ('加时' + match.extra_time_score) : ''}} 点球 {{match.spot_kick_score}}</span>
-        </div>
-        <div class="tips-box"
-             v-if="$route.params.tab ==='hot'">
-					<span class="easily-selected"
-                          v-if="match.tags.indexOf(1)>-1">主胜易中</span>
-            <span class="easily-selected"
-                  v-if="~match.tags.indexOf(2)">平局易中</span>
-            <span class="easily-selected"
-                  v-if="~match.tags.indexOf(3)">主负易中</span>
-            <span class="highest-sales"
-                  v-if="~match.tags.indexOf(4)">热度最高</span>
-            <span class="attention"
-                  v-if="~match.tags.indexOf(5)">关注最多</span>
-            <span class="danguan"
-                  v-if="~match.tags.indexOf(6)">单关</span>
         </div>
     </li>
+
+
+
 </template>
 <style scoped>
-    .list-item{text-align:center;padding:.5rem .266667rem .2rem;border-bottom:1px solid #e2e2e2;height:1.88rem;position:relative}
-    .list-item:after{content:'';clear:both;display:block;height:0;visibility:hidden}
-    .list-item:active{-webkit-tap-highlight-color:rgba(244,244,244,.6)}
-    .list-tit{height:.5333rem;line-height:.5333rem;color:#ccc;display:table;width:100%}
-    .list-tit .list-day,.list-tit .list-state,.list-tit .list-time{display:table-cell}
-    .list-tit .list-day{text-align:left;width:3.4rem}
-    .list-tit .list-time{text-align:right;width:3.4rem}
-    .list-tit .list-state .dian{animation:dianstyle 1s ease-out 0s infinite alternate;-webkit-animation:dianstyle 1s ease-out 0s infinite alternate}
-    @keyframes dianstyle{0%{opacity:1}
-        100%{opacity:0}
+    .one-game {
+        padding: .333333rem .4rem .346667rem .4rem;
+        border-bottom: 1px solid #eaeaea
     }
-    @-webkit-keyframes dianstyle{0%{opacity:1}
-        100%{opacity:0}
+
+    .one-game:active {
+        -webkit-tap-highlight-color: rgba(244,244,244,.6)
     }
-    .list-team{height:1rem;line-height:1rem;display:-webkit-box;display:-ms-flexbox;display:flex;width:100%;overflow:hidden}
-    .list-team .team-l{display:inline-block;text-align:left;width:3.4rem;font-size:.4rem}
-    .list-team .team-site{position:relative;top:-.08rem;margin-left:.08rem}
-    .list-team .team-r{display:inline-block;text-align:right;width:3.4rem;vertical-align:middle;font-size:.4rem}
-    .list-team .team-c{-webkit-box-flex:1;-ms-flex:1;flex:1;font-size:.6667rem}
-    .list-team .green{color:#309b56}
-    .list-team .score{width:100%;display:-webkit-box;display:-ms-flexbox;display:flex;height:.8rem;line-height:.8rem;overflow:hidden;padding-top:.1rem}
-    .list-team .score .score-itm{-webkit-box-flex:1;-ms-flex:1;flex:1;display:block;width:100%;text-align:right}
-    .list-team .score .score-itm:last-child{text-align:left}
-    .list-team .score .score-itm i{display:block;text-align:right;white-space:nowrap}
-    .list-team .score .score-itm:last-child i{text-align:left}
-    .list-team .score .score-c{display:inline-block;width:.5333rem;text-align:center;margin-top:-.08rem}
-    .list-team .score .itmMove{-webkit-animation:itmMove .8s ease-in-out forwards;animation:itmMove .8s ease-in-out forwards}
-    .list-team .score .itmMove i:last-child{-webkit-animation:itmMove2 2s ease-in-out forwards;animation:itmMove2 2s ease-in-out forwards}
-    @-webkit-keyframes itmMove{0%{-webkit-transform:translate(0,0);transform:translate(0,0)}
-        100%{-webkit-transform:translate(0,-100%);transform:translate(0,-100%)}
+
+    .game-info {
+        color: #aab5bd
     }
-    @keyframes itmMove{0%{-webkit-transform:translate(0,0);transform:translate(0,0)}
-        100%{-webkit-transform:translate(0,-100%);transform:translate(0,-100%)}
+
+    [data-dpr="1"] .game-info {
+        font-size: 11px
     }
-    @-webkit-keyframes itmMove2{0%{color:#309b56}
-        30%{color:#27e1e1}
-        50%{color:#27e1e1}
-        80%{color:#27e1e1}
-        100%{color:#309b56}
+
+    [data-dpr="2"] .game-info {
+        font-size: 22px
     }
-    @keyframes itmMove2{0%{color:#309b56}
-        30%{color:#27e1e1}
-        50%{color:#27e1e1}
-        80%{color:#27e1e1}
-        100%{color:#309b56}
+
+    [data-dpr="3"] .game-info {
+        font-size: 33px
     }
-    .list-team .score.vs-zq-active .score-itm{-webkit-animation:changeScoreT 1s ease-in-out forwards;animation:changeScoreT 1s ease-in-out forwards}
-    .list-team .score.vs-zq-active .score-item i:last-child{-webkit-animation:changeScoreZQ 3s ease-in-out forwards;animation:changeScoreZQ 3s ease-in-out forwards}
-    @-webkit-keyframes changeScoreT{0%{-webkit-transform:translate(0,0);transform:translate(0,0)}
-        100%{-webkit-transform:translate(0,-100%);transform:translate(0,-100%)}
+
+    .game-info .crazy-guess {
+        color: #d25138;
+        padding: 0 .066667rem;
+        border: 1px solid #d25138;
+        height: .346667rem;
+        line-height: .346667rem;
+        margin-left: .133333rem;
+        box-sizing: border-box;
+        border-radius: .053333rem
     }
-    @keyframes changeScoreT{0%{-webkit-transform:translate(0,0);transform:translate(0,0)}
-        100%{-webkit-transform:translate(0,-100%);transform:translate(0,-100%)}
+
+    [data-dpr="1"] .game-info .crazy-guess {
+        font-size: 10px
     }
-    @-webkit-keyframes changeScoreZQ{0%{color:#309b56}
-        10%{color:#27e1e1}
-        90%{color:#27e1e1}
-        100%{color:#309b56}
+
+    [data-dpr="2"] .game-info .crazy-guess {
+        font-size: 20px
     }
-    @keyframes changeScoreZQ{0%{color:#309b56}
-        10%{color:#27e1e1}
-        90%{color:#27e1e1}
-        100%{color:#309b56}
+
+    [data-dpr="3"] .game-info .crazy-guess {
+        font-size: 30px
     }
-    .list-team .team img{display:inline-block;vertical-align:middle;margin-top:-.08rem;width:.64rem;height:.64rem}
-    .list-team .team-l img{margin-right:.16rem}
-    .list-team .team-r img{margin-left:.16rem}
-    .list-team .team .red-pai{display:inline-block;vertical-align:middle;background:#f63f3f;padding:0 .053333rem;height:.45rem;line-height:.45rem;color:#fff;margin:-.08rem .08rem 0}
-    .list-info{color:#999}
+
+    .game-info .crazy-guess:nth-child(1) {
+        margin-left: .266667rem
+    }
+
+    .game-info .game-info-r {
+        float: right;
+        text-align: center
+    }
+
+    .game-detail {
+        width: 100%;
+        overflow: hidden;
+        margin-top: .346667rem
+    }
+
+    .game-detail-l {
+        float: left;
+        width: 7.52rem;
+        border-right: 1px solid #eaeaea;
+        position: relative;
+    }
+
+    .game-item {
+        padding-right: .533333rem;
+        box-sizing: border-box;
+        width: 7.52rem;
+        line-height: .64rem;
+        height: .64rem
+    }
+
+    .game-name {
+        color: #242c35;
+        font-size: .4rem;
+        float: left;
+        padding-left: .88rem;
+        position: relative;
+        height: .64rem
+    }
+
+    .game-name img {
+        display: inline-block;
+        vertical-align: middle;
+        width: .533333rem;
+        height: .533333rem;
+        margin-right: .266667rem;
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        left: 50%;
+        left: 0
+    }
+    .odds-item {
+        width: 1.6rem;
+        text-align: center;
+        color: #aab5bd;
+        font-size: .293333rem;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%)
+    }
+
+    .odds-item ul li {
+        line-height: .426667rem
+    }
+
+    .game-lately {
+        color: #aab5bd;
+        float: right
+    }
+
+    [data-dpr="1"] .game-lately {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .game-lately {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .game-lately {
+        font-size: 33px
+    }
+
+    .game-detail-r {
+        float: right;
+        width: 1.64rem;
+        text-align: center;
+        height: 1.28rem;
+        position: relative
+    }
+
+    .follow {
+        color: #d25138;
+        width: 1.2rem;
+        margin: 0 auto;
+        height: .533333rem;
+        border: 1px solid #eaeaea;
+        line-height: .533333rem;
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        left: 50%;
+        margin-left: -.6rem
+    }
+
+    [data-dpr="1"] .follow {
+        font-size: 13px
+    }
+
+    [data-dpr="2"] .follow {
+        font-size: 26px
+    }
+
+    [data-dpr="3"] .follow {
+        font-size: 39px
+    }
+
+    .had-follow {
+        color: #aab5bd;
+        border: none
+    }
+
+    .btn-live {
+        width: 1.2rem;
+        margin: 0 auto;
+        height: .533333rem;
+        border: 1px solid #eaeaea;
+        line-height: .533333rem;
+        text-align: center;
+        color: #5c788f
+    }
+
+    .btn-live:active {
+        background: #f4f4f4
+    }
+
+    .live-time {
+        color: #36a171;
+        width: 100%;
+        text-align: center;
+        margin-top: .186667rem
+    }
+
+    [data-dpr="1"] .live-time {
+        font-size: 15px
+    }
+
+    [data-dpr="2"] .live-time {
+        font-size: 30px
+    }
+
+    [data-dpr="3"] .live-time {
+        font-size: 45px
+    }
+
+    .live-timer {
+        line-height: 1.28rem;
+        margin-top: 0
+    }
+
+    .score-half .first-half {
+        color: #aab5bd;
+        width: .586667rem;
+        text-align: right;
+        display: inline-block;
+        height: .64rem;
+        line-height: .64rem
+    }
+
+    [data-dpr="1"] .score-half .first-half {
+        font-size: 13px
+    }
+
+    [data-dpr="2"] .score-half .first-half {
+        font-size: 26px
+    }
+
+    [data-dpr="3"] .score-half .first-half {
+        font-size: 39px
+    }
+
+    .score-half .second-half {
+        color: #36a171;
+        display: inline-block;
+        height: .64rem;
+        line-height: .64rem;
+        width: 1rem;
+        text-align: right
+    }
+
+    [data-dpr="1"] .score-half .second-half {
+        font-size: 17px
+    }
+
+    [data-dpr="2"] .score-half .second-half {
+        font-size: 34px
+    }
+
+    [data-dpr="3"] .score-half .second-half {
+        font-size: 51px
+    }
+
+    .btn-once {
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        left: 50%;
+        margin-left: -.6rem
+    }
+
+
 </style>
 <script>
-    import {FootballStatusCode as StatusCode} from '~common/constants'
+    import {FootballStatusCode as StatusCode, FootballStatusName as StatusName} from '~common/constants'
     import scrollText from '~directives/scroll_text'
 
     export default {
@@ -190,6 +374,10 @@
             match: {
                 required: true,
                 type: Object
+            },
+            view: {
+                required: true,
+                type: String
             }
         },
         data () {
@@ -208,9 +396,29 @@
                         [StatusCode.FIRST_HALF]: true,
                         [StatusCode.LAST_HALF]: true,
                         [StatusCode.ENDED]: true
+                    },
+                    c: {
+                        [StatusCode.CANCELED]: true,
+                        [StatusCode.CHANGED]: true,
+                        [StatusCode.REMOVED]: true,
+                        [StatusCode.PAUSED]: true,
+                        [StatusCode.UNSURE]: true
+                    },
+                    d: {
+                        [StatusCode.NOT_STARTED]: true,
+                        [StatusCode.MID]: true,
+                        [StatusCode.FIRST_HALF]: true,
+                        [StatusCode.LAST_HALF]: true,
+                        [StatusCode.ENDED]: true
+                    },
+                    e: {
+                        [StatusCode.MID]: true,
+                        [StatusCode.FIRST_HALF]: true,
+                        [StatusCode.LAST_HALF]: true,
                     }
                 },
-                StatusCode
+                StatusCode,
+                StatusName
             }
         },
         methods: {
