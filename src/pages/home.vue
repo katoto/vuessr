@@ -18,16 +18,6 @@
         </div>
         <refresh/>
         <switch-comp></switch-comp>
-
-
-        <transition name="slide">
-            <league v-if="filter.show"
-                    :matches="filter.matches"
-                    :inited="filter.inited"
-                    @ok="filter.onOk($event)"
-                    @cancel="filter.onCancel($event)"></league>
-        </transition>
-
     </div>
 
 </template>
@@ -36,7 +26,7 @@
     import league from '~components/league.vue'
     import refresh from '~components/home/refresh.vue'
     import switchComp from '~components/home/switch.vue'
-    import {mTypes} from '~store/home'
+    import {mTypes, aTypes} from '~store/home'
 
     export default{
 
@@ -67,6 +57,7 @@
         },
         mounted () {
             //            入口
+            this.$store.dispatch(aTypes.checkHasLogin)
         }
 
     }

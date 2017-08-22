@@ -6,7 +6,7 @@
             <li :class="{'cur': ~$route.path.indexOf('/crazybet')}" v-tap="{methods: switchTab, path: '/home/zq/crazybet/cur'}"><router-link to="/home/zq/crazybet/cur" replace>猜球</router-link></li>
             <li :class="{'cur': ~$route.path.indexOf('/hot')}" v-tap="{methods: switchTab, path: '/home/zq/hot/cur'}"><router-link to="/home/zq/hot/cur" replace>热门</router-link></li>
             <li :class="{'cur': ~$route.path.indexOf('/zs')}" v-tap="{methods: switchTab, path: '/home/zq/zs'}"><router-link to="/home/zq/zs" replace>指数</router-link></li>
-            <li :class="{'cur': ~$route.path.indexOf('/concern')}" v-tap="{methods: switchTab, path: '/home/zq/concern/cur'}"><router-link to="/home/zq/concern/cur" replace>关注</router-link></li>
+            <li :class="{'cur': ~$route.path.indexOf('/concern')}" v-tap="{methods: switchTab, path: '/home/zq/concern'}"><router-link to="/home/zq/concern" replace>关注</router-link></li>
             <li :class="{'cur': ~$route.path.indexOf('/sfc')}" v-tap="{methods: switchTab, path: '/home/zq/sfc/cur'}"><router-link to="/home/zq/sfc/cur" replace>足球</router-link></li>
             <li :class="{'cur': ~$route.path.indexOf('/csl')}" v-tap="{methods: switchTab, path: '/home/zq/csl/cur'}"><router-link to="/home/zq/csl/cur" replace>中超</router-link></li>
             <li :class="{'cur': ~$route.path.indexOf('bjdc')}" v-tap="{methods: switchTab, path: '/home/zq/bjdc/cur'}"><router-link to="/home/zq/bjdc/cur" replace>单场</router-link></li>
