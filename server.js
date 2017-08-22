@@ -130,10 +130,11 @@ function render (req, res) {
             return res.end(hit)
         }
     }
-    if (~req.url.indexOf('/bjdc/')) {
+    /* if (~req.url.indexOf('/bjdc/')) {
         res.sendFile(path.resolve('./dist/backup.html'))
         return
     }
+    */
     const context = {
         title: '足球比分', // default title
         url: req.url

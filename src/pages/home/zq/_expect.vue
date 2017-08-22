@@ -6,7 +6,7 @@
 
 
             <!-- 联赛筛选 -->
-            <filter-league class="fr" :initial="selectOptions" :matches="matches"></filter-league>
+            <filter-league class="fr" :initial="selectOptions" :matches="matches" @ok="doFilter"></filter-league>
 
             <!-- 中超筛选弹窗 -->
             <div class="alert-csl alert-csl-close hide">
@@ -184,6 +184,9 @@
                 this.$store.commit('startOneRefresh')
                 await this.$store.dispatch(aTypes.fetchZqMatches, this.$route.params)
                 this.$store.commit('endOneRefresh')
+            },
+            doFilter (selectOptions) {
+                this.selectOptions = selectOptions
             }
         }
 
