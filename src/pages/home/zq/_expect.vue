@@ -6,7 +6,7 @@
 
 
             <!-- 联赛筛选 -->
-            <filter-league class="fr" :select-options="selectOptions" :matches="matches"></filter-league>
+            <filter-league class="fr" :initial="selectOptions" :matches="matches"></filter-league>
 
             <!-- 中超筛选弹窗 -->
             <div class="alert-csl alert-csl-close hide">
@@ -33,7 +33,7 @@
             </div>
             <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
                 <ul class="list">
-                    <zq-list-item v-for="match in showedMatches" :match="match" key="match.fid"
+                    <zq-list-item v-for="match in filteredMatches" :match="match" key="match.fid"
                                   :view="view"></zq-list-item>
                 </ul>
             </matches-scroller>
@@ -62,34 +62,29 @@
                 if (from.name && ~from.name.indexOf('football-detail')) {
                     vm.position = savedData.position
                     vm.selectOptions = savedData.selectOptions
-                    vm.filteredMatches = savedData.filteredMatches
                 }
             })
         },
         beforeRouteLeave (to, from, next) {
             if (~to.name.indexOf('football-detail')) {
                 savedData.selectOptions = this.selectOptions
-                savedData.filteredMatches = this.filteredMatches
+                savedData.position = this.position
             }
             next()
         },
         data () {
             return {
                 selectOptions: null,
-                filteredMatches: null,
                 position: 0
             }
         },
         watch: {
-            showedMatchesSize () {
-                this.position = 0
-                this.$refs.scroller && this.$refs.scroller.update()
+            filteredMatches (after, before) {
+                if (!before || before.length !== after.length) {
+                    this.position = 0
+                    this.$refs.scroller && this.$refs.scroller.update()
+                }
             },
-            matches () {
-                this.showExpectList = false
-                this.filteredMatches = null
-            },
-
             fidIndexMap (fidIndexMap) {
                 this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(fidIndexMap))
             },
@@ -131,17 +126,13 @@
             zq () {
                 return this.$store.state.home.zq
             },
-            view () {
+            view () { // 展示赔率， 最近6场比赛， 空 三种情况标志位
                 return this.$store.state.home.view
             },
-            showedMatchesSize () {
-                return this.showedMatches && this.showedMatches.length
-            },
 
-            showedMatches () {
-                return this.filteredMatches || this.matches
+            filteredMatches () {
+                return this.matches && this.matches.filter(match => !this.selectOptions || this.selectOptions[match.simpleleague])
             },
-
             matches () {
                 return this.zq.matches
             },

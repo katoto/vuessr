@@ -48,14 +48,66 @@
 </template>
 <script>
     export default {
+        props: ['matches', 'initial'],
         data () {
             return {
+                fiveLeagues: { '西甲': 1, '意甲': 2, '英超': 3, '德甲': 4, '法甲': 5 },
+                selectOptions: {},
+                leagueNameList: [],
+                filteredMatches: [],
                 showSel: false
             }
+        },
+        watch: {
+        //            matches
+        },
+        mounted () {
+            /*let selectOptions = {}
+            if (!this.initial) {
+                this.matches.forEach(match => {
+                    selectOptions[match.simpleleague] = false
+                })
+            } else {
+                selectOptions = this.initial
+            }
+            this.selectOptions = selectOptions
+            this.leagueNameList = Object.keys(selectOptions)
+            this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])*/
         },
         methods: {
             toggleSel () {
                 this.showSel = !this.showSel
+            },
+            toggleLeague ({league}) {
+                this.selectOptions[league] = !this.selectOptions[league]
+                this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
+            },
+            selectAll: function () {
+                Object.keys(this.selectOptions).forEach((key) => {
+                    this.selectOptions[key] = true
+                })
+                this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
+            },
+            inverseAll: function () {
+                Object.keys(this.selectOptions).forEach((key) => {
+                    this.selectOptions[key] = !this.selectOptions[key]
+                })
+                this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
+            },
+            selectFiveLeague () {
+                Object.keys(this.selectOptions).forEach((key) => {
+                    this.selectOptions[key] = !!this.fiveLeagues[key]
+                })
+                this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
+            },
+            confirm: function () {
+                /* if (Object.keys(this.selectOptions).length < 1) {
+                 return alert('至少选择1个联赛')
+                 } */
+                this.$emit('ok', {
+                    selectOptions: this.selectOptions,
+                    filteredMatches: this.matches.filter(match => this.selectOptions[match.simpleleague])
+                })
             }
         }
     }
