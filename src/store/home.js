@@ -27,12 +27,12 @@ const state = {
         mymatch: null
     },
     lq: {
-        jclq: {
-            expectList: null,
-            cExpect: null,
-            curExpect: null,
-            allMatches: {}
-        }
+        metro: null,
+        tab: 'jclq',
+        matches: null,
+        expectList: null,
+        curExpect: null,
+        mymatch: null
     }
 }
 const actionsInfo = mapActions({
@@ -86,6 +86,7 @@ const actionsInfo = mapActions({
     },
     async fetchLqMatches ({commit}, {expect, tab}) {
         let url = ``
+        expect = '2017-08-19'
         if (tab === 'jclq' || tab === 'all') {
             url = `/score/lq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`
         } else if (tab === 'hot') {
