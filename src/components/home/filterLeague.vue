@@ -9,18 +9,12 @@
                 <!-- 场次信息 -->
                 <div class="matches-info">
                     <div class="matches-info-l"><span></span>竞彩</div>
-                    <div class="matches-info-r">共105场比赛，已选85场</div>
+                    <div class="matches-info-r">共{{matches.length}}场比赛，已选{{filteredMatches.length}}场</div>
                 </div>
                 <!-- 杯赛选择 -->
                 <div class="cup-info">
                     <ul>
-                        <li class="cur">巴西杯</li>
-                        <li>吉尼斯杯</li>
-                        <li>金杯奖</li>
-                        <li>墨西杯</li>
-                        <li>苏联赛杯</li>
-                        <li>欧冠</li>
-                        <li>女欧杯</li>
+                        <li :class="{cur:selectOptions[league]}" v-for="league in leagueNameList"><span v-tap="{methods: toggleLeague, league: league}">{{league}}</span></li>
                     </ul>
                 </div>
                 <!-- 全选、反选、五大联赛 -->
@@ -31,15 +25,14 @@
                 </ul>
                 <!-- 确认按钮区 -->
                 <div class="btn-cont">
-                    <div class="btn-sure btn-l">取消</div>
-                    <div class="btn-sure btn-r">筛好了</div>
+                    <div class="btn-sure btn-l" v-tap="{methods: toggleSel}">取消</div>
+                    <div class="btn-sure btn-r" v-tap="{methods: confirm}">筛好了</div>
                 </div>
             </div>
         </transition>
         <transition name="layer">
             <div class="layer" v-if="showSel" v-tap="{methods: toggleSel}"></div>
         </transition>
-
 
 
     </div>
@@ -51,7 +44,7 @@
         props: ['matches', 'initial'],
         data () {
             return {
-                fiveLeagues: { '西甲': 1, '意甲': 2, '英超': 3, '德甲': 4, '法甲': 5 },
+                fiveLeagues: {'西甲': 1, '意甲': 2, '英超': 3, '德甲': 4, '法甲': 5},
                 selectOptions: {},
                 leagueNameList: [],
                 filteredMatches: [],
@@ -59,20 +52,27 @@
             }
         },
         watch: {
-        //            matches
+            showSel (showSel) {
+                if (showSel) {
+                    this.selectOptions = {}
+                    this.leagueNameList = []
+                    this.filteredMatches = []
+                    let selectOptions = {}
+                    if (!this.initial) {
+                        this.matches.forEach(match => {
+                            selectOptions[match.simpleleague] = false
+                        })
+                    } else {
+                        selectOptions = JSON.parse(JSON.stringify(this.initial))
+                    }
+                    this.selectOptions = selectOptions
+                    this.leagueNameList = Object.keys(selectOptions)
+                    this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
+                }
+            }
         },
         mounted () {
-            /*let selectOptions = {}
-            if (!this.initial) {
-                this.matches.forEach(match => {
-                    selectOptions[match.simpleleague] = false
-                })
-            } else {
-                selectOptions = this.initial
-            }
-            this.selectOptions = selectOptions
-            this.leagueNameList = Object.keys(selectOptions)
-            this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])*/
+            /**/
         },
         methods: {
             toggleSel () {
@@ -104,20 +104,18 @@
                 /* if (Object.keys(this.selectOptions).length < 1) {
                  return alert('至少选择1个联赛')
                  } */
-                this.$emit('ok', {
-                    selectOptions: this.selectOptions,
-                    filteredMatches: this.matches.filter(match => this.selectOptions[match.simpleleague])
-                })
+                this.$emit('ok', this.selectOptions)
+                this.showSel = false
             }
         }
     }
 </script>
 <style scoped>
-    .filter-league:active,.filter-time .next-day:active,.filter-time .prev-day:active,.filter-time .today:active {
+    .filter-league:active, .filter-time .next-day:active, .filter-time .prev-day:active, .filter-time .today:active {
         background: #f4f4f4
     }
 
-    .filter-league-wrap{
+    .filter-league-wrap {
         position: relative;
         width: 2.066667rem;
         height: 1.066667rem;
@@ -316,7 +314,6 @@
         background: #f4f4f4
     }
 
-
     @keyframes league-open {
         0% {
             width: 2.066667rem;
@@ -361,71 +358,75 @@
         }
     }
 
-   /* @keyframes csl-open {
-        0% {
-            width: 2.4rem;
-            height: 1.066667rem
-        }
+    /* @keyframes csl-open {
+         0% {
+             width: 2.4rem;
+             height: 1.066667rem
+         }
 
-        60% {
-            width: 9.2rem;
-            height: 1.066667rem
-        }
+         60% {
+             width: 9.2rem;
+             height: 1.066667rem
+         }
 
-        86% {
-            width: 9.2rem;
-            height: 6.4rem
-        }
+         86% {
+             width: 9.2rem;
+             height: 6.4rem
+         }
 
-        100% {
-            width: 9.2rem;
-            height: 5.2rem
-        }
-    }
+         100% {
+             width: 9.2rem;
+             height: 5.2rem
+         }
+     }
 
-    @keyframes csl-close {
-        0% {
-            width: 9.2rem;
-            height: 5.2rem
-        }
+     @keyframes csl-close {
+         0% {
+             width: 9.2rem;
+             height: 5.2rem
+         }
 
-        30% {
-            width: 9.2rem;
-            height: 6.4rem
-        }
+         30% {
+             width: 9.2rem;
+             height: 6.4rem
+         }
 
-        60% {
-            width: 9.2rem;
-            height: 1.066667rem
-        }
+         60% {
+             width: 9.2rem;
+             height: 1.066667rem
+         }
 
-        100% {
-            width: 2.4rem;
-            height: 1.066667rem
-        }
-    }
-*/
+         100% {
+             width: 2.4rem;
+             height: 1.066667rem
+         }
+     }
+ */
 
     .toggle-enter-active {
-        animation: league-open .8s 0s 1 cubic-bezier(.5,.25,0,.75) normal forwards
+        animation: league-open .8s 0s 1 cubic-bezier(.5, .25, 0, .75) normal forwards
     }
- /*.toggle-enter-active {
-        animation: csl-open 1s 0s 1 ease normal forwards
-    }*/
 
-    .toggle-leave-active{
+    /*.toggle-enter-active {
+           animation: csl-open 1s 0s 1 ease normal forwards
+       }*/
+
+    .toggle-leave-active {
         animation: league-close 1s 0s 1 ease both
     }
-    .toggle-enter-active .btn-cont{
-        display: none
-    }
-    .toggle-leave-active .btn-cont{
+
+    .toggle-enter-active .btn-cont {
         display: none
     }
 
-    .layer-leave-active{
+    .toggle-leave-active .btn-cont {
+        display: none
+    }
+
+    .layer-leave-active {
         transition: transform .8s;
     }
+
     .layer {
         z-index: 10;
         position: fixed;
@@ -433,10 +434,9 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0,0,0, .2);
+        background-color: rgba(0, 0, 0, .2);
 
     }
-
 
 
 </style>
