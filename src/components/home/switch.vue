@@ -1,16 +1,14 @@
 <template>
     <div class="switch-box" v-tap="{methods: switchView}">
-        <div class="switch-cont switch-icon"></div>
-        <div class="switch-cont switch-zt hide">状态</div>
-        <div class="switch-cont switch-pl hide">赔率</div>
+        <div class="switch-cont switch-icon" v-if="view === '0'"></div>
+        <div class="switch-cont switch-zt" v-if="view === '1'">状态</div>
+        <div class="switch-cont switch-pl" v-if="view === '2'">赔率</div>
     </div>
 </template>
 <script>
     import {aTypes} from '~store/home'
     export default {
         mounted () {
-            this.$store.dispatch(aTypes.switchView)
-            this.$store.dispatch(aTypes.switchView)
         },
         computed: {
             view () {

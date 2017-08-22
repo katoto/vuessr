@@ -2,11 +2,11 @@
     <div class="l-full l-flex-column">
         <div class="filter-cont">
             <!-- 日期筛选 -->
-            <filter-time style="float: left"></filter-time>
+            <filter-time class="fl"></filter-time>
 
 
             <!-- 联赛筛选 -->
-            <filter-league style="float: right"></filter-league>
+            <filter-league class="fr" :select-options="selectOptions" :matches="matches"></filter-league>
 
             <!-- 中超筛选弹窗 -->
             <div class="alert-csl alert-csl-close hide">
@@ -82,6 +82,7 @@
         },
         watch: {
             showedMatchesSize () {
+                this.position = 0
                 this.$refs.scroller && this.$refs.scroller.update()
             },
             matches () {
@@ -104,6 +105,8 @@
             },
 
             '$route.path' () {
+                this.position = 0
+                this.$refs.scroller && this.$refs.scroller.update()
                 this.fetchData()
             },
 
@@ -196,6 +199,12 @@
     }
 </script>
 <style scoped>
+    .fl{
+        float: left;
+    }
+    .fr{
+        float: right;
+    }
     .loading {
         width: 100%;
         height: 2.5rem;

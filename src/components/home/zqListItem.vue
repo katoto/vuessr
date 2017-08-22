@@ -1,7 +1,7 @@
 <template>
 
     <li class="one-game" :class="{'__first_no_end': match._flag}"
-        v-tap="{methods: goDetail, fid: match.fid}">
+        >
         <!-- 比赛时间信息 、猜球、有料、加时 -->
         <div class="game-info">
             {{match.order}}&nbsp;&nbsp;{{match.simpleleague}}&nbsp;
@@ -9,17 +9,24 @@
             <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '11'">加时 {{match.extra_time_score}}&nbsp;</span>
             <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '13'">点球 {{match.spot_kick_score}}</span>
 
-            <template v-if="feature.d[match.status]"><span class="crazy-guess" v-if="match.extra_info.iscrazybet==='1'">猜球</span><span class="crazy-guess" v-if="match.extra_info.isrecommend">有料</span></template>
+            <template v-if="feature.d[match.status]"><span class="crazy-guess" v-if="match.extra_info.iscrazybet==='1'">猜球</span><span
+                    class="crazy-guess" v-if="match.extra_info.isrecommend">有料</span></template>
 
             <div class="game-info-r">{{match.matchtime.substring(5, 16)}}</div>
         </div>
         <!-- 比赛详细信息 -->
         <div class="game-detail">
             <!-- 左边的球队信息、近六场 -->
-            <div class="game-detail-l l-flex-column">
+            <div class="game-detail-l l-flex-column" v-tap="{methods: goDetail, fid: match.fid}">
                 <div class="game-item">
-                    <div class="game-name"><img data-inited="0"  src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png" alt="主队图标" :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">阿森纳</div>
-                    <div class="game-lately" v-if="match.status === StatusCode.NOT_STARTED && view==='1'">{{match.extra_info.homerecord||'胜胜'}}</div>
+                    <div class="game-name"><img data-inited="0"
+                                                src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"
+                                                alt="主队图标"
+                                                :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">{{match.homesxname}}
+                    </div>
+                    <div class="game-lately" v-if="match.status === StatusCode.NOT_STARTED && view==='1'">
+                        {{match.extra_info.homerecord||'胜胜'}}
+                    </div>
                     <template v-if="feature.e[match.status]"><!--正在开打-->
                         <div class="game-lately score-half">
                             <em class="first-half">{{match.homehalfscore}}</em>
@@ -36,7 +43,11 @@
                     </template>
                 </div>
                 <div class="game-item ">
-                    <div class="game-name"><img data-inited="0"  src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"  alt="客队图标" :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">切尔西西</div>
+                    <div class="game-name"><img data-inited="0"
+                                                src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"
+                                                alt="客队图标"
+                                                :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">{{match.awaysxname}}
+                    </div>
 
                     <template v-if="match.status === StatusCode.NOT_STARTED">
                         <div class="game-lately" v-if="view==='1'">{{match.extra_info.awayrecord}}</div>
@@ -57,9 +68,9 @@
                 </div>
                 <div class="odds-item" v-if="match.status === StatusCode.NOT_STARTED && view==='2'">
                     <ul>
-                        <li>3.18</li>
-                        <li>2.16</li>
-                        <li>3.32</li>
+                        <li>{{currodds[0]}}</li>
+                        <li>{{currodds[1]}}</li>
+                        <li>{{currodds[2]}}</li>
                     </ul>
                 </div>
             </div>
@@ -97,7 +108,6 @@
     </li>
 
 
-
 </template>
 <style scoped>
     .one-game {
@@ -106,7 +116,7 @@
     }
 
     .one-game:active {
-        -webkit-tap-highlight-color: rgba(244,244,244,.6)
+        -webkit-tap-highlight-color: rgba(244, 244, 244, .6)
     }
 
     .game-info {
@@ -200,6 +210,7 @@
         left: 50%;
         left: 0
     }
+
     .odds-item {
         width: 1.6rem;
         text-align: center;
@@ -424,6 +435,11 @@
         methods: {
             goDetail ({fid}) {
                 this.$router.push(`/detail/football/${fid}/situation`)
+            }
+        },
+        computed: {
+            currodds () {
+                return this.match.extra_info.currodds.split('/')
             }
         },
         directives: {
