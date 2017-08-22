@@ -100,6 +100,7 @@
             },
 
             '$route.path' () {
+                this.selectOptions = null
                 this.position = 0
                 this.$refs.scroller && this.$refs.scroller.update()
                 this.fetchData()

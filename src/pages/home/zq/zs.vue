@@ -2,7 +2,7 @@
     <div class="l-full l-scroll-y">
         <div class="mark-cont" v-if="metro">
             <!-- 精选预测 -->
-            <div class="one-mark jxyc">
+            <router-link class="one-mark jxyc" to="/bfyc/predict">
                 <div class="mark-tit">精选预测</div>
                 <div class="mark-demo">
                     <template v-if="metro.awesome_predict.homesxname">
@@ -14,9 +14,9 @@
                     </template>
 
                 </div>
-            </div>
+            </router-link>
             <!-- 冷热分布 -->
-            <div class="one-mark lrfb">
+            <router-link class="one-mark lrfb" to="/bfyc/hotcool">
                 <div class="mark-tit">冷热分布</div>
                 <div class="mark-demo">
                     <template v-if="metro.coldhot_distribute.order">
@@ -28,9 +28,9 @@
                         暂无推荐
                     </template>
                 </div>
-            </div>
+            </router-link>
             <!-- 实力对比 -->
-            <div class="one-mark sldb">
+            <router-link class="one-mark sldb" to="/bfyc/strength">
                 <div class="mark-tit">实力对比</div>
                 <div class="mark-demo">
                     <template v-if="metro.strength_compare.homesxname">
@@ -40,9 +40,9 @@
                         暂无推荐
                     </template>
                 </div>
-            </div>
+            </router-link>
             <!-- 战绩特征 -->
-            <div class="one-mark zjtz">
+            <router-link class="one-mark zjtz" to="/bfyc/record/result">
                 <div class="mark-tit">战绩特征</div>
                 <div class="mark-demo">
                     <template v-if="metro.combat_feature.awaysxname">
@@ -55,7 +55,7 @@
                         暂无推荐
                     </template>
                 </div>
-            </div>
+            </router-link>
         </div>
 
     </div>
@@ -118,6 +118,9 @@
     }
 </script>
 <style scoped>
+    a{
+        display: block;
+    }
 
     .mark-cont {
         padding-top: .133333rem
