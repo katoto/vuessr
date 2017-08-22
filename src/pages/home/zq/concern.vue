@@ -1,45 +1,15 @@
 <template>
-    <div class="l-full l-flex-column">
-        <div class="filter-cont">
-            <!-- 日期筛选 -->
-            <filter-time class="fl"></filter-time>
-
-
-            <!-- 联赛筛选 -->
-            <filter-league class="fr" :initial="selectOptions" :matches="matches" @ok="doFilter"></filter-league>
-
-            <!-- 中超筛选弹窗 -->
-            <div class="alert-csl alert-csl-close hide">
-                <div class="month-tit"><span></span>轮次</div>
-                <!-- 杯赛选择 -->
-                <div class="cup-info fadeout">
-                    <ul>
-                        <li class="">巴西杯</li>
-                        <li class="">吉尼斯杯</li>
-                        <li class="">金杯奖</li>
-                        <li class="">墨西杯</li>
-                        <li class="cur">苏联赛杯</li>
-                        <li class="">欧冠</li>
-                        <li class="">女欧杯</li>
-                    </ul>
-                </div>
-            </div>
+    <div class="l-full">
+        <div v-if="isLoading" class="loading">
+            <div class="icon"></div>
+            <div class="icon-shadow"></div>
         </div>
-
-        <div class="l-flex-1 l-relative">
-            <div v-if="isLoading" class="loading">
-                <div class="icon"></div>
-                <div class="icon-shadow"></div>
-            </div>
-            <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
-                <ul class="list">
-                    <zq-list-item v-for="match in filteredMatches" :match="match" key="match.fid"
-                                  :view="view"></zq-list-item>
-                </ul>
-            </matches-scroller>
-
-        </div>
-
+        <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
+            <ul class="list">
+                <zq-list-item v-for="match in matches" :match="match" key="match.fid"
+                              :view="view"></zq-list-item>
+            </ul>
+        </matches-scroller>
 
     </div>
 
@@ -48,33 +18,27 @@
 <script>
     import MatchesScroller from '~components/matches_scroller.vue'
     import zqListItem from '~components/home/zqListItem.vue'
-    import filterTime from '~components/home/filterTime.vue'
-    import filterLeague from '~components/home/filterLeague.vue'
     import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import {aTypes, mTypes} from '~store/home'
     const savedData = {}
     export default {
         async asyncData ({store, route: {params: {expect, tab}}}) {
-            await store.dispatch(aTypes.fetchZqMatches, {expect, tab})
         },
         beforeRouteEnter (to, from, next) {
             next(vm => {
                 if (from.name && ~from.name.indexOf('football-detail')) {
                     vm.position = savedData.position
-                    vm.selectOptions = savedData.selectOptions
                 }
             })
         },
         beforeRouteLeave (to, from, next) {
             if (~to.name.indexOf('football-detail')) {
-                savedData.selectOptions = this.selectOptions
                 savedData.position = this.position
             }
             next()
         },
         data () {
             return {
-                selectOptions: null,
                 position: 0
             }
         },
@@ -98,21 +62,13 @@
                     }
                 }
             },
-
-            '$route.path' () {
-                this.selectOptions = null
-                this.position = 0
-                this.$refs.scroller && this.$refs.scroller.update()
-                this.fetchData()
-            },
-
             refreshTime () {
                 this.fetchData()
             }
 
         },
         components: {
-            MatchesScroller, zqListItem, filterTime, filterLeague
+            MatchesScroller, zqListItem
         },
 
         computed: {
@@ -130,16 +86,8 @@
             view () { // 展示赔率， 最近6场比赛， 空 三种情况标志位
                 return this.$store.state.home.view
             },
-
-            filteredMatches () {
-                return this.matches && this.matches.filter(match => !this.selectOptions || this.selectOptions[match.simpleleague])
-            },
             matches () {
-                return this.zq.matches
-            },
-
-            curExpect () {
-                return this.zq.curExpect
+                return this.zq.concern
             },
 
             fidIndexMap () { // matches 变化了， fidIndexMap一定会变化
@@ -152,20 +100,12 @@
                 })
                 return map
             },
-
-            expectList () {
-                return this.zq.expectList
+            hasLogin () {
+                return this.$store.state.home.hasLogin
             },
-
             isLoading () {
-                if (this.zq.tab === this.$route.params.tab) {
-                    if (this.$route.params.expect === 'cur') {
-                        return false
-                    } else if (this.$route.params.expect === this.zq.curExpect) {
-                        return false
-                    } else {
-                        return true
-                    }
+                if (!this.matches) {
+                    return false
                 } else {
                     return true
                 }
@@ -183,23 +123,22 @@
             },
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                await this.$store.dispatch(aTypes.fetchZqMatches, this.$route.params)
+                await this.$store.dispatch(aTypes.getConcern, '1')
                 this.$store.commit('endOneRefresh')
-            },
-            doFilter (selectOptions) {
-                this.selectOptions = selectOptions
             }
         }
 
     }
 </script>
 <style scoped>
-    .fl{
+    .fl {
         float: left;
     }
-    .fr{
+
+    .fr {
         float: right;
     }
+
     .loading {
         width: 100%;
         height: 2.5rem;

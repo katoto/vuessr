@@ -3,9 +3,11 @@
  */
 import ajax from '~common/ajax'
 import {mapActions, mapMutations} from '~common/util'
+import platform from '~common/platform'
 import {pushEvents} from '~common/constants'
 const ns = 'home'
 const state = {
+    hasLogin: false,
     filter: {
         filterTime: 0,
         show: false, // 控制筛选对话框显示与隐藏
@@ -24,7 +26,7 @@ const state = {
         matches: null,
         expectList: null,
         curExpect: null,
-        mymatch: null
+        concern: null
     },
     lq: {
         metro: null,
@@ -32,7 +34,7 @@ const state = {
         matches: null,
         expectList: null,
         curExpect: null,
-        mymatch: null
+        concern: null
     }
 }
 const actionsInfo = mapActions({
@@ -50,9 +52,26 @@ const actionsInfo = mapActions({
         const eventList = fidList.map(fid => 'LIVE:BASKETBALL:INFO:' + fid)
         dispatch('subscribe', {stamp: pushEvents.BASKETBALL_INFO, data: eventList})
     },
+    checkHasLogin ({commit}) {
+        commit(mTypes.setLogin, platform.isLogin())
+    },
     switchView ({commit, state}, view) {
         view = view || (parseInt(state.view) + 1) % 3 + ''
         commit(mTypes.setView, view)
+    },
+    async getConcern ({commit}, vtype) {
+        try {
+            const {matches} = await ajax.get(`/score/concern/list?vtype=${vtype}`, {ignore: false})
+            if (vtype === '1') {
+                commit(mTypes.setZqConcern, matches)
+            } else {
+                commit(mTypes.setLqConcern, matches)
+            }
+        } catch (e) {
+            if (e.code === '102') {
+                commit(mTypes.setLogin, false)
+            }
+        }
     },
     async fetchZqMatches ({commit}, {expect, tab}) {
         let url = `/score/zq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`
@@ -113,23 +132,14 @@ const actionsInfo = mapActions({
 }, ns)
 
 const mutationsInfo = mapMutations({
-    filterTime (state) { // 用户点击帅选的时候 触发
-        state.filter.filterTime = Date.now()
+    setZqConcern (state, matches) {
+        state.zq.concern = matches
     },
-    initFilter (state, {matches, inited, onOk, onCancel}) {
-        state.filter.matches = matches
-        state.filter.show = true
-        state.filter.inited = inited
-        state.filter.onOk = onOk || (() => {})
-        state.filter.onCancel = onCancel || (() => {})
+    setLqConcern (state, matches) {
+        state.lq.concern = matches
     },
-    endFilter (state) {
-        state.filter.matches = null
-        state.filter.show = false
-        state.filter.begin = false
-        state.filter.inited = null
-        state.filter.onOk = () => {}
-        state.filter.onCancel = () => {}
+    setLogin (state, hasLogin) {
+        state.hasLogin = hasLogin
     },
     setView (state, view) {
         state.view = view
