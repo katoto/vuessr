@@ -1,194 +1,128 @@
 <template>
     <div class="l-full l-flex-column">
-        <div class="qi-list-box">
-            <div class="qi-list">
-                <ul class="responsive">
-                    <li class="" v-if="preAndNextExpect.pre">
-                        <router-link :to="{path: '/home/lq/'+ $route.params.tab + '/' + preAndNextExpect.pre}" replace>{{($route.params.tab === 'all')?'前一天':'前一期'}}</router-link>
-                    </li>
-                    <li class="qi-gray" v-else>{{($route.params.tab === 'all')?'前一天':'前一期'}}</li>
-                    <li class="qiqh" v-tap="{methods: toggleExpectList}">{{curExpect|expectFmt}}<i class="qi-arrow"></i></li>
-                    <li class="" v-if="preAndNextExpect.next">
-                        <router-link :to="{path: '/home/lq/'+ $route.params.tab + '/'+ preAndNextExpect.next}" replace>{{($route.params.tab === 'all')?'后一天':'后一期'}}</router-link>
-                    </li>
-                    <li class="qi-gray" v-else>{{($route.params.tab === 'all')?'后一天':'后一期'}}</li>
-                </ul>
-            </div>
+        <div class="filter-cont">
+            <!-- 日期筛选 -->
+            <filter-time class="fl"></filter-time>
         </div>
-        <div class="qi-pop-box" style="position: relative;top:0" v-if="showExpectList">
-            <div class="ui-navbox-item">
-                <ul>
-                    <li v-tap="{methods: selectExpect, expect: expect}" :class="{'select': expect === curExpect}"
-                        v-for="expect in expectList"><span>{{expect}}</span></li>
-                </ul>
-            </div>
-        </div>
-        <div class="ui-alert-layer" style="z-index: 8" v-if="showExpectList" v-tap="{methods: toggleExpectList}"></div>
-        <div class="l-flex-1 l-relative">
-            <matches-scroller ref="scroller">
-                <ul class="list">
 
-                    <li class="list-item" :class="{'__first_no_end': $item._flag}"
-                        v-tap="{methods: goDetail, fid: $item.fid}"
-                        :id="$item.fid"
-                        v-for="$item in showedMatches">
-                        <div class="list-tit"><span class="list-day">{{$item.order}}&nbsp;&nbsp;{{$item.simpleleague}}</span>
-                            <span class="list-state color3"
-                                  v-if="$item.status == StatusCode.NOT_STARTED">{{$item.matchdate.slice(5,10)}} {{$item.matchdate.slice(11,16)}}</span>
-                            <span class="list-state green"
-                                  v-if="feature.a[$item.status]">{{$item.match_at}} {{$item.status_desc}}</span>
-                            <div class="list-state green"
-                                 v-if="feature.b[$item.status]">{{$item.match_at}} {{ StatusName[$item.status] || $item.status_desc}}
-                            </div>
-                            <span class="list-state green"
-                                  v-if="$item.status == StatusCode.MID">中场休息</span>
-                            <span class="list-state color3"
-                                  v-if="$item.status == StatusCode.ENDED">完场</span>
-                            <span class="list-state color3"
-                                  v-if="$item.status == StatusCode.CHANGED">改期</span>
-                            <span class="list-time">{{$item.status != StatusCode.NOT_STARTED?($item.matchdate.slice(5,10)+'&nbsp;&nbsp;'+$item.matchdate.slice(11,16)):''}}</span>
-                        </div>
-                        <div class="list-team">
-                            <div class="team team-l f30"><img
-                                    data-inited="0" src="http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png"
-                                    :data-src="$item.awaylogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'"> {{$item.awaysxname|truncate(4)}}
-                            </div>
-                            <div class="team-c"
-                                 v-if="$item.status != StatusCode.NOT_STARTED && $item.status != StatusCode.CHANGED"
-                                 :class="{'green':$item.status != StatusCode.ENDED,'color3':$item.status == StatusCode.ENDED}">
-                                <p class="score">
-                                    <em class="score-itm"
-                                        v-scroll-text="{'score':$item.awayscore,'class':'itmMove',timeOut:1,oldClass:'score-itm',isEnd:$item.status == StatusCode.ENDED}">
-                                        <i>{{$item.awayscore}}</i>
-                                        <i>{{$item.awayscore}}</i>
-                                    </em>
-                                    <span class="score-c">:</span>
-                                    <em class="score-itm"
-                                        v-scroll-text="{'score':$item.homescore,'class':'itmMove',timeOut:1,oldClass:'score-itm',isEnd:$item.status == StatusCode.ENDED}">
-                                        <i>{{$item.homescore}}</i>
-                                        <i>{{$item.homescore}}</i>
-                                    </em>
-                                </p>
-                            </div>
-                            <div class="team-c"
-                                 v-if="$item.status == StatusCode.NOT_STARTED">
-                                <i class="collect"
-                                   :class="{'cur':$item.isfocus == '1'}"
-                                   @click.stop="onCollect($item.fid,$item.isfocus)"></i>
-                            </div>
-                            <div class="team team-r f30">
-                                {{$item.homesxname|truncate(4)}} <img
-                                    data-inited="0" src="http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png"
-                                    :data-src="$item.homelogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'">
-                            </div>
-                        </div>
-                        <div class="list-info f22"
-                             v-if="$item.status==StatusCode.ENDED"> 总分：{{$item.total}}&nbsp;&nbsp;分差：{{$item.diff}} </div>
-                    </li>
+        <div class="l-flex-1 l-relative">
+            <div v-if="isLoading" class="loading">
+                <div class="icon"></div>
+                <div class="icon-shadow"></div>
+            </div>
+            <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
+                <ul class="list">
+                    <lq-list-item v-for="match in filteredMatches" :match="match" key="match.fid"
+                                  :view="view"></lq-list-item>
                 </ul>
             </matches-scroller>
+
         </div>
 
 
     </div>
+
+
 </template>
 <script>
     import MatchesScroller from '~components/matches_scroller.vue'
-    import {BasketballStatusCode as StatusCode, pushEvents} from '~common/constants'
-    import {aTypes} from '~store/home'
-    import scrollText from '~directives/scroll_text'
+    import lqListItem from '~components/home/lqListItem.vue'
+    import filterTime from '~components/home/filterTime.vue'
+    import filterLeague from '~components/home/filterLeague.vue'
+    import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
+    import {aTypes, mTypes} from '~store/home'
+    const savedData = {}
     export default {
-        hasParametor: true,
         async asyncData ({store, route: {params: {expect, tab}}}) {
-            if (store.state.home.lq.curExpect === expect && store.state.home.lq.tab === tab) return
             await store.dispatch(aTypes.fetchLqMatches, {expect, tab})
+        },
+        beforeRouteEnter (to, from, next) {
+            next(vm => {
+                if (from.name && ~from.name.indexOf('basketball-detail')) {
+                    vm.position = savedData.position
+                    vm.selectOptions = savedData.selectOptions
+                }
+            })
+        },
+        beforeRouteLeave (to, from, next) {
+            if (~to.name.indexOf('basketball-detail')) {
+                savedData.selectOptions = this.selectOptions
+                savedData.position = this.position
+            }
+            next()
         },
         data () {
             return {
-                feature: {
-                    a: {
-                        [StatusCode.SECTION_1]: true,
-                        [StatusCode.SECTION_2]: true,
-                        [StatusCode.SECTION_3]: true,
-                        [StatusCode.SECTION_4]: true
-                    },
-                    b: {
-                        [StatusCode.OVERTIME_1]: true,
-                        [StatusCode.OVERTIME_2]: true,
-                        [StatusCode.OVERTIME_3]: true,
-                        [StatusCode.OVERTIME_4]: true
-                    }
-                },
-                StatusCode,
-                showExpectList: false,
                 selectOptions: null,
-                filteredMatches: null
+                position: 0
             }
         },
         watch: {
-            beginFilter (begin) {
-                if (begin) {
-                    this.$store.dispatch(aTypes.startFilter, {
-                        matches: this.matches,
-                        inited: this.selectOptions,
-                        onOk: ({selectOptions, filteredMatches}) => {
-                            this.filteredMatches = filteredMatches
-                            this.selectOptions = selectOptions
-                            this.$store.dispatch(aTypes.finishFilter)
-                        },
-                        onCancel: () => {
-                            this.$store.dispatch(aTypes.finishFilter)
-                        }
-                    })
+            filteredMatches (after, before) {
+                if (!before || before.length !== after.length) {
+                    this.position = 0
+                    this.$refs.scroller && this.$refs.scroller.update()
                 }
             },
-            showedMatches () {
-                this.$refs.scroller.config()
+            fidIndexMap (fidIndexMap) {
+                this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(fidIndexMap))
             },
-            matches () {
-                this.showExpectList = false
-                this.filteredMatches = null
-            },
-            fids (fids) {
-                fids && fids.length && this.$store.dispatch(aTypes.subscribeBasketballInfo, fids.split(','))
-            },
+
             socketData ({data, stamp}) {
-                if (stamp === pushEvents.FOOTBALL_INFO) {
+                if (stamp === pushEvents.BASKETBALL_INFO) {
+                    data.fid = data.fid + ''
                     let match = this.matches[this.fidIndexMap[data.fid]]
                     if (match && match.fid === data.fid) {
-                        this.matches[this.fidIndexMap[data.fid]] = {...this.matches[this.fidIndexMap[data.fid]], ...data}
+                        this.$store.commit(mTypes.updateZqMatch, {info: data, idx: this.fidIndexMap[data.fid]})
                     }
                 }
+            },
+
+            '$route.path' () {
+                this.position = 0
+                this.$refs.scroller && this.$refs.scroller.update()
+                this.fetchData()
+            },
+
+            refreshTime () {
+                this.fetchData()
             }
 
         },
         components: {
-            MatchesScroller
+            MatchesScroller, lqListItem, filterTime, filterLeague
         },
-        directives: {
-            scrollText
-        },
+
         computed: {
-            socketData () {
+            refreshTime () { // 用户点击刷新按钮时间戳
+                return this.$store.state.refreshTime
+            },
+
+            socketData () { // websocket推送过来的数据
                 return this.$store.getters.getSocketData
             },
-            beginFilter () {
-                return this.$store.state.home.filter.begin
-            },
+
             lq () {
                 return this.$store.state.home.lq
             },
-            showedMatches () {
-                return this.filteredMatches || this.matches
+            view () { // 展示赔率， 最近6场比赛， 空 三种情况标志位
+                return this.$store.state.home.view
+            },
+
+            filteredMatches () {
+                return this.matches && this.matches.filter(match => !this.selectOptions || this.selectOptions[match.simpleleague])
             },
             matches () {
                 return this.lq.matches
             },
+
             curExpect () {
                 return this.lq.curExpect
             },
-            fidIndexMap () {
+
+            fidIndexMap () { // matches 变化了， fidIndexMap一定会变化
                 const map = {}
+                if (!this.matches) return null
                 this.matches.forEach((match, idx) => {
                     if (match.status !== StatusCode.ENDED) {
                         map[match.fid] = idx
@@ -196,80 +130,642 @@
                 })
                 return map
             },
-            fids () {
-                return Object.keys(this.fidIndexMap).join(',')
-            },
-            preAndNextExpect () {
-                let result = {}
-                let index = 0
-                this.lq.expectList.some((expect, idx) => {
-                    if (expect === this.curExpect) {
-                        index = idx
-                    }
-                })
-                result.next = this.lq.expectList[index - 1]
-                result.pre = this.lq.expectList[index + 1]
-                return result
-            },
+
             expectList () {
                 return this.lq.expectList
+            },
+
+            isLoading () {
+                if (this.lq.tab === this.$route.params.tab) {
+                    if (this.$route.params.expect === 'cur') {
+                        return false
+                    } else if (this.$route.params.expect === this.lq.curExpect) {
+                        return false
+                    } else {
+                        return true
+                    }
+                } else {
+                    return true
+                }
             }
         },
+
         mounted () {
-            this.$store.dispatch(aTypes.subscribeBasketballInfo, Object.keys(this.fidIndexMap))
+            console.log('hello')
+            this.fetchData()
         },
+
         methods: {
-            goDetail ({fid}) {
-                this.$router.push(`/detail/basketball/${fid}/situation`)
+            setPosition (position) {
+                savedData.position = position
+                this.position = position
             },
-            toggleExpectList () {
-                this.showExpectList = !this.showExpectList
-            },
-            selectExpect ({expect}) {
-                this.$router.replace(`/home/lq/${this.$route.params.tab}/${expect}`)
-            }
-        },
-        filters: {
-            matchtimeFmt: (macthtime) => {
-                return macthtime.match(/\d{2}:\d{2}/)[0]
-            },
-            matchdateFmt: (macthtime) => {
-                return macthtime.match(/\d{2}-\d{2}/)[0]
-            },
-            // eslint-disable-next-line
-            matchAtFmt: (match_at, isFirstHalf) => {
-                let second = Number(match_at)
-                if (second >= 45 * 60) {
-                    return isFirstHalf ? '45+' : '90+'
-                }
-                let minute = Math.ceil(Number(match_at) / 60)
-                if (minute <= 0) {
-                    minute = 1
-                }
-                return isFirstHalf ? minute : (minute + 45)
-            },
-            truncate: function (input, length, tail) {
-                if (input.length <= length) {
-                    return input
-                }
-                return input.slice(0, length) + (tail != null ? tail : '...')
-            },
-            expectFmt: function (expect) {
-                if (!expect || expect.match(/\d{4}-\d{2}-\d{2}/) == null) {
-                    return expect + ' 期'
-                }
-                return expect + ' ' + ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][new Date(expect).getDay()]
+            async fetchData () {
+                this.$store.commit('startOneRefresh')
+                await this.$store.dispatch(aTypes.fetchLqMatches, this.$route.params)
+                this.$store.commit('endOneRefresh')
             }
         }
+
     }
 </script>
-<style>
+<style scoped>
+    .fl{
+        float: left;
+    }
+    .fr{
+        float: right;
+    }
+    .loading {
+        width: 100%;
+        height: 2.5rem;
+        text-align: center;
+        position: relative
+    }
+
+    .loading .icon {
+        display: inline-block;
+        width: .72rem;
+        height: .72rem;
+        border-radius: 50% 50%;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAcCAMAAABMOI/cAAAAVFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////8wXzyWAAAAG3RSTlMA+YX8+vQb7dbNpnlvYkQ7FwzhuLOgj4xIQQXn8XA9AAAAgElEQVQoz+WPSRKEIBAEBQX3GZ19rP//08JWxCD05sm8kNVFEE1ywK0wv82gebbusAp49OFFAB+eXUap1/lQML+cfSnG+qIGuTvrc1q1zK1heou3ckeo6Hk3h5KhFP2DNJNqhQilWaSUuNktdp7KdBIA4sP5xTU+6Ellyxitwi1HmooaqKw566UAAAAASUVORK5CYII=) no-repeat center center #ffba00;
+        background-size: .32rem .373333rem;
+        -webkit-transform-origin: center bottom;
+        transform-origin: center bottom;
+        -webkit-animation: jump 1s infinite;
+        animation: jump 1s infinite;
+        position: absolute;
+        left: 50%;
+        margin-left: -.36rem;
+        z-index: 2;
+        margin-top: .3rem
+    }
+
+    @-webkit-keyframes jump {
+        0% {
+            top: 0;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+        50% {
+            top: .933333rem;
+            height: .72rem;
+            border-radius: .36rem .36rem;
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out
+        }
+        55% {
+            top: 1.066667rem;
+            height: .6rem;
+            border-radius: .36rem .3rem;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+        65% {
+            top: .8rem;
+            height: .72rem;
+            border-radius: .36rem .36rem;
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out
+        }
+        95% {
+            top: 0;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+        100% {
+            top: 0;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+    }
+
+    @keyframes jump {
+        0% {
+            top: 0;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+        50% {
+            top: .933333rem;
+            height: .72rem;
+            border-radius: .36rem .36rem;
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out
+        }
+        55% {
+            top: 1.066667rem;
+            height: .6rem;
+            border-radius: .36rem .3rem;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+        65% {
+            top: .8rem;
+            height: .72rem;
+            border-radius: .36rem .36rem;
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out
+        }
+        95% {
+            top: 0;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+        100% {
+            top: 0;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+    }
+
+    .loading .icon-shadow {
+        position: absolute;
+        left: 50%;
+        margin-left: -.08rem;
+        width: .16rem;
+        height: .213333rem;
+        background: rgba(20, 20, 20, .08);
+        box-shadow: 0 0 .16rem .24rem rgba(20, 20, 20, .05);
+        border-radius: .08rem/.106667rem;
+        -webkit-transform: scaleY(.1);
+        transform: scaleY(.1);
+        -webkit-animation: shrink 1s infinite;
+        animation: shrink 1s infinite;
+        z-index: 1;
+        top: 2rem
+    }
+
+    @-webkit-keyframes shrink {
+        0% {
+            top: 1.8rem;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+        50% {
+            top: 1.925rem;
+            margin-left: -.025rem;
+            width: .06rem;
+            height: .02rem;
+            background: rgba(20, 20, 20, .3);
+            box-shadow: 0 0 .06rem .12rem rgba(20, 20, 20, .1);
+            border-radius: .06rem;
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out
+        }
+        100% {
+            top: 1.8rem;
+            margin-left: -.08rem;
+            width: .16rem;
+            height: .213333rem;
+            background: rgba(20, 20, 20, .05);
+            box-shadow: 0 0 .16rem .24rem rgba(20, 20, 20, .05);
+            border-radius: .08rem/.106667rem;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+    }
+
+    @keyframes shrink {
+        0% {
+            top: 1.8rem;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+        50% {
+            top: 1.925rem;
+            margin-left: -.025rem;
+            width: .06rem;
+            height: .02rem;
+            background: rgba(20, 20, 20, .3);
+            box-shadow: 0 0 .06rem .12rem rgba(20, 20, 20, .1);
+            border-radius: .06rem;
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out
+        }
+        100% {
+            top: 1.8rem;
+            margin-left: -.08rem;
+            width: .16rem;
+            height: .213333rem;
+            background: rgba(20, 20, 20, .05);
+            box-shadow: 0 0 .16rem .24rem rgba(20, 20, 20, .05);
+            border-radius: .08rem/.106667rem;
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in
+        }
+    }
+
     .qi-list-box {
         position: relative;
         top: 0;
     }
+
     .qi-list-box a {
         display: block;
         color: inherit;
+    }
+
+    .filter-cont {
+        width: 9.2rem;
+        margin: 0 auto;
+        margin-top: .266667rem;
+        color: #aab5bd;
+        font-size: .346667rem;
+        clear: both;
+        zoom: 1;
+        position: relative
+    }
+
+    .filter-time {
+        width: 6.88rem;
+        height: 1.066667rem;
+        border: 1px solid #eaeaea;
+        border-radius: .106667rem;
+        float: left;
+        box-sizing: border-box
+    }
+
+    [data-dpr="1"] .filter-time {
+        line-height: 40px
+    }
+
+    [data-dpr="2"] .filter-time {
+        line-height: 80px
+    }
+
+    [data-dpr="3"] .filter-time {
+        line-height: 120px
+    }
+
+    .filter-league, .filter-time {
+        box-shadow: 0 0 .133333rem rgba(22, 34, 29, .1)
+    }
+
+    .filter-time .prev-day {
+        width: .96rem;
+        height: 1.066667rem;
+        position: relative;
+        float: left
+    }
+
+    .filter-time .prev-day span {
+        display: inline-block;
+        width: .16rem;
+        height: .293333rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -.146667rem;
+        background: url(/mobile/touch/images/bifen/bifen-list/prev.png) no-repeat;
+        background-size: cover;
+        left: 50%;
+        margin-left: -.08rem
+    }
+
+    .filter-time .today {
+        width: 4.906667rem;
+        height: 1.066667rem;
+        line-height: 1.066667rem;
+        float: left;
+        padding-left: 1.733333rem;
+        box-sizing: border-box;
+        position: relative
+    }
+
+    .filter-time .today span {
+        display: inline-block;
+        width: .426667rem;
+        height: .426667rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -.213333rem;
+        left: 1.066667rem;
+        background: url(/mobile/touch/images/bifen/bifen-list/date.png) no-repeat;
+        background-size: cover
+    }
+
+    .filter-time .next-day {
+        width: .96rem;
+        height: 1.066667rem;
+        position: relative;
+        float: right
+    }
+
+    .filter-time .next-day span {
+        display: inline-block;
+        width: .16rem;
+        height: .293333rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -.146667rem;
+        background: url(/mobile/touch/images/bifen/bifen-list/prev.png) no-repeat;
+        background-size: cover;
+        left: 50%;
+        margin-left: -.08rem
+    }
+
+    .rotate180 {
+        -webkit-animation: all .2s linear;
+        animation: all .2s linear;
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg)
+    }
+
+    .filter-league:active, .filter-time .next-day:active, .filter-time .prev-day:active, .filter-time .today:active {
+        background: #f4f4f4
+    }
+
+    .filter-league {
+        width: 2.066667rem;
+        height: 1.066667rem;
+        line-height: 1.066667rem;
+        border: 1px solid #eaeaea;
+        border-radius: .106667rem;
+        text-align: center;
+        text-align: left;
+        padding-left: 1.013333rem;
+        box-sizing: border-box;
+        position: relative;
+        float: right
+    }
+
+    .filter-league span {
+        display: inline-block;
+        width: .426667rem;
+        height: .426667rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -.213333rem;
+        background: url(/mobile/touch/images/bifen/bifen-list/select.png) no-repeat;
+        background-size: cover;
+        left: .333333rem
+    }
+
+    .alert-datetime {
+        width: 9.2rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: .4rem .4rem .506667rem .4rem;
+        box-sizing: border-box;
+        border-radius: .106667rem;
+        background: #fff;
+        z-index: 2
+    }
+
+    [data-dpr="1"] .alert-datetime {
+        border: .5px solid #eaeaea
+    }
+
+    [data-dpr="2"] .alert-datetime {
+        border: 1px solid #eaeaea
+    }
+
+    [data-dpr="3"] .alert-datetime {
+        border: 1.5px solid #eaeaea
+    }
+
+    .month-tit {
+        height: .466667rem;
+        line-height: .466667rem;
+        width: 100%;
+        padding-left: .72rem;
+        box-sizing: border-box;
+        position: relative;
+        font-size: .346667rem;
+        margin-bottom: .4rem
+    }
+
+    .month-tit span {
+        display: inline-block;
+        width: .426667rem;
+        height: .426667rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -.213333rem;
+        left: 0;
+        background: url(/mobile/touch/images/bifen/bifen-list/date.png) no-repeat;
+        background-size: cover
+    }
+
+    .week-tit {
+        height: .72rem;
+        line-height: .72rem;
+        font-size: .32rem;
+        color: #aab5bd
+    }
+
+    .week-tit ul {
+        overflow: hidden;
+        clear: both
+    }
+
+    .week-tit ul li {
+        float: left;
+        width: .88rem;
+        text-align: center;
+        margin-right: .293333rem
+    }
+
+    .week-tit ul li:last-child {
+        margin-right: 0
+    }
+
+    .weeker-item {
+        height: auto;
+        font-size: .346667rem;
+        color: #242c35
+    }
+
+    .weeker-item ul {
+        overflow: hidden;
+        clear: both
+    }
+
+    .weeker-item ul li {
+        height: .88rem;
+        line-height: .88rem;
+        margin-top: .133333rem
+    }
+
+    .weeker-item ul .cur {
+        background: #d25138;
+        border-radius: 50%;
+        color: #fff
+    }
+
+    .alert-league {
+        padding-top: .4rem;
+        width: 9.2rem;
+        position: absolute;
+        top: 0;
+        right: 0;
+        box-sizing: border-box;
+        border-radius: .106667rem;
+        background: #fff;
+        z-index: 2
+    }
+
+    [data-dpr="1"] .alert-league {
+        border: .5px solid #eaeaea
+    }
+
+    [data-dpr="2"] .alert-league {
+        border: 1px solid #eaeaea
+    }
+
+    [data-dpr="3"] .alert-league {
+        border: 1.5px solid #eaeaea
+    }
+
+    .matches-info {
+        width: 8.4rem;
+        margin: 0 auto;
+        color: #aab5bd;
+        overflow: hidden;
+        margin-bottom: .613333rem
+    }
+
+    [data-dpr="1"] .matches-info {
+        font-size: 13px
+    }
+
+    [data-dpr="2"] .matches-info {
+        font-size: 26px
+    }
+
+    [data-dpr="3"] .matches-info {
+        font-size: 39px
+    }
+
+    .matches-info-l {
+        float: left;
+        padding-left: .8rem;
+        position: relative
+    }
+
+    .matches-info-l span {
+        display: inline-block;
+        width: .426667rem;
+        height: .426667rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -.213333rem;
+        background: url(/mobile/touch/images/bifen/bifen-list/select.png) no-repeat;
+        background-size: cover;
+        left: .133333rem
+    }
+
+    .matches-info-r {
+        float: right;
+        text-align: right
+    }
+
+    .cup-info {
+        width: 8.4rem;
+        margin: 0 auto;
+        min-height: 6.133333rem
+    }
+
+    .cup-info ul {
+        overflow: hidden
+    }
+
+    .cup-info ul li {
+        width: 2.533333rem;
+        height: .853333rem;
+        line-height: .853333rem;
+        float: left;
+        margin-right: .373333rem;
+        background: #ebf1f5;
+        color: #242c35;
+        text-align: center;
+        border-radius: .16rem;
+        margin-bottom: .266667rem
+    }
+
+    .cup-info ul li:nth-child(3n) {
+        margin-right: 0;
+        float: right
+    }
+
+    .cup-info ul .cur {
+        background: #5c788f;
+        color: #fff
+    }
+
+    .select-all {
+        width: 8.4rem;
+        margin: 0 auto;
+        overflow: hidden
+    }
+
+    .select-all li {
+        padding: .133333rem .266667rem;
+        border: 1px solid #eaeaea;
+        border-radius: .32rem;
+        color: #aab5bd;
+        float: left;
+        margin-right: .266667rem
+    }
+
+    [data-dpr="1"] .select-all li {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .select-all li {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .select-all li {
+        font-size: 33px
+    }
+
+    .select-all .cur {
+        background: #ebf1f5;
+        color: #242c35
+    }
+
+    .btn-cont {
+        width: 100%;
+        border-top: 1px solid #eaeaea;
+        font-size: .4rem;
+        color: #242c35;
+        margin-top: .4rem;
+        height: 1.2rem;
+        line-height: 1.2rem;
+        position: absolute;
+        bottom: 0;
+        left: 0
+    }
+
+    .btn-cont .btn-sure {
+        width: 50%;
+        box-sizing: border-box;
+        text-align: center;
+        position: absolute;
+        bottom: 0
+    }
+
+    .btn-cont .btn-l {
+        border-right: 1px solid #eaeaea;
+        left: 0
+    }
+
+    .btn-cont .btn-r {
+        right: 0
+    }
+
+    .btn-cont .btn-sure:active {
+        background: #f4f4f4
+    }
+
+    .one-game {
+        padding: .333333rem .4rem .346667rem .4rem;
+        border-bottom: 1px solid #eaeaea
+    }
+
+    .one-game:active {
+        -webkit-tap-highlight-color: rgba(244, 244, 244, .6)
     }
 </style>
