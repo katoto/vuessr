@@ -8,7 +8,12 @@ import axios from 'axios'
 const options = {}
 if (process.env.NODE_ENV === 'production') {
     // options.baseURL = 'http://ews.500.com'
-    options.baseURL = '/ews'
+    if (process.env.VUE_ENV === 'server') { // The server-side needs a full url to works
+        // options.baseURL = 'http://ews.500.com'
+        options.baseURL = 'http://127.0.0.1:3000/ews'
+    } else {
+        options.baseURL = '/ews'
+    }
 } else {
     if (process.env.VUE_ENV === 'server') { // The server-side needs a full url to works
         // options.baseURL = 'http://ews.500.com'
