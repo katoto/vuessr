@@ -1,38 +1,25 @@
 <template>
     <div class="l-full l-flex-column">
         <div class="filter-cont">
-            <!-- 日期筛选 -->
-            <filter-time class="fl"></filter-time>
+            <template v-if="$route.params.tab === 'csl'"> <!--中超筛选-->
+                <filter-csl></filter-csl>
 
+            </template>
+            <template v-else>
+                <!-- 日期筛选 -->
+                <filter-time class="fl"></filter-time>
 
-            <!-- 联赛筛选 -->
-            <filter-league class="fr" :initial="selectOptions" :matches="matches" @ok="doFilter"></filter-league>
+                <!-- 联赛筛选 -->
+                <filter-league class="fr" :initial="selectOptions" :matches="matches" @ok="doFilter"></filter-league>
 
-            <!-- 中超筛选弹窗 -->
-            <div class="alert-csl alert-csl-close hide">
-                <div class="month-tit"><span></span>轮次</div>
-                <!-- 杯赛选择 -->
-                <div class="cup-info fadeout">
-                    <ul>
-                        <li class="">巴西杯</li>
-                        <li class="">吉尼斯杯</li>
-                        <li class="">金杯奖</li>
-                        <li class="">墨西杯</li>
-                        <li class="cur">苏联赛杯</li>
-                        <li class="">欧冠</li>
-                        <li class="">女欧杯</li>
-                    </ul>
-                </div>
-            </div>
+            </template>
+
         </div>
 
         <div class="l-flex-1 l-relative">
-            <div v-if="isLoading" class="loading">
-                <div class="icon"></div>
-                <div class="icon-shadow"></div>
-            </div>
+            <loading v-if="isLoading"></loading>
             <template v-else>
-                <empty v-if="!filteredMatches || filteredMatches.length === 0"></empty>
+                <empty v-if="filteredMatches.length === 0"></empty>
                 <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
                     <ul class="list">
                         <zq-list-item v-for="match in filteredMatches" :match="match" key="match.fid"
@@ -53,6 +40,9 @@
     import zqListItem from '~components/home/zqListItem.vue'
     import empty from '~components/home/empty.vue'
     import filterTime from '~components/home/filterTime.vue'
+    import filterCsl from '~components/home/filterCsl.vue'
+
+    import loading from '~components/home/loading.vue'
     import filterLeague from '~components/home/filterLeague.vue'
     import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import {aTypes, mTypes} from '~store/home'
@@ -117,7 +107,7 @@
 
         },
         components: {
-            MatchesScroller, zqListItem, filterTime, filterLeague, empty
+            MatchesScroller, zqListItem, filterTime, filterLeague, empty, loading, filterCsl
         },
 
         computed: {
@@ -166,11 +156,7 @@
                 if (this.zq.tab === this.$route.params.tab) {
                     if (this.$route.params.expect === 'cur') {
                         return false
-                    } else if (this.$route.params.expect === this.zq.curExpect) {
-                        return false
-                    } else {
-                        return true
-                    }
+                    } else return this.$route.params.expect !== this.zq.curExpect
                 } else {
                     return true
                 }
@@ -207,186 +193,6 @@
     .fr{
         float: right;
     }
-    .loading {
-        width: 100%;
-        height: 2.5rem;
-        text-align: center;
-        position: relative
-    }
-
-    .loading .icon {
-        display: inline-block;
-        width: .72rem;
-        height: .72rem;
-        border-radius: 50% 50%;
-        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAcCAMAAABMOI/cAAAAVFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////8wXzyWAAAAG3RSTlMA+YX8+vQb7dbNpnlvYkQ7FwzhuLOgj4xIQQXn8XA9AAAAgElEQVQoz+WPSRKEIBAEBQX3GZ19rP//08JWxCD05sm8kNVFEE1ywK0wv82gebbusAp49OFFAB+eXUap1/lQML+cfSnG+qIGuTvrc1q1zK1heou3ckeo6Hk3h5KhFP2DNJNqhQilWaSUuNktdp7KdBIA4sP5xTU+6Ellyxitwi1HmooaqKw566UAAAAASUVORK5CYII=) no-repeat center center #ffba00;
-        background-size: .32rem .373333rem;
-        -webkit-transform-origin: center bottom;
-        transform-origin: center bottom;
-        -webkit-animation: jump 1s infinite;
-        animation: jump 1s infinite;
-        position: absolute;
-        left: 50%;
-        margin-left: -.36rem;
-        z-index: 2;
-        margin-top: .3rem
-    }
-
-    @-webkit-keyframes jump {
-        0% {
-            top: 0;
-            -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in
-        }
-        50% {
-            top: .933333rem;
-            height: .72rem;
-            border-radius: .36rem .36rem;
-            -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out
-        }
-        55% {
-            top: 1.066667rem;
-            height: .6rem;
-            border-radius: .36rem .3rem;
-            -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in
-        }
-        65% {
-            top: .8rem;
-            height: .72rem;
-            border-radius: .36rem .36rem;
-            -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out
-        }
-        95% {
-            top: 0;
-            -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in
-        }
-        100% {
-            top: 0;
-            -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in
-        }
-    }
-
-    @keyframes jump {
-        0% {
-            top: 0;
-            -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in
-        }
-        50% {
-            top: .933333rem;
-            height: .72rem;
-            border-radius: .36rem .36rem;
-            -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out
-        }
-        55% {
-            top: 1.066667rem;
-            height: .6rem;
-            border-radius: .36rem .3rem;
-            -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in
-        }
-        65% {
-            top: .8rem;
-            height: .72rem;
-            border-radius: .36rem .36rem;
-            -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out
-        }
-        95% {
-            top: 0;
-            -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in
-        }
-        100% {
-            top: 0;
-            -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in
-        }
-    }
-
-    .loading .icon-shadow {
-        position: absolute;
-        left: 50%;
-        margin-left: -.08rem;
-        width: .16rem;
-        height: .213333rem;
-        background: rgba(20, 20, 20, .08);
-        box-shadow: 0 0 .16rem .24rem rgba(20, 20, 20, .05);
-        border-radius: .08rem/.106667rem;
-        -webkit-transform: scaleY(.1);
-        transform: scaleY(.1);
-        -webkit-animation: shrink 1s infinite;
-        animation: shrink 1s infinite;
-        z-index: 1;
-        top: 2rem
-    }
-
-    @-webkit-keyframes shrink {
-        0% {
-            top: 1.8rem;
-            -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in
-        }
-        50% {
-            top: 1.925rem;
-            margin-left: -.025rem;
-            width: .06rem;
-            height: .02rem;
-            background: rgba(20, 20, 20, .3);
-            box-shadow: 0 0 .06rem .12rem rgba(20, 20, 20, .1);
-            border-radius: .06rem;
-            -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out
-        }
-        100% {
-            top: 1.8rem;
-            margin-left: -.08rem;
-            width: .16rem;
-            height: .213333rem;
-            background: rgba(20, 20, 20, .05);
-            box-shadow: 0 0 .16rem .24rem rgba(20, 20, 20, .05);
-            border-radius: .08rem/.106667rem;
-            -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in
-        }
-    }
-
-    @keyframes shrink {
-        0% {
-            top: 1.8rem;
-            -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in
-        }
-        50% {
-            top: 1.925rem;
-            margin-left: -.025rem;
-            width: .06rem;
-            height: .02rem;
-            background: rgba(20, 20, 20, .3);
-            box-shadow: 0 0 .06rem .12rem rgba(20, 20, 20, .1);
-            border-radius: .06rem;
-            -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out
-        }
-        100% {
-            top: 1.8rem;
-            margin-left: -.08rem;
-            width: .16rem;
-            height: .213333rem;
-            background: rgba(20, 20, 20, .05);
-            box-shadow: 0 0 .16rem .24rem rgba(20, 20, 20, .05);
-            border-radius: .08rem/.106667rem;
-            -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in
-        }
-    }
-
     .qi-list-box {
         position: relative;
         top: 0;
