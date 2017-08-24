@@ -9,7 +9,7 @@
             <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '11'">加时 {{match.extra_time_score}}&nbsp;</span>
             <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '13'">点球 {{match.spot_kick_score}}</span>
 
-            <template v-if="feature.d[match.status]"><span class="crazy-guess" v-if="match.extra_info.iscrazybet==='1'">猜球</span><span
+            <template v-if="feature.d[match.status] && match.extra_info"><span class="crazy-guess" v-if="match.extra_info.iscrazybet==='1'">猜球</span><span
                     class="crazy-guess" v-if="match.extra_info.isrecommend">有料</span></template>
 
             <div class="game-info-r">{{match.matchtime.substring(5, 16)}}</div>
@@ -25,7 +25,7 @@
                                                 :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">{{match.homesxname}}
                     </div>
                     <div class="game-lately" v-if="match.status === StatusCode.NOT_STARTED && view==='1'">
-                        {{match.extra_info.homerecord||'胜胜'}}
+                        {{match.extra_info && match.extra_info.homerecord||'胜胜'}}
                     </div>
                     <template v-if="feature.e[match.status]"><!--正在开打-->
                         <div class="game-lately score-half">
@@ -50,7 +50,7 @@
                     </div>
 
                     <template v-if="match.status === StatusCode.NOT_STARTED">
-                        <div class="game-lately" v-if="view==='1'">{{match.extra_info.awayrecord}}</div>
+                        <div class="game-lately" v-if="view==='1' && match.extra_info">{{match.extra_info.awayrecord}}</div>
 
                     </template>
                     <template v-if="feature.e[match.status]"><!--正在开打-->
@@ -82,7 +82,7 @@
                     <div class="follow" v-if="match.isfocus !== '1'">关注</div>
                 </template>
                 <template v-if="feature.e[match.status]"><!--正在开打-->
-                    <template v-if="match.extra_info.ishasvideo === '1'">
+                    <template v-if="match.extra_info && match.extra_info.ishasvideo === '1'">
                         <div class="btn-live">直播</div>
                         <div class="live-time">80'</div>
                     </template>
@@ -91,7 +91,7 @@
                     </template>
                 </template>
                 <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
-                    <template v-if="match.extra_info.ishasvideo === '1'">
+                    <template v-if="match.extra_info && match.extra_info.ishasvideo === '1'">
                         <div class="btn-live btn-once">回放</div>
                     </template>
                     <template v-else>
