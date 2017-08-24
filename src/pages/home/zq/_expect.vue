@@ -31,12 +31,15 @@
                 <div class="icon"></div>
                 <div class="icon-shadow"></div>
             </div>
-            <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
-                <ul class="list">
-                    <zq-list-item v-for="match in filteredMatches" :match="match" key="match.fid"
-                                  :view="view"></zq-list-item>
-                </ul>
-            </matches-scroller>
+            <template v-else>
+                <empty v-if="!filteredMatches || filteredMatches.length === 0"></empty>
+                <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
+                    <ul class="list">
+                        <zq-list-item v-for="match in filteredMatches" :match="match" key="match.fid"
+                                      :view="view"></zq-list-item>
+                    </ul>
+                </matches-scroller>
+            </template>
 
         </div>
 
@@ -48,6 +51,7 @@
 <script>
     import MatchesScroller from '~components/matches_scroller.vue'
     import zqListItem from '~components/home/zqListItem.vue'
+    import empty from '~components/home/empty.vue'
     import filterTime from '~components/home/filterTime.vue'
     import filterLeague from '~components/home/filterLeague.vue'
     import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
@@ -75,7 +79,8 @@
         data () {
             return {
                 selectOptions: null,
-                position: 0
+                position: 0,
+                ready: false
             }
         },
         watch: {
@@ -112,7 +117,7 @@
 
         },
         components: {
-            MatchesScroller, zqListItem, filterTime, filterLeague
+            MatchesScroller, zqListItem, filterTime, filterLeague, empty
         },
 
         computed: {
@@ -172,8 +177,10 @@
             }
         },
 
-        mounted () {
-            this.fetchData()
+        async mounted () {
+            await this.fetchData()
+            this.ready = true
+            this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(this.fidIndexMap))
         },
 
         methods: {
