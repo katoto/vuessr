@@ -2,7 +2,7 @@
     <div class="filter-league-wrap">
         <div class="filter-time filter-time-long">
             <div class="prev-day"><span></span></div>
-            <div class="today"><span></span>第3轮</div>
+            <div class="today" v-tap="{methods: toggleSel}"><span></span>第3轮</div>
             <div class="next-day"><span class="rotate180"></span></div>
         </div>
         <transition name="toggle">
@@ -38,7 +38,7 @@
         props: ['matches', 'initial'],
         data () {
             return {
-                showSel: true
+                showSel: false
             }
         },
         watch: {
@@ -47,6 +47,9 @@
             /**/
         },
         methods: {
+            toggleSel () {
+                this.showSel = !this.showSel
+            }
         }
     }
 </script>

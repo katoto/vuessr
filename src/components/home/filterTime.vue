@@ -1,36 +1,27 @@
 <template>
     <div class="filter-time">
         <div class="prev-day"><span></span></div>
-        <div class="today" v-tap="{methods: toggleSel}"><span></span>今日 周二</div>
+        <div class="today" v-tap="{methods: toggleSel}"><span></span>{{curExpect|curr}}</div>
         <div class="next-day"><span class="rotate180"></span></div>
-
 
 
         <transition name="toggle">
             <div class="alert-datetime " v-if="showSel">
-                <div class="month-tit"><span></span>07月</div>
+                <div class="month-tit"><span></span>{{curExpect.substr(5, 2)}}月</div>
                 <div class="week-tit">
                     <ul>
-                        <li>三</li>
-                        <li>四</li>
-                        <li>五</li>
-                        <li>六</li>
-                        <li>日</li>
-                        <li>一</li>
-                        <li>二</li>
+                        <li>{{rExpectList[0]|day}}</li>
+                        <li>{{rExpectList[1]|day}}</li>
+                        <li>{{rExpectList[2]|day}}</li>
+                        <li>{{rExpectList[3]|day}}</li>
+                        <li>{{rExpectList[4]|day}}</li>
+                        <li>{{rExpectList[5]|day}}</li>
+                        <li>{{rExpectList[6]|day}}</li>
                     </ul>
                 </div>
                 <div class="week-tit weeker-item">
-                    <ul>
-                        <li>09</li>
-                        <li>10</li>
-                        <li>11</li>
-                        <li>12</li>
-                        <li>13</li>
-                        <li>14</li>
-                        <li>15</li>
-                        <li class="cur">今</li>
-                        <li>18</li>
+                    <ul v-if="rExpectList">
+                        <li v-for="expect in rExpectList" :class="{cur: expect === curExpect}" v-tap="{methods: enterExpect, expect: expect}">{{expect.substr(8)}}</li>
                     </ul>
                 </div>
             </div>
@@ -40,20 +31,60 @@
         </transition>
 
 
-
-
     </div>
 </template>
 <script>
+    const dayMap = ['日', '一', '二', '三', '四', '五', '六']
     export default {
+        props: ['expectList', 'curExpect'],
         data () {
             return {
-                showSel: false
+                showSel: false,
+                rExpectList: []
+            }
+        },
+        mounted () {
+        },
+        watch: {
+            showSel (showSel) {
+                if (showSel) {
+                    let rEL = [...this.expectList]
+                    rEL.reverse()
+                    this.rExpectList = rEL
+                }
             }
         },
         methods: {
             toggleSel () {
                 this.showSel = !this.showSel
+            },
+            enterExpect ({expect}) {
+                this.showSel = false
+                setTimeout(() => {
+                    this.$router.replace({
+                        name: 'home-zq-expect',
+                        params: {
+                            tab: this.$route.params.tab,
+                            expect: expect
+                        }
+                    })
+                }, 500)
+            }
+        },
+        filters: {
+            day: (expect) => {
+                const date = new Date(expect.split('-').join('/'))
+                return dayMap[date.getDay()]
+            },
+            curr: (expect) => {
+                const date = new Date(expect.split('-').join('/'))
+                const current = new Date()
+                if (current.getDay() === date.getDay() && current.getMonth() === date.getMonth() && current.getFullYear() === date.getFullYear()) {
+                    return `今天 周${dayMap[current.getDay()]}`
+                } else {
+                    const tmp = expect.split('-')
+                    return `${[tmp[1], tmp[2]].join('/')} 周${dayMap[date.getDay()]}`
+                }
             }
         }
     }
@@ -66,9 +97,10 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0,0,0, .2);
+        background-color: rgba(0, 0, 0, .2);
 
     }
+
     .filter-time {
         width: 6.88rem;
         height: 1.066667rem;
@@ -91,8 +123,8 @@
         line-height: 120px
     }
 
-    .filter-league,.filter-time {
-        box-shadow: 0 0 .133333rem rgba(22,34,29,.1)
+    .filter-league, .filter-time {
+        box-shadow: 0 0 .133333rem rgba(22, 34, 29, .1)
     }
 
     .filter-time .prev-day {
@@ -101,8 +133,6 @@
         position: relative;
         float: left
     }
-
-
 
     .filter-time .today {
         width: 4.906667rem;
@@ -134,17 +164,18 @@
     }
 
     .filter-time .prev-day span {
-          display: inline-block;
-          width: .16rem;
-          height: .293333rem;
-          position: absolute;
-          top: 50%;
-          margin-top: -.146667rem;
-          background: url(~assets/style/images/home/prev.png) no-repeat;
-          background-size: cover;
-          left: 50%;
-          margin-left: -.08rem
-      }
+        display: inline-block;
+        width: .16rem;
+        height: .293333rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -.146667rem;
+        background: url(~assets/style/images/home/prev.png) no-repeat;
+        background-size: cover;
+        left: 50%;
+        margin-left: -.08rem
+    }
+
     .filter-time .next-day span {
         display: inline-block;
         width: .16rem;
@@ -158,7 +189,6 @@
         margin-left: -.08rem
     }
 
-
     .rotate180 {
         -webkit-animation: all .2s linear;
         animation: all .2s linear;
@@ -166,12 +196,11 @@
         transform: rotate(180deg)
     }
 
-    .filter-league:active,.filter-time .next-day:active,.filter-time .prev-day:active,.filter-time .today:active {
+    .filter-league:active, .filter-time .next-day:active, .filter-time .prev-day:active, .filter-time .today:active {
         background: #f4f4f4
     }
 
-
-/*----------------------------*/
+    /*----------------------------*/
 
     .alert-datetime {
         width: 9.2rem;
@@ -266,7 +295,6 @@
         color: #fff
     }
 
-
     @keyframes appear {
         0% {
             /*transform: translate(-2.32rem,-3.49333rem);*/
@@ -291,6 +319,7 @@
             width: 9.2rem
         }
     }
+
     @keyframes disappear {
         0% {
             /*transform: translate(0, 0);*/
@@ -320,17 +349,19 @@
         animation: appear .8s 0s 1 ease both
     }
 
-    .toggle-leave-active{
-        animation: disappear 1s 0s 1 cubic-bezier(.5,.25,.075,.805) normal forwards
+    .toggle-leave-active {
+        animation: disappear 1s 0s 1 cubic-bezier(.5, .25, .075, .805) normal forwards
     }
-    .toggle-enter-active .week-tit{
-        display: none
-    }
-    .toggle-leave-active .week-tit{
+
+    .toggle-enter-active .week-tit {
         display: none
     }
 
-    .layer-leave-active{
+    .toggle-leave-active .week-tit {
+        display: none
+    }
+
+    .layer-leave-active {
         transition: transform .8s;
     }
 
