@@ -1,16 +1,22 @@
 <template>
     <div class="l-full">
-        <div v-if="isLoading" class="loading">
-            <div class="icon"></div>
-            <div class="icon-shadow"></div>
-        </div>
-        <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
-            <ul class="list">
-                <zq-list-item v-for="match in matches" :match="match" key="match.fid"
-                              :view="view"></zq-list-item>
-            </ul>
-        </matches-scroller>
+        <login-page v-if="!hasLogin"></login-page>
+        <template v-else>
+            <div v-if="isLoading" class="loading">
+                <div class="icon"></div>
+                <div class="icon-shadow"></div>
+            </div>
 
+            <template v-else>
+                <empty v-if="!matches || matches.length === 0"></empty>
+                <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
+                    <ul class="list">
+                        <zq-list-item v-for="match in matches" :match="match" key="match.fid"
+                                      :view="view"></zq-list-item>
+                    </ul>
+                </matches-scroller>
+            </template>
+        </template>
     </div>
 
 
@@ -18,6 +24,8 @@
 <script>
     import MatchesScroller from '~components/matches_scroller.vue'
     import zqListItem from '~components/home/zqListItem.vue'
+    import empty from '~components/home/empty.vue'
+    import loginPage from '~components/home/loginPage.vue'
     import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import {aTypes, mTypes} from '~store/home'
     const savedData = {}
@@ -39,7 +47,8 @@
         },
         data () {
             return {
-                position: 0
+                position: 0,
+                ready: false
             }
         },
         watch: {
@@ -68,7 +77,7 @@
 
         },
         components: {
-            MatchesScroller, zqListItem
+            MatchesScroller, zqListItem, empty, loginPage
         },
 
         computed: {
@@ -112,8 +121,10 @@
             }
         },
 
-        mounted () {
-            this.fetchData()
+        async mounted () {
+            await this.fetchData()
+            this.ready = true
+            this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(this.fidIndexMap))
         },
 
         methods: {

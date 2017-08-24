@@ -8,7 +8,7 @@
             <div class="alert-league" v-if="showSel">
                 <!-- 场次信息 -->
                 <div class="matches-info">
-                    <div class="matches-info-l"><span></span>竞彩</div>
+                    <div class="matches-info-l"><span></span>{{tabNameMap[$route.params.tab]}}</div>
                     <div class="matches-info-r">共{{matches.length}}场比赛，已选{{filteredMatches.length}}场</div>
                 </div>
                 <!-- 杯赛选择 -->
@@ -19,9 +19,9 @@
                 </div>
                 <!-- 全选、反选、五大联赛 -->
                 <ul class="select-all">
-                    <li>全选</li>
-                    <li class="cur">反选</li>
-                    <li>五大联赛</li>
+                    <li v-tap="{methods: selectAll}">全选</li>
+                    <li v-tap="{methods: inverseAll}">反选</li>
+                    <li v-tap="{methods: selectFiveLeague}">五大联赛</li>
                 </ul>
                 <!-- 确认按钮区 -->
                 <div class="btn-cont">
@@ -48,7 +48,15 @@
                 selectOptions: {},
                 leagueNameList: [],
                 filteredMatches: [],
-                showSel: false
+                showSel: false,
+                tabNameMap: {
+                    'jczq': '竞猜',
+                    'all': '全部',
+                    'crazybet': '猜球',
+                    'hot': '热门',
+                    'sfc': '足球',
+                    'bjdc': '北单'
+                }
             }
         },
         watch: {
@@ -56,7 +64,6 @@
                 if (showSel) {
                     this.selectOptions = {}
                     this.leagueNameList = []
-                    this.filteredMatches = []
                     let selectOptions = {}
                     if (!this.initial) {
                         this.matches.forEach(match => {
@@ -217,9 +224,12 @@
 
     .cup-info {
         width: 8.4rem;
-        margin: 0 auto;
-        min-height: 6.133333rem
+        height: 6.133333rem;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 auto .3rem;
     }
+
 
     .cup-info ul {
         overflow: hidden
