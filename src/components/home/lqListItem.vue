@@ -13,7 +13,7 @@
         <!-- 比赛详细信息 -->
         <div class="game-detail">
             <!-- 左边的球队信息、近六场 -->
-            <router-link class="game-detail-l l-flex-column" v-tap="{methods: goDetail}" :to="detailPage">
+            <router-link class="game-detail-l l-flex-column" v-tap="{methods: goDetail}" :to="detailPath">
 
                 <div class="game-item ">
                     <div class="game-name"><img data-inited="0"
@@ -77,6 +77,9 @@
                     </ul>
                 </div>-->
             </router-link>
+
+
+
             <!-- 右边的关注、直播情况-->
             <div class="game-detail-r">
                 <!--<div class="btn-live">直播</div>-->
@@ -406,6 +409,7 @@
         },
         methods: {
             goDetail () {
+                console.log(this.detailPath)
                 this.$router.push(this.detailPath)
             }
         },
@@ -415,9 +419,9 @@
             },
             detailPath () {
                 if (this.match.status === StatusCode.NOT_STARTED || this.match.status === StatusCode.CHANGED) {
-                    return `/detail/football/${this.match.fid}/analysis/zj`
+                    return `/detail/basketball/${this.match.fid}/analysis/zj`
                 }
-                return `/detail/football/${this.match.fid}/situation/event`
+                return `/detail/basketball/${this.match.fid}/situation/event`
             }
         },
         directives: {
