@@ -17,7 +17,7 @@
         <!-- 比赛详细信息 -->
         <div class="game-detail">
             <!-- 左边的球队信息、近六场 -->
-            <div class="game-detail-l l-flex-column" v-tap="{methods: goDetail, fid: match.fid}">
+            <router-link class="game-detail-l l-flex-column" v-tap="{methods: goDetail}" :to="detailPath">
                 <div class="game-item">
                     <div class="game-name"><img data-inited="0"
                                                 src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"
@@ -73,7 +73,7 @@
                         <li>{{currodds[2]}}</li>
                     </ul>
                 </div>
-            </div>
+            </router-link>
             <!-- 右边的关注、直播情况-->
             <div class="game-detail-r">
                 <!--<div class="btn-live">直播</div>-->
@@ -433,13 +433,22 @@
             }
         },
         methods: {
-            goDetail ({fid}) {
-                this.$router.push(`/detail/football/${fid}/situation`)
+            goDetail () {
+                this.$router.push(this.detailPath)
             }
         },
         computed: {
             currodds () {
                 return this.match.extra_info.currodds.split('/')
+            },
+            detailPath () {
+                if (this.match.extra_info && this.match.extra_info.iscrazybet === '1') {
+                    return `/detail/football/${this.match.fid}/crazybet`
+                }
+                if (this.feature.a[this.match.status]) {
+                    return `/detail/football/${this.match.fid}/analysis/zj`
+                }
+                return `/detail/football/${this.match.fid}/situation`
             }
         },
         directives: {
