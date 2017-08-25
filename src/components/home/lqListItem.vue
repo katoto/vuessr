@@ -6,11 +6,7 @@
         <div class="game-info">
             {{match.order}}&nbsp;&nbsp;{{match.simpleleague}}&nbsp;
 
-            <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '11'">加时 {{match.extra_time_score}}&nbsp;</span>
-            <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '13'">点球 {{match.spot_kick_score}}</span>
-
-            <template v-if="feature.d[match.status]"><span class="crazy-guess" v-if="match.extra_info.iscrazybet==='1'">猜球</span><span
-                    class="crazy-guess" v-if="match.extra_info.isrecommend">有料</span></template>
+            <span v-if="match.status == StatusCode.ENDED">总分 {{match.total}}&nbsp;</span>
 
             <div class="game-info-r">{{match.matchtime.substring(5, 16)}}</div>
         </div>
@@ -21,59 +17,65 @@
 
                 <div class="game-item ">
                     <div class="game-name"><img data-inited="0"
-                                                src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"
+                                                src="http://cache.500boss.com/mobile/touch/images/bifen/mr-base.png"
                                                 alt="客队图标"
-                                                :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">{{match.awaysxname}}
+                                                :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-base.png'">{{match.awaysxname}}
                     </div>
 
                     <template v-if="match.status === StatusCode.NOT_STARTED">
                         <div class="game-lately" v-if="view==='1'">{{match.extra_info.awayrecord}}</div>
 
                     </template>
-                    <template v-if="feature.e[match.status]"><!--正在开打-->
-                        <div class="game-lately score-half">
-                            <em class="first-half">{{match.awayhalfscore}}</em>
-                            <em class="second-half">{{match.awayscore}}</em>
+                    <template v-if="feature.a[match.status]"><!--正在开打-->
+                        <div class="game-lately score-half base-score-half">
+                            <em class="first-half">12</em>
+                            <em class="first-half">15</em>
+                            <em class="first-half">20</em>
+                            <em class="second-half">101</em>
                         </div>
                     </template>
                     <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
-                        <div class="game-lately score-half">
-                            <em class="first-half">{{match.awayhalfscore}}</em>
-                            <em class="second-half">{{match.awayscore}}</em>
+                        <div class="game-lately score-half base-score-half">
+                            <em class="first-half">12</em>
+                            <em class="first-half">15</em>
+                            <em class="first-half">20</em>
+                            <em class="second-half">101</em>
                         </div>
                     </template>
                 </div>
                 <div class="game-item">
                     <div class="game-name"><img data-inited="0"
-                                                src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"
+                                                src="http://cache.500boss.com/mobile/touch/images/bifen/mr-base.png"
                                                 alt="主队图标"
-                                                :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">{{match.homesxname}}
+                                                :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-base.png'">{{match.homesxname}}
                     </div>
                     <div class="game-lately" v-if="match.status === StatusCode.NOT_STARTED && view==='1'">
                         {{match.extra_info.homerecord}}
                     </div>
-                    <template v-if="feature.e[match.status]"><!--正在开打-->
-                        <div class="game-lately score-half">
-                            <em class="first-half">{{match.homehalfscore}}</em>
-                            <em class="second-half">{{match.homescore}}</em>
+                    <template v-if="feature.a[match.status]"><!--正在开打-->
+                        <div class="game-lately score-half base-score-half">
+                            <em class="first-half">12</em>
+                            <em class="first-half">15</em>
+                            <em class="first-half">20</em>
+                            <em class="second-half">101</em>
                         </div>
                     </template>
                     <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
-                        <div class="game-lately score-half">
-                            <em class="first-half">{{match.homehalfscore}}</em>
-                            <em class="second-half">{{match.homescore}}</em>
-                            <!--<em class="first-half">{{match.awayhalfscore}}</em>
-                            <em class="second-half">{{match.awayscore}}</em>-->
+                        <div class="game-lately score-half base-score-half">
+                            <em class="first-half">12</em>
+                            <em class="first-half">15</em>
+                            <em class="first-half">20</em>
+                            <em class="second-half">101</em>
                         </div>
                     </template>
                 </div>
-                <div class="odds-item" v-if="match.status === StatusCode.NOT_STARTED && view==='2'">
+                <!--<div class="odds-item" v-if="match.status === StatusCode.NOT_STARTED && view==='2'">
                     <ul>
                         <li>{{currodds[0]}}</li>
                         <li>{{currodds[1]}}</li>
                         <li>{{currodds[2]}}</li>
                     </ul>
-                </div>
+                </div>-->
             </div>
             <!-- 右边的关注、直播情况-->
             <div class="game-detail-r">
@@ -82,25 +84,15 @@
                     <div class="follow had-follow" v-if="match.isfocus === '1'">已关注</div>
                     <div class="follow" v-if="match.isfocus !== '1'">关注</div>
                 </template>
-                <template v-if="feature.e[match.status]"><!--正在开打-->
-                    <template v-if="match.extra_info.ishasvideo === '1'">
-                        <div class="btn-live">直播</div>
-                        <div class="live-time">80'</div>
-                    </template>
-                    <template v-else>
-                        <div class="live-time  live-timer">80'</div>
-                    </template>
+                <template v-if="feature.a[match.status]"><!--正在开打-->
+                    <div class="score-live">第四节</div>
+                    <div class="live-time">68'32''</div>
                 </template>
                 <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
-                    <template v-if="match.extra_info.ishasvideo === '1'">
-                        <div class="btn-live btn-once">回放</div>
-                    </template>
-                    <template v-else>
-                        <div class="follow had-follow">已结束</div>
-                    </template>
+                    <div class="follow had-follow">已结束</div>
                 </template>
 
-                <template v-if="feature.c[match.status]"><!--异常-->
+                <template v-if="feature.b[match.status]"><!--异常-->
                     <div class="follow">{{StatusName[match.status]}}</div>
                 </template>
 
@@ -111,6 +103,9 @@
 
 </template>
 <style scoped>
+    .base-score-half .had-over {
+        color: #242c35
+    }
     .one-game {
         padding: .333333rem .4rem .346667rem .4rem;
         border-bottom: 1px solid #eaeaea
@@ -378,7 +373,7 @@
 
 </style>
 <script>
-    import {FootballStatusCode as StatusCode, FootballStatusName as StatusName} from '~common/constants'
+    import {BasketballStatusCode as StatusCode, FootballStatusName as StatusName} from '~common/constants'
     import scrollText from '~directives/scroll_text'
 
     export default {
@@ -396,37 +391,13 @@
             return {
                 feature: {
                     a: {
-                        [StatusCode.NOT_STARTED]: true,
-                        [StatusCode.CANCELED]: true,
-                        [StatusCode.CHANGED]: true,
-                        [StatusCode.REMOVED]: true,
-                        [StatusCode.PAUSED]: true,
-                        [StatusCode.UNSURE]: true
+                        [StatusCode.SECTION_1]: true,
+                        [StatusCode.SECTION_2]: true,
+                        [StatusCode.SECTION_3]: true,
+                        [StatusCode.SECTION_4]: true
                     },
                     b: {
-                        [StatusCode.MID]: true,
-                        [StatusCode.FIRST_HALF]: true,
-                        [StatusCode.LAST_HALF]: true,
-                        [StatusCode.ENDED]: true
-                    },
-                    c: {
-                        [StatusCode.CANCELED]: true,
-                        [StatusCode.CHANGED]: true,
-                        [StatusCode.REMOVED]: true,
-                        [StatusCode.PAUSED]: true,
-                        [StatusCode.UNSURE]: true
-                    },
-                    d: {
-                        [StatusCode.NOT_STARTED]: true,
-                        [StatusCode.MID]: true,
-                        [StatusCode.FIRST_HALF]: true,
-                        [StatusCode.LAST_HALF]: true,
-                        [StatusCode.ENDED]: true
-                    },
-                    e: {
-                        [StatusCode.MID]: true,
-                        [StatusCode.FIRST_HALF]: true,
-                        [StatusCode.LAST_HALF]: true
+                        [StatusCode.CHANGED]: true
                     }
                 },
                 StatusCode,

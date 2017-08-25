@@ -156,6 +156,7 @@
             },
 
             isLoading () {
+                if (!this.matches) return 1
                 if (this.zq.tab === this.$route.params.tab) {
                     if (this.$route.params.expect === 'cur') {
                         return 0
