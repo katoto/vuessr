@@ -13,6 +13,7 @@ const Zq = () => import('~pages/home/zq.vue' /* webpackChunkName: "pages/home-zq
 const ZqExpect = () => import('~pages/home/zq/_expect.vue' /* webpackChunkName: "pages/home-zq-jczq-expect" */)
 const ZqZs = () => import('~pages/home/zq/zs.vue' /* webpackChunkName: "pages/home-zq-zs" */)
 const ZqConcern = () => import('~pages/home/zq/concern.vue' /* webpackChunkName: "pages/home-zq-concern" */)
+const LqConcern = () => import('~pages/home/lq/concern.vue' /* webpackChunkName: "pages/home-lq-concern" */)
 
 const Lq = () => import('~pages/home/lq.vue' /* webpackChunkName: "pages/home-lq" */)
 
@@ -145,9 +146,14 @@ export function createRouter () {
                         name: 'home-lq',
                         children: [
                             {
-                                path: ':tab/:expect?',
+                                path: ':tab/:expect',
                                 component: LqExpect,
                                 name: 'home-lq-expect'
+                            },
+                            {
+                                path: 'concern',
+                                component: LqConcern,
+                                name: 'home-lq-concern'
                             },
                             {
                                 path: '*',
