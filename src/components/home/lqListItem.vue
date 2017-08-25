@@ -50,7 +50,7 @@
                                                 :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">{{match.homesxname}}
                     </div>
                     <div class="game-lately" v-if="match.status === StatusCode.NOT_STARTED && view==='1'">
-                        {{match.extra_info.homerecord||'胜胜'}}
+                        {{match.extra_info.homerecord}}
                     </div>
                     <template v-if="feature.e[match.status]"><!--正在开打-->
                         <div class="game-lately score-half">
