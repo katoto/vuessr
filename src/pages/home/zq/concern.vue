@@ -1,5 +1,5 @@
 <template>
-    <div class="l-full">
+    <div class="l-full" v-if="ready">
         <login-page v-if="!hasLogin"></login-page>
         <template v-else>
             <loading v-if="!matches"></loading>
@@ -70,6 +70,11 @@
             },
             refreshTime () {
                 this.fetchData()
+            },
+            hasLogin (hasLogin) {
+                if (hasLogin) {
+                    this.fetchData()
+                }
             }
 
         },
@@ -112,10 +117,11 @@
         },
 
         async mounted () {
+            await this.$store.dispatch(aTypes.checkHasLogin)
             if (this.hasLogin) {
                 await this.fetchData()
-                this.ready = true
             }
+            this.ready = true
         },
 
         methods: {

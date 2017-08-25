@@ -52,8 +52,10 @@ const actionsInfo = mapActions({
         const eventList = fidList.map(fid => 'LIVE:BASKETBALL:INFO:' + fid)
         dispatch('subscribe', {stamp: pushEvents.BASKETBALL_INFO, data: eventList})
     },
-    checkHasLogin ({commit}) {
-        commit(mTypes.setLogin, platform.isLogin())
+    async checkHasLogin ({commit}) {
+        const hasLogin = platform.isLogin()
+        commit(mTypes.setLogin, hasLogin)
+        return hasLogin
     },
     switchView ({commit, state}, view) {
         view = view || (parseInt(state.view) + 1) % 3 + ''
@@ -61,6 +63,7 @@ const actionsInfo = mapActions({
     },
     async getConcern ({commit}, vtype) {
         try {
+            console.log(vtype)
             const {matches} = await ajax.get(`/score/concern/list?vtype=${vtype}`, {ignore: false})
             if (vtype === '1') {
                 commit(mTypes.setZqConcern, matches)
@@ -115,12 +118,6 @@ const actionsInfo = mapActions({
         matchesInfo.tab = tab
         commit(mTypes.setLqMatches, matchesInfo)
         return matchesInfo
-    },
-    startFilter ({commit}, {matches, inited, onOk, onCancel}) {
-        commit(mTypes.initFilter, {matches, inited, onOk, onCancel})
-    },
-    finishFilter ({commit}) {
-        commit(mTypes.endFilter)
     }
 }, ns)
 
