@@ -1,27 +1,17 @@
 <template>
     <div class="filter-time">
         <div class="prev-day" v-tap="{methods: goPre}"><span></span></div>
-        <div class="today" v-tap="{methods: toggleSel}"><span></span>{{curExpect}}</div>
+        <div class="today" v-tap="{methods: toggleSel}"><span></span>{{curExpect}}期</div>
         <div class="next-day" v-tap="{methods: goNext}"><span class="rotate180"></span></div>
 
 
         <transition name="toggle">
-            <div class="alert-datetime " v-if="showSel">
-                <div class="month-tit"><span></span>{{curExpect}}</div>
-                <div class="week-tit">
-                    <ul>
-                        <li>{{rExpectList[0]}}</li>
-                        <li>{{rExpectList[1]}}</li>
-                        <li>{{rExpectList[2]}}</li>
-                        <li>{{rExpectList[3]}}</li>
-                        <li>{{rExpectList[4]}}</li>
-                        <li>{{rExpectList[5]}}</li>
-                        <li>{{rExpectList[6]}}</li>
-                    </ul>
-                </div>
-                <div class="week-tit weeker-item">
-                    <ul v-if="rExpectList">
-                        <li v-for="expect in rExpectList" :class="{cur: expect === curExpect}" v-tap="{methods: enterExpect, expect: expect}">{{expect.substr(8)}}</li>
+            <div class="alert-csl " v-if="showSel">
+                <div class="month-tit"><span></span>{{curExpect}}期</div>
+
+                <div class="cup-info">
+                    <ul v-if="expectList">
+                        <li v-for="expect in expectList" :class="{cur: expect === curExpect}" v-tap="{methods: enterExpect, expect: expect}">{{expect}}期</li>
                     </ul>
                 </div>
             </div>
@@ -34,25 +24,14 @@
     </div>
 </template>
 <script>
-    const dayMap = ['日', '一', '二', '三', '四', '五', '六']
     export default {
         props: ['expectList', 'curExpect'],
         data () {
             return {
-                showSel: false,
-                rExpectList: []
+                showSel: false
             }
         },
         mounted () {
-        },
-        watch: {
-            showSel (showSel) {
-                if (showSel) {
-                    let rEL = [...this.expectList]
-                    rEL.reverse()
-                    this.rExpectList = rEL
-                }
-            }
         },
         methods: {
             toggleSel () {
@@ -96,13 +75,6 @@
                     })
                 }
             }
-        },
-        filters: {
-            day: (expect) => {
-                const date = new Date(expect.split('-').join('/'))
-                return dayMap[date.getDay()]
-            }
-
         }
     }
 </script>
@@ -159,6 +131,60 @@
         padding-left: 1.733333rem;
         box-sizing: border-box;
         position: relative
+    }
+
+    .alert-csl {
+        width: 9.2rem;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        padding: .4rem .4rem .506667rem .4rem;
+        box-sizing: border-box;
+        border: .013333rem solid #eaeaea;
+        border-radius: .106667rem;
+        background: #fff;
+        z-index: 20
+    }
+
+    .alert-csl .cup-info {
+        min-height: .88rem
+    }
+
+    .cup-info {
+        width: 8.4rem;
+        height: 6.133333rem;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 auto .3rem;
+    }
+
+
+    .cup-info ul {
+        overflow: hidden
+    }
+
+    .cup-info ul li {
+        width: 2.533333rem;
+        height: .853333rem;
+        line-height: .853333rem;
+        float: left;
+        margin-right: .373333rem;
+        background: #ebf1f5;
+        color: #242c35;
+        text-align: center;
+        border-radius: .16rem;
+        margin-bottom: .266667rem
+    }
+
+    .cup-info ul li:nth-child(3n) {
+        margin-right: 0;
+        float: right
+    }
+
+    .cup-info ul .cur {
+        background: #5c788f;
+        color: #fff
     }
 
     .filter-time .today span {
@@ -327,12 +353,12 @@
 
         86% {
             /*transform: translate(0rem,1rem);*/
-            height: 5.333333rem
+            height: 11.333333rem
         }
 
         100% {
             /*transform: translate(0, 0);*/
-            height: 4.56rem;
+            height: 10rem;
             width: 9.2rem
         }
     }
@@ -340,13 +366,13 @@
     @keyframes disappear {
         0% {
             /*transform: translate(0, 0);*/
-            height: 4.56rem;
+            height: 10rem;
             width: 9.2rem
         }
 
         13% {
             /*transform: translate(0rem,1rem);*/
-            height: 5.333333rem
+            height: 11.333333rem
         }
 
         49% {
@@ -370,11 +396,11 @@
         animation: disappear 1s 0s 1 cubic-bezier(.5, .25, .075, .805) normal forwards
     }
 
-    .toggle-enter-active .week-tit {
+    .toggle-enter-active .cup-info {
         display: none
     }
 
-    .toggle-leave-active .week-tit {
+    .toggle-leave-active .cup-info {
         display: none
     }
 
