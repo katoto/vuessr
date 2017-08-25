@@ -84,20 +84,20 @@ const actions = {
             }
             connect.onopen = function () {
                 /* let homeScore = 2
-                 setInterval(() => {
-                 let data = {
-                 "status":"1",
-                 "fid":662991,
-                 "awayscore": homeScore + "",
-                 "status_desc":"上半场",
-                 "homescore":(++homeScore) + '',
-                 "home_red_counts":"0",
-                 "away_red_counts":"0",
-                 "match_at":"1080"
-                 }
-                 // console.log(data)
-                 commit('updateSocketData', {data, stamp: 0})
-                 }, 5000) */
+                setInterval(() => {
+                    let data = {
+                        "status": "1",
+                        "fid": 656610,
+                        "awayscore": "2",
+                        "status_desc": "上半场",
+                        "homescore": (++homeScore) + '',
+                        "home_red_counts": "0",
+                        "away_red_counts": "0",
+                        "match_at": "1080"
+                    }
+                    // console.log(data)
+                    commit('updateSocketData', {data, stamp: 0})
+                }, 5000) */
                 if (state.websocket.latestSub.length) {
                     state.websocket.latestSub.forEach((sub) => {
                         connect.send(sub)

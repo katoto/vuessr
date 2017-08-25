@@ -51,7 +51,7 @@
                             <span class="score">{{baseInfo.homescore}}</span>
                             <span class="score">{{baseInfo.homescore}}</span>
                         </div>-->
-                        <score :homescore="baseInfo.homescore" :new-homescore="newHomescore" :awayscore="baseInfo.awayscore" :new-awayscore="newAwayscore" @update="syncMatch" type="lq"></score>
+                        <score :homescore="baseInfo.homescore" :awayscore="baseInfo.awayscore" :ready="ready" type="lq"></score>
 
                     </div>
 
@@ -170,8 +170,7 @@
             return {
                 StatusCode,
                 showScore: false,
-                newHomescore: 0,
-                newAwayscore: 0
+                ready: false
             }
         },
         computed: {
@@ -329,6 +328,7 @@
                 this.$store.dispatch(aTypes.subscribeInfo, [this.baseInfo.fid])
                 this.$store.dispatch(aTypes.subscribeEvent, [this.baseInfo.fid])
             }
+            this.ready = true
         },
         destroyed () {
             this.$store.dispatch('unsubscribeAll')

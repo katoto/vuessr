@@ -2,24 +2,24 @@
     <div class="wrap">
         <template v-if="type === 'zq'">
             <div class="fen-bf" :class="{'fen-bf-active': homeChange}">
+                <span class="score">{{oldHomescore}}</span>
                 <span class="score">{{homescore}}</span>
-                <span class="score">{{newHomescore}}</span>
             </div>
             <div class="fen-ld">:</div>
             <div class="fen-bf" :class="{'fen-bf-active': awayChange}">
+                <span class="score">{{oldAwayscore}}</span>
                 <span class="score">{{awayscore}}</span>
-                <span class="score">{{newAwayscore}}</span>
             </div>
         </template>
         <template v-if="type === 'lq'">
             <div class="fen-bf-lq" :class="{'fen-bf-lq-active': awayChange}">
+                <span class="score">{{oldAwayscore}}</span>
                 <span class="score">{{awayscore}}</span>
-                <span class="score">{{newAwayscore}}</span>
             </div>
             <div class="fen-ld">:</div>
             <div class="fen-bf-lq" :class="{'fen-bf-lq-active': homeChange}">
+                <span class="score">{{oldHomescore}}</span>
                 <span class="score">{{homescore}}</span>
-                <span class="score">{{newHomescore}}</span>
             </div>
         </template>
 
@@ -27,31 +27,41 @@
 </template>
 <script>
     export default {
-        props: ['homescore', 'newHomescore', 'awayscore', 'newAwayscore', 'type'],
+        props: ['homescore', 'ready', 'awayscore', 'type'],
         data () {
             return {
                 homeChange: false,
-                awayChange: false
+                awayChange: false,
+                oldHomescore: 0,
+                oldAwayscore: 0
             }
+        },
+        mounted () {
+            this.oldHomescore = this.homescore
+            this.oldAwayscore = this.awayscore
         },
         watch: {
             homescore () {
-                this.homeChange = false
-            },
-            newHomescore () {
-                this.homeChange = true
-                setTimeout(() => {
-                    this.$emit('update')
-                }, 2000)
+                if (this.ready) {
+                    this.homeChange = true
+                    setTimeout(() => {
+                        this.homeChange = false
+                        this.oldHomescore = this.homescore
+                    }, 2000)
+                } else {
+                    this.oldHomescore = this.homescore
+                }
             },
             awayscore () {
-                this.awayChange = false
-            },
-            newAwayscore () {
-                this.awayChange = true
-                setTimeout(() => {
-                    this.$emit('update')
-                }, 2000)
+                if (this.ready) {
+                    this.awayChange = true
+                    setTimeout(() => {
+                        this.awayChange = false
+                        this.oldAwayscore = this.awayscore
+                    }, 2000)
+                } else {
+                    this.oldAwayscore = this.awayscore
+                }
             }
         }
 

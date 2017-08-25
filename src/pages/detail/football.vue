@@ -41,7 +41,7 @@
                                    match.status == StatusCode.LAST_HALF ||
                                    match.status == StatusCode.ENDED">
 
-                           <score :homescore="match.homescore" :new-homescore="newHomescore" :awayscore="match.awayscore" :new-awayscore="newAwayscore" @update="syncMatch" type="zq"></score>
+                           <score :homescore="match.homescore"  :awayscore="match.awayscore" :ready="ready" type="zq"></score>
                         </div>
 
                         <div
@@ -174,9 +174,8 @@
         data () {
             return {
                 StatusCode,
+                ready: false,
                 showScore: false,
-                newHomescore: 0,
-                newAwayscore: 0,
                 _timeId: null
             }
         },
@@ -222,6 +221,7 @@
                     this.$refs.scroller.switchStop(true)
                 }, 100)
             }
+            this.ready = true
         },
         components: {
             detailScroller, refresh, editor, toast, score, commEnter
@@ -341,12 +341,6 @@
                     }
                 })
             },
-            syncMatch () {
-                if (this.socketData.stamp === pushEvents.FOOTBALL_INFO && (this.socketData.data.fid + '' === this.match.fid)) {
-                //                    同步数据
-                    this.$store.commit(mTypes.syncBaseInfo, this.socketData.data)
-                }
-            },
             updateMatchTime () {
                 if (this._timeId) clearInterval(this._timeId)
                 if (this.match.status === StatusCode.ENDED || this.match.status === StatusCode.CANCELED) return
@@ -365,17 +359,7 @@
                 data.fid = data.fid + ''
                 if (stamp === pushEvents.FOOTBALL_INFO) {
                     if (data.fid === this.match.fid) {
-                        if (this.match.homescore === data.homescore && this.match.awayscore === data.awayscore) {
-                            this.syncMatch()
-                        } else {
-                            if (this.match.homescore !== data.homescore) {
-                                this.newHomescore = data.homescore
-                            }
-                            if (this.match.awayscore !== data.awayscore) {
-                                this.newAwayscore = data.awayscore
-                            }
-                        }
-
+                        this.$store.commit(mTypes.syncBaseInfo,data)
                     //                        this.$store.dispatch(aTypes.getBaseInfo, this.match.fid)
                     }
                 }
