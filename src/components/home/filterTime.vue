@@ -1,8 +1,8 @@
 <template>
     <div class="filter-time">
-        <div class="prev-day"><span></span></div>
+        <div class="prev-day" v-tap="{methods: goPre}"><span></span></div>
         <div class="today" v-tap="{methods: toggleSel}"><span></span>{{curExpect|curr}}</div>
-        <div class="next-day"><span class="rotate180"></span></div>
+        <div class="next-day" v-tap="{methods: goNext}"><span class="rotate180"></span></div>
 
 
         <transition name="toggle">
@@ -69,6 +69,32 @@
                         }
                     })
                 }, 500)
+            },
+            goPre () {
+                const idx = this.expectList.indexOf(this.curExpect)
+                if (idx === this.expectList.length - 1) {
+                } else {
+                    this.$router.replace({
+                        name: 'home-zq-expect',
+                        params: {
+                            tab: this.$route.params.tab,
+                            expect: this.expectList[idx + 1]
+                        }
+                    })
+                }
+            },
+            goNext () {
+                const idx = this.expectList.indexOf(this.curExpect)
+                if (idx === 0) {
+                } else {
+                    this.$router.replace({
+                        name: 'home-zq-expect',
+                        params: {
+                            tab: this.$route.params.tab,
+                            expect: this.expectList[idx - 1]
+                        }
+                    })
+                }
             }
         },
         filters: {
