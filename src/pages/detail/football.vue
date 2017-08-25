@@ -126,7 +126,7 @@
 
                     </ul>
                 </div>
-                <div class="navigator " style="width: 0"></div>
+                <div class="navigator navigator-ph" style="width: 0"></div>
                 <div class="main-inner2">
                     <router-view></router-view>
                 </div>
