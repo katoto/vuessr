@@ -359,7 +359,7 @@
                 data.fid = data.fid + ''
                 if (stamp === pushEvents.FOOTBALL_INFO) {
                     if (data.fid === this.match.fid) {
-                        this.$store.commit(mTypes.syncBaseInfo,data)
+                        this.$store.commit(mTypes.syncBaseInfo, data)
                     //                        this.$store.dispatch(aTypes.getBaseInfo, this.match.fid)
                     }
                 }
