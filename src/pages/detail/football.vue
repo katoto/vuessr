@@ -217,8 +217,10 @@
             }
             this.updateMatchTime() // 定时更新比赛时间
             if (~this.$route.path.indexOf('/crazybet')) {
-                this.$refs.scroller.scrollTo(document.querySelector('.zq-header').offsetHeight, true)
-                this.$refs.scroller.switchStop(true)
+                setTimeout(() => {
+                    this.$refs.scroller.scrollTo(document.querySelector('.zq-header').offsetHeight, true)
+                    this.$refs.scroller.switchStop(true)
+                }, 100)
             }
         },
         components: {
