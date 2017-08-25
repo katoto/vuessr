@@ -125,7 +125,7 @@
             },
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                await this.$store.dispatch(aTypes.getConcern, '1')
+                await this.$store.dispatch(aTypes.getConcern, '2')
                 this.$store.commit('endOneRefresh')
             }
         }
