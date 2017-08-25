@@ -1,22 +1,22 @@
 <template>
     <div class="filter-time">
         <div class="prev-day" v-tap="{methods: goPre}"><span></span></div>
-        <div class="today" v-tap="{methods: toggleSel}"><span></span>{{curExpect|curr}}</div>
+        <div class="today" v-tap="{methods: toggleSel}"><span></span>{{curExpect}}</div>
         <div class="next-day" v-tap="{methods: goNext}"><span class="rotate180"></span></div>
 
 
         <transition name="toggle">
             <div class="alert-datetime " v-if="showSel">
-                <div class="month-tit"><span></span>{{curExpect.substr(5, 2)}}月</div>
+                <div class="month-tit"><span></span>{{curExpect}}</div>
                 <div class="week-tit">
                     <ul>
-                        <li>{{rExpectList[0]|day}}</li>
-                        <li>{{rExpectList[1]|day}}</li>
-                        <li>{{rExpectList[2]|day}}</li>
-                        <li>{{rExpectList[3]|day}}</li>
-                        <li>{{rExpectList[4]|day}}</li>
-                        <li>{{rExpectList[5]|day}}</li>
-                        <li>{{rExpectList[6]|day}}</li>
+                        <li>{{rExpectList[0]}}</li>
+                        <li>{{rExpectList[1]}}</li>
+                        <li>{{rExpectList[2]}}</li>
+                        <li>{{rExpectList[3]}}</li>
+                        <li>{{rExpectList[4]}}</li>
+                        <li>{{rExpectList[5]}}</li>
+                        <li>{{rExpectList[6]}}</li>
                     </ul>
                 </div>
                 <div class="week-tit weeker-item">
@@ -101,17 +101,8 @@
             day: (expect) => {
                 const date = new Date(expect.split('-').join('/'))
                 return dayMap[date.getDay()]
-            },
-            curr: (expect) => {
-                const date = new Date(expect.split('-').join('/'))
-                const current = new Date()
-                if (current.getDate() === date.getDate() && current.getMonth() === date.getMonth() && current.getFullYear() === date.getFullYear()) {
-                    return `今天 周${dayMap[current.getDay()]}`
-                } else {
-                    const tmp = expect.split('-')
-                    return `${[tmp[1], tmp[2]].join('/')} 周${dayMap[date.getDay()]}`
-                }
             }
+
         }
     }
 </script>

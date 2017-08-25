@@ -1,9 +1,10 @@
+<!--足球日期选择器-->
 <template>
     <div class="filter-league-wrap">
         <div class="filter-time filter-time-long">
-            <div class="prev-day"><span></span></div>
-            <div class="today" v-tap="{methods: toggleSel}"><span></span>第3轮</div>
-            <div class="next-day"><span class="rotate180"></span></div>
+            <div class="prev-day" v-tap="{methods: goPre}"><span></span></div>
+            <div class="today" v-tap="{methods: toggleSel}"><span></span>第{{curExpect}}轮</div>
+            <div class="next-day" v-tap="{methods: goNext}"><span class="rotate180"></span></div>
         </div>
         <transition name="toggle">
             <!-- 联赛筛选弹窗 -->
@@ -12,13 +13,7 @@
                 <!-- 杯赛选择 -->
                 <div class="cup-info">
                     <ul>
-                        <li class="">巴西杯</li>
-                        <li class="">吉尼斯杯</li>
-                        <li class="">金杯奖</li>
-                        <li class="">墨西杯</li>
-                        <li class="cur">苏联赛杯</li>
-                        <li class="">欧冠</li>
-                        <li class="">女欧杯</li>
+                        <li :class="{cur: expect === curExpect}"  v-tap="{methods: enterExpect, expect: expect}" v-for="expect in rExpectList">第{{expect}}轮</li>
                     </ul>
                 </div>
 
@@ -35,21 +30,68 @@
 </template>
 <script>
     export default {
-        props: ['matches', 'initial'],
+        props: ['expectList', 'curExpect'],
         data () {
             return {
-                showSel: false
+                showSel: false,
+                rExpectList: []
             }
         },
-        watch: {
-        },
         mounted () {
-            /**/
+        },
+        watch: {
+            showSel (showSel) {
+                if (showSel) {
+                    let rEL = [...this.expectList]
+                    rEL.reverse()
+                    this.rExpectList = rEL
+                }
+            }
         },
         methods: {
             toggleSel () {
                 this.showSel = !this.showSel
+            },
+            enterExpect ({expect}) {
+                this.showSel = false
+                setTimeout(() => {
+                    this.$router.replace({
+                        name: 'home-zq-expect',
+                        params: {
+                            tab: this.$route.params.tab,
+                            expect: expect
+                        }
+                    })
+                }, 500)
+            },
+            goPre () {
+                const idx = this.expectList.indexOf(this.curExpect)
+                if (idx === this.expectList.length - 1) {
+                } else {
+                    this.$router.replace({
+                        name: 'home-zq-expect',
+                        params: {
+                            tab: this.$route.params.tab,
+                            expect: this.expectList[idx + 1]
+                        }
+                    })
+                }
+            },
+            goNext () {
+                const idx = this.expectList.indexOf(this.curExpect)
+                if (idx === 0) {
+                } else {
+                    this.$router.replace({
+                        name: 'home-zq-expect',
+                        params: {
+                            tab: this.$route.params.tab,
+                            expect: this.expectList[idx - 1]
+                        }
+                    })
+                }
             }
+        },
+        filters: {
         }
     }
 </script>
@@ -310,11 +352,6 @@
 
     @keyframes league-open {
         0% {
-            width: 2.066667rem;
-            height: 1.066667rem
-        }
-
-        51% {
             width: 9.2rem;
             height: 1.066667rem
         }
@@ -347,78 +384,29 @@
         }
 
         100% {
-            width: 2.066667rem;
+            width: 9.2rem;
             height: 1.066667rem
         }
     }
 
-    /* @keyframes csl-open {
-         0% {
-             width: 2.4rem;
-             height: 1.066667rem
-         }
-
-         60% {
-             width: 9.2rem;
-             height: 1.066667rem
-         }
-
-         86% {
-             width: 9.2rem;
-             height: 6.4rem
-         }
-
-         100% {
-             width: 9.2rem;
-             height: 5.2rem
-         }
-     }
-
-     @keyframes csl-close {
-         0% {
-             width: 9.2rem;
-             height: 5.2rem
-         }
-
-         30% {
-             width: 9.2rem;
-             height: 6.4rem
-         }
-
-         60% {
-             width: 9.2rem;
-             height: 1.066667rem
-         }
-
-         100% {
-             width: 2.4rem;
-             height: 1.066667rem
-         }
-     }
- */
-
     .toggle-enter-active {
-        animation: league-open .8s 0s 1 cubic-bezier(.5, .25, 0, .75) normal forwards
+        animation: league-open .4s 0s 1 cubic-bezier(.5, .25, 0, .75) normal forwards
     }
-
-    /*.toggle-enter-active {
-           animation: csl-open 1s 0s 1 ease normal forwards
-       }*/
 
     .toggle-leave-active {
-        animation: league-close 1s 0s 1 ease both
+        animation: league-close .4s 0s 1 ease both
     }
 
-    .toggle-enter-active .btn-cont {
+    .toggle-enter-active .cup-info {
         display: none
     }
 
-    .toggle-leave-active .btn-cont {
+    .toggle-leave-active .cup-info {
         display: none
     }
 
     .layer-leave-active {
-        transition: transform .8s;
+        transition: transform .4s;
     }
 
     .layer {

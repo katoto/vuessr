@@ -1,15 +1,13 @@
 <template>
-    <div class="l-full l-flex-column">
+    <loading v-if="isLoading===1"></loading>
+    <div class="l-full l-flex-column" v-else>
         <div class="filter-cont">
             <!-- 日期筛选 -->
-            <filter-time class="fl"></filter-time>
+            <filter-time class="fl" :expect-list="expectList" :cur-expect="curExpect"></filter-time>
         </div>
 
         <div class="l-flex-1 l-relative">
-            <div v-if="isLoading" class="loading">
-                <div class="icon"></div>
-                <div class="icon-shadow"></div>
-            </div>
+            <loading v-if="isLoading === 2"></loading>
             <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
                 <ul class="list">
                     <lq-list-item v-for="match in filteredMatches" :match="match" key="match.fid"
@@ -27,7 +25,8 @@
 <script>
     import MatchesScroller from '~components/matches_scroller.vue'
     import lqListItem from '~components/home/lqListItem.vue'
-    import filterTime from '~components/home/filterTime.vue'
+    import filterTime from '~components/home/filterTimeB.vue'
+    import loading from '~components/home/loading.vue'
     import filterLeague from '~components/home/filterLeague.vue'
     import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import {aTypes, mTypes} from '~store/home'
@@ -90,7 +89,7 @@
 
         },
         components: {
-            MatchesScroller, lqListItem, filterTime, filterLeague
+            MatchesScroller, lqListItem, filterTime, filterLeague, loading
         },
 
         computed: {
@@ -138,14 +137,12 @@
             isLoading () {
                 if (this.lq.tab === this.$route.params.tab) {
                     if (this.$route.params.expect === 'cur') {
-                        return false
-                    } else if (this.$route.params.expect === this.lq.curExpect) {
-                        return false
-                    } else {
-                        return true
+                        return 0
+                    } else if (this.$route.params.expect !== this.lq.curExpect) {
+                        return 2
                     }
                 } else {
-                    return true
+                    return 1
                 }
             }
         },

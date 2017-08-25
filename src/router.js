@@ -147,7 +147,7 @@ export function createRouter () {
                             {
                                 path: ':tab/:expect?',
                                 component: LqExpect,
-                                name: 'home-lq-jclq-expect'
+                                name: 'home-lq-expect'
                             },
                             {
                                 path: '*',

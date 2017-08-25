@@ -104,14 +104,7 @@ const actionsInfo = mapActions({
         return metro
     },
     async fetchLqMatches ({commit}, {expect, tab}) {
-        let url = ``
-        expect = '2017-08-19'
-        if (tab === 'jclq' || tab === 'all') {
-            url = `/score/lq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`
-        } else if (tab === 'hot') {
-            url = `/score/zq/hot?expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`
-        }
-        const matchesInfo = await ajax.get(url)
+        const matchesInfo = await ajax.get(`/score/lq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`)
         matchesInfo.matches.some(match => {
             if (match.status < 4) {
                 match._flag = true

@@ -1,13 +1,15 @@
 <template>
-    <div class="l-full l-flex-column">
+    <loading v-if="isLoading===1"></loading>
+    <div class="l-full l-flex-column" v-else>
         <div class="filter-cont">
             <template v-if="$route.params.tab === 'csl'"> <!--中超筛选-->
-                <filter-csl></filter-csl>
+                <filter-csl :expect-list="expectList" :cur-expect="curExpect"></filter-csl>
 
             </template>
             <template v-else>
                 <!-- 日期筛选 -->
-                <filter-time class="fl" :expect-list="expectList" :cur-expect="curExpect"></filter-time>
+                <filter-time v-if="$route.params.tab === 'jczq' || $route.params.tab === 'all'||$route.params.tab === 'crazybet'||$route.params.tab === 'hot'" class="fl" :expect-list="expectList" :cur-expect="curExpect"></filter-time>
+                <expect-select v-if="$route.params.tab === 'sfc' || $route.params.tab === 'bjdc'" class="fl" :expect-list="expectList" :cur-expect="curExpect"></expect-select>
 
                 <!-- 联赛筛选 -->
                 <filter-league class="fr" :initial="selectOptions" :matches="matches" @ok="doFilter"></filter-league>
@@ -17,7 +19,7 @@
         </div>
 
         <div class="l-flex-1 l-relative">
-            <loading v-if="isLoading"></loading>
+            <loading v-if="isLoading === 2"></loading>
             <template v-else>
                 <empty v-if="filteredMatches.length === 0"></empty>
                 <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
@@ -41,6 +43,7 @@
     import empty from '~components/home/empty.vue'
     import filterTime from '~components/home/filterTime.vue'
     import filterCsl from '~components/home/filterCsl.vue'
+    import expectSelect from '~components/home/expectSelect.vue'
 
     import loading from '~components/home/loading.vue'
     import filterLeague from '~components/home/filterLeague.vue'
@@ -107,7 +110,7 @@
 
         },
         components: {
-            MatchesScroller, zqListItem, filterTime, filterLeague, empty, loading, filterCsl
+            MatchesScroller, zqListItem, filterTime, filterLeague, empty, loading, filterCsl, expectSelect
         },
 
         computed: {
@@ -155,10 +158,12 @@
             isLoading () {
                 if (this.zq.tab === this.$route.params.tab) {
                     if (this.$route.params.expect === 'cur') {
-                        return false
-                    } else return this.$route.params.expect !== this.zq.curExpect
+                        return 0
+                    } else if (this.$route.params.expect !== this.zq.curExpect) {
+                        return 2
+                    }
                 } else {
-                    return true
+                    return 1
                 }
             }
         },
@@ -187,12 +192,14 @@
     }
 </script>
 <style scoped>
-    .fl{
+    .fl {
         float: left;
     }
-    .fr{
+
+    .fr {
         float: right;
     }
+
     .qi-list-box {
         position: relative;
         top: 0;
