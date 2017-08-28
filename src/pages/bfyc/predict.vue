@@ -219,7 +219,7 @@
     .hotc-item{clear:both;overflow:hidden;padding:.4rem .4rem;border-bottom:1px solid #eaeaea;background:#fff;zoom:1}
     .notice-predict{margin:0 auto;padding:.36rem 0;width:9.2rem;height:.333333rem;border:1px solid #eaeaea;border-radius:.08rem;box-shadow:.013333rem .013333rem .026667rem .013333rem rgba(239,239,239,.5)}
     .notice-predict p{padding-left:.133333rem;height:.333333rem;border-left:.053333rem solid #d25138;color:#515e6d;font-size:.373333rem;line-height:.333333rem}
-    .notice-predict p em{color:#d25138}
+    .notice-predict p >>> em{color:#d25138}
     .hotc-item-going .left-statue{display:none}
     .hotc-left{float:left;padding-top:.24rem;width:5.6rem;height:.933333rem}
     .hotc-info-tit{margin-bottom:.266667rem;height:.4rem;color:#242c35;font-size:.426667rem}
