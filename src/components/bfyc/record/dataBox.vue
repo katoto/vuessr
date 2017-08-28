@@ -30,24 +30,14 @@ export default {
         data: {
             type: Object,
             required: true
+        },
+        resultObj: {
+            type: Object,
+            required: true
         }
     },
     data () {
         return {
-            resultObj: {
-                '3': {
-                    class: '',
-                    desc: '连胜'
-                },
-                '1': {
-                    class: 'always-draw',
-                    desc: '连平'
-                },
-                '0': {
-                    class: 'always-fail',
-                    desc: '连负'
-                }
-            },
             recordType: {
                 recent_record: '近期战绩',
                 history_battle: '历史交战'
