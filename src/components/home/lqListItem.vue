@@ -28,18 +28,18 @@
                     </template>
                     <template v-if="feature.a[match.status]"><!--正在开打-->
                         <div class="game-lately score-half base-score-half">
-                            <em class="first-half">12</em>
-                            <em class="first-half">15</em>
-                            <em class="first-half">20</em>
-                            <em class="second-half">101</em>
+                            <em class="first-half" v-if="ascore[0]">{{ascore[0]}}</em>
+                            <em class="first-half" v-if="ascore[1]">{{ascore[1]}}</em>
+                            <em class="first-half" v-if="ascore[2]">{{ascore[2]}}</em>
+                            <em class="second-half">{{match.awayscore}}</em>
                         </div>
                     </template>
                     <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
                         <div class="game-lately score-half base-score-half">
-                            <em class="first-half">12</em>
-                            <em class="first-half">15</em>
-                            <em class="first-half">20</em>
-                            <em class="second-half">101</em>
+                            <em class="first-half">{{ascore[0]}}</em>
+                            <em class="first-half">{{ascore[1]}}</em>
+                            <em class="first-half">{{ascore[2]}}</em>
+                            <em class="second-half had-over">{{match.awayscore}}</em>
                         </div>
                     </template>
                 </div>
@@ -54,18 +54,20 @@
                     </div>
                     <template v-if="feature.a[match.status]"><!--正在开打-->
                         <div class="game-lately score-half base-score-half">
-                            <em class="first-half">12</em>
-                            <em class="first-half">15</em>
-                            <em class="first-half">20</em>
-                            <em class="second-half">101</em>
+                            <em class="first-half" v-if="hscore[0]">{{hscore[0]}}</em>
+                            <em class="first-half" v-if="hscore[1]">{{hscore[1]}}</em>
+                            <em class="first-half" v-if="hscore[2]">{{hscore[2]}}</em>
+                            <!--<em class="second-half">{{match.homescore}}</em>-->
+                            <move class="second-half" :score="match.homescore" ready="true"></move>
                         </div>
                     </template>
                     <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
                         <div class="game-lately score-half base-score-half">
-                            <em class="first-half">12</em>
-                            <em class="first-half">15</em>
-                            <em class="first-half">20</em>
-                            <em class="second-half">101</em>
+                            <em class="first-half">{{hscore[0]}}</em>
+                            <em class="first-half">{{hscore[1]}}</em>
+                            <em class="first-half">{{hscore[2]}}</em>
+                            <em class="second-half had-over">{{match.homescore}}</em>
+                            <!--<move class="second-half" :score="match.homescore" ready="true"></move>-->
                         </div>
                     </template>
                 </div>
@@ -84,8 +86,8 @@
             <div class="game-detail-r">
                 <!--<div class="btn-live">直播</div>-->
                 <template v-if="match.status === StatusCode.NOT_STARTED"><!--未开始-->
-                    <div class="follow had-follow" v-if="match.isfocus === '1'">已关注</div>
-                    <div class="follow" v-if="match.isfocus !== '1'">关注</div>
+                    <div class="follow had-follow" v-if="concern && concern.isfocus === '1'" v-tap="{methods: doConcern}">已关注</div>
+                    <div class="follow" v-else v-tap="{methods: doConcern}">关注</div>
                 </template>
                 <template v-if="feature.a[match.status]"><!--正在开打-->
                     <div class="score-live">第四节</div>
@@ -106,7 +108,7 @@
 
 </template>
 <style scoped>
-    .base-score-half .had-over {
+    .base-score-half .second-half.had-over {
         color: #242c35
     }
     .one-game {
@@ -378,7 +380,8 @@
 <script>
     import {BasketballStatusCode as StatusCode, FootballStatusName as StatusName} from '~common/constants'
     import scrollText from '~directives/scroll_text'
-
+    import move from '~components/home/move.vue'
+    import {aTypes} from '~store/home'
     export default {
         props: {
             match: {
@@ -388,6 +391,11 @@
             view: {
                 required: true,
                 type: String
+            },
+            concern: {
+                required: false,
+                default: () => {},
+                type: Object
             }
         },
         data () {
@@ -409,8 +417,10 @@
         },
         methods: {
             goDetail () {
-                console.log(this.detailPath)
                 this.$router.push(this.detailPath)
+            },
+            doConcern () {
+                this.$store.dispatch(aTypes.doConcern, {fid: this.match.fid, vtype: '2'})
             }
         },
         computed: {
@@ -422,10 +432,19 @@
                     return `/detail/basketball/${this.match.fid}/analysis/zj`
                 }
                 return `/detail/basketball/${this.match.fid}/situation/event`
+            },
+            ascore () {
+                return this.match.ascore.split('-')
+            },
+            hscore () {
+                return this.match.hscore.split('-')
             }
         },
         directives: {
             scrollText
+        },
+        components: {
+            move
         },
         filters: {
             matchtimeFmt: (macthtime) => {

@@ -8,16 +8,6 @@ import {pushEvents} from '~common/constants'
 const ns = 'home'
 const state = {
     hasLogin: false,
-    filter: {
-        filterTime: 0,
-        show: false, // 控制筛选对话框显示与隐藏
-        matches: null, // 当前所有比赛
-        init: null, // 初始化选项
-        onOk: () => { // 点击确认回调
-        },
-        onCancel: () => { // 点击取消回调
-        }
-    },
     myState: {},
     view: '0',
     zq: {
@@ -26,7 +16,8 @@ const state = {
         matches: null,
         expectList: null,
         curExpect: null,
-        concern: null
+        concern: null,
+        concernState: null
     },
     lq: {
         metro: null,
@@ -34,7 +25,8 @@ const state = {
         matches: null,
         expectList: null,
         curExpect: null,
-        concern: null
+        concern: null,
+        concernState: null
     }
 }
 const actionsInfo = mapActions({
@@ -63,12 +55,53 @@ const actionsInfo = mapActions({
     },
     async getConcern ({commit}, vtype) {
         try {
-            console.log(vtype)
             const {matches} = await ajax.get(`/score/concern/list?vtype=${vtype}`, {ignore: false})
             if (vtype === '1') {
                 commit(mTypes.setZqConcern, matches)
             } else {
                 commit(mTypes.setLqConcern, matches)
+            }
+        } catch (e) {
+            if (e.code === '102') {
+                commit(mTypes.setLogin, false)
+            }
+        }
+    },
+    async getConcernState ({commit}, vtype) {
+        try {
+            const list = await ajax.get(`/score/concern/state?vtype=${vtype}`, {ignore: false})
+            if (list.length) {
+                const data = {}
+                list.forEach(item => {
+                    data[item.fid] = item
+                })
+                if (vtype === '1') {
+                    commit(mTypes.setZqConcernState, data)
+                } else {
+                    commit(mTypes.setLqConcernState, data)
+                }
+            }
+        } catch (e) {
+            if (e.code === '102') {
+                commit(mTypes.setLogin, false)
+            }
+        }
+    },
+    async doConcern ({commit, state}, {vtype, fid, tab, expect = ''}) {
+        try {
+            const isfocus = state.zq.concernState[fid].isfocus
+            let op = isfocus === '1' ? 'unset' : 'set'
+            await ajax.get(`/score/concern/focus?fid=${fid}&vtype=${vtype}&op=${op}&expect=${expect}`, {ignore: false})
+            if (vtype === '1') {
+                const concernState = {...state.zq.concernState}
+                concernState[fid] = {...concernState[fid]}
+                concernState[fid].isfocus = isfocus === '1' ? '0' : '1'
+                commit(mTypes.setZqConcernState, concernState)
+            } else {
+                const concernState = {...state.lq.concernState}
+                concernState[fid] = {...concernState[fid]}
+                concernState[fid].isfocus = isfocus === '1' ? '0' : '1'
+                commit(mTypes.setLqConcernState, concernState)
             }
         } catch (e) {
             if (e.code === '102') {
@@ -127,6 +160,12 @@ const mutationsInfo = mapMutations({
     },
     setLqConcern (state, matches) {
         state.lq.concern = matches
+    },
+    setZqConcernState (state, data) {
+        state.zq.concernState = data
+    },
+    setLqConcernState (state, data) {
+        state.lq.concernState = data
     },
     setLogin (state, hasLogin) {
         state.hasLogin = hasLogin

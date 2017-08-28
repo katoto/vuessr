@@ -7,8 +7,8 @@
                 <empty v-if="matches.length === 0"></empty>
                 <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
                     <ul class="list">
-                        <zq-list-item v-for="match in matches" :match="match" key="match.fid"
-                                      :view="view"></zq-list-item>
+                        <zq-list-item v-for="match in matches" :match="match" key="match.fid" :ready="allReady"
+                                      :view="view"  :concern="concerns && concerns[match.fid]"></zq-list-item>
                     </ul>
                 </matches-scroller>
             </template>
@@ -40,12 +40,14 @@
             if (~to.name.indexOf('football-detail')) {
                 savedData.position = this.position
             }
+            this.$store.dispatch('unsubscribeAll')
             next()
         },
         data () {
             return {
                 position: 0,
-                ready: false
+                ready: false,
+                allReady: false
             }
         },
         watch: {
@@ -95,7 +97,9 @@
             matches () {
                 return this.zq.concern
             },
-
+            concerns () {
+                return this.zq.concernState
+            },
             fidIndexMap () { // matches 变化了， fidIndexMap一定会变化
                 const map = {}
                 if (!this.matches) return map
@@ -116,6 +120,7 @@
             this.ready = true
             if (this.hasLogin) {
                 await this.fetchData()
+                this.allReady = true
             }
         },
 

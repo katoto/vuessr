@@ -29,14 +29,17 @@
                     </div>
                     <template v-if="feature.e[match.status]"><!--正在开打-->
                         <div class="game-lately score-half">
-                            <em class="first-half">{{match.homehalfscore}}</em>
-                            <em class="second-half">{{match.homescore}}</em>
+                            <em class="first-half" v-if="match.homehalfscore">{{match.homehalfscore}}</em>
+                            <!--<em class="second-half">{{match.homescore}}</em>-->
+                            <move :score="match.homescore" :ready="ready"></move>
+
                         </div>
                     </template>
                     <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
                         <div class="game-lately score-half">
                             <em class="first-half">{{match.homehalfscore}}</em>
                             <em class="second-half">{{match.homescore}}</em>
+
                             <!--<em class="first-half">{{match.awayhalfscore}}</em>
                             <em class="second-half">{{match.awayscore}}</em>-->
                         </div>
@@ -55,8 +58,8 @@
                     </template>
                     <template v-if="feature.e[match.status]"><!--正在开打-->
                         <div class="game-lately score-half">
-                            <em class="first-half">{{match.awayhalfscore}}</em>
-                            <em class="second-half">{{match.awayscore}}</em>
+                            <em class="first-half" v-if="match.awayhalfscore">{{match.awayhalfscore}}</em>
+                            <move :score="match.awayscore" :ready="ready"></move>
                         </div>
                     </template>
                     <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
@@ -78,8 +81,8 @@
             <div class="game-detail-r">
                 <!--<div class="btn-live">直播</div>-->
                 <template v-if="match.status === StatusCode.NOT_STARTED"><!--未开始-->
-                    <div class="follow had-follow" v-if="match.isfocus === '1'">已关注</div>
-                    <div class="follow" v-if="match.isfocus !== '1'">关注</div>
+                    <div class="follow had-follow" v-if="concern && concern.isfocus === '1'" v-tap="{methods: doConcern}">已关注</div>
+                    <div class="follow" v-else v-tap="{methods: doConcern}">关注</div>
                 </template>
                 <template v-if="feature.e[match.status]"><!--正在开打-->
                     <template v-if="match.extra_info && match.extra_info.ishasvideo === '1'">
@@ -379,7 +382,8 @@
 <script>
     import {FootballStatusCode as StatusCode, FootballStatusName as StatusName} from '~common/constants'
     import scrollText from '~directives/scroll_text'
-
+    import move from '~components/home/move.vue'
+    import {aTypes} from '~store/home'
     export default {
         props: {
             match: {
@@ -389,6 +393,15 @@
             view: {
                 required: true,
                 type: String
+            },
+            ready: { // 前端接口调用状态
+                required: true,
+                type: Boolean
+            },
+            concern: {
+                required: false,
+                default: () => {},
+                type: Object
             }
         },
         data () {
@@ -435,6 +448,9 @@
         methods: {
             goDetail () {
                 this.$router.push(this.detailPath)
+            },
+            doConcern () {
+                this.$store.dispatch(aTypes.doConcern, {fid: this.match.fid, vtype: '1'})
             }
         },
         computed: {
@@ -453,6 +469,9 @@
         },
         directives: {
             scrollText
+        },
+        components: {
+            move
         },
         filters: {
             matchtimeFmt: (macthtime) => {

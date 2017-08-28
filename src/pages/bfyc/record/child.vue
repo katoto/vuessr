@@ -26,7 +26,7 @@ export default {
         record () {
             return this.$store.state.bfyc.record && this.$store.state.bfyc.record[this.tab]
         },
-        resultObj() {
+        resultObj () {
             let resultObj = {
                 '3': {
                     class: '',
@@ -42,15 +42,15 @@ export default {
                 }
             }
             switch (this.tab) {
-                case 'bigsmall':
-                    resultObj['3'].desc = '连大'
-                    resultObj['0'].desc = '连小'
-                    break;
-                case 'asian':
-                    resultObj['3'].desc = '连赢'
-                    resultObj['0'].desc = '连输'
-                    break;
-                default:
+            case 'bigsmall':
+                resultObj['3'].desc = '连大'
+                resultObj['0'].desc = '连小'
+                break
+            case 'asian':
+                resultObj['3'].desc = '连赢'
+                resultObj['0'].desc = '连输'
+                break
+            default:
             }
 
             return resultObj
