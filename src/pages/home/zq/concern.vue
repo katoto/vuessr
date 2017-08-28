@@ -40,6 +40,7 @@
             if (~to.name.indexOf('football-detail')) {
                 savedData.position = this.position
             }
+            this.$store.dispatch('unsubscribeAll')
             next()
         },
         data () {

@@ -67,6 +67,7 @@
                 savedData.selectOptions = this.selectOptions
                 savedData.position = this.position
             }
+            this.$store.dispatch('unsubscribeAll')
             next()
         },
         data () {
@@ -100,6 +101,7 @@
             '$route.path' () {
                 this.selectOptions = null
                 this.position = 0
+                this.$store.dispatch('unsubscribeAll')
                 this.$refs.scroller && this.$refs.scroller.update()
                 this.fetchData()
             },
