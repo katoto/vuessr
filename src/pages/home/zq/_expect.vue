@@ -24,7 +24,7 @@
                 <empty v-if="filteredMatches.length === 0"></empty>
                 <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
                     <ul class="list">
-                        <zq-list-item v-for="match in filteredMatches" :match="match" key="match.fid"
+                        <zq-list-item v-for="match in filteredMatches" :match="match" key="match.fid" :ready="ready"
                                       :view="view"></zq-list-item>
                     </ul>
                 </matches-scroller>
@@ -67,6 +67,7 @@
                 savedData.selectOptions = this.selectOptions
                 savedData.position = this.position
             }
+            this.$store.dispatch('unsubscribeAll')
             next()
         },
         data () {
@@ -100,6 +101,7 @@
             '$route.path' () {
                 this.selectOptions = null
                 this.position = 0
+                this.$store.dispatch('unsubscribeAll')
                 this.$refs.scroller && this.$refs.scroller.update()
                 this.fetchData()
             },

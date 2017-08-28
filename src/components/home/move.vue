@@ -1,8 +1,11 @@
 <template>
-    <em class="score-itm itmMove" :class="{'itmMove': change}">
-        <i>{{old}}</i>
-        <i>{{score}}</i>
+    <em class="second-half">
+        <em class="score-itm" :class="{'itmMove': change}">
+            <i>{{old}}</i>
+            <i>{{score}}</i>
+        </em>
     </em>
+
 </template>
 <script>
     export default {
@@ -45,6 +48,31 @@
         width: 100%;
         text-align: right
     }
+
+    .second-half {
+        color: #36a171;
+        display: inline-block;
+        height: .64rem;
+        line-height: .64rem;
+        width: 1rem;
+        text-align: right;
+
+        font-size: .453333rem;
+        overflow: hidden
+    }
+
+    [data-dpr="1"] .second-half {
+        font-size: 17px
+    }
+
+    [data-dpr="2"] .second-half {
+        font-size: 34px
+    }
+
+    [data-dpr="3"] .second-half {
+        font-size: 51px
+    }
+
 
     .itmMove {
         -webkit-animation: itmMove4 .8s ease-in-out forwards;
