@@ -8,7 +8,7 @@
     export default {
         mounted () {
             let detailTop = document.querySelector('.detailTop')
-            let navigator = document.querySelector('.navigator')
+            let navigator = document.querySelector('.navigator-ph')
             let crazybetframe = document.querySelector('#_crazybet_frame')
             crazybetframe.style.height = (innerHeight - detailTop.offsetHeight - navigator.offsetHeight) + 'px'
             crazybetframe.src = `http://crazybet.choopaoo.com/500bf/crazy/index.html#/h5/home/${this.$route.params.fid}`

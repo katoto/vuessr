@@ -302,7 +302,7 @@
         async asyncData ({store, route: {params}}) {
             await store.dispatch(aTypes.getPredict, params.fid)
         },
-        directives:{
+        directives: {
             logo
         },
         data () {

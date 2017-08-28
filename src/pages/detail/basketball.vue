@@ -2,9 +2,7 @@
 <div class="l-full l-flex-column" v-if="baseInfo">
     <div class="detailTop" style="display: block;" :class="{'topBarMove': showScore, 'topBarMove2': !showScore}">
         <a class="back-icon" onclick="history.back()" href="javascript:;">返回</a>
-        <router-link to="/home/zq/jczq/cur" class="link-index f26">比分首页</router-link>
-        <!--<a class="link-index f26" href="/score/index.html#/football">比分首页</a>-->
-
+        <router-link to="/home/lq/jclq/cur" class="link-index f26">比分首页</router-link>
         <div v-tap="{methods:goLeague,seasonid:baseInfo.seasonid}" class="r-sn f24">{{baseInfo.simpleleague}}</div>
 
 
@@ -53,7 +51,7 @@
                             <span class="score">{{baseInfo.homescore}}</span>
                             <span class="score">{{baseInfo.homescore}}</span>
                         </div>-->
-                        <score :homescore="baseInfo.homescore" :new-homescore="newHomescore" :awayscore="baseInfo.awayscore" :new-awayscore="newAwayscore" @update="syncMatch" type="lq"></score>
+                        <score :homescore="baseInfo.homescore" :awayscore="baseInfo.awayscore" :ready="ready" type="lq"></score>
 
                     </div>
 
@@ -172,8 +170,7 @@
             return {
                 StatusCode,
                 showScore: false,
-                newHomescore: 0,
-                newAwayscore: 0
+                ready: false
             }
         },
         computed: {
@@ -331,6 +328,7 @@
                 this.$store.dispatch(aTypes.subscribeInfo, [this.baseInfo.fid])
                 this.$store.dispatch(aTypes.subscribeEvent, [this.baseInfo.fid])
             }
+            this.ready = true
         },
         destroyed () {
             this.$store.dispatch('unsubscribeAll')

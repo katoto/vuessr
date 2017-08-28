@@ -3,9 +3,11 @@
  */
 import ajax from '~common/ajax'
 import {mapActions, mapMutations} from '~common/util'
+import platform from '~common/platform'
 import {pushEvents} from '~common/constants'
 const ns = 'home'
 const state = {
+    hasLogin: false,
     filter: {
         filterTime: 0,
         show: false, // 控制筛选对话框显示与隐藏
@@ -16,25 +18,23 @@ const state = {
         onCancel: () => { // 点击取消回调
         }
     },
+    myState: {},
+    view: '0',
     zq: {
         metro: null,
         tab: 'jczq',
         matches: null,
         expectList: null,
         curExpect: null,
-        mymatch: null,
-        state: {
-            bjdc: null,
-            jczq: null
-        }
+        concern: null
     },
     lq: {
-        jclq: {
-            expectList: null,
-            cExpect: null,
-            curExpect: null,
-            allMatches: {}
-        }
+        metro: null,
+        tab: 'jclq',
+        matches: null,
+        expectList: null,
+        curExpect: null,
+        concern: null
     }
 }
 const actionsInfo = mapActions({
@@ -52,13 +52,32 @@ const actionsInfo = mapActions({
         const eventList = fidList.map(fid => 'LIVE:BASKETBALL:INFO:' + fid)
         dispatch('subscribe', {stamp: pushEvents.BASKETBALL_INFO, data: eventList})
     },
-    async fetchZqMatches ({commit}, {expect, tab}) {
-        let url = ``
-        if (tab === 'jczq' || tab === 'bjdc' || tab === 'all' || tab === 'sfc') {
-            url = `/score/zq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`
-        } else if (tab === 'hot') {
-            url = `/score/zq/hot?expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`
+    async checkHasLogin ({commit}) {
+        const hasLogin = platform.isLogin()
+        commit(mTypes.setLogin, hasLogin)
+        return hasLogin
+    },
+    switchView ({commit, state}, view) {
+        view = view || (parseInt(state.view) + 1) % 3 + ''
+        commit(mTypes.setView, view)
+    },
+    async getConcern ({commit}, vtype) {
+        try {
+            console.log(vtype)
+            const {matches} = await ajax.get(`/score/concern/list?vtype=${vtype}`, {ignore: false})
+            if (vtype === '1') {
+                commit(mTypes.setZqConcern, matches)
+            } else {
+                commit(mTypes.setLqConcern, matches)
+            }
+        } catch (e) {
+            if (e.code === '102') {
+                commit(mTypes.setLogin, false)
+            }
         }
+    },
+    async fetchZqMatches ({commit}, {expect, tab}) {
+        let url = `/score/zq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`
         const matchesInfo = await ajax.get(url)
         matchesInfo.matches.some(match => {
             if (match.status < 4) {
@@ -71,6 +90,16 @@ const actionsInfo = mapActions({
         commit(mTypes.setZqMatches, matchesInfo)
         return matchesInfo
     },
+    async getMyState ({commit}, {vtype = '1', lottery = 'jczq'}) {
+        const myState = await ajax.get(`/score/concern/state?vtype=${vtype}&lottery=${lottery}`)
+        const tmp = {}
+        if (myState.length) {
+            myState.forEach((stat) => {
+                tmp[stat.fid] = stat
+            })
+        }
+        commit(mTypes.setMyState, myState)
+    },
 
     async getZqMetro ({commit}) {
         const metro = await ajax.get('/library/aggregate/metro')
@@ -78,13 +107,7 @@ const actionsInfo = mapActions({
         return metro
     },
     async fetchLqMatches ({commit}, {expect, tab}) {
-        let url = ``
-        if (tab === 'jclq' || tab === 'all') {
-            url = `/score/lq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`
-        } else if (tab === 'hot') {
-            url = `/score/zq/hot?expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`
-        }
-        const matchesInfo = await ajax.get(url)
+        const matchesInfo = await ajax.get(`/score/lq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`)
         matchesInfo.matches.some(match => {
             if (match.status < 4) {
                 match._flag = true
@@ -95,33 +118,24 @@ const actionsInfo = mapActions({
         matchesInfo.tab = tab
         commit(mTypes.setLqMatches, matchesInfo)
         return matchesInfo
-    },
-    startFilter ({commit}, {matches, inited, onOk, onCancel}) {
-        commit(mTypes.initFilter, {matches, inited, onOk, onCancel})
-    },
-    finishFilter ({commit}) {
-        commit(mTypes.endFilter)
     }
 }, ns)
 
 const mutationsInfo = mapMutations({
-    filterTime (state) { // 用户点击帅选的时候 触发
-        state.filter.filterTime = Date.now()
+    setZqConcern (state, matches) {
+        state.zq.concern = matches
     },
-    initFilter (state, {matches, inited, onOk, onCancel}) {
-        state.filter.matches = matches
-        state.filter.show = true
-        state.filter.inited = inited
-        state.filter.onOk = onOk || (() => {})
-        state.filter.onCancel = onCancel || (() => {})
+    setLqConcern (state, matches) {
+        state.lq.concern = matches
     },
-    endFilter (state) {
-        state.filter.matches = null
-        state.filter.show = false
-        state.filter.begin = false
-        state.filter.inited = null
-        state.filter.onOk = () => {}
-        state.filter.onCancel = () => {}
+    setLogin (state, hasLogin) {
+        state.hasLogin = hasLogin
+    },
+    setView (state, view) {
+        state.view = view
+    },
+    setMyState (state, myState) {
+        state.myState = myState
     },
     setZqMatches (state, data) {
         let {curr_expect, expect_list, matches, tab} = data
