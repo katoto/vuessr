@@ -90,11 +90,11 @@
                     <div class="follow" v-if="match.isfocus !== '1'">关注</div>
                 </template>
                 <template v-if="feature.a[match.status]"><!--正在开打-->
-                    <div class="score-live">第四节</div>
-                    <div class="live-time">68'32''</div>
+                    <div class="score-live">{{match.status_desc}}</div>
+                    <div class="live-time" v-if="match.status !== StatusCode.MID">{{match.match_at | matchAtFmt}}</div>
                 </template>
                 <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
-                    <div class="follow had-follow">已结束</div>
+                    <div class="follow had-follow">完场</div>
                 </template>
 
                 <template v-if="feature.b[match.status]"><!--异常-->
@@ -378,7 +378,7 @@
 
 </style>
 <script>
-    import {BasketballStatusCode as StatusCode, FootballStatusName as StatusName} from '~common/constants'
+    import {BasketballStatusCode as StatusCode, BasketballStatusDesc as StatusName} from '~common/constants'
     import scrollText from '~directives/scroll_text'
     import move from '~components/home/move.vue'
 
@@ -400,7 +400,12 @@
                         [StatusCode.SECTION_1]: true,
                         [StatusCode.SECTION_2]: true,
                         [StatusCode.SECTION_3]: true,
-                        [StatusCode.SECTION_4]: true
+                        [StatusCode.SECTION_4]: true,
+                        [StatusCode.MID]: true,
+                        [StatusCode.OVERTIME_1]: true,
+                        [StatusCode.OVERTIME_2]: true,
+                        [StatusCode.OVERTIME_3]: true,
+                        [StatusCode.OVERTIME_4]: true
                     },
                     b: {
                         [StatusCode.CHANGED]: true
@@ -446,17 +451,10 @@
                 return macthtime.match(/\d{2}-\d{2}/)[0]
             },
             // eslint-disable-next-line
-            matchAtFmt: (match_at, isFirstHalf) => {
+            matchAtFmt: (match_at) => {
                 // eslint-disable-next-line
-                let second = Number(match_at)
-                if (second >= 45 * 60) {
-                    return isFirstHalf ? '45+' : '90+'
-                }
-                let minute = Math.ceil(Number(match_at) / 60)
-                if (minute <= 0) {
-                    minute = 1
-                }
-                return isFirstHalf ? minute : (minute + 45)
+                let [minutes, seconds] = match_at.split(':')
+                return minutes + "'" + seconds + "''"
             },
             matchtimeFm: (macthtime) => macthtime.match(/\d{2}:\d{2}/)[0],
             truncate: function (input, length, tail) {

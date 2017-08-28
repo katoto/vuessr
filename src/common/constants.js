@@ -239,6 +239,14 @@ export const FootballStatusName = {
 }
 
 export const BasketballStatusDesc = {
-    [BasketballStatusCode.CHANGED]: '本场比赛改期进行',
-    [BasketballStatusCode.ENDED]: '本场比赛已完场'
+    [BasketballStatusCode.CHANGED]: '改期',
+    [BasketballStatusCode.SECTION_1]: '第一节',
+    [BasketballStatusCode.SECTION_2]: '第二节',
+    [BasketballStatusCode.SECTION_3]: '第三节',
+    [BasketballStatusCode.SECTION_4]: '第四节',
+    [BasketballStatusCode.MID]: '中场',
+    [BasketballStatusCode.OVERTIME_1]: '加时1',
+    [BasketballStatusCode.OVERTIME_2]: '加时2',
+    [BasketballStatusCode.OVERTIME_3]: '加时3',
+    [BasketballStatusCode.OVERTIME_4]: '加时4'
 }
