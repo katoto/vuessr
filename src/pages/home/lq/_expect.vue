@@ -149,7 +149,6 @@
         },
 
         mounted () {
-            console.log('hello')
             this.fetchData()
         },
 
