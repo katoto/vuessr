@@ -29,14 +29,17 @@
                     </div>
                     <template v-if="feature.e[match.status]"><!--正在开打-->
                         <div class="game-lately score-half">
-                            <em class="first-half">{{match.homehalfscore}}</em>
-                            <em class="second-half">{{match.homescore}}</em>
+                            <em class="first-half" v-if="match.homehalfscore">{{match.homehalfscore}}</em>
+                            <!--<em class="second-half">{{match.homescore}}</em>-->
+                            <move :score="match.homescore" :ready="ready"></move>
+
                         </div>
                     </template>
                     <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
                         <div class="game-lately score-half">
                             <em class="first-half">{{match.homehalfscore}}</em>
                             <em class="second-half">{{match.homescore}}</em>
+
                             <!--<em class="first-half">{{match.awayhalfscore}}</em>
                             <em class="second-half">{{match.awayscore}}</em>-->
                         </div>
@@ -55,8 +58,8 @@
                     </template>
                     <template v-if="feature.e[match.status]"><!--正在开打-->
                         <div class="game-lately score-half">
-                            <em class="first-half">{{match.awayhalfscore}}</em>
-                            <em class="second-half">{{match.awayscore}}</em>
+                            <em class="first-half" v-if="match.awayhalfscore">{{match.awayhalfscore}}</em>
+                            <move :score="match.awayscore" :ready="ready"></move>
                         </div>
                     </template>
                     <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
@@ -379,6 +382,7 @@
 <script>
     import {FootballStatusCode as StatusCode, FootballStatusName as StatusName} from '~common/constants'
     import scrollText from '~directives/scroll_text'
+    import move from '~components/home/move.vue'
 
     export default {
         props: {
@@ -389,6 +393,10 @@
             view: {
                 required: true,
                 type: String
+            },
+            ready: { // 前端接口调用状态
+                required: true,
+                type: Boolean
             }
         },
         data () {
@@ -453,6 +461,9 @@
         },
         directives: {
             scrollText
+        },
+        components: {
+            move
         },
         filters: {
             matchtimeFmt: (macthtime) => {

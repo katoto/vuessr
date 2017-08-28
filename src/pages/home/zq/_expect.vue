@@ -24,7 +24,7 @@
                 <empty v-if="filteredMatches.length === 0"></empty>
                 <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
                     <ul class="list">
-                        <zq-list-item v-for="match in filteredMatches" :match="match" key="match.fid"
+                        <zq-list-item v-for="match in filteredMatches" :match="match" key="match.fid" :ready="ready"
                                       :view="view"></zq-list-item>
                     </ul>
                 </matches-scroller>

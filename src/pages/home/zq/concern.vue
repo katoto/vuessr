@@ -7,7 +7,7 @@
                 <empty v-if="matches.length === 0"></empty>
                 <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
                     <ul class="list">
-                        <zq-list-item v-for="match in matches" :match="match" key="match.fid"
+                        <zq-list-item v-for="match in matches" :match="match" key="match.fid" :ready="allReady"
                                       :view="view"></zq-list-item>
                     </ul>
                 </matches-scroller>
@@ -45,7 +45,8 @@
         data () {
             return {
                 position: 0,
-                ready: false
+                ready: false,
+                allReady: false
             }
         },
         watch: {
@@ -116,6 +117,7 @@
             this.ready = true
             if (this.hasLogin) {
                 await this.fetchData()
+                this.allReady = true
             }
         },
 
