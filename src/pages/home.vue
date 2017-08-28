@@ -23,23 +23,12 @@
 </template>
 
 <script>
-    import league from '~components/league.vue'
     import refresh from '~components/home/refresh.vue'
     import switchComp from '~components/home/switch.vue'
-    import {mTypes, aTypes} from '~store/home'
-
     export default{
 
-        components: {league, refresh, switchComp},
-        computed: {
-            filter () {
-                return this.$store.state.home.filter
-            }
-        },
+        components: {refresh, switchComp},
         methods: {
-            triggerFilter () {
-                this.$store.commit(mTypes.filterTime)
-            },
             goLeague () {
                 if (~this.$route.path.indexOf('/zq/')) {
                     this.$router.push({name: 'center-football'})
@@ -54,10 +43,6 @@
                     this.$router.replace(`/home/${tab}/jclq/cur`)
                 }
             }
-        },
-        mounted () {
-            //            入口
-            this.$store.dispatch(aTypes.checkHasLogin)
         }
 
     }

@@ -8,7 +8,7 @@
                 <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
                     <ul class="list">
                         <lq-list-item v-for="match in matches" :match="match" key="match.fid"
-                                      :view="view"></lq-list-item>
+                                      :view="view"  :concern="concerns && concerns[match.fid]"></lq-list-item>
                     </ul>
                 </matches-scroller>
             </template>
@@ -105,6 +105,9 @@
                     }
                 })
                 return map
+            },
+            concerns () {
+                return this.lq.concernState
             },
             hasLogin () {
                 return this.$store.state.home.hasLogin
