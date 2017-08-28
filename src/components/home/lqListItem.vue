@@ -435,7 +435,7 @@
         },
         methods: {
             goDetail ({fid}) {
-                this.$router.push(`/detail/basketball/${fid}/situation`)
+                this.$router.push(`/detail/basketball/${fid}/situation/event`)
             }
         },
         computed: {
