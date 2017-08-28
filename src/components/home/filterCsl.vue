@@ -1,19 +1,22 @@
+<!--足球日期选择器-->
 <template>
-    <div class="filter-time">
-        <div class="prev-day" v-tap="{methods: goPre}"><span></span></div>
-        <div class="today" v-tap="{methods: toggleSel}"><span></span>{{curExpect}}期</div>
-        <div class="next-day" v-tap="{methods: goNext}"><span class="rotate180"></span></div>
-
-
+    <div class="filter-league-wrap">
+        <div class="filter-time filter-time-long">
+            <div class="prev-day" v-tap="{methods: goPre}"><span></span></div>
+            <div class="today" v-tap="{methods: toggleSel}"><span></span>第{{curExpect}}轮</div>
+            <div class="next-day" v-tap="{methods: goNext}"><span class="rotate180"></span></div>
+        </div>
         <transition name="toggle">
-            <div class="alert-csl " v-if="showSel">
-                <div class="month-tit"><span></span>{{curExpect}}期</div>
-
+            <!-- 联赛筛选弹窗 -->
+            <div class="alert-csl" v-if="showSel">
+                <div class="month-tit"><span></span>轮次</div>
+                <!-- 杯赛选择 -->
                 <div class="cup-info">
-                    <ul v-if="expectList">
-                        <li v-for="expect in expectList" :class="{cur: expect === curExpect}" v-tap="{methods: enterExpect, expect: expect}">{{expect}}期</li>
+                    <ul>
+                        <li :class="{cur: expect === curExpect}"  v-tap="{methods: enterExpect, expect: expect}" v-for="expect in rExpectList">第{{expect}}轮</li>
                     </ul>
                 </div>
+
             </div>
         </transition>
         <transition name="layer">
@@ -22,16 +25,28 @@
 
 
     </div>
+
+
 </template>
 <script>
     export default {
         props: ['expectList', 'curExpect'],
         data () {
             return {
-                showSel: false
+                showSel: false,
+                rExpectList: []
             }
         },
         mounted () {
+        },
+        watch: {
+            showSel (showSel) {
+                if (showSel) {
+                    let rEL = [...this.expectList]
+                    rEL.reverse()
+                    this.rExpectList = rEL
+                }
+            }
         },
         methods: {
             toggleSel () {
@@ -75,45 +90,39 @@
                     })
                 }
             }
+        },
+        filters: {
         }
     }
 </script>
 <style scoped>
-    .layer {
-        z-index: 10;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, .2);
+    .filter-league:active, .filter-time .next-day:active, .filter-time .prev-day:active, .filter-time .today:active {
+        background: #f4f4f4
+    }
 
+    .filter-league-wrap {
+        position: relative;
+        width: 9.2rem;
+        height: 1.066667rem;
     }
 
     .filter-time {
-        width: 6.88rem;
         height: 1.066667rem;
+        line-height: 1.066667rem;
         border: 1px solid #eaeaea;
         border-radius: .106667rem;
-        /*float: left;*/
+        float: left;
         box-sizing: border-box;
-        position: relative;
     }
 
-    [data-dpr="1"] .filter-time {
-        line-height: 40px
+
+
+    .filter-time-long {
+        width: 9.2rem
     }
 
-    [data-dpr="2"] .filter-time {
-        line-height: 80px
-    }
-
-    [data-dpr="3"] .filter-time {
-        line-height: 120px
-    }
-
-    .filter-league, .filter-time {
-        box-shadow: 0 0 .133333rem rgba(22, 34, 29, .1)
+    .filter-league,.filter-time {
+        box-shadow: 0 0 .133333rem rgba(22,34,29,.1)
     }
 
     .filter-time .prev-day {
@@ -121,6 +130,19 @@
         height: 1.066667rem;
         position: relative;
         float: left
+    }
+
+    .filter-time .prev-day span {
+        display: inline-block;
+        width: .16rem;
+        height: .293333rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -.146667rem;
+        background: url(~assets/style/images/home/prev.png) no-repeat;
+        background-size: cover;
+        left: 50%;
+        margin-left: -.08rem
     }
 
     .filter-time .today {
@@ -132,6 +154,58 @@
         box-sizing: border-box;
         position: relative
     }
+
+    .filter-time .today span {
+        display: inline-block;
+        width: .426667rem;
+        height: .426667rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -.213333rem;
+        left: 1.066667rem;
+        background: url(~assets/style/images/home/date.png) no-repeat;
+        background-size: cover
+    }
+
+    .filter-time-long .today {
+        width: 7.2rem;
+        padding-left: 2.933333rem
+    }
+
+    .filter-time-long .today span {
+        left: 2.266667rem
+    }
+
+    .filter-time .next-day {
+        width: .96rem;
+        height: 1.066667rem;
+        position: relative;
+        float: right
+    }
+
+    .filter-time .next-day span {
+        display: inline-block;
+        width: .16rem;
+        height: .293333rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -.146667rem;
+        background: url(~assets/style/images/home/prev.png) no-repeat;
+        background-size: cover;
+        left: 50%;
+        margin-left: -.08rem
+    }
+
+    .rotate180 {
+        -webkit-animation: all .2s linear;
+        animation: all .2s linear;
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg)
+    }
+
+
+
+
 
     .alert-csl {
         width: 9.2rem;
@@ -149,6 +223,29 @@
 
     .alert-csl .cup-info {
         min-height: .88rem
+    }
+
+    .month-tit {
+        height: .466667rem;
+        line-height: .466667rem;
+        width: 100%;
+        padding-left: .72rem;
+        box-sizing: border-box;
+        position: relative;
+        font-size: .346667rem;
+        margin-bottom: .4rem
+    }
+
+    .month-tit span {
+        display: inline-block;
+        width: .426667rem;
+        height: .426667rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -.213333rem;
+        left: 0;
+        background: url(~assets/style/images/home/date.png) no-repeat;
+        background-size: cover
     }
 
     .cup-info {
@@ -187,213 +284,117 @@
         color: #fff
     }
 
-    .filter-time .today span {
-        display: inline-block;
-        width: .426667rem;
-        height: .426667rem;
-        position: absolute;
-        top: 50%;
-        margin-top: -.213333rem;
-        left: 1.066667rem;
-        background: url(~assets/style/images/home/date.png) no-repeat;
-        background-size: cover
+    .select-all {
+        width: 8.4rem;
+        margin: 0 auto;
+        overflow: hidden
     }
 
-    .filter-time .next-day {
-        width: .96rem;
-        height: 1.066667rem;
-        position: relative;
-        float: right
-    }
-
-    .filter-time .prev-day span {
-        display: inline-block;
-        width: .16rem;
-        height: .293333rem;
-        position: absolute;
-        top: 50%;
-        margin-top: -.146667rem;
-        background: url(~assets/style/images/home/prev.png) no-repeat;
-        background-size: cover;
-        left: 50%;
-        margin-left: -.08rem
-    }
-
-    .filter-time .next-day span {
-        display: inline-block;
-        width: .16rem;
-        height: .293333rem;
-        position: absolute;
-        top: 50%;
-        margin-top: -.146667rem;
-        background: url(~assets/style/images/home/prev.png) no-repeat;
-        background-size: cover;
-        left: 50%;
-        margin-left: -.08rem
-    }
-
-    .rotate180 {
-        -webkit-animation: all .2s linear;
-        animation: all .2s linear;
-        -webkit-transform: rotate(180deg);
-        transform: rotate(180deg)
-    }
-
-    .filter-league:active, .filter-time .next-day:active, .filter-time .prev-day:active, .filter-time .today:active {
-        background: #f4f4f4
-    }
-
-    /*----------------------------*/
-
-    .alert-datetime {
-        width: 9.2rem;
-        position: absolute;
-        top: 0;
-        left: 0;
-        padding: .4rem .4rem .506667rem .4rem;
-        box-sizing: border-box;
-        border-radius: .106667rem;
-        background: #fff;
-        z-index: 11
-    }
-
-    [data-dpr="1"] .alert-datetime {
-        border: .5px solid #eaeaea
-    }
-
-    [data-dpr="2"] .alert-datetime {
-        border: 1px solid #eaeaea
-    }
-
-    [data-dpr="3"] .alert-datetime {
-        border: 1.5px solid #eaeaea
-    }
-
-    .month-tit {
-        height: .466667rem;
-        line-height: .466667rem;
-        width: 100%;
-        padding-left: .72rem;
-        box-sizing: border-box;
-        position: relative;
-        font-size: .346667rem;
-        margin-bottom: .4rem
-    }
-
-    .month-tit span {
-        display: inline-block;
-        width: .426667rem;
-        height: .426667rem;
-        position: absolute;
-        top: 50%;
-        margin-top: -.213333rem;
-        left: 0;
-        background: url(~assets/style/images/home/date.png) no-repeat;
-        background-size: cover
-    }
-
-    .week-tit {
-        height: .72rem;
-        line-height: .72rem;
-        font-size: .32rem;
-        color: #aab5bd
-    }
-
-    .week-tit ul {
-        overflow: hidden;
-        clear: both
-    }
-
-    .week-tit ul li {
+    .select-all li {
+        padding: .133333rem .266667rem;
+        border: 1px solid #eaeaea;
+        border-radius: .32rem;
+        color: #aab5bd;
         float: left;
-        width: .88rem;
-        text-align: center;
-        margin-right: .293333rem
+        margin-right: .266667rem
     }
 
-    .week-tit ul li:last-child {
-        margin-right: 0
+    [data-dpr="1"] .select-all li {
+        font-size: 11px
     }
 
-    .weeker-item {
-        height: auto;
-        font-size: .346667rem;
+    [data-dpr="2"] .select-all li {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .select-all li {
+        font-size: 33px
+    }
+
+    .select-all .cur {
+        background: #ebf1f5;
         color: #242c35
     }
 
-    .weeker-item ul {
-        overflow: hidden;
-        clear: both
+    .btn-cont {
+        width: 100%;
+        border-top: 1px solid #eaeaea;
+        font-size: .4rem;
+        color: #242c35;
+        margin-top: .4rem;
+        height: 1.2rem;
+        line-height: 1.2rem;
+        position: absolute;
+        bottom: 0;
+        left: 0
     }
 
-    .weeker-item ul li {
-        height: .88rem;
-        line-height: .88rem;
-        margin-top: .133333rem
+    .btn-cont .btn-sure {
+        width: 50%;
+        box-sizing: border-box;
+        text-align: center;
+        position: absolute;
+        bottom: 0
     }
 
-    .weeker-item ul .cur {
-        background: #d25138;
-        border-radius: 50%;
-        color: #fff
+    .btn-cont .btn-l {
+        border-right: 1px solid #eaeaea;
+        left: 0
     }
 
-    @keyframes appear {
+    .btn-cont .btn-r {
+        right: 0
+    }
+
+    .btn-cont .btn-sure:active {
+        background: #f4f4f4
+    }
+
+    @keyframes league-open {
         0% {
-            /*transform: translate(-2.32rem,-3.49333rem);*/
-            height: 1.066667rem;
-            width: 6.88rem
-        }
-
-        51% {
-            /*transform: translate(0rem,-3.49333rem);*/
-            height: 1.066667rem;
-            width: 9.2rem
+            width: 9.2rem;
+            height: 1.066667rem
         }
 
         86% {
-            /*transform: translate(0rem,1rem);*/
+            width: 9.2rem;
             height: 11.333333rem
         }
 
         100% {
-            /*transform: translate(0, 0);*/
-            height: 10rem;
-            width: 9.2rem
+            width: 9.2rem;
+            height: 10rem
         }
     }
 
-    @keyframes disappear {
+    @keyframes league-close {
         0% {
-            /*transform: translate(0, 0);*/
-            height: 10rem;
-            width: 9.2rem
+            width: 9.2rem;
+            height: 10rem
         }
 
-        13% {
-            /*transform: translate(0rem,1rem);*/
+        30% {
+            width: 9.2rem;
             height: 11.333333rem
         }
 
-        49% {
-            /*transform: translate(0rem,-3.49333rem);*/
-            height: 1.066667rem;
-            width: 9.2rem
+        60% {
+            width: 9.2rem;
+            height: 1.066667rem
         }
 
         100% {
-            /*transform: translate(-2.32rem,-3.49333rem);*/
-            height: 1.066667rem;
-            width: 6.88rem
+            width: 9.2rem;
+            height: 1.066667rem
         }
     }
 
     .toggle-enter-active {
-        animation: appear .8s 0s 1 ease both
+        animation: league-open .4s 0s 1 cubic-bezier(.5, .25, 0, .75) normal forwards
     }
 
     .toggle-leave-active {
-        animation: disappear 1s 0s 1 cubic-bezier(.5, .25, .075, .805) normal forwards
+        animation: league-close .4s 0s 1 ease both
     }
 
     .toggle-enter-active .cup-info {
@@ -405,7 +406,19 @@
     }
 
     .layer-leave-active {
-        transition: transform .8s;
+        transition: transform .4s;
     }
+
+    .layer {
+        z-index: 10;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, .2);
+
+    }
+
 
 </style>

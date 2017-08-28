@@ -75,22 +75,21 @@ app.use('/', serve('./public', true))
 app.use('/manifest.json', serve('./manifest.json', true))
 app.use('/service-worker.js', serve('./dist/service-worker.js'))
 
-if (!isProd) {
-    app.use((req, resp, next) => {
-        if (req.originalUrl.indexOf('/ews') === 0) {
-            forwardRequest({
-                req,
-                resp,
-                host: 'ews.500.com',
-                // ip: '43.247.69.20',
-                ip: 'ews.500.com',
-                path: req.originalUrl.replace('/ews', '')
-            })
-        } else {
-            next()
-        }
-    })
-}
+app.use((req, resp, next) => {
+    if (req.originalUrl.indexOf('/ews') === 0) {
+        forwardRequest({
+            req,
+            resp,
+            host: 'ews.500.com',
+            ip: '43.247.69.20',
+            // ip: 'ews.500.com',
+            // ip: '10.0.1.31',
+            path: req.originalUrl.replace('/ews', '')
+        })
+    } else {
+        next()
+    }
+})
 
 // 1-second microcache.
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
@@ -131,10 +130,11 @@ function render (req, res) {
             return res.end(hit)
         }
     }
-    if (~req.url.indexOf('/bjdc/')) {
+    /* if (~req.url.indexOf('/bjdc/')) {
         res.sendFile(path.resolve('./dist/backup.html'))
         return
     }
+    */
     const context = {
         title: '足球比分', // default title
         url: req.url

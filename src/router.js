@@ -11,6 +11,9 @@ const Home = () => import('~pages/home.vue' /* webpackChunkName: "pages/home" */
 const Zq = () => import('~pages/home/zq.vue' /* webpackChunkName: "pages/home-zq" */)
 
 const ZqExpect = () => import('~pages/home/zq/_expect.vue' /* webpackChunkName: "pages/home-zq-jczq-expect" */)
+const ZqZs = () => import('~pages/home/zq/zs.vue' /* webpackChunkName: "pages/home-zq-zs" */)
+const ZqConcern = () => import('~pages/home/zq/concern.vue' /* webpackChunkName: "pages/home-zq-concern" */)
+const LqConcern = () => import('~pages/home/lq/concern.vue' /* webpackChunkName: "pages/home-lq-concern" */)
 
 const Lq = () => import('~pages/home/lq.vue' /* webpackChunkName: "pages/home-lq" */)
 
@@ -119,7 +122,17 @@ export function createRouter () {
                             {
                                 path: ':tab/:expect',
                                 component: ZqExpect,
-                                name: 'home-zq-sfc-expect'
+                                name: 'home-zq-expect'
+                            },
+                            {
+                                path: 'zs',
+                                component: ZqZs,
+                                name: 'home-zq-zs'
+                            },
+                            {
+                                path: 'concern',
+                                component: ZqConcern,
+                                name: 'home-zq-concern'
                             },
                             {
                                 path: '*',
@@ -133,9 +146,14 @@ export function createRouter () {
                         name: 'home-lq',
                         children: [
                             {
-                                path: ':tab/:expect?',
+                                path: ':tab/:expect',
                                 component: LqExpect,
-                                name: 'home-lq-jclq-expect'
+                                name: 'home-lq-expect'
+                            },
+                            {
+                                path: 'concern',
+                                component: LqConcern,
+                                name: 'home-lq-concern'
                             },
                             {
                                 path: '*',

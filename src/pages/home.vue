@@ -17,26 +17,20 @@
 
         </div>
         <refresh/>
-        <transition name="slide">
-            <league v-if="filter.show"
-                    :matches="filter.matches"
-                    :inited="filter.inited"
-                    @ok="filter.onOk($event)"
-                    @cancel="filter.onCancel($event)"></league>
-        </transition>
-
+        <switch-comp></switch-comp>
     </div>
 
 </template>
 
 <script>
     import league from '~components/league.vue'
-    import refresh from '~components/refresh.vue'
-    import {mTypes} from '~store/home'
+    import refresh from '~components/home/refresh.vue'
+    import switchComp from '~components/home/switch.vue'
+    import {mTypes, aTypes} from '~store/home'
 
     export default{
 
-        components: {league, refresh},
+        components: {league, refresh, switchComp},
         computed: {
             filter () {
                 return this.$store.state.home.filter
@@ -63,6 +57,7 @@
         },
         mounted () {
             //            入口
+            this.$store.dispatch(aTypes.checkHasLogin)
         }
 
     }

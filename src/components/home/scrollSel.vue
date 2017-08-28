@@ -1,14 +1,15 @@
 <template>
     <div class="item-tab">
         <ul>
-            <li class="cur" onclick="window.location.href='index.html'">竞彩</li>
-            <li>全部</li>
-            <li>猜球</li>
-            <li>热门</li>
-            <li onclick="window.location.href='zq-mark.html'">指数</li>
-            <li>关注</li>
-            <li>足球</li>
-            <li>篮球</li>
+            <li :class="{'cur': ~$route.path.indexOf('/jczq')}" v-tap="{methods: switchTab, path: '/home/zq/jczq/cur'}"><router-link to="/home/zq/jczq/cur" replace>竞彩</router-link></li>
+            <li :class="{'cur': ~$route.path.indexOf('/all')}" v-tap="{methods: switchTab, path: '/home/zq/all/cur'}"><router-link to="/home/zq/all/cur" replace>全部</router-link></li>
+            <li :class="{'cur': ~$route.path.indexOf('/crazybet')}" v-tap="{methods: switchTab, path: '/home/zq/crazybet/cur'}"><router-link to="/home/zq/crazybet/cur" replace>猜球</router-link></li>
+            <li :class="{'cur': ~$route.path.indexOf('/hot')}" v-tap="{methods: switchTab, path: '/home/zq/hot/cur'}"><router-link to="/home/zq/hot/cur" replace>热门</router-link></li>
+            <li :class="{'cur': ~$route.path.indexOf('/zs')}" v-tap="{methods: switchTab, path: '/home/zq/zs'}"><router-link to="/home/zq/zs" replace>指数</router-link></li>
+            <li :class="{'cur': ~$route.path.indexOf('/concern')}" v-tap="{methods: switchTab, path: '/home/zq/concern'}"><router-link to="/home/zq/concern" replace>关注</router-link></li>
+            <li :class="{'cur': ~$route.path.indexOf('/sfc')}" v-tap="{methods: switchTab, path: '/home/zq/sfc/cur'}"><router-link to="/home/zq/sfc/cur" replace>足球</router-link></li>
+            <li :class="{'cur': ~$route.path.indexOf('/csl')}" v-tap="{methods: switchTab, path: '/home/zq/csl/cur'}"><router-link to="/home/zq/csl/cur" replace>中超</router-link></li>
+            <li :class="{'cur': ~$route.path.indexOf('bjdc')}" v-tap="{methods: switchTab, path: '/home/zq/bjdc/cur'}"><router-link to="/home/zq/bjdc/cur" replace>单场</router-link></li>
         </ul>
     </div>
 </template>
@@ -19,6 +20,9 @@
             this.config()
         },
         methods: {
+            switchTab ({path}) {
+                this.$router.replace(path)
+            },
             config () {
                 this.content = this.$el.children[0]
                 let liw = this.$el.querySelector('li').offsetWidth
@@ -35,6 +39,10 @@
                 this.scrollerObj.setDimensions(this.$el.offsetWidth, this.$el.offsetHeight, this.content.offsetWidth, this.content.offsetHeight)
                 this.$el.addEventListener('touchstart', (e) => {
                     this.scrollerObj.doTouchStart(e.touches, e.timeStamp)
+                    /* if (e.target.tagName !== 'A') {
+                        e.preventDefault()
+                    }
+                    */
                     e.preventDefault()
                 }, false)
 
@@ -75,7 +83,7 @@
     }
 
     .item-tab ul {
-        width: 12rem;
+        width: 13.5rem;
         /*overflow-x: scroll*/
     }
 
@@ -167,5 +175,9 @@
     }
 
 
+    a{
+        color: inherit;
+        display: block;
+    }
 
 </style>

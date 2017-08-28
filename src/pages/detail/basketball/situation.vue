@@ -18,10 +18,10 @@
             <!--<me-sports v-if="news && news.length" :news="situation.news" :init-size="3" @rs="refreshScroll"></me-sports>-->
         </template>
 
-        <div class="ui-empty" v-if="!news.length && (match.status == StatusCode.NOT_STARTED || match.status == StatusCode.CHANGED || match.status == StatusCode.REMOVED || match.status == StatusCode.CANCELED || match.status == StatusCode.PAUSED)" style="padding: 1.54rem 0;">
+        <div class="ui-empty" v-if="news && !news.length && (match.status == StatusCode.NOT_STARTED || match.status == StatusCode.CHANGED || match.status == StatusCode.REMOVED || match.status == StatusCode.CANCELED || match.status == StatusCode.PAUSED)" style="padding: 1.54rem 0;">
             <img src="~assets/style/images/detail/07.png" class="w240">
             <div class="ui-empty-dfont" v-if="match.status == StatusCode.NOT_STARTED">比赛时间 {{match.matchtime.substr(5, 11)}}</div>
-            <div class="ui-empty-dfont" v-else>{{StatusDesc[match.status]}}</div>
+            <div class="ui-empty-dfont" v-else>{{StatusDesc[match.status === '' ? '0' : match.status]}}</div>
             <div class="ui-empty-gfont" v-if="match.status == StatusCode.NOT_STARTED">先去分析栏目看看吧</div>
         </div>
         <!--<widget-prompt-view src="widget/prompt.html"-->

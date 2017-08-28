@@ -1,72 +1,34 @@
 <template>
-    <div class="l-full l-flex-column">
+    <loading v-if="isLoading===1"></loading>
+    <div class="l-full l-flex-column" v-else>
         <div class="filter-cont">
-            <!-- 日期筛选 -->
-            <filter-time style="float: left"></filter-time>
+            <template v-if="$route.params.tab === 'csl'"> <!--中超筛选-->
+                <filter-csl :expect-list="expectList" :cur-expect="curExpect"></filter-csl>
 
+            </template>
+            <template v-else>
+                <!-- 日期筛选 -->
+                <filter-time v-if="$route.params.tab === 'jczq' || $route.params.tab === 'all'||$route.params.tab === 'crazybet'||$route.params.tab === 'hot'" class="fl" :expect-list="expectList" :cur-expect="curExpect"></filter-time>
+                <expect-select v-if="$route.params.tab === 'sfc' || $route.params.tab === 'bjdc'" class="fl" :expect-list="expectList" :cur-expect="curExpect"></expect-select>
 
-            <!-- 联赛筛选 -->
-            <filter-league style="float: right"></filter-league>
-            <!-- 联赛筛选弹窗 -->
-            <div class="alert-league alert-league-close hide">
-                <!-- 场次信息 -->
-                <div class="matches-info">
-                    <div class="matches-info-l"><span></span>竞彩</div>
-                    <div class="matches-info-r">共105场比赛，已选85场</div>
-                </div>
-                <!-- 杯赛选择 -->
-                <div class="cup-info fadeout">
-                    <ul>
-                        <li class="cur">巴西杯</li>
-                        <li>吉尼斯杯</li>
-                        <li>金杯奖</li>
-                        <li>墨西杯</li>
-                        <li>苏联赛杯</li>
-                        <li>欧冠</li>
-                        <li>女欧杯</li>
-                    </ul>
-                </div>
-                <!-- 全选、反选、五大联赛 -->
-                <ul class="select-all fadeout">
-                    <li>全选</li>
-                    <li class="cur">反选</li>
-                    <li>五大联赛</li>
-                </ul>
-                <!-- 确认按钮区 -->
-                <div class="btn-cont fadeout">
-                    <div class="btn-sure btn-l">取消</div>
-                    <div class="btn-sure btn-r">筛好了</div>
-                </div>
-            </div>
-            <!-- 中超筛选弹窗 -->
-            <div class="alert-csl alert-csl-close hide">
-                <div class="month-tit"><span></span>轮次</div>
-                <!-- 杯赛选择 -->
-                <div class="cup-info fadeout">
-                    <ul>
-                        <li class="">巴西杯</li>
-                        <li class="">吉尼斯杯</li>
-                        <li class="">金杯奖</li>
-                        <li class="">墨西杯</li>
-                        <li class="cur">苏联赛杯</li>
-                        <li class="">欧冠</li>
-                        <li class="">女欧杯</li>
-                    </ul>
-                </div>
-            </div>
+                <!-- 联赛筛选 -->
+                <filter-league class="fr" :initial="selectOptions" :matches="matches" @ok="doFilter"></filter-league>
+
+            </template>
+
         </div>
 
-        <!--<expect-select :expect-list="expectList" :cur-expect="curExpect" v-if="expectList"></expect-select>-->
-        <!--<div v-else class="loading">
-            <div class="icon"></div>
-            <div class="icon-shadow"></div>
-        </div>-->
         <div class="l-flex-1 l-relative">
-            <matches-scroller ref="scroller">
-                <ul class="list">
-                    <zq-list-item v-for="match in showedMatches" :match="match" key="match.fid"></zq-list-item>
-                </ul>
-            </matches-scroller>
+            <loading v-if="isLoading === 2"></loading>
+            <template v-else>
+                <empty v-if="filteredMatches.length === 0"></empty>
+                <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
+                    <ul class="list">
+                        <zq-list-item v-for="match in filteredMatches" :match="match" key="match.fid"
+                                      :view="view"></zq-list-item>
+                    </ul>
+                </matches-scroller>
+            </template>
 
         </div>
 
@@ -77,47 +39,54 @@
 </template>
 <script>
     import MatchesScroller from '~components/matches_scroller.vue'
-    import expectSelect from '~components/home/expectSelect.vue'
     import zqListItem from '~components/home/zqListItem.vue'
+    import empty from '~components/home/empty.vue'
     import filterTime from '~components/home/filterTime.vue'
+    import filterCsl from '~components/home/filterCsl.vue'
+    import expectSelect from '~components/home/expectSelect.vue'
+
+    import loading from '~components/home/loading.vue'
     import filterLeague from '~components/home/filterLeague.vue'
     import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import {aTypes, mTypes} from '~store/home'
+    const savedData = {}
     export default {
         async asyncData ({store, route: {params: {expect, tab}}}) {
-            await Promise.all([store.dispatch(aTypes.getZqMetro), store.dispatch(aTypes.fetchZqMatches, {expect, tab})])
+            await store.dispatch(aTypes.fetchZqMatches, {expect, tab})
+        },
+        beforeRouteEnter (to, from, next) {
+            next(vm => {
+                if (from.name && ~from.name.indexOf('football-detail')) {
+                    vm.position = savedData.position
+                    vm.selectOptions = savedData.selectOptions
+                }
+            })
+        },
+        beforeRouteLeave (to, from, next) {
+            if (~to.name.indexOf('football-detail')) {
+                savedData.selectOptions = this.selectOptions
+                savedData.position = this.position
+            }
+            next()
         },
         data () {
             return {
                 selectOptions: null,
-                filteredMatches: null
+                position: 0,
+                ready: false
             }
         },
         watch: {
-            filterTime () {
-                this.$store.commit(mTypes.initFilter, {
-                    matches: this.matches,
-                    inited: this.selectOptions,
-                    onOk: ({selectOptions, filteredMatches}) => {
-                        this.filteredMatches = filteredMatches
-                        this.selectOptions = selectOptions
-                        this.$store.commit(mTypes.endFilter)
-                    },
-                    onCancel: () => {
-                        this.$store.commit(mTypes.endFilter)
-                    }
-                })
-            },
-            showedMatchesSize () {
-                this.$refs.scroller && this.$refs.scroller.update()
-            },
-            matches () {
-                this.showExpectList = false
-                this.filteredMatches = null
+            filteredMatches (after, before) {
+                if (!before || before.length !== after.length) {
+                    this.position = 0
+                    this.$refs.scroller && this.$refs.scroller.update()
+                }
             },
             fidIndexMap (fidIndexMap) {
                 this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(fidIndexMap))
             },
+
             socketData ({data, stamp}) {
                 if (stamp === pushEvents.FOOTBALL_INFO) {
                     data.fid = data.fid + ''
@@ -127,42 +96,50 @@
                     }
                 }
             },
+
             '$route.path' () {
+                this.selectOptions = null
+                this.position = 0
+                this.$refs.scroller && this.$refs.scroller.update()
                 this.fetchData()
             },
+
             refreshTime () {
                 this.fetchData()
             }
 
         },
         components: {
-            MatchesScroller, expectSelect, zqListItem, filterTime, filterLeague
+            MatchesScroller, zqListItem, filterTime, filterLeague, empty, loading, filterCsl, expectSelect
         },
+
         computed: {
             refreshTime () { // 用户点击刷新按钮时间戳
                 return this.$store.state.refreshTime
             },
+
             socketData () { // websocket推送过来的数据
                 return this.$store.getters.getSocketData
             },
-            filterTime () { // 用户点击筛选按钮时间戳
-                return this.$store.state.home.filter.filterTime
-            },
+
             zq () {
                 return this.$store.state.home.zq
             },
-            showedMatchesSize () {
-                return this.showedMatches && this.showedMatches.length
+            view () { // 展示赔率， 最近6场比赛， 空 三种情况标志位
+                return this.$store.state.home.view
             },
-            showedMatches () {
-                return this.filteredMatches || this.matches
+
+            filteredMatches () {
+                return this.matches && this.matches.filter(match => !this.selectOptions || this.selectOptions[match.simpleleague])
             },
             matches () {
                 return this.zq.matches
             },
+
             curExpect () {
                 return this.zq.curExpect
             },
+
             fidIndexMap () { // matches 变化了， fidIndexMap一定会变化
                 const map = {}
                 if (!this.matches) return null
@@ -173,24 +150,57 @@
                 })
                 return map
             },
+
             expectList () {
                 return this.zq.expectList
+            },
+
+            isLoading () {
+                if (!this.matches) return 1
+                if (this.zq.tab === this.$route.params.tab) {
+                    if (this.$route.params.expect === 'cur') {
+                        return 0
+                    } else if (this.$route.params.expect !== this.zq.curExpect) {
+                        return 2
+                    }
+                } else {
+                    return 1
+                }
             }
         },
-        mounted () {
-            this.fetchData()
+
+        async mounted () {
+            await this.fetchData()
+            this.ready = true
+            this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(this.fidIndexMap))
         },
+
         methods: {
+            setPosition (position) {
+                savedData.position = position
+                this.position = position
+            },
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                await Promise.all([this.$store.dispatch(aTypes.getZqMetro), this.$store.dispatch(aTypes.fetchZqMatches, this.$route.params)])
+                await this.$store.dispatch(aTypes.fetchZqMatches, this.$route.params)
                 this.$store.commit('endOneRefresh')
+            },
+            doFilter (selectOptions) {
+                this.selectOptions = selectOptions
             }
         }
 
     }
 </script>
 <style scoped>
+    .fl {
+        float: left;
+    }
+
+    .fr {
+        float: right;
+    }
+
     .qi-list-box {
         position: relative;
         top: 0;
@@ -208,7 +218,8 @@
         color: #aab5bd;
         font-size: .346667rem;
         clear: both;
-        zoom:1;position: relative
+        zoom: 1;
+        position: relative
     }
 
     .filter-time {
@@ -232,8 +243,8 @@
         line-height: 120px
     }
 
-    .filter-league,.filter-time {
-        box-shadow: 0 0 .133333rem rgba(22,34,29,.1)
+    .filter-league, .filter-time {
+        box-shadow: 0 0 .133333rem rgba(22, 34, 29, .1)
     }
 
     .filter-time .prev-day {
@@ -305,7 +316,7 @@
         transform: rotate(180deg)
     }
 
-    .filter-league:active,.filter-time .next-day:active,.filter-time .prev-day:active,.filter-time .today:active {
+    .filter-league:active, .filter-time .next-day:active, .filter-time .prev-day:active, .filter-time .today:active {
         background: #f4f4f4
     }
 
@@ -600,6 +611,6 @@
     }
 
     .one-game:active {
-        -webkit-tap-highlight-color: rgba(244,244,244,.6)
+        -webkit-tap-highlight-color: rgba(244, 244, 244, .6)
     }
 </style>

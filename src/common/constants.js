@@ -221,6 +221,23 @@ export const FootballStatusDesc = {
     [FootballStatusCode.ENDED]: '本场比赛已完场'
 }
 
+export const FootballStatusName = {
+    [FootballStatusCode.NOT_STARTED]: '未开始',
+    [FootballStatusCode.FIRST_HALF]: '上半场',
+    [FootballStatusCode.MID]: '中场',
+    [FootballStatusCode.LAST_HALF]: '下半场',
+    [FootballStatusCode.ENDED]: '完场',
+    [FootballStatusCode.CANCELED]: '取消',
+    [FootballStatusCode.CHANGED]: '改期',
+    [FootballStatusCode.REMOVED]: '腰斩',
+    [FootballStatusCode.PAUSED]: '中断',
+    [FootballStatusCode.UNSURE]: '待定',
+    [FootballStatusCode.EXTRA_STARTED]: '加时赛开始',
+    [FootballStatusCode.EXTRA_ENDED]: '加时结束',
+    [FootballStatusCode.SPOT_KICK_STARTED]: '点球开始',
+    [FootballStatusCode.SPOT_KICK_ENDED]: '点球结束'
+}
+
 export const BasketballStatusDesc = {
     [BasketballStatusCode.CHANGED]: '本场比赛改期进行',
     [BasketballStatusCode.ENDED]: '本场比赛已完场'
