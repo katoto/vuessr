@@ -89,7 +89,7 @@ const actionsInfo = mapActions({
     },
     async doConcern ({commit, state}, {vtype, fid, tab, expect = ''}) {
         try {
-            const isfocus = state.zq.concernState[fid].isfocus
+            const isfocus = state.zq.concernState[fid] ? state.zq.concernState[fid].isfocus : '0'
             let op = isfocus === '1' ? 'unset' : 'set'
             await ajax.get(`/score/concern/focus?fid=${fid}&vtype=${vtype}&op=${op}&expect=${expect}`, {ignore: false})
             if (vtype === '1') {

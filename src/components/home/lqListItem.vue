@@ -392,6 +392,10 @@
                 required: true,
                 type: String
             },
+            ready: { // 前端接口调用状态
+                required: true,
+                type: Boolean
+            },
             concern: {
                 required: false,
                 default: () => {},
