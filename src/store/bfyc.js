@@ -14,25 +14,25 @@ const initState = {
 const actionsInfo = mapActions({
     async getPredict ({commit}, expect) {
         expect = expect ? 'expect=' + expect : ''
-        let predict = await ajax(`/library/aggregate/awesome_predict?${expect}&T=${Date.now()}`)
+        let predict = await ajax(`library/aggregate/awesome_predict?${expect}&T=${Date.now()}`)
         commit(mTypes.setPredict, predict)
         return predict
     },
     async getHotcool ({commit}, expect) {
         expect = expect ? 'expect=' + expect : ''
-        let hotcool = await ajax(`/library/aggregate/coldhot_distribute?${expect}&T=${Date.now()}`)
+        let hotcool = await ajax(`library/aggregate/coldhot_distribute?${expect}&T=${Date.now()}`)
         commit(mTypes.setHotcool, hotcool)
         return hotcool
     },
     async getRecord ({commit}, expect) {
         expect = expect ? 'expect=' + expect : ''
-        let record = await ajax(`/library/aggregate/combat_feature?${expect}&T=${Date.now()}`)
+        let record = await ajax(`library/aggregate/combat_feature?${expect}&T=${Date.now()}`)
         commit(mTypes.setRecord, record)
         return record
     },
     async getStrength ({commit}, expect) {
         expect = expect ? 'expect=' + expect : ''
-        let strength = await ajax(`/library/aggregate/strength_compare?${expect}&T=${Date.now()}`)
+        let strength = await ajax(`library/aggregate/strength_compare?${expect}&T=${Date.now()}`)
         commit(mTypes.setStrength, strength)
         return strength
     },
