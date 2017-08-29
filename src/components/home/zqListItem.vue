@@ -507,19 +507,7 @@
                 this.timer = setInterval(() => {
                     this.timeSeed++
                 }, time)
-            },
-            deleteInterVal () {
-                clearInterval(this.timer)
             }
-            // updateMatchTime () {
-            //     if (this._timeId) clearInterval(this._timeId)
-            //     if (this.match.status === StatusCode.ENDED || this.match.status === StatusCode.CANCELED) return
-            //     this._timeId = setInterval(() => {
-            //         if (this.match.match_at && this.match.status !== StatusCode.MID && this.match.status !== StatusCode.NOT_STARTED && this.match.status) {
-            //             this.$store.commit(mTypes.setZqMatchAt, {match_at: +(this.match.match_at) + 60, idx: this.arrId})
-            //         }
-            //     }, 1000 * 60)
-            // }
         },
         computed: {
             currodds () {
@@ -542,7 +530,6 @@
             move
         },
         mounted () {
-            // this.updateMatchTime()
             this.makeInterVal(1000 * 60)       // 设置定时器
         },
         filters: {
