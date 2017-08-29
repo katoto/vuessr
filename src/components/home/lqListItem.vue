@@ -492,7 +492,7 @@
             rankFmt: (rank) => {
                 if (!rank || rank === '0') return ''
                 return `[${Number(rank)}]`
-            },
+            }
         }
     }
 </script>

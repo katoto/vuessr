@@ -22,7 +22,7 @@
                     <template v-if="metro.coldhot_distribute.order">
                         {{metro.coldhot_distribute.homesxname}} VS {{metro.coldhot_distribute.awaysxname}}
                         <!--{{metro.coldhot_distribute.order}}-->
-                        <div class="mark-demo-r">{{metro.coldhot_distribute.tag.desc}}</div>
+                        <div class="mark-demo-r"><em>{{metro.coldhot_distribute.tag.desc}}</em></div>
                     </template>
                     <template v-else>
                         暂无推荐
