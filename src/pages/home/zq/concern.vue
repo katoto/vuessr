@@ -58,7 +58,7 @@
                 }
             },
             fidIndexMap (fidIndexMap) {
-                this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(fidIndexMap))
+                // this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(fidIndexMap))
             },
 
             socketData ({data, stamp}) {
@@ -120,6 +120,7 @@
             this.ready = true
             if (this.hasLogin) {
                 await this.fetchData()
+                this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(this.fidIndexMap))
                 this.allReady = true
             }
         },
