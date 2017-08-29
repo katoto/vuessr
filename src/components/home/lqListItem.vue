@@ -20,6 +20,7 @@
                                                 src="http://cache.500boss.com/mobile/touch/images/bifen/mr-base.png"
                                                 alt="客队图标"
                                                 :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-base.png'">{{match.awaysxname}}
+                        <em v-if="match.awaystanding">{{match.awaystanding | rankFmt}}</em>
                     </div>
 
                     <template v-if="match.status === StatusCode.NOT_STARTED">
@@ -48,6 +49,7 @@
                                                 src="http://cache.500boss.com/mobile/touch/images/bifen/mr-base.png"
                                                 alt="主队图标"
                                                 :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-base.png'">{{match.homesxname}}
+                        <em v-if="match.homestanding">{{match.homestanding | rankFmt}}</em>
                     </div>
                     <div class="game-lately" v-if="match.status === StatusCode.NOT_STARTED && view==='1'">
                         {{match.extra_info.homerecord}}
@@ -210,6 +212,11 @@
         transform: translateY(-50%);
         left: 50%;
         left: 0
+    }
+    .game-name em {
+        font-size: .293333rem;
+        color: #aab5bd;
+        margin-left: .213333rem;
     }
 
     .odds-item {
@@ -481,7 +488,11 @@
                     return false
                 }
                 return list.indexOf(item) > -1
-            }
+            },
+            rankFmt: (rank) => {
+                if (!rank || rank === '0') return ''
+                return `[${Number(rank)}]`
+            },
         }
     }
 </script>

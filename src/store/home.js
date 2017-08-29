@@ -91,15 +91,18 @@ const actionsInfo = mapActions({
     },
     async doConcern ({commit, state}, {vtype, fid, tab, expect = ''}) {
         try {
-            const isfocus = state.zq.concernState[fid] ? state.zq.concernState[fid].isfocus : '0'
-            let op = isfocus === '1' ? 'unset' : 'set'
-            await ajax.get(`/score/concern/focus?fid=${fid}&vtype=${vtype}&op=${op}&expect=${expect}`, {ignore: false})
             if (vtype === '1') {
+                const isfocus = state.zq.concernState[fid] ? state.zq.concernState[fid].isfocus : '0'
+                let op = isfocus === '1' ? 'unset' : 'set'
+                await ajax.get(`/score/concern/focus?fid=${fid}&vtype=${vtype}&op=${op}&expect=${expect}`, {ignore: false})
                 const concernState = {...state.zq.concernState}
                 concernState[fid] = {...concernState[fid]}
                 concernState[fid].isfocus = isfocus === '1' ? '0' : '1'
                 commit(mTypes.setZqConcernState, concernState)
             } else {
+                const isfocus = state.lq.concernState[fid] ? state.lq.concernState[fid].isfocus : '0'
+                let op = isfocus === '1' ? 'unset' : 'set'
+                await ajax.get(`/score/concern/focus?fid=${fid}&vtype=${vtype}&op=${op}&expect=${expect}`, {ignore: false})
                 const concernState = {...state.lq.concernState}
                 concernState[fid] = {...concernState[fid]}
                 concernState[fid].isfocus = isfocus === '1' ? '0' : '1'
