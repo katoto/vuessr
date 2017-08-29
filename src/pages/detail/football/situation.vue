@@ -90,7 +90,49 @@
             socketData ({data, stamp}) {
                 if (stamp === pushEvents.FOOTBALL_EVENT) {
                     // 重新调用接口
-                    this.fetchData()
+                    // 校验数据是否正常
+                    let isAvailable = (event) => {
+                        return event.eventtype === '8'
+                            // 换人,两个队员名都不为空
+                            ? /\S/.test(event.exchange_player[0]) && /\S/.test(event.exchange_player[1])
+                            // 其他事件则要求cdata不为空
+                            : /\S/.test(event.cdata)
+                    }
+
+                    let newEvent = null
+                    let newEventList = []
+                    let eventlist = this.situation.eventlist
+                    // 正常事件：直接存入
+                    if (data.is_modify === '0') {
+                        // 校验数据是否正常
+                        data.isUnavailable = !isAvailable(data)
+                        newEventList = [...eventlist]
+                        newEventList.unshift(data)
+                    }
+
+                    // 修改事件：找到并修改存储的旧事件
+                    if (data.is_modify === '1') {
+                        let oldEvent = eventlist.filter(event => event.eventid === data.related_eventid).pop()
+                        if (oldEvent) {
+                            // 11 撤销，事件不可用，其他覆盖
+                            newEvent = {...oldEvent}
+                            if (data.eventtype === '11') {
+                                newEvent.isUnavailable = true
+                            } else {
+                                newEvent.cdata = data.cdata
+                                newEvent.exchange_player = data.exchange_player
+                                newEvent.isUnavailable = !isAvailable(oldEvent)
+                            }
+                        }
+                        eventlist.forEach((event) => {
+                            if (event.eventid === data.related_eventid) {
+                                newEventList.push(newEvent)
+                            } else {
+                                newEventList.push(event)
+                            }
+                        })
+                    }
+                    this.$store.commit(mTypes.setSituationEventlist, newEventList)
                 }
             }
         },

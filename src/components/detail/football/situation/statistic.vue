@@ -11,7 +11,7 @@
                 type="no-data">
         </widget-prompt-view>-->
 
-        <div class="tongji-box" v-if="statistic">
+        <div class="tongji-box" v-if="statistic && statistic.h_ballcontrol_rate">
             <div class="zhzl-box">
                 <div class="zhzl-title">控球率</div>
                 <div class="zhzl-vs">
