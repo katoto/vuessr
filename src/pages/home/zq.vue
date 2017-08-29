@@ -31,6 +31,7 @@
         methods: {
         },
         watch: {
+
         },
         async mounted () {
             const hasLogin = await this.$store.dispatch(aTypes.checkHasLogin)
