@@ -42,7 +42,8 @@
                                             </div>
                                         </div>
                                         <div class="hotc-right">
-                                            <!--<div class="left-statue">命</br>中</div>-->
+                                            <div class="left-statue" v-if="match.cell.on_target === '0'">未<br/>中</div>
+                                            <div class="left-statue" v-else>命<br/>中</div>
                                             <div class="right-predict">
                                                 <p>{{match.cell.probability}}<em>%</em></p>
                                                 <p>{{match.cell.predict_result|predictResult}}
@@ -61,7 +62,8 @@
                                             </div>
                                         </div>
                                         <div class="hotc-right">
-                                            <!--<div class="left-statue">命</br>中</div>-->
+                                            <div class="left-statue" v-if="match.cell.on_target === '0'">未<br/>中</div>
+                                            <div class="left-statue" v-else>命<br/>中</div>
                                             <div class="right-predict">
                                                 <p>{{match.cell.probability}}<em>%</em></p>
                                                 <p>{{match.cell.predict_result|predictResult}}
@@ -89,7 +91,8 @@
 
                                             <!--未中 加上statue-hit-no-->
                                             <div class="hotc-right" :class="{'statue-hit-no': match.cell.on_target === '0'}">
-                                                <div class="left-statue">未<br/>中</div>
+                                                <div class="left-statue" v-if="match.cell.on_target === '0'">未<br/>中</div>
+                                                <div class="left-statue" v-else>命<br/>中</div>
                                                 <div class="right-predict">
                                                     <p>{{match.cell.probability}}<em>%</em></p>
                                                     <p>{{match.cell.predict_result|predictResult}}
@@ -184,9 +187,11 @@
                 this.$router.push(`/detail/football/${fid}/predict`)
             },
             async fetchData () {
-                await this.$store.dispatch(aTypes.getPredict)
-                this.$store.commit(mTypes.setCurrExpect, this.$store.state.bfyc.predict.curr_expect)
-                this.$store.commit(mTypes.setExpectList, this.$store.state.bfyc.predict.expect_list)
+                await this.$store.dispatch(aTypes.getPredict, this.$store.state.bfyc.currExpect)
+                if (!this.$store.state.bfyc.currExpect) {
+                    this.$store.commit(mTypes.setCurrExpect, this.$store.state.bfyc.predict.curr_expect)
+                    this.$store.commit(mTypes.setExpectList, this.$store.state.bfyc.predict.expect_list)
+                }
             }
         },
         filters: {
