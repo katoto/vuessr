@@ -24,7 +24,7 @@
                                                 alt="主队图标"
                                                 :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">
                                                 {{match.homesxname}}
-                                                <em v-if="match.homestanding">{{match.homestanding | rankFmt}}</em>
+                                                <em v-if="match.homestanding && match.homestanding !== '0'">{{match.homestanding | rankFmt}}</em>
                                                 <em v-if="match.zlc === '1'">(中)</em>
                                                 <em class="red-c" v-if="match.home_red_counts !== '0'">{{match.home_red_counts}}</em>
                     </div>
@@ -55,7 +55,7 @@
                                                 alt="客队图标"
                                                 :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">
                                                 {{match.awaysxname}}
-                                                <em v-if="match.awaystanding">{{match.awaystanding | rankFmt}}</em>
+                                                <em v-if="match.awaystanding && match.awaystanding !== '0'">{{match.awaystanding | rankFmt}}</em>
                                                 <em class="red-c" v-if="match.away_red_counts !== '0'">{{match.away_red_counts}}</em>
                     </div>
 
@@ -95,11 +95,11 @@
                 <template v-if="feature.e[match.status]"><!--正在开打-->
                     <template v-if="match.extra_info && match.extra_info.ishasvideo === '1'">
                         <div class="btn-live">直播</div>
-                        <div class="live-time">{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF) | setInterval(firstTime)}}<i class="dian">'</i></div>
+                        <div class="live-time">{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
 
                     </template>
                     <template v-else>
-                        <div class="live-time  live-timer">{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF) | setInterval(firstTime)}}<i class="dian">'</i></div>
+                        <div class="live-time  live-timer">{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
                     </template>
                 </template>
                 <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
@@ -107,7 +107,7 @@
                         <div class="btn-live btn-once">回放</div>
                     </template>
                     <template v-else>
-                        <div class="follow had-follow">已结束</div>
+                        <div class="follow had-follow">完场</div>
                     </template>
                 </template>
 
@@ -126,6 +126,22 @@
         animation: dianstyle 1s ease-out 0s infinite alternate;
         -webkit-animation: dianstyle 1s ease-out 0s infinite alternate;
         font-size: 0.4rem;
+    }
+    @keyframes dianstyle {
+        0% {
+            opacity: 1
+        }
+        100% {
+            opacity: 0
+        }
+    }
+    @-webkit-keyframes dianstyle {
+        0% {
+            opacity: 1
+        }
+        100% {
+            opacity: 0
+        }
     }
     .one-game {
         padding: .333333rem .4rem .346667rem .4rem;
@@ -411,7 +427,7 @@
     import {FootballStatusCode as StatusCode, FootballStatusName as StatusName} from '~common/constants'
     import scrollText from '~directives/scroll_text'
     import move from '~components/home/move.vue'
-    import {aTypes} from '~store/home'
+    import {mTypes, aTypes} from '~store/home'
     export default {
         props: {
             match: {
@@ -473,7 +489,10 @@
                 StatusName,
                 firstTime: {
                     status: true
-                }
+                },
+                timeSeed: 0,
+                timer: null,
+                _timeId: null
             }
         },
         methods: {
@@ -483,7 +502,24 @@
             doConcern () {
                 this.$store.dispatch('ensureLogin')
                 this.$store.dispatch(aTypes.doConcern, {fid: this.match.fid, vtype: '1'})
+            },
+            makeInterVal (time) {
+                this.timer = setInterval(() => {
+                    this.timeSeed++
+                }, time)
+            },
+            deleteInterVal () {
+                clearInterval(this.timer)
             }
+            // updateMatchTime () {
+            //     if (this._timeId) clearInterval(this._timeId)
+            //     if (this.match.status === StatusCode.ENDED || this.match.status === StatusCode.CANCELED) return
+            //     this._timeId = setInterval(() => {
+            //         if (this.match.match_at && this.match.status !== StatusCode.MID && this.match.status !== StatusCode.NOT_STARTED && this.match.status) {
+            //             this.$store.commit(mTypes.setZqMatchAt, {match_at: +(this.match.match_at) + 60, idx: this.arrId})
+            //         }
+            //     }, 1000 * 60)
+            // }
         },
         computed: {
             currodds () {
@@ -504,6 +540,10 @@
         },
         components: {
             move
+        },
+        mounted () {
+            // this.updateMatchTime()
+            this.makeInterVal(1000 * 60)       // 设置定时器
         },
         filters: {
             matchtimeFmt: (macthtime) => {
@@ -538,15 +578,6 @@
                 }
                 return list.indexOf(item) > -1
             },
-            setInterval: (minute, firstTime) => {
-                minute = Number(minute)
-                if (firstTime.status) {
-                    setInterval(() => {
-                        return minute++
-                    }, 3600)
-                    firstTime.status = false
-                }
-            },
             rankFmt: (rank) => {
                 if (!rank || rank === '0') return ''
                 return `[${Number(rank)}]`
@@ -554,6 +585,15 @@
             redCardFmt: (count) => {
                 if (!count || count === '0') return ''
                 return count
+            }
+        },
+        watch: {
+            // 定时标志
+            timeSeed () {
+                if (this.match.status === StatusCode.ENDED || this.match.status === StatusCode.CANCELED) {
+                    clearInterval(this.timer)
+                }
+                this.match.match_at = this.match.match_at - 0 + 60   // 自动加一分钟
             }
         }
     }
