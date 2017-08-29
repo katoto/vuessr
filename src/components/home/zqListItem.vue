@@ -77,6 +77,7 @@
                     </ul>
                 </div>
             </router-link>
+
             <!-- 右边的关注、直播情况-->
             <div class="game-detail-r">
                 <!--<div class="btn-live">直播</div>-->
@@ -87,10 +88,10 @@
                 <template v-if="feature.e[match.status]"><!--正在开打-->
                     <template v-if="match.extra_info && match.extra_info.ishasvideo === '1'">
                         <div class="btn-live">直播</div>
-                        <div class="live-time">80'</div>
+                        <div class="live-time">{{matct.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
                     </template>
                     <template v-else>
-                        <div class="live-time  live-timer">80'</div>
+                        <div class="live-time  live-timer">{{matct.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
                     </template>
                 </template>
                 <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
@@ -113,6 +114,11 @@
 
 </template>
 <style scoped>
+    .dian {
+        animation: dianstyle 1s ease-out 0s infinite alternate;
+        -webkit-animation: dianstyle 1s ease-out 0s infinite alternate;
+        font-size: 0.4rem;
+    }
     .one-game {
         padding: .333333rem .4rem .346667rem .4rem;
         border-bottom: 1px solid #eaeaea
