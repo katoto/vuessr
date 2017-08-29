@@ -139,6 +139,7 @@
     }
 </style>
 <script>
+    import {aTypes} from '~store/home'
     export default {
         data () {
             return {
@@ -154,10 +155,13 @@
                 this.$router.replace(path)
             }
         },
-        watch: {
-            '$route.path' () {
-                this.showNav = false
+        async mounted () {
+            const hasLogin = await this.$store.dispatch(aTypes.checkHasLogin)
+            if (hasLogin) {
+                this.$store.dispatch(aTypes.getConcernState, '2')
             }
+        },
+        watch: {
         },
         head: {
             title: '篮球比分-500彩票网'

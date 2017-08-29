@@ -25,7 +25,7 @@
                 <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
                     <ul class="list">
                         <zq-list-item v-for="match in filteredMatches" :match="match" key="match.fid" :ready="ready"
-                                      :view="view"></zq-list-item>
+                                      :view="view" :concern="concerns && concerns[match.fid]"></zq-list-item>
                     </ul>
                 </matches-scroller>
             </template>
@@ -156,7 +156,9 @@
             expectList () {
                 return this.zq.expectList
             },
-
+            concerns () {
+                return this.zq.concernState
+            },
             isLoading () {
                 if (!this.matches) return 1
                 if (this.zq.tab === this.$route.params.tab) {

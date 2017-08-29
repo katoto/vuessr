@@ -10,8 +10,8 @@
             <loading v-if="isLoading === 2"></loading>
             <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
                 <ul class="list">
-                    <lq-list-item v-for="match in filteredMatches" :match="match" key="match.fid"
-                                  :view="view"></lq-list-item>
+                    <lq-list-item v-for="match in filteredMatches" :match="match" key="match.fid" :ready="ready"
+                                  :view="view" :concern="concerns && concerns[match.fid]"></lq-list-item>
                 </ul>
             </matches-scroller>
 
@@ -114,7 +114,9 @@
             matches () {
                 return this.lq.matches
             },
-
+            concerns () {
+                return this.lq.concernState
+            },
             curExpect () {
                 return this.lq.curExpect
             },

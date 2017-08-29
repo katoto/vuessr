@@ -36,7 +36,7 @@
     </div>
 </template>
 <script>
-    import {BasketballStatusCode as StatusCode, BasketballStatusDesc as StatusDesc} from '~common/constants'
+    import {BasketballStatusCode as StatusCode, pushEvents, BasketballStatusDesc as StatusDesc} from '~common/constants'
     import {mTypes, aTypes} from '~store/lqdetail'
     import meSports from '~components/detail/meSports.vue'
     import noData from '~components/no_data.vue'
@@ -88,6 +88,20 @@
         },
         mounted () {
             this.fetchData()
+        },
+        watch: {
+            loaded (loaded) {
+                this.refreshScroll()
+            },
+            refreshTime () {
+                this.fetchData()
+            },
+            socketData ({data, stamp}) {
+                if (stamp === pushEvents.BASKETBALL_EVENT) {
+                    // 重新调用接口
+                    this.fetchData()
+                }
+            }
         }
     }
 </script>

@@ -18,6 +18,7 @@
 </style>
 <script>
     import scrollSel from '~components/home/scrollSel.vue'
+    import {aTypes} from '~store/home'
     export default {
         data () {
             return {
@@ -30,6 +31,12 @@
         methods: {
         },
         watch: {
+        },
+        async mounted () {
+            const hasLogin = await this.$store.dispatch(aTypes.checkHasLogin)
+            if (hasLogin) {
+                this.$store.dispatch(aTypes.getConcernState, '1')
+            }
         },
         head: {
             title: '足球比分-500彩票网'
