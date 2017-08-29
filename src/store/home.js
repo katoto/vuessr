@@ -123,8 +123,6 @@ const actionsInfo = mapActions({
                 match._flag = true
                 return true
             }
-            match.status = '1'
-            match.match_at = '1290'
         })
         matchesInfo._expect = expect
         matchesInfo.tab = tab

@@ -103,6 +103,7 @@ const actionsInfo = mapActions({
             ajax.get(`/library/sports/news?homeid=${homeid}&awayid=${awayid}&status=${status}&matchtime=${matchtime}&vtype=1&leagueid=${leagueid}&limit=20`)
         ])
         eventlist = eventlist.reverse()
+        statistic = statistic || {}
         commit(mTypes.setSituation, {eventlist, statistic, news})
         return {eventlist, statistic, news}
     },
@@ -374,6 +375,9 @@ const mutationsInfo = mapMutations({
         state.situation.eventlist = eventlist
         state.situation.statistic = statistic
         news && (state.situation.news = news)
+    },
+    setSituationEventlist (state, eventlist) {
+        state.situation.eventlist = eventlist
     },
     setEventAndStatistics (state, {eventlist, statistic}) {
         state.comment.eventlist = eventlist

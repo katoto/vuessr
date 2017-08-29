@@ -427,7 +427,7 @@
     import {FootballStatusCode as StatusCode, FootballStatusName as StatusName} from '~common/constants'
     import scrollText from '~directives/scroll_text'
     import move from '~components/home/move.vue'
-    import {mTypes, aTypes} from '~store/home'
+    import {aTypes} from '~store/home'
     export default {
         props: {
             match: {
