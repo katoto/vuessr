@@ -309,12 +309,6 @@
                     }
                 })
             },
-            syncMatch () {
-                if (this.socketData.stamp === pushEvents.BASKETBALL_INFO && (this.socketData.data.fid + '' === this.baseInfo.fid)) {
-                    //                    同步数据
-                    this.$store.commit(mTypes.syncBaseInfo, this.socketData.data)
-                }
-            },
             goTeam ({teamId}) {
                 this.$router.push(`/team/basketball/${teamId}/curr/sc`)
             },
@@ -338,17 +332,7 @@
             socketData ({data, stamp}) { // websocket推送过来的数据
                 if (stamp === pushEvents.BASKETBALL_INFO) {
                     if (data.fid === this.baseInfo.fid) {
-                        if (this.baseInfo.homescore === data.homescore && this.baseInfo.awayscore === data.awayscore) {
-                            this.syncMatch()
-                        } else {
-                            if (this.baseInfo.homescore !== data.homescore) {
-                                this.newHomescore = data.homescore
-                            }
-                            if (this.baseInfo.awayscore !== data.awayscore) {
-                                this.newAwayscore = data.awayscore
-                            }
-                        }
-                    //                        this.$store.dispatch(aTypes.getBaseInfo, this.baseInfo.fid)
+                        this.$store.commit(mTypes.syncBaseInfo, data)
                     }
                 }
             },
