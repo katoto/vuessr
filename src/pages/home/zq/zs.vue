@@ -7,7 +7,7 @@
                 <div class="mark-demo">
                     <template v-if="metro.awesome_predict.homesxname">
                         {{metro.awesome_predict.homesxname}} VS {{metro.awesome_predict.awaysxname}}
-                        <div class="mark-demo-r">{{metro.awesome_predict.cell.predict_result|combatDesc}} {{metro.awesome_predict.cell.probability}}%</div>
+                        <div class="mark-demo-r">{{metro.awesome_predict.cell.predict_result|combatDesc}} <em>{{metro.awesome_predict.cell.probability}}</em>%</div>
                     </template>
                     <template v-else>
                         暂无推荐
@@ -139,10 +139,11 @@
     .mark-tit {
         font-weight: bolder;
         color: #fff;
+        font-size: .4rem;
         margin-bottom: .24rem
     }
 
-    [data-dpr="1"] .mark-tit {
+    /*[data-dpr="1"] .mark-tit {
         font-size: 15px
     }
 
@@ -152,7 +153,7 @@
 
     [data-dpr="3"] .mark-tit {
         font-size: 45px
-    }
+    }*/
 
     .mark-demo {
         color: rgba(255,255,255,.5);

@@ -17,7 +17,7 @@ const state = {
         expectList: null,
         curExpect: null,
         concern: null,
-        concernState: null
+        concernState: {}
     },
     lq: {
         metro: null,
@@ -26,7 +26,7 @@ const state = {
         expectList: null,
         curExpect: null,
         concern: null,
-        concernState: null
+        concernState: {}
     }
 }
 const actionsInfo = mapActions({
@@ -64,6 +64,7 @@ const actionsInfo = mapActions({
         } catch (e) {
             if (e.code === '102') {
                 commit(mTypes.setLogin, false)
+                platform.login()
             }
         }
     },
@@ -84,6 +85,7 @@ const actionsInfo = mapActions({
         } catch (e) {
             if (e.code === '102') {
                 commit(mTypes.setLogin, false)
+                platform.login()
             }
         }
     },
@@ -106,6 +108,7 @@ const actionsInfo = mapActions({
         } catch (e) {
             if (e.code === '102') {
                 commit(mTypes.setLogin, false)
+                platform.login()
             }
         }
     },
