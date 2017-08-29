@@ -22,7 +22,10 @@
                     <div class="game-name"><img data-inited="0"
                                                 src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"
                                                 alt="主队图标"
-                                                :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">{{match.homesxname}}
+                                                :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">
+                                                {{match.homesxname}}
+                                                <sub class="team-site f22" v-if="match.homestanding">{{match.homestanding | rankFmt}}</sub>
+                                                <sub class="team-site f22" v-if="match.zlc === '1'">(中)</sub>
                     </div>
                     <div class="game-lately" v-if="match.status === StatusCode.NOT_STARTED && view==='1'">
                         {{match.extra_info && match.extra_info.homerecord}}
@@ -49,7 +52,9 @@
                     <div class="game-name"><img data-inited="0"
                                                 src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"
                                                 alt="客队图标"
-                                                :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">{{match.awaysxname}}
+                                                :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">
+                                                {{match.awaysxname}}
+                                                <sub class="team-site f22" v-if="match.awaystanding">{{match.awaystanding | rankFmt}}</sub>
                     </div>
 
                     <template v-if="match.status === StatusCode.NOT_STARTED">
@@ -88,10 +93,11 @@
                 <template v-if="feature.e[match.status]"><!--正在开打-->
                     <template v-if="match.extra_info && match.extra_info.ishasvideo === '1'">
                         <div class="btn-live">直播</div>
-                        <div class="live-time">{{matct.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
+                        <div class="live-time">{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF) | setInterval(firstTime)}}<i class="dian">'</i></div>
+
                     </template>
                     <template v-else>
-                        <div class="live-time  live-timer">{{matct.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
+                        <div class="live-time  live-timer">{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF) | setInterval(firstTime)}}<i class="dian">'</i></div>
                     </template>
                 </template>
                 <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
@@ -448,7 +454,10 @@
                     }
                 },
                 StatusCode,
-                StatusName
+                StatusName,
+                firstTime: {
+                    status: true
+                }
             }
         },
         methods: {
@@ -511,6 +520,19 @@
                     return false
                 }
                 return list.indexOf(item) > -1
+            },
+            setInterval: (minute, firstTime) => {
+                minute = Number(minute)
+                if(firstTime.status) {
+                    setInterval(() => {
+                        return minute++
+                    }, 3600)
+                    firstTime.status = false
+                }
+            },
+            rankFmt: (rank) => {
+                if(!rank || rank === '0') return ''
+                return `[${Number(rank)}]`
             }
         }
     }
