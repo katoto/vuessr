@@ -96,7 +96,7 @@ const actions = {
                         'match_at': '1080'
                     }
                     // console.log(data)
-                    commit('updateSocketData', {data, stamp: 0})
+                    commit('updateSocketData', {data, stamp: 2})
                 }, 5000)
                 if (state.websocket.latestSub.length) {
                     state.websocket.latestSub.forEach((sub) => {

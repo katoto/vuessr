@@ -22,7 +22,11 @@
                     <div class="game-name"><img data-inited="0"
                                                 src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"
                                                 alt="主队图标"
-                                                :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">{{match.homesxname}}
+                                                :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">
+                                                {{match.homesxname}}
+                                                <em v-if="match.homestanding">{{match.homestanding | rankFmt}}</em>
+                                                <em v-if="match.zlc === '1'">(中)</em>
+                                                <em class="red-c" v-if="match.home_red_counts !== '0'">{{match.home_red_counts}}</em>
                     </div>
                     <div class="game-lately" v-if="match.status === StatusCode.NOT_STARTED && view==='1'">
                         {{match.extra_info && match.extra_info.homerecord}}
@@ -49,7 +53,10 @@
                     <div class="game-name"><img data-inited="0"
                                                 src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"
                                                 alt="客队图标"
-                                                :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">{{match.awaysxname}}
+                                                :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">
+                                                {{match.awaysxname}}
+                                                <em v-if="match.awaystanding">{{match.awaystanding | rankFmt}}</em>
+                                                <em class="red-c" v-if="match.away_red_counts !== '0'">{{match.away_red_counts}}</em>
                     </div>
 
                     <template v-if="match.status === StatusCode.NOT_STARTED">
@@ -77,6 +84,7 @@
                     </ul>
                 </div>
             </router-link>
+
             <!-- 右边的关注、直播情况-->
             <div class="game-detail-r">
                 <!--<div class="btn-live">直播</div>-->
@@ -87,10 +95,11 @@
                 <template v-if="feature.e[match.status]"><!--正在开打-->
                     <template v-if="match.extra_info && match.extra_info.ishasvideo === '1'">
                         <div class="btn-live">直播</div>
-                        <div class="live-time">80'</div>
+                        <div class="live-time">{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF) | setInterval(firstTime)}}<i class="dian">'</i></div>
+
                     </template>
                     <template v-else>
-                        <div class="live-time  live-timer">80'</div>
+                        <div class="live-time  live-timer">{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF) | setInterval(firstTime)}}<i class="dian">'</i></div>
                     </template>
                 </template>
                 <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
@@ -113,6 +122,11 @@
 
 </template>
 <style scoped>
+    .dian {
+        animation: dianstyle 1s ease-out 0s infinite alternate;
+        -webkit-animation: dianstyle 1s ease-out 0s infinite alternate;
+        font-size: 0.4rem;
+    }
     .one-game {
         padding: .333333rem .4rem .346667rem .4rem;
         border-bottom: 1px solid #eaeaea
@@ -377,7 +391,21 @@
         margin-left: -.6rem
     }
 
-
+    .game-name em {
+        font-size: .293333rem;
+        color: #aab5bd;
+        margin-left: .213333rem;
+    }
+    .game-name .red-c {
+        display: inline-block;
+        width: .213333rem;
+        height: .266667rem;
+        line-height: .266667rem;
+        background: #f44336;
+        color: #fff;
+        font-size: .24rem;
+        text-align: center;
+    }
 </style>
 <script>
     import {FootballStatusCode as StatusCode, FootballStatusName as StatusName} from '~common/constants'
@@ -442,7 +470,10 @@
                     }
                 },
                 StatusCode,
-                StatusName
+                StatusName,
+                firstTime: {
+                    status: true
+                }
             }
         },
         methods: {
@@ -450,6 +481,7 @@
                 this.$router.push(this.detailPath)
             },
             doConcern () {
+                this.$store.dispatch('ensureLogin')
                 this.$store.dispatch(aTypes.doConcern, {fid: this.match.fid, vtype: '1'})
             }
         },
@@ -505,6 +537,23 @@
                     return false
                 }
                 return list.indexOf(item) > -1
+            },
+            setInterval: (minute, firstTime) => {
+                minute = Number(minute)
+                if (firstTime.status) {
+                    setInterval(() => {
+                        return minute++
+                    }, 3600)
+                    firstTime.status = false
+                }
+            },
+            rankFmt: (rank) => {
+                if (!rank || rank === '0') return ''
+                return `[${Number(rank)}]`
+            },
+            redCardFmt: (count) => {
+                if (!count || count === '0') return ''
+                return count
             }
         }
     }

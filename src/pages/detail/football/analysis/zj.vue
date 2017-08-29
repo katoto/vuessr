@@ -581,7 +581,7 @@
                 </div>
             </div>-->
         </div>
-        <skbtips></skbtips>
+        <skbtips v-if="leagueRank"></skbtips>
     </div>
 </template>
 

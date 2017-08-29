@@ -4,6 +4,8 @@
         <div class="filter-cont">
             <!-- 日期筛选 -->
             <filter-time class="fl" :expect-list="expectList" :cur-expect="curExpect"></filter-time>
+            <!-- 联赛筛选 -->
+            <filter-league class="fr" :initial="selectOptions" :matches="matches" @ok="doFilter"></filter-league>
         </div>
 
         <div class="l-flex-1 l-relative">
@@ -53,7 +55,8 @@
         data () {
             return {
                 selectOptions: null,
-                position: 0
+                position: 0,
+                ready: false
             }
         },
         watch: {
@@ -64,7 +67,7 @@
                 }
             },
             fidIndexMap (fidIndexMap) {
-                this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(fidIndexMap))
+                this.$store.dispatch(aTypes.subscribeBasketballInfo, Object.keys(fidIndexMap))
             },
 
             socketData ({data, stamp}) {
@@ -150,8 +153,10 @@
             }
         },
 
-        mounted () {
-            this.fetchData()
+        async mounted () {
+            await this.fetchData()
+            this.ready = true
+            this.$store.dispatch(aTypes.subscribeBasketballInfo, Object.keys(this.fidIndexMap))
         },
 
         methods: {
@@ -163,6 +168,9 @@
                 this.$store.commit('startOneRefresh')
                 await this.$store.dispatch(aTypes.fetchLqMatches, this.$route.params)
                 this.$store.commit('endOneRefresh')
+            },
+            doFilter (selectOptions) {
+                this.selectOptions = selectOptions
             }
         }
 
