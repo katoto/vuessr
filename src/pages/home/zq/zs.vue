@@ -7,7 +7,7 @@
                 <div class="mark-demo">
                     <template v-if="metro.awesome_predict.homesxname">
                         {{metro.awesome_predict.homesxname}} VS {{metro.awesome_predict.awaysxname}}
-                        <div class="mark-demo-r">{{metro.awesome_predict.cell.predict_result|predictResult}} {{metro.awesome_predict.cell.probability}}%</div>
+                        <div class="mark-demo-r">{{metro.awesome_predict.cell.predict_result|combatDesc}} {{metro.awesome_predict.cell.probability}}%</div>
                     </template>
                     <template v-else>
                         暂无推荐
@@ -104,11 +104,11 @@
             combatDesc: (result) => {
                 switch (result) {
                 case '3':
-                    return `连胜`
+                    return `主胜`
                 case '1':
-                    return `连平`
+                    return `平局`
                 case '0':
-                    return `连负`
+                    return `主负`
                 default:
                     return ''
                 }
