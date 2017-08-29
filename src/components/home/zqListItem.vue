@@ -465,6 +465,7 @@
                 this.$router.push(this.detailPath)
             },
             doConcern () {
+                this.$store.dispatch('ensureLogin')
                 this.$store.dispatch(aTypes.doConcern, {fid: this.match.fid, vtype: '1'})
             }
         },

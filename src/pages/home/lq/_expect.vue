@@ -55,7 +55,8 @@
         data () {
             return {
                 selectOptions: null,
-                position: 0
+                position: 0,
+                ready: false
             }
         },
         watch: {
@@ -66,7 +67,7 @@
                 }
             },
             fidIndexMap (fidIndexMap) {
-                this.$store.dispatch(aTypes.subscribeFootballInfo, Object.keys(fidIndexMap))
+                this.$store.dispatch(aTypes.subscribeBasketballInfo, Object.keys(fidIndexMap))
             },
 
             socketData ({data, stamp}) {
@@ -152,8 +153,10 @@
             }
         },
 
-        mounted () {
-            this.fetchData()
+        async mounted () {
+            await this.fetchData()
+            this.ready = true
+            this.$store.dispatch(aTypes.subscribeBasketballInfo, Object.keys(this.fidIndexMap))
         },
 
         methods: {
