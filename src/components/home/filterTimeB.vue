@@ -129,7 +129,7 @@
     }
 
     .filter-time {
-        width: 9.2rem;
+        width: 6.88rem;
         height: 1.066667rem;
         border: 1px solid #eaeaea;
         border-radius: .106667rem;
@@ -162,11 +162,11 @@
     }
 
     .filter-time .today {
-        width: 7.2rem;
-        padding-left: 2.933333rem;
+        width: 4.906667rem;
         height: 1.066667rem;
         line-height: 1.066667rem;
         float: left;
+        padding-left: 1.733333rem;
         box-sizing: border-box;
         position: relative
     }
@@ -178,7 +178,7 @@
         position: absolute;
         top: 50%;
         margin-top: -.213333rem;
-        left: 2.266667rem;
+        left: 1.066667rem;
         background: url(~assets/style/images/home/date.png) no-repeat;
         background-size: cover
     }
@@ -326,6 +326,12 @@
         0% {
             /*transform: translate(-2.32rem,-3.49333rem);*/
             height: 1.066667rem;
+            width: 6.88rem
+        }
+
+        51% {
+            /*transform: translate(0rem,-3.49333rem);*/
+            height: 1.066667rem;
             width: 9.2rem
         }
 
@@ -353,19 +359,25 @@
             height: 5.333333rem
         }
 
+        49% {
+            /*transform: translate(0rem,-3.49333rem);*/
+            height: 1.066667rem;
+            width: 9.2rem
+        }
+
         100% {
             /*transform: translate(-2.32rem,-3.49333rem);*/
             height: 1.066667rem;
-            width: 9.2rem
+            width: 6.88rem
         }
     }
 
     .toggle-enter-active {
-        animation: appear .4s 0s 1 ease both
+        animation: appear .8s 0s 1 ease both
     }
 
     .toggle-leave-active {
-        animation: disappear .4s 0s 1 cubic-bezier(.5, .25, .075, .805) normal forwards
+        animation: disappear 1s 0s 1 cubic-bezier(.5, .25, .075, .805) normal forwards
     }
 
     .toggle-enter-active .week-tit {
@@ -377,7 +389,6 @@
     }
 
     .layer-leave-active {
-        transition: transform .4s;
+        transition: transform .8s;
     }
-
 </style>
