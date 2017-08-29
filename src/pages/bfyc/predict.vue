@@ -187,7 +187,7 @@
                 this.$router.push(`/detail/football/${fid}/predict`)
             },
             async fetchData () {
-                await this.$store.dispatch(aTypes.getPredict)
+                await this.$store.dispatch(aTypes.getPredict, this.$store.state.bfyc.currExpect)
                 if (!this.$store.state.bfyc.currExpect) {
                     this.$store.commit(mTypes.setCurrExpect, this.$store.state.bfyc.predict.curr_expect)
                     this.$store.commit(mTypes.setExpectList, this.$store.state.bfyc.predict.expect_list)
