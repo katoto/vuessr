@@ -10,12 +10,15 @@
 
         <div class="l-flex-1 l-relative">
             <loading v-if="isLoading === 2"></loading>
-            <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
-                <ul class="list">
-                    <lq-list-item v-for="match in filteredMatches" :match="match" key="match.fid" :ready="ready"
-                                  :view="view" :concern="concerns && concerns[match.fid]"></lq-list-item>
-                </ul>
-            </matches-scroller>
+           <template v-else>
+               <empty v-if="filteredMatches.length === 0"></empty>
+               <matches-scroller ref="scroller" v-else @position="setPosition" :pos="position">
+                   <ul class="list">
+                       <lq-list-item v-for="match in filteredMatches" :match="match" key="match.fid" :ready="ready"
+                                     :view="view" :concern="concerns && concerns[match.fid]"></lq-list-item>
+                   </ul>
+               </matches-scroller>
+           </template>
 
         </div>
 
@@ -30,6 +33,7 @@
     import filterTime from '~components/home/filterTimeB.vue'
     import loading from '~components/home/loading.vue'
     import filterLeague from '~components/home/filterLeague.vue'
+    import empty from '~components/home/empty.vue'
     import {FootballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import {aTypes, mTypes} from '~store/home'
     const savedData = {}
@@ -81,7 +85,9 @@
             },
 
             '$route.path' () {
+                this.selectOptions = null
                 this.position = 0
+                this.$store.dispatch('unsubscribeAll')
                 this.$refs.scroller && this.$refs.scroller.update()
                 this.fetchData()
             },
@@ -92,7 +98,7 @@
 
         },
         components: {
-            MatchesScroller, lqListItem, filterTime, filterLeague, loading
+            MatchesScroller, lqListItem, filterTime, filterLeague, loading, empty
         },
 
         computed: {

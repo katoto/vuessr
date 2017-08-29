@@ -51,6 +51,7 @@
                 showSel: false,
                 tabNameMap: {
                     'jczq': '竞猜',
+                    'jclq':'竞猜',
                     'all': '全部',
                     'crazybet': '猜球',
                     'hot': '热门',
