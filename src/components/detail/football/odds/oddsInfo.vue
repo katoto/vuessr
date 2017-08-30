@@ -1,4 +1,3 @@
-
 <template>
     <div class="popBox l-full l-flex-column  slide-bottom-to-top">
         <div class="popTopbar" v-tap="{methods: closeDialog}"></div>
@@ -54,7 +53,7 @@
                                             <td><span class="f24"
                                                       :class="{'red': info.lost_change == 1, 'green': info.lost_change == -1}">{{parseFloat(info.lost).toFixed(2)}}</span>
                                             </td>
-                                            <td  v-tap="{methods: ()=> isOddsTimeNormal=!isOddsTimeNormal}">
+                                            <td v-tap="{methods: ()=> isOddsTimeNormal=!isOddsTimeNormal}">
                                                 <span class="color9"
                                                       v-if="!isOddsTimeNormal">{{info.updatetime}}</span>
                                                 <span class="color9" v-if="isOddsTimeNormal">{{info.realtime.substring(5,16)}}</span>
@@ -128,7 +127,7 @@
                                             <th width="10%">赛果</th>
                                         </tr>
                                         <tr
-                                            v-for="match,idx in sameOddsInfo.all_matches">
+                                                v-for="match,idx in sameOddsInfo.all_matches">
                                             <td>{{match.simpleleague}} {{match.matchdate.substring(2,10)}}<br>{{match.homesxname}}
                                                 {{match.homescore}}:{{match.awayscore}}
                                                 {{match.awaysxname}}
@@ -292,7 +291,7 @@
                                             <th width="10%">盘路</th>
                                         </tr>
                                         <tr
-                                            v-for="match,idx in sameOddsInfo.all_matches">
+                                                v-for="match,idx in sameOddsInfo.all_matches">
                                             <td>{{match.simpleleague}} {{match.matchdate.substring(2,10)}}<br>{{match.homesxname}}
                                                 {{match.homescore}}:{{match.awayscore}} {{match.awaysxname}}
                                             </td>
@@ -357,7 +356,8 @@
                                             <th width="20%">大</th>
                                             <th>盘口</th>
                                             <th width="20%">小</th>
-                                            <th width="36%" v-tap="{methods: ()=> isOddsTimeNormal=!isOddsTimeNormal}">更新时间<em class="gxsj" id="gxsj"></em></th>
+                                            <th width="36%" v-tap="{methods: ()=> isOddsTimeNormal=!isOddsTimeNormal}">
+                                                更新时间<em class="gxsj" id="gxsj"></em></th>
                                         </tr>
                                         <tr v-for="info in oddsInfo">
                                             <td>
@@ -369,7 +369,7 @@
                                             <td>
                                                 <span class="f24" :class="{'red': info.s == 1, 'green': info.s == -1}">{{info.small}}</span>
                                             </td>
-                                            <td  v-tap="{methods: ()=> isOddsTimeNormal=!isOddsTimeNormal}">
+                                            <td v-tap="{methods: ()=> isOddsTimeNormal=!isOddsTimeNormal}">
                                                 <span class="color9" v-if="!isOddsTimeNormal">{{info.time}}</span>
                                                 <span class="color9" v-if="isOddsTimeNormal">{{info.realtime.substring(5,16)}}</span>
                                             </td>
@@ -442,15 +442,19 @@
                                             <th width="47%">初赔/终赔</th>
                                             <th width="10%">盘路</th>
                                         </tr>
-                                        <tr  v-for="match,idx in sameOddsInfo.all_matches">
-                                            <td>{{match.simpleleague}} {{match.matchdate.substring(2,10)}}<br>{{match.homesxname}} {{match.homescore}}:{{match.awayscore}}
+                                        <tr v-for="match,idx in sameOddsInfo.all_matches">
+                                            <td>{{match.simpleleague}} {{match.matchdate.substring(2,10)}}<br>{{match.homesxname}}
+                                                {{match.homescore}}:{{match.awayscore}}
                                                 {{match.awaysxname}}
                                             </td>
                                             <td>
-                                                <p class=" disc  "><em>{{sameOddsInfo.big}}</em><em>{{sameOddsInfo.handi}}</em><em>{{sameOddsInfo.small}}</em></p>
-                                                <p class=" disc "><em>{{match.big || '--'}}</em><em>{{match.handi || '--'}}</em><em>{{match.small || '--'}}</em></p>
+                                                <p class=" disc  "><em>{{sameOddsInfo.big}}</em><em>{{sameOddsInfo.handi}}</em><em>{{sameOddsInfo.small}}</em>
+                                                </p>
+                                                <p class=" disc "><em>{{match.big || '--'}}</em><em>{{match.handi ||
+                                                    '--'}}</em><em>{{match.small || '--'}}</em></p>
                                             </td>
-                                            <td class=" result-last" :class="{'result-win':match.result=='大','result-lose':match.result=='小'}">
+                                            <td class=" result-last"
+                                                :class="{'result-win':match.result=='大','result-lose':match.result=='小'}">
                                                 <span>{{match.result}}</span>
                                             </td>
                                         </tr>
@@ -475,10 +479,13 @@
                                                 {{match.awaysxname}}
                                             </td>
                                             <td>
-                                                <p class=" disc "><em>{{sameOddsInfo.big}}</em><em>{{sameOddsInfo.handi}}</em><em>{{sameOddsInfo.small}}</em></p>
-                                                <p class=" disc "><em>{{match.big || '--'}}</em><em>{{match.handi || '--'}}</em><em>{{match.small || '--'}}</em></p>
+                                                <p class=" disc "><em>{{sameOddsInfo.big}}</em><em>{{sameOddsInfo.handi}}</em><em>{{sameOddsInfo.small}}</em>
+                                                </p>
+                                                <p class=" disc "><em>{{match.big || '--'}}</em><em>{{match.handi ||
+                                                    '--'}}</em><em>{{match.small || '--'}}</em></p>
                                             </td>
-                                            <td class=" result-last" :class="{'result-win':match.result=='大','result-lose':match.result=='小'}">
+                                            <td class=" result-last"
+                                                :class="{'result-win':match.result=='大','result-lose':match.result=='小'}">
                                                 <span>{{match.result}}</span>
                                             </td>
                                         </tr>
@@ -563,6 +570,9 @@
                                 leagueid: this.match.league_id,
                                 date: this.match.matchtime
                             })
+                            sameOddsInfo.win = currentInfo.first.win
+                            sameOddsInfo.draw = currentInfo.first.draw
+                            sameOddsInfo.lost = currentInfo.first.lost
                             this.sameOddsInfo = sameOddsInfo
                             this.oddsInfo = oddsInfo
                         }
@@ -683,10 +693,12 @@
         color: #242c35;
         overflow: hidden
     }
+
     .popBox .l-flex-column {
         position: relative;
         z-index: 5
     }
+
     .popTopbar {
         height: 1.173333rem;
         width: 100%
@@ -703,6 +715,7 @@
         position: relative;
         overflow: hidden
     }
+
     .plleft {
         width: 2rem;
         color: #242c35;
@@ -731,6 +744,7 @@
         position: relative;
         border-radius: 0 .186667rem 0 0
     }
+
     .plleft-list li {
         line-height: 1.226667rem;
         height: 1.226667rem;
@@ -745,6 +759,7 @@
         position: relative;
         color: #242c35
     }
+
     .plright {
         width: 7.733333rem;
         float: right;
@@ -752,10 +767,12 @@
         position: relative;
         border-radius: 0 .186667rem 0 0
     }
+
     .popTab {
         text-align: center;
         border-bottom: 1px solid #f4f4f4
     }
+
     .popTab li {
         display: inline-block;
         height: 1.066667rem;
@@ -768,9 +785,11 @@
         border-bottom: .053333rem solid #242c35;
         color: #242c35
     }
+
     .clear {
         zoom: 1
     }
+
     .clear:after {
         content: '';
         clear: both;
@@ -778,15 +797,18 @@
         height: 0;
         visibility: hidden
     }
+
     .pl-cont {
         position: relative;
         width: 100%;
         height: 14rem;
         overflow: hidden
     }
+
     .plcontent {
         padding: 0 .333333rem 0 .266667rem
     }
+
     .plxq-table {
         text-align: center;
         -webkit-transform: translateZ(0);
@@ -804,6 +826,7 @@
     [data-dpr="3"] .plxq-table {
         font-size: 33px
     }
+
     .plxq-table tr th {
         line-height: 1.066667rem;
         height: 1.066667rem;
@@ -836,6 +859,7 @@
     .firstleft tr td:first-child {
         text-align: left
     }
+
     .gxsj {
         width: .2rem;
         height: .2rem;
@@ -848,6 +872,7 @@
     .firstleft tr td:first-child {
         text-align: left
     }
+
     .plxq-table-lspt tr.plxq-lspt-td130 td {
         height: 1.733333rem
     }
@@ -863,9 +888,11 @@
     [data-dpr="3"] .plxq-table-lspt tr td .colora {
         font-size: 33px
     }
+
     .colora {
         color: #aab5bd
     }
+
     .win-c p:first-child {
         color: #d3553d
     }
@@ -877,6 +904,7 @@
     .lose-c p:first-child {
         color: #437ba8
     }
+
     .plxq-table-f {
         margin-top: .533333rem;
         font-size: .2933rem;
@@ -921,6 +949,7 @@
     .plxq-table-f tr td:last-child {
         text-align: right
     }
+
     .result-last {
         text-align: right
     }
@@ -935,6 +964,15 @@
         font-size: .32rem
     }
 
+    .disc em:nth-child(2) {
+        width: 1.2rem;
+        text-align: center;
+    }
+
+    .disc em {
+        display: inline-block;
+    }
+
     .result-win span {
         background: #d25138
     }
@@ -946,6 +984,7 @@
     .result-lose span {
         background: #437ba8
     }
+
     .popFooter {
         border-top: 1px solid #e8e8e8;
         background: #fff;
@@ -971,6 +1010,7 @@
         line-height: 1.32rem;
         color: #242c35
     }
+
     .arrow {
         overflow: hidden;
         height: .333333rem;
@@ -994,6 +1034,7 @@
         bottom: .093333rem;
         left: .093333rem
     }
+
     .pl-table .green,
     .pl-table .pl-num .green {
         color: #36a171
@@ -1003,9 +1044,11 @@
     .pl-table .red {
         color: #d3553d
     }
+
     .red {
         color: #d3553d
     }
+
     .green {
         color: #36a171
     }
