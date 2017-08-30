@@ -93,7 +93,7 @@
             }
         },
         beforeDestroy () {
-            this.$emit('position', this.myScroll.y)
+            this.myScroll && this.$emit('position', this.myScroll.y)
         }
     }
 </script>
