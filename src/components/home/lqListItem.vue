@@ -32,6 +32,7 @@
                             <em class="first-half" v-if="ascore[0]">{{ascore[0]}}</em>
                             <em class="first-half" v-if="ascore[1]">{{ascore[1]}}</em>
                             <em class="first-half" v-if="ascore[2]">{{ascore[2]}}</em>
+                            <em class="first-half" v-if="ascore[3]">{{ascore[3]}}</em>
                             <em class="second-half">{{match.awayscore}}</em>
                         </div>
                     </template>
@@ -40,6 +41,7 @@
                             <em class="first-half">{{ascore[0]}}</em>
                             <em class="first-half">{{ascore[1]}}</em>
                             <em class="first-half">{{ascore[2]}}</em>
+                            <em class="first-half">{{ascore[3]}}</em>
                             <em class="second-half had-over">{{match.awayscore}}</em>
                         </div>
                     </template>
@@ -59,6 +61,7 @@
                             <em class="first-half" v-if="hscore[0]">{{hscore[0]}}</em>
                             <em class="first-half" v-if="hscore[1]">{{hscore[1]}}</em>
                             <em class="first-half" v-if="hscore[2]">{{hscore[2]}}</em>
+                            <em class="first-half" v-if="hscore[3]">{{hscore[3]}}</em>
                             <!--<em class="second-half">{{match.homescore}}</em>-->
                             <move class="second-half" :score="match.homescore" ready="true"></move>
                         </div>
@@ -68,18 +71,19 @@
                             <em class="first-half">{{hscore[0]}}</em>
                             <em class="first-half">{{hscore[1]}}</em>
                             <em class="first-half">{{hscore[2]}}</em>
+                            <em class="first-half">{{hscore[3]}}</em>
                             <em class="second-half had-over">{{match.homescore}}</em>
                             <!--<move class="second-half" :score="match.homescore" ready="true"></move>-->
                         </div>
                     </template>
                 </div>
-                <div class="odds-item" v-if="match.status === StatusCode.NOT_STARTED && view==='2'">
-                    <ul>
-                        <li>{{currodds[0]}}</li>
-                        <li>{{currodds[1]}}</li>
-                        <li>{{currodds[2]}}</li>
-                    </ul>
-                </div>
+                <!--<div class="odds-item" v-if="match.status === StatusCode.NOT_STARTED && view==='2'">-->
+                    <!--<ul>-->
+                        <!--<li>{{currodds[0]}}</li>-->
+                        <!--<li>{{currodds[1]}}</li>-->
+                        <!--<li>{{currodds[2]}}</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
             </router-link>
 
 
@@ -441,9 +445,9 @@
             }
         },
         computed: {
-            currodds () {
-                return this.match.extra_info.currodds && this.match.extra_info.currodds.split('/')
-            },
+//            currodds () {
+//                return this.match.extra_info && this.match.extra_info.currodds && this.match.extra_info.currodds.split('/')
+//            },
             detailPath () {
                 if (this.match.status === StatusCode.NOT_STARTED || this.match.status === StatusCode.CHANGED) {
                     return `/detail/basketball/${this.match.fid}/analysis/zj`

@@ -127,12 +127,18 @@ export function createRouter () {
                             {
                                 path: 'zs',
                                 component: ZqZs,
-                                name: 'home-zq-zs'
+                                name: 'home-zq-zs',
+                                meta: {
+                                    tab: 'zs'
+                                }
                             },
                             {
                                 path: 'concern',
                                 component: ZqConcern,
-                                name: 'home-zq-concern'
+                                name: 'home-zq-concern',
+                                meta: {
+                                    tab: 'concern'
+                                }
                             },
                             {
                                 path: '*',
