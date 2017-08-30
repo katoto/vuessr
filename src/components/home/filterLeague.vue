@@ -111,16 +111,15 @@
             confirm: function () {
                 this.$emit('ok', this.selectOptions)
                 this.showSel = false
-                let tmp=Object.values(this.selectOptions)
+                let tmp = Object.values(this.selectOptions)
                 console.log(tmp)
-                for(let i of tmp){
-                    if(i){
+                for (let i of tmp) {
+                    if (i) {
                         return
-                    }else{
+                    } else {
                         return alert('至少选择1个联赛')
                     }
                 }
-
             }
         }
     }

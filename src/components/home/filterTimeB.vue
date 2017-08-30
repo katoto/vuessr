@@ -112,7 +112,6 @@
                     const tmp = expect.split('-')
                     return `${[tmp[1], tmp[2]].join('-')} 周${dayMap[date.getDay()]}`
                 }
-
             }
         }
     }
