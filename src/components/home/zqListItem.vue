@@ -10,7 +10,7 @@
             <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '13'">点球 {{match.spot_kick_score}}</span>
 
             <template v-if="feature.d[match.status] && match.extra_info"><span class="crazy-guess" v-if="match.extra_info.iscrazybet==='1'">猜球</span><span
-                    class="crazy-guess" v-if="match.extra_info.isrecommend">有料</span></template>
+                    class="crazy-guess" v-if="match.extra_info.isrecommend && match.status !== StatusCode.ENDED">有料</span></template>
 
             <div class="game-info-r">{{match.matchtime.substring(5, 16)}}</div>
         </div>
@@ -26,7 +26,7 @@
                                                 {{match.homesxname}}
                                                 <em v-if="match.homestanding && match.homestanding !== '0'">{{match.homestanding | rankFmt}}</em>
                                                 <em v-if="match.zlc === '1'">(中)</em>
-                                                <em class="red-c" v-if="match.home_red_counts !== '0'">{{match.home_red_counts}}</em>
+                                                <em class="red-c" v-if="match.home_red_counts !== '' && match.home_red_counts !== '0'">{{match.home_red_counts}}</em>
                     </div>
                     <div class="game-lately" v-if="match.status === StatusCode.NOT_STARTED && view==='1'">
                         {{match.extra_info && match.extra_info.homerecord}}
@@ -56,7 +56,7 @@
                                                 :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">
                                                 {{match.awaysxname}}
                                                 <em v-if="match.awaystanding && match.awaystanding !== '0'">{{match.awaystanding | rankFmt}}</em>
-                                                <em class="red-c" v-if="match.away_red_counts !== '0'">{{match.away_red_counts}}</em>
+                                                <em class="red-c" v-if="match.away_red_counts !== '' && match.away_red_counts !== '0'">{{match.away_red_counts}}</em>
                     </div>
 
                     <template v-if="match.status === StatusCode.NOT_STARTED">

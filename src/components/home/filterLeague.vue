@@ -50,8 +50,8 @@
                 filteredMatches: [],
                 showSel: false,
                 tabNameMap: {
-                    'jczq': '竞猜',
-                    'jclq':'竞猜',
+                    'jczq': '竞彩',
+                    'jclq':'竞彩',
                     'all': '全部',
                     'crazybet': '猜球',
                     'hot': '热门',
