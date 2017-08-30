@@ -230,6 +230,7 @@
                     })
                     this.$store.commit(mTypes.syncBaseInfo, match)
                     this.$store.commit(mTypes.setSituationEvent, eventlist)
+                    this.refreshScroll()
                 }
             }
         },
