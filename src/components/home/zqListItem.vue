@@ -530,7 +530,7 @@
             move
         },
         mounted () {
-            this.makeInterVal(1000 * 60)       // 设置定时器
+            this.makeInterVal(1000 * 60) // 设置定时器
         },
         filters: {
             matchtimeFmt: (macthtime) => {
@@ -580,7 +580,7 @@
                 if (this.match.status === StatusCode.ENDED || this.match.status === StatusCode.CANCELED) {
                     clearInterval(this.timer)
                 }
-                this.match.match_at = this.match.match_at - 0 + 60   // 自动加一分钟
+                this.match.match_at = this.match.match_at - 0 + 60 // 自动加一分钟
             }
         }
     }

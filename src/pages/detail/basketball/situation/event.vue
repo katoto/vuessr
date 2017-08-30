@@ -212,7 +212,7 @@
 
                     let eventlist = [...this.$store.state.lqdetail.situation.eventlist]
                     let lastEvent = data.events[0]
-                   /* if (!lastEvent.status) {
+                    /* if (!lastEvent.status) {
                         // 更新状态
                         this.$store.commit(mTypes.syncBaseInfo, {status: lastEvent.status})
 
@@ -229,7 +229,7 @@
                         if (lastSection) {
                             lastSection.unshift(...events)
                         }
-                    }*/
+                    } */
 
                     if (lastEvent.homescore && lastEvent.awayscore) {
                         this.match.homescore = lastEvent.homescore
