@@ -54,7 +54,7 @@ const actionsInfo = mapActions({
         view = view || (parseInt(state.view) + 1) % 3 + ''
         commit(mTypes.setView, view)
     },
-    switchLqView ({commit,state}, view) {
+    switchLqView ({commit, state}, view) {
         view = view || (parseInt(state.view) + 1) % 2 + ''
         commit(mTypes.setView, view)
     },
