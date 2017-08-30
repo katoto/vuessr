@@ -9,7 +9,9 @@ const ns = 'home'
 const state = {
     hasLogin: false,
     myState: {},
-    view: '0',
+    // view: '0',
+    lqView: '0',
+    zqView: '0',
     switchShow: true, // 切换框显示
     zq: {
         metro: null,
@@ -50,15 +52,15 @@ const actionsInfo = mapActions({
         commit(mTypes.setLogin, hasLogin)
         return hasLogin
     },
-    switchView ({commit, state}, view) {
-        view = view || (parseInt(state.view) + 1) % 3 + ''
-        sessionStorage.setItem('view', view)
-        commit(mTypes.setView, view)
+    switchZqView ({commit, state}, view) {
+        view = view || (parseInt(state.zqView) + 1) % 3 + ''
+        sessionStorage.setItem('zqView', view)
+        commit(mTypes.setZqView, view)
     },
     switchLqView ({commit, state}, view) {
-        view = view || (parseInt(state.view) + 1) % 2 + ''
-        sessionStorage.setItem('view', view)
-        commit(mTypes.setView, view)
+        view = view || (parseInt(state.lqView) + 1) % 2 + ''
+        sessionStorage.setItem('lqView', view)
+        commit(mTypes.setLqView, view)
     },
     async getConcern ({commit}, vtype) {
         try {
@@ -193,8 +195,11 @@ const mutationsInfo = mapMutations({
     setLogin (state, hasLogin) {
         state.hasLogin = hasLogin
     },
-    setView (state, view) {
-        state.view = view
+    setZqView (state, view) {
+        state.zqView = view
+    },
+    setLqView (state, view){
+        state.lqView = view
     },
     setMyState (state, myState) {
         state.myState = myState

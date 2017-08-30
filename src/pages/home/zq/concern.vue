@@ -92,7 +92,7 @@
                 return this.$store.state.home.zq
             },
             view () { // 展示赔率， 最近6场比赛， 空 三种情况标志位
-                return this.$store.state.home.view
+                return this.$store.state.home.zqView
             },
             matches () {
                 return this.zq.concern
