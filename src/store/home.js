@@ -10,6 +10,7 @@ const state = {
     hasLogin: false,
     myState: {},
     view: '0',
+    switchShow: true,  // 切换框显示
     zq: {
         metro: null,
         tab: 'jczq',
@@ -118,12 +119,17 @@ const actionsInfo = mapActions({
     async fetchZqMatches ({commit}, {expect, tab}) {
         let url = `/score/zq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`
         const matchesInfo = await ajax.get(url)
+        let existNotStartMatch = false       // 存在未开始比赛标志
         matchesInfo.matches.some(match => {
             if (match.status < 4) {
                 match._flag = true
                 return true
             }
         })
+        existNotStartMatch = matchesInfo.matches.some(match => {
+            return match.status === '0'
+        })
+        commit(mTypes.setSwitchShow, existNotStartMatch)
         matchesInfo._expect = expect
         matchesInfo.tab = tab
         commit(mTypes.setZqMatches, matchesInfo)
@@ -147,12 +153,17 @@ const actionsInfo = mapActions({
     },
     async fetchLqMatches ({commit}, {expect, tab}) {
         const matchesInfo = await ajax.get(`/score/lq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`)
+        let existNotStartMatch = false       // 存在未开始比赛标志
         matchesInfo.matches.some(match => {
-            if (match.status < 4) {
+            if ((match.status - 0) < 4) {
                 match._flag = true
                 return true
             }
         })
+        existNotStartMatch = matchesInfo.matches.some(match => {
+            return match.status === '0'
+        })
+        commit(mTypes.setSwitchShow, existNotStartMatch)
         matchesInfo._expect = expect
         matchesInfo.tab = tab
         commit(mTypes.setLqMatches, matchesInfo)
@@ -210,6 +221,9 @@ const mutationsInfo = mapMutations({
         // eslint-disable-next-line
         state.lq.curExpect = curr_expect
         state.lq.matches = matches
+    },
+    setSwitchShow (state, switchShow) {
+        state.switchShow = switchShow
     }
 }, ns)
 

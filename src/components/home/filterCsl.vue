@@ -13,7 +13,7 @@
                 <!-- 杯赛选择 -->
                 <div class="cup-info">
                     <ul>
-                        <li :class="{cur: expect === curExpect}"  v-tap="{methods: enterExpect, expect: expect}" v-for="expect in rExpectList">第{{expect}}轮</li>
+                        <li :class="{cur: expect === curExpect}"  v-tap="{methods: enterExpect, expect: expect}" v-for="expect in expectList">第{{expect}}轮</li>
                     </ul>
                 </div>
 
@@ -39,15 +39,6 @@
         },
         mounted () {
         },
-        watch: {
-            showSel (showSel) {
-                if (showSel) {
-                    let rEL = [...this.expectList]
-                    rEL.reverse()
-                    this.rExpectList = rEL
-                }
-            }
-        },
         methods: {
             toggleSel () {
                 this.showSel = !this.showSel
@@ -66,19 +57,6 @@
             },
             goPre () {
                 const idx = this.expectList.indexOf(this.curExpect)
-                if (idx === this.expectList.length - 1) {
-                } else {
-                    this.$router.replace({
-                        name: 'home-zq-expect',
-                        params: {
-                            tab: this.$route.params.tab,
-                            expect: this.expectList[idx + 1]
-                        }
-                    })
-                }
-            },
-            goNext () {
-                const idx = this.expectList.indexOf(this.curExpect)
                 if (idx === 0) {
                 } else {
                     this.$router.replace({
@@ -86,6 +64,19 @@
                         params: {
                             tab: this.$route.params.tab,
                             expect: this.expectList[idx - 1]
+                        }
+                    })
+                }
+            },
+            goNext () {
+                const idx = this.expectList.indexOf(this.curExpect)
+                if (idx === this.expectList.length - 1) {
+                } else {
+                    this.$router.replace({
+                        name: 'home-zq-expect',
+                        params: {
+                            tab: this.$route.params.tab,
+                            expect: this.expectList[idx + 1]
                         }
                     })
                 }

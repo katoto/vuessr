@@ -9,8 +9,10 @@
             <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '11'">加时 {{match.extra_time_score}}&nbsp;</span>
             <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '13'">点球 {{match.spot_kick_score}}</span>
 
-            <template v-if="feature.d[match.status] && match.extra_info"><span class="crazy-guess" v-if="match.extra_info.iscrazybet==='1'">猜球</span><span
-                    class="crazy-guess" v-if="match.extra_info.isrecommend">有料</span></template>
+            <template v-if="feature.d[match.status] && match.extra_info">
+                <span class="crazy-guess" v-if="match.extra_info.iscrazybet==='1'">猜球</span><span
+                    class="crazy-guess" v-if="match.extra_info.isrecommend">有料</span>
+            </template>
 
             <div class="game-info-r">{{match.matchtime.substring(5, 16)}}</div>
         </div>
@@ -26,7 +28,7 @@
                                                 {{match.homesxname}}
                                                 <em v-if="match.homestanding && match.homestanding !== '0'">{{match.homestanding | rankFmt}}</em>
                                                 <em v-if="match.zlc === '1'">(中)</em>
-                                                <em class="red-c" v-if="match.home_red_counts !== '0'">{{match.home_red_counts}}</em>
+                                                <em class="red-c" v-if="match.home_red_counts !== '' && match.home_red_counts !== '0'">{{match.home_red_counts}}</em>
                     </div>
                     <div class="game-lately" v-if="match.status === StatusCode.NOT_STARTED && view==='1'">
                         {{match.extra_info && match.extra_info.homerecord}}
@@ -56,7 +58,7 @@
                                                 :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">
                                                 {{match.awaysxname}}
                                                 <em v-if="match.awaystanding && match.awaystanding !== '0'">{{match.awaystanding | rankFmt}}</em>
-                                                <em class="red-c" v-if="match.away_red_counts !== '0'">{{match.away_red_counts}}</em>
+                                                <em class="red-c" v-if="match.away_red_counts !== '' && match.away_red_counts !== '0'">{{match.away_red_counts}}</em>
                     </div>
 
                     <template v-if="match.status === StatusCode.NOT_STARTED">
@@ -476,8 +478,8 @@
                         [StatusCode.NOT_STARTED]: true,
                         [StatusCode.MID]: true,
                         [StatusCode.FIRST_HALF]: true,
-                        [StatusCode.LAST_HALF]: true,
-                        [StatusCode.ENDED]: true
+                        [StatusCode.LAST_HALF]: true
+                        // [StatusCode.ENDED]: true
                     },
                     e: {
                         [StatusCode.MID]: true,
@@ -530,7 +532,7 @@
             move
         },
         mounted () {
-            this.makeInterVal(1000 * 60)       // 设置定时器
+            this.makeInterVal(1000 * 60) // 设置定时器
         },
         filters: {
             matchtimeFmt: (macthtime) => {
@@ -580,7 +582,7 @@
                 if (this.match.status === StatusCode.ENDED || this.match.status === StatusCode.CANCELED) {
                     clearInterval(this.timer)
                 }
-                this.match.match_at = this.match.match_at - 0 + 60   // 自动加一分钟
+                this.match.match_at = this.match.match_at - 0 + 60 // 自动加一分钟
             }
         }
     }

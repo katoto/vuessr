@@ -17,7 +17,7 @@
 
         </div>
         <refresh/>
-        <switch-comp></switch-comp>
+        <switch-comp v-if="switchShow"></switch-comp>
     </div>
 
 </template>
@@ -28,6 +28,11 @@
     export default{
 
         components: {refresh, switchComp},
+        computed: {
+            switchShow () {
+                return this.$store.state.home.switchShow
+            }
+        },
         methods: {
             goLeague () {
                 if (~this.$route.path.indexOf('/zq/')) {

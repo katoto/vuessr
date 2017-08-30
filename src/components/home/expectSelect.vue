@@ -10,8 +10,8 @@
                 <div class="month-tit"><span></span>{{curExpect}}期</div>
 
                 <div class="cup-info">
-                    <ul v-if="expectList">
-                        <li v-for="expect in expectList" :class="{cur: expect === curExpect}" v-tap="{methods: enterExpect, expect: expect}">{{expect}}期</li>
+                    <ul v-if="expectListR">
+                        <li v-for="expect in expectListR" :class="{cur: expect === curExpect}" v-tap="{methods: enterExpect, expect: expect}">{{expect}}期</li>
                     </ul>
                 </div>
             </div>
@@ -28,7 +28,14 @@
         props: ['expectList', 'curExpect'],
         data () {
             return {
-                showSel: false
+                showSel: false,
+                onPre: true,
+                onNext: true
+            }
+        },
+        computed: {
+            expectListR () {     // 逆序expectListR
+                return JSON.parse(JSON.stringify(this.expectList)).reverse()
             }
         },
         mounted () {
@@ -50,27 +57,29 @@
                 }, 500)
             },
             goPre () {
-                const idx = this.expectList.indexOf(this.curExpect)
-                if (idx === this.expectList.length - 1) {
+                const idx = this.expectListR.indexOf(this.curExpect)
+                if (idx === 0) {
+                    this.onPre = false
                 } else {
                     this.$router.replace({
                         name: 'home-zq-expect',
                         params: {
                             tab: this.$route.params.tab,
-                            expect: this.expectList[idx + 1]
+                            expect: this.expectListR[idx - 1]
                         }
                     })
                 }
             },
             goNext () {
-                const idx = this.expectList.indexOf(this.curExpect)
-                if (idx === 0) {
+                const idx = this.expectListR.indexOf(this.curExpect)
+                if (idx === this.expectListR.length - 1) {
+                    this.onNext = false
                 } else {
                     this.$router.replace({
                         name: 'home-zq-expect',
                         params: {
                             tab: this.$route.params.tab,
-                            expect: this.expectList[idx - 1]
+                            expect: this.expectListR[idx + 1]
                         }
                     })
                 }
