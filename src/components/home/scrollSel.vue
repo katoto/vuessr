@@ -16,16 +16,41 @@
 <script>
     import {Scroller} from 'scroller'
     export default {
-        mounted () {
-            this.config()
+        data () {
+            return {
+                tabLeft: {
+                    jczq: 0,
+                    all: 0,
+                    crazybet: 0,
+                    hot: 0,
+                    zs: 1,
+                    concern: 2,
+                    sfc: 2,
+                    csl: 2,
+                    bjdc: 2
+                },
+                liw: 173
+            }
+        },
+        async mounted () {
+            await this.config()
+            this.initLeft()
         },
         methods: {
-            switchTab ({path}) {
-                this.$router.replace(path)
+            async switchTab ({path}) {
+                await this.$router.replace(path)
+                await this.initLeft()
+            },
+            async initLeft () {
+                const tab = this.$route.params.tab || this.$route.meta.tab
+                setTimeout(() => {
+                    this.scrollerObj.scrollTo((this.tabLeft[tab] * this.liw), 0, true)
+                }, 100)
             },
             config () {
                 this.content = this.$el.children[0]
                 let liw = this.$el.querySelector('li').offsetWidth
+                this.liw = liw
                 const transform = typeof document.body.style.transform !== 'undefined' ? 'transform' : 'webkitTransform'
                 this.scrollerObj = new Scroller((left, top, zoom) => {
                     this.content.style[transform] = 'translate3d(' + (-left) + 'px,' + (-top) + 'px,0) scale(' + zoom + ')'
@@ -35,6 +60,8 @@
                     scrollingX: true,
                     scrollingY: false
                 })
+                // this.scrollerObj.scrollTo(this.tabLeft[this.$route.params.tab] * liw, 0, false)
+                // this.initLeft(liw) // 移动导航栏tab位置
                 this.scrollerObj.setSnapSize(liw)
                 this.scrollerObj.setDimensions(this.$el.offsetWidth, this.$el.offsetHeight, this.content.offsetWidth, this.content.offsetHeight)
                 this.$el.addEventListener('touchstart', (e) => {

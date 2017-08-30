@@ -14,7 +14,8 @@
                 <!-- 杯赛选择 -->
                 <div class="cup-info">
                     <ul>
-                        <li :class="{cur:selectOptions[league]}" v-for="league in leagueNameList"><span v-tap="{methods: toggleLeague, league: league}">{{league}}</span></li>
+                        <li :class="{cur:selectOptions[league]}" v-for="league in leagueNameList"><span
+                                v-tap="{methods: toggleLeague, league: league}">{{league}}</span></li>
                     </ul>
                 </div>
                 <!-- 全选、反选、五大联赛 -->
@@ -106,13 +107,11 @@
                 this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
             },
             confirm: function () {
-
-                let tmp=Object.values(this.selectOptions)
-                console.log(tmp)
-                for(let i of tmp){
-                    if(i){
+                let tmp = Object.values(this.selectOptions)
+                for (let i of tmp) {
+                    if (i) {
                         break
-                    }else{
+                    } else {
                         return this.$store.dispatch('showToast', '至少选择一个联赛')
                     }
                 }
@@ -234,7 +233,6 @@
         -webkit-overflow-scrolling: touch;
         margin: 0 auto .3rem;
     }
-
 
     .cup-info ul {
         overflow: hidden

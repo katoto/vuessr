@@ -34,7 +34,7 @@
             }
         },
         computed: {
-            expectListR () {     // 逆序expectListR
+            expectListR () { // 逆序expectListR
                 return JSON.parse(JSON.stringify(this.expectList)).reverse()
             }
         },

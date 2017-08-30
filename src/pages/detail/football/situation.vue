@@ -132,7 +132,7 @@
                             }
                         })
                     }
-                    this.$store.commit(mTypes.setSituationEventlist, newEventList)
+                    newEventList.length && this.$store.commit(mTypes.setSituationEventlist, newEventList)
                 }
             }
         },
