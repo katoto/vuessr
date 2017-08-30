@@ -79,7 +79,7 @@
                     data.fid = data.fid + ''
                     let match = this.matches[this.fidIndexMap[data.fid]]
                     if (match && match.fid === data.fid) {
-                        this.$store.commit(mTypes.updateZqMatch, {info: data, idx: this.fidIndexMap[data.fid]})
+                        this.$store.commit(mTypes.updateLqMatch, {info: data, idx: this.fidIndexMap[data.fid]})
                     }
                 }
             },
