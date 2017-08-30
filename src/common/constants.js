@@ -40,6 +40,10 @@ export const BasketballStatusCode = {
     CHANGED: '12', // 改期
     BREAK_TIME: '13' // 休息时间
 }
+export const BOrderedStatusCode = [
+    BasketballStatusCode.OVERTIME_4, BasketballStatusCode.OVERTIME_3, BasketballStatusCode.OVERTIME_2, BasketballStatusCode.OVERTIME_1,
+    BasketballStatusCode.SECTION_4, BasketballStatusCode.SECTION_3, BasketballStatusCode.SECTION_2, BasketballStatusCode.SECTION_1
+]
 
 export const FootBallEventType = {
     NONE: 0,
@@ -203,15 +207,15 @@ export const BasketballMemberAdvType = {
 }
 
 /*
-export default {
-    'BBallStatusName':{
-        [BBallStatusCode.MID]: '中场休息',
-        [BBallStatusCode.ENDED]: '完场',
-        [BBallStatusCode.CHANGED]: '改期'
-    },
-    BBallStatusCode:BBallStatusCode
-}
-*/
+ export default {
+ 'BBallStatusName':{
+ [BBallStatusCode.MID]: '中场休息',
+ [BBallStatusCode.ENDED]: '完场',
+ [BBallStatusCode.CHANGED]: '改期'
+ },
+ BBallStatusCode:BBallStatusCode
+ }
+ */
 export const FootballStatusDesc = {
     [FootballStatusCode.UNSURE]: '本场比赛待定',
     [FootballStatusCode.CANCELED]: '本场比赛被取消',
