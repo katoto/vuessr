@@ -1,4 +1,3 @@
-
 <template>
     <div v-if="news || eventList">
         <div v-if="eventList && eventList.length">
@@ -49,7 +48,8 @@
             <me-sports v-if="news" :news="news.news" :init-size="3" @rs="refreshScroll"></me-sports>
             <div class="gl-nav">文字直播</div>
             <div class="zhedie-box" v-if="eventList.length" v-for="(item,index) in eventList">
-                <div class="zhedie-nav" :class="{'dang-list-l-on': isActive[index]}" v-tap="{methods:()=>changeSelect(index)}">
+                <div class="zhedie-nav" :class="{'dang-list-l-on': isActive[index]}"
+                     v-tap="{methods:()=>changeSelect(index)}">
                     {{nameList[index]}}
                     <span class="live" v-if=" Number(match.status) >= 2 && Number(match.status) <= 10 && index == 0">Live</span>
                     <span class="sh-arrow" :class="{'rotate180': !isActive[index]}"></span>
@@ -74,7 +74,7 @@
             <skbtips></skbtips>
         </div>
         <div v-if="!news || (news && !news.news) || !eventList || !eventList.length">
-           <no-data></no-data>
+            <no-data></no-data>
 
         </div>
     </div>
@@ -85,7 +85,7 @@
     import {aTypes, mTypes} from '~store/lqdetail'
     import meSports from '~components/detail/meSports.vue'
     import noData from '~components/no_data.vue'
-    import {BasketballStatusCode as StatusCode, pushEvents} from '~common/constants'
+    import {BasketballStatusCode as StatusCode, pushEvents, BOrderedStatusCode} from '~common/constants'
     import skbtips from '~components/detail/skbtips.vue'
     import itemLoader from '~components/detail/itemLoader.vue'
 
@@ -208,33 +208,28 @@
             },
             socketData ({data, stamp}) {
                 if (stamp === pushEvents.BASKETBALL_EVENT) {
-                    // 重新调用接口
-
                     let eventlist = [...this.$store.state.lqdetail.situation.eventlist]
-                    let lastEvent = data.events[0]
-                    /* if (!lastEvent.status) {
+                    let lastEvent = data.events[data.events.length - 1]
+                    const match = {}
+                    if (lastEvent.status) {
                         // 更新状态
-                        this.$store.commit(mTypes.syncBaseInfo, {status: lastEvent.status})
-
-                        eventlist.push()
-
-                        for (let i = 0; i < this.OrderedStatusCode.length; i++) {
-                            if (this.OrderedStatusCode[i] === lastEvent.status) {
-                                this.eventlist[i].unshift(...events)
-                                break
-                            }
-                        }
-                    } else {
-                        let lastSection = this.eventlist[0]
-                        if (lastSection) {
-                            lastSection.unshift(...events)
-                        }
-                    } */
-
-                    if (lastEvent.homescore && lastEvent.awayscore) {
-                        this.match.homescore = lastEvent.homescore
-                        this.match.awayscore = lastEvent.awayscore
+                        match.status = lastEvent.status
                     }
+                    if (lastEvent.homescore && lastEvent.awayscore) {
+                        match.homescore = lastEvent.homescore
+                        match.awayscore = lastEvent.awayscore
+                    }
+                    const orders = [...BOrderedStatusCode].reverse()
+                    data.events.forEach((event) => {
+                        const idx = orders.indexOf(event.status)
+                        if (eventlist.length < idx + 1) {
+                            eventlist.push([event])
+                        } else {
+                            eventlist[idx] = [...eventlist[idx], event]
+                        }
+                    })
+                    this.$store.commit(mTypes.syncBaseInfo, match)
+                    this.$store.commit(mTypes.setSituationEvent, eventlist)
                 }
             }
         },
@@ -258,6 +253,7 @@
         height: 0;
         visibility: hidden
     }
+
     .jie-detailL {
         float: left;
         width: 3.906667rem
@@ -269,6 +265,7 @@
         position: relative;
         padding-bottom: .133333rem
     }
+
     .t-nav {
         line-height: .933333rem;
         height: .933333rem;
@@ -288,6 +285,7 @@
     [data-dpr="3"] .t-nav {
         font-size: 33px
     }
+
     [data-dpr="1"] .t-detail {
         font-size: 11px
     }
@@ -337,18 +335,22 @@
         margin-top: -.253rem;
         left: 0
     }
+
     .jie-detailR .mr40 {
         margin-right: 1.253333rem
     }
+
     .slide-box {
         -webkit-overflow-scrolling: touch
     }
+
     .jie-detailR {
         float: right;
         width: 6.073333rem;
         position: relative;
         padding-bottom: .133333rem
     }
+
     .t-nav {
         line-height: .933333rem;
         height: .933333rem;
@@ -368,21 +370,26 @@
     [data-dpr="3"] .t-nav {
         font-size: 33px
     }
+
     .jie-detailR .t-detail li div {
         text-align: center
     }
+
     .responsive {
         width: 100%;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex
     }
+
     .t-nav div {
         text-align: center
     }
+
     .wjie {
         width: 1rem
     }
+
     .zongfen-box {
         position: absolute;
         top: 0;
@@ -415,6 +422,7 @@
     [data-dpr="3"] .gray-zf {
         font-size: 33px
     }
+
     .sli-line {
         height: 1px;
         width: 100%;
@@ -423,6 +431,7 @@
         top: .933333rem;
         background: #ededed
     }
+
     .jie-detail:after {
         content: '';
         clear: both;
@@ -434,6 +443,7 @@
     .zhedie-box {
         background: #fff
     }
+
     .zhedie-nav {
         border-bottom: 1px solid #ededed;
         height: 1.066667rem;
@@ -446,6 +456,7 @@
         color: #333;
         position: relative
     }
+
     .live {
         width: .68rem;
         height: .346667rem;
@@ -455,6 +466,7 @@
         display: inline-block;
         background: #f63f3f
     }
+
     [data-dpr="1"] .live {
         font-size: 11px
     }
@@ -466,10 +478,12 @@
     [data-dpr="3"] .live {
         font-size: 33px
     }
+
     .sh-arrow {
         background: url(~assets/style/images/detail/detail-icon.png) no-repeat;
         background-size: .533333rem 13.333333rem
     }
+
     .sh-arrow {
         height: .533333rem;
         display: inline-block;
@@ -480,11 +494,13 @@
         transition: transform .2s linear;
         transition: transform .2s linear, -webkit-transform .2s linear
     }
+
     .sh-arrow {
         background-position: center -7.453333rem;
         right: .426667rem;
         width: .533333rem
     }
+
     .tree-box {
         position: relative;
         color: #333;
@@ -493,16 +509,25 @@
         background: #fff;
         transition: all .2s linear
     }
+
     .show {
         display: block
     }
-    .hide{display: none}
-    .list{background: #fff}
+
+    .hide {
+        display: none
+    }
+
+    .list {
+        background: #fff
+    }
+
     .tree-box .list {
         padding-left: .32rem;
         position: relative;
         padding-bottom: .6rem
     }
+
     .tree-box .timing {
         position: absolute;
         left: -1.506667rem;
@@ -536,6 +561,7 @@
         display: inline-block;
         right: -.07rem
     }
+
     .dui {
         color: #999
     }
@@ -551,6 +577,7 @@
     [data-dpr="3"] .dui {
         font-size: 33px
     }
+
     .jies {
         color: #333;
         position: relative;
@@ -576,9 +603,11 @@
         right: 0;
         top: 0
     }
+
     .green-s .list {
         border-left: 1px solid #36bd72
     }
+
     .gray-s .list {
         border-left: 1px solid #dbdbdb
     }
@@ -590,6 +619,7 @@
     .gray-s .timing:after {
         background: #dbdbdb
     }
+
     .gray-s .list:first-child .timing:after {
         width: .266667rem;
         height: .266667rem;
@@ -627,6 +657,7 @@
     [data-dpr="3"] .red-zf {
         font-size: 45px
     }
+
     .rotate180 {
         -webkit-animation: all .2s linear;
         animation: all .2s linear;
