@@ -442,7 +442,7 @@
         },
         computed: {
             currodds () {
-                return this.match.extra_info.currodds.split('/')
+                return this.match.extra_info.currodds && this.match.extra_info.currodds.split('/')
             },
             detailPath () {
                 if (this.match.status === StatusCode.NOT_STARTED || this.match.status === StatusCode.CHANGED) {
@@ -451,10 +451,10 @@
                 return `/detail/basketball/${this.match.fid}/situation/event`
             },
             ascore () {
-                return this.match.ascore.split('-')
+                return this.match.ascore && this.match.ascore.split('-')
             },
             hscore () {
-                return this.match.hscore.split('-')
+                return this.match.hscore && this.match.hscore.split('-')
             }
         },
         directives: {
@@ -473,8 +473,10 @@
             // eslint-disable-next-line
             matchAtFmt: (match_at) => {
                 // eslint-disable-next-line
-                let [minutes, seconds] = match_at.split(':')
-                return minutes + "'" + seconds + "''"
+                if (match_at) {
+                    let [minutes, seconds] = match_at.split(':')
+                    return minutes + "'" + seconds + "''"
+                }
             },
             matchtimeFm: (macthtime) => macthtime.match(/\d{2}:\d{2}/)[0],
             truncate: function (input, length, tail) {
