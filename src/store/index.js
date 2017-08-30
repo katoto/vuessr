@@ -148,7 +148,7 @@ const actions = {
                 sub = JSON.parse(sub)
                 sub.action = 'unsubs'
                 sub = JSON.stringify(sub)
-                state.websocket.connect.send(sub)
+                state.websocket.connect && state.websocket.connect.send(sub)
             })
             commit('setLatestSub', [])
         }
