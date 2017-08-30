@@ -22,7 +22,7 @@
                 <ul class="select-all">
                     <li v-tap="{methods: selectAll}">全选</li>
                     <li v-tap="{methods: inverseAll}">反选</li>
-                    <li v-tap="{methods: selectFiveLeague}">五大联赛</li>
+                    <li v-tap="{methods: selectFiveLeague}" v-if="show">五大联赛</li>
                 </ul>
                 <!-- 确认按钮区 -->
                 <div class="btn-cont">
@@ -55,7 +55,8 @@
                     'hot': '热门',
                     'sfc': '足球',
                     'bjdc': '北单'
-                }
+                },
+                show:true
             }
         },
         watch: {
@@ -79,6 +80,9 @@
         },
         mounted () {
             /**/
+            if(~this.$route.path.indexOf('/lq')){
+                this.show=false
+            }
         },
         methods: {
             toggleSel () {
