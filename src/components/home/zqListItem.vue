@@ -9,8 +9,10 @@
             <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '11'">加时 {{match.extra_time_score}}&nbsp;</span>
             <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '13'">点球 {{match.spot_kick_score}}</span>
 
-            <template v-if="feature.d[match.status] && match.extra_info"><span class="crazy-guess" v-if="match.extra_info.iscrazybet==='1'">猜球</span><span
-                    class="crazy-guess" v-if="match.extra_info.isrecommend && match.status !== StatusCode.ENDED">有料</span></template>
+            <template v-if="feature.d[match.status] && match.extra_info">
+                <span class="crazy-guess" v-if="match.extra_info.iscrazybet==='1'">猜球</span><span
+                    class="crazy-guess" v-if="match.extra_info.isrecommend">有料</span>
+            </template>
 
             <div class="game-info-r">{{match.matchtime.substring(5, 16)}}</div>
         </div>
@@ -476,8 +478,8 @@
                         [StatusCode.NOT_STARTED]: true,
                         [StatusCode.MID]: true,
                         [StatusCode.FIRST_HALF]: true,
-                        [StatusCode.LAST_HALF]: true,
-                        [StatusCode.ENDED]: true
+                        [StatusCode.LAST_HALF]: true
+                        // [StatusCode.ENDED]: true
                     },
                     e: {
                         [StatusCode.MID]: true,
