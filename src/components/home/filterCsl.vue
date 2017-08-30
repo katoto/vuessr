@@ -72,7 +72,7 @@
                         name: 'home-zq-expect',
                         params: {
                             tab: this.$route.params.tab,
-                            expect: this.expectList[idx + 1]
+                            expect: this.expectList[idx - 1]
                         }
                     })
                 }
@@ -85,7 +85,7 @@
                         name: 'home-zq-expect',
                         params: {
                             tab: this.$route.params.tab,
-                            expect: this.expectList[idx - 1]
+                            expect: this.expectList[idx + 1]
                         }
                     })
                 }

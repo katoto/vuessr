@@ -7,7 +7,7 @@
                 <div class="mark-demo">
                     <template v-if="metro.awesome_predict.homesxname">
                         {{metro.awesome_predict.homesxname}} VS {{metro.awesome_predict.awaysxname}}
-                        <div class="mark-demo-r">{{metro.awesome_predict.cell.predict_result|combatDesc}} <em>{{metro.awesome_predict.cell.probability}}</em>%</div>
+                        <div class="mark-demo-r">{{metro.awesome_predict.cell.predict_result|predictDesc}} <em>{{metro.awesome_predict.cell.probability}}</em>%</div>
                     </template>
                     <template v-else>
                         暂无推荐
@@ -35,6 +35,7 @@
                 <div class="mark-demo">
                     <template v-if="metro.strength_compare.homesxname">
                         {{metro.strength_compare.homesxname}} VS {{metro.strength_compare.awaysxname}}
+                        <div class="mark-demo-r">主队 <em>{{metro.strength_compare.cell.home_percent}}</em>%</div>
                     </template>
                     <template v-else>
                         暂无推荐
@@ -48,7 +49,7 @@
                     <template v-if="metro.combat_feature.awaysxname">
                         {{metro.combat_feature.order}}
                         {{metro.combat_feature.cell.teamsxname}}
-                        <div class="mark-demo-r"><em>{{metro.combat_feature.cell.continous}}</em>{{metro.combat_feature.cell.result|combatDesc}}</div>
+                        <div class="mark-demo-r">{{metro.combat_feature.cell.result|combatDesc}} <em>{{metro.combat_feature.cell.continous}}</em>场</div>
                     </template>
 
                     <template v-else>
@@ -101,7 +102,7 @@
             }
         },
         filters: {
-            combatDesc: (result) => {
+            predictDesc: (result) => {
                 switch (result) {
                 case '3':
                     return `主胜`
@@ -109,6 +110,18 @@
                     return `平局`
                 case '0':
                     return `主负`
+                default:
+                    return ''
+                }
+            },
+            combatDesc: (result) => {
+                switch (result) {
+                case '3':
+                    return `连胜`
+                case '1':
+                    return `连平`
+                case '0':
+                    return `连负`
                 default:
                     return ''
                 }
