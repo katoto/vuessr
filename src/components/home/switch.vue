@@ -1,8 +1,17 @@
 <template>
     <div class="switch-box" v-tap="{methods: switchView}">
-        <div class="switch-cont switch-icon" v-if="view === '0'"></div>
-        <div class="switch-cont switch-zt" v-if="view === '1'">状态</div>
-        <div class="switch-cont switch-pl" v-if="view === '2' && tab">赔率</div>
+        <!--足球切换-->
+        <template v-if="tab">
+            <div class="switch-cont switch-icon" v-if="zqView === '0'"></div>
+            <div class="switch-cont switch-zt" v-if="zqView === '1'">状态</div>
+            <div class="switch-cont switch-pl" v-if="zqView === '2'">赔率</div>
+        </template>
+
+        <!--篮球切换-->
+        <template v-else>
+            <div class="switch-cont switch-icon" v-if="lqView === '0'"></div>
+            <div class="switch-cont switch-zt" v-if="lqView === '1'">状态</div>
+        </template>
     </div>
 </template>
 <script>
@@ -12,8 +21,11 @@
             this.initView()
         },
         computed: {
-            view () {
-                return this.$store.state.home.view
+            zqView () {
+                return this.$store.state.home.zqView
+            },
+            lqView () {
+                return this.$store.state.home.lqView
             }
         },
         data(){
@@ -21,10 +33,16 @@
                 tab:true
             }
         },
+        watch: {
+            '$route.path' () {
+                this.initView()
+                console.log(this.tab)
+            }
+        },
         methods: {
             switchView(){
-                if(~this.$route.path.indexOf('zq')){
-                    this.$store.dispatch(aTypes.switchView)
+                if(~this.$route.path.indexOf('/zq')){
+                    this.$store.dispatch(aTypes.switchZqView)
                     this.tab=true
                 }
                 else{
@@ -33,7 +51,17 @@
                 }
             },
             initView () {
-                this.$store.commit(mTypes.setView, sessionStorage.getItem('view') || '0')
+                console.log(sessionStorage.getItem('lqView'))
+                if(~this.$route.path.indexOf('/zq')){
+                    this.tab = true
+                    this.$store.commit(mTypes.setZqView, sessionStorage.getItem('zqView') || '0')
+                }
+
+                else{
+                    this.tab = false
+                    this.$store.commit(mTypes.setLqView, sessionStorage.getItem('lqView') || '0')
+                }
+
                 /*if(~this.$route.path.indexOf('zq')){
                     this.$store.dispatch(aTypes.switchView)
                     this.tab=true
