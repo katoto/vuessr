@@ -2,7 +2,7 @@
     <div class="switch-box" v-tap="{methods: switchView}">
         <div class="switch-cont switch-icon" v-if="view === '0'"></div>
         <div class="switch-cont switch-zt" v-if="view === '1'">状态</div>
-        <div class="switch-cont switch-pl" v-if="view === '2'">赔率</div>
+        <div class="switch-cont switch-pl" v-if="view === '2' && tab">赔率</div>
     </div>
 </template>
 <script>
@@ -16,18 +16,30 @@
                 return this.$store.state.home.view
             }
         },
+        data:{
+            tab:true
+        },
         methods: {
-            switchView () {
-                this.$store.dispatch(aTypes.switchView)
-            },
-            initView () {
-                this.$store.commit(mTypes.setView, sessionStorage.getItem('view') || '0')
+            switchView(){
                 if(~this.$route.path.indexOf('zq')){
                     this.$store.dispatch(aTypes.switchView)
+                    this.tab=true
                 }
                 else{
                     this.$store.dispatch(aTypes.switchLqView)
+                    this.tab=false
                 }
+            },
+            initView () {
+                this.$store.commit(mTypes.setView, sessionStorage.getItem('view') || '0')
+                /*if(~this.$route.path.indexOf('zq')){
+                    this.$store.dispatch(aTypes.switchView)
+                    this.tab=true
+                }
+                else{
+                    this.$store.dispatch(aTypes.switchLqView)
+                    this.tab=false
+                }*/
             }
         }
     }
