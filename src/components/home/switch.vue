@@ -16,8 +16,10 @@
                 return this.$store.state.home.view
             }
         },
-        data:{
-            tab:true
+        data(){
+            return {
+                tab:true
+            }
         },
         methods: {
             switchView(){
