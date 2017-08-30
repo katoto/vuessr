@@ -17,7 +17,12 @@
         },
         methods: {
             switchView () {
-                this.$store.dispatch(aTypes.switchView)
+                if(~this.$route.path.indexOf('zq')){
+                    this.$store.dispatch(aTypes.switchView)
+                }
+                else{
+                    this.$store.dispatch(aTypes.switchLqView)
+                }
             }
         }
     }
