@@ -48,7 +48,7 @@
             <!--<me-sports src="detail-page/comment/me-sports.html" match.status == StatusCode.NOT_STARTED || eventlist == null" requesting="{{isRequesting}}" leagueid="{{match.matchid}}" on-size="hasNews=!!$event.args[0]" init-size="{{match.status == StatusCode.NOT_STARTED?5:3}}" homeid="{{match.homeid}}" awayid="{{match.awayid}}" status="{{match.status}}" matchtime="{{match.matchdate}}" vtype="2"></me-sports>-->
             <me-sports v-if="news" :news="news.news" :init-size="3" @rs="refreshScroll"></me-sports>
             <div class="gl-nav">文字直播</div>
-            <div class="zhedie-box" v-if="eventList && eventList.length" v-for="(item,index) in eventList">
+            <div class="zhedie-box" v-if="eventList.length" v-for="(item,index) in eventList">
                 <div class="zhedie-nav" :class="{'dang-list-l-on': isActive[index]}" v-tap="{methods:()=>changeSelect(index)}">
                     {{nameList[index]}}
                     <span class="live" v-if=" Number(match.status) >= 2 && Number(match.status) <= 10 && index == 0">Live</span>
@@ -85,14 +85,13 @@
     import {aTypes, mTypes} from '~store/lqdetail'
     import meSports from '~components/detail/meSports.vue'
     import noData from '~components/no_data.vue'
-    import {BasketballStatusCode as StatusCode} from '~common/constants'
+    import {BasketballStatusCode as StatusCode, pushEvents} from '~common/constants'
     import skbtips from '~components/detail/skbtips.vue'
     import itemLoader from '~components/detail/itemLoader.vue'
 
     export default{
         async asyncData ({store, route: {params}}) {
             const {status, matchtime, homeid, awayid, matchid} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
-            console.log(status)
             await store.dispatch(aTypes.getSituationEvent, {
                 fid: params.fid, homeid, awayid, status, matchtime, leagueid: matchid
             })
@@ -104,9 +103,7 @@
         },
         data () {
             return {
-                jieData: [],
                 isActive: {},
-                nameList: [],
                 dataList: ['一', '二', '三', '四'],
                 StatusCode
             }
@@ -120,6 +117,9 @@
             },
             match () {
                 return this.$store.state.lqdetail.baseInfo
+            },
+            socketData () { // websocket推送过来的数据
+                return this.$store.getters.getSocketData
             },
             ascore () {
                 let reg = /-|\// // 将字符串20-0-21-0/10-20中的数据拆分出来
@@ -137,47 +137,54 @@
                     })
                 }
             },
-            eventList () {
-                let tmp = []
-                let list = []
+            nameList () {
+                const nameList = []
                 if (this.$store.state.lqdetail.situation && this.$store.state.lqdetail.situation.eventlist) {
                     for (let i = 0; i < this.$store.state.lqdetail.situation.eventlist.length; i++) {
                         if (i < 4) {
-                            this.nameList.push('第' + this.dataList[i] + '节')
+                            nameList.push('第' + this.dataList[i] + '节')
                         } else {
-                            this.nameList.push('加时' + this.dataList[i - 4])
+                            nameList.push('加时' + this.dataList[i - 4])
                         }
                     }
-                    this.nameList.reverse()
-                    tmp = [...this.$store.state.lqdetail.situation.eventlist].reverse()
+                    nameList.reverse()
+                }
+                return nameList
+            },
+            eventList () {
+                if (this.$store.state.lqdetail.situation && this.$store.state.lqdetail.situation.eventlist) {
+                    let list = []
+                    let tmp = [...this.$store.state.lqdetail.situation.eventlist].reverse()
                     for (let lst of tmp) {
-                        list.push(lst.reverse())
+                        list.push([...lst].reverse())
                     }
                     return list
                 }
+            },
+            jieData () {
+                let result = []
+                if (this.ascore) {
+                    for (let i = 1, len = this.ascore.length, j = 1, k = 1; i <= len; i++) {
+                        if (i <= 4) {
+                            result.push(j + '节')
+                            j++
+                        } else {
+                            result.push('加' + k)
+                            k++
+                        }
+                    }
+                }
+                return result
             },
             news () {
                 return this.$store.state.lqdetail.situation.news
             }
         },
         methods: {
-            jiePush () { // 4小节+加时赛
-                if (this.ascore) {
-                    for (let i = 1, len = this.ascore.length, j = 1, k = 1; i <= len; i++) {
-                        if (i <= 4) {
-                            this.jieData.push(j + '节')
-                            j++
-                        } else {
-                            this.jieData.push('加' + k)
-                            k++
-                        }
-                    }
-                }
-            },
-
             changeSelect (idx) {
-                // this.isActive[idx] = !this.isActive[idx]
-                this.$set(this.isActive, idx, !this.isActive[idx])
+                const isActive = {...this.isActive}
+                isActive[idx] = !this.isActive[idx]
+                this.isActive = isActive
                 this.refreshScroll()
             },
             async fetchData () {
@@ -198,12 +205,42 @@
             },
             refreshTime () {
                 this.fetchData()
+            },
+            socketData ({data, stamp}) {
+                if (stamp === pushEvents.BASKETBALL_EVENT) {
+                    // 重新调用接口
+
+                    let eventlist = [...this.$store.state.lqdetail.situation.eventlist]
+                    let lastEvent = data.events[0]
+                    /* if (!lastEvent.status) {
+                        // 更新状态
+                        this.$store.commit(mTypes.syncBaseInfo, {status: lastEvent.status})
+
+                        eventlist.push()
+
+                        for (let i = 0; i < this.OrderedStatusCode.length; i++) {
+                            if (this.OrderedStatusCode[i] === lastEvent.status) {
+                                this.eventlist[i].unshift(...events)
+                                break
+                            }
+                        }
+                    } else {
+                        let lastSection = this.eventlist[0]
+                        if (lastSection) {
+                            lastSection.unshift(...events)
+                        }
+                    } */
+
+                    if (lastEvent.homescore && lastEvent.awayscore) {
+                        this.match.homescore = lastEvent.homescore
+                        this.match.awayscore = lastEvent.awayscore
+                    }
+                }
             }
         },
         mounted () {
             this.fetchData()
-            this.jiePush()
-            this.$set(this.isActive, 0, true)
+            this.isActive = {'0': true}
         }
     }
 </script>
