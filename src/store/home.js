@@ -57,6 +57,7 @@ const actionsInfo = mapActions({
     },
     switchLqView ({commit,state}, view) {
         view = view || (parseInt(state.view) + 1) % 2 + ''
+        sessionStorage.setItem('view', view)
         commit(mTypes.setView, view)
     },
     async getConcern ({commit}, vtype) {
