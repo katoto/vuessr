@@ -45,7 +45,7 @@
                 const tab = this.$route.params.tab || this.$route.meta.tab
                 setTimeout(() => {
                     this.scrollerObj.scrollTo((this.tabLeft[tab] * this.liw), 0, true)
-                }, 100)
+                }, 0)
             },
             config () {
                 this.content = this.$el.children[0]

@@ -6,9 +6,10 @@
     </div>
 </template>
 <script>
-    import {aTypes} from '~store/home'
+    import {mTypes, aTypes} from '~store/home'
     export default {
         mounted () {
+            this.initView()
         },
         computed: {
             view () {
@@ -18,6 +19,9 @@
         methods: {
             switchView () {
                 this.$store.dispatch(aTypes.switchView)
+            },
+            initView() {
+                this.$store.commit(mTypes.setView, sessionStorage.getItem('view') || '0')
             }
         }
     }

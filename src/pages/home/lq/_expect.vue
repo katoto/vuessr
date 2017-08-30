@@ -114,6 +114,9 @@
                 return this.$store.state.home.lq
             },
             view () { // 展示赔率， 最近6场比赛， 空 三种情况标志位
+                // if(typeof window !== 'undefined') {
+                //     return window && window.sessionStorage.getItem('view') || this.$store.state.home.view
+                // }
                 return this.$store.state.home.view
             },
 
@@ -166,6 +169,7 @@
             await this.fetchData()
             this.ready = true
             this.$store.dispatch(aTypes.subscribeBasketballInfo, Object.keys(this.fidIndexMap))
+
         },
 
         methods: {

@@ -11,7 +11,7 @@
 
             <template v-if="feature.d[match.status] && match.extra_info">
                 <span class="crazy-guess" v-if="match.extra_info.iscrazybet==='1'">猜球</span><span
-                    class="crazy-guess" v-if="match.extra_info.isrecommend">有料</span>
+                    class="crazy-guess" v-if="match.extra_info.isrecommend === '1'">有料</span>
             </template>
 
             <div class="game-info-r">{{match.matchtime.substring(5, 16)}}</div>
