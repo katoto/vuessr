@@ -169,7 +169,6 @@
             await this.fetchData()
             this.ready = true
             this.$store.dispatch(aTypes.subscribeBasketballInfo, Object.keys(this.fidIndexMap))
-
         },
 
         methods: {

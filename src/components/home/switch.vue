@@ -20,7 +20,7 @@
             switchView () {
                 this.$store.dispatch(aTypes.switchView)
             },
-            initView() {
+            initView () {
                 this.$store.commit(mTypes.setView, sessionStorage.getItem('view') || '0')
             }
         }

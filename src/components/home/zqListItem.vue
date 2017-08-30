@@ -380,7 +380,7 @@
     }
 
     .score-half .second-half {
-        color: #36a171;
+        color: #000;
         display: inline-block;
         height: .64rem;
         line-height: .64rem;
