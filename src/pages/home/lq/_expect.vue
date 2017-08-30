@@ -21,14 +21,14 @@
            </template>
 
         </div>
-
-
+        <toast v-if="toast.visible" :msg="toast.msg"/>
     </div>
 
 
 </template>
 <script>
     import MatchesScroller from '~components/matches_scroller.vue'
+    import toast from '~components/toast.vue'
     import lqListItem from '~components/home/lqListItem.vue'
     import filterTime from '~components/home/filterTimeB.vue'
     import loading from '~components/home/loading.vue'
@@ -98,7 +98,7 @@
 
         },
         components: {
-            MatchesScroller, lqListItem, filterTime, filterLeague, loading, empty
+            MatchesScroller, lqListItem, filterTime, filterLeague, loading, empty, toast
         },
 
         computed: {
@@ -156,6 +156,9 @@
                 } else {
                     return 1
                 }
+            },
+            toast () {
+                return this.$store.state.toast
             }
         },
 

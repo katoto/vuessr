@@ -33,10 +33,7 @@
         <transition name="layer">
             <div class="layer" v-if="showSel" v-tap="{methods: toggleSel}"></div>
         </transition>
-
-
     </div>
-
 
 </template>
 <script>
@@ -109,18 +106,18 @@
                 this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
             },
             confirm: function () {
-                this.$emit('ok', this.selectOptions)
-                this.showSel = false
+
                 let tmp=Object.values(this.selectOptions)
                 console.log(tmp)
                 for(let i of tmp){
                     if(i){
-                        return
+                        break
                     }else{
-                        return alert('至少选择1个联赛')
+                        return this.$store.dispatch('showToast', '至少选择一个联赛')
                     }
                 }
-
+                this.$emit('ok', this.selectOptions)
+                this.showSel = false
             }
         }
     }
