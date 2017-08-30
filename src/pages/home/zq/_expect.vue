@@ -31,7 +31,7 @@
             </template>
 
         </div>
-
+        <toast v-if="toast.visible" :msg="toast.msg"/>
 
     </div>
 
@@ -43,6 +43,7 @@
     import empty from '~components/home/empty.vue'
     import filterTime from '~components/home/filterTime.vue'
     import filterCsl from '~components/home/filterCsl.vue'
+    import toast from '~components/toast.vue'
     import expectSelect from '~components/home/expectSelect.vue'
 
     import loading from '~components/home/loading.vue'
@@ -112,7 +113,7 @@
 
         },
         components: {
-            MatchesScroller, zqListItem, filterTime, filterLeague, empty, loading, filterCsl, expectSelect
+            MatchesScroller, zqListItem, filterTime, filterLeague, empty, loading, filterCsl, expectSelect, toast
         },
 
         computed: {
@@ -170,6 +171,9 @@
                 } else {
                     return 1
                 }
+            },
+            toast () {
+                return this.$store.state.toast
             }
         },
 

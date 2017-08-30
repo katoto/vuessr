@@ -14,7 +14,8 @@
                 <!-- 杯赛选择 -->
                 <div class="cup-info">
                     <ul>
-                        <li :class="{cur:selectOptions[league]}" v-for="league in leagueNameList"><span v-tap="{methods: toggleLeague, league: league}">{{league}}</span></li>
+                        <li :class="{cur:selectOptions[league]}" v-for="league in leagueNameList"><span
+                                v-tap="{methods: toggleLeague, league: league}">{{league}}</span></li>
                     </ul>
                 </div>
                 <!-- 全选、反选、五大联赛 -->
@@ -33,10 +34,7 @@
         <transition name="layer">
             <div class="layer" v-if="showSel" v-tap="{methods: toggleSel}"></div>
         </transition>
-
-
     </div>
-
 
 </template>
 <script>
@@ -109,17 +107,16 @@
                 this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
             },
             confirm: function () {
-                this.$emit('ok', this.selectOptions)
-                this.showSel = false
                 let tmp = Object.values(this.selectOptions)
-                console.log(tmp)
                 for (let i of tmp) {
                     if (i) {
-                        return
+                        break
                     } else {
-                        return alert('至少选择1个联赛')
+                        return this.$store.dispatch('showToast', '至少选择一个联赛')
                     }
                 }
+                this.$emit('ok', this.selectOptions)
+                this.showSel = false
             }
         }
     }
@@ -236,7 +233,6 @@
         -webkit-overflow-scrolling: touch;
         margin: 0 auto .3rem;
     }
-
 
     .cup-info ul {
         overflow: hidden
