@@ -76,7 +76,7 @@ const actionsInfo = mapActions({
             return
         }
         const eventList = fidList.map(fid => 'LIVE:BASKETBALL:EVENT:' + fid)
-        return dispatch('subscribe', {stamp: pushEvents.BASKETBALL_INFO, data: eventList})
+        return dispatch('subscribe', {stamp: pushEvents.BASKETBALL_EVENT, data: eventList})
     },
     async getBaseInfo ({commit}, fid) {
         const baseInfo = await ajax.get(`/score/lq/baseinfo?fid=${fid}`)

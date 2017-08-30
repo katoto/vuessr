@@ -10,7 +10,7 @@ const state = {
     hasLogin: false,
     myState: {},
     view: '0',
-    switchShow: true,  // 切换框显示
+    switchShow: true, // 切换框显示
     zq: {
         metro: null,
         tab: 'jczq',
@@ -119,7 +119,7 @@ const actionsInfo = mapActions({
     async fetchZqMatches ({commit}, {expect, tab}) {
         let url = `/score/zq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`
         const matchesInfo = await ajax.get(url)
-        let existNotStartMatch = false       // 存在未开始比赛标志
+        let existNotStartMatch = false // 存在未开始比赛标志
         matchesInfo.matches.some(match => {
             if (match.status < 4) {
                 match._flag = true
@@ -153,7 +153,7 @@ const actionsInfo = mapActions({
     },
     async fetchLqMatches ({commit}, {expect, tab}) {
         const matchesInfo = await ajax.get(`/score/lq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`)
-        let existNotStartMatch = false       // 存在未开始比赛标志
+        let existNotStartMatch = false // 存在未开始比赛标志
         matchesInfo.matches.some(match => {
             if ((match.status - 0) < 4) {
                 match._flag = true

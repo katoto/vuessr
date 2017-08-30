@@ -110,7 +110,7 @@
                     return `今天 周${dayMap[current.getDay()]}`
                 } else {
                     const tmp = expect.split('-')
-                    return `${[tmp[1], tmp[2]].join('/')} 周${dayMap[date.getDay()]}`
+                    return `${[tmp[1], tmp[2]].join('-')} 周${dayMap[date.getDay()]}`
                 }
             }
         }

@@ -57,9 +57,6 @@
             }
         },
         computed: {
-            socketData () { // websocket推送过来的数据
-                return this.$store.getters.getSocketData
-            },
             refreshTime () { // 用户点击刷新按钮时间戳
                 return this.$store.state.refreshTime
             },
@@ -95,12 +92,6 @@
             },
             refreshTime () {
                 this.fetchData()
-            },
-            socketData ({data, stamp}) {
-                if (stamp === pushEvents.BASKETBALL_EVENT) {
-                    // 重新调用接口
-                    this.fetchData()
-                }
             }
         }
     }

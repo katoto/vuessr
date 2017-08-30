@@ -12,12 +12,12 @@
             </div>
         </template>
         <template v-if="type === 'lq'">
-            <div class="fen-bf-lq" :class="{'fen-bf-lq-active': awayChange}">
+            <div class="fen-bf-lq" :class="{'fen-bf-active': awayChange}">
                 <span class="score">{{oldAwayscore}}</span>
                 <span class="score">{{awayscore}}</span>
             </div>
             <div class="fen-ld">:</div>
-            <div class="fen-bf-lq" :class="{'fen-bf-lq-active': homeChange}">
+            <div class="fen-bf-lq" :class="{'fen-bf-active': homeChange}">
                 <span class="score">{{oldHomescore}}</span>
                 <span class="score">{{homescore}}</span>
             </div>
