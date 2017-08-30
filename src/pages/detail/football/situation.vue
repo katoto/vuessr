@@ -120,6 +120,7 @@
                                 newEvent.isUnavailable = true
                             } else {
                                 newEvent.cdata = data.cdata
+                                newEvent.eventtype = data.eventtype
                                 newEvent.exchange_player = data.exchange_player
                                 newEvent.isUnavailable = !isAvailable(oldEvent)
                             }
@@ -133,6 +134,7 @@
                         })
                     }
                     newEventList.length && this.$store.commit(mTypes.setSituationEventlist, newEventList)
+                    this.$store.commit(mTypes.updateScTime)
                 }
             }
         },
