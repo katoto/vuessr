@@ -55,7 +55,7 @@ const actionsInfo = mapActions({
         sessionStorage.setItem('view', view)
         commit(mTypes.setView, view)
     },
-    switchLqView ({commit,state}, view) {
+    switchLqView ({commit, state}, view) {
         view = view || (parseInt(state.view) + 1) % 2 + ''
         sessionStorage.setItem('view', view)
         commit(mTypes.setView, view)
