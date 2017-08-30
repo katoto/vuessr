@@ -1,8 +1,8 @@
 <template>
     <div class="filter-time">
-        <div class="prev-day" v-tap="{methods: goPre}"><span></span></div>
+        <div class="prev-day" :class="{'no-day': onPre}" v-tap="{methods: goPre}"><span></span></div>
         <div class="today" v-tap="{methods: toggleSel}"><span></span>{{curExpect}}期</div>
-        <div class="next-day" v-tap="{methods: goNext}"><span class="rotate180"></span></div>
+        <div class="next-day" :class="{'no-day': onNext}" v-tap="{methods: goNext}"><span class="rotate180"></span></div>
 
 
         <transition name="toggle">
@@ -29,8 +29,8 @@
         data () {
             return {
                 showSel: false,
-                onPre: true,
-                onNext: true
+                onPre: false,
+                onNext: false
             }
         },
         computed: {
@@ -39,10 +39,24 @@
             }
         },
         mounted () {
+            this.initPreAndNext(this.curExpect)
         },
         methods: {
             toggleSel () {
                 this.showSel = !this.showSel
+            },
+            initPreAndNext(curExpect) {
+                const idx = this.expectList.indexOf(curExpect)
+                if (idx === 0) {
+                    this.onPre = true
+                } else {
+                    this.onPre = false
+                }
+                if (idx === this.expectList.length - 1) {
+                    this.onNext = true
+                } else {
+                    this.onNext = false
+                }
             },
             enterExpect ({expect}) {
                 this.showSel = false
@@ -59,7 +73,6 @@
             goPre () {
                 const idx = this.expectListR.indexOf(this.curExpect)
                 if (idx === 0) {
-                    this.onPre = false
                 } else {
                     this.$router.replace({
                         name: 'home-zq-expect',
@@ -73,7 +86,6 @@
             goNext () {
                 const idx = this.expectListR.indexOf(this.curExpect)
                 if (idx === this.expectListR.length - 1) {
-                    this.onNext = false
                 } else {
                     this.$router.replace({
                         name: 'home-zq-expect',
@@ -83,6 +95,11 @@
                         }
                     })
                 }
+            }
+        },
+        watch: {
+            curExpect(newData, oldData) {
+                this.initPreAndNext(newData)
             }
         }
     }
@@ -108,7 +125,7 @@
         box-sizing: border-box;
         position: relative;
     }
-
+    .filter-time .no-day{opacity: 0.3}
     [data-dpr="1"] .filter-time {
         line-height: 40px
     }

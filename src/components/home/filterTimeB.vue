@@ -1,9 +1,9 @@
 <!--篮球日期选择器-->
 <template>
     <div class="filter-time">
-        <div class="prev-day" v-tap="{methods: goPre}"><span></span></div>
+        <div class="prev-day" :class="{'no-day': onPre}" v-tap="{methods: goPre}"><span></span></div>
         <div class="today" v-tap="{methods: toggleSel}"><span></span>{{curExpect|curr}}</div>
-        <div class="next-day" v-tap="{methods: goNext}"><span class="rotate180"></span></div>
+        <div class="next-day" :class="{'no-day': onNext}" v-tap="{methods: goNext}"><span class="rotate180"></span></div>
 
 
         <transition name="toggle">
@@ -41,10 +41,13 @@
         data () {
             return {
                 showSel: false,
-                rExpectList: []
+                rExpectList: [],
+                onPre: false,
+                onNext: false
             }
         },
         mounted () {
+            this.initPreAndNext(this.curExpect)
         },
         watch: {
             showSel (showSel) {
@@ -53,11 +56,27 @@
                     rEL.reverse()
                     this.rExpectList = rEL
                 }
+            },
+            curExpect(newData, oldData) {
+                this.initPreAndNext(newData)
             }
         },
         methods: {
             toggleSel () {
                 this.showSel = !this.showSel
+            },
+            initPreAndNext(curExpect) {
+                const idx = this.expectList.indexOf(curExpect)
+                if (idx === this.expectList.length - 1) {
+                    this.onPre = true
+                } else {
+                    this.onPre = false
+                }
+                if (idx === 0) {
+                    this.onNext = true
+                } else {
+                    this.onNext = false
+                }
             },
             enterExpect ({expect}) {
                 this.showSel = false
@@ -137,7 +156,7 @@
         box-sizing: border-box;
         position: relative;
     }
-
+    .filter-time .no-day{opacity: 0.3}
     [data-dpr="1"] .filter-time {
         line-height: 40px
     }
