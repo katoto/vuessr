@@ -7,14 +7,14 @@
                 <template  v-for="c,idx in predictRecommend.articles">
                     <li data-p2="zq_detail" data-p4="predict_zjtj" v-if="!isArticle||idx<2" v-tap="{methods: goUrl, url:c.touch_url}">
                         <div class="title clear"><span>{{c.title}}</span><i v-if="c.paytype=='1'">付费</i></div>
-                        <div class="info">
-                            <span>
-                                <i class="face"><img  v-logo="c.headimg"></i>{{c.nickname}}
-                            </span>
-                            <span class="time">{{c.publishtime.substring(5,16)}}</span>
-                            <span class="view">{{c.hits}}</span>
-                        </div>
 
+                        <div class="info"><span class="mr0"><i class="face">
+                            <img alt="小头像" v-logo="c.headimg"></i>{{c.nickname}}</span>
+                            <!--<if: c.threereturnrate />--><em class="zj-mzl" v-if="c.threereturnrate">{{c.threereturnrate}}</em>
+                            <!--<if: c.tenprojecthits />--><em class="zj-mzl" v-if="c.tenprojecthits">{{c.tenprojecthits}}</em>
+                            <!--<if: c.rednum />-->
+                            <span class="time" v-if="c.rednum">{{c.rednum}}</span>
+                        </div>
                     </li>
                 </template>
 
@@ -592,13 +592,13 @@
 
     .list-yuce .info span {
         display: inline-block;
-        margin-right: .4rem;
         padding-left: .293333rem;
         position: relative
     }
 
     .list-yuce .info span:first-child {
-        padding-left: 0
+        padding-left: 0;
+        margin-right: 0
     }
 
     .list-yuce .face {
@@ -607,6 +607,7 @@
         height: .4rem;
         overflow: hidden;
         border-radius: 100%;
+        overflow: hidden;
         vertical-align: middle;
         margin-right: .133333rem;
         position: relative;
@@ -618,7 +619,7 @@
         height: .4rem
     }
 
-    .list-yuce .time::after, .list-yuce .view::after {
+    .list-yuce .time::after,.list-yuce .view::after {
         display: inline-block;
         content: '';
         width: .266667rem;
@@ -641,7 +642,6 @@
         background: #fff
     }
 
-
     .collec-box p {
         height: .32rem;
         line-height: .32rem;
@@ -651,6 +651,14 @@
         width: 1.333333rem;
         text-align: center;
         left: 0
+    }
+
+    .zj-mzl {
+        font-size: .24rem;
+        padding: .026667rem .106667rem;
+        border: 1px solid rgba(210,81,56,.4);
+        color: rgba(210,81,56,1);
+        border-radius: .053333rem
     }
 
 
