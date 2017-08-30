@@ -55,6 +55,10 @@ const actionsInfo = mapActions({
         sessionStorage.setItem('view', view)
         commit(mTypes.setView, view)
     },
+    switchLqView ({commit,state}, view) {
+        view = view || (parseInt(state.view) + 1) % 2 + ''
+        commit(mTypes.setView, view)
+    },
     async getConcern ({commit}, vtype) {
         try {
             const {matches} = await ajax.get(`/score/concern/list?vtype=${vtype}`, {ignore: false})

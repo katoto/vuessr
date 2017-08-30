@@ -22,6 +22,12 @@
             },
             initView () {
                 this.$store.commit(mTypes.setView, sessionStorage.getItem('view') || '0')
+                if(~this.$route.path.indexOf('zq')){
+                    this.$store.dispatch(aTypes.switchView)
+                }
+                else{
+                    this.$store.dispatch(aTypes.switchLqView)
+                }
             }
         }
     }

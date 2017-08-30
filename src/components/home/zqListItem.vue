@@ -80,9 +80,9 @@
                 </div>
                 <div class="odds-item" v-if="match.status === StatusCode.NOT_STARTED && view==='2'">
                     <ul>
-                        <li>{{currodds[0]}}</li>
-                        <li>{{currodds[1]}}</li>
-                        <li>{{currodds[2]}}</li>
+                        <li>{{currodds[0] || '-'}}</li>
+                        <li>{{currodds[1] || '-'}}</li>
+                        <li>{{currodds[2] || '-'}}</li>
                     </ul>
                 </div>
             </router-link>
