@@ -13,7 +13,7 @@
                 <!-- 杯赛选择 -->
                 <div class="cup-info">
                     <ul>
-                        <li :class="{cur: expect === curExpect}"  v-tap="{methods: enterExpect, expect: expect}" v-for="expect in rExpectList">第{{expect}}轮</li>
+                        <li :class="{cur: expect === curExpect}"  v-tap="{methods: enterExpect, expect: expect}" v-for="expect in expectList">第{{expect}}轮</li>
                     </ul>
                 </div>
 
@@ -39,15 +39,6 @@
         },
         mounted () {
         },
-        watch: {
-            showSel (showSel) {
-                if (showSel) {
-                    let rEL = [...this.expectList]
-                    rEL.reverse()
-                    this.rExpectList = rEL
-                }
-            }
-        },
         methods: {
             toggleSel () {
                 this.showSel = !this.showSel
@@ -66,7 +57,7 @@
             },
             goPre () {
                 const idx = this.expectList.indexOf(this.curExpect)
-                if (idx === this.expectList.length - 1) {
+                if (idx === 0) {
                 } else {
                     this.$router.replace({
                         name: 'home-zq-expect',
@@ -79,7 +70,7 @@
             },
             goNext () {
                 const idx = this.expectList.indexOf(this.curExpect)
-                if (idx === 0) {
+                if (idx === this.expectList.length - 1) {
                 } else {
                     this.$router.replace({
                         name: 'home-zq-expect',

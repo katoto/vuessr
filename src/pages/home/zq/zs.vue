@@ -64,7 +64,7 @@
 
 </template>
 <script>
-    import {aTypes} from '~store/home'
+    import {mTypes, aTypes} from '~store/home'
     export default {
         async asyncData ({store}) {
             await store.dispatch(aTypes.getZqMetro)
@@ -92,6 +92,7 @@
 
         mounted () {
             this.fetchData()
+            this.hideSwitchBox()
         },
 
         methods: {
@@ -99,6 +100,9 @@
                 this.$store.commit('startOneRefresh')
                 await this.$store.dispatch(aTypes.getZqMetro)
                 this.$store.commit('endOneRefresh')
+            },
+            hideSwitchBox () {
+                this.$store.commit(mTypes.setSwitchShow, false)
             }
         },
         filters: {
