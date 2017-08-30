@@ -109,11 +109,18 @@
                 this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
             },
             confirm: function () {
-                /* if (Object.keys(this.selectOptions).length < 1) {
-                 return alert('至少选择1个联赛')
-                 } */
                 this.$emit('ok', this.selectOptions)
                 this.showSel = false
+                let tmp=Object.values(this.selectOptions)
+                console.log(tmp)
+                for(let i of tmp){
+                    if(i){
+                        return
+                    }else{
+                        return alert('至少选择1个联赛')
+                    }
+                }
+
             }
         }
     }

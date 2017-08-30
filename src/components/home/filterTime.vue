@@ -99,13 +99,11 @@
         },
         filters: {
             day: (expect) => {
-//                const date = new Date(expect.split('-').join('/'))
-                const date = new Date(expect.split('-'))
+                const date = new Date(expect.split('-').join('/'))
                 return dayMap[date.getDay()]
             },
             curr: (expect) => {
-//                const date = new Date(expect.split('-').join('/'))
-                const date = new Date(expect.split('-'))
+                const date = new Date(expect.split('-').join('/'))
                 const current = new Date()
                 if (current.getDate() === date.getDate() && current.getMonth() === date.getMonth() && current.getFullYear() === date.getFullYear()) {
                     return `今天 周${dayMap[current.getDay()]}`

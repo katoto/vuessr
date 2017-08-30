@@ -161,7 +161,7 @@ const actionsInfo = mapActions({
             }
         })
         existNotStartMatch = matchesInfo.matches.some(match => {
-            return match.status === '0'
+            return match.status === '1'
         })
         commit(mTypes.setSwitchShow, existNotStartMatch)
         matchesInfo._expect = expect
