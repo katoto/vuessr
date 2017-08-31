@@ -75,6 +75,7 @@
                         <div class="game-lately score-half">
                             <em class="first-half">{{match.awayhalfscore}}</em>
                             <em class="second-half">{{match.awayscore}}</em>
+                            <!--<move :score="match.homescore" :ready="ready"></move>-->
                         </div>
                     </template>
                 </div>
@@ -359,12 +360,14 @@
     }
 
     .score-half .first-half {
+        font-size: .346667rem;
         color: #aab5bd;
         width: .586667rem;
         text-align: right;
         display: inline-block;
         height: .64rem;
-        line-height: .64rem
+        line-height: .64rem;
+        overflow: hidden;
     }
 
     [data-dpr="1"] .score-half .first-half {
@@ -381,11 +384,13 @@
 
     .score-half .second-half {
         color: #000;
+        font-size: .453333rem;
         display: inline-block;
         height: .64rem;
         line-height: .64rem;
         width: 1rem;
-        text-align: right
+        text-align: right;
+        overflow: hidden;
     }
 
     [data-dpr="1"] .score-half .second-half {
