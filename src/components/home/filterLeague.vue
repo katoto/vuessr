@@ -112,15 +112,25 @@
             },
             confirm: function () {
                 let tmp = Object.values(this.selectOptions)
-                for (let i of tmp) {
-                    if (i) {
-                        break
-                    } else {
-                        return this.$store.dispatch('showToast', '至少选择一个联赛')
-                    }
+                let flag= tmp.some((item) => {
+                    return item
+                })
+                console.log(flag)
+
+//                for (let i of tmp) {
+//                    if (i) {
+//                        break
+//                    } else {
+//                        return this.$store.dispatch('showToast', '至少选择一个联赛')
+//                    }
+//                }
+                if(flag){
+                    this.$emit('ok', this.selectOptions)
+                    this.showSel = false
+                }else{
+                     this.$store.dispatch('showToast', '至少选择一个联赛')
                 }
-                this.$emit('ok', this.selectOptions)
-                this.showSel = false
+
             }
         }
     }
