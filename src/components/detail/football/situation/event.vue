@@ -19,7 +19,7 @@
                 'hide': event.isUnavailable
                 }">
 
-                    <span class="sk-time">{{event.timing_point}}'</span>
+                    <span class="sk-time">{{event.timing_point|time}}'</span>
                     <span class="shikuang-ball">
                     <i :class="{
                         'black-ball': event.eventtype == EventType.JIN_QIU,
@@ -97,6 +97,13 @@
                     return val.substr(0, num) + '...'
                 } else {
                     return val
+                }
+            },
+            time: time => {
+                if (time > 90) {
+                    return '90+'
+                } else {
+                    return time
                 }
             }
         }
