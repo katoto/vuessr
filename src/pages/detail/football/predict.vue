@@ -3,17 +3,27 @@
 
         <div class="gl-box box-yc" v-if="predictRecommend&&predictRecommend.articles">
             <div class="gl-nav">专家推荐</div>
+            <div class="feed-back" v-if="predictRecommend.isrecommend=='0'&&predictRecommend.articles.length>0">
+                <div class="feed-box">
+                    <em>本场比赛暂无推荐，看下其他比赛吧</em>
+                </div>
+            </div>
+            <div class="feed-back" v-if="predictRecommend.articles&&predictRecommend.articles.length<1">
+                <div class="feed-box">
+                    <em>本场暂无推荐</em>
+                </div>
+            </div>
             <ul class="list-yuce" v-if="predictRecommend.articles">
                 <template  v-for="c,idx in predictRecommend.articles">
                     <li data-p2="zq_detail" data-p4="predict_zjtj" v-if="!isArticle||idx<2" v-tap="{methods: goUrl, url:c.touch_url}">
                         <div class="title clear"><span>{{c.title}}</span><i v-if="c.paytype=='1'">付费</i></div>
 
-                        <div class="info"><span class="mr0"><i class="face">
-                            <img alt="小头像" v-logo="c.headimg"></i>{{c.nickname}}</span>
-                            <!--<if: c.threereturnrate />--><em class="zj-mzl" v-if="c.threereturnrate">{{c.threereturnrate}}</em>
-                            <!--<if: c.tenprojecthits />--><em class="zj-mzl" v-if="c.tenprojecthits">{{c.tenprojecthits}}</em>
-                            <!--<if: c.rednum />-->
-                            <span class="time" v-if="c.rednum">{{c.rednum}}</span>
+                        <div class="info">
+                            <span class="mr0"><i class="face"><img alt="小头像" v-logo="c.headimg"></i>{{c.nickname}}</span>
+                            <em class="zj-mzl" v-if="c.threereturnrate">3天回报{{c.threereturnrate|percentFormat}}</em>
+                            <em class="zj-mzl" v-if="c.tenprojecthits">近10中{{c.tenprojecthits}}</em>
+                            <em class="zj-mzl" v-if="c.rednum">{{c.rednum}}连红</em>
+                            <span class="time">{{c.publishtime|recommendAt(match.matchtime) }}</span>
                         </div>
                     </li>
                 </template>
@@ -23,11 +33,7 @@
                     <div class="zd-arrow" :class="{'rotate180':!isArticle}"></div>
                 </li>
             </ul>
-            <div class="feed-back" v-if="predictRecommend.articles&&predictRecommend.articles.length<1">
-                <div class="feed-box">
-                    <em>本场暂无推荐</em>
-                </div>
-            </div>
+
         </div>
 
 
@@ -392,6 +398,34 @@
         },
         mounted () {
             this.fetchData()
+        },
+        filters: {
+            percentFormat: (val) => {
+                return `${(100 * val).toFixed(0)}%`
+            },
+            recommendAt: (t, matchAt) => {
+                let matchMillTime = new Date(matchAt.replace(/-/g, '/')).getTime()
+                let articleMillTime = new Date(t.replace(/-/g, '/')).getTime()
+                let difference = matchMillTime - articleMillTime
+                if (difference < 0) {
+                    return t.substring(5, 11)
+                }
+                if (difference < 60 * 1000) {
+                    return '赛前1分钟'
+                }
+                if (difference < 60 * 60 * 1000) {
+                    let m = parseInt(difference / (60 * 1000))
+                    return '赛前' + m + '分钟'
+                }
+                if (difference < 24 * 60 * 60 * 1000) {
+                    let h = parseInt(difference / (60 * 60 * 1000))
+                    return '赛前' + h + '小时'
+                }
+                if (difference > 24 * 60 * 60 * 1000) {
+                    let d = parseInt(difference / (24 * 60 * 60 * 1000))
+                    return '赛前' + d + '天'
+                }
+            }
         }
     }
 </script>
@@ -675,6 +709,18 @@
 
     .feed-back{width:100%;height:1.733333rem;background:#fff;border-top:1px solid #eaeaea}
     .feed-box{color:#787878;line-height:1.733333rem;text-align:center}
+    [data-dpr="1"] .feed-box {
+        font-size: 13px
+    }
+
+    [data-dpr="2"] .feed-box {
+        font-size: 26px
+    }
+
+    [data-dpr="3"] .feed-box {
+        font-size: 39px
+    }
+
     .box-arrow{height:1.066667rem;position:relative}
     .box-arrow:active{background:#f4f4f4}
 </style>

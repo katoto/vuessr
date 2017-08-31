@@ -62,6 +62,7 @@ const initState = {
         recommends: null
     },
     comment: {
+        bestExport: null,
         eventlist: null,
         statistic: null,
         online: null,
@@ -118,6 +119,11 @@ const actionsInfo = mapActions({
         let {online, total} = await ajax.get(`/sns/score/total?vtype=1&fid=${fid}`)
         commit(mTypes.setTotal, {online, total})
         return {online, total}
+    },
+    async getBestExport ({commit}, {fid}) {
+        let bestExport = await ajax.get(`/library/sports/best_expert?fid=${fid}`)
+        commit(mTypes.setBestExport, bestExport)
+        return bestExport
     },
     async getVote ({commit}, {fid}) {
         let {votelist} = await ajax.get(`/sns/score/votelist?vtype=1&fid=${fid}`)
@@ -390,7 +396,9 @@ const mutationsInfo = mapMutations({
         state.comment.online = online
         state.comment.total = total
     },
-
+    setBestExport (state, bestExport) {
+        state.comment.bestExport = bestExport
+    },
     setPredict (state, {europe, asian, daxiaoqiu, score, half, recommends}) {
         state.predict.europe = europe
         state.predict.asian = asian

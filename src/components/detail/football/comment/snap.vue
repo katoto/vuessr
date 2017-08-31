@@ -1,11 +1,29 @@
 <template>
     <div class="snap-container">
         <div class="l-box-vertical-center-justify snap-content" style="height: 100%; "
-             :style="{width: (statistic&&eventlist&&(match.status=='1'||match.status=='2'||match.status=='3'||match.status=='4'))?'19.4rem':'auto'}">
+             :style="{width: tWidth}">
+            <div v-if="match.status === '0' && expertRecommend && expertRecommend.shortcontent" data-p2="zq_detail" data-p4="comment_zjgd" v-tap="{methods: goRec}" class="com-slide-box swiper-slide l-relative">
+                <div class="prof-cont">
+                    <div class="prof-cont-l">
+                        <div class="point-icon"></div>
+                        <div class="point-txt">{{expertRecommend.publishtime|recommendAt(match.matchtime)}}</div>
+                    </div>
+                    <div class="prof-cont-r">
+                        <div class="pro-info news-info">
+                                <span class="news-info-pro">
+                                    <img alt="小头像"  :src="expertRecommend.headimg">
+                                  {{expertRecommend.nickname}}
+                                </span>
+                            <em class="zj-mzl" v-if="expertRecommend.threereturnrate">3天回报{{expertRecommend.threereturnrate|percentFormat}}</em>
+                            <em class="zj-mzl" v-if="expertRecommend.tenprojecthits">近10中{{expertRecommend.tenprojecthits}}</em>
+                            <em class="zj-mzl" v-if="expertRecommend.rednum">{{expertRecommend.rednum}}连红</em>
+                        </div>
+                        <p>{{expertRecommend.shortcontent|cutStr}}</p>
+                    </div>
+                </div>
 
-
-            <div v-if="statistic&&eventlist&&(match.status=='1'||match.status=='2'||match.status=='3'||match.status=='4')"
-                 class="com-slide-box swiper-slide swiper-slide-active" style="display: block;margin-left: .4rem">
+            </div>
+            <div v-if="statistic&&eventlist&&(match.status=='1'||match.status=='2'||match.status=='3'||match.status=='4')" class="com-slide-box swiper-slide swiper-slide-active">
                 <h1 class="com-slide-tit" v-if="!(match.status=='4'&&online=='0')">
                     {{match.status=='4'?'共':'与'}}<em><span
                         class="score-itm" :class="{'itmMove': inmove}"><i>{{online0}}</i><i>{{online1}}</i></span></em>{{match.status=='4'?'人看了这场比赛！':'人一起观看比赛！'}}
@@ -50,8 +68,34 @@
                 <div class="swiper-slide-shadow-left"></div>
                 <div class="swiper-slide-shadow-right"></div>
             </div>
+
+
+
+            <div v-tap="{methods: goRec}" data-p2="zq_detail" data-p4="comment_zjgd" v-if="expertRecommend && expertRecommend.shortcontent && (match.status=='1'||match.status=='2'||match.status=='3'||match.status=='4')"
+                 class="com-slide-box swiper-slide l-relative">
+                <div class="prof-cont">
+                    <div class="prof-cont-l">
+                        <div class="point-icon"></div>
+                        <div class="point-txt">{{expertRecommend.publishtime|recommendAt(match.matchtime)}}</div>
+                    </div>
+                    <div class="prof-cont-r">
+                        <div class="pro-info news-info">
+                                <span class="news-info-pro">
+                                    <img alt="小头像"  :src="expertRecommend.headimg">
+                                  {{expertRecommend.nickname}}
+                                </span>
+                            <em class="zj-mzl" v-if="expertRecommend.threereturnrate">3天回报{{expertRecommend.threereturnrate|percentFormat}}</em>
+                            <em class="zj-mzl" v-if="expertRecommend.tenprojecthits">近10中{{expertRecommend.tenprojecthits}}</em>
+                            <em class="zj-mzl" v-if="expertRecommend.rednum">{{expertRecommend.rednum}}连红</em>
+                        </div>
+                        <p>{{expertRecommend.shortcontent|cutStr}}</p>
+                    </div>
+                </div>
+
+            </div>
+
             <!--投票模块-->
-            <div class="com-slide-box swiper-slide swiper-slide-next" style=";margin-right: .4rem">
+            <div class="com-slide-box swiper-slide swiper-slide-next">
 
 
                 <h1 class="com-slide-tit">{{(match.status === '4' ||
@@ -117,7 +161,7 @@
 
 //    import platform from '~common/platform'
     export default {
-        props: ['eventlist', 'statistic', 'match', 'online', 'vote'],
+        props: ['eventlist', 'statistic', 'match', 'online', 'vote', 'expertRecommend'],
         data () {
             return {
                 online0: 0,
@@ -143,7 +187,6 @@
         },
         watch: {
             online () {
-                console.log(this.online)
                 this.online1 = this.online
                 this.inmove = true
                 setTimeout(() => {
@@ -168,6 +211,9 @@
                     opt, id: this.vote._id, fid: this.$route.params.fid
                 })
                 await this.$store.dispatch(aTypes.getVote, {fid: this.$route.params.fid})
+            },
+            goRec () {
+                location.href = this.expertRecommend.touch_url
             }
         },
         mounted () {
@@ -184,7 +230,7 @@
                 snapping: true,
                 animationDuration: 150
             })
-            this.scrollerObj.setSnapSize(this.container.offsetWidth)
+            this.scrollerObj.setSnapSize(this.container.offsetWidth - this.container.offsetWidth * 0.038)
             this.scrollerObj.setDimensions(this.container.offsetWidth, this.container.offsetHeight, this.content.offsetWidth, this.content.offsetHeight)
             let latestX = 0
             let latesY = 0
@@ -216,6 +262,23 @@
             }, false)
         },
         computed: {
+            tWidth () {
+                if (this.match.status === '0') {
+                    if (this.expertRecommend && this.expertRecommend.shortcontent) {
+                        return '19.4rem'
+                    } else {
+                        return 'auto'
+                    }
+                } else {
+                    if (this.eventlist && this.eventlist.length && this.expertRecommend && this.expertRecommend.shortcontent) {
+                        return '28.6rem'
+                    } else if ((this.eventlist && this.eventlist.length) || (this.expertRecommend && this.expertRecommend.shortcontent)) {
+                        return '19.4rem'
+                    } else {
+                        return 'auto'
+                    }
+                }
+            },
             progWidth () {
                 if (this.match.status === '4') {
                     return '100%'
@@ -306,6 +369,41 @@
                 }
                 return {}
             }
+        },
+        filters: {
+            percentFormat: (val) => {
+                return `${(100 * val).toFixed(0)}%`
+            },
+            cutStr: (str) => {
+                if (str.length > 30) {
+                    return str.substr(0, 30) + '...'
+                } else {
+                    return str
+                }
+            },
+            recommendAt: (t, matchAt) => {
+                let matchMillTime = new Date(matchAt.replace(/-/g, '/')).getTime()
+                let articleMillTime = new Date(t.replace(/-/g, '/')).getTime()
+                let difference = matchMillTime - articleMillTime
+                if (difference < 0) {
+                    return t.substring(5, 11)
+                }
+                if (difference < 60 * 1000) {
+                    return '赛前1分钟'
+                }
+                if (difference < 60 * 60 * 1000) {
+                    let m = parseInt(difference / (60 * 1000))
+                    return '赛前' + m + '分钟'
+                }
+                if (difference < 24 * 60 * 60 * 1000) {
+                    let h = parseInt(difference / (60 * 60 * 1000))
+                    return '赛前' + h + '小时'
+                }
+                if (difference > 24 * 60 * 60 * 1000) {
+                    let d = parseInt(difference / (24 * 60 * 60 * 1000))
+                    return '赛前' + d + '天'
+                }
+            }
         }
     }
 </script>
@@ -315,7 +413,7 @@
         height: 3.4rem;overflow: hidden;position: relative;
     }
     .snap-content{
-        margin: .26rem 0;
+        padding: .15rem .15rem;
     }
     .swiper-slide {
         width: 9.2rem
@@ -471,5 +569,129 @@
         50%{color:#27e1e1}
         80%{color:#27e1e1}
         100%{color:#309b56}
+    }
+
+    .prof-cont {
+        height: 1.76rem;
+        overflow: hidden;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: -.88rem
+    }
+
+    .prof-cont-l {
+        float: left;
+        height: 1.76rem;
+        border-right: 1px solid #eaeaea;
+        width: 2.133333rem;
+        text-align: center;
+        padding-top: .266667rem;
+        box-sizing: border-box
+    }
+
+    .point-icon {
+        width: .813333rem;
+        height: .666667rem;
+        margin: 0 auto;
+        background: url(~assets/style/images/detail/zjgd.png) no-repeat;
+        background-size: cover
+    }
+
+    .point-txt {
+        color: #aab5bd;
+        width: 100%;
+        text-align: center;
+        margin-top: .4rem
+    }
+
+    [data-dpr="1"] .point-txt {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .point-txt {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .point-txt {
+        font-size: 33px
+    }
+
+    .prof-cont-r {
+        padding: 0 .373333rem;
+        float: left
+    }
+
+    .pro-info {
+        height: .6rem;
+        line-height: .6rem
+    }
+
+    .prof-cont-r p {
+        margin-top: .2rem;
+        color: #515e6d;
+        font-size: .373333rem;
+        width: 6.266667rem;
+        line-height: .533333rem
+    }
+
+    .zj-mzl {
+        font-size: .24rem;
+        padding: .026667rem .106667rem;
+        border: 1px solid rgba(210,81,56,.4);
+        color: rgba(210,81,56,1);
+        border-radius: .053333rem
+    }
+
+    .pro-info span {
+        position: relative;
+        display: inline-block;
+        white-space: nowrap
+    }
+
+    .pro-info:after {
+        content: '';
+        display: table;
+        visibility: hidden;
+        height: 0;
+        clear: both
+    }
+
+    .pro-info .news-info-pro {
+        box-sizing: border-box;
+        margin-right: 0;
+        float: left;
+        padding-right: .133333rem;
+        color: #515e6d;
+        padding-left: .533rem;
+        box-sizing: border-box;
+        width: 2rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis
+    }
+
+    [data-dpr="1"] .pro-info .news-info-pro {
+        font-size: 11px
+    }
+
+    [data-dpr="2"] .pro-info .news-info-pro {
+        font-size: 22px
+    }
+
+    [data-dpr="3"] .pro-info .news-info-pro {
+        font-size: 33px
+    }
+
+    .pro-info .news-info-pro img {
+        display: inline-block;
+        width: .4rem;
+        height: .4rem;
+        border-radius: 50%;
+        top: 50%;
+        margin-top: -.2rem;
+        left: 0;
+        position: absolute
     }
 </style>

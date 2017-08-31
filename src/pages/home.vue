@@ -6,7 +6,7 @@
                 <li :class="{cur: ~$route.path.indexOf('/zq/')}" v-tap="{methods: goTab, tab: 'zq'}">足球</li>
                 <li :class="{cur: ~$route.path.indexOf('/lq/')}"  v-tap="{methods: goTab, tab: 'lq'}">篮球</li>
             </ul>
-            <div class="search-league" v-tap="{methods: goLeague}"><span></span>联赛</div>
+            <div class="search-league" v-tap="{methods: goLeague}" data-p2="zq" data-p4="liansai"><span></span>联赛</div>
         </div>
 
 
