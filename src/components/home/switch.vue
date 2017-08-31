@@ -51,7 +51,6 @@
                 }
             },
             initView () {
-                console.log(sessionStorage.getItem('lqView'))
                 if(~this.$route.path.indexOf('/zq')){
                     this.tab = true
                     this.$store.commit(mTypes.setZqView, sessionStorage.getItem('zqView') || '0')

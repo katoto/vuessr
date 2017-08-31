@@ -107,7 +107,7 @@
                     <ul class="dataItem">
                         <li class="itemL">
                             <em class="num">{{handicapFeature.rangqiu.h_prob}}</em>
-                            <span v-if="handicapFeature.rangqiu.h_prob">%</span>
+                            <span v-if="handicapFeature.rangqiu.h_prob != '--'">%</span>
                             <span class="item-info">{{handicapFeature.rangqiu.h_option}}</span>
                         </li>
                         <li class="itemC">
@@ -116,14 +116,14 @@
                         </li>
                         <li class="itemR">
                             <em class="num">{{handicapFeature.rangqiu.a_prob}}</em>
-                            <span v-if="handicapFeature.rangqiu.a_prob">%</span>
+                            <span v-if="handicapFeature.rangqiu.a_prob != '--'">%</span>
                             <span class="item-info">{{handicapFeature.rangqiu.a_option}}</span>
                         </li>
                     </ul>
                     <ul class="dataItem">
                         <li class="itemL">
                             <em class="num">{{handicapFeature.daxiao.h_prob}}</em>
-                            <span v-if="handicapFeature.daxiao.h_prob">%</span>
+                            <span v-if="handicapFeature.daxiao.h_prob != '--'">%</span>
                             <span class="item-info">{{handicapFeature.daxiao.h_option}}</span>
                         </li>
                         <li class="itemC">
@@ -132,7 +132,7 @@
                         </li>
                         <li class="itemR">
                             <em class="num">{{handicapFeature.daxiao.a_prob}}</em>
-                            <span v-if="handicapFeature.daxiao.a_prob">%</span>
+                            <span v-if="handicapFeature.daxiao.a_prob != '--'">%</span>
                             <span class="item-info">{{handicapFeature.daxiao.a_option}}</span>
                         </li>
                     </ul>
@@ -204,21 +204,21 @@
                 </tr>
                 <tr>
                     <td><em class="f24">主胜</em></td>
-                    <td>{{coldHotInfo.win.europe?(coldHotInfo.win.europe+'%'):'--'}}</td>
-                    <td>{{coldHotInfo.win.betfair?(coldHotInfo.win.betfair+'%'):'--'}}</td>
-                    <td>{{coldHotInfo.win.renqi?(coldHotInfo.win.renqi+'%'):'--'}}</td>
+                    <td>{{coldHotInfo.win.europe && coldHotInfo.win.europe !== '--'?(coldHotInfo.win.europe+'%'):'--'}}</td>
+                    <td>{{coldHotInfo.win.betfair && coldHotInfo.win.betfair !== '--'?(coldHotInfo.win.betfair+'%'):'--'}}</td>
+                    <td>{{coldHotInfo.win.renqi && coldHotInfo.win.renqi !== '--'?(coldHotInfo.win.renqi+'%'):'--'}}</td>
                 </tr>
                 <tr>
                     <td><em class="f24">平局</em></td>
-                    <td>{{coldHotInfo.draw.europe?(coldHotInfo.draw.europe+'%'):'--'}}</td>
-                    <td>{{coldHotInfo.draw.betfair?(coldHotInfo.draw.betfair+'%'):'--'}}</td>
-                    <td>{{coldHotInfo.draw.renqi?(coldHotInfo.draw.renqi+'%'):'--'}}</td>
+                    <td>{{coldHotInfo.draw.europe && coldHotInfo.draw.europe !== '--'?(coldHotInfo.draw.europe+'%'):'--'}}</td>
+                    <td>{{coldHotInfo.draw.betfair && coldHotInfo.draw.betfair !== '--'?(coldHotInfo.draw.betfair+'%'):'--'}}</td>
+                    <td>{{coldHotInfo.draw.renqi && coldHotInfo.draw.renqi!== '--'?(coldHotInfo.draw.renqi+'%'):'--'}}</td>
                 </tr>
                 <tr>
                     <td><em class="f24">主负</em></td>
-                    <td>{{coldHotInfo.lost.europe?(coldHotInfo.lost.europe+'%'):'--'}}</td>
-                    <td>{{coldHotInfo.lost.betfair?(coldHotInfo.lost.betfair+'%'):'--'}}</td>
-                    <td>{{coldHotInfo.lost.renqi?(coldHotInfo.lost.renqi+'%'):'--'}}</td>
+                    <td>{{coldHotInfo.lost.europe && coldHotInfo.lost.europe !== '--'?(coldHotInfo.lost.europe+'%'):'--'}}</td>
+                    <td>{{coldHotInfo.lost.betfair && coldHotInfo.lost.betfair !== '--'?(coldHotInfo.lost.betfair+'%'):'--'}}</td>
+                    <td>{{coldHotInfo.lost.renqi && coldHotInfo.lost.renqi !== '--'?(coldHotInfo.lost.renqi+'%'):'--'}}</td>
                 </tr>
                 </tbody></table>
             <feed-back-no-data v-if="coldHotInfo&&!coldHotInfo.win"></feed-back-no-data>
