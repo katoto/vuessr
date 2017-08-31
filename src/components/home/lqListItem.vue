@@ -445,9 +445,9 @@
             }
         },
         computed: {
-//            currodds () {
-//                return this.match.extra_info && this.match.extra_info.currodds && this.match.extra_info.currodds.split('/')
-//            },
+        //            currodds () {
+        //                return this.match.extra_info && this.match.extra_info.currodds && this.match.extra_info.currodds.split('/')
+        //            },
             detailPath () {
                 if (this.match.status === StatusCode.NOT_STARTED || this.match.status === StatusCode.CHANGED) {
                     return `/detail/basketball/${this.match.fid}/analysis/zj`

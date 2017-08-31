@@ -35,19 +35,18 @@
             },
 
             lqPath () {
-                if(this.lqMatches){
+                if (this.lqMatches) {
                     return '/home/lq/jclq/cur'
-                }else{
+                } else {
                     return '/home/lq/all/cur'
                 }
             },
             zqPath () {
-                if(this.zqMatches) {
+                if (this.zqMatches) {
                     return '/home/zq/jczq/cur'
-                }else{
+                } else {
                     return '/home/zq/all/cur'
                 }
-
             },
             zqMatches () {
                 return this.$store.state.home.zq && this.$store.state.home.zq.matches
@@ -58,9 +57,9 @@
         },
         mounted () {
             if (~this.$route.path.indexOf('/zq/')) {
-                this.$store.dispatch(aTypes.fetchZqMatches,{tab:'jczq'} )
-            }else{
-                this.$store.dispatch(aTypes.fetchLqMatches, {tab:'jclq'})
+                this.$store.dispatch(aTypes.fetchZqMatches, {tab: 'jczq'})
+            } else {
+                this.$store.dispatch(aTypes.fetchLqMatches, {tab: 'jclq'})
             }
         },
         methods: {
@@ -76,7 +75,7 @@
                     console.log(this.zqPath)
                     this.$router.replace(this.zqPath)
                 } else {
-//                    this.$router.replace(`/home/${tab}/jclq/cur`)
+                //                    this.$router.replace(`/home/${tab}/jclq/cur`)
                     this.$router.replace(this.lqPath)
                 }
             }
