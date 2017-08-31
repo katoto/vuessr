@@ -4,12 +4,12 @@
             <h1 class="hot-match-tit">热门</h1>
             <ul class="hot-match-list" v-for="list in footMatch">
                 <li class="hot-match-item">
-                    <a class="link-all-match" :href=" '/center/footballmatch/'+list.seasonid + '/integral'">
+                    <router-link class="link-all-match" :to=" '/center/footballmatch/'+list.seasonid + '/integral'">
                         <em class="match-icon">
                             <img :src="list['matchlogo']">
                         </em>
                         <em class="match-tit">{{list['matchgbname']}}</em>
-                    </a>
+                    </router-link>
                 </li>
             </ul>
 
