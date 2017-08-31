@@ -86,4 +86,5 @@
     .mean-item .game-category{ position: relative; top: 10%;}
     .what-means .mean-item{ height: 0.8rem; line-height: 0.8rem;margin-right: 0.366667rem;}
     .what-means .game-category{ width:0.2667rem; height: 0.2667rem;line-height: 0.16rem;border-radius:0; top:0.01rem; }
+    .games{border-bottom: 0.266667rem solid #f4f4f4;}
 </style>

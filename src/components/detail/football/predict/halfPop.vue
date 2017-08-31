@@ -254,7 +254,7 @@
         vertical-align: middle;
         height: 1.733333rem
     }
-
+    .dataItem .item-info2{display:block}
     .dataItem .itemL {
         text-align: left;
         width: 2.8rem;

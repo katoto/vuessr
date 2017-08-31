@@ -290,10 +290,40 @@
         background-position: center -3.453333rem
     }
 
+    .red-card,.red-yellow-card,.yellow-card {
+        margin: 0 auto;
+        width: .293333rem;
+        height: .346667rem;
+        display: block;
+        position: relative;
+        top: .24rem
+    }
+
     .red-yellow-card {
         position: relative;
         top: .2rem
     }
+
+    .red-yellow-card em,.yellow-card {
+        background: #ffe91f
+    }
+
+    .red-card,.red-yellow-card {
+        background: #ff3d10
+    }
+
+    .red-yellow-card {
+        position: relative
+    }
+
+    .red-yellow-card em {
+        position: absolute;
+        bottom: -.013333rem;
+        left: 0;
+        width: .293333rem;
+        height: .093333rem
+    }
+
 
     .shikuang-line li.d-zt-box {
         margin-bottom: .746667rem;
