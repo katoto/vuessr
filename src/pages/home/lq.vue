@@ -3,9 +3,9 @@
     <div class="l-full l-flex-column">
         <div class="item-tab item-tab-base">
             <ul>
-                <li :class="{'cur': ~$route.path.indexOf('/jclq')}" v-tap="{methods: switchTab, path: '/home/lq/jclq/cur'}"><router-link to="/home/lq/jclq/cur" replace>竞彩</router-link></li>
-                <li :class="{'cur': ~$route.path.indexOf('/all')}" v-tap="{methods: switchTab, path: '/home/lq/all/cur'}"><router-link to="/home/lq/all/cur" replace>全部</router-link></li>
-                <li :class="{'cur': ~$route.path.indexOf('/concern')}" v-tap="{methods: switchTab, path: '/home/lq/concern'}"><router-link to="/home/lq/concern" replace>关注</router-link></li>
+                <li data-p4="jingcai" data-p2="lq" :class="{'cur': ~$route.path.indexOf('/jclq')}" v-tap="{methods: switchTab, path: '/home/lq/jclq/cur'}"><router-link to="/home/lq/jclq/cur" replace>竞彩</router-link></li>
+                <li data-p4="quanbu" data-p2="lq" :class="{'cur': ~$route.path.indexOf('/all')}" v-tap="{methods: switchTab, path: '/home/lq/all/cur'}"><router-link to="/home/lq/all/cur" replace>全部</router-link></li>
+                <li data-p4="guanzhu" data-p2="lq" :class="{'cur': ~$route.path.indexOf('/concern')}" v-tap="{methods: switchTab, path: '/home/lq/concern'}"><router-link to="/home/lq/concern" replace>关注</router-link></li>
             </ul>
         </div>
 

@@ -1,6 +1,6 @@
 <template>
     <div class="filter-league-wrap">
-        <div class="filter-league" v-tap="{methods: toggleSel}"><span></span>
+        <div class="filter-league" data-p4="filter" data-p2="zq" v-tap="{methods: toggleSel}"><span></span>
             筛选
         </div>
         <transition name="toggle">
@@ -53,7 +53,7 @@
                     'all': '全部',
                     'crazybet': '猜球',
                     'hot': '热门',
-                    'sfc': '足球',
+                    'sfc': '足彩',
                     'bjdc': '北单'
                 },
                 show: true
@@ -112,15 +112,24 @@
             },
             confirm: function () {
                 let tmp = Object.values(this.selectOptions)
-                for (let i of tmp) {
-                    if (i) {
-                        break
-                    } else {
-                        return this.$store.dispatch('showToast', '至少选择一个联赛')
-                    }
+                let flag = tmp.some((item) => {
+                    return item
+                })
+                console.log(flag)
+
+                //                for (let i of tmp) {
+                //                    if (i) {
+                //                        break
+                //                    } else {
+                //                        return this.$store.dispatch('showToast', '至少选择一个联赛')
+                //                    }
+                //                }
+                if (flag) {
+                    this.$emit('ok', this.selectOptions)
+                    this.showSel = false
+                } else {
+                    this.$store.dispatch('showToast', '至少选择一个联赛')
                 }
-                this.$emit('ok', this.selectOptions)
-                this.showSel = false
             }
         }
     }

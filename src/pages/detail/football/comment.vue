@@ -1,6 +1,6 @@
 <template>
     <div class="comment-content">
-        <snap v-if="vote" :eventlist="eventlist" :statistic="statistic" :match="match" :online="online" :vote="vote"></snap>
+        <snap v-if="vote && eventlist && bestExport" :eventlist="eventlist" :statistic="statistic" :match="match" :online="online" :vote="vote" :expert-recommend="bestExport"></snap>
 
 
         <div class="zj-nav"> 评论
@@ -118,6 +118,7 @@
                     this.$store.dispatch(aTypes.getCommentList, {type: '1', fid: this.$route.params.fid, pageNo: 0, tab: 'time'}),
                     this.$store.dispatch(aTypes.getEventAndStatistics, {fid: this.$route.params.fid}),
                     this.$store.dispatch(aTypes.getTotal, {fid: this.$route.params.fid}),
+                    this.$store.dispatch(aTypes.getBestExport, {fid: this.$route.params.fid}),
                     this.$store.dispatch(aTypes.getVote, {fid: this.$route.params.fid})
                 ])
                 if (!commentlist.length) {
@@ -230,6 +231,9 @@
             },
             replyTime () {
                 return this.comment.replyTime
+            },
+            bestExport () {
+                return this.comment.bestExport
             }
         }
 
