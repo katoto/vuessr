@@ -1,6 +1,6 @@
 <template>
-    <em class="second-half">
-        <em class="score-itm" :class="{'itmMove': change}">
+    <em class=" root">
+        <em class=" itm" :class="{'itmMove': change}">
             <i>{{old}}</i>
             <i>{{score}}</i>
         </em>
@@ -36,40 +36,42 @@
     }
 </script>
 <style scoped>
-    i {
-        display: block;
-        white-space: nowrap
-    }
-    .score-itm {
-        -webkit-box-flex: 1;
-        -ms-flex: 1;
-        flex: 1;
-        display: block;
-        width: 100%;
-        text-align: right
-    }
-
-    .second-half {
+    .root{
+        font-size: .453333rem;
         color: #36a171;
         display: inline-block;
         height: .64rem;
         line-height: .64rem;
         width: 1rem;
         text-align: right;
-
-        font-size: .453333rem;
-        overflow: hidden
+        overflow: hidden;
+    }
+    .itm{
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        display: block;
+        width: 100%;
+        text-align: right;
     }
 
-    [data-dpr="1"] .second-half {
+
+
+    i {
+        display: block;
+        white-space: nowrap
+    }
+
+
+    [data-dpr="1"] .root {
         font-size: 17px
     }
 
-    [data-dpr="2"] .second-half {
+    [data-dpr="2"] .root {
         font-size: 34px
     }
 
-    [data-dpr="3"] .second-half {
+    [data-dpr="3"] .root {
         font-size: 51px
     }
 
