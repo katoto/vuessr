@@ -53,7 +53,7 @@
                     'all': '全部',
                     'crazybet': '猜球',
                     'hot': '热门',
-                    'sfc': '足球',
+                    'sfc': '足彩',
                     'bjdc': '北单'
                 },
                 show:true
