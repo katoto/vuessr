@@ -13,15 +13,15 @@
                 </div>
             </div>
             <nav class="sk-tab">
-                <a :class="{'cur':~$route.path.indexOf('/schedule')}" :href=" '/center/basketballmatch/' + match.seasonid + '/schedule' ">
+                <router-link :class="{'cur':~$route.path.indexOf('/schedule')}" :to=" '/center/basketballmatch/' + match.seasonid + '/schedule' " replace>
                     赛程<i :class="{'sktab-arrow':~$route.path.indexOf('/schedule')}"></i>
-                </a>
-                <a :class="{'cur':~$route.path.indexOf('/rank')}" :href=" '/center/basketballmatch/' + match.seasonid + '/rank' ">
+                </router-link>
+                <router-link :class="{'cur':~$route.path.indexOf('/rank')}" :to=" '/center/basketballmatch/' + match.seasonid + '/rank' " replace>
                     排名<i :class="{'sktab-arrow':~$route.path.indexOf('/rank')}"></i>
-                </a>
-                <a :class="{'cur':~$route.path.indexOf('/statistics')}" :href=" '/center/basketballmatch/' + match.seasonid + '/statistics' ">
+                </router-link>
+                <router-link :class="{'cur':~$route.path.indexOf('/statistics')}" :to=" '/center/basketballmatch/' + match.seasonid + '/statistics' " replace>
                     统计<i :class="{'sktab-arrow':~$route.path.indexOf('/statistics')}"></i>
-                </a>
+                </router-link>
             </nav>
         </header>
         <div class="l-flex-1 l-relative">
