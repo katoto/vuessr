@@ -14,7 +14,7 @@
                             <col width="15.6%">
                         </colgroup>
                         <tr>
-                            <th><em class="group">{{idx+1}}</em></th>
+                            <th><em class="group">{{idx}}</em></th>
                             <th>赛</th>
                             <th>胜/平/负</th>
                             <th>进/失</th>

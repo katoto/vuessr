@@ -198,7 +198,7 @@ const mutationsInfo = mapMutations({
     setZqView (state, view) {
         state.zqView = view
     },
-    setLqView (state, view){
+    setLqView (state, view) {
         state.lqView = view
     },
     setMyState (state, myState) {

@@ -25,12 +25,42 @@
 <script>
     import refresh from '~components/home/refresh.vue'
     import switchComp from '~components/home/switch.vue'
+    import {aTypes, mTypes} from '~store/home'
     export default{
 
         components: {refresh, switchComp},
         computed: {
             switchShow () {
                 return this.$store.state.home.switchShow
+            },
+
+            lqPath () {
+                if(this.lqMatches){
+                    return '/home/lq/jclq/cur'
+                }else{
+                    return '/home/lq/all/cur'
+                }
+            },
+            zqPath () {
+                if(this.zqMatches) {
+                    return '/home/zq/jczq/cur'
+                }else{
+                    return '/home/zq/all/cur'
+                }
+
+            },
+            zqMatches () {
+                return this.$store.state.home.zq && this.$store.state.home.zq.matches
+            },
+            lqMatches () {
+                return this.$store.state.home.lq && this.$store.state.home.lq.matches
+            }
+        },
+        mounted () {
+            if (~this.$route.path.indexOf('/zq/')) {
+                this.$store.dispatch(aTypes.fetchZqMatches,{tab:'jczq'} )
+            }else{
+                this.$store.dispatch(aTypes.fetchLqMatches, {tab:'jclq'})
             }
         },
         methods: {
@@ -43,9 +73,11 @@
             },
             goTab ({tab}) {
                 if (tab === 'zq') {
-                    this.$router.replace(`/home/${tab}/jczq/cur`)
+                    console.log(this.zqPath)
+                    this.$router.replace(this.zqPath)
                 } else {
-                    this.$router.replace(`/home/${tab}/jclq/cur`)
+//                    this.$router.replace(`/home/${tab}/jclq/cur`)
+                    this.$router.replace(this.lqPath)
                 }
             }
         }

@@ -2,9 +2,9 @@
 <template>
     <div class="filter-league-wrap">
         <div class="filter-time filter-time-long">
-            <div class="prev-day" v-tap="{methods: goPre}"><span></span></div>
+            <div class="prev-day" :class="{'no-day': onPre}" v-tap="{methods: goPre}"><span></span></div>
             <div class="today" v-tap="{methods: toggleSel}"><span></span>第{{curExpect}}轮</div>
-            <div class="next-day" v-tap="{methods: goNext}"><span class="rotate180"></span></div>
+            <div class="next-day" :class="{'no-day': onNext}" v-tap="{methods: goNext}"><span class="rotate180"></span></div>
         </div>
         <transition name="toggle">
             <!-- 联赛筛选弹窗 -->
@@ -34,14 +34,30 @@
         data () {
             return {
                 showSel: false,
-                rExpectList: []
+                rExpectList: [],
+                onPre: false,
+                onNext: false
             }
         },
         mounted () {
+            this.initPreAndNext(this.curExpect)
         },
         methods: {
             toggleSel () {
                 this.showSel = !this.showSel
+            },
+            initPreAndNext(curExpect) {
+                const idx = this.expectList.indexOf(curExpect)
+                if (idx === 0) {
+                    this.onPre = true
+                } else {
+                    this.onPre = false
+                }
+                if (idx === this.expectList.length - 1) {
+                    this.onNext = true
+                } else {
+                    this.onNext = false
+                }
             },
             enterExpect ({expect}) {
                 this.showSel = false
@@ -82,11 +98,17 @@
                 }
             }
         },
+        watch: {
+            curExpect(newData, oldData) {
+                this.initPreAndNext(newData)
+            }
+        },
         filters: {
         }
     }
 </script>
 <style scoped>
+    .filter-time .no-day{opacity: 0.3}
     .filter-league:active, .filter-time .next-day:active, .filter-time .prev-day:active, .filter-time .today:active {
         background: #f4f4f4
     }
