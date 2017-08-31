@@ -42,13 +42,12 @@
                 }
             },
             zqPath () {
-                if(this.zqMatches){
-                    if(this.zqMatches){
-                        return '/home/zq/jczq/cur'
-                    }else{
-                        return '/home/zq/all/cur'
-                    }
+                if(this.zqMatches) {
+                    return '/home/zq/jczq/cur'
+                }else{
+                    return '/home/zq/all/cur'
                 }
+
             },
             zqMatches () {
                 return this.$store.state.home.zq && this.$store.state.home.zq.matches
@@ -74,6 +73,7 @@
             },
             goTab ({tab}) {
                 if (tab === 'zq') {
+                    console.log(this.zqPath)
                     this.$router.replace(this.zqPath)
                 } else {
 //                    this.$router.replace(`/home/${tab}/jclq/cur`)
