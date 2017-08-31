@@ -18,7 +18,7 @@
 </style>
 <script>
     import scrollSel from '~components/home/scrollSel.vue'
-    import {aTypes} from '~store/home'
+    import {mTypes, aTypes} from '~store/home'
     export default {
         data () {
             return {
@@ -38,6 +38,9 @@
             if (hasLogin) {
                 this.$store.dispatch(aTypes.getConcernState, '1')
             }
+        },
+        destroyed () {
+            this.$store.commit(mTypes.reset)
         },
         head: {
             title: '足球比分-500彩票网'

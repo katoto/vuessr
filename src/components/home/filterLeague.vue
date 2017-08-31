@@ -56,7 +56,7 @@
                     'sfc': '足球',
                     'bjdc': '北单'
                 },
-                show:true
+                show: true
             }
         },
         watch: {
@@ -80,8 +80,8 @@
         },
         mounted () {
             /**/
-            if(~this.$route.path.indexOf('/lq')){
-                this.show=false
+            if (~this.$route.path.indexOf('/lq')) {
+                this.show = false
             }
         },
         methods: {

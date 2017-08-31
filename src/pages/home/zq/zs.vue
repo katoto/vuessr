@@ -91,8 +91,8 @@
         },
 
         mounted () {
-            this.fetchData()
             this.hideSwitchBox()
+            this.fetchData()
         },
 
         methods: {

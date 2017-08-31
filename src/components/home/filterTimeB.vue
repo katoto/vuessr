@@ -57,7 +57,7 @@
                     this.rExpectList = rEL
                 }
             },
-            curExpect(newData, oldData) {
+            curExpect (newData, oldData) {
                 this.initPreAndNext(newData)
             }
         },
@@ -65,7 +65,7 @@
             toggleSel () {
                 this.showSel = !this.showSel
             },
-            initPreAndNext(curExpect) {
+            initPreAndNext (curExpect) {
                 const idx = this.expectList.indexOf(curExpect)
                 if (idx === this.expectList.length - 1) {
                     this.onPre = true

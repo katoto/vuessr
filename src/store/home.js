@@ -6,13 +6,13 @@ import {mapActions, mapMutations} from '~common/util'
 import platform from '~common/platform'
 import {pushEvents} from '~common/constants'
 const ns = 'home'
-const state = {
+const initState = {
     hasLogin: false,
     myState: {},
     // view: '0',
     lqView: '0',
     zqView: '0',
-    switchShow: true, // 切换框显示
+    switchShow: false, // 切换框显示
     zq: {
         metro: null,
         tab: 'jczq',
@@ -235,6 +235,12 @@ const mutationsInfo = mapMutations({
     },
     setSwitchShow (state, switchShow) {
         state.switchShow = switchShow
+    },
+    reset (state) {
+        const iState = JSON.parse(JSON.stringify(initState))
+        Object.keys(state).forEach(key => {
+            state[key] = iState[key]
+        })
     }
 }, ns)
 
@@ -242,4 +248,4 @@ const actions = actionsInfo.actions
 const mutations = mutationsInfo.mutations
 export const aTypes = actionsInfo.aTypes
 export const mTypes = mutationsInfo.mTypes
-export default {state, actions, mutations}
+export default {state: JSON.parse(JSON.stringify(initState)), actions, mutations}
