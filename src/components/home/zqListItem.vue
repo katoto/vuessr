@@ -499,8 +499,8 @@
         },
         methods: {
             goDetail () {
-                console.log('-----------');
-                console.log(this.detailPath);
+                console.log('-----------')
+                console.log(this.detailPath)
                 this.$router.push(this.detailPath)
             },
             doConcern () {

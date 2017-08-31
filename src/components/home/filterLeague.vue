@@ -1,6 +1,6 @@
 <template>
     <div class="filter-league-wrap">
-        <div class="filter-league" v-tap="{methods: toggleSel}"><span></span>
+        <div class="filter-league" data-p4="filter" data-p2="zq" v-tap="{methods: toggleSel}"><span></span>
             筛选
         </div>
         <transition name="toggle">
@@ -56,7 +56,7 @@
                     'sfc': '足球',
                     'bjdc': '北单'
                 },
-                show:true
+                show: true
             }
         },
         watch: {
@@ -80,8 +80,8 @@
         },
         mounted () {
             /**/
-            if(~this.$route.path.indexOf('/lq')){
-                this.show=false
+            if (~this.$route.path.indexOf('/lq')) {
+                this.show = false
             }
         },
         methods: {
@@ -112,25 +112,24 @@
             },
             confirm: function () {
                 let tmp = Object.values(this.selectOptions)
-                let flag= tmp.some((item) => {
+                let flag = tmp.some((item) => {
                     return item
                 })
                 console.log(flag)
 
-//                for (let i of tmp) {
-//                    if (i) {
-//                        break
-//                    } else {
-//                        return this.$store.dispatch('showToast', '至少选择一个联赛')
-//                    }
-//                }
-                if(flag){
+                //                for (let i of tmp) {
+                //                    if (i) {
+                //                        break
+                //                    } else {
+                //                        return this.$store.dispatch('showToast', '至少选择一个联赛')
+                //                    }
+                //                }
+                if (flag) {
                     this.$emit('ok', this.selectOptions)
                     this.showSel = false
-                }else{
-                     this.$store.dispatch('showToast', '至少选择一个联赛')
+                } else {
+                    this.$store.dispatch('showToast', '至少选择一个联赛')
                 }
-
             }
         }
     }

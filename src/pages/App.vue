@@ -12,11 +12,28 @@
     export default {
         mounted () {
             this.$store.dispatch('initWebsocket')
-            this.$el.addEventListener('click', (e) => {
-                if (e.target.dataset.p4 && e.target.dataset.p2) {
-                    this.summery(e.target.dataset.p2, e.target.dataset.p4, e.target.dataset.p1, e.target.dataset.p3)
+            const findP = (e) => {
+                if (e.tagName === 'BODY' || !e) return
+                if (e.dataset.p2) {
+                    return e
+                } else {
+                    return findP(e.parentNode)
                 }
-            })
+            }
+
+            let initTime = 0
+            this.$el.addEventListener('touchstart', (e) => {
+                const ele = findP(e.target)
+                if (ele) {
+                    initTime = e.timeStamp
+                }
+            }, true)
+            this.$el.addEventListener('touchend', (e) => {
+                const ele = findP(e.target)
+                if (ele) {
+                    if (e.timeStamp - initTime < 500) this.summery(ele.dataset.p2, ele.dataset.p4, ele.dataset.p1, ele.dataset.p3)
+                }
+            }, true)
 
             if (window && (window.EsApp)) {
                 this.$store.commit('setIsApp', true)
