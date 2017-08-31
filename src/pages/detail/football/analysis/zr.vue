@@ -5,7 +5,7 @@
             <div class="zj-nav">
                 阵容概览
             </div>
-            <div v-if="teamworth&&teamworth.coach" class="dataBox">
+            <div v-if="teamworth&&(teamworth.coach||teamworth.worth||teamworth.superstar)" class="dataBox">
                 <ul class="dataItem">
                     <li class="itemL">
                         <em class="num">{{teamworth.coach&&teamworth.coach.hcoach||'--'|truncate(6)}}</em>
@@ -45,7 +45,7 @@
                     </li>
                 </ul>
             </div>
-            <feed-back-no-data v-if="teamworth&&!teamworth.coach"></feed-back-no-data>
+            <feed-back-no-data v-if="teamworth&&!(teamworth.coach||teamworth.worth||teamworth.superstar)"></feed-back-no-data>
             <item-loader v-if="!teamworth"></item-loader>
         </div>
 
