@@ -641,6 +641,7 @@
         background: #efefef;
         color: #acaeb0
     }
+    .dataItem .item-info2{display:block}
     .fx-table {
         margin-top: .053333rem
     }

@@ -367,7 +367,7 @@
         color: #a9abad;
         margin-top: .533333rem
     }
-
+    .dataItem .item-info2{display:block}
     .popHeader .dataBox {
         border-bottom: 0
     }

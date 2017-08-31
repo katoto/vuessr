@@ -218,6 +218,7 @@
         height: 1.333333rem;
         width: 100%
     }
+    .dataItem .item-info2{display:block}
 
     .dataItem li {
         display: table-cell;

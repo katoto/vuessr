@@ -339,7 +339,7 @@
         text-align: center;
         color: #aab5bd
     }
-
+    .dataItem .item-info2{display:block}
     .dataItem .itemR {
         text-align: right;
         width: 2.8rem;
