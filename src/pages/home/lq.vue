@@ -139,7 +139,7 @@
     }
 </style>
 <script>
-    import {aTypes} from '~store/home'
+    import {mTypes, aTypes} from '~store/home'
     export default {
         data () {
             return {
@@ -160,6 +160,9 @@
             if (hasLogin) {
                 this.$store.dispatch(aTypes.getConcernState, '2')
             }
+        },
+        destroyed () {
+            this.$store.commit(mTypes.reset)
         },
         watch: {
         },
