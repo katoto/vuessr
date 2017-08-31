@@ -10,11 +10,11 @@
         </div>
 
         <nav class="match-tab">
-            <router-link to="/center/football" >
+            <router-link to="/center/football" replace>
                 <span class="match-tab-itm" :class="{'cur':tab=='football'}">足球</span>
             </router-link>
 
-            <router-link to="/center/basketball" >
+            <router-link to="/center/basketball" replace>
                 <span class="match-tab-itm" :class="{'cur':tab=='basketball'}">篮球</span>
             </router-link>
 
