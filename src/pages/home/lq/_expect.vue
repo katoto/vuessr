@@ -39,7 +39,7 @@
     const savedData = {}
     export default {
         async asyncData ({store, route: {params: {expect, tab}}}) {
-            await store.dispatch(aTypes.fetchLqMatches, {expect, tab})
+            await store.dispatch(aTypes.fetchLqMatches, {params: {expect, tab}, dataHandler: null})
         },
         beforeRouteEnter (to, from, next) {
             next(vm => {
@@ -178,7 +178,11 @@
             },
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                await this.$store.dispatch(aTypes.fetchLqMatches, this.$route.params)
+                await this.$store.dispatch(aTypes.fetchLqMatches, {params: this.$route.params, dataHandler: (matches) => {
+                    if(matches.length === 0) {
+                        this.$route.replace('home/lq/all/cur')
+                    }
+                }})
                 this.$store.commit('endOneRefresh')
             },
             doFilter (selectOptions) {
