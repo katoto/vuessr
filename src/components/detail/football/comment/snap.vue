@@ -270,12 +270,10 @@
                         return 'auto'
                     }
                 } else {
-                    if (this.eventlist && this.eventlist.length && this.expertRecommend && this.expertRecommend.shortcontent) {
+                    if (this.eventlist && this.expertRecommend && this.expertRecommend.shortcontent) {
                         return '28.6rem'
-                    } else if ((this.eventlist && this.eventlist.length) || (this.expertRecommend && this.expertRecommend.shortcontent)) {
-                        return '19.4rem'
                     } else {
-                        return 'auto'
+                        return '19.4rem'
                     }
                 }
             },
