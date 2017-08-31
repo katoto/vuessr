@@ -234,7 +234,7 @@
 
     .dataItem .itemC {
         text-align: center;
-        color: #aab5bd
+        /*color: #aab5bd*/
     }
 
     .dataItem .itemR {

@@ -2,7 +2,7 @@
     <div class="wrapper l-full l-flex-column">
         <header class="header inte-header-b" v-if="match">
             <div class="info">
-                <a class="back-icon" href="/center/football">返回</a>
+                <a class="back-icon" onClick="history.back()">返回</a>
                 <div class="info-c">
                     <div class="info-pic">
                         <img v-logo="match.matchlogo">

@@ -548,7 +548,9 @@
     }
 </script>
 <style scoped>
-
+    .zhzl-right {
+        text-align: right;
+    }
     .zhzl-box {
         height: .973333rem;
         position: relative;
