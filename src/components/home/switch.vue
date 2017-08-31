@@ -28,9 +28,9 @@
                 return this.$store.state.home.lqView
             }
         },
-        data(){
+        data () {
             return {
-                tab:true
+                tab: true
             }
         },
         watch: {
@@ -40,35 +40,32 @@
             }
         },
         methods: {
-            switchView(){
-                if(~this.$route.path.indexOf('/zq')){
+            switchView () {
+                if (~this.$route.path.indexOf('/zq')) {
                     this.$store.dispatch(aTypes.switchZqView)
-                    this.tab=true
-                }
-                else{
+                    this.tab = true
+                } else {
                     this.$store.dispatch(aTypes.switchLqView)
-                    this.tab=false
+                    this.tab = false
                 }
             },
             initView () {
-                if(~this.$route.path.indexOf('/zq')){
+                if (~this.$route.path.indexOf('/zq')) {
                     this.tab = true
                     this.$store.commit(mTypes.setZqView, sessionStorage.getItem('zqView') || '0')
-                }
-
-                else{
+                } else {
                     this.tab = false
                     this.$store.commit(mTypes.setLqView, sessionStorage.getItem('lqView') || '0')
                 }
 
-                /*if(~this.$route.path.indexOf('zq')){
+                /* if(~this.$route.path.indexOf('zq')){
                     this.$store.dispatch(aTypes.switchView)
                     this.tab=true
                 }
                 else{
                     this.$store.dispatch(aTypes.switchLqView)
                     this.tab=false
-                }*/
+                } */
             }
         }
     }

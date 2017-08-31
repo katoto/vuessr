@@ -6,7 +6,7 @@
                 <li :class="{cur: ~$route.path.indexOf('/zq/')}" v-tap="{methods: goTab, tab: 'zq'}">足球</li>
                 <li :class="{cur: ~$route.path.indexOf('/lq/')}"  v-tap="{methods: goTab, tab: 'lq'}">篮球</li>
             </ul>
-            <div class="search-league" v-tap="{methods: goLeague}"><span></span>联赛</div>
+            <div class="search-league" v-tap="{methods: goLeague}" data-p2="zq" data-p4="liansai"><span></span>联赛</div>
         </div>
 
 
@@ -35,19 +35,17 @@
             },
 
             lqPath () {
-                if(this.lqMatches){
+                if (this.lqMatches) {
                     return '/home/lq/jclq/cur'
-                }else{
+                } else {
                     return '/home/lq/all/cur'
                 }
             },
             zqPath () {
-                if(this.zqMatches){
-                    if(this.zqMatches){
-                        return '/home/zq/jczq/cur'
-                    }else{
-                        return '/home/zq/all/cur'
-                    }
+                if (this.zqMatches) {
+                    return '/home/zq/jczq/cur'
+                } else {
+                    return '/home/zq/all/cur'
                 }
             },
             zqMatches () {
@@ -59,9 +57,9 @@
         },
         mounted () {
             if (~this.$route.path.indexOf('/zq/')) {
-                this.$store.dispatch(aTypes.fetchZqMatches,{tab:'jczq'} )
-            }else{
-                this.$store.dispatch(aTypes.fetchLqMatches, {tab:'jclq'})
+                this.$store.dispatch(aTypes.fetchZqMatches, {tab: 'jczq'})
+            } else {
+                this.$store.dispatch(aTypes.fetchLqMatches, {tab: 'jclq'})
             }
         },
         methods: {
@@ -74,9 +72,10 @@
             },
             goTab ({tab}) {
                 if (tab === 'zq') {
+                    console.log(this.zqPath)
                     this.$router.replace(this.zqPath)
                 } else {
-//                    this.$router.replace(`/home/${tab}/jclq/cur`)
+                //                    this.$router.replace(`/home/${tab}/jclq/cur`)
                     this.$router.replace(this.lqPath)
                 }
             }
