@@ -97,7 +97,7 @@
                 </template>
                 <template v-if="feature.e[match.status]"><!--正在开打-->
                     <template v-if="match.extra_info && match.extra_info.ishasvideo === '1'">
-                        <div class="btn-live">直播</div>
+                        <div class="btn-live" v-tap="{methods: goPath}">直播</div>
                         <div class="live-time">{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
 
                     </template>
@@ -107,7 +107,7 @@
                 </template>
                 <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
                     <template v-if="match.extra_info && match.extra_info.ishasvideo === '1'">
-                        <div class="btn-live btn-once">回放</div>
+                        <div class="btn-live btn-once" v-tap="{methods: goPath}">回放</div>
                     </template>
                     <template v-else>
                         <div class="follow had-follow">完场</div>
@@ -511,6 +511,9 @@
             doConcern () {
                 this.$store.dispatch('ensureLogin')
                 this.$store.dispatch(aTypes.doConcern, {fid: this.match.fid, vtype: '1'})
+            },
+            goPath () {
+                this.$router.push(`/detail/football/${this.match.fid}/situation` )
             },
             makeInterVal (time) {
                 this.timer = setInterval(() => {

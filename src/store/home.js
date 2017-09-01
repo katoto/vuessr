@@ -159,6 +159,7 @@ const actionsInfo = mapActions({
         commit(mTypes.setZqMetro, metro)
         return metro
     },
+
     async fetchLqMatches ({commit}, {expect, tab}) {
         const matchesInfo = await ajax.get(`/score/lq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`)
         // if(typeof dataHandler === 'function') {
