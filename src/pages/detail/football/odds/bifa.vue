@@ -85,7 +85,7 @@
                     <echart-big-trade class="all-qushi1" name1="主胜" name2="平" name3="主负" :data1="bifa.all_trade.line_chart.win_gram" :data2="bifa.all_trade.line_chart.draw_gram"
                     :data3="bifa.all_trade.line_chart.lost_gram" :start-time="bifa.all_trade.line_chart.start_time" :end-time="bifa.all_trade.line_chart.curr_time"></echart-big-trade>
 
-                    <echart-all-trade class="all-qushi1" :data="bifa.all_trade.line_chart.amount_gram" name="交易总量"></echart-all-trade>
+                    <echart-all-trade class="all-qushi1" :data="bifa.all_trade.line_chart.amount_gram"></echart-all-trade>
 
                 </div>
             </div>
