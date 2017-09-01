@@ -513,7 +513,7 @@
                 this.$store.dispatch(aTypes.doConcern, {fid: this.match.fid, vtype: '1'})
             },
             goPath () {
-                this.$router.push(`/detail/football/${this.match.fid}/situation` )
+                this.$router.push(`/detail/football/${this.match.fid}/situation`)
             },
             makeInterVal (time) {
                 this.timer = setInterval(() => {
@@ -526,9 +526,9 @@
                 return this.match.extra_info.currodds.split('/')
             },
             detailPath () {
-//                if (this.match.extra_info && this.match.extra_info.iscrazybet === '1') {
-//                    return `/detail/football/${this.match.fid}/crazybet`
-//                }
+            //                if (this.match.extra_info && this.match.extra_info.iscrazybet === '1') {
+            //                    return `/detail/football/${this.match.fid}/crazybet`
+            //                }
                 if (this.feature.a[this.match.status]) {
                     return `/detail/football/${this.match.fid}/analysis/zj`
                 }
