@@ -21,22 +21,29 @@
                     </div>
 
                     <!--right scroll-->
-                    <div class="plright l-flex-l l-flex-column">
-                        <h2 class="average-tit">
-                            <em>球队</em>{{tabInfo[tab]}}
-                        </h2>
-                        <ul class="average-list l-flex-l l-srcoll-y">
-                            <li class="average-item clear"  v-for="(list,index) in statisList">
-                                <div class="aver-team">
-                                    <em class="aver-turn">{{index+1}}</em>
-                                    <span class="aver-team-img">
+                    <div class="plright l-flex-1 l-relative" style="width: 0">
+                        <div class="l-full l-flex-column">
+                            <h2 class="average-tit">
+                                <em>球队</em>{{tabInfo[tab]}}
+                            </h2>
+                            <div class="average-list l-flex-1 l-relative">
+                                <ul class="l-full l-scroll-y" style="padding: 0 .8rem">
+                                    <li class="average-item clear"  v-for="(list,index) in statisList">
+                                        <div class="aver-team">
+                                            <em class="aver-turn">{{index+1}}</em>
+                                            <span class="aver-team-img">
                                     <img :src="list.teamlogo">
                                     <em class="aver-team-name">{{list.teamgbname}}</em>
                                 </span>
-                                </div>
-                                <span class="aver-score">{{list.value}}</span>
-                            </li>
-                        </ul>
+                                        </div>
+                                        <span class="aver-score">{{list.value}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+
                     </div>
                 </template>
                 <view-empty v-else style="flex:1"></view-empty>
