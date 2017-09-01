@@ -98,11 +98,13 @@
                 <template v-if="feature.e[match.status]"><!--正在开打-->
                     <template v-if="match.extra_info && match.extra_info.ishasvideo === '1'">
                         <div class="btn-live" v-tap="{methods: goPath}">直播</div>
-                        <div class="live-time">{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
+                        <div class="follow had-follow" v-if="match.status === StatusCode.MID">中场</div>
+                        <div class="live-time" v-else>{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
 
                     </template>
                     <template v-else>
-                        <div class="live-time  live-timer">{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
+                        <div class="follow had-follow" v-if="match.status === StatusCode.MID">中场</div>
+                        <div class="live-time  live-timer" v-else>{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
                     </template>
                 </template>
                 <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
@@ -449,8 +451,6 @@
         },
         methods: {
             goDetail () {
-                console.log('-----------')
-                console.log(this.detailPath)
                 this.$router.push(this.detailPath)
             },
             doConcern () {
@@ -471,9 +471,6 @@
                 return this.match.extra_info.currodds.split('/')
             },
             detailPath () {
-            //                if (this.match.extra_info && this.match.extra_info.iscrazybet === '1') {
-            //                    return `/detail/football/${this.match.fid}/crazybet`
-            //                }
                 if (this.feature.a[this.match.status]) {
                     return `/detail/football/${this.match.fid}/analysis/zj`
                 }

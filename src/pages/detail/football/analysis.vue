@@ -4,20 +4,20 @@
             <ul class="sk-detail-tap three">
                 <li data-type="zq_detail" data-tab="analysis_zj" data-event="click"
                     :class="{cur: ~$route.path.indexOf('/zj')}">
-                    <router-link :to="{name: 'football-detail-analysis-zj'}" replace  data-p2="zq_detail" data-p4="analysis_zj">战绩</router-link>
+                    <router-link2 :to="{name: 'football-detail-analysis-zj'}" replace  data-p2="zq_detail" data-p4="analysis_zj">战绩</router-link2>
                 </li>
                 <li
                     :class="{cur: ~$route.path.indexOf('/js')}">
-                    <router-link :to="{name: 'football-detail-analysis-js'}" replace data-p2="zq_detail" data-p4="analysis_js">技术</router-link>
+                    <router-link2 :to="{name: 'football-detail-analysis-js'}" replace data-p2="zq_detail" data-p4="analysis_js">技术</router-link2>
                 </li>
 
                 <li
                     :class="{cur: ~$route.path.indexOf('/pm')}">
-                    <router-link :to="{name: 'football-detail-analysis-pm'}" replace data-p2="zq_detail" data-p4="analysis_pm">盘面</router-link>
+                    <router-link2 :to="{name: 'football-detail-analysis-pm'}" replace data-p2="zq_detail" data-p4="analysis_pm">盘面</router-link2>
                 </li>
                 <li
                     :class="{cur: ~$route.path.indexOf('/zr')}">
-                    <router-link :to="{name: 'football-detail-analysis-zr'}" replace data-p2="zq_detail" data-p4="analysis_zr">阵容</router-link>
+                    <router-link2 :to="{name: 'football-detail-analysis-zr'}" replace data-p2="zq_detail" data-p4="analysis_zr">阵容</router-link2>
                 </li>
             </ul>
         </div>
@@ -27,6 +27,14 @@
         </div>
     </div>
 </template>
+<script>
+    import routerLink2 from '~components/routerLink2.vue'
+    export default {
+        components: {
+            routerLink2
+        }
+    }
+</script>
 
 <style scoped>
     .sk-detail-tap-box a:-webkit-any-link {

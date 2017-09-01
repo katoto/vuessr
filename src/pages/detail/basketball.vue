@@ -2,7 +2,7 @@
 <div class="l-full l-flex-column" v-if="baseInfo">
     <div class="detailTop" style="display: block;" :class="{'topBarMove': showScore, 'topBarMove2': !showScore}">
         <a class="back-icon" onclick="history.back()" href="javascript:;">返回</a>
-        <router-link to="/home/lq/jclq/cur" class="link-index f26">比分首页</router-link>
+        <router-link2 to="/home/lq/jclq/cur" class="link-index f26">比分首页</router-link2>
         <div v-tap="{methods:goLeague,seasonid:baseInfo.seasonid}" class="r-sn f24">{{baseInfo.simpleleague}}</div>
 
 
@@ -94,25 +94,25 @@
             <div slot="navigator" class="navigator hide">
                 <ul>
                     <li :class="{cur: ~$route.path.indexOf('/situation')}">
-                        <router-link :to="{name: 'basketball-detail-situation-event'}" replace>
+                        <router-link2 :to="{name: 'basketball-detail-situation-event'}" replace>
                             <span>赛况<i class="sktab-arrow"></i></span>
-                        </router-link>
+                        </router-link2>
                     </li>
-                    <li :class="{cur: ~$route.path.indexOf('/analysis')}">
-                        <router-link :to="{name: 'basketball-detail-analysis-zj'}" replace>
+                    <li :class="{cur: ~$route.path.indexOf('/analysis')}" data-p2="lq_detail" data-p4="analysis">
+                        <router-link2 :to="{name: 'basketball-detail-analysis-zj'}" replace>
                             <span>分析<i class="sktab-arrow"></i></span>
-                        </router-link>
+                        </router-link2>
 
                     </li>
                     <li :class="{cur: ~$route.path.indexOf('/odds')}">
-                        <router-link :to="{name: 'basketball-detail-odds-shengfu'}" replace>
+                        <router-link2 :to="{name: 'basketball-detail-odds-shengfu'}" replace>
                             <span>赔率<i class="sktab-arrow"></i></span>
-                        </router-link>
+                        </router-link2>
                     </li>
                     <li :class="{cur: ~$route.path.indexOf('/comment')}">
-                        <router-link :to="{name: 'basketball-detail-comment'}" replace>
+                        <router-link2 :to="{name: 'basketball-detail-comment'}" replace>
                             <span>聊球<i class="sktab-arrow"></i></span>
-                        </router-link>
+                        </router-link2>
                     </li>
                 </ul>
             </div>
@@ -155,7 +155,7 @@
         aTypes,
         mTypes
     } from '~store/lqdetail'
-
+    import routerLink2 from '~components/routerLink2.vue'
     if (process.env.VUE_ENV !== 'server') {
         require('nativeshare')
     }
@@ -164,7 +164,7 @@
             await store.dispatch(aTypes.getBaseInfo, params.fid)
         },
         components: {
-            detailScroller, refresh, editor, toast, commEnter, score
+            detailScroller, refresh, editor, toast, commEnter, score, routerLink2
         },
         data () {
             return {

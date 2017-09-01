@@ -4,13 +4,13 @@
         <div class="sk-detail-tap-box sk-detail-tap-box2">
             <ul class="sk-detail-tap three">
                 <li :class="{cur:~$route.path.indexOf('/shengfu')}">
-                    <router-link :to="{name: 'basketball-detail-odds-shengfu'}" replace>胜负</router-link>
+                    <router-link2 :to="{name: 'basketball-detail-odds-shengfu'}" replace>胜负</router-link2>
                 </li>
                 <li :class="{cur:~$route.path.indexOf('/rangfenpan')}">
-                    <router-link :to="{name: 'basketball-detail-odds-rangfenpan'}" replace>让分盘</router-link>
+                    <router-link2 :to="{name: 'basketball-detail-odds-rangfenpan'}" replace>让分盘</router-link2>
                 </li>
                 <li :class="{cur:~$route.path.indexOf('/daxiaofen')}">
-                    <router-link :to="{name: 'basketball-detail-odds-daxiaofen'}" replace>大小分</router-link>
+                    <router-link2 :to="{name: 'basketball-detail-odds-daxiaofen'}" replace>大小分</router-link2>
                 </li>
             </ul>
         </div>
@@ -30,12 +30,17 @@
 <script>
     import customodds from '~components/detail/basketball/odds/customodds.vue'
     import {mTypes} from '~store/lqdetail'
+
+    import routerLink2 from '~components/routerLink2.vue'
     export default{
         methods: {
             edit () {
                 this.$store.dispatch('ensureLogin')
                 this.$store.commit(mTypes.setDialog, {component: customodds, params: {ptype: this.ptype}})
             }
+        },
+        components: {
+            routerLink2
         },
         computed: {
             ptype () {
