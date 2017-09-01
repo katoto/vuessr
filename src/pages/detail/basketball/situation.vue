@@ -36,7 +36,7 @@
     </div>
 </template>
 <script>
-    import {BasketballStatusCode as StatusCode, pushEvents, BasketballStatusDesc as StatusDesc} from '~common/constants'
+    import {BasketballStatusCode as StatusCode, BasketballStatusDesc as StatusDesc} from '~common/constants'
     import {mTypes, aTypes} from '~store/lqdetail'
     import meSports from '~components/detail/meSports.vue'
     import noData from '~components/no_data.vue'
