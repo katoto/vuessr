@@ -63,7 +63,7 @@
 </template>
 
 <script>
-    import {aTypes} from '~store/center'
+    import {aTypes, mTypes} from '~store/center'
     export default{
         data () {
             return {
@@ -81,6 +81,9 @@
         },
         mounted () {
             this.getCupsData()
+        },
+        destroyed () {
+            this.$store.commit(mTypes.reset)
         },
         methods: {
             onTab ({type}) {

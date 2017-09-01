@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import {aTypes} from '~store/center'
+    import {aTypes, mTypes} from '~store/center'
     export default{
         async asyncData ({store}) {
             await store.dispatch(aTypes.getBasketballHot)
@@ -43,6 +43,9 @@
                     await this.$store.dispatch(aTypes.getBasketballHot)
                 }
             }
+        },
+        destroyed () {
+            this.$store.commit(mTypes.reset)
         },
         mounted () {
             this.fetchData()

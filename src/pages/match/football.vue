@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import {aTypes} from '~store/center'
+    import {aTypes, mTypes} from '~store/center'
     export default{
         async asyncData ({store}) {
             await store.dispatch(aTypes.getFootballHot)
@@ -42,6 +42,9 @@
                 let match = this.$store.state.center.zqhot
                 if (!match) { await this.$store.dispatch(aTypes.getFootballHot) }
             }
+        },
+        destroyed () {
+            this.$store.commit(mTypes.reset)
         },
         mounted () {
             this.fetchData()

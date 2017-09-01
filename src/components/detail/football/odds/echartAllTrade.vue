@@ -57,16 +57,16 @@
                             color: '#515e6d'
                         }
                     },
-                    legend: {
-                        data: [this.name],
-                        right: 0,
-                        itemGap: 30,
-                        top: 0,
-                        textStyle: {
-                            fontSize,
-                            color: '#515e6d'
-                        }
-                    },
+//                    legend: {
+//                        data: [this.name],
+//                        right: 0,
+//                        itemGap: 30,
+//                        top: 0,
+//                        textStyle: {
+//                            fontSize,
+//                            color: '#515e6d'
+//                        }
+//                    },
                     grid: {
                         left: 100,
                         top: 80,

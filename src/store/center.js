@@ -209,6 +209,12 @@ const mutationsInfo = mapMutations({
     },
     setFootballMatchStatistics (state, statistics) {
         state.footballMatch.statistics = statistics
+    },
+    reset (state) {
+        const iState = JSON.parse(JSON.stringify(initState))
+        Object.keys(state).forEach(key => {
+            state[key] = iState[key]
+        })
     }
 }, ns)
 
