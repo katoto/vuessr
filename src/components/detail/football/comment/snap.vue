@@ -193,6 +193,9 @@
                     this.inmove = false
                     this.online0 = this.online
                 }, 1000)
+            },
+            tWidth () {
+                setTimeout(() => this.updateSnap(), 100)
             }
         },
         methods: {
@@ -214,6 +217,9 @@
             },
             goRec () {
                 location.href = this.expertRecommend.touch_url
+            },
+            updateSnap () {
+                this.scrollerObj && this.scrollerObj.setDimensions(this.container.offsetWidth, this.container.offsetHeight, this.content.offsetWidth, this.content.offsetHeight)
             }
         },
         mounted () {
@@ -269,12 +275,14 @@
                     } else {
                         return 'auto'
                     }
-                } else {
-                    if (this.eventlist && this.expertRecommend && this.expertRecommend.shortcontent) {
+                } else if (this.match.status === '1' || this.match.status === '2' || this.match.status === '3' || this.match.status === '4') {
+                    if (this.expertRecommend && this.expertRecommend.shortcontent) {
                         return '28.6rem'
                     } else {
                         return '19.4rem'
                     }
+                } else {
+                    return 'auto'
                 }
             },
             progWidth () {

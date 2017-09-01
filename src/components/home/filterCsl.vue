@@ -128,16 +128,12 @@
         box-sizing: border-box;
     }
 
-
-
     .filter-time-long {
         width: 9.2rem
     }
-
     .filter-league,.filter-time {
         box-shadow: 0 0 .133333rem rgba(22,34,29,.1)
     }
-
     .filter-time .prev-day {
         width: .96rem;
         height: 1.066667rem;
@@ -215,10 +211,6 @@
         -webkit-transform: rotate(180deg);
         transform: rotate(180deg)
     }
-
-
-
-
 
     .alert-csl {
         width: 9.2rem;
@@ -307,24 +299,13 @@
         padding: .133333rem .266667rem;
         border: 1px solid #eaeaea;
         border-radius: .32rem;
+        font-size: .293333rem;
         color: #aab5bd;
         float: left;
         margin-right: .266667rem
     }
 
-    [data-dpr="1"] .select-all li {
-        font-size: 11px
-    }
-
-    [data-dpr="2"] .select-all li {
-        font-size: 22px
-    }
-
-    [data-dpr="3"] .select-all li {
-        font-size: 33px
-    }
-
-    .select-all .cur {
+    .select-all li:active {
         background: #ebf1f5;
         color: #242c35
     }

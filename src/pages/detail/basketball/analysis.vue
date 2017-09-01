@@ -2,18 +2,18 @@
 <div>
     <div class="sk-detail-tap-box">
         <ul class="sk-detail-tap three">
-            <li data-type="zq_detail" data-tab="analysis_zj" data-event="click" :class="{cur: ~$route.path.indexOf('/zj')}">
-                <router-link :to="{name: 'basketball-detail-analysis-zj'}" replace>战绩</router-link>
+            <li data-p2="lq_detail" data-p4="analysis_zj" :class="{cur: ~$route.path.indexOf('/zj')}">
+                <router-link2 :to="{name: 'basketball-detail-analysis-zj'}" replace>战绩</router-link2>
             </li>
-            <li :class="{cur: ~$route.path.indexOf('/js')}">
-                <router-link :to="{name: 'basketball-detail-analysis-js'}" replace>技术</router-link>
+            <li :class="{cur: ~$route.path.indexOf('/js')}" data-p2="lq_detail" data-p4="analysis_js">
+                <router-link2 :to="{name: 'basketball-detail-analysis-js'}" replace>技术</router-link2>
             </li>
 
             <li :class="{cur: ~$route.path.indexOf('/zr')}">
-                <router-link :to="{name: 'basketball-detail-analysis-zr'}" replace>阵容</router-link>
+                <router-link2 :to="{name: 'basketball-detail-analysis-zr'}" replace data-p2="lq_detail" data-p4="analysis_zr">阵容</router-link2>
             </li>
             <li :class="{cur: ~$route.path.indexOf('/jj')}">
-                <router-link :to="{name: 'basketball-detail-analysis-jj'}" replace>进阶</router-link>
+                <router-link2 :to="{name: 'basketball-detail-analysis-jj'}" replace data-p2="lq_detail" data-p4="analysis_jj">进阶</router-link2>
             </li>
         </ul>
     </div>
@@ -26,9 +26,10 @@
 
 <script>
     import skbtips from '~components/detail/skbtips.vue'
+    import routerLink2 from '~components/routerLink2.vue'
     export default {
         components: {
-            skbtips
+            skbtips, routerLink2
         }
     }
 </script>

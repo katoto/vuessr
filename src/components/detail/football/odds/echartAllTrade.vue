@@ -28,7 +28,8 @@
         mounted () {
             let u = navigator.userAgent
             const isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1
-            this.$el.style.height = this.$el.offsetHeight * 1.2 + 'px'
+//            this.$el.style.height = this.$el.offsetHeight * 1.2 + 'px'
+            this.$el.style.height = this.$el.offsetHeight + 'px'
             let fontSize = 22
             if (isAndroid) {
                 fontSize = this.fontSize / 2
@@ -56,16 +57,16 @@
                             color: '#515e6d'
                         }
                     },
-                    legend: {
-                        data: [this.name],
-                        right: 0,
-                        itemGap: 30,
-                        top: 0,
-                        textStyle: {
-                            fontSize,
-                            color: '#515e6d'
-                        }
-                    },
+//                    legend: {
+//                        data: [this.name],
+//                        right: 0,
+//                        itemGap: 30,
+//                        top: 0,
+//                        textStyle: {
+//                            fontSize,
+//                            color: '#515e6d'
+//                        }
+//                    },
                     grid: {
                         left: 100,
                         top: 80,

@@ -5,21 +5,21 @@
         <div class="popInner" style="z-index: 2">
             <div class="l-full l-flex-row">
                 <div class="l-relative" style="width: 2rem;color: #242c35">
-                    <div class="l-full l-scroll-y">
+                    <div class="l-full l-scroll-y plleft">
                         <div class="scroller">
                             <ul class="plleft-list">
                                 <li v-for="(info,index) in params.odds"
                                     v-tap="{methods: changeComp, cid: info.cid}"
                                     :class="{cur: info.cid == cid}" v-if="info.cid!=='-1'">{{info.name}}
-
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <div class="l-flex-1 l-flex-column" style="width:0;border-radius: 0 .186667rem 0 0">
+                <div class="l-flex-1 l-flex-column " style="border-radius: 0 .186667rem 0 0">
                     <template>
+                        <div class="pl-cont">
                         <div class="l-full l-scroll-y">
                             <table cellpadding="0" cellspacing="0" border="0" width="100%" class="plxq-table">
                                 <!--胜负-->
@@ -89,6 +89,7 @@
                                 </tr>
                                 </tbody>
                             </table>
+                        </div>
                         </div>
                         <no-match v-if="oddsInfo && !oddsInfo.length"></no-match>
                     </template>

@@ -44,13 +44,6 @@
             match () {
                 return this.$store.state.center.lqAll
             }
-        },
-
-        methods: {
-            onTab: type => {
-                this.tab = type
-                this.fetchData()
-            }
         }
     }
 </script>

@@ -2,11 +2,11 @@
     <div class="l-full l-flex-column" v-if="match" style="overflow: hidden">
         <div class="detailTop" :class="{'topBarMove': showScore, 'topBarMove2': !showScore}" style="display: block;">
             <a class="back-icon" onclick="history.back()" href="javascript:;">返回</a>
-            <router-link to="/home/zq/jczq/cur" class="link-index f26">比分首页</router-link>
+            <router-link2 to="/home/zq/jczq/cur" class="link-index f26">比分首页</router-link2>
             <!--<a class="link-index f26" href="/score/index.html#/football">比分首页</a>-->
 
             <!--<div onclick="home.goLeague()" class="r-sn f24">{{match.simpleleague}}</div>-->
-            <router-link :to="'/center/footballmatch/'+match.seasonid+'/integral'" class="r-sn f24">{{match.simpleleague}}</router-link>
+            <router-link2 :to="'/center/footballmatch/'+match.seasonid+'/integral'" class="r-sn f24">{{match.simpleleague}}</router-link2>
 
 
             <!--<div id="_concern" style="display: none" class="topR" onclick="home.doConcern()">
@@ -84,41 +84,41 @@
                     <ul>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/situation')}">
-                            <router-link :to="{name: 'football-detail-situation'}" replace>
+                            <router-link2 :to="{name: 'football-detail-situation'}" replace>
                                 <span data-p2="zq_detail" data-p4="situation">赛况<i class="sktab-arrow"></i></span>
-                            </router-link>
+                            </router-link2>
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/analysis')}">
-                            <router-link :to="{name: 'football-detail-analysis-zj'}" replace>
+                            <router-link2 :to="{name: 'football-detail-analysis-zj'}" replace>
                                 <span data-p2="zq_detail" data-p4="analysis">分析<i class="sktab-arrow"></i></span>
-                            </router-link>
+                            </router-link2>
 
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/predict')}">
-                            <router-link :to="{name: 'football-detail-predict'}" replace>
+                            <router-link2 :to="{name: 'football-detail-predict'}" replace>
                                 <span data-p2="zq_detail" data-p4="predict">预测<i class="sktab-arrow"></i><em class="nav-yuce-liao " :class="{enter: !~$route.path.indexOf('/predict')}">料</em></span>
-                            </router-link>
+                            </router-link2>
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/odds')}">
-                            <router-link :to="{name: 'football-detail-odds-europe'}" replace>
+                            <router-link2 :to="{name: 'football-detail-odds-europe'}" replace>
                                 <span data-p2="zq_detail" data-p4="odds">赔率<i class="sktab-arrow"></i></span>
-                            </router-link>
+                            </router-link2>
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/comment')}">
-                            <router-link :to="{name: 'football-detail-comment'}" replace>
+                            <router-link2 :to="{name: 'football-detail-comment'}" replace>
                                 <span data-p2="zq_detail" data-p4="comment">聊球<i class="sktab-arrow"></i></span>
-                            </router-link>
+                            </router-link2>
                         </li>
 
                         <li
                                 :class="{cur: ~$route.path.indexOf('/crazybet')}">
-                            <router-link :to="{name: 'football-detail-crazybet'}" replace>
+                            <router-link2 :to="{name: 'football-detail-crazybet'}" replace>
                                 <span data-p2="zq_detail" data-p4="crazybet">猜球<i class="sktab-arrow"></i></span>
-                            </router-link>
+                            </router-link2>
                         </li>
 
                     </ul>
@@ -155,6 +155,7 @@
     import refresh from '~components/refresh.vue'
     import toast from '~components/toast.vue'
     import editor from '~components/editor.vue'
+    import routerLink2 from '~components/routerLink2.vue'
     import detailScroller from '~components/detail_scroller.vue'
     import share from '~components/detail/share.vue'
     import copy from '~components/detail/copy.vue'
@@ -221,7 +222,7 @@
             this.ready = true
         },
         components: {
-            detailScroller, refresh, editor, toast, score, commEnter
+            detailScroller, refresh, editor, toast, score, commEnter, routerLink2
         },
         destroyed () {
             this.$store.dispatch('unsubscribeAll')

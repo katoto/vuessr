@@ -75,7 +75,6 @@ app.use('/', serve('./public', true))
 // app.use('/manifest.json', serve('./manifest.json', true))
 // app.use('/service-worker.js', serve('./dist/service-worker.js'))
 let ipAddress = process.env.ADDRESS || 'ews.500.com'
-console.log(ipAddress)
 app.use((req, resp, next) => {
     if (req.originalUrl.indexOf('/ews') === 0) {
         forwardRequest({
