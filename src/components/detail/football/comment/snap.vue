@@ -269,12 +269,14 @@
                     } else {
                         return 'auto'
                     }
-                } else {
-                    if (this.eventlist && this.expertRecommend && this.expertRecommend.shortcontent) {
+                } else if (this.match.status === '1' || this.match.status === '2' || this.match.status === '3' || this.match.status === '4') {
+                    if (this.expertRecommend && this.expertRecommend.shortcontent) {
                         return '28.6rem'
                     } else {
                         return '19.4rem'
                     }
+                } else {
+                    return 'auto'
                 }
             },
             progWidth () {
