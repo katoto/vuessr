@@ -147,51 +147,30 @@
         }
     }
     .one-game {
-        padding: .333333rem .4rem .346667rem .4rem;
+        padding: .333333rem 0 .346667rem 0;
         border-bottom: 1px solid #eaeaea
     }
 
     .one-game:active {
-        -webkit-tap-highlight-color: rgba(244, 244, 244, .6)
+        -webkit-tap-highlight-color: rgba(244,244,244,.6)
     }
 
     .game-info {
-        color: #aab5bd
-    }
-
-    [data-dpr="1"] .game-info {
-        font-size: 11px
-    }
-
-    [data-dpr="2"] .game-info {
-        font-size: 22px
-    }
-
-    [data-dpr="3"] .game-info {
-        font-size: 33px
+        font-size: .293333rem;
+        color: #aab5bd;
+        padding: 0 .4rem
     }
 
     .game-info .crazy-guess {
         color: #d25138;
+        font-size: .266667rem;
         padding: 0 .066667rem;
         border: 1px solid #d25138;
         height: .346667rem;
         line-height: .346667rem;
         margin-left: .133333rem;
         box-sizing: border-box;
-        border-radius: .053333rem
-    }
-
-    [data-dpr="1"] .game-info .crazy-guess {
-        font-size: 10px
-    }
-
-    [data-dpr="2"] .game-info .crazy-guess {
-        font-size: 20px
-    }
-
-    [data-dpr="3"] .game-info .crazy-guess {
-        font-size: 30px
+        border-radius: .026667rem
     }
 
     .game-info .crazy-guess:nth-child(1) {
@@ -206,31 +185,49 @@
     .game-detail {
         width: 100%;
         overflow: hidden;
-        margin-top: .346667rem
+        margin-top: .346667rem;
+        padding-left: .4rem;
+        box-sizing: border-box
     }
 
     .game-detail-l {
         float: left;
         width: 7.52rem;
         border-right: 1px solid #eaeaea;
-        position: relative;
+        position: relative
     }
-
     .game-item {
         padding-right: .533333rem;
         box-sizing: border-box;
         width: 7.52rem;
         line-height: .64rem;
-        height: .64rem
+        height: .693333rem
     }
-
     .game-name {
         color: #242c35;
         font-size: .4rem;
         float: left;
         padding-left: .88rem;
         position: relative;
-        height: .64rem
+        height: .64rem;
+        line-height: .64rem
+    }
+
+    .game-name em {
+        font-size: .293333rem;
+        color: #aab5bd;
+        margin-left: .213333rem
+    }
+
+    .game-name .red-c {
+        display: inline-block;
+        width: .213333rem;
+        height: .266667rem;
+        line-height: .266667rem;
+        background: #f44336;
+        color: #fff;
+        font-size: .24rem;
+        text-align: center
     }
 
     .game-name img {
@@ -247,48 +244,22 @@
         left: 0
     }
 
-    .odds-item {
-        width: 1.6rem;
-        text-align: center;
-        color: #aab5bd;
-        font-size: .293333rem;
-        position: absolute;
-        right: 0;
-        top: 50%;
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%)
-    }
-
-    .odds-item ul li {
-        line-height: .426667rem
-    }
-
     .game-lately {
         color: #aab5bd;
+        font-size: .293333rem;
         float: right
     }
 
-    [data-dpr="1"] .game-lately {
-        font-size: 11px
-    }
-
-    [data-dpr="2"] .game-lately {
-        font-size: 22px
-    }
-
-    [data-dpr="3"] .game-lately {
-        font-size: 33px
-    }
-
     .game-detail-r {
-        float: right;
-        width: 1.64rem;
+        float: left;
+        width: 2.04rem;
         text-align: center;
         height: 1.28rem;
         position: relative
     }
 
     .follow {
+        font-size: .346667rem;
         color: #d25138;
         width: 1.2rem;
         margin: 0 auto;
@@ -301,19 +272,8 @@
         -webkit-transform: translateY(-50%);
         transform: translateY(-50%);
         left: 50%;
-        margin-left: -.6rem
-    }
-
-    [data-dpr="1"] .follow {
-        font-size: 13px
-    }
-
-    [data-dpr="2"] .follow {
-        font-size: 26px
-    }
-
-    [data-dpr="3"] .follow {
-        font-size: 39px
+        margin-left: -.6rem;
+        border-radius: .026667rem
     }
 
     .had-follow {
@@ -328,7 +288,8 @@
         border: 1px solid #eaeaea;
         line-height: .533333rem;
         text-align: center;
-        color: #5c788f
+        color: #5c788f;
+        border-radius: .026667rem
     }
 
     .btn-live:active {
@@ -336,22 +297,11 @@
     }
 
     .live-time {
+        font-size: .4rem;
         color: #36a171;
         width: 100%;
         text-align: center;
         margin-top: .186667rem
-    }
-
-    [data-dpr="1"] .live-time {
-        font-size: 15px
-    }
-
-    [data-dpr="2"] .live-time {
-        font-size: 30px
-    }
-
-    [data-dpr="3"] .live-time {
-        font-size: 45px
     }
 
     .live-timer {
@@ -367,44 +317,19 @@
         display: inline-block;
         height: .64rem;
         line-height: .64rem;
-        overflow: hidden;
-    }
-
-    [data-dpr="1"] .score-half .first-half {
-        font-size: 13px
-    }
-
-    [data-dpr="2"] .score-half .first-half {
-        font-size: 26px
-    }
-
-    [data-dpr="3"] .score-half .first-half {
-        font-size: 39px
+        overflow: hidden
     }
 
     .score-half .second-half {
-        color: #000;
         font-size: .453333rem;
+        color: #36a171;
         display: inline-block;
         height: .64rem;
         line-height: .64rem;
         width: 1rem;
         text-align: right;
-        overflow: hidden;
+        overflow: hidden
     }
-
-    [data-dpr="1"] .score-half .second-half {
-        font-size: 17px
-    }
-
-    [data-dpr="2"] .score-half .second-half {
-        font-size: 34px
-    }
-
-    [data-dpr="3"] .score-half .second-half {
-        font-size: 51px
-    }
-
     .btn-once {
         position: absolute;
         top: 50%;

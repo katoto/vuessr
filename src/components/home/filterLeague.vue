@@ -138,7 +138,9 @@
     .filter-league:active, .filter-time .next-day:active, .filter-time .prev-day:active, .filter-time .today:active {
         background: #f4f4f4
     }
-
+    .filter-league,.filter-time {
+        box-shadow: 0 0 .133333rem rgba(22,34,29,.1)
+    }
     .filter-league-wrap {
         position: relative;
         width: 2.066667rem;
@@ -172,48 +174,24 @@
 
     .alert-league {
         padding-top: .4rem;
-        height: 10rem;
         width: 9.2rem;
         position: absolute;
         top: 0;
         right: 0;
         box-sizing: border-box;
+        border: .013333rem solid #eaeaea;
         border-radius: .106667rem;
         background: #fff;
-        z-index: 12;
-        overflow: hidden;
-    }
-
-    [data-dpr="1"] .alert-league {
-        border: .5px solid #eaeaea
-    }
-
-    [data-dpr="2"] .alert-league {
-        border: 1px solid #eaeaea
-    }
-
-    [data-dpr="3"] .alert-league {
-        border: 1.5px solid #eaeaea
+        z-index: 99
     }
 
     .matches-info {
         width: 8.4rem;
         margin: 0 auto;
         color: #aab5bd;
+        font-size: .346667rem;
         overflow: hidden;
         margin-bottom: .613333rem
-    }
-
-    [data-dpr="1"] .matches-info {
-        font-size: 13px
-    }
-
-    [data-dpr="2"] .matches-info {
-        font-size: 26px
-    }
-
-    [data-dpr="3"] .matches-info {
-        font-size: 39px
     }
 
     .matches-info-l {
@@ -241,10 +219,10 @@
 
     .cup-info {
         width: 8.4rem;
-        height: 6.133333rem;
+        margin: 0 auto;
+        height: 5.706667rem;
         overflow-y: scroll;
-        -webkit-overflow-scrolling: touch;
-        margin: 0 auto .3rem;
+        margin-bottom: .3rem
     }
 
     .cup-info ul {
@@ -284,21 +262,10 @@
         padding: .133333rem .266667rem;
         border: 1px solid #eaeaea;
         border-radius: .32rem;
+        font-size: .293333rem;
         color: #aab5bd;
         float: left;
         margin-right: .266667rem
-    }
-
-    [data-dpr="1"] .select-all li {
-        font-size: 11px
-    }
-
-    [data-dpr="2"] .select-all li {
-        font-size: 22px
-    }
-
-    [data-dpr="3"] .select-all li {
-        font-size: 33px
     }
 
     .select-all .cur {
@@ -313,10 +280,7 @@
         color: #242c35;
         margin-top: .4rem;
         height: 1.2rem;
-        line-height: 1.2rem;
-        position: absolute;
-        bottom: 0;
-        left: 0
+        line-height: 1.2rem
     }
 
     .btn-cont .btn-sure {

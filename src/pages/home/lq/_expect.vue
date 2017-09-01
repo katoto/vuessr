@@ -439,7 +439,7 @@
         position: absolute;
         top: 50%;
         margin-top: -.146667rem;
-        background: url(/mobile/touch/images/bifen/bifen-list/prev.png) no-repeat;
+        background: url(~assets/style/images/home/prev.png) no-repeat;
         background-size: cover;
         left: 50%;
         margin-left: -.08rem
@@ -463,7 +463,7 @@
         top: 50%;
         margin-top: -.213333rem;
         left: 1.066667rem;
-        background: url(/mobile/touch/images/bifen/bifen-list/date.png) no-repeat;
+        background: url(~assets/style/images/home/date.png) no-repeat;
         background-size: cover
     }
 
@@ -481,7 +481,7 @@
         position: absolute;
         top: 50%;
         margin-top: -.146667rem;
-        background: url(/mobile/touch/images/bifen/bifen-list/prev.png) no-repeat;
+        background: url(~assets/style/images/home/prev.png) no-repeat;
         background-size: cover;
         left: 50%;
         margin-left: -.08rem
@@ -519,7 +519,7 @@
         position: absolute;
         top: 50%;
         margin-top: -.213333rem;
-        background: url(/mobile/touch/images/bifen/bifen-list/select.png) no-repeat;
+        background: url(~assets/style/images/home/select.png) no-repeat;
         background-size: cover;
         left: .333333rem
     }
@@ -567,7 +567,7 @@
         top: 50%;
         margin-top: -.213333rem;
         left: 0;
-        background: url(/mobile/touch/images/bifen/bifen-list/date.png) no-repeat;
+        background: url(~assets/style/images/home/date.png) no-repeat;
         background-size: cover
     }
 
@@ -624,41 +624,19 @@
         top: 0;
         right: 0;
         box-sizing: border-box;
+        border: .013333rem solid #eaeaea;
         border-radius: .106667rem;
         background: #fff;
-        z-index: 2
-    }
-
-    [data-dpr="1"] .alert-league {
-        border: .5px solid #eaeaea
-    }
-
-    [data-dpr="2"] .alert-league {
-        border: 1px solid #eaeaea
-    }
-
-    [data-dpr="3"] .alert-league {
-        border: 1.5px solid #eaeaea
+        z-index: 99
     }
 
     .matches-info {
         width: 8.4rem;
         margin: 0 auto;
         color: #aab5bd;
+        font-size: .346667rem;
         overflow: hidden;
         margin-bottom: .613333rem
-    }
-
-    [data-dpr="1"] .matches-info {
-        font-size: 13px
-    }
-
-    [data-dpr="2"] .matches-info {
-        font-size: 26px
-    }
-
-    [data-dpr="3"] .matches-info {
-        font-size: 39px
     }
 
     .matches-info-l {
@@ -687,7 +665,9 @@
     .cup-info {
         width: 8.4rem;
         margin: 0 auto;
-        min-height: 6.133333rem
+        height: 5.706667rem;
+        overflow-y: scroll;
+        margin-bottom: .3rem
     }
 
     .cup-info ul {
@@ -727,21 +707,10 @@
         padding: .133333rem .266667rem;
         border: 1px solid #eaeaea;
         border-radius: .32rem;
+        font-size: .293333rem;
         color: #aab5bd;
         float: left;
         margin-right: .266667rem
-    }
-
-    [data-dpr="1"] .select-all li {
-        font-size: 11px
-    }
-
-    [data-dpr="2"] .select-all li {
-        font-size: 22px
-    }
-
-    [data-dpr="3"] .select-all li {
-        font-size: 33px
     }
 
     .select-all .cur {
@@ -756,10 +725,7 @@
         color: #242c35;
         margin-top: .4rem;
         height: 1.2rem;
-        line-height: 1.2rem;
-        position: absolute;
-        bottom: 0;
-        left: 0
+        line-height: 1.2rem
     }
 
     .btn-cont .btn-sure {
@@ -784,11 +750,11 @@
     }
 
     .one-game {
-        padding: .333333rem .4rem .346667rem .4rem;
+        padding: .333333rem 0 .346667rem 0;
         border-bottom: 1px solid #eaeaea
     }
 
     .one-game:active {
-        -webkit-tap-highlight-color: rgba(244, 244, 244, .6)
+        -webkit-tap-highlight-color: rgba(244,244,244,.6)
     }
 </style>
