@@ -34,7 +34,7 @@ export default {
         }
     },
     mounted () {
-        // this.initEchart()
+
     },
     methods: {
         initEchart() {
@@ -97,11 +97,6 @@ export default {
                     ]
                 }]
             }
-        }
-    },
-    watch: {
-        strength() {
-            this.initEchart()
         }
     }
 }

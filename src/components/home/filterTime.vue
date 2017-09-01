@@ -65,13 +65,13 @@
                 this.showSel = !this.showSel
             },
             initPreAndNext (curExpect) {
-                const idx = this.expectList.indexOf(curExpect)
-                if (idx === this.expectList.length - 1) {
+                const idx = this.rExpectList.indexOf(curExpect)
+                if (idx === 0) {
                     this.onPre = true
                 } else {
                     this.onPre = false
                 }
-                if (idx === 0) {
+                if (idx === this.rExpectList.length - 1) {
                     this.onNext = true
                 } else {
                     this.onNext = false
