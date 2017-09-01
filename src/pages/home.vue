@@ -25,7 +25,7 @@
 <script>
     import refresh from '~components/home/refresh.vue'
     import switchComp from '~components/home/switch.vue'
-    import {aTypes, mTypes} from '~store/home'
+
     export default{
 
         components: {refresh, switchComp},
