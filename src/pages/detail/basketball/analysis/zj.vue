@@ -6,7 +6,7 @@
         <recent-record :recentRecord='recentRecord' v-if="recentRecord"></recent-record>
         <future-match :futureMatch='futureMatch' v-if="futureMatch"></future-match>
         <macau-news :macauNews='macauNews' v-if="macauNews"></macau-news>
-        <item-loader v-if="!(nbarank && nbarank.all && leaguerank && recentRecord && futureMatch && macauNews)"></item-loader>
+        <item-loader v-if="!(nbarank)"></item-loader>
     </div>
 </template>
 

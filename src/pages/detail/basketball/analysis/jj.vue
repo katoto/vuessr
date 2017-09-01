@@ -2,7 +2,7 @@
     <div>
         <team-misc :teamMisc="teamMisc" v-if="teamMisc"></team-misc>
         <members-advanced :baseInfo="baseInfo" :membersAdvanced="membersAdvanced" v-if="membersAdvanced"></members-advanced>
-        <item-loader  v-if="!(teamMisc && membersAdvanced)"></item-loader>
+        <item-loader  v-if="!(teamMisc)"></item-loader>
     </div>
 </template>
 

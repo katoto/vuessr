@@ -2,7 +2,7 @@
     <div>
         <strength :baseInfo='baseInfo' :strength='strength' :stats='stats' v-if="strength"></strength>
         <trend :baseInfo='baseInfo' :trends='trend' :vtype="vtype" v-if="trend"></trend>
-        <item-loader v-if="!loaded"></item-loader>
+        <item-loader v-if="!strength"></item-loader>
     </div>
 </template>
 
