@@ -1,75 +1,77 @@
 <template>
     <div class="l-full l-flex-column">
-       <template v-if="basketChoice && isEmpty(basketChoice)">
-           <div class="sk-detail-tap-box  turn-box">
-               <div class="boxer-h">
-                   <em class="turn-boxer turn-boxer-prev">
-                       <i class="turn-to look-prev-have" v-if="isForward"  v-tap="{methods:goForward}"></i>
-                       <i class="turn-to" v-if="!isForward"></i>
-                   </em>
-                   <div class="num-turn" v-tap="{methods:goSelect}">{{tapname}} {{tapshow}}<i class="num-turner"></i></div>
+       <template v-if="basketChoice">
+           <template v-if="isEmpty(basketChoice)">
+               <div class="sk-detail-tap-box  turn-box">
+                   <div class="boxer-h">
+                       <em class="turn-boxer turn-boxer-prev">
+                           <i class="turn-to look-prev-have" v-if="isForward"  v-tap="{methods:goForward}"></i>
+                           <i class="turn-to" v-if="!isForward"></i>
+                       </em>
+                       <div class="num-turn" v-tap="{methods:goSelect}">{{tapname}} {{tapshow}}<i class="num-turner"></i></div>
 
-                   <em class="turn-boxer turn-boxer-next">
-                       <i class="turn-to look-next-have" v-if="isBehind"  v-tap="{methods:goBehind}"></i>
-                       <i class="turn-to" v-if="!isBehind"></i>
-                   </em>
-               </div>
-           </div>
-
-           <section class="l-flex-1 l-relative schedule-h">
-               <!--没有回合的情况-->
-               <div class="l-full l-scroll-y ">
-                   <!--弹层-筛选轮次-->
-                   <div class="alert-turns slect-alert-turns" :class="{'hide':isHide}">
-                       <!--二维-->
-                       <div class="ui-navbox-item" v-for="(itm1,idx1) in basketChoice.choice_list" v-if="tapshow">
-                           <div class="nav-box-tit ">{{itm1.stagegbname}}</div>
-                           <ul>
-                               <li v-for="(itm2,idx2) in itm1.nav" :class="{'select':selected[idx1+'&'+idx2]}" v-tap="{methods:goShow,i:idx1,j:idx2}">
-                                   <span>{{itm2.show}}</span>
-                               </li>
-                           </ul>
-                       </div>
-
-                       <!--一维-->
-                       <div class="ui-navbox-item" v-if="!tapshow">
-                           <ul>
-                               <li v-for="(itm,dx) in basketChoice.choice_list" :class="{'select':selected[dx]}" v-tap="{methods:goShow,i:dx,j:-1}">
-                                   <span>{{itm.stagegbname}}</span>
-                               </li>
-                           </ul>
-                       </div>
-                   </div>
-                   <div class="schedule-wrap" :class="{'hide':isShow}" v-if="basketSchedule">
-                       <section class="schedule-cont home-sc-cont l-scroll-y">
-                           <ul class="schedule-list" >
-                               <li class="schedule-itm  l-flex-row" v-for="list in basketSchedule" v-tap="{methods:goDetail,fid:list.fid}">
-                                   <!--左边的参赛时间-->
-                                   <div class="when-game">
-                                       <em class="game-time">{{list.matchtime.substr(5, 11)}}</em>
-                                   </div>
-                                   <!--右边的参赛队伍和结果-->
-                                   <div class="who-game l-flex-1 l-flex-row">
-                                       <div class="who-gamer who-gamer-home l-flex-1">
-                                           <img :src="[list.awaylogo? list.awaylogo : 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png']"/>
-                                           <em>{{list.awaysxname}}</em>
-                                       </div>
-
-                                       <em class="who-win" v-if="list.homescore">{{list.awayscore}}<i>:</i>{{list.homescore}}</em>
-                                       <em class="who-win no-start" v-if="!list.homescore">vs</em>
-                                       <div class="who-gamer who-gamer-guest l-flex-1">
-                                           <img :src="[list.homelogo?list.homelogo:'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png']"/><em>{{list.homesxname}}</em>
-                                       </div>
-                                   </div>
-                               </li>
-                           </ul>
-                       </section>
-
+                       <em class="turn-boxer turn-boxer-next">
+                           <i class="turn-to look-next-have" v-if="isBehind"  v-tap="{methods:goBehind}"></i>
+                           <i class="turn-to" v-if="!isBehind"></i>
+                       </em>
                    </div>
                </div>
-           </section>
+
+               <section class="l-flex-1 l-relative schedule-h">
+                   <!--没有回合的情况-->
+                   <div class="l-full l-scroll-y ">
+                       <!--弹层-筛选轮次-->
+                       <div class="alert-turns slect-alert-turns" :class="{'hide':isHide}">
+                           <!--二维-->
+                           <div class="ui-navbox-item" v-for="(itm1,idx1) in basketChoice.choice_list" v-if="tapshow">
+                               <div class="nav-box-tit ">{{itm1.stagegbname}}</div>
+                               <ul>
+                                   <li v-for="(itm2,idx2) in itm1.nav" :class="{'select':selected[idx1+'&'+idx2]}" v-tap="{methods:goShow,i:idx1,j:idx2}">
+                                       <span>{{itm2.show}}</span>
+                                   </li>
+                               </ul>
+                           </div>
+
+                           <!--一维-->
+                           <div class="ui-navbox-item" v-if="!tapshow">
+                               <ul>
+                                   <li v-for="(itm,dx) in basketChoice.choice_list" :class="{'select':selected[dx]}" v-tap="{methods:goShow,i:dx,j:-1}">
+                                       <span>{{itm.stagegbname}}</span>
+                                   </li>
+                               </ul>
+                           </div>
+                       </div>
+                       <div class="schedule-wrap" :class="{'hide':isShow}" v-if="basketSchedule">
+                           <section class="schedule-cont home-sc-cont l-scroll-y">
+                               <ul class="schedule-list" >
+                                   <li class="schedule-itm  l-flex-row" v-for="list in basketSchedule" v-tap="{methods:goDetail,fid:list.fid}">
+                                       <!--左边的参赛时间-->
+                                       <div class="when-game">
+                                           <em class="game-time">{{list.matchtime.substr(5, 11)}}</em>
+                                       </div>
+                                       <!--右边的参赛队伍和结果-->
+                                       <div class="who-game l-flex-1 l-flex-row">
+                                           <div class="who-gamer who-gamer-home l-flex-1">
+                                               <img :src="[list.awaylogo? list.awaylogo : 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png']"/>
+                                               <em>{{list.awaysxname}}</em>
+                                           </div>
+
+                                           <em class="who-win" v-if="list.homescore">{{list.awayscore}}<i>:</i>{{list.homescore}}</em>
+                                           <em class="who-win no-start" v-if="!list.homescore">vs</em>
+                                           <div class="who-gamer who-gamer-guest l-flex-1">
+                                               <img :src="[list.homelogo?list.homelogo:'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png']"/><em>{{list.homesxname}}</em>
+                                           </div>
+                                       </div>
+                                   </li>
+                               </ul>
+                           </section>
+
+                       </div>
+                   </div>
+               </section>
+           </template>
+           <view-empty v-else></view-empty>
        </template>
-        <view-empty v-else></view-empty>
 
     </div>
 </template>
