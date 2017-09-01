@@ -513,7 +513,7 @@
                 this.$store.dispatch(aTypes.doConcern, {fid: this.match.fid, vtype: '1'})
             },
             goPath () {
-                this.$router.push(`/detail/football/${this.match.fid}/situation` )
+                this.$router.push(`/detail/football/${this.match.fid}/situation`)
             },
             makeInterVal (time) {
                 this.timer = setInterval(() => {
