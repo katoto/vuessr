@@ -98,7 +98,7 @@
                             <span>赛况<i class="sktab-arrow"></i></span>
                         </router-link2>
                     </li>
-                    <li :class="{cur: ~$route.path.indexOf('/analysis')}">
+                    <li :class="{cur: ~$route.path.indexOf('/analysis')}" data-p2="lq_detail" data-p4="analysis">
                         <router-link2 :to="{name: 'basketball-detail-analysis-zj'}" replace>
                             <span>分析<i class="sktab-arrow"></i></span>
                         </router-link2>
