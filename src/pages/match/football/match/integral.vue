@@ -10,7 +10,7 @@
         </div>
 
         <!--总榜-->
-        <template v-if="tab === 'all' ">
+        <template v-if="tab === 'all'">
             <all :allData="allData"></all>
         </template>
 

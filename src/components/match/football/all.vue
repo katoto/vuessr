@@ -82,7 +82,7 @@
                 </li>
             </ul>
         </div>
-        <view-empty v-if="!allData.length"></view-empty>
+        <view-empty v-if="!allData.rettype"></view-empty>
     </section>
 
 </template>
@@ -102,6 +102,9 @@
         methods: {
             goTeam ({teamid}) {
                 this.$router.push(`/team/football/${teamid}/sc/`)
+            },
+            isEmpty (obj) {
+                return Object.keys(obj).length
             }
         }
     }
