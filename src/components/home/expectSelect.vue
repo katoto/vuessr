@@ -48,14 +48,14 @@
             initPreAndNext (curExpect) {
                 const idx = this.expectList.indexOf(curExpect)
                 if (idx === 0) {
-                    this.onPre = true
-                } else {
                     this.onPre = false
+                } else {
+                    this.onPre = true
                 }
                 if (idx === this.expectList.length - 1) {
-                    this.onNext = true
-                } else {
                     this.onNext = false
+                } else {
+                    this.onNext = true
                 }
             },
             enterExpect ({expect}) {
