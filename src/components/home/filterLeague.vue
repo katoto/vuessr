@@ -182,7 +182,8 @@
         border: .013333rem solid #eaeaea;
         border-radius: .106667rem;
         background: #fff;
-        z-index: 99
+        z-index: 99;
+        overflow: hidden;
     }
 
     .matches-info {
