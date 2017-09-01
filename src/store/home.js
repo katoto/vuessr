@@ -159,13 +159,12 @@ const actionsInfo = mapActions({
         commit(mTypes.setZqMetro, metro)
         return metro
     },
-    async fetchLqMatches ({commit}, {params, dataHandler}) {
-        console.log(params);
-        console.log(dataHandler);
-        const matchesInfo = await ajax.get(`/score/lq/info?vtype=${params.tab}&expect=${params.expect === 'cur' ? '' : params.expect}&_t=${Date.now()}`)
-        if(typeof dataHandler === 'function') {
-            dataHandler(matchesInfo.matches)       // 处理数据为空的情况
-        }
+
+    async fetchLqMatches ({commit}, {expect, tab}) {
+        const matchesInfo = await ajax.get(`/score/lq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`)
+        // if(typeof dataHandler === 'function') {
+        //     dataHandler(matchesInfo.matches)       // 处理数据为空的情况
+        // }
         let existNotStartMatch = false // 存在未开始比赛标志
         matchesInfo.matches.some(match => {
             if ((match.status - 0) < 4) {
@@ -177,8 +176,8 @@ const actionsInfo = mapActions({
             return match.status === '1'
         })
         commit(mTypes.setSwitchShow, existNotStartMatch)
-        matchesInfo._expect = params.expect
-        matchesInfo.tab = params.tab
+        matchesInfo._expect = expect
+        matchesInfo.tab = tab
         commit(mTypes.setLqMatches, matchesInfo)
         return matchesInfo
     }
