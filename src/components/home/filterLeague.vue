@@ -253,6 +253,7 @@
     }
 
     .select-all li {
+
         padding: .133333rem .266667rem;
         border: 1px solid #eaeaea;
         border-radius: .32rem;
@@ -262,7 +263,7 @@
         margin-right: .266667rem
     }
 
-    .select-all .cur {
+    .select-all li:active {
         background: #ebf1f5;
         color: #242c35
     }
