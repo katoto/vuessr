@@ -305,7 +305,7 @@
         margin-right: .266667rem
     }
 
-    .select-all .cur {
+    .select-all li:active {
         background: #ebf1f5;
         color: #242c35
     }
