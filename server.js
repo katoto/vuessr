@@ -82,8 +82,8 @@ app.use((req, resp, next) => {
             req,
             resp,
             host: 'ews.500.com',
-            // ip: ipAddress,
-            ip: '43.247.69.20',
+            ip: ipAddress,
+            // ip: '43.247.69.20',
             // ip: 'ews.500.com',
             // ip: '10.0.1.31',
             path: req.originalUrl.replace('/ews', '')

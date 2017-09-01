@@ -67,11 +67,11 @@ export default {
                     result.lostPer = (this.vote.ticket[2] / totalVote * 100).toFixed(0)
                     result.winW = result.winPer
                     result.lostW = result.lostPer
-                    if(result.winW === '100') {
+                    if (result.winW === '100') {
                         result.winW = '97'
                         result.lostW = '3'
                     }
-                    if(result.lostW === '100') {
+                    if (result.lostW === '100') {
                         result.winW = '3'
                         result.lostW = '97'
                     }
