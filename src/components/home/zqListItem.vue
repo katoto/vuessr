@@ -44,7 +44,7 @@
                     <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
                         <div class="game-lately score-half">
                             <em class="first-half">{{match.homehalfscore}}</em>
-                            <em class="second-half">{{match.homescore}}</em>
+                            <em class="second-half had-over">{{match.homescore}}</em>
 
                             <!--<em class="first-half">{{match.awayhalfscore}}</em>
                             <em class="second-half">{{match.awayscore}}</em>-->
@@ -74,7 +74,7 @@
                     <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
                         <div class="game-lately score-half">
                             <em class="first-half">{{match.awayhalfscore}}</em>
-                            <em class="second-half">{{match.awayscore}}</em>
+                            <em class="second-half had-over">{{match.awayscore}}</em>
                             <!--<move :score="match.homescore" :ready="ready"></move>-->
                         </div>
                     </template>
@@ -353,6 +353,10 @@
         color: #fff;
         font-size: .24rem;
         text-align: center;
+    }
+
+    .score-half .had-over {
+        color: #242c35
     }
 </style>
 <script>
