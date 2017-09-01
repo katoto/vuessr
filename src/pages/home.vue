@@ -25,7 +25,6 @@
 <script>
     import refresh from '~components/home/refresh.vue'
     import switchComp from '~components/home/switch.vue'
-
     export default{
 
         components: {refresh, switchComp},

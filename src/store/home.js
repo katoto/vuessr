@@ -161,6 +161,9 @@ const actionsInfo = mapActions({
     },
     async fetchLqMatches ({commit}, {expect, tab}) {
         const matchesInfo = await ajax.get(`/score/lq/info?vtype=${tab}&expect=${expect === 'cur' ? '' : expect}&_t=${Date.now()}`)
+        // if(typeof dataHandler === 'function') {
+        //     dataHandler(matchesInfo.matches)       // 处理数据为空的情况
+        // }
         let existNotStartMatch = false // 存在未开始比赛标志
         matchesInfo.matches.some(match => {
             if ((match.status - 0) < 4) {
