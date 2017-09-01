@@ -193,6 +193,9 @@
                     this.inmove = false
                     this.online0 = this.online
                 }, 1000)
+            },
+            tWidth () {
+                setTimeout(() => this.updateSnap(), 100)
             }
         },
         methods: {
@@ -214,6 +217,9 @@
             },
             goRec () {
                 location.href = this.expertRecommend.touch_url
+            },
+            updateSnap () {
+                this.scrollerObj && this.scrollerObj.setDimensions(this.container.offsetWidth, this.container.offsetHeight, this.content.offsetWidth, this.content.offsetHeight)
             }
         },
         mounted () {
