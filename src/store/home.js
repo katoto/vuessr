@@ -160,10 +160,10 @@ const actionsInfo = mapActions({
         return metro
     },
     async fetchLqMatches ({commit}, {params, dataHandler}) {
-        console.log(params);
-        console.log(dataHandler);
+        console.log(params)
+        console.log(dataHandler)
         const matchesInfo = await ajax.get(`/score/lq/info?vtype=${params.tab}&expect=${params.expect === 'cur' ? '' : params.expect}&_t=${Date.now()}`)
-        if(typeof dataHandler === 'function') {
+        if (typeof dataHandler === 'function') {
             dataHandler(matchesInfo.matches)       // 处理数据为空的情况
         }
         let existNotStartMatch = false // 存在未开始比赛标志

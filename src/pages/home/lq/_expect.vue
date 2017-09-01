@@ -178,11 +178,12 @@
             },
             async fetchData () {
                 this.$store.commit('startOneRefresh')
-                await this.$store.dispatch(aTypes.fetchLqMatches, {params: this.$route.params, dataHandler: (matches) => {
-                    if(matches.length === 0) {
-                        this.$route.replace('home/lq/all/cur')
-                    }
-                }})
+                await this.$store.dispatch(aTypes.fetchLqMatches, {params: this.$route.params,
+                    dataHandler: (matches) => {
+                        if (matches.length === 0) {
+                            this.$route.replace('home/lq/all/cur')
+                        }
+                    }})
                 this.$store.commit('endOneRefresh')
             },
             doFilter (selectOptions) {
