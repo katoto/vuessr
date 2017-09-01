@@ -3,30 +3,25 @@
         <div class="popTopbar" v-tap="{methods: closeDialog}"></div>
         <div class="popInner" style="z-index: 2">
             <div class="l-full l-flex-row">
-                <div class="l-relative" style="width: 2rem;color: #242c35">
-                    <div class="l-full l-scroll-y">
-                        <div class="scroller">
-                            <ul class="plleft-list">
-                                <li v-for="info,index in params.odds"
-                                    v-tap="{methods: changeComp, cid: info.cid}"
-                                    :class="{cur: info.cid == cid}" v-if="info.cid!=='-1'">{{info.name}}
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
+                <div class="l-scroll-y" style="width: 2rem;color: #242c35">
+                    <ul class="plleft-list">
+                        <li v-for="info,index in params.odds"
+                            v-tap="{methods: changeComp, cid: info.cid}"
+                            :class="{cur: info.cid == cid}" v-if="info.cid!=='-1'">{{info.name}}
+                        </li>
+                    </ul>
                 </div>
 
                 <div class="l-flex-1 l-flex-column" style="width:0;border-radius: 0 .186667rem 0 0">
 
                     <ul class="popTab clear">
-                    <li :class="{cur: tab === 0}" v-tap="{methods: () => tab = 0}">
-                        赔率变化
-                    </li>
-                    <li :class="{cur: tab === 1}"
-                        v-tap="{methods: () => tab = 1}">历史同赔
-                    </li>
-                </ul>
+                        <li :class="{cur: tab === 0}" v-tap="{methods: () => tab = 0}">
+                            赔率变化
+                        </li>
+                        <li :class="{cur: tab === 1}"
+                            v-tap="{methods: () => tab = 1}">历史同赔
+                        </li>
+                    </ul>
                     <div class="l-flex-1 l-relative">
                         <template v-if="params.type === 'europe' || params.type === 'rangqiu'">
                             <div class="l-full l-scroll-y" v-if="tab === 0 && oddsInfo && oddsInfo.length">
@@ -549,120 +544,120 @@
                 this.loading = true
                 try {
                     switch (this.params.type) {
-                    case 'europe': {
-                        this.sameOddsInfo = null
-                        this.oddsInfo = null
-                        let currentInfo = null
-                        this.params.odds.some((info) => {
-                            if (info.cid === cid) {
-                                currentInfo = info
-                            }
-                        })
-                        if (currentInfo) {
-                            const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailEurope, {
-                                fid: this.$route.params.fid,
-                                cid,
-                                win: currentInfo.first.win,
-                                draw: currentInfo.first.draw,
-                                lost: currentInfo.first.lost,
-                                leagueid: this.match.league_id,
-                                date: this.match.matchtime
+                        case 'europe': {
+                            this.sameOddsInfo = null
+                            this.oddsInfo = null
+                            let currentInfo = null
+                            this.params.odds.some((info) => {
+                                if (info.cid === cid) {
+                                    currentInfo = info
+                                }
                             })
-                            sameOddsInfo.win = currentInfo.first.win
-                            sameOddsInfo.draw = currentInfo.first.draw
-                            sameOddsInfo.lost = currentInfo.first.lost
-                            this.sameOddsInfo = sameOddsInfo
-                            this.oddsInfo = oddsInfo
-                        }
-                        break
-                    }
-                    case 'rangqiu': {
-                        this.sameOddsInfo = null
-                        this.oddsInfo = null
-                        let currentInfo = null
-                        this.params.odds.some((info) => {
-                            if (info.cid === cid) {
-                                currentInfo = info
+                            if (currentInfo) {
+                                const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailEurope, {
+                                    fid: this.$route.params.fid,
+                                    cid,
+                                    win: currentInfo.first.win,
+                                    draw: currentInfo.first.draw,
+                                    lost: currentInfo.first.lost,
+                                    leagueid: this.match.league_id,
+                                    date: this.match.matchtime
+                                })
+                                sameOddsInfo.win = currentInfo.first.win
+                                sameOddsInfo.draw = currentInfo.first.draw
+                                sameOddsInfo.lost = currentInfo.first.lost
+                                this.sameOddsInfo = sameOddsInfo
+                                this.oddsInfo = oddsInfo
                             }
-                        })
-                        if (currentInfo) {
-                            const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailRq, {
-                                fid: this.$route.params.fid,
-                                cid,
-                                win: currentInfo.first.win,
-                                draw: currentInfo.first.draw,
-                                lost: currentInfo.first.lost,
-                                leagueid: this.match.league_id,
-                                date: this.match.matchtime,
-                                handicapline: currentInfo.end.handicapline
-                            })
-                            this.sameOddsInfo = sameOddsInfo
-                            this.oddsInfo = oddsInfo
+                            break
                         }
-                        break
-                    }
-                    case 'asian': {
-                        this.sameOddsInfo = null
-                        this.oddsInfo = null
-                        let currentInfo = null
-                        this.params.odds.some((info) => {
-                            if (info.cid === cid) {
-                                currentInfo = info
+                        case 'rangqiu': {
+                            this.sameOddsInfo = null
+                            this.oddsInfo = null
+                            let currentInfo = null
+                            this.params.odds.some((info) => {
+                                if (info.cid === cid) {
+                                    currentInfo = info
+                                }
+                            })
+                            if (currentInfo) {
+                                const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailRq, {
+                                    fid: this.$route.params.fid,
+                                    cid,
+                                    win: currentInfo.first.win,
+                                    draw: currentInfo.first.draw,
+                                    lost: currentInfo.first.lost,
+                                    leagueid: this.match.league_id,
+                                    date: this.match.matchtime,
+                                    handicapline: currentInfo.end.handicapline
+                                })
+                                this.sameOddsInfo = sameOddsInfo
+                                this.oddsInfo = oddsInfo
                             }
-                        })
-                        if (currentInfo) {
-                            const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailAsian, {
-                                fid: this.$route.params.fid,
-                                cid,
-
-                                s1: currentInfo.first.home,
-                                s2: currentInfo.first.away,
-                                cp: currentInfo.first.handi,
-
-                                leagueid: this.match.league_id,
-                                date: this.match.matchtime
-                            })
-                            sameOddsInfo.s1 = currentInfo.first.home
-                            sameOddsInfo.s2 = currentInfo.first.away
-                            sameOddsInfo.handi = currentInfo.first.handi
-                            this.sameOddsInfo = sameOddsInfo
-                            this.oddsInfo = oddsInfo
+                            break
                         }
-                        break
-                    }
-                    case 'daxiaopan': {
-                        this.sameOddsInfo = null
-                        this.oddsInfo = null
-                        let currentInfo = null
-                        this.params.odds.some((info) => {
-                            if (info.cid === cid) {
-                                currentInfo = info
+                        case 'asian': {
+                            this.sameOddsInfo = null
+                            this.oddsInfo = null
+                            let currentInfo = null
+                            this.params.odds.some((info) => {
+                                if (info.cid === cid) {
+                                    currentInfo = info
+                                }
+                            })
+                            if (currentInfo) {
+                                const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailAsian, {
+                                    fid: this.$route.params.fid,
+                                    cid,
+
+                                    s1: currentInfo.first.home,
+                                    s2: currentInfo.first.away,
+                                    cp: currentInfo.first.handi,
+
+                                    leagueid: this.match.league_id,
+                                    date: this.match.matchtime
+                                })
+                                sameOddsInfo.s1 = currentInfo.first.home
+                                sameOddsInfo.s2 = currentInfo.first.away
+                                sameOddsInfo.handi = currentInfo.first.handi
+                                this.sameOddsInfo = sameOddsInfo
+                                this.oddsInfo = oddsInfo
                             }
-                        })
-                        if (currentInfo) {
-                            const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailDaxiaoqiu, {
-                                fid: this.$route.params.fid,
-                                cid,
-
-                                big: currentInfo.first.big,
-                                small: currentInfo.first.small,
-                                handi: currentInfo.first.handi,
-
-                                leagueid: this.match.league_id,
-                                date: this.match.matchtime
-                            })
-
-                            //                                sameOddsInfo.s1 = currentInfo.first.home
-                            //                                sameOddsInfo.s2 = currentInfo.first.away
-
-                            sameOddsInfo.big = currentInfo.first.big
-                            sameOddsInfo.small = currentInfo.first.small
-                            sameOddsInfo.handi = currentInfo.first.handi
-                            this.sameOddsInfo = sameOddsInfo
-                            this.oddsInfo = oddsInfo
+                            break
                         }
-                        break
-                    }
+                        case 'daxiaopan': {
+                            this.sameOddsInfo = null
+                            this.oddsInfo = null
+                            let currentInfo = null
+                            this.params.odds.some((info) => {
+                                if (info.cid === cid) {
+                                    currentInfo = info
+                                }
+                            })
+                            if (currentInfo) {
+                                const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailDaxiaoqiu, {
+                                    fid: this.$route.params.fid,
+                                    cid,
+
+                                    big: currentInfo.first.big,
+                                    small: currentInfo.first.small,
+                                    handi: currentInfo.first.handi,
+
+                                    leagueid: this.match.league_id,
+                                    date: this.match.matchtime
+                                })
+
+                                //                                sameOddsInfo.s1 = currentInfo.first.home
+                                //                                sameOddsInfo.s2 = currentInfo.first.away
+
+                                sameOddsInfo.big = currentInfo.first.big
+                                sameOddsInfo.small = currentInfo.first.small
+                                sameOddsInfo.handi = currentInfo.first.handi
+                                this.sameOddsInfo = sameOddsInfo
+                                this.oddsInfo = oddsInfo
+                            }
+                            break
+                        }
                     }
                 } catch (e) {
                     this.error = true

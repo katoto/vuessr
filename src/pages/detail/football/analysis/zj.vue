@@ -201,11 +201,11 @@
             <div class="zj-nav">
             <span class="saixuan" v-tap="{methods: beginFilter, type: 'his'}" data-p2="zq_detail"
                   data-p4="analysis_zj_ls"
-                  drunk-on="click: filterVisible = true, currFilterOptions = fightingFilterOptions, $event.stopPropagation()">筛选</span>
+                  >筛选</span>
                 历史交战
             </div>
             <div class="zhedie" v-if="fightingInfo.matches">
-                <div class="zd-detail">
+                <div class="zd-detail" v-if="fightingInfo.all_matches">
                     <div class="gaik clear">
                         <span class="f30 color3 fl">近{{fightingInfo.all_matches.all_count||0}}场交战&nbsp;&nbsp;&nbsp;{{match.homesxname}}</span>
 
@@ -294,7 +294,7 @@
                 近期战绩
             </div>
 
-            <div class="zhedie" v-if="recentRecord.home">
+            <div class="zhedie" v-if="recentRecord.home && recentRecord.home.all_matches">
                 <div class="zd-detail">
                     <div class="gaik clear">
                         <span class="f30 color3 fl">近{{recentRecord.home.all_matches.all_count||0}}场 {{match.homesxname}}</span>
@@ -373,7 +373,7 @@
                     </tbody>
                 </table>
 
-                <div class="box-arrow" v-if="recentRecord.home.matches.length > 6"
+                <div class="box-arrow" v-if="recentRecord.home.matches && recentRecord.home.matches.length > 6"
                      v-tap="{methods: ()=> homeRecentRecordShowAll =! homeRecentRecordShowAll}">
                     <div class="zd-arrow" :class="{rotate180: homeRecentRecordShowAll}"></div>
                 </div>
@@ -381,19 +381,17 @@
                                     message="很抱歉，没有数据" type="no-data" text-type>
                 </widget-prompt-view>-->
 
-                <div class="zd-detail">
+                <div class="zd-detail" v-if="recentRecord.away.all_matches">
                     <div class="gaik clear">
                         <span class="f30 color3 fl">近{{recentRecord.away.all_matches.all_count||0}}场 {{match.awaysxname}}</span>
 
                         <span class="f30 fl">
-                <i class="win tcell">{{recentRecord.away.all_matches.win_count||'0'}}胜</i>
-                <i class="tie tcell">{{recentRecord.away.all_matches.draw_count||'0'}}平</i>
-                <i class="lose tcell">{{recentRecord.away.all_matches.lost_count||'0'}}负</i>
-            </span>
+                            <i class="win tcell">{{recentRecord.away.all_matches.win_count||'0'}}胜</i>
+                            <i class="tie tcell">{{recentRecord.away.all_matches.draw_count||'0'}}平</i>
+                            <i class="lose tcell">{{recentRecord.away.all_matches.lost_count||'0'}}负</i>
+                        </span>
 
-                        <span class="f30 color3 fl">
-                胜率{{recentRecord.away.all_matches.win_rate||'0'}}%
-            </span>
+                        <span class="f30 color3 fl">胜率{{recentRecord.away.all_matches.win_rate||'0'}}%</span>
                     </div>
                     <div class="total-tips">
                         场均进{{recentRecord.away.all_matches.avar_get||0}}球，场均失{{recentRecord.away.all_matches.avar_lost||0}}球，
@@ -458,7 +456,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <div class="box-arrow" v-if="recentRecord.away.matches.length > 6"
+                <div class="box-arrow" v-if="recentRecord.away.matches && recentRecord.away.matches.length > 6"
                      v-tap="{methods: ()=> awayRecentRecordShowAll = !awayRecentRecordShowAll}">
                     <div class="zd-arrow" :class="{rotate180: awayRecentRecordShowAll}"></div>
                 </div>
@@ -575,11 +573,6 @@
             <div class="ui-empty-font"  v-else>
                 暂无数据
             </div>
-           <!-- <div class="feed-back" v-else>
-                <div class="feed-box">
-                    <em>暂无数据</em>
-                </div>
-            </div>-->
         </div>
         <skbtips v-if="leagueRank"></skbtips>
     </div>
