@@ -10,25 +10,23 @@
                                 <li v-for="info,index in params.odds"
                                     v-tap="{methods: changeComp, cid: info.cid}"
                                     :class="{cur: info.cid == cid}" v-if="info.cid!=='-1'">{{info.name}}
-
                                 </li>
                             </ul>
                         </div>
                     </div>
-
 
                 </div>
 
                 <div class="l-flex-1 l-flex-column" style="width:0;border-radius: 0 .186667rem 0 0">
 
                     <ul class="popTab clear">
-                        <li :class="{cur: tab === 0}" v-tap="{methods: () => tab = 0}">
-                            赔率变化
-                        </li>
-                        <li :class="{cur: tab === 1}"
-                            v-tap="{methods: () => tab = 1}">历史同赔
-                        </li>
-                    </ul>
+                    <li :class="{cur: tab === 0}" v-tap="{methods: () => tab = 0}">
+                        赔率变化
+                    </li>
+                    <li :class="{cur: tab === 1}"
+                        v-tap="{methods: () => tab = 1}">历史同赔
+                    </li>
+                </ul>
                     <div class="l-flex-1 l-relative">
                         <template v-if="params.type === 'europe' || params.type === 'rangqiu'">
                             <div class="l-full l-scroll-y" v-if="tab === 0 && oddsInfo && oddsInfo.length">
