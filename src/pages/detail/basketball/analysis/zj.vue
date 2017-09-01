@@ -1,7 +1,7 @@
 <template>
     <div v-if="analysis">
         <NBA-rank :baseInfo='baseInfo' :nbarank='nbarank.all' v-if="isNBA && nbarank"></NBA-rank>
-        <league-rank :baseInfo='baseInfo' :leaguerank='leaguerank' v-else-if='leaguerank && leaguerank.length'></league-rank>
+        <league-rank :baseInfo='baseInfo' :leaguerank='leaguerank' v-else-if='leaguerank'></league-rank>
         <jz-data :jzData='jzData' v-if="jzData"></jz-data>
         <recent-record :recentRecord='recentRecord' v-if="recentRecord"></recent-record>
         <future-match :futureMatch='futureMatch' v-if="futureMatch"></future-match>
@@ -22,9 +22,9 @@ import itemLoader from '~components/detail/itemLoader.vue'
 
 export default {
     async asyncData ({store, route: {params}}) {
-        const {fid, homeid, awayid, seasonid, stageid, matchid, matchtime, group, stagemode} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
+        const {fid, homeid, awayid, seasonid, stageid, matchid, matchtime, matchgroup, stagemode} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
         const matchdate = matchtime && matchtime.substr(0, 10)
-        await store.dispatch(aTypes.getAnalysisZj, {fid, homeid, awayid, seasonid, stageid, matchid, matchdate, group, stagemode})
+        await store.dispatch(aTypes.getAnalysisZj, {fid, homeid, awayid, seasonid, stageid, matchid, matchdate, matchgroup, stagemode})
     },
     components: {
         leagueRank,
@@ -73,9 +73,9 @@ export default {
     methods: {
         async fetchData () {
             this.$store.commit('startOneRefresh')
-            const {fid, homeid, awayid, seasonid, stageid, matchid, matchtime, group, stagemode} = this.baseInfo // baseInfo 保证有数据了
+            const {fid, homeid, awayid, seasonid, stageid, matchid, matchtime, matchgroup, stagemode} = this.baseInfo // baseInfo 保证有数据了
             const matchdate = matchtime && matchtime.substr(0, 10)
-            await this.$store.dispatch(aTypes.getAnalysisZj, {fid, homeid, awayid, seasonid, stageid, matchid, matchdate, group, stagemode})
+            await this.$store.dispatch(aTypes.getAnalysisZj, {fid, homeid, awayid, seasonid, stageid, matchid, matchdate, matchgroup, stagemode})
             this.$store.commit('endOneRefresh')
         }
     },

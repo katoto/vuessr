@@ -123,10 +123,10 @@
                     if (e.touches[0] && e.touches[0].target && e.touches[0].target.tagName.match(/input|textarea|select/i)) {
                         return
                     }
-                    /*let a = findA(e.touches[0].target)
+                    /* let a = findA(e.touches[0].target)
                     if (a && a.getAttribute('href')) {
                         return
-                    }*/
+                    } */
                     if (this.stop) {
                         e.preventDefault()
                         return
