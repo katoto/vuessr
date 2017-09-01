@@ -56,8 +56,6 @@
         props: ['homeData'],
         methods: {
             goTeam ({teamid}) {
-                console.log('1111111111')
-                console.log(teamid)
                 this.$router.push(`/team/football/${teamid}/sc/`)
             }
         }
