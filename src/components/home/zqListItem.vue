@@ -44,7 +44,7 @@
                     <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
                         <div class="game-lately score-half">
                             <em class="first-half">{{match.homehalfscore}}</em>
-                            <em class="second-half">{{match.homescore}}</em>
+                            <em class="second-half had-over">{{match.homescore}}</em>
 
                             <!--<em class="first-half">{{match.awayhalfscore}}</em>
                             <em class="second-half">{{match.awayscore}}</em>-->
@@ -74,7 +74,7 @@
                     <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
                         <div class="game-lately score-half">
                             <em class="first-half">{{match.awayhalfscore}}</em>
-                            <em class="second-half">{{match.awayscore}}</em>
+                            <em class="second-half had-over">{{match.awayscore}}</em>
                             <!--<move :score="match.homescore" :ready="ready"></move>-->
                         </div>
                     </template>
@@ -85,7 +85,7 @@
                         <li>{{currodds[1] || '-'}}</li>
                         <li>{{currodds[2] || '-'}}</li>
                     </ul>
-                </div>
+        </div>
             </router-link>
 
             <!-- 右边的关注、直播情况-->
@@ -354,6 +354,26 @@
         font-size: .24rem;
         text-align: center;
     }
+
+    .score-half .had-over {
+        color: #242c35
+    }
+    .odds-item {
+        width: 1.6rem;
+        text-align: center;
+        color: #aab5bd;
+        font-size: .293333rem;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%)
+    }
+
+    .odds-item ul li {
+        line-height: .426667rem
+    }
+
 </style>
 <script>
     import {FootballStatusCode as StatusCode, FootballStatusName as StatusName} from '~common/constants'

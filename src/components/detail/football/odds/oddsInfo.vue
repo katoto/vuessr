@@ -1,9 +1,9 @@
 <template>
     <div class="popBox l-full l-flex-column  slide-bottom-to-top">
         <div class="popTopbar" v-tap="{methods: closeDialog}"></div>
-        <div class="popInner" style="z-index: 2">
+        <div class="popInner">
             <div class="l-full l-flex-row">
-                <div class="l-scroll-y" style="width: 2rem;color: #242c35">
+                <div class="l-scroll-y" style="width: 2rem;color: #242c35;overflow-y: scroll">
                     <ul class="plleft-list">
                         <li v-for="info,index in params.odds"
                             v-tap="{methods: changeComp, cid: info.cid}"
@@ -11,7 +11,6 @@
                         </li>
                     </ul>
                 </div>
-
                 <div class="l-flex-1 l-flex-column" style="width:0;border-radius: 0 .186667rem 0 0">
 
                     <ul class="popTab clear">
