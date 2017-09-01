@@ -3,11 +3,11 @@
         <!--<if: tab === TabMap.ODDS />-->
         <div class="sk-detail-tap-box">
             <ul class="sk-detail-tap five">
-                <li :class="{cur: ~$route.path.indexOf('/europe')}"><router-link :to="{name: 'football-detail-odds-europe'}" replace>欧赔</router-link></li>
-                <li :class="{cur: ~$route.path.indexOf('/asian')}"><router-link :to="{name: 'football-detail-odds-asian'}" replace>亚盘</router-link></li>
-                <li :class="{cur: ~$route.path.indexOf('/rangqiu')}"><router-link :to="{name: 'football-detail-odds-rangqiu'}" replace>让球</router-link></li>
-                <li :class="{cur: ~$route.path.indexOf('/daxiaopan')}"><router-link :to="{name: 'football-detail-odds-daxiaopan'}" replace>大小盘</router-link></li>
-                <li :class="{cur: ~$route.path.indexOf('/bifa')}"><router-link :to="{name: 'football-detail-odds-bifa'}" replace>必发</router-link></li>
+                <li :class="{cur: ~$route.path.indexOf('/europe')}"><router-link2 :to="{name: 'football-detail-odds-europe'}" replace>欧赔</router-link2></li>
+                <li :class="{cur: ~$route.path.indexOf('/asian')}"><router-link2 :to="{name: 'football-detail-odds-asian'}" replace>亚盘</router-link2></li>
+                <li :class="{cur: ~$route.path.indexOf('/rangqiu')}"><router-link2 :to="{name: 'football-detail-odds-rangqiu'}" replace>让球</router-link2></li>
+                <li :class="{cur: ~$route.path.indexOf('/daxiaopan')}"><router-link2 :to="{name: 'football-detail-odds-daxiaopan'}" replace>大小盘</router-link2></li>
+                <li :class="{cur: ~$route.path.indexOf('/bifa')}"><router-link2 :to="{name: 'football-detail-odds-bifa'}" replace>必发</router-link2></li>
             </ul>
 
         </div>
@@ -28,9 +28,10 @@
 <script>
     import customodds from '~components/detail/football/odds/customodds.vue'
     import {mTypes} from '~store/zqdetail'
+    import routerLink2 from '~components/routerLink2.vue'
     export default {
         components: {
-            customodds
+            customodds, routerLink2
         },
         methods: {
             edit () {

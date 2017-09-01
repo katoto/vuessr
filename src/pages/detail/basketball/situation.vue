@@ -5,10 +5,10 @@
             <div class="sk-detail-tap-box sk-detail-tap-box2">
                 <ul class="sk-detail-tap">
                     <li :class="{cur:~$route.path.indexOf('/event')}">
-                        <router-link :to="{name: 'basketball-detail-situation-event'}" replace>事件</router-link>
+                        <router-link2 :to="{name: 'basketball-detail-situation-event'}" replace>事件</router-link2>
                     </li>
                     <li :class="{cur:~$route.path.indexOf('/statistic')}">
-                        <router-link :to="{name: 'basketball-detail-situation-statistic'}" replace>统计</router-link>
+                        <router-link2 :to="{name: 'basketball-detail-situation-statistic'}" replace>统计</router-link2>
                     </li>
                 </ul>
             </div>
@@ -40,6 +40,7 @@
     import {mTypes, aTypes} from '~store/lqdetail'
     import meSports from '~components/detail/meSports.vue'
     import noData from '~components/no_data.vue'
+    import routerLink2 from '~components/routerLink2.vue'
     export default{
         async asyncData ({store, route: {params}}) {
             const {status, matchtime, homeid, awayid, matchid} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
@@ -48,7 +49,7 @@
             })
         },
         components: {
-            meSports, noData
+            meSports, noData, routerLink2
         },
         data () {
             return {
