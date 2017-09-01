@@ -92,27 +92,17 @@
         width: 3.68rem;
         height: .666667rem;
         border: .026667rem solid #242c35;
+        font-size: .373333rem;
         color: #242c35;
-        border-radius: .133333rem;
         clear: both;
         overflow: hidden;
-        zoom:1;position: absolute;
+        zoom: 1;
+        position: absolute;
         left: 50%;
         margin-left: -1.866667rem;
         top: 50%;
-        margin-top: -.36rem
-    }
-
-    [data-dpr="1"] .ball-tab {
-        font-size: 14px
-    }
-
-    [data-dpr="2"] .ball-tab {
-        font-size: 28px
-    }
-
-    [data-dpr="3"] .ball-tab {
-        font-size: 42px
+        margin-top: -.36rem;
+        border-radius: .106667rem
     }
 
     .ball-tab li {
@@ -127,10 +117,10 @@
         background: #242c35;
         color: #fff
     }
-
     .search-league {
         color: #aab5bd;
-        width: 1.333333rem;
+        font-size: .346667rem;
+        width: 1.866667rem;
         text-align: right;
         position: absolute;
         top: 0;
@@ -139,29 +129,15 @@
         line-height: 1.2rem
     }
 
-    [data-dpr="1"] .search-league {
-        font-size: 13px
-    }
-
-    [data-dpr="2"] .search-league {
-        font-size: 26px
-    }
-
-    [data-dpr="3"] .search-league {
-        font-size: 39px
-    }
-
     .search-league span {
         width: .44rem;
         height: .44rem;
         display: inline-block;
-        background: url(~assets/style/images/home/league.png) no-repeat;
+        background: url(/mobile/touch/images/bifen/bifen-list/league.png) no-repeat;
         background-size: cover;
         position: absolute;
         top: 50%;
         margin-top: -.226667rem;
-        left: 0
+        left: .533333rem
     }
-
-
 </style>

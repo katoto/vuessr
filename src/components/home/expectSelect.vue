@@ -119,27 +119,19 @@
     .filter-time {
         width: 6.88rem;
         height: 1.066667rem;
+        line-height: 1.066667rem;
         border: 1px solid #eaeaea;
         border-radius: .106667rem;
-        /*float: left;*/
-        box-sizing: border-box;
-        position: relative;
-    }
-    .filter-time .no-day{opacity: 0.3}
-    [data-dpr="1"] .filter-time {
-        line-height: 40px
+        float: left;
+        box-sizing: border-box
     }
 
-    [data-dpr="2"] .filter-time {
-        line-height: 80px
+    .filter-time-long {
+        width: 9.2rem
     }
 
-    [data-dpr="3"] .filter-time {
-        line-height: 120px
-    }
-
-    .filter-league, .filter-time {
-        box-shadow: 0 0 .133333rem rgba(22, 34, 29, .1)
+    .filter-league,.filter-time {
+        box-shadow: 0 0 .133333rem rgba(22,34,29,.1)
     }
 
     .filter-time .prev-day {
@@ -147,6 +139,19 @@
         height: 1.066667rem;
         position: relative;
         float: left
+    }
+
+    .filter-time .prev-day span {
+        display: inline-block;
+        width: .16rem;
+        height: .293333rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -.146667rem;
+        background: url(~assets/style/images/home/prev.png) no-repeat;
+        background-size: cover;
+        left: 50%;
+        margin-left: -.08rem
     }
 
     .filter-time .today {
@@ -159,6 +164,57 @@
         position: relative
     }
 
+    .filter-time .today span {
+        display: inline-block;
+        width: .426667rem;
+        height: .426667rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -.213333rem;
+        left: 1.066667rem;
+        background: url(~assets/style/images/home/date.png) no-repeat;
+        background-size: cover
+    }
+
+    .filter-time-long .today {
+        width: 7.2rem;
+        padding-left: 2.933333rem
+    }
+
+    .filter-time-long .today span {
+        left: 2.266667rem
+    }
+
+    .filter-time .next-day {
+        width: .96rem;
+        height: 1.066667rem;
+        position: relative;
+        float: right
+    }
+
+    .filter-time .next-day span {
+        display: inline-block;
+        width: .16rem;
+        height: .293333rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -.146667rem;
+        background: url(~assets/style/images/home/prev.png) no-repeat;
+        background-size: cover;
+        left: 50%;
+        margin-left: -.08rem
+    }
+
+    .filter-time .no-day {
+        opacity: .3
+    }
+
+    .rotate180 {
+        -webkit-animation: all .2s linear;
+        animation: all .2s linear;
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg)
+    }
     .alert-csl {
         width: 9.2rem;
         position: absolute;
@@ -184,12 +240,9 @@
         -webkit-overflow-scrolling: touch;
         margin: 0 auto .3rem;
     }
-
-
     .cup-info ul {
         overflow: hidden
     }
-
     .cup-info ul li {
         width: 2.533333rem;
         height: .853333rem;
@@ -278,21 +331,13 @@
         left: 0;
         padding: .4rem .4rem .506667rem .4rem;
         box-sizing: border-box;
+        border: .013333rem solid #eaeaea;
         border-radius: .106667rem;
         background: #fff;
-        z-index: 11
-    }
-
-    [data-dpr="1"] .alert-datetime {
-        border: .5px solid #eaeaea
-    }
-
-    [data-dpr="2"] .alert-datetime {
-        border: 1px solid #eaeaea
-    }
-
-    [data-dpr="3"] .alert-datetime {
-        border: 1.5px solid #eaeaea
+        z-index: 2;
+        overflow: hidden;
+        clear: both;
+        zoom: 1
     }
 
     .month-tit {
@@ -325,16 +370,11 @@
         color: #aab5bd
     }
 
-    .week-tit ul {
-        overflow: hidden;
-        clear: both
-    }
-
     .week-tit ul li {
         float: left;
         width: .88rem;
         text-align: center;
-        margin-right: .293333rem
+        margin-right: .346667rem
     }
 
     .week-tit ul li:last-child {
@@ -347,48 +387,41 @@
         color: #242c35
     }
 
-    .weeker-item ul {
-        overflow: hidden;
-        clear: both
-    }
-
     .weeker-item ul li {
         height: .88rem;
-        line-height: .88rem;
-        margin-top: .133333rem
+        line-height: .88rem
     }
 
+    .week-tit ul li:nth-child(7),.weeker-item ul li:nth-child(7n) {
+        margin-right: 0;
+        float: right
+    }
     .weeker-item ul .cur {
         background: #d25138;
         border-radius: 50%;
         color: #fff
     }
-
     @keyframes appear {
         0% {
             /*transform: translate(-2.32rem,-3.49333rem);*/
             height: 1.066667rem;
             width: 6.88rem
         }
-
         51% {
             /*transform: translate(0rem,-3.49333rem);*/
             height: 1.066667rem;
             width: 9.2rem
         }
-
         86% {
             /*transform: translate(0rem,1rem);*/
             height: 11.333333rem
         }
-
         100% {
             /*transform: translate(0, 0);*/
             height: 10rem;
             width: 9.2rem
         }
     }
-
     @keyframes disappear {
         0% {
             /*transform: translate(0, 0);*/
