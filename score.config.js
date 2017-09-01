@@ -15,9 +15,12 @@ module.exports = {
                 HOST: '0.0.0.0',
                 ADDRESS: 'ews.500.com'
             },
-            env_pre: {
+            env_release: {
                 // ADDRESS: '43.247.69.20'
                 ADDRESS: '172.30.10.133'
+            },
+            env_pre: {
+                ADDRESS: '43.247.69.20'
             },
             env_dev: {
                 ADDRESS: '10.0.1.31'
