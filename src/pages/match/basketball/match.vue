@@ -5,7 +5,7 @@
                 <a class="back-icon" onClick="history.back()">返回</a>
                 <div class="info-c">
                     <div class="info-pic">
-                        <img v-logo="match.matchlogo">
+                        <img :src="match.matchlogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'">
                     </div>
                     <div class="info-itm">
                         <h1>{{match.simplegbname}}</h1>
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-    import {aTypes} from '~store/center'
+    import {aTypes, mTypes} from '~store/center'
     import logo from '~directives/logo'
     export default{
         async asyncData ({store, route: {params}}) {
@@ -52,6 +52,9 @@
         },
         mounted () {
             this.fetchData()
+        },
+        destroyed () {
+            this.$store.commit(mTypes.reset)
         },
         watch: {
             '$route' () {
