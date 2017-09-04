@@ -73,7 +73,14 @@
                         selectOptions = JSON.parse(JSON.stringify(this.initial))
                     }
                     this.selectOptions = selectOptions
+                    console.log(selectOptions)
                     this.leagueNameList = Object.keys(selectOptions)
+                    this.leagueNameList.sort((a,b)=>{
+                        if(a.localeCompare(b))
+                            return true
+                        return false
+                    })
+                    console.log(this.leagueNameList)
                     this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
                 }
             }

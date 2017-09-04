@@ -34,7 +34,6 @@ export default {
         }
     },
     mounted () {
-        // this.initEchart()
     },
     methods: {
         initEchart () {
@@ -58,6 +57,8 @@ export default {
             })
 
             let fontSize = window.lib.flexible.rem2px(0.375)
+            let symbolSize = window.lib.flexible.rem2px(0.051)
+            let lineSize = window.lib.flexible.rem2px(0.032)
 
             return {
                 radar: {
@@ -66,7 +67,7 @@ export default {
                     splitNumber: 3,
                     lineStyle: {
                         normal: {
-                            width: 10,
+                            width: lineSize,
                             color: '#ed6d86'
                         }
                     },
@@ -98,11 +99,11 @@ export default {
                         {
                             value: valueArr,
                             symbol: 'circle',
-                            symbolSize: 15,
+                            symbolSize: symbolSize,
                             lineStyle: {
                                 normal: {
                                     type: 'solid',
-                                    width: 4,
+                                    width: lineSize,
                                     color: '#ed6d86'
                                 }
                             },
@@ -119,7 +120,7 @@ export default {
         }
     },
     watch: {
-        strength () {
+        strength (oldData, newData) {
             this.initEchart()
         }
     }
