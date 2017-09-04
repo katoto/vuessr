@@ -6,7 +6,7 @@
                 <div class="popDetail" v-for="item,index in probability.detail">
                     <h4 class="popTit">{{item.company}}</h4>
                     <ul class="dataItem dataItem-tit">
-                        <li class="itemL">近10场</li>
+                        <li class="itemL">近{{item.table && item.table.length || 0}}场</li>
                         <li class="itemC">对阵</li>
                         <li class="itemR">初赔/终赔</li>
                     </ul>
