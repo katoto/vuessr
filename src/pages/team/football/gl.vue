@@ -82,7 +82,7 @@ export default {
         },
         rankChangeFmt: (rankchange) => {
             let rankFmt = Number(rankchange)
-            if(rankFmt > 0) {
+            if (rankFmt > 0) {
                 return '+' + rankFmt
             }
             return rankFmt

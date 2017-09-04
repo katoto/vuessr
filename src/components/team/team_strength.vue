@@ -37,7 +37,7 @@ export default {
         // this.initEchart()
     },
     methods: {
-        initEchart() {
+        initEchart () {
             let myChart = echarts.init(document.getElementById('score-cont'))
             myChart.setOption(this.getOptions())
             window.onresize = () => {
@@ -99,7 +99,7 @@ export default {
         }
     },
     watch: {
-        strength() {
+        strength () {
             this.initEchart()
         }
     }
