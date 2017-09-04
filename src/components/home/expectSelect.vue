@@ -35,7 +35,7 @@
         },
         computed: {
             expectListR () { // 逆序expectListR
-                return JSON.parse(JSON.stringify(this.expectList)).reverse()
+                return [...this.expectList].reverse()
             }
         },
         mounted () {
@@ -47,15 +47,15 @@
             },
             initPreAndNext (curExpect) {
                 const idx = this.expectList.indexOf(curExpect)
-                if (idx === 0) {
-                    this.onPre = false
-                } else {
+                if (idx === this.expectList.length - 1) { // expectList是反的所以这么写
                     this.onPre = true
-                }
-                if (idx === this.expectList.length - 1) {
-                    this.onNext = false
                 } else {
+                    this.onPre = false
+                }
+                if (idx === 0) {
                     this.onNext = true
+                } else {
+                    this.onNext = false
                 }
             },
             enterExpect ({expect}) {

@@ -34,14 +34,17 @@ export default {
         }
     },
     mounted () {
-        let myChart = echarts.init(document.getElementById('score-cont'))
-        myChart.setOption(this.getOptions())
-        window.onresize = () => {
-            myChart.resize()
-            myChart.setOption(this.getOptions())
-        }
+        // this.initEchart()
     },
     methods: {
+        initEchart () {
+            let myChart = echarts.init(document.getElementById('score-cont'))
+            myChart.setOption(this.getOptions())
+            window.onresize = () => {
+                myChart.resize()
+                myChart.setOption(this.getOptions())
+            }
+        },
         getOptions () {
             let indicatorArr = Object.keys(this.strengthType).map((type) => {
                 return {
@@ -93,6 +96,11 @@ export default {
                     ]
                 }]
             }
+        }
+    },
+    watch: {
+        strength () {
+            this.initEchart()
         }
     }
 }
