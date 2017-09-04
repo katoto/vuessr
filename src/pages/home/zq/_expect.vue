@@ -66,7 +66,6 @@
         beforeRouteLeave (to, from, next) {
             if (~to.name.indexOf('football-detail')) {
                 savedData.selectOptions = this.selectOptions
-                savedData.position = this.position
             }
             this.$store.dispatch('unsubscribeAll')
             next()
@@ -80,8 +79,10 @@
         },
         watch: {
             filteredMatches (after, before) {
-                if (!before || before.length !== after.length) {
+                if (before && before.length !== after.length) {
                     this.position = 0
+                }
+                if (!before || before.length !== after.length) {
                     this.$refs.scroller && this.$refs.scroller.update()
                 }
             },
@@ -186,7 +187,6 @@
         methods: {
             setPosition (position) {
                 savedData.position = position
-                this.position = position
             },
             async fetchData () {
                 this.$store.commit('startOneRefresh')

@@ -51,8 +51,10 @@
         },
         watch: {
             filteredMatches (after, before) {
-                if (!before || before.length !== after.length) {
+                if (before && before.length !== after.length) {
                     this.position = 0
+                }
+                if (!before || before.length !== after.length) {
                     this.$refs.scroller && this.$refs.scroller.update()
                 }
             },

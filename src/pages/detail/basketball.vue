@@ -273,7 +273,7 @@
                 if (this.baseInfo.status === StatusCode.NOT_STARTED) {
                     //  设置分享文案
                     nativeShare.setShareData({
-                        icon: 'http://www.500cache.com/news/images/m_logo.png',
+                        icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
                         link: location.href,
                         title: `${this.baseInfo.awaysxname}vs${this.baseInfo.homesxname} ${this.baseInfo.matchtime.substr(5, 2)}月${this.baseInfo.matchtime.substr(8, 2)}日${this.baseInfo.matchtime.substr(11, 5)}, 预测推荐>>`,
                         desc: `小伙伴一起来看赛事前瞻吧！`,
@@ -284,7 +284,7 @@
                     this.baseInfo.status === StatusCode.OVERTIME_2 || this.baseInfo.status === StatusCode.OVERTIME_3 || this.baseInfo.status === StatusCode.OVERTIME_4) {
                     //  设置分享文案
                     nativeShare.setShareData({
-                        icon: 'http://www.500cache.com/news/images/m_logo.png',
+                        icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
                         link: location.href,
                         title: `正在直播：${this.baseInfo.awaysxname}vs${this.baseInfo.homesxname} 一起看球侃大山>>`,
                         desc: `小伙伴一起来看比赛吧！`,
@@ -293,7 +293,7 @@
                 } else if (this.baseInfo.status === StatusCode.ENDED) {
                     //  设置分享文案
                     nativeShare.setShareData({
-                        icon: this.baseInfo.homelogo,
+                        icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
                         link: location.href,
                         title: `${this.baseInfo.awaysxname}${this.baseInfo.awayscore}:${this.baseInfo.homescore}${this.baseInfo.homesxname} 技术统计+赛况详情，不复盘你怎么懂球>>`,
                         desc: `小伙伴一起来回顾比赛吧！`,
@@ -302,7 +302,7 @@
                 } else {
                     //  设置分享文案
                     nativeShare.setShareData({
-                        icon: this.baseInfo.homelogo,
+                        icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
                         link: location.href,
                         title: `${this.baseInfo.awaysxname}vs${this.baseInfo.homesxname} 实时比分`,
                         desc: `小伙伴一起来看比赛吧！`,
