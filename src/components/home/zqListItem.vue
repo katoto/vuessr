@@ -35,7 +35,7 @@
                     </div>
                     <template v-if="feature.e[match.status]"><!--正在开打-->
                         <div class="game-lately score-half">
-                            <em class="first-half" v-if="match.homehalfscore">{{match.homehalfscore}}</em>
+                            <em class="first-half" v-if="match.homehalfscore && match.status !== StatusCode.FIRST_HALF">{{match.homehalfscore}}</em>
                             <!--<em class="second-half">{{match.homescore}}</em>-->
                             <move :score="match.homescore" :ready="ready"></move>
 
@@ -67,7 +67,7 @@
                     </template>
                     <template v-if="feature.e[match.status]"><!--正在开打-->
                         <div class="game-lately score-half">
-                            <em class="first-half" v-if="match.awayhalfscore">{{match.awayhalfscore}}</em>
+                            <em class="first-half" v-if="match.awayhalfscore && match.status !== StatusCode.FIRST_HALF">{{match.awayhalfscore}}</em>
                             <move :score="match.awayscore" :ready="ready"></move>
                         </div>
                     </template>
