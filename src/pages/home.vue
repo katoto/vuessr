@@ -133,7 +133,7 @@
         width: .44rem;
         height: .44rem;
         display: inline-block;
-        background: url(/mobile/touch/images/bifen/bifen-list/league.png) no-repeat;
+        background: url(~assets/style/images/home/league.png) no-repeat;
         background-size: cover;
         position: absolute;
         top: 50%;
