@@ -1,6 +1,6 @@
 <template>
     <section class="l-full">
-        <div class="inte-main l-full l-scroll-y" v-if="rankList && isEmpty(rankList)">
+        <div class="inte-main l-full l-scroll-y" v-if="rankList">
             <!--有东西部之分-->
             <template v-if="rankList.rettype == 'object'">
                 <rank-object :rankList="rankList"></rank-object>
@@ -9,10 +9,8 @@
             <template v-if="rankList.rettype == 'array'">
                 <rank-array :rankList="rankList"></rank-array>
             </template>
-
+            <ViewEmpty v-if="!rankList.rettype"></ViewEmpty>
         </div>
-
-        <ViewEmpty v-else></ViewEmpty>
     </section>
 </template>
 
@@ -44,9 +42,9 @@
             fetchData () {
                 this.$store.dispatch(aTypes.getBasketballMatchRank, {seasonid: this.$route.params.seasonid})
             },
-            isEmpty: function (obj) {
-                return Object.keys(obj).length
-            }
+//            isEmpty: function (obj) {
+//                return Object.keys(obj).length
+//            }
         },
         mounted () {
             this.fetchData()

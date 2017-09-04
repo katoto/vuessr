@@ -51,7 +51,7 @@
         mounted () {
             let u = navigator.userAgent
             const isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1
-            this.$el.style.height = this.$el.offsetHeight  + 'px'
+            this.$el.style.height = this.$el.offsetHeight + 'px'
             let fontSize = 22
             if (isAndroid) {
                 fontSize = this.fontSize / 2

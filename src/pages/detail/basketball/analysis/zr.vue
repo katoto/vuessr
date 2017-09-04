@@ -2,7 +2,7 @@
     <div>
         <best3 :best3='best3' v-if="best3"></best3>
         <members :baseInfo="baseInfo" :members='members' v-if="members"></members>
-        <item-loader v-if="!(best3 && members)"></item-loader>
+        <item-loader v-if="!(best3)"></item-loader>
     </div>
 </template>
 

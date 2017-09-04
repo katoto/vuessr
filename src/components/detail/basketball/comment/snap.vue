@@ -67,6 +67,14 @@ export default {
                     result.lostPer = (this.vote.ticket[2] / totalVote * 100).toFixed(0)
                     result.winW = result.winPer
                     result.lostW = result.lostPer
+                    if (result.winW === '100') {
+                        result.winW = '97'
+                        result.lostW = '3'
+                    }
+                    if (result.lostW === '100') {
+                        result.winW = '3'
+                        result.lostW = '97'
+                    }
                 } else {
                     result.winPer = 0
                     result.lostPer = 0
@@ -249,4 +257,17 @@ export default {
     .base-box .data-detail ul li:nth-child(2){text-align:right}
     .data-detail ul li p:nth-child(1){color:#515e6d;font-size:.4rem}
     .data-detail ul li p:nth-child(2){font-size:.32rem;color:rgba(81,94,109,.5)}
+
+    .comm-base-cont ul li:nth-child(2) {
+        float: right;
+    }
+    .comm-base-cont ul li {
+        width: 50%;
+    }
+    .comm-base-cont ul li:nth-child(1) {
+        float: left;
+    }
+    .comm-base-cont ul li {
+        width: 50%;
+    }
 </style>

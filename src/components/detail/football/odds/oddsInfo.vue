@@ -543,120 +543,120 @@
                 this.loading = true
                 try {
                     switch (this.params.type) {
-                        case 'europe': {
-                            this.sameOddsInfo = null
-                            this.oddsInfo = null
-                            let currentInfo = null
-                            this.params.odds.some((info) => {
-                                if (info.cid === cid) {
-                                    currentInfo = info
-                                }
-                            })
-                            if (currentInfo) {
-                                const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailEurope, {
-                                    fid: this.$route.params.fid,
-                                    cid,
-                                    win: currentInfo.first.win,
-                                    draw: currentInfo.first.draw,
-                                    lost: currentInfo.first.lost,
-                                    leagueid: this.match.league_id,
-                                    date: this.match.matchtime
-                                })
-                                sameOddsInfo.win = currentInfo.first.win
-                                sameOddsInfo.draw = currentInfo.first.draw
-                                sameOddsInfo.lost = currentInfo.first.lost
-                                this.sameOddsInfo = sameOddsInfo
-                                this.oddsInfo = oddsInfo
+                    case 'europe': {
+                        this.sameOddsInfo = null
+                        this.oddsInfo = null
+                        let currentInfo = null
+                        this.params.odds.some((info) => {
+                            if (info.cid === cid) {
+                                currentInfo = info
                             }
-                            break
-                        }
-                        case 'rangqiu': {
-                            this.sameOddsInfo = null
-                            this.oddsInfo = null
-                            let currentInfo = null
-                            this.params.odds.some((info) => {
-                                if (info.cid === cid) {
-                                    currentInfo = info
-                                }
+                        })
+                        if (currentInfo) {
+                            const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailEurope, {
+                                fid: this.$route.params.fid,
+                                cid,
+                                win: currentInfo.first.win,
+                                draw: currentInfo.first.draw,
+                                lost: currentInfo.first.lost,
+                                leagueid: this.match.league_id,
+                                date: this.match.matchtime
                             })
-                            if (currentInfo) {
-                                const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailRq, {
-                                    fid: this.$route.params.fid,
-                                    cid,
-                                    win: currentInfo.first.win,
-                                    draw: currentInfo.first.draw,
-                                    lost: currentInfo.first.lost,
-                                    leagueid: this.match.league_id,
-                                    date: this.match.matchtime,
-                                    handicapline: currentInfo.end.handicapline
-                                })
-                                this.sameOddsInfo = sameOddsInfo
-                                this.oddsInfo = oddsInfo
+                            sameOddsInfo.win = currentInfo.first.win
+                            sameOddsInfo.draw = currentInfo.first.draw
+                            sameOddsInfo.lost = currentInfo.first.lost
+                            this.sameOddsInfo = sameOddsInfo
+                            this.oddsInfo = oddsInfo
+                        }
+                        break
+                    }
+                    case 'rangqiu': {
+                        this.sameOddsInfo = null
+                        this.oddsInfo = null
+                        let currentInfo = null
+                        this.params.odds.some((info) => {
+                            if (info.cid === cid) {
+                                currentInfo = info
                             }
-                            break
-                        }
-                        case 'asian': {
-                            this.sameOddsInfo = null
-                            this.oddsInfo = null
-                            let currentInfo = null
-                            this.params.odds.some((info) => {
-                                if (info.cid === cid) {
-                                    currentInfo = info
-                                }
+                        })
+                        if (currentInfo) {
+                            const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailRq, {
+                                fid: this.$route.params.fid,
+                                cid,
+                                win: currentInfo.first.win,
+                                draw: currentInfo.first.draw,
+                                lost: currentInfo.first.lost,
+                                leagueid: this.match.league_id,
+                                date: this.match.matchtime,
+                                handicapline: currentInfo.end.handicapline
                             })
-                            if (currentInfo) {
-                                const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailAsian, {
-                                    fid: this.$route.params.fid,
-                                    cid,
-
-                                    s1: currentInfo.first.home,
-                                    s2: currentInfo.first.away,
-                                    cp: currentInfo.first.handi,
-
-                                    leagueid: this.match.league_id,
-                                    date: this.match.matchtime
-                                })
-                                sameOddsInfo.s1 = currentInfo.first.home
-                                sameOddsInfo.s2 = currentInfo.first.away
-                                sameOddsInfo.handi = currentInfo.first.handi
-                                this.sameOddsInfo = sameOddsInfo
-                                this.oddsInfo = oddsInfo
+                            this.sameOddsInfo = sameOddsInfo
+                            this.oddsInfo = oddsInfo
+                        }
+                        break
+                    }
+                    case 'asian': {
+                        this.sameOddsInfo = null
+                        this.oddsInfo = null
+                        let currentInfo = null
+                        this.params.odds.some((info) => {
+                            if (info.cid === cid) {
+                                currentInfo = info
                             }
-                            break
-                        }
-                        case 'daxiaopan': {
-                            this.sameOddsInfo = null
-                            this.oddsInfo = null
-                            let currentInfo = null
-                            this.params.odds.some((info) => {
-                                if (info.cid === cid) {
-                                    currentInfo = info
-                                }
+                        })
+                        if (currentInfo) {
+                            const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailAsian, {
+                                fid: this.$route.params.fid,
+                                cid,
+
+                                s1: currentInfo.first.home,
+                                s2: currentInfo.first.away,
+                                cp: currentInfo.first.handi,
+
+                                leagueid: this.match.league_id,
+                                date: this.match.matchtime
                             })
-                            if (currentInfo) {
-                                const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailDaxiaoqiu, {
-                                    fid: this.$route.params.fid,
-                                    cid,
+                            sameOddsInfo.s1 = currentInfo.first.home
+                            sameOddsInfo.s2 = currentInfo.first.away
+                            sameOddsInfo.handi = currentInfo.first.handi
+                            this.sameOddsInfo = sameOddsInfo
+                            this.oddsInfo = oddsInfo
+                        }
+                        break
+                    }
+                    case 'daxiaopan': {
+                        this.sameOddsInfo = null
+                        this.oddsInfo = null
+                        let currentInfo = null
+                        this.params.odds.some((info) => {
+                            if (info.cid === cid) {
+                                currentInfo = info
+                            }
+                        })
+                        if (currentInfo) {
+                            const [sameOddsInfo, oddsInfo] = await this.$store.dispatch(aTypes.getOddsDetailDaxiaoqiu, {
+                                fid: this.$route.params.fid,
+                                cid,
 
-                                    big: currentInfo.first.big,
-                                    small: currentInfo.first.small,
-                                    handi: currentInfo.first.handi,
+                                big: currentInfo.first.big,
+                                small: currentInfo.first.small,
+                                handi: currentInfo.first.handi,
 
-                                    leagueid: this.match.league_id,
-                                    date: this.match.matchtime
-                                })
+                                leagueid: this.match.league_id,
+                                date: this.match.matchtime
+                            })
 
                                 //                                sameOddsInfo.s1 = currentInfo.first.home
                                 //                                sameOddsInfo.s2 = currentInfo.first.away
 
-                                sameOddsInfo.big = currentInfo.first.big
-                                sameOddsInfo.small = currentInfo.first.small
-                                sameOddsInfo.handi = currentInfo.first.handi
-                                this.sameOddsInfo = sameOddsInfo
-                                this.oddsInfo = oddsInfo
-                            }
-                            break
+                            sameOddsInfo.big = currentInfo.first.big
+                            sameOddsInfo.small = currentInfo.first.small
+                            sameOddsInfo.handi = currentInfo.first.handi
+                            this.sameOddsInfo = sameOddsInfo
+                            this.oddsInfo = oddsInfo
                         }
+                        break
+                    }
                     }
                 } catch (e) {
                     this.error = true
