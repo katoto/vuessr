@@ -412,17 +412,17 @@
                 return this.match.ascore && this.match.ascore.substr(0, this.match.ascore.indexOf('/')).split('-')
             },
             hscore () {
-                return this.match.hscore && this.match.hscore.substr(0,this.match.hscore.indexOf('/')).split('-')
+                return this.match.hscore && this.match.hscore.substr(0, this.match.hscore.indexOf('/')).split('-')
             },
             ascoreAdd () {
                 let add = this.match.ascore && this.match.ascore.split('/')[1].split('-')
-                let sum=0
-                return add.map(item=>sum+=item)
+                let sum = 0
+                return add.map(item => sum += item)
             },
             hscoreAdd () {
                 let add = this.match.hscore && this.match.hscore.split('/')[1].split('-')
-                let sum=0
-                return add.map(item=>sum+=item)
+                let sum = 0
+                return add.map(item => sum += item)
             }
         },
         directives: {
