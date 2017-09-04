@@ -401,10 +401,10 @@
                 this.$store.dispatch('ensureLogin')
                 this.$store.dispatch(aTypes.doConcern, {fid: this.match.fid, vtype: '2'})
             },
-            add (itm) {
-                let sum = 0
-                itm.map((item) => {
-                    sum += Number(item)
+            add (itm){
+                let sum =0
+                 itm.map((item) => {
+                    sum+=Number(item)
                 })
                 return sum
             }
