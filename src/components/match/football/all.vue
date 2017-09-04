@@ -82,7 +82,7 @@
                 </li>
             </ul>
         </div>
-        <view-empty v-if="!allData.rettype"></view-empty>
+        <view-empty v-if="!Object.keys(allData.values).length"></view-empty>
     </section>
 
 </template>

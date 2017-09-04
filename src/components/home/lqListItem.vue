@@ -401,10 +401,10 @@
                 this.$store.dispatch('ensureLogin')
                 this.$store.dispatch(aTypes.doConcern, {fid: this.match.fid, vtype: '2'})
             },
-            add (itm){
-                let sum =0
-                 itm.map((item) => {
-                    sum+=Number(item)
+            add (itm) {
+                let sum = 0
+                itm.map((item) => {
+                    sum += Number(item)
                 })
                 return sum
             }
@@ -420,22 +420,18 @@
                 return `/detail/basketball/${this.match.fid}/situation/event`
             },
             ascore () {
-
                 return this.match.ascore && this.match.ascore.split('/')[0].split('-')
 //                return this.match.ascore && this.match.ascore.substr(0,this.match.ascore.indexOf('/')).split('-')
             },
             hscore () {
                 return this.match.hscore && this.match.hscore.split('/')[0].split('-')
             },
-            asadd(){
-                 return this.match.ascore && this.match.ascore.split('/')[1] && this.add(this.match.ascore.split('/')[1].split('-'))
+            asadd () {
+                return this.match.ascore && this.match.ascore.split('/')[1] && this.add(this.match.ascore.split('/')[1].split('-'))
             },
-            hsadd(){
+            hsadd () {
                 return this.match.hscore && this.match.hscore.split('/')[1] && this.add(this.match.hscore.split('/')[1].split('-'))
-            },
-            hscore () {
-                return this.match.hscore && this.match.hscore.substr(0, this.match.hscore.indexOf('/')).split('-')
-            },
+            }
 
         },
         directives: {
