@@ -73,10 +73,10 @@
                         selectOptions = JSON.parse(JSON.stringify(this.initial))
                     }
                     this.selectOptions = selectOptions
-                    console.log(selectOptions)
                     this.leagueNameList = Object.keys(selectOptions)
+                    console.log(this.leagueNameList)
                     this.leagueNameList.sort((a,b)=>{
-                        if(a.localeCompare(b))
+                        if(a.localeCompare(b)<=0)
                             return true
                         return false
                     })
