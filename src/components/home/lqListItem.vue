@@ -432,10 +432,7 @@
             },
             hsadd(){
                 return this.match.hscore && this.match.hscore.split('/')[1] && this.add(this.match.hscore.split('/')[1].split('-'))
-            },
-            hscore () {
-                return this.match.hscore && this.match.hscore.substr(0, this.match.hscore.indexOf('/')).split('-')
-            },
+            }
 
         },
         directives: {
