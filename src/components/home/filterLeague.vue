@@ -14,8 +14,7 @@
                 <!-- 杯赛选择 -->
                 <div class="cup-info">
                     <ul>
-                        <li :class="{cur:selectOptions[league]}" v-for="league in leagueNameList"><span
-                                v-tap="{methods: toggleLeague, league: league}">{{league}}</span></li>
+                        <li :class="{cur:selectOptions[league]}" v-for="league in leagueNameList" v-tap="{methods: toggleLeague, league: league}"><span>{{league}}</span></li>
                     </ul>
                 </div>
                 <!-- 全选、反选、五大联赛 -->

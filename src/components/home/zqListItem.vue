@@ -6,7 +6,7 @@
         <div class="game-info">
             {{match.order}}&nbsp;&nbsp;{{match.simpleleague}}&nbsp;
 
-            <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '11'">加时 {{match.extra_time_score}}&nbsp;</span>
+            <span v-if="match.status == StatusCode.ENDED && match.extra_exist == '1'">加时 {{match.extra_time_score}}&nbsp;</span>
             <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '13'">点球 {{match.spot_kick_score}}</span>
 
             <template v-if="feature.d[match.status] && match.extra_info">
@@ -98,12 +98,12 @@
                 <template v-if="feature.e[match.status]"><!--正在开打-->
                     <template v-if="match.extra_info && match.extra_info.ishasvideo === '1'">
                         <div class="btn-live" v-tap="{methods: goPath}">直播</div>
-                        <div class="follow had-follow" v-if="match.status === StatusCode.MID">中场</div>
+                        <div class="follow had-follow mid-live" v-if="match.status === StatusCode.MID">中场</div>
                         <div class="live-time" v-else>{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
 
                     </template>
                     <template v-else>
-                        <div class="follow had-follow" v-if="match.status === StatusCode.MID">中场</div>
+                        <div class="follow had-follow mid-live" v-if="match.status === StatusCode.MID">中场</div>
                         <div class="live-time  live-timer" v-else>{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
                     </template>
                 </template>
@@ -132,6 +132,7 @@
         -webkit-animation: dianstyle 1s ease-out 0s infinite alternate;
         font-size: 0.4rem;
     }
+
     @keyframes dianstyle {
         0% {
             opacity: 1
@@ -376,6 +377,9 @@
         line-height: .426667rem
     }
 
+    .mid-live {
+        color: #36a171;
+    }
 </style>
 <script>
     import {FootballStatusCode as StatusCode, FootballStatusName as StatusName} from '~common/constants'
