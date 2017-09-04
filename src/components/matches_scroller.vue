@@ -84,7 +84,7 @@
                         }
                     }
                     imgs.forEach(img => {
-                        img.src = img.dataset.src
+                        img.dataset.src && (img.src = img.dataset.src)
                         /* if (img.dataset.inited === '0') {
                             img.src = img.dataset.src
                             img.dataset.inited = '1'

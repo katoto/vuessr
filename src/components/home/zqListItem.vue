@@ -22,9 +22,9 @@
             <router-link class="game-detail-l l-flex-column" v-tap="{methods: goDetail}" :to="detailPath">
                 <div class="game-item">
                     <div class="game-name"><img data-inited="0"
-                                                src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"
+                                                src="~assets/style/images/home/zq-logo.png"
                                                 alt="主队图标"
-                                                :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">
+                                                :data-src="match.homelogo">
                                                 {{match.homesxname}}
                                                 <em v-if="match.homestanding && match.homestanding !== '0' && match.homestanding != '-1'">{{match.homestanding | rankFmt}}</em>
                                                 <em v-if="match.zlc === '1'">(中)</em>
@@ -53,9 +53,9 @@
                 </div>
                 <div class="game-item ">
                     <div class="game-name"><img data-inited="0"
-                                                src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"
+                                                src="~assets/style/images/home/zq-logo.png"
                                                 alt="客队图标"
-                                                :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">
+                                                :data-src="match.awaylogo">
                                                 {{match.awaysxname}}
                                                 <em v-if="match.awaystanding && match.awaystanding !== '0' && match.awaystanding != '-1'">{{match.awaystanding | rankFmt}}</em>
                                                 <em class="red-c" v-if="match.away_red_counts !== '' && match.away_red_counts !== '0'">{{match.away_red_counts}}</em>
