@@ -590,6 +590,9 @@
                                 date: this.match.matchtime,
                                 handicapline: currentInfo.end.handicapline
                             })
+                            sameOddsInfo.win = currentInfo.first.win
+                            sameOddsInfo.draw = currentInfo.first.draw
+                            sameOddsInfo.lost = currentInfo.first.lost
                             this.sameOddsInfo = sameOddsInfo
                             this.oddsInfo = oddsInfo
                         }

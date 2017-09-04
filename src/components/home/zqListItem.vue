@@ -6,7 +6,7 @@
         <div class="game-info">
             {{match.order}}&nbsp;&nbsp;{{match.simpleleague}}&nbsp;
 
-            <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '11'">加时 {{match.extra_time_score}}&nbsp;</span>
+            <span v-if="match.status == StatusCode.ENDED && match.extra_exist == '1'">加时 {{match.extra_time_score}}&nbsp;</span>
             <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '13'">点球 {{match.spot_kick_score}}</span>
 
             <template v-if="feature.d[match.status] && match.extra_info">
@@ -22,11 +22,11 @@
             <router-link class="game-detail-l l-flex-column" v-tap="{methods: goDetail}" :to="detailPath">
                 <div class="game-item">
                     <div class="game-name"><img data-inited="0"
-                                                src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"
+                                                src="~assets/style/images/home/zq-logo.png"
                                                 alt="主队图标"
-                                                :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">
+                                                :data-src="match.homelogo">
                                                 {{match.homesxname}}
-                                                <em v-if="match.homestanding && match.homestanding !== '0'  && match.homestanding != '-1'">{{match.homestanding | rankFmt}}</em>
+                                                <em v-if="match.homestanding && match.homestanding !== '0' && match.homestanding != '-1'">{{match.homestanding | rankFmt}}</em>
                                                 <em v-if="match.zlc === '1'">(中)</em>
                                                 <em class="red-c" v-if="match.home_red_counts !== '' && match.home_red_counts !== '0'">{{match.home_red_counts}}</em>
                     </div>
@@ -35,7 +35,7 @@
                     </div>
                     <template v-if="feature.e[match.status]"><!--正在开打-->
                         <div class="game-lately score-half">
-                            <em class="first-half" v-if="match.homehalfscore">{{match.homehalfscore}}</em>
+                            <em class="first-half" v-if="match.homehalfscore && match.status !== StatusCode.FIRST_HALF">{{match.homehalfscore}}</em>
                             <!--<em class="second-half">{{match.homescore}}</em>-->
                             <move :score="match.homescore" :ready="ready"></move>
 
@@ -53,11 +53,11 @@
                 </div>
                 <div class="game-item ">
                     <div class="game-name"><img data-inited="0"
-                                                src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"
+                                                src="~assets/style/images/home/zq-logo.png"
                                                 alt="客队图标"
-                                                :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">
+                                                :data-src="match.awaylogo">
                                                 {{match.awaysxname}}
-                                                <em v-if="match.awaystanding && match.awaystanding !== '0'"  && match.awaystanding != '-1'>{{match.awaystanding | rankFmt}}</em>
+                                                <em v-if="match.awaystanding && match.awaystanding !== '0' && match.awaystanding != '-1'">{{match.awaystanding | rankFmt}}</em>
                                                 <em class="red-c" v-if="match.away_red_counts !== '' && match.away_red_counts !== '0'">{{match.away_red_counts}}</em>
                     </div>
 
@@ -67,7 +67,7 @@
                     </template>
                     <template v-if="feature.e[match.status]"><!--正在开打-->
                         <div class="game-lately score-half">
-                            <em class="first-half" v-if="match.awayhalfscore">{{match.awayhalfscore}}</em>
+                            <em class="first-half" v-if="match.awayhalfscore && match.status !== StatusCode.FIRST_HALF">{{match.awayhalfscore}}</em>
                             <move :score="match.awayscore" :ready="ready"></move>
                         </div>
                     </template>
@@ -98,12 +98,12 @@
                 <template v-if="feature.e[match.status]"><!--正在开打-->
                     <template v-if="match.extra_info && match.extra_info.ishasvideo === '1'">
                         <div class="btn-live" v-tap="{methods: goPath}">直播</div>
-                        <div class="follow had-follow" v-if="match.status === StatusCode.MID">中场</div>
+                        <div class="follow had-follow mid-live" v-if="match.status === StatusCode.MID">中场</div>
                         <div class="live-time" v-else>{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
 
                     </template>
                     <template v-else>
-                        <div class="follow had-follow" v-if="match.status === StatusCode.MID">中场</div>
+                        <div class="follow had-follow mid-live" v-if="match.status === StatusCode.MID">中场</div>
                         <div class="live-time  live-timer" v-else>{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
                     </template>
                 </template>
@@ -132,6 +132,7 @@
         -webkit-animation: dianstyle 1s ease-out 0s infinite alternate;
         font-size: 0.4rem;
     }
+
     @keyframes dianstyle {
         0% {
             opacity: 1
@@ -321,6 +322,9 @@
         line-height: .64rem;
         overflow: hidden
     }
+    .five-score .first-score{
+        width:0.54rem;
+    }
 
     .score-half .second-half {
         font-size: .453333rem;
@@ -344,7 +348,7 @@
     .game-name em {
         font-size: .293333rem;
         color: #aab5bd;
-        margin-left: .213333rem;
+        margin-left: .13333rem;
     }
     .game-name .red-c {
         display: inline-block;
@@ -376,6 +380,9 @@
         line-height: .426667rem
     }
 
+    .mid-live {
+        color: #36a171;
+    }
 </style>
 <script>
     import {FootballStatusCode as StatusCode, FootballStatusName as StatusName} from '~common/constants'

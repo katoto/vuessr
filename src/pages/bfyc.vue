@@ -4,7 +4,7 @@
         <header id="uiHead" class="ui-head">
             <div class="ui-head-in">
                 <div class="ui-head-l">
-                    <span class="ui-head-btn1" onclick="history.back()">返回</span>
+                    <span class="ui-head-btn1" v-tap="{methods: back}">返回</span>
                 </div>
                 <div class="ui-head-m">
                     <h2 class="ui-head-tit">{{title}}</h2>
@@ -39,6 +39,15 @@ export default{
             }
         }
 
+    },
+    methods: {
+        back () {
+            if (window.EsApp && this.$route.query.from === 'nav') {
+                window.EsApp.invoke('close')
+            } else {
+                history.back()
+            }
+        }
     }
 
 }

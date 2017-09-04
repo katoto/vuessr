@@ -434,7 +434,9 @@
         flex: 1;
         padding-left: .213333rem
     }
-
+    .box-tongp .dataItem .item-info {
+        color: #515e6d;
+    }
 
     .opgl-tips {
         border-top: 1px solid #f4f4f4;

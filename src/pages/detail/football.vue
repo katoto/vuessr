@@ -84,39 +84,39 @@
                     <ul>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/situation')}">
-                            <router-link2 :to="{name: 'football-detail-situation'}" replace>
+                            <router-link2 :to="{name: 'football-detail-situation', query: $route.query}" replace>
                                 <span data-p2="zq_detail" data-p4="situation">赛况<i class="sktab-arrow"></i></span>
                             </router-link2>
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/analysis')}">
-                            <router-link2 :to="{name: 'football-detail-analysis-zj'}" replace>
+                            <router-link2 :to="{name: 'football-detail-analysis-zj', query: $route.query}" replace>
                                 <span data-p2="zq_detail" data-p4="analysis">分析<i class="sktab-arrow"></i></span>
                             </router-link2>
 
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/predict')}">
-                            <router-link2 :to="{name: 'football-detail-predict'}" replace>
+                            <router-link2 :to="{name: 'football-detail-predict', query: $route.query}" replace>
                                 <span data-p2="zq_detail" data-p4="predict">预测<i class="sktab-arrow"></i><em class="nav-yuce-liao " :class="{enter: !~$route.path.indexOf('/predict')}">料</em></span>
                             </router-link2>
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/odds')}">
-                            <router-link2 :to="{name: 'football-detail-odds-europe'}" replace>
+                            <router-link2 :to="{name: 'football-detail-odds-europe', query: $route.query}" replace>
                                 <span data-p2="zq_detail" data-p4="odds">赔率<i class="sktab-arrow"></i></span>
                             </router-link2>
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/comment')}">
-                            <router-link2 :to="{name: 'football-detail-comment'}" replace>
+                            <router-link2 :to="{name: 'football-detail-comment', query: $route.query}" replace>
                                 <span data-p2="zq_detail" data-p4="comment">聊球<i class="sktab-arrow"></i></span>
                             </router-link2>
                         </li>
 
                         <li
                                 :class="{cur: ~$route.path.indexOf('/crazybet')}">
-                            <router-link2 :to="{name: 'football-detail-crazybet'}" replace>
+                            <router-link2 :to="{name: 'football-detail-crazybet', query: $route.query}" replace>
                                 <span data-p2="zq_detail" data-p4="crazybet">猜球<i class="sktab-arrow"></i></span>
                             </router-link2>
                         </li>

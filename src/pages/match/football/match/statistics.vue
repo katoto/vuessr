@@ -5,7 +5,7 @@
                 <div class="box-tit">
                     <h2> 射手榜 </h2>
                 </div>
-                <div class="member-list" v-if="statisticList.scores">
+                <div class="member-list" v-if="statisticList && statisticList.scores">
                     <table width="100%" cellpadding="0" cellspacing="0" v-for="score in statisticList.scores">
                         <colgroup>
                             <col width="10%">
@@ -37,7 +37,7 @@
                 <div class="box-tit">
                     <h2>助攻榜</h2>
                 </div>
-                <div class="member-list" v-if="statisticList.assists">
+                <div class="member-list" v-if="statisticList && statisticList.assists">
                     <table width="100%" cellpadding="0" cellspacing="0" v-for="assist in statisticList.assists">
                         <colgroup>
                             <col width="10%">

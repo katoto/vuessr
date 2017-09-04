@@ -2,7 +2,7 @@
     <div class="l-full l-scroll-y">
         <div class="main" :class="{'top_0': noEmptyFlag}">
             <div v-if="teamInfo">
-                <team-strength :strength="teamInfo.teamstrength" :score="teamInfo.finalscore" v-if="teamInfo.teamstrength"></team-strength>
+                <team-strength :strength="teamInfo.teamstrength" :score="teamInfo.finalscore" v-if="teamInfo.teamstrength" ref="teamStrength"></team-strength>
                 <div class="main-box">
                     <div class="box-tit">
                         <h2> 赛事排名</h2> </div>
@@ -57,7 +57,15 @@ export default {
         noEmpty (obj) {
             if (obj) { return !!Object.keys(obj).length }
             return false
+        },
+        initEchart () {
+            setTimeout(() => {
+                this.$refs.teamStrength.initEchart()
+            }, 100)
         }
+    },
+    mounted () {
+        this.initEchart()
     },
     filters: {
         seasonFmt: (rank) => {

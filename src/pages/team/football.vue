@@ -55,16 +55,6 @@ export default {
     .top_0 {
         margin-top: 0;
     }
-    .back-icon:before {
-        width: .32rem;
-        height: .493333rem;
-        content: '';
-        position: absolute;
-        left: .266667rem;
-        top: 0.24rem;
-        background-position: center 0;
-        margin-top: auto;
-    }
 
     .back-icon:before {
         background: url("~assets/images/team/detail-icon.png") no-repeat;
@@ -93,4 +83,14 @@ export default {
     .info-itm{ padding-top: 0.266667rem;}
     .info-itm h1{color:#fff;font-size:0.4rem;font-weight:400}
     .info-itm p{color:rgba(255,255,255,.5);font-size: 0.293333rem;}
+    .back-icon:before {
+        width: .32rem;
+        height: .493333rem;
+        content: '';
+        position: absolute;
+        left: .266667rem;
+        top: 0.24rem;
+        background-position: center 0;
+        margin-top: auto;
+    }
 </style>
