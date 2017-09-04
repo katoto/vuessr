@@ -313,7 +313,7 @@
     .score-half .first-half {
         font-size: .346667rem;
         color: #aab5bd;
-        width: .586667rem;
+        width: .496667rem;
         text-align: right;
         display: inline-block;
         height: .64rem;
@@ -407,10 +407,10 @@
                 return `/detail/basketball/${this.match.fid}/situation/event`
             },
             ascore () {
-                return this.match.ascore && this.match.ascore.split('-')
+                return this.match.ascore && this.match.ascore.substr(0,this.match.ascore.indexOf('/')).split('-')
             },
             hscore () {
-                return this.match.hscore && this.match.hscore.split('-')
+                return this.match.hscore && this.match.hscore.substr(0,this.match.hscore.indexOf('/')).split('-')
             }
         },
         directives: {

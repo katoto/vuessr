@@ -2,6 +2,7 @@
     <div>
         <best3 :best3='best3' v-if="best3"></best3>
         <members :baseInfo="baseInfo" :members='members' v-if="members"></members>
+        <skbtips v-if="best3"></skbtips> 
         <item-loader v-if="!(best3)"></item-loader>
     </div>
 </template>
@@ -11,12 +12,15 @@ import {mTypes, aTypes} from '~store/lqdetail'
 import best3 from '~components/detail/basketball/analysis/zr/best3.vue'
 import members from '~components/detail/basketball/analysis/zr/members.vue'
 import itemLoader from '~components/detail/itemLoader.vue'
+import skbtips from '~components/detail/skbtips.vue'
+
 export default {
     async asyncData ({store, route: {params}}) {
         const {homeid, awayid, seasonid} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
         await store.dispatch(aTypes.getAnalysisZr, {homeid, awayid, seasonid, vtype: 1})
     },
     components: {
+        skbtips,
         best3,
         members,
         itemLoader

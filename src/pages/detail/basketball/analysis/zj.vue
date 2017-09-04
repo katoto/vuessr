@@ -6,6 +6,7 @@
         <recent-record :recentRecord='recentRecord' v-if="recentRecord"></recent-record>
         <future-match :futureMatch='futureMatch' v-if="futureMatch"></future-match>
         <macau-news :macauNews='macauNews' v-if="macauNews"></macau-news>
+        <skbtips v-if="nbarank"></skbtips> 
         <item-loader v-if="!(nbarank)"></item-loader>
     </div>
 </template>
@@ -19,6 +20,7 @@ import recentRecord from '~components/detail/basketball/analysis/zj/recentRecord
 import futureMatch from '~components/detail/basketball/analysis/zj/futureMatch.vue'
 import macauNews from '~components/detail/basketball/analysis/zj/macauNews.vue'
 import itemLoader from '~components/detail/itemLoader.vue'
+import skbtips from '~components/detail/skbtips.vue'
 
 export default {
     async asyncData ({store, route: {params}}) {
@@ -27,6 +29,7 @@ export default {
         await store.dispatch(aTypes.getAnalysisZj, {fid, homeid, awayid, seasonid, stageid, matchid, matchdate, matchgroup, stagemode})
     },
     components: {
+        skbtips,
         leagueRank,
         NBARank,
         jzData,

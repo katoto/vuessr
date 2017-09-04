@@ -2,6 +2,7 @@
     <div>
         <strength :baseInfo='baseInfo' :strength='strength' :stats='stats' v-if="strength"></strength>
         <trend :baseInfo='baseInfo' :trends='trend' :vtype="vtype" v-if="trend"></trend>
+        <skbtips v-if="strength"></skbtips> 
         <item-loader v-if="!strength"></item-loader>
     </div>
 </template>
@@ -11,6 +12,8 @@ import {mTypes, aTypes} from '~store/lqdetail'
 import strength from '~components/detail/basketball/analysis/js/strength.vue'
 import trend from '~components/detail/basketball/analysis/js/trend.vue'
 import itemLoader from '~components/detail/itemLoader.vue'
+import skbtips from '~components/detail/skbtips.vue'
+
 export default {
     async asyncData ({store, route: {params}}) {
         const {fid, seasonid, homeid, awayid, matchtime} = store.state.lqdetail.baseInfo// baseInfo 保证有数据了
@@ -18,6 +21,7 @@ export default {
         await store.dispatch(aTypes.getAnalysisJs, {fid, seasonid, homeid, awayid, matchdate})
     },
     components: {
+        skbtips,
         strength,
         trend,
         itemLoader

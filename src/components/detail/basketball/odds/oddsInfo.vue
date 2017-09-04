@@ -34,7 +34,7 @@
                                     </th>
                                 </tr>
                                 <tr v-for="info in oddsInfo">
-                                    <td><span class="red f24" :class="{'red': info.l == 1, 'green': info.l == -1}">{{info.lost}}</span>
+                                    <td><span class="f24" :class="{'red': info.l == 1, 'green': info.l == -1}">{{info.lost}}</span>
                                     </td>
                                     <td><span class="f24" :class="{'red': info.w == 1, 'green': info.w == -1}">{{info.win}}</span>
                                     </td>
