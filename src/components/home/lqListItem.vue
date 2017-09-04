@@ -313,7 +313,7 @@
     .score-half .first-half {
         font-size: .346667rem;
         color: #aab5bd;
-        width: .586667rem;
+        width: .496667rem;
         text-align: right;
         display: inline-block;
         height: .64rem;
