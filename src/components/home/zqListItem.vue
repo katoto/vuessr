@@ -26,7 +26,7 @@
                                                 alt="主队图标"
                                                 :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">
                                                 {{match.homesxname}}
-                                                <em v-if="match.homestanding && match.homestanding !== '0'">{{match.homestanding | rankFmt}}</em>
+                                                <em v-if="match.homestanding && match.homestanding !== '0'  && match.homestanding != '-1'">{{match.homestanding | rankFmt}}</em>
                                                 <em v-if="match.zlc === '1'">(中)</em>
                                                 <em class="red-c" v-if="match.home_red_counts !== '' && match.home_red_counts !== '0'">{{match.home_red_counts}}</em>
                     </div>
@@ -57,7 +57,7 @@
                                                 alt="客队图标"
                                                 :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">
                                                 {{match.awaysxname}}
-                                                <em v-if="match.awaystanding && match.awaystanding !== '0'">{{match.awaystanding | rankFmt}}</em>
+                                                <em v-if="match.awaystanding && match.awaystanding !== '0'"  && match.awaystanding != '-1'>{{match.awaystanding | rankFmt}}</em>
                                                 <em class="red-c" v-if="match.away_red_counts !== '' && match.away_red_counts !== '0'">{{match.away_red_counts}}</em>
                     </div>
 
