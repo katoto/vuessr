@@ -19,7 +19,6 @@
     </div>
     <div>
         <router-view></router-view>
-        <skbtips></skbtips>
     </div>
 </div>
 </template>
