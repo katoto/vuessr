@@ -16,7 +16,7 @@
                         <tr>
                             <td align="left">{{teamInfo.teamrank | seasonFmt(isCountry)}}</td>
                             <td>{{teamInfo.teamrank.rank}}</td>
-                            <td>{{teamInfo.teamrank.rankchange}}</td>
+                            <td>{{teamInfo.teamrank.rankchange | rankChangeFmt}}</td>
                             <td>{{teamInfo.teamrank.point}}</td>
                         </tr>
                     </tbody>
@@ -79,6 +79,13 @@ export default {
     filters: {
         seasonFmt: (rank, isCountry) => {
             return isCountry ? rank.year + '.' + rank.month : rank.seasonyear + ' ' + rank.simplegbname
+        },
+        rankChangeFmt: (rankchange) => {
+            let rankFmt = Number(rankchange)
+            if(rankFmt > 0) {
+                return '+' + rankFmt
+            }
+            return rankFmt
         }
     }
 
