@@ -20,7 +20,7 @@
                                                 src="http://cache.500boss.com/mobile/touch/images/bifen/mr-base.png"
                                                 alt="客队图标"
                                                 :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-base.png'">{{match.awaysxname}}
-                        <em v-if="match.awaystanding">{{match.awaystanding | rankFmt}}</em>
+                        <em v-if="match.awaystanding && match.awaystanding != '-1'">{{match.awaystanding | rankFmt}}</em>
                     </div>
 
                     <template v-if="match.status === StatusCode.NOT_STARTED">
@@ -51,7 +51,7 @@
                                                 src="http://cache.500boss.com/mobile/touch/images/bifen/mr-base.png"
                                                 alt="主队图标"
                                                 :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-base.png'">{{match.homesxname}}
-                        <em v-if="match.homestanding">{{match.homestanding | rankFmt}}</em>
+                        <em v-if="match.homestanding && match.homestanding != '-1'">{{match.homestanding | rankFmt}}</em>
                     </div>
                     <div class="game-lately" v-if="match.status === StatusCode.NOT_STARTED && view==='1'">
                         {{match.extra_info.homerecord}}
