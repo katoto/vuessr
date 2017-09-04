@@ -41,7 +41,7 @@
         methods: {
             fetchData () {
                 this.$store.dispatch(aTypes.getBasketballMatchRank, {seasonid: this.$route.params.seasonid})
-            },
+            }
 //            isEmpty: function (obj) {
 //                return Object.keys(obj).length
 //            }

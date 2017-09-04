@@ -414,24 +414,24 @@
         }
         86% {
             /*transform: translate(0rem,1rem);*/
-            height: 11.333333rem
+            height: 9.5rem
         }
         100% {
             /*transform: translate(0, 0);*/
-            height: 10rem;
+            height: 8.5rem;
             width: 9.2rem
         }
     }
     @keyframes disappear {
         0% {
             /*transform: translate(0, 0);*/
-            height: 10rem;
+            height: 8.5rem;
             width: 9.2rem
         }
 
         13% {
             /*transform: translate(0rem,1rem);*/
-            height: 11.333333rem
+            height: 9.5rem
         }
 
         49% {
