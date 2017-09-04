@@ -322,6 +322,9 @@
         line-height: .64rem;
         overflow: hidden
     }
+    .five-score .first-score{
+        width:0.54rem;
+    }
 
     .score-half .second-half {
         font-size: .453333rem;
@@ -345,7 +348,7 @@
     .game-name em {
         font-size: .293333rem;
         color: #aab5bd;
-        margin-left: .213333rem;
+        margin-left: .13333rem;
     }
     .game-name .red-c {
         display: inline-block;

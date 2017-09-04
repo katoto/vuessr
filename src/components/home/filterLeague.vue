@@ -73,6 +73,13 @@
                     }
                     this.selectOptions = selectOptions
                     this.leagueNameList = Object.keys(selectOptions)
+                    console.log(this.leagueNameList)
+                    this.leagueNameList.sort((a,b)=>{
+                        if(a.localeCompare(b)<=0)
+                            return true
+                        return false
+                    })
+                    console.log(this.leagueNameList)
                     this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
                 }
             }
