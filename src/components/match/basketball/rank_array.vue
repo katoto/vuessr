@@ -59,11 +59,10 @@
     .cate-cont{width: 0.986667rem; text-align: right; float:left;margin-right: 0.266667rem; display: inline-block;height: 1.066667rem; line-height: 1.066667rem}
     .gamer-cont{color: #333;text-align: left;overflow: hidden;height:1.066667rem; line-height:1.066667rem; display: inline-block; float: left}
     .gamer-cont>img{max-width:0.5066rem;height:0.5066rem;margin-top:0.32rem; margin-right:0.1333rem; float: left;}
-    .inte-main .games-list{padding: 0;border-bottom: 0.266667rem solid #f4f4f4;}
     .game-category{ width: 0.453333rem;height: 0.453333rem;line-height: 0.453333rem; text-align: center;color: #333;display: inline-block; border-radius: 0.226667rem;font-size: 0.293333rem;}
     .inte-header-b .game-category{ width: 0.266667rem; height: 0.266667rem;}
     .game-list-b .game-category{ border-radius: 0;}
-    .games{text-align:center;}
+    .games{text-align:center;border-bottom: 0.266667rem solid #f4f4f4;}
     .games td{border-bottom:1px solid #f4f4f4;}
     .games tr td:first-child{font-size:0.346667rem}
     .rank-tb td{ color: #787878;}

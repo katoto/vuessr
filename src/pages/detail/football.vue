@@ -84,39 +84,39 @@
                     <ul>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/situation')}">
-                            <router-link2 :to="{name: 'football-detail-situation'}" replace>
+                            <router-link2 :to="{name: 'football-detail-situation', query: $route.query}" replace>
                                 <span data-p2="zq_detail" data-p4="situation">赛况<i class="sktab-arrow"></i></span>
                             </router-link2>
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/analysis')}">
-                            <router-link2 :to="{name: 'football-detail-analysis-zj'}" replace>
+                            <router-link2 :to="{name: 'football-detail-analysis-zj', query: $route.query}" replace>
                                 <span data-p2="zq_detail" data-p4="analysis">分析<i class="sktab-arrow"></i></span>
                             </router-link2>
 
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/predict')}">
-                            <router-link2 :to="{name: 'football-detail-predict'}" replace>
+                            <router-link2 :to="{name: 'football-detail-predict', query: $route.query}" replace>
                                 <span data-p2="zq_detail" data-p4="predict">预测<i class="sktab-arrow"></i><em class="nav-yuce-liao " :class="{enter: !~$route.path.indexOf('/predict')}">料</em></span>
                             </router-link2>
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/odds')}">
-                            <router-link2 :to="{name: 'football-detail-odds-europe'}" replace>
+                            <router-link2 :to="{name: 'football-detail-odds-europe', query: $route.query}" replace>
                                 <span data-p2="zq_detail" data-p4="odds">赔率<i class="sktab-arrow"></i></span>
                             </router-link2>
                         </li>
                         <li
                                 :class="{cur: ~$route.path.indexOf('/comment')}">
-                            <router-link2 :to="{name: 'football-detail-comment'}" replace>
+                            <router-link2 :to="{name: 'football-detail-comment', query: $route.query}" replace>
                                 <span data-p2="zq_detail" data-p4="comment">聊球<i class="sktab-arrow"></i></span>
                             </router-link2>
                         </li>
 
                         <li
                                 :class="{cur: ~$route.path.indexOf('/crazybet')}">
-                            <router-link2 :to="{name: 'football-detail-crazybet'}" replace>
+                            <router-link2 :to="{name: 'football-detail-crazybet', query: $route.query}" replace>
                                 <span data-p2="zq_detail" data-p4="crazybet">猜球<i class="sktab-arrow"></i></span>
                             </router-link2>
                         </li>
@@ -303,7 +303,7 @@
                 if (this.match.status === StatusCode.NOT_STARTED) {
                     //  设置分享文案
                     nativeShare.setShareData({
-                        icon: 'http://www.500cache.com/news/images/m_logo.png',
+                        icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
                         link: location.href,
                         title: `${this.match.homesxname}vs${this.match.awaysxname} ${this.match.matchtime.substr(5, 2)}月${this.match.matchtime.substr(8, 2)}日${this.match.matchtime.substr(11, 5)}, 预测推荐>>`,
                         desc: `小伙伴一起来看赛事前瞻吧！`,
@@ -312,7 +312,7 @@
                 } else if (this.match.status === StatusCode.FIRST_HALF || this.match.status === StatusCode.MID || this.match.status === StatusCode.LAST_HALF) {
                     //  设置分享文案
                     nativeShare.setShareData({
-                        icon: 'http://www.500cache.com/news/images/m_logo.png',
+                        icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
                         link: location.href,
                         title: `正在直播：${this.match.homesxname}vs${this.match.awaysxname} 一起看球侃大山>>`,
                         desc: `小伙伴一起来看比赛吧！`,
@@ -321,7 +321,7 @@
                 } else if (this.match.status === StatusCode.ENDED) {
                     //  设置分享文案
                     nativeShare.setShareData({
-                        icon: this.match.homelogo,
+                        icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
                         link: location.href,
                         title: `${this.match.homesxname}${this.match.homescore}:${this.match.awayscore}${this.match.awaysxname} 技术统计+赛况详情，不复盘你怎么懂球>>`,
                         desc: `小伙伴一起来回顾比赛吧！`,
@@ -330,7 +330,7 @@
                 } else {
                     //  设置分享文案
                     nativeShare.setShareData({
-                        icon: this.match.homelogo,
+                        icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
                         link: location.href,
                         title: `${this.match.homesxname}vs${this.match.awaysxname} 实时比分`,
                         desc: `小伙伴一起来看比赛吧！`,

@@ -3,11 +3,11 @@
         <!--<if: tab === TabMap.ODDS />-->
         <div class="sk-detail-tap-box">
             <ul class="sk-detail-tap five">
-                <li :class="{cur: ~$route.path.indexOf('/europe')}"><router-link2 :to="{name: 'football-detail-odds-europe'}" replace>欧赔</router-link2></li>
-                <li :class="{cur: ~$route.path.indexOf('/asian')}"><router-link2 :to="{name: 'football-detail-odds-asian'}" replace>亚盘</router-link2></li>
-                <li :class="{cur: ~$route.path.indexOf('/rangqiu')}"><router-link2 :to="{name: 'football-detail-odds-rangqiu'}" replace>让球</router-link2></li>
-                <li :class="{cur: ~$route.path.indexOf('/daxiaopan')}"><router-link2 :to="{name: 'football-detail-odds-daxiaopan'}" replace>大小盘</router-link2></li>
-                <li :class="{cur: ~$route.path.indexOf('/bifa')}"><router-link2 :to="{name: 'football-detail-odds-bifa'}" replace>必发</router-link2></li>
+                <li :class="{cur: ~$route.path.indexOf('/europe')}"><router-link2 :to="{name: 'football-detail-odds-europe', query: $route.query}" replace>欧赔</router-link2></li>
+                <li :class="{cur: ~$route.path.indexOf('/asian')}"><router-link2 :to="{name: 'football-detail-odds-asian', query: $route.query}" replace>亚盘</router-link2></li>
+                <li :class="{cur: ~$route.path.indexOf('/rangqiu')}"><router-link2 :to="{name: 'football-detail-odds-rangqiu', query: $route.query}" replace>让球</router-link2></li>
+                <li :class="{cur: ~$route.path.indexOf('/daxiaopan')}"><router-link2 :to="{name: 'football-detail-odds-daxiaopan', query: $route.query}" replace>大小盘</router-link2></li>
+                <li :class="{cur: ~$route.path.indexOf('/bifa')}"><router-link2 :to="{name: 'football-detail-odds-bifa', query: $route.query}" replace>必发</router-link2></li>
             </ul>
 
         </div>
