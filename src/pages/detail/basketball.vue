@@ -94,23 +94,23 @@
             <div slot="navigator" class="navigator hide">
                 <ul>
                     <li :class="{cur: ~$route.path.indexOf('/situation')}">
-                        <router-link2 :to="{name: 'basketball-detail-situation-event'}" replace>
+                        <router-link2 :to="{name: 'basketball-detail-situation-event', query: $route.query}" replace>
                             <span>赛况<i class="sktab-arrow"></i></span>
                         </router-link2>
                     </li>
                     <li :class="{cur: ~$route.path.indexOf('/analysis')}" data-p2="lq_detail" data-p4="analysis">
-                        <router-link2 :to="{name: 'basketball-detail-analysis-zj'}" replace>
+                        <router-link2 :to="{name: 'basketball-detail-analysis-zj', query: $route.query}" replace>
                             <span>分析<i class="sktab-arrow"></i></span>
                         </router-link2>
 
                     </li>
                     <li :class="{cur: ~$route.path.indexOf('/odds')}">
-                        <router-link2 :to="{name: 'basketball-detail-odds-shengfu'}" replace>
+                        <router-link2 :to="{name: 'basketball-detail-odds-shengfu', query: $route.query}" replace>
                             <span>赔率<i class="sktab-arrow"></i></span>
                         </router-link2>
                     </li>
                     <li :class="{cur: ~$route.path.indexOf('/comment')}">
-                        <router-link2 :to="{name: 'basketball-detail-comment'}" replace>
+                        <router-link2 :to="{name: 'basketball-detail-comment', query: $route.query}" replace>
                             <span>聊球<i class="sktab-arrow"></i></span>
                         </router-link2>
                     </li>

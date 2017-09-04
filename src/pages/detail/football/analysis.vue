@@ -4,20 +4,20 @@
             <ul class="sk-detail-tap three">
                 <li data-type="zq_detail" data-tab="analysis_zj" data-event="click"
                     :class="{cur: ~$route.path.indexOf('/zj')}">
-                    <router-link2 :to="{name: 'football-detail-analysis-zj'}" replace  data-p2="zq_detail" data-p4="analysis_zj">战绩</router-link2>
+                    <router-link2 :to="{name: 'football-detail-analysis-zj', query: $route.query}" replace  data-p2="zq_detail" data-p4="analysis_zj">战绩</router-link2>
                 </li>
                 <li
                     :class="{cur: ~$route.path.indexOf('/js')}">
-                    <router-link2 :to="{name: 'football-detail-analysis-js'}" replace data-p2="zq_detail" data-p4="analysis_js">技术</router-link2>
+                    <router-link2 :to="{name: 'football-detail-analysis-js', query: $route.query}" replace data-p2="zq_detail" data-p4="analysis_js">技术</router-link2>
                 </li>
 
                 <li
                     :class="{cur: ~$route.path.indexOf('/pm')}">
-                    <router-link2 :to="{name: 'football-detail-analysis-pm'}" replace data-p2="zq_detail" data-p4="analysis_pm">盘面</router-link2>
+                    <router-link2 :to="{name: 'football-detail-analysis-pm', query: $route.query}" replace data-p2="zq_detail" data-p4="analysis_pm">盘面</router-link2>
                 </li>
                 <li
                     :class="{cur: ~$route.path.indexOf('/zr')}">
-                    <router-link2 :to="{name: 'football-detail-analysis-zr'}" replace data-p2="zq_detail" data-p4="analysis_zr">阵容</router-link2>
+                    <router-link2 :to="{name: 'football-detail-analysis-zr', query: $route.query}" replace data-p2="zq_detail" data-p4="analysis_zr">阵容</router-link2>
                 </li>
             </ul>
         </div>

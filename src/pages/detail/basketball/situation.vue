@@ -5,10 +5,10 @@
             <div class="sk-detail-tap-box sk-detail-tap-box2">
                 <ul class="sk-detail-tap">
                     <li :class="{cur:~$route.path.indexOf('/event')}">
-                        <router-link2 :to="{name: 'basketball-detail-situation-event'}" replace>事件</router-link2>
+                        <router-link2 :to="{name: 'basketball-detail-situation-event', query: $route.query}" replace>事件</router-link2>
                     </li>
                     <li :class="{cur:~$route.path.indexOf('/statistic')}">
-                        <router-link2 :to="{name: 'basketball-detail-situation-statistic'}" replace>统计</router-link2>
+                        <router-link2 :to="{name: 'basketball-detail-situation-statistic', query: $route.query}" replace>统计</router-link2>
                     </li>
                 </ul>
             </div>

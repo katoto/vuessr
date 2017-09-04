@@ -4,13 +4,13 @@
         <div class="sk-detail-tap-box sk-detail-tap-box2">
             <ul class="sk-detail-tap three">
                 <li :class="{cur:~$route.path.indexOf('/shengfu')}">
-                    <router-link2 :to="{name: 'basketball-detail-odds-shengfu'}" replace>胜负</router-link2>
+                    <router-link2 :to="{name: 'basketball-detail-odds-shengfu', query: $route.query}" replace>胜负</router-link2>
                 </li>
                 <li :class="{cur:~$route.path.indexOf('/rangfenpan')}">
-                    <router-link2 :to="{name: 'basketball-detail-odds-rangfenpan'}" replace>让分盘</router-link2>
+                    <router-link2 :to="{name: 'basketball-detail-odds-rangfenpan', query: $route.query}" replace>让分盘</router-link2>
                 </li>
                 <li :class="{cur:~$route.path.indexOf('/daxiaofen')}">
-                    <router-link2 :to="{name: 'basketball-detail-odds-daxiaofen'}" replace>大小分</router-link2>
+                    <router-link2 :to="{name: 'basketball-detail-odds-daxiaofen', query: $route.query}" replace>大小分</router-link2>
                 </li>
             </ul>
         </div>
