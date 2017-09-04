@@ -4,8 +4,10 @@
             <h2> 球队简介 </h2> </div>
         <article class="box-cont introduction" v-if="introStr">
             <section>
-                <p v-html="introStr">
-                </p>
+                <template v-for="(intro, idx) in introArr">
+                    <p>{{intro}}</p>
+                    <p v-if="idx !== introArr.length -1"></p>
+                </template>
             </section>
         </article>
         <div class="member-list member-empty" v-else>暂无数据</div>
@@ -17,11 +19,19 @@ export default {
     props: {
         introStr: String,
         required: true
+    },
+    computed: {
+        introArr() {
+            return this.introStr.split('<br/>')
+        }
     }
 }
 </script>
 
 <style lang="css" scoped>
+    .introduction p {
+        margin-bottom: .4rem;
+    }
     .main-box{width:100%;margin-bottom:.266667rem;background:#fff;border-top:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1}
     .box-tit{height:1.066667rem;border-bottom:1px solid #f1f1f1}
     .box-tit h2{font-size:.4rem;padding-left:.533333rem;line-height:1.066667rem}

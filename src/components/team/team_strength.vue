@@ -63,6 +63,26 @@ export default {
                 radar: {
                     indicator: indicatorArr,
                     center: ['50%', '50%'],
+                    splitNumber: 3,
+                    lineStyle: {
+                        normal: {
+                            width: 10,
+                            color: '#ed6d86'
+                        }
+                    },
+                    splitArea: {
+                        areaStyle: {
+                            color: '#fff',
+                            shadowColor: 'rgba(0, 0, 0, 0.3)',
+                            shadowBlur: 10
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: '#fae1e6',
+                            width: 2
+                        }
+                    },
                     name: {
                         textStyle: {
                             color: 'rgb(120, 120, 120)',
@@ -77,21 +97,21 @@ export default {
                     data: [
                         {
                             value: valueArr,
+                            symbol: 'circle',
+                            symbolSize: 15,
+                            lineStyle: {
+                                normal: {
+                                    type: 'solid',
+                                    width: 4,
+                                    color: '#ed6d86'
+                                }
+                            },
                             areaStyle: {
                                 normal: {
-                                    opacity: 0.5,
-                                    color: new echarts.graphic.RadialGradient(0.5, 0.5, 1, [
-                                        {
-                                            color: '#e4dce3',
-                                            offset: 0
-                                        },
-                                        {
-                                            color: '#d18962',
-                                            offset: 1
-                                        }
-                                    ])
+                                    opacity: 0.2,
+                                    color: '#ed6d86'
                                 }
-                            }
+                            },
                         }
                     ]
                 }]
