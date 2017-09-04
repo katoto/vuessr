@@ -247,7 +247,7 @@ const actionsInfo = mapActions({
             ajax.get(`/score/zq/predict_daxiaoqiu?fid=${fid}`),
             ajax.get(`/score/zq/predict_score?fid=${fid}`),
             ajax.get(`/score/zq/predict_half?fid=${fid}`),
-            ajax.get(`/library/sports/recommends?fid=${fid}`)
+            ajax.get(`/library/sports/recommends?fid=${fid}&t=` + new Date().getTime())
         ])
         // const [europe, asian, daxiaoqiu, score, half] = result.map(item => Object.keys(item).length ? item : null)
         const [europe, asian, daxiaoqiu, score, half, recommends] = result

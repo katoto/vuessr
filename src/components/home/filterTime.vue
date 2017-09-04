@@ -107,7 +107,7 @@
             goNext () {
                 const idx = this.expectList.indexOf(this.curExpect)
                 if (idx === 0) {
-                    this.onPre=false
+                    this.onPre = false
                 } else {
                     this.$router.replace({
                         name: 'home-zq-expect',

@@ -429,7 +429,7 @@
         }
     }
 </script>
-<style scoped>
+<style scoped >
     /*over*/
     /*弹层小按钮*/
     .yc-more {
@@ -451,6 +451,17 @@
         height: .346667rem;
         background: url(~assets/style/images/detail/icon_sprite.png) no-repeat -1.6rem 0;
         background-size: 1.92rem
+    }
+    .list-yuce .time::after, .list-yuce .view::after {
+        display: inline-block;
+        content: '';
+        width: .266667rem;
+        height: .266667rem;
+        background: url(~assets/style/images/detail/icon_sprite.png) no-repeat 0 -.586667rem;
+        background-size: 1.92rem;
+        position: absolute;
+        left: 0;
+        top: .066667rem;
     }
 
     /*over*/
