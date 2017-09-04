@@ -28,20 +28,22 @@
 
                     </template>
                     <template v-if="feature.a[match.status]"><!--正在开打-->
-                        <div class="game-lately score-half base-score-half">
+                        <div class="game-lately score-half base-score-half five-score">
                             <em class="first-half" v-if="ascore[0]">{{ascore[0]}}</em>
                             <em class="first-half" v-if="ascore[1]">{{ascore[1]}}</em>
                             <em class="first-half" v-if="ascore[2]">{{ascore[2]}}</em>
                             <em class="first-half" v-if="ascore[3]">{{ascore[3]}}</em>
+                            <em class="first-half" v-if="asadd">{{asadd}}</em>
                             <em class="second-half">{{match.awayscore}}</em>
                         </div>
                     </template>
                     <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
-                        <div class="game-lately score-half base-score-half">
+                        <div class="game-lately score-half base-score-half five-score">
                             <em class="first-half">{{ascore[0]}}</em>
                             <em class="first-half">{{ascore[1]}}</em>
                             <em class="first-half">{{ascore[2]}}</em>
                             <em class="first-half">{{ascore[3]}}</em>
+                            <em class="first-half" v-if="asadd">{{asadd}}</em>
                             <em class="second-half had-over">{{match.awayscore}}</em>
                         </div>
                     </template>
@@ -57,21 +59,23 @@
                         {{match.extra_info.homerecord}}
                     </div>
                     <template v-if="feature.a[match.status]"><!--正在开打-->
-                        <div class="game-lately score-half base-score-half">
+                        <div class="game-lately score-half base-score-half five-score">
                             <em class="first-half" v-if="hscore[0]">{{hscore[0]}}</em>
                             <em class="first-half" v-if="hscore[1]">{{hscore[1]}}</em>
                             <em class="first-half" v-if="hscore[2]">{{hscore[2]}}</em>
                             <em class="first-half" v-if="hscore[3]">{{hscore[3]}}</em>
+                            <em class="first-half" v-if="hsadd">{{hsadd}}</em>
                             <!--<em class="second-half">{{match.homescore}}</em>-->
                             <move class="second-half" :score="match.homescore" ready="true"></move>
                         </div>
                     </template>
                     <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
-                        <div class="game-lately score-half base-score-half">
+                        <div class="game-lately score-half base-score-half five-score">
                             <em class="first-half">{{hscore[0]}}</em>
                             <em class="first-half">{{hscore[1]}}</em>
                             <em class="first-half">{{hscore[2]}}</em>
                             <em class="first-half">{{hscore[3]}}</em>
+                            <em class="first-half" v-if="hsadd">{{hsadd}}</em>
                             <em class="second-half had-over">{{match.homescore}}</em>
                             <!--<move class="second-half" :score="match.homescore" ready="true"></move>-->
                         </div>
@@ -396,6 +400,13 @@
             doConcern () {
                 this.$store.dispatch('ensureLogin')
                 this.$store.dispatch(aTypes.doConcern, {fid: this.match.fid, vtype: '2'})
+            },
+            add (itm) {
+                let sum = 0
+                itm.map((item) => {
+                    sum += Number(item)
+                })
+                return sum
             }
         },
         computed: {
@@ -409,21 +420,19 @@
                 return `/detail/basketball/${this.match.fid}/situation/event`
             },
             ascore () {
-                return this.match.ascore && this.match.ascore.substr(0, this.match.ascore.indexOf('/')).split('-')
+                return this.match.ascore && this.match.ascore.split('/')[0].split('-')
+//                return this.match.ascore && this.match.ascore.substr(0,this.match.ascore.indexOf('/')).split('-')
             },
             hscore () {
-                return this.match.hscore && this.match.hscore.substr(0, this.match.hscore.indexOf('/')).split('-')
+                return this.match.hscore && this.match.hscore.split('/')[0].split('-')
             },
-            ascoreAdd () {
-                let add = this.match.ascore && this.match.ascore.split('/')[1].split('-')
-                let sum = 0
-                return add.map(item => sum += item)
+            asadd () {
+                return this.match.ascore && this.match.ascore.split('/')[1] && this.add(this.match.ascore.split('/')[1].split('-'))
             },
-            hscoreAdd () {
-                let add = this.match.hscore && this.match.hscore.split('/')[1].split('-')
-                let sum = 0
-                return add.map(item => sum += item)
+            hsadd () {
+                return this.match.hscore && this.match.hscore.split('/')[1] && this.add(this.match.hscore.split('/')[1].split('-'))
             }
+
         },
         directives: {
             scrollText
