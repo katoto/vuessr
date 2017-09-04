@@ -112,7 +112,7 @@ export default {
                                     opacity: 0.2,
                                     color: '#ed6d86'
                                 }
-                            },
+                            }
                         }
                     ]
                 }]
