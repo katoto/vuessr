@@ -407,10 +407,10 @@
                 return `/detail/basketball/${this.match.fid}/situation/event`
             },
             ascore () {
-                return this.match.ascore && this.match.ascore.substr(0,this.match.ascore.indexOf('/')).split('-')
+                return this.match.ascore && this.match.ascore.substr(0, this.match.ascore.indexOf('/')).split('-')
             },
             hscore () {
-                return this.match.hscore && this.match.hscore.substr(0,this.match.hscore.indexOf('/')).split('-')
+                return this.match.hscore && this.match.hscore.substr(0, this.match.hscore.indexOf('/')).split('-')
             }
         },
         directives: {
