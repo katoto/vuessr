@@ -22,8 +22,8 @@
                     jczq: 0,
                     all: 0,
                     crazybet: 0,
-                    hot: 0,
-                    zs: 1,
+                    zs: 0,
+                    hot: 1,
                     concern: 2,
                     sfc: 2,
                     csl: 2,
@@ -110,8 +110,7 @@
     }
 
     .item-tab ul {
-        width: 14rem;
-        /*overflow-x: scroll*/
+        width: 13.8rem;
     }
 
     .item-tab li {
@@ -125,7 +124,7 @@
     }
 
     .item-tab li:last-child {
-        margin-right: .066667rem
+        padding-right:0.4rem
     }
 
     .item-tab li:active {

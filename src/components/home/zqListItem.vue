@@ -97,8 +97,8 @@
                 </template>
                 <template v-if="feature.e[match.status]"><!--正在开打-->
                     <template v-if="match.extra_info && match.extra_info.ishasvideo === '1'">
-                        <div class="btn-live" v-tap="{methods: goPath}">直播</div>
-                        <div class="follow had-follow mid-live" v-if="match.status === StatusCode.MID">中场</div>
+                        <div class="btn-live" v-tap="{methods: goPath}">视频</div>
+                        <div class="follow had-follow mid-live mid-live-video" v-if="match.status === StatusCode.MID">中场</div>
                         <div class="live-time" v-else>{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
 
                     </template>
@@ -139,6 +139,7 @@
     .two_blank {
         margin-right: .133333rem;
     }
+
     @keyframes dianstyle {
         0% {
             opacity: 1
@@ -384,6 +385,22 @@
 
     .mid-live {
         color: #36a171;
+    }
+    .mid-live-video {
+        margin-top: .186667rem;
+    }
+    .live-time i{-webkit-animation:flash 1s 1s ease infinite;-moz-animation:flash 1s 1s ease infinite;}
+    @-webkit-keyframes flash{
+    0%,50%,100%
+    {opacity: 1;}
+    25%,75%
+    {opacity: 0;}
+    }
+    @-moz-keyframes flash{
+    0%,50%,100%
+    {opacity: 1;}
+    25%,75%
+    {opacity: 0;}
     }
 </style>
 <script>
