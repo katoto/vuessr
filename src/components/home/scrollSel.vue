@@ -110,8 +110,7 @@
     }
 
     .item-tab ul {
-        width: 14rem;
-        /*overflow-x: scroll*/
+        width: 13.8rem;
     }
 
     .item-tab li {
@@ -125,7 +124,7 @@
     }
 
     .item-tab li:last-child {
-        margin-right: .066667rem
+        padding-right:0.4rem
     }
 
     .item-tab li:active {

@@ -73,7 +73,7 @@
                     }
                     this.selectOptions = selectOptions
                     let leagueNameList = Object.keys(selectOptions)
-                    leagueNameList.sort((a, b) => a.localeCompare(b))
+                    leagueNameList.sort((a, b) => -a.localeCompare(b))
                     this.leagueNameList = leagueNameList
                     this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
                 }
