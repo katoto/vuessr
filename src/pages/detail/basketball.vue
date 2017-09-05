@@ -882,13 +882,13 @@
 .navigator .nav-guess::after {
     content: '';
     display: block;
-    width: 35px;
-    height: 14px;
+    width: 0.4667rem;
+    height: 0.1866rem;
     background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAOCAMAAACSNVWDAAAAclBMVEUAAADlSTHlSTHlSTHlSTHlSTHkSTHlSTHlSTHlSTHlSTHlSTHlSTHlSTHlSTHkSTHlSTHkSTHlSTHkSTHkSTHkSTLkSTHlSTLkSTHlSTHkSTHkSTHkSTHkSTHlSjLkSTHlSTHlSTLlSTHkSTHkSTHlSTFTN8UVAAAAJXRSTlMAS3fMaSnfuKEj7sOmf1VDBPzWsINnOBEK9fLpq5ZyTz4xHXBj5h9i+AAAALpJREFUGNONkesOgjAMhY/TDYZyEwS8K3re/xVtwch+CSfZSZt9bdMUds3/WlsIMgeh5KygtoK022EjgcoBCW9oSIsoYPIv88yyjF6+nihOibyJ6VCNzFXzN+oEQBShCWbVsPHAtN5njHGv4JGmMAGzveMxMDbPX3Tob4iRrxCFzL7ANIsWfXf0XVscQ4aHkamdc9TkodaQIXNuf7tTdkTKi5oKpVhspPZiKglU5NmYPRM1UbnkFktu+gHlfC6LgIIIigAAAABJRU5ErkJggg==") no-repeat;
     background-size: contain;
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 0.133rem;
+    right: 0.133rem;
 }
 .navigator li span {
     color: rgba(36, 44, 53, .8);
@@ -901,7 +901,7 @@
     color: rgba(36, 44, 53, 1);
 }
 .navigator li .sktab-arrow {
-    height: 4px;
+    height: 0.0533rem;
     overflow: hidden;
     background: #242c35;
     width: 100%;

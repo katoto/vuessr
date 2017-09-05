@@ -2,7 +2,7 @@
     <div class="popBox l-full l-flex-column ">
         <div class="popTopbar"  v-tap="{methods: closeDialog}"></div>
         <div class="popInner">
-            <div class="full-scroll l-full l-scroll-y">
+            <div class=" l-full l-scroll-y">
                 <div class="popDetail" v-for="item,index in probability.detail">
                     <h4 class="popTit">{{item.company}}</h4>
                     <ul class="dataItem dataItem-tit">
