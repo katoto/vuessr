@@ -84,7 +84,6 @@
         </div>
         <view-empty v-else></view-empty>
     </section>
-
 </template>
 
 <script>

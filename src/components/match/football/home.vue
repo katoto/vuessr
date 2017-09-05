@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <view-empty v-if="!homeData.values.length"></view-empty>
+        <view-empty v-if="!homeData.values"></view-empty>
     </section>
 </template>
 
