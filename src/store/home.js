@@ -134,7 +134,7 @@ const actionsInfo = mapActions({
                 return true
             }
         })
-        matchesInfo.matches[0].status = '1'
+        matchesInfo.matches[0] && (matchesInfo.matches[0].status = '1')
         existNotStartMatch = matchesInfo.matches.some(match => {
             return match.status === '0'
         })

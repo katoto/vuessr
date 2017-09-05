@@ -649,8 +649,8 @@
                                 date: this.match.matchtime
                             })
 
-                                //                                sameOddsInfo.s1 = currentInfo.first.home
-                                //                                sameOddsInfo.s2 = currentInfo.first.away
+                            //                                sameOddsInfo.s1 = currentInfo.first.home
+                            //                                sameOddsInfo.s2 = currentInfo.first.away
 
                             sameOddsInfo.big = currentInfo.first.big
                             sameOddsInfo.small = currentInfo.first.small

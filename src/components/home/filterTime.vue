@@ -66,7 +66,7 @@
             },
             initPreAndNext (curExpect) {
                 const idx = this.expectList.indexOf(curExpect)
-                if (idx === this.expectList.length - 1) {  // expectList是反的所以这么写
+                if (idx === this.expectList.length - 1) { // expectList是反的所以这么写
                     this.onPre = true
                 } else {
                     this.onPre = false
@@ -91,7 +91,7 @@
             },
             goPre () {
                 const idx = this.expectList.indexOf(this.curExpect)
-                if (idx === this.expectList.length - 1) {   // expectList是反的所以这么写
+                if (idx === this.expectList.length - 1) { // expectList是反的所以这么写
                 } else {
                     this.$router.replace({
                         name: 'home-zq-expect',
