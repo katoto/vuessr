@@ -45,7 +45,6 @@
 
     .item-tab ul {
         width: 12rem;
-        overflow-x: scroll
     }
 
     .item-tab li {
