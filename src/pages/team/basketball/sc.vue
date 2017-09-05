@@ -1,9 +1,10 @@
 <template>
 <div class="l-full matches">
-    <div class="list-view" style="height: 100%;overflow-y: auto;-webkit-overflow-scrolling: touch">
+    <div class="list-view" style="height: 100%;overflow-y: auto;-webkit-overflow-scrolling: touch" v-if="teamMatches">
         <schedule-list :teamMatches="teamMatches" v-if="noEmptyFlag"></schedule-list>
         <prompt v-else type="no-data" tip0="暂无数据" />
     </div>
+    <loader v-else></loader>
 </div>
 </template>
 
@@ -13,13 +14,14 @@ import {
 } from '~store/team/lq'
 import Prompt from '~components/prompt.vue'
 import scheduleList from '~components/team/schedule_list_lq.vue'
+import loader from '~components/match/loader.vue'
 
 export default {
     async asyncData ({store, route: {params: {tid, sid}}}) {
         await store.dispatch(aTypes.getTeamMatches, {tid, sid})
     },
     components: {
-        Prompt, scheduleList
+        Prompt, scheduleList, loader
     },
     computed: {
         teamMatches () {
