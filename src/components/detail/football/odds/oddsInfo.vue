@@ -328,7 +328,7 @@
                                                     ||
                                                     '&#45;&#45;'}}</em><em>{{match.s2 || '&#45;&#45;'}}</em></p>
                                             </td>
-                                            <td class=" result-last result-level"
+                                            <td class=" result-last"
                                                 :class="{'result-win':match.result=='赢','result-level':match.result=='走','result-lose':match.result=='输'}">
                                                 <span>{{match.result}}</span>
                                             </td>
@@ -960,8 +960,9 @@
     }
 
     .disc em:nth-child(2) {
-        width: 1.2rem;
+        /*width: 1.2rem;*/
         text-align: center;
+        width:60%;
     }
 
     .disc em {
