@@ -155,7 +155,7 @@
     }
 
     .filter-time .today {
-        width: 4.906667rem;
+        width: 4.8rem;
         height: 1.066667rem;
         line-height: 1.066667rem;
         float: left;
@@ -292,17 +292,19 @@
     .select-all {
         width: 8.4rem;
         margin: 0 auto;
-        overflow: hidden
+        height:0.8rem;
+        margin-top: 0.5rem;
     }
 
     .select-all li {
         padding: .133333rem .266667rem;
         border: 1px solid #eaeaea;
-        border-radius: .32rem;
+        border-radius: .45rem;
         font-size: .293333rem;
         color: #aab5bd;
         float: left;
-        margin-right: .266667rem
+        margin-right: .266667rem;
+        box-sizing: border-box;
     }
 
     .select-all li:active {

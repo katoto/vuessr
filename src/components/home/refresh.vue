@@ -43,8 +43,8 @@
     }
 
     .refresh-box {
-        width: 1.066667rem;
-        height: 1.066667rem;
+        width: 1.08rem;
+        height: 1.08rem;
         border-radius: 50%;
         position: fixed;
         bottom: 1rem;

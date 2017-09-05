@@ -155,7 +155,7 @@
     }
 
     .filter-time .today {
-        width: 4.906667rem;
+        width: 4.8rem;
         height: 1.066667rem;
         line-height: 1.066667rem;
         float: left;
@@ -189,7 +189,7 @@
         width: .96rem;
         height: 1.066667rem;
         position: relative;
-        float: right
+        float: right;
     }
 
     .filter-time .next-day span {
@@ -248,11 +248,11 @@
         height: .853333rem;
         line-height: .853333rem;
         float: left;
-        margin-right: .373333rem;
+        margin-right: .378rem;
         background: #ebf1f5;
         color: #242c35;
         text-align: center;
-        border-radius: .16rem;
+        border-radius: .1067rem;
         margin-bottom: .266667rem
     }
 
@@ -265,6 +265,8 @@
         background: #5c788f;
         color: #fff
     }
+
+
 
     .filter-time .today span {
         display: inline-block;

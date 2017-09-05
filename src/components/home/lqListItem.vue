@@ -136,7 +136,7 @@
         color: #d25138;
         font-size: .266667rem;
         padding: 0 .066667rem;
-        border: 1px solid #d25138;
+        border: 1px solid rgba(210,81,56,.4);
         height: .346667rem;
         line-height: .346667rem;
         margin-left: .133333rem;
@@ -189,18 +189,24 @@
     .game-name em {
         font-size: .293333rem;
         color: #aab5bd;
-        margin-left: .13333rem
+        margin-left: .13333rem;
+        position: relative;
+        top:-0.05rem;
     }
 
     .game-name .red-c {
         display: inline-block;
-        width: .213333rem;
-        height: .266667rem;
-        line-height: .266667rem;
+        width: .24rem;
+        height: .2933rem;
+        line-height: 0.2933rem;
         background: #f44336;
         color: #fff;
         font-size: .24rem;
-        text-align: center
+        text-align: center;
+        box-sizing: border-box;
+        padding-top: 0.01rem;
+        position: relative;
+        top:-0.05rem;
     }
 
     .game-name img {
@@ -220,7 +226,7 @@
     .game-lately {
         color: #aab5bd;
         font-size: .293333rem;
-        float: right
+        float: right; height:0.866rem;line-height: 0.866rem;
     }
     .game-detail-r {
         float: left;
@@ -261,7 +267,7 @@
 
     .follow {
         font-size: .346667rem;
-        color: #d25138;
+        color: #5c788f;
         width: 1.2rem;
         margin: 0 auto;
         height: .533333rem;
@@ -274,7 +280,7 @@
         transform: translateY(-50%);
         left: 50%;
         margin-left: -.6rem;
-        border-radius: .026667rem
+        border-radius: .0533rem
     }
 
     .had-follow {
@@ -313,7 +319,7 @@
     .score-half .first-half {
         font-size: .346667rem;
         color: #aab5bd;
-        width: .496667rem;
+        width: .58rem;
         text-align: right;
         display: inline-block;
         height: .64rem;

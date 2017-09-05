@@ -26,6 +26,7 @@
         color: #242c35;
         height: .933333rem;
         line-height: .933333rem;
+        line-height: .933333rem;
         width: 100%;
         overflow: hidden
     }
@@ -64,7 +65,7 @@
     .item-tab li:active {
         background: #f4f4f4
     }
-
+    .item-tab li a{text-decoration: none;}
     .item-tab .cur {
         color: #d25138
     }

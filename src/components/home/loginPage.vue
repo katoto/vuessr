@@ -1,8 +1,8 @@
 <template>
-    <div class="ui-empty"><img src="http://tccache.500.com/mobile/widget/empty/images/10.png" class="w240">
-
+    <div class="ui-empty l-full l-flex-column l-box-center l-box-vertical-center ">
+        <img src="http://tccache.500.com/mobile/widget/empty/images/10.png" class="w240">
         <p class="ui-empty-gfont">登录后即可关注你喜欢的比赛</p>
-        <button class="ui-empty-btn" style="margin-top: 25px;" v-tap="{methods: doLogin}">点我登录</button></div>
+        <button class="ui-empty-btn"  v-tap="{methods: doLogin}">点我登录</button></div>
 </template>
 <script>
     export default {
@@ -14,12 +14,9 @@
     }
 </script>
 <style scoped>
-    .ui-empty {
-        padding: 2.72rem 0;
-        text-align: center;
-    }
     .ui-empty .w240 {
         width: 3.2rem;
+        height:3.2rem;
     }
     .ui-empty img {
         margin-bottom: 0.933333rem;
@@ -45,4 +42,5 @@
         background: #fff;
         width: 4.666667rem;
     }
+    .ui-empty-btn:active{opacity: 0.75}
 </style>

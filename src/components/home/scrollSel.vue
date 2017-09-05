@@ -110,14 +110,14 @@
     }
 
     .item-tab ul {
-        width: 13.5rem;
+        width: 14rem;
         /*overflow-x: scroll*/
     }
 
     .item-tab li {
         float: left;
         position: relative;
-        padding: 0 .333333rem
+        padding: 0 .36rem
     }
 
     .item-tab li:nth-child(1) {
@@ -131,7 +131,7 @@
     .item-tab li:active {
         background: #f4f4f4
     }
-
+    .item-tab li a{text-decoration: none;}
     .item-tab .cur {
         color: #d25138
     }

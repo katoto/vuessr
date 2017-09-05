@@ -181,7 +181,7 @@
     }
 
     .filter-time .today {
-        width: 4.906667rem;
+        width: 4.8rem;
         height: 1.066667rem;
         line-height: 1.066667rem;
         float: left;
@@ -302,16 +302,11 @@
         color: #aab5bd
     }
 
-    .week-tit ul {
-        overflow: hidden;
-        clear: both
-    }
-
     .week-tit ul li {
         float: left;
         width: .88rem;
         text-align: center;
-        margin-right: .293333rem
+        margin-right: .346667rem
     }
 
     .week-tit ul li:last-child {
@@ -324,23 +319,20 @@
         color: #242c35
     }
 
-    .weeker-item ul {
-        overflow: hidden;
-        clear: both
-    }
-
     .weeker-item ul li {
         height: .88rem;
-        line-height: .88rem;
-        margin-top: .133333rem
+        line-height: .88rem
     }
 
+    .week-tit ul li:nth-child(7),.weeker-item ul li:nth-child(7n) {
+        margin-right: 0;
+        float: right
+    }
     .weeker-item ul .cur {
         background: #d25138;
         border-radius: 50%;
         color: #fff
     }
-
     @keyframes appear {
         0% {
             /*transform: translate(-2.32rem,-3.49333rem);*/

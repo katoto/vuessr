@@ -235,11 +235,11 @@
         height: .853333rem;
         line-height: .853333rem;
         float: left;
-        margin-right: .373333rem;
+        margin-right: .38rem;
         background: #ebf1f5;
         color: #242c35;
         text-align: center;
-        border-radius: .16rem;
+        border-radius: .1067rem;
         margin-bottom: .266667rem
     }
 
@@ -256,18 +256,18 @@
     .select-all {
         width: 8.4rem;
         margin: 0 auto;
-        overflow: hidden
+        height:0.8rem;
+        margin-top: 0.5rem;
     }
-
     .select-all li {
-
         padding: .133333rem .266667rem;
         border: 1px solid #eaeaea;
-        border-radius: .32rem;
+        border-radius: .45rem;
         font-size: .293333rem;
         color: #aab5bd;
         float: left;
-        margin-right: .266667rem
+        margin-right: .266667rem;
+        box-sizing: border-box;
     }
 
     .select-all li:active {
