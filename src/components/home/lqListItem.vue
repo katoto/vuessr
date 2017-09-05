@@ -294,7 +294,7 @@
         margin-left: -.6rem;
         border-radius: .0533rem
     }
-
+    .follow:active{background: #f4f4f4;}
     .had-follow {
         color: #aab5bd;
         border: none
