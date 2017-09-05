@@ -4,9 +4,9 @@
         >
         <!-- 比赛时间信息 、猜球、有料、加时 -->
         <div class="game-info">
-            {{match.order}}&nbsp;&nbsp;{{match.simpleleague}}&nbsp;
+            {{match.order}}<span class="two_blank" v-if="match.order"></span>{{match.simpleleague}}<span class="two_blank" v-if="match.simpleleague"></span>
 
-            <span v-if="match.status == StatusCode.ENDED">总分 {{match.total}}&nbsp;</span>
+            <span v-if="match.status == StatusCode.ENDED">总分 {{match.total}}<span class="two_blank" v-if="match.status == StatusCode.ENDED"></span></span>
 
             <div class="game-info-r">{{match.matchtime.substring(5, 16)}}</div>
         </div>
@@ -118,6 +118,13 @@
 
 </template>
 <style scoped>
+    .one_blank {
+        margin-right: .073333rem;
+    }
+
+    .two_blank {
+        margin-right: .133333rem;
+    }
     .base-score-half .second-half.had-over {
         color: #242c35
     }

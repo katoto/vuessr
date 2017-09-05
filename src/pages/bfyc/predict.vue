@@ -27,7 +27,7 @@
                         <p v-html="good_news">
                         </p>
                     </div>
-                    <template v-if="matches">
+                    <template v-if="matches && matches.length">
                         <template v-if="matches.length">
                             <ul>
                                 <template v-for="match,idx in matches" v-if="match.status !== '4'">

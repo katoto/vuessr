@@ -16,7 +16,7 @@
             <router-view/>
 
         </div>
-        <refresh/>
+        <refresh v-if="!(~this.$route.path.indexOf('/home/zq/zs'))"/>
         <switch-comp v-if="switchShow"></switch-comp>
     </div>
 

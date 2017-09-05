@@ -57,8 +57,9 @@ export default {
             })
 
             let fontSize = window.lib.flexible.rem2px(0.310)
-            let symbolSize = window.lib.flexible.rem2px(0.071)
+            let symbolSize = window.lib.flexible.rem2px(0.101)
             let lineSize = window.lib.flexible.rem2px(0.032)
+            let splitLineSize = window.lib.flexible.rem2px(0.0159)
 
             return {
                 radar: {
@@ -78,10 +79,16 @@ export default {
                             shadowBlur: 10
                         }
                     },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#fae1e6',
+                            width: splitLineSize
+                        }
+                    },
                     splitLine: {
                         lineStyle: {
                             color: '#fae1e6',
-                            width: 2
+                            width: splitLineSize
                         }
                     },
                     name: {

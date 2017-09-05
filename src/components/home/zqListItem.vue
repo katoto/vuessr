@@ -4,9 +4,9 @@
         >
         <!-- 比赛时间信息 、猜球、有料、加时 -->
         <div class="game-info">
-            {{match.order}}&nbsp;&nbsp;{{match.simpleleague}}&nbsp;
+            {{match.order}}<span class="two_blank" v-if="match.order"></span>{{match.simpleleague}}<span class="two_blank" v-if="match.simpleleague"></span>
 
-            <span v-if="match.status == StatusCode.ENDED && match.extra_exist == '1'">加时 {{match.extra_time_score}}&nbsp;</span>
+            <span v-if="match.status == StatusCode.ENDED && match.extra_exist == '1'">加时 {{match.extra_time_score}}<span class="two_blank" v-if="match.status == StatusCode.ENDED && match.extra_statusid == '13'"></span></span>
             <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '13'">点球 {{match.spot_kick_score}}</span>
 
             <template v-if="feature.d[match.status] && match.extra_info">
@@ -132,7 +132,13 @@
         -webkit-animation: dianstyle 1s ease-out 0s infinite alternate;
         font-size: 0.4rem;
     }
+    .one_blank {
+        margin-right: .073333rem;
+    }
 
+    .two_blank {
+        margin-right: .133333rem;
+    }
     @keyframes dianstyle {
         0% {
             opacity: 1
