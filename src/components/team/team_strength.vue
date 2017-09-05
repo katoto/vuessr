@@ -56,14 +56,14 @@ export default {
                 return this.strength[type][0]
             })
 
-            let fontSize = window.lib.flexible.rem2px(0.375)
-            let symbolSize = window.lib.flexible.rem2px(0.051)
+            let fontSize = window.lib.flexible.rem2px(0.310)
+            let symbolSize = window.lib.flexible.rem2px(0.071)
             let lineSize = window.lib.flexible.rem2px(0.032)
 
             return {
                 radar: {
                     indicator: indicatorArr,
-                    center: ['50%', '50%'],
+                    center: ['50%', '55%'],
                     splitNumber: 3,
                     lineStyle: {
                         normal: {
