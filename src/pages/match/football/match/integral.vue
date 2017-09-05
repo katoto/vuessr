@@ -11,23 +11,21 @@
 
         <!--总榜-->
         <template v-if="tab === 'all'">
-            <all :allData="allData"></all>
+            <all :allData="allData" v-if="allData"></all>
         </template>
 
         <!--主场-->
         <template v-if="tab === 'home' ">
-            <home :homeData="homeData"></home>
+            <home :homeData="homeData" v-if="homeData"></home>
         </template>
 
         <!--客场-->
         <template v-if="tab === 'away' ">
-            <away :awayData="awayData"></away>
+            <away :awayData="awayData" v-if="awayData"></away>
         </template>
-
-        <view-empty v-if="!Object.keys(allData.values).length"></view-empty>
     </div>
-
     <loader v-else></loader>
+
 </template>
 
 <script>
