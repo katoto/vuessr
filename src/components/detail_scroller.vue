@@ -101,6 +101,8 @@
                     }
                     if (top === this.contentHeight - this.containerHeight && top && outTouch) {
                         this.$emit('end')
+                    } else if (this.contentHeight < this.containerHeight && outTouch) {
+                        this.$emit('end')
                     }
                 }, {
                     bouncing: false,
@@ -108,15 +110,6 @@
                     scrollingY: true
                 })
                 this.scrollerObj.setDimensions(this.width, this.containerHeight, this.width, this.contentHeight)
-                function findA (ele) {
-                    if (!ele) {
-                        return null
-                    } else if (ele.tagName === 'A') {
-                        return ele
-                    } else if (ele.tagName === 'BODY') {
-                        return null
-                    } else return findA(ele.parentNode)
-                }
                 this.container.addEventListener('touchstart', (e) => {
                     outTouch = false
                     // Don't react if initial down happens on a form element
