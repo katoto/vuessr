@@ -227,15 +227,15 @@
         font-size: 60px
     }
 
-    [data-dpr="1"] .jxyc .mark-demo-r em,[data-dpr="1"] .zjtz .mark-demo-r em {
+    [data-dpr="1"] .jxyc .mark-demo-r em,[data-dpr="1"] .zjtz .mark-demo-r em, [data-dpr="1"] .sldb .mark-demo-r em {
         font-size: 24px
     }
 
-    [data-dpr="2"] .jxyc .mark-demo-r em,[data-dpr="2"] .zjtz .mark-demo-r em {
+    [data-dpr="2"] .jxyc .mark-demo-r em,[data-dpr="2"] .zjtz .mark-demo-r em, [data-dpr="2"] .sldb .mark-demo-r em {
         font-size: 48px
     }
 
-    [data-dpr="3"] .jxyc .mark-demo-r em,[data-dpr="3"] .zjtz .mark-demo-r em {
+    [data-dpr="3"] .jxyc .mark-demo-r em,[data-dpr="3"] .zjtz .mark-demo-r em, [data-dpr="3"] .sldb .mark-demo-r em {
         font-size: 72px
     }
 
