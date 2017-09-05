@@ -1,5 +1,5 @@
 <template>
-    <div class="l-full l-flex-column">
+    <div class="l-full l-flex-column" v-if="allData">
         <!--二级菜单选择总榜主场客场-->
         <div class="sk-detail-tap-box three" v-if="iscup && iscup === '0' ">
             <ul class="sk-detail-tap three">
@@ -24,7 +24,10 @@
             <away :awayData="awayData"></away>
         </template>
 
+        <view-empty v-if="!Object.keys(allData.values).length"></view-empty>
     </div>
+
+    <loader v-else></loader>
 </template>
 
 <script>
@@ -32,9 +35,11 @@
     import all from '~components/match/football/all.vue'
     import home from '~components/match/football/home.vue'
     import away from '~components/match/football/away.vue'
+    import viewEmpty from '~components/match/view_empty.vue'
+    import loader from '~components/match/loader.vue'
     export default{
         components: {
-            all, away, home
+            all, away, home, viewEmpty, loader
         },
         data () {
             return {

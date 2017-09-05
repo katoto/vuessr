@@ -109,11 +109,7 @@
         </div>
 
 
-<<<<<<< HEAD
         <div class="inte-look zhedie" v-if="leagueRank && leagueRank.issame === '1'" v-tap="{methods: ()=>{$router.push('/center/footballmatch/'+match.seasonid+'/integral')}}">完整积分榜></div>
-=======
-        <div class="inte-look zhedie" v-if="leagueRank && leagueRank.issame === '1'" v-tap="{methods: ()=>{$router.push('/center/footballmatch/'+match.seasonid+'/integral')}}">完整积分榜&gt;</div>
->>>>>>> 5122b4037ecb65cb0591c693e9b1c7f0aa15de2a
 
         <div class="zhedie-box zhedie-box-wl" v-if="cupRank && cupRank.length && match.stagemode==='2'">
             <div class="zj-nav">

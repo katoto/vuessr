@@ -1,5 +1,5 @@
 <template>
-    <section class="l-flex-1 l-relative" v-if="allData">
+    <section class="l-flex-1 l-relative" v-if="allData.values">
         <div class=" l-full l-scroll-y">
             <!--有分组-->
             <div class="inte-main">
@@ -84,6 +84,7 @@
         </div>
         <view-empty v-if="!Object.keys(allData.values).length"></view-empty>
     </section>
+    <loader v-else></loader>
 
 </template>
 
@@ -91,12 +92,13 @@
     import viewEmpty from '~components/match/view_empty.vue'
     import style from '~directives/style'
     import logo from '~directives/logo'
+    import loader from '~components/match/loader.vue'
     export default{
         directives: {
             style, logo
         },
         components: {
-            viewEmpty
+            viewEmpty, loader
         },
         props: ['allData'],
         methods: {
