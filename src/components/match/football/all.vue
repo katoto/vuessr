@@ -1,6 +1,6 @@
 <template>
-    <section class="l-flex-1 l-relative" v-if="allData.values">
-        <div class=" l-full l-scroll-y">
+    <section class="l-flex-1 l-relative">
+        <div class=" l-full l-scroll-y" v-if="allData.values">
             <!--有分组-->
             <div class="inte-main">
                 <div class="games-list games-group" v-if="allData['rettype'] === 'object' ">
@@ -82,10 +82,8 @@
                 </li>
             </ul>
         </div>
-        <view-empty v-if="!Object.keys(allData.values).length"></view-empty>
+        <view-empty v-else></view-empty>
     </section>
-    <loader v-else></loader>
-
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="l-full l-flex-column" v-if="allData">
+    <div class="l-full l-flex-column">
         <!--二级菜单选择总榜主场客场-->
         <div class="sk-detail-tap-box three" v-if="iscup && iscup === '0' ">
             <ul class="sk-detail-tap three">
@@ -11,23 +11,24 @@
 
         <!--总榜-->
         <template v-if="tab === 'all'">
-            <all :allData="allData"></all>
+            <all :allData="allData" v-if="allData"></all>
+            <loader v-else></loader>
         </template>
 
         <!--主场-->
         <template v-if="tab === 'home' ">
-            <home :homeData="homeData"></home>
+            <home :homeData="homeData" v-if="homeData"></home>
+            <loader v-else></loader>
         </template>
 
         <!--客场-->
         <template v-if="tab === 'away' ">
-            <away :awayData="awayData"></away>
+            <away :awayData="awayData" v-if="awayData"></away>
+            <loader v-else></loader>
         </template>
-
-        <view-empty v-if="!Object.keys(allData.values).length"></view-empty>
     </div>
+    <!--<loader v-else></loader>-->
 
-    <loader v-else></loader>
 </template>
 
 <script>
@@ -61,7 +62,9 @@
             }
         },
         mounted () {
-            this.getAll()
+            if(this.iscup){
+                this.getAll()
+            }
         },
         watch: {
             '$route' () {
