@@ -63,7 +63,7 @@ export default {
             return {
                 radar: {
                     indicator: indicatorArr,
-                    center: ['50%', '50%'],
+                    center: ['50%', '55%'],
                     splitNumber: 3,
                     lineStyle: {
                         normal: {
