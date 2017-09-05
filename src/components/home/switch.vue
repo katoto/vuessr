@@ -52,10 +52,10 @@
             initView () {
                 if (~this.$route.path.indexOf('/zq')) {
                     this.tab = true
-                    this.$store.commit(mTypes.setZqView, sessionStorage.getItem('zqView') || '0')
+                    this.$store.commit(mTypes.setZqView, localStorage.getItem('zqView') || '0')
                 } else {
                     this.tab = false
-                    this.$store.commit(mTypes.setLqView, sessionStorage.getItem('lqView') || '0')
+                    this.$store.commit(mTypes.setLqView, localStorage.getItem('lqView') || '0')
                 }
 
                 /* if(~this.$route.path.indexOf('zq')){

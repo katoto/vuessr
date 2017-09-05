@@ -19,7 +19,7 @@
                         <div class="title clear"><span>{{c.title}}</span><i v-if="c.paytype=='1'">付费</i></div>
 
                         <div class="info">
-                            <span class="mr0"><i class="face"><img alt="小头像" v-logo="c.headimg"></i>{{c.nickname}}</span>
+                            <span class="mr0"><i class="face"><img alt="小头像" v-logo="c.headimg"></i>{{c.nickname | truncate(3)}}</span>
                             <em class="zj-mzl" v-if="c.threereturnrate">3天回报{{c.threereturnrate|percentFormat}}</em>
                             <em class="zj-mzl" v-if="c.tenprojecthits">近10中{{c.tenprojecthits}}</em>
                             <em class="zj-mzl" v-if="c.rednum">{{c.rednum}}连红</em>
@@ -424,6 +424,13 @@
                 if (difference > 24 * 60 * 60 * 1000) {
                     let d = parseInt(difference / (24 * 60 * 60 * 1000))
                     return '赛前' + d + '天'
+                }
+            },
+            truncate: (val, num) => {
+                if (val.length > num) {
+                    return val.substr(0, num) + '...'
+                } else {
+                    return val
                 }
             }
         }
