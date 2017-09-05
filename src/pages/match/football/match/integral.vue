@@ -62,7 +62,7 @@
             }
         },
         mounted () {
-            if(this.iscup){
+            if (this.iscup) {
                 this.getAll()
             }
         },

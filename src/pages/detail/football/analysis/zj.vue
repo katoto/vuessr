@@ -109,6 +109,7 @@
         </div>
 
 
+
         <div class="inte-look zhedie" v-if="leagueRank.issame === '1'" v-tap="{methods: ()=>{$router.push('/center/footballmatch/'+match.seasonid+'/integral')}}">完整积分榜></div>
 
 

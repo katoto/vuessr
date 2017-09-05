@@ -5,7 +5,7 @@ module.exports = {
     apps: [
         {
             name: 'dev_pre_score',
-            script: '../server.js',
+            script: './server.js',
             kill_timeout: 3000,
             instances: 1,
             env: {
