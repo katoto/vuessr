@@ -41,10 +41,10 @@
         },
         methods: {
             summery (p2, p4, p1 = '_trackEvent', p3 = 'click') {
-                if (window._hmt) {
+                if (window._hmt && process.env.NODE_ENV === 'production') {
                     window._hmt.push([p1, p2, p3, p4])
                 }
-                console.log([p1, p2, p3, p4])
+                // console.log([p1, p2, p3, p4])
             }
         }
     }
