@@ -14,8 +14,7 @@
                 <!-- 杯赛选择 -->
                 <div class="cup-info">
                     <ul>
-                        <li :class="{cur:selectOptions[league]}" v-for="league in leagueNameList"><span
-                                v-tap="{methods: toggleLeague, league: league}">{{league}}</span></li>
+                        <li :class="{cur:selectOptions[league]}" v-for="league in leagueNameList" v-tap="{methods: toggleLeague, league: league}"><span>{{league}}</span></li>
                     </ul>
                 </div>
                 <!-- 全选、反选、五大联赛 -->
@@ -73,14 +72,9 @@
                         selectOptions = JSON.parse(JSON.stringify(this.initial))
                     }
                     this.selectOptions = selectOptions
-                    console.log(selectOptions)
-                    this.leagueNameList = Object.keys(selectOptions)
-                    this.leagueNameList.sort((a,b)=>{
-                        if(a.localeCompare(b))
-                            return true
-                        return false
-                    })
-                    console.log(this.leagueNameList)
+                    let leagueNameList = Object.keys(selectOptions)
+                    leagueNameList.sort((a, b) => a.localeCompare(b))
+                    this.leagueNameList = leagueNameList
                     this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
                 }
             }

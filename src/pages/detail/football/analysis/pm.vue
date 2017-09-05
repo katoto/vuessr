@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="poissonInfo">
 
         <div class="gl-box box-bsyp">
             <div class="gl-nav">泊松亚盘</div>
@@ -33,7 +33,7 @@
                 <div class="infoTips" v-if="poissonInfo.presnetations"><i class="icon"></i><p class="f24">{{poissonInfo.presnetations}}</p>	</div>
             </template>
             <feed-back-no-data v-if="poissonInfo&&!poissonInfo.aomen"></feed-back-no-data>
-            <item-loader v-if="!poissonInfo"></item-loader>
+            <!--<item-loader v-if="!poissonInfo"></item-loader>-->
         </div>
 
         <div class="gl-box box-tongp">
@@ -81,7 +81,7 @@
 
             <feed-back-no-data v-if="probability&&!probability.rate"></feed-back-no-data>
 
-            <item-loader v-if="!probability"></item-loader>
+            <!--<item-loader v-if="!probability"></item-loader>-->
         </div>
 
         <div class="gl-box box-panl" >
@@ -156,7 +156,7 @@
                 <div class="bili-tips">数据来自本赛事主客场相同的近期比赛统计</div>
             </template>
             <feed-back-no-data v-if="handicapFeature&&!handicapFeature.europe"></feed-back-no-data>
-            <item-loader v-if="!handicapFeature"></item-loader>
+            <!--<item-loader v-if="!handicapFeature"></item-loader>-->
         </div>
         <!-- TODO 这里后面需要补上
         <div class="gl-box" drunk-if="from!='app_online'&&(hasUserBetPercent_spf || hasUserBetPercent_nspf)">
@@ -222,10 +222,11 @@
                 </tr>
                 </tbody></table>
             <feed-back-no-data v-if="coldHotInfo&&!coldHotInfo.win"></feed-back-no-data>
-            <item-loader v-if="!coldHotInfo"></item-loader>
+            <!--<item-loader v-if="!coldHotInfo"></item-loader>-->
         </div>
         <skbtips></skbtips>
     </div>
+    <item-loader v-else></item-loader>
 </template>
 
 <script>

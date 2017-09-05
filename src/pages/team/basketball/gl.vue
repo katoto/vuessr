@@ -58,13 +58,13 @@ export default {
             if (obj) { return !!Object.keys(obj).length }
             return false
         },
-        initEchart() {
+        initEchart () {
             setTimeout(() => {
                 this.$refs.teamStrength.initEchart()
             }, 100)
         }
     },
-    mounted() {
+    mounted () {
         this.initEchart()
     },
     filters: {

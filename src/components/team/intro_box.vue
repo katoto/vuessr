@@ -21,7 +21,7 @@ export default {
         required: true
     },
     computed: {
-        introArr() {
+        introArr () {
             return this.introStr.split('<br/>')
         }
     }

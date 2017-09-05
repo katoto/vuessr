@@ -81,7 +81,7 @@
         <div class="gl-box box-yc" v-if="predictAsian">
             <div class="gl-nav">
                 亚盘{{predictAsian && predictAsian.inner &&
-                predictAsian.inner.this_match.curr_odds[1]?('（盘口：'+predictAsian.inner.this_match.curr_odds[1]+'）'):'--'}}
+                predictAsian.inner.this_match.curr_odds[1]?('（盘口：'+predictAsian.inner.this_match.curr_odds[1]+'）'):''}}
                 <span class="yc-more"></span></div>
             <div class="box-ycInner">
                 <template v-if="predictAsian.outter">

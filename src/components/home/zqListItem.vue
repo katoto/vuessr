@@ -4,9 +4,9 @@
         >
         <!-- 比赛时间信息 、猜球、有料、加时 -->
         <div class="game-info">
-            {{match.order}}&nbsp;&nbsp;{{match.simpleleague}}&nbsp;
+            {{match.order}}<span class="two_blank" v-if="match.order"></span>{{match.simpleleague}}<span class="two_blank" v-if="match.simpleleague"></span>
 
-            <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '11'">加时 {{match.extra_time_score}}&nbsp;</span>
+            <span v-if="match.status == StatusCode.ENDED && match.extra_exist == '1'">加时 {{match.extra_time_score}}<span class="two_blank" v-if="match.status == StatusCode.ENDED && match.extra_statusid == '13'"></span></span>
             <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '13'">点球 {{match.spot_kick_score}}</span>
 
             <template v-if="feature.d[match.status] && match.extra_info">
@@ -22,9 +22,9 @@
             <router-link class="game-detail-l l-flex-column" v-tap="{methods: goDetail}" :to="detailPath">
                 <div class="game-item">
                     <div class="game-name"><img data-inited="0"
-                                                src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"
+                                                src="~assets/style/images/home/zq-logo.png"
                                                 alt="主队图标"
-                                                :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">
+                                                :data-src="match.homelogo">
                                                 {{match.homesxname}}
                                                 <em v-if="match.homestanding && match.homestanding !== '0' && match.homestanding != '-1'">{{match.homestanding | rankFmt}}</em>
                                                 <em v-if="match.zlc === '1'">(中)</em>
@@ -53,9 +53,9 @@
                 </div>
                 <div class="game-item ">
                     <div class="game-name"><img data-inited="0"
-                                                src="http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png"
+                                                src="~assets/style/images/home/zq-logo.png"
                                                 alt="客队图标"
-                                                :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-foot.png'">
+                                                :data-src="match.awaylogo">
                                                 {{match.awaysxname}}
                                                 <em v-if="match.awaystanding && match.awaystanding !== '0' && match.awaystanding != '-1'">{{match.awaystanding | rankFmt}}</em>
                                                 <em class="red-c" v-if="match.away_red_counts !== '' && match.away_red_counts !== '0'">{{match.away_red_counts}}</em>
@@ -98,12 +98,12 @@
                 <template v-if="feature.e[match.status]"><!--正在开打-->
                     <template v-if="match.extra_info && match.extra_info.ishasvideo === '1'">
                         <div class="btn-live" v-tap="{methods: goPath}">直播</div>
-                        <div class="follow had-follow" v-if="match.status === StatusCode.MID">中场</div>
+                        <div class="follow had-follow mid-live" v-if="match.status === StatusCode.MID">中场</div>
                         <div class="live-time" v-else>{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
 
                     </template>
                     <template v-else>
-                        <div class="follow had-follow" v-if="match.status === StatusCode.MID">中场</div>
+                        <div class="follow had-follow mid-live" v-if="match.status === StatusCode.MID">中场</div>
                         <div class="live-time  live-timer" v-else>{{match.match_at | matchAtFmt(match.status === StatusCode.FIRST_HALF)}}<i class="dian">'</i></div>
                     </template>
                 </template>
@@ -131,6 +131,13 @@
         animation: dianstyle 1s ease-out 0s infinite alternate;
         -webkit-animation: dianstyle 1s ease-out 0s infinite alternate;
         font-size: 0.4rem;
+    }
+    .one_blank {
+        margin-right: .073333rem;
+    }
+
+    .two_blank {
+        margin-right: .133333rem;
     }
     @keyframes dianstyle {
         0% {
@@ -225,15 +232,19 @@
 
     .game-name .red-c {
         display: inline-block;
-        width: .213333rem;
-        height: .266667rem;
-        line-height: .266667rem;
+        display:-moz-inline-stack;
+        width: .24rem;
+        padding-top: 0.05rem;
+        line-height: 0.24rem;
+        vertical-align: middle;
         background: #f44336;
         color: #fff;
         font-size: .24rem;
-        text-align: center
+        text-align: center;
+        position: relative;
+        top:-0.05rem;
+        padding-bottom: 0.02rem;
     }
-
     .game-name img {
         display: inline-block;
         vertical-align: middle;
@@ -352,21 +363,6 @@
         color: #aab5bd;
         margin-left: .13333rem;
     }
-    .game-name .red-c {
-        display: inline-block;
-        width: .24rem;
-        height: .2933rem;
-        line-height: 0.2933rem;
-        background: #f44336;
-        color: #fff;
-        font-size: .24rem;
-        text-align: center;
-        box-sizing: border-box;
-        padding-top: 0.01rem;
-        position: relative;
-        top:-0.05rem;
-    }
-
     .score-half .had-over {
         color: #242c35
     }
@@ -386,6 +382,9 @@
         line-height: .426667rem
     }
 
+    .mid-live {
+        color: #36a171;
+    }
 </style>
 <script>
     import {FootballStatusCode as StatusCode, FootballStatusName as StatusName} from '~common/constants'

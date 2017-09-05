@@ -11,20 +11,24 @@
 
         <!--总榜-->
         <template v-if="tab === 'all'">
-            <all :allData="allData"></all>
+            <all :allData="allData" v-if="allData"></all>
+            <loader v-else></loader>
         </template>
 
         <!--主场-->
         <template v-if="tab === 'home' ">
-            <home :homeData="homeData"></home>
+            <home :homeData="homeData" v-if="homeData"></home>
+            <loader v-else></loader>
         </template>
 
         <!--客场-->
         <template v-if="tab === 'away' ">
-            <away :awayData="awayData"></away>
+            <away :awayData="awayData" v-if="awayData"></away>
+            <loader v-else></loader>
         </template>
-
     </div>
+    <!--<loader v-else></loader>-->
+
 </template>
 
 <script>
@@ -32,9 +36,11 @@
     import all from '~components/match/football/all.vue'
     import home from '~components/match/football/home.vue'
     import away from '~components/match/football/away.vue'
+    import viewEmpty from '~components/match/view_empty.vue'
+    import loader from '~components/match/loader.vue'
     export default{
         components: {
-            all, away, home
+            all, away, home, viewEmpty, loader
         },
         data () {
             return {
@@ -56,7 +62,9 @@
             }
         },
         mounted () {
-            this.getAll()
+            if (this.iscup) {
+                this.getAll()
+            }
         },
         watch: {
             '$route' () {

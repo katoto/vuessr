@@ -73,7 +73,7 @@ const actionsInfo = mapActions({
         } catch (e) {
             if (e.code === '102') {
                 commit(mTypes.setLogin, false)
-                // platform.login()
+                platform.login()
             }
         }
     },
@@ -94,7 +94,7 @@ const actionsInfo = mapActions({
         } catch (e) {
             if (e.code === '102') {
                 commit(mTypes.setLogin, false)
-                // platform.login()
+                platform.login()
             }
         }
     },
@@ -120,7 +120,7 @@ const actionsInfo = mapActions({
         } catch (e) {
             if (e.code === '102') {
                 commit(mTypes.setLogin, false)
-                // platform.login()
+                platform.login()
             }
         }
     },

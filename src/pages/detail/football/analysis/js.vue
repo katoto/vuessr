@@ -1,9 +1,8 @@
 <template>
-    <div>
-
+    <div v-if="strengthInfo">
         <div class="gl-box">
             <div class="gl-nav">战力特征对比</div>
-            <template v-if="strengthInfo&&strengthInfo.total_info">
+            <template v-if="strengthInfo.total_info">
                 <div class="zhzl-box" v-tap="{methods: ()=>strengthInfoContentVisible = !strengthInfoContentVisible}">
                     <div class="zhzl-title">综合战力</div>
                     <div class="zhzl-vs">
@@ -138,8 +137,8 @@
                     <div class="zd-arrow" :class="{rotate180: strengthInfoContentVisible}"></div>
                 </div>
             </template>
-            <feed-back-no-data v-if="strengthInfo&&!strengthInfo.total_info"></feed-back-no-data>
-            <item-loader v-if="!strengthInfo"></item-loader>
+            <feed-back-no-data v-if="!strengthInfo.total_info"></feed-back-no-data>
+            <!--<item-loader v-if="!strengthInfo"></item-loader>-->
 
         </div>
         <div class="gl-box">
@@ -180,7 +179,7 @@
                 </div>
             </template>
             <feed-back-no-data v-if="compareInfo&&!compareInfo.scene_ctrl"></feed-back-no-data>
-            <item-loader v-if="!compareInfo"></item-loader>
+            <!--<item-loader v-if="!compareInfo"></item-loader>-->
 
         </div>
 
@@ -249,7 +248,7 @@
             </template>
 
             <feed-back-no-data v-if="compareInfo&&!compareInfo.attack_defense"></feed-back-no-data>
-            <item-loader v-if="!compareInfo"></item-loader>
+            <!--<item-loader v-if="!compareInfo"></item-loader>-->
         </div>
         <div class="gl-box" >
             <div class="gl-nav"> <span class="i-po">半全场</span> </div>
@@ -315,7 +314,7 @@
             </template>
 
             <feed-back-no-data v-if="compareInfo&&!compareInfo.full_half"></feed-back-no-data>
-            <item-loader v-if="!compareInfo"></item-loader>
+            <!--<item-loader v-if="!compareInfo"></item-loader>-->
         </div>
         <div class="gl-box jishu-sjtj" >
             <div class="gl-nav">事件统计</div>
@@ -442,10 +441,11 @@
                 </div>
             </template>
             <feed-back-no-data v-if="compareInfo&&!compareInfo.evt_statistic"></feed-back-no-data>
-            <item-loader v-if="!compareInfo"></item-loader>
+            <!--<item-loader v-if="!compareInfo"></item-loader>-->
         </div>
         <skbtips></skbtips>
     </div>
+    <item-loader v-else></item-loader>
 </template>
 
 <script>

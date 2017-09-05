@@ -22,7 +22,7 @@
                     <template v-if="metro.coldhot_distribute.order">
                         {{metro.coldhot_distribute.homesxname}} VS {{metro.coldhot_distribute.awaysxname}}
                         <!--{{metro.coldhot_distribute.order}}-->
-                        <div class="mark-demo-r"><em>{{metro.coldhot_distribute.tag.desc}}</em></div>
+                        <div class="mark-demo-r">{{coldhotDistributeDescFmt[0]}}<em>{{coldhotDistributeDescFmt[1]}}</em></div>
                     </template>
                     <template v-else>
                         暂无推荐
@@ -87,6 +87,9 @@
             },
             refreshTime () { // 用户点击刷新按钮时间戳
                 return this.$store.state.refreshTime
+            },
+            coldhotDistributeDescFmt() {
+                return [this.metro.coldhot_distribute.tag.desc.slice(0, 2), this.metro.coldhot_distribute.tag.desc.slice(2)]
             }
         },
 
@@ -224,15 +227,15 @@
         font-size: 60px
     }
 
-    [data-dpr="1"] .jxyc .mark-demo-r em,[data-dpr="1"] .zjtz .mark-demo-r em {
+    [data-dpr="1"] .jxyc .mark-demo-r em,[data-dpr="1"] .zjtz .mark-demo-r em, [data-dpr="1"] .sldb .mark-demo-r em {
         font-size: 24px
     }
 
-    [data-dpr="2"] .jxyc .mark-demo-r em,[data-dpr="2"] .zjtz .mark-demo-r em {
+    [data-dpr="2"] .jxyc .mark-demo-r em,[data-dpr="2"] .zjtz .mark-demo-r em, [data-dpr="2"] .sldb .mark-demo-r em {
         font-size: 48px
     }
 
-    [data-dpr="3"] .jxyc .mark-demo-r em,[data-dpr="3"] .zjtz .mark-demo-r em {
+    [data-dpr="3"] .jxyc .mark-demo-r em,[data-dpr="3"] .zjtz .mark-demo-r em, [data-dpr="3"] .sldb .mark-demo-r em {
         font-size: 72px
     }
 
@@ -259,6 +262,13 @@
         background: gradient(linear,0 0,right bottom,from(#587c9a),to(#58889a));
         box-shadow: .026667rem .026667rem .106667rem #adbbc7
     }
+    /*.mark-demo-r em {
+        font-size: .533333rem;
+        margin-left: .133333rem;
+    }
+    .jxyc .mark-demo-r em, .zjtz .mark-demo-r em {
+        font-size: .64rem;
+    }*/
 
 
 </style>

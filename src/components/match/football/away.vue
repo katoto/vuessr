@@ -38,11 +38,12 @@
             </div>
         </div>
 
-        <view-empty v-if="!awayData.length"></view-empty>
+        <view-empty v-if="!awayData.values"></view-empty>
     </section>
 </template>
 
 <script>
+    import loader from '~components/match/loader.vue'
     import viewEmpty from '~components/match/view_empty.vue'
     import style from '~directives/style'
     import logo from '~directives/logo'
@@ -51,7 +52,7 @@
             style, logo
         },
         components: {
-            viewEmpty
+            viewEmpty, loader
         },
         props: ['awayData'],
         methods: {

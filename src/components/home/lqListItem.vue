@@ -4,9 +4,9 @@
         >
         <!-- 比赛时间信息 、猜球、有料、加时 -->
         <div class="game-info">
-            {{match.order}}&nbsp;&nbsp;{{match.simpleleague}}&nbsp;
+            {{match.order}}<span class="two_blank" v-if="match.order"></span>{{match.simpleleague}}<span class="two_blank" v-if="match.simpleleague"></span>
 
-            <span v-if="match.status == StatusCode.ENDED">总分 {{match.total}}&nbsp;</span>
+            <span v-if="match.status == StatusCode.ENDED">总分 {{match.total}}<span class="two_blank" v-if="match.status == StatusCode.ENDED"></span></span>
 
             <div class="game-info-r">{{match.matchtime.substring(5, 16)}}</div>
         </div>
@@ -17,9 +17,9 @@
 
                 <div class="game-item ">
                     <div class="game-name"><img data-inited="0"
-                                                src="http://cache.500boss.com/mobile/touch/images/bifen/mr-base.png"
+                                                src="~assets/style/images/home/lq-logo.png"
                                                 alt="客队图标"
-                                                :data-src="match.awaylogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-base.png'">{{match.awaysxname}}
+                                                :data-src="match.awaylogo">{{match.awaysxname}}
                         <em v-if="match.awaystanding && match.awaystanding != '-1'">{{match.awaystanding | rankFmt}}</em>
                     </div>
 
@@ -28,50 +28,54 @@
 
                     </template>
                     <template v-if="feature.a[match.status]"><!--正在开打-->
-                        <div class="game-lately score-half base-score-half">
+                        <div class="game-lately score-half base-score-half five-score">
                             <em class="first-half" v-if="ascore[0]">{{ascore[0]}}</em>
                             <em class="first-half" v-if="ascore[1]">{{ascore[1]}}</em>
                             <em class="first-half" v-if="ascore[2]">{{ascore[2]}}</em>
                             <em class="first-half" v-if="ascore[3]">{{ascore[3]}}</em>
+                            <em class="first-half" v-if="asadd">{{asadd}}</em>
                             <em class="second-half">{{match.awayscore}}</em>
                         </div>
                     </template>
                     <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
-                        <div class="game-lately score-half base-score-half">
+                        <div class="game-lately score-half base-score-half five-score">
                             <em class="first-half">{{ascore[0]}}</em>
                             <em class="first-half">{{ascore[1]}}</em>
                             <em class="first-half">{{ascore[2]}}</em>
                             <em class="first-half">{{ascore[3]}}</em>
+                            <em class="first-half" v-if="asadd">{{asadd}}</em>
                             <em class="second-half had-over">{{match.awayscore}}</em>
                         </div>
                     </template>
                 </div>
                 <div class="game-item">
                     <div class="game-name"><img data-inited="0"
-                                                src="http://cache.500boss.com/mobile/touch/images/bifen/mr-base.png"
+                                                src="~assets/style/images/home/lq-logo.png"
                                                 alt="主队图标"
-                                                :data-src="match.homelogo || 'http://cache.500boss.com/mobile/touch/images/bifen/mr-base.png'">{{match.homesxname}}
+                                                :data-src="match.homelogo">{{match.homesxname}}
                         <em v-if="match.homestanding && match.homestanding != '-1'">{{match.homestanding | rankFmt}}</em>
                     </div>
                     <div class="game-lately" v-if="match.status === StatusCode.NOT_STARTED && view==='1'">
                         {{match.extra_info.homerecord}}
                     </div>
                     <template v-if="feature.a[match.status]"><!--正在开打-->
-                        <div class="game-lately score-half base-score-half">
+                        <div class="game-lately score-half base-score-half five-score">
                             <em class="first-half" v-if="hscore[0]">{{hscore[0]}}</em>
                             <em class="first-half" v-if="hscore[1]">{{hscore[1]}}</em>
                             <em class="first-half" v-if="hscore[2]">{{hscore[2]}}</em>
                             <em class="first-half" v-if="hscore[3]">{{hscore[3]}}</em>
+                            <em class="first-half" v-if="hsadd">{{hsadd}}</em>
                             <!--<em class="second-half">{{match.homescore}}</em>-->
                             <move class="second-half" :score="match.homescore" ready="true"></move>
                         </div>
                     </template>
                     <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
-                        <div class="game-lately score-half base-score-half">
+                        <div class="game-lately score-half base-score-half five-score">
                             <em class="first-half">{{hscore[0]}}</em>
                             <em class="first-half">{{hscore[1]}}</em>
                             <em class="first-half">{{hscore[2]}}</em>
                             <em class="first-half">{{hscore[3]}}</em>
+                            <em class="first-half" v-if="hsadd">{{hsadd}}</em>
                             <em class="second-half had-over">{{match.homescore}}</em>
                             <!--<move class="second-half" :score="match.homescore" ready="true"></move>-->
                         </div>
@@ -97,7 +101,7 @@
                 </template>
                 <template v-if="feature.a[match.status]"><!--正在开打-->
                     <div class="score-live">{{match.status_desc}}</div>
-                    <div class="live-time" v-if="match.status !== StatusCode.MID">{{match.match_at}}</div>
+                    <!--<div class="live-time" v-if="match.status !== StatusCode.MID">{{match.match_at}}</div>-->
                 </template>
                 <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
                     <div class="follow had-follow">完场</div>
@@ -114,6 +118,13 @@
 
 </template>
 <style scoped>
+    .one_blank {
+        margin-right: .073333rem;
+    }
+
+    .two_blank {
+        margin-right: .133333rem;
+    }
     .base-score-half .second-half.had-over {
         color: #242c35
     }
@@ -196,17 +207,18 @@
 
     .game-name .red-c {
         display: inline-block;
+        display:-moz-inline-stack;
         width: .24rem;
-        height: .2933rem;
-        line-height: 0.2933rem;
+        padding-top: 0.05rem;
+        line-height: 0.24rem;
+        vertical-align: middle;
         background: #f44336;
         color: #fff;
         font-size: .24rem;
         text-align: center;
-        box-sizing: border-box;
-        padding-top: 0.01rem;
         position: relative;
         top:-0.05rem;
+    padding-bottom: 0.02rem;
     }
 
     .game-name img {
@@ -402,6 +414,13 @@
             doConcern () {
                 this.$store.dispatch('ensureLogin')
                 this.$store.dispatch(aTypes.doConcern, {fid: this.match.fid, vtype: '2'})
+            },
+            add (itm) {
+                let sum = 0
+                itm.map((item) => {
+                    sum += Number(item)
+                })
+                return sum
             }
         },
         computed: {
@@ -415,11 +434,19 @@
                 return `/detail/basketball/${this.match.fid}/situation/event`
             },
             ascore () {
-                return this.match.ascore && this.match.ascore.substr(0,this.match.ascore.indexOf('/')).split('-')
+                return this.match.ascore && this.match.ascore.split('/')[0].split('-')
+            //                return this.match.ascore && this.match.ascore.substr(0,this.match.ascore.indexOf('/')).split('-')
             },
             hscore () {
-                return this.match.hscore && this.match.hscore.substr(0,this.match.hscore.indexOf('/')).split('-')
+                return this.match.hscore && this.match.hscore.split('/')[0].split('-')
+            },
+            asadd () {
+                return this.match.ascore && this.match.ascore.split('/')[1] && this.add(this.match.ascore.split('/')[1].split('-'))
+            },
+            hsadd () {
+                return this.match.hscore && this.match.hscore.split('/')[1] && this.add(this.match.hscore.split('/')[1].split('-'))
             }
+
         },
         directives: {
             scrollText

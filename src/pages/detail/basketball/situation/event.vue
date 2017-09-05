@@ -73,7 +73,7 @@
             </div>
             <skbtips></skbtips>
         </div>
-        <div v-if="!news || (news && !news.news) || !eventList || !eventList.length">
+        <div v-if="(news && !news.news) || (eventList && !eventList.length)">
             <no-data></no-data>
 
         </div>

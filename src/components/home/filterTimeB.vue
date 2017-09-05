@@ -126,7 +126,7 @@
                 const date = new Date(expect.split('-').join('/'))
                 const current = new Date()
                 if (current.getDate() === date.getDate() && current.getMonth() === date.getMonth() && current.getFullYear() === date.getFullYear()) {
-                    return `今天 周${dayMap[current.getDay()]}`
+                    return `今日 周${dayMap[current.getDay()]}`
                 } else {
                     const tmp = expect.split('-')
                     return `${[tmp[1], tmp[2]].join('-')} 周${dayMap[date.getDay()]}`
