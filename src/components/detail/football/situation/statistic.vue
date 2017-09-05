@@ -15,13 +15,13 @@
             <div class="zhzl-box">
                 <div class="zhzl-title">控球率</div>
                 <div class="zhzl-vs">
-                    <div class="zhzl-l"  :class="{'zhzl-green':statistic.h_ballcontrol_rate>statistic.a_ballcontrol_rate,'zhzl-gray':statistic.h_ballcontrol_rate<statistic.a_ballcontrol_rate}"
+                    <div class="zhzl-l"  :class="{'zhzl-green':statistic.h_ballcontrol_rate>=statistic.a_ballcontrol_rate,'zhzl-gray':statistic.h_ballcontrol_rate<statistic.a_ballcontrol_rate}"
                          :style="{width: statistic.h_ballcontrol_rate + '%'}">
                         <div class="wua">
                             <div class="hh"></div>
                         </div>
                     </div>
-                    <div class="zhzl-r" :class="{'zhzl-green':statistic.h_ballcontrol_rate<statistic.a_ballcontrol_rate,'zhzl-gray':statistic.h_ballcontrol_rate>statistic.a_ballcontrol_rate}"
+                    <div class="zhzl-r" :class="{'zhzl-green':statistic.h_ballcontrol_rate<statistic.a_ballcontrol_rate,'zhzl-gray':statistic.h_ballcontrol_rate>=statistic.a_ballcontrol_rate}"
                          :style="{width: statistic.a_ballcontrol_rate + '%'}">
                         <div class="wua">
                             <div class="hh"></div>
