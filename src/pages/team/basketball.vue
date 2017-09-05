@@ -24,7 +24,7 @@
 </template>
 <script>
 import {
-    aTypes
+    mTypes, aTypes
 } from '~store/team/lq'
 
 export default {
@@ -43,6 +43,9 @@ export default {
     },
     mounted () {
         this.$store.dispatch(aTypes.getTeamInfo, {tid: this.$route.params.tid})
+    },
+    destroyed () {
+        this.$store.commit(mTypes.reset)
     }
 }
 </script>
