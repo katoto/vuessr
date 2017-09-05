@@ -23,12 +23,6 @@ const actionsInfo = mapActions({
         const teamMember = await ajax.get(`/library/lq/teammembers?teamid=${tid}&seasonid=${sid}`)
         commit(mTypes.setTeamMembers, teamMember)
         return teamMember
-    },
-    reset (state) {
-        const iState = JSON.parse(JSON.stringify(initState))
-        Object.keys(state).forEach(key => {
-            state[key] = iState[key]
-        })
     }
 }, ns)
 
@@ -41,6 +35,12 @@ const mutationsInfo = mapMutations({
     },
     setTeamMembers (state, teamMembers) {
         state.teamMembers = teamMembers
+    },
+    reset (state) {
+        const iState = JSON.parse(JSON.stringify(initState))
+        Object.keys(state).forEach(key => {
+            state[key] = iState[key]
+        })
     }
 }, ns)
 const actions = actionsInfo.actions
