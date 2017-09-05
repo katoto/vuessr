@@ -10,6 +10,7 @@
     "build:embed": "cross-env NODE_ENV=production VUE_ENV=app webpack --config build/webpack.embed.config.js --progress --hide-modules",
     "prod": "cross-env NODE_ENV=production node ./server.js",
     "dev": "cross-env port=3000 ADDRESS=10.0.1.31 node ./server.js",
+    "dev-online": "cross-env port=3000 node ./server.js",
     "prod-embed": "cross-env NODE_ENV=production EMBED=app node ./server.js",
     "clean": "rimraf dist/*",
     "precommit": "lint-staged",

@@ -21,6 +21,11 @@ export default {
             required: true
         }
     },
+    data() {
+        return {
+            goDetailFlag: false
+        }
+    },
     computed: {
         noStartStatus () {
             return this.teamMatches.map((match) => {
@@ -37,7 +42,16 @@ export default {
         }
     },
     methods: {
+        initPos() {
+            if(sessionStorage.getItem('teamScPos')) {
+                this.$el.parentElement.scrollTop = sessionStorage.getItem('teamScPos')
+            } else {
+                this.goNoStartMatch()
+            }
+        },
         goDetail ({fid}) {
+            sessionStorage.setItem('teamScPos', this.$el.parentElement.scrollTop)
+            this.goDetailFlag = true
             this.$router.push(`/detail/football/${fid}/situation`)
         },
         scoreFmt (match) {
@@ -54,7 +68,12 @@ export default {
         }
     },
     mounted () {
-        this.goNoStartMatch()
+        this.initPos()
+    },
+    destroyed() {
+        if(!this.goDetailFlag) {    // 假如不是跳到详情页，则清楚位置记录
+            sessionStorage.removeItem('teamScPos')
+        }
     }
 }
 </script>
