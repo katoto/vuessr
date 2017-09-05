@@ -38,9 +38,8 @@
             </div>
         </div>
 
-        <view-empty v-if="!homeData.length"></view-empty>
+        <view-empty v-if="!homeData.values.length"></view-empty>
     </section>
-    <loader v-else></loader>
 </template>
 
 <script>

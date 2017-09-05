@@ -38,9 +38,8 @@
             </div>
         </div>
 
-        <view-empty v-if="!awayData.length"></view-empty>
+        <view-empty v-if="!awayData.values.length"></view-empty>
     </section>
-    <loader v-else></loader>
 </template>
 
 <script>
