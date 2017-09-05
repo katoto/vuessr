@@ -390,6 +390,19 @@
     .mid-live-video {
         margin-top: .186667rem;
     }
+    .live-time i{-webkit-animation:flash 1s 1s ease infinite;-moz-animation:flash 1s 1s ease infinite;}
+    @-webkit-keyframes flash{
+    0%,50%,100%
+    {opacity: 1;}
+    25%,75%
+    {opacity: 0;}
+    }
+    @-moz-keyframes flash{
+    0%,50%,100%
+    {opacity: 1;}
+    25%,75%
+    {opacity: 0;}
+    }
 </style>
 <script>
     import {FootballStatusCode as StatusCode, FootballStatusName as StatusName} from '~common/constants'
