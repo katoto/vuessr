@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="zhedie-box" v-if="leagueRank && leagueRank.hometeam && leagueRank.hometeam.home">
+    <div v-if="leagueRank">
+        <div class="zhedie-box" v-if="leagueRank.hometeam && leagueRank.hometeam.home">
             <div class="zj-nav">
                 {{ leagueRank.issame == '1'?leagueRank.title:''}} 联赛积分排名
                 <ul class="volumeTab" id="tabBefore">
@@ -109,11 +109,9 @@
         </div>
 
 
-<<<<<<< HEAD
-        <div class="inte-look zhedie" v-if="leagueRank && leagueRank.issame === '1'" v-tap="{methods: ()=>{$router.push('/center/footballmatch/'+match.seasonid+'/integral')}}">完整积分榜></div>
-=======
-        <div class="inte-look zhedie" v-if="leagueRank && leagueRank.issame === '1'" v-tap="{methods: ()=>{$router.push('/center/footballmatch/'+match.seasonid+'/integral')}}">完整积分榜&gt;</div>
->>>>>>> 5122b4037ecb65cb0591c693e9b1c7f0aa15de2a
+
+        <div class="inte-look zhedie" v-if="leagueRank.issame === '1'" v-tap="{methods: ()=>{$router.push('/center/footballmatch/'+match.seasonid+'/integral')}}">完整积分榜></div>
+
 
         <div class="zhedie-box zhedie-box-wl" v-if="cupRank && cupRank.length && match.stagemode==='2'">
             <div class="zj-nav">
@@ -580,11 +578,12 @@
         </div>
         <skbtips v-if="leagueRank"></skbtips>
     </div>
+    <item-loader v-else></item-loader>
 </template>
 
 <script>
     import {aTypes, mTypes} from '~store/zqdetail'
-
+    import itemLoader from '~components/detail/itemLoader.vue'
     import Filter from '~components/detail/football/analysis/filter.vue'
     import skbtips from '~components/detail/skbtips.vue'
     import feedBackNoData from '~components/detail/feedBackNoData.vue'
@@ -608,7 +607,7 @@
             })
         },
         components: {
-            skbtips, feedBackNoData
+            skbtips, feedBackNoData, itemLoader
         },
         data () {
             return {

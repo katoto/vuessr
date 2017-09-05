@@ -1,6 +1,6 @@
 <template>
-    <section class="l-flex-1 l-relative" v-if="allData">
-        <div class=" l-full l-scroll-y">
+    <section class="l-flex-1 l-relative">
+        <div class=" l-full l-scroll-y" v-if="allData.values">
             <!--有分组-->
             <div class="inte-main">
                 <div class="games-list games-group" v-if="allData['rettype'] === 'object' ">
@@ -82,21 +82,21 @@
                 </li>
             </ul>
         </div>
-        <view-empty v-if="!allData.rettype"></view-empty>
+        <view-empty v-else></view-empty>
     </section>
-
 </template>
 
 <script>
     import viewEmpty from '~components/match/view_empty.vue'
     import style from '~directives/style'
     import logo from '~directives/logo'
+    import loader from '~components/match/loader.vue'
     export default{
         directives: {
             style, logo
         },
         components: {
-            viewEmpty
+            viewEmpty, loader
         },
         props: ['allData'],
         methods: {

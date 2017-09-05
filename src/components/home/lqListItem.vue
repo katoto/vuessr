@@ -101,7 +101,7 @@
                 </template>
                 <template v-if="feature.a[match.status]"><!--正在开打-->
                     <div class="score-live">{{match.status_desc}}</div>
-                    <div class="live-time" v-if="match.status !== StatusCode.MID">{{match.match_at}}</div>
+                    <!--<div class="live-time" v-if="match.status !== StatusCode.MID">{{match.match_at}}</div>-->
                 </template>
                 <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
                     <div class="follow had-follow">完场</div>
@@ -421,7 +421,7 @@
             },
             ascore () {
                 return this.match.ascore && this.match.ascore.split('/')[0].split('-')
-//                return this.match.ascore && this.match.ascore.substr(0,this.match.ascore.indexOf('/')).split('-')
+            //                return this.match.ascore && this.match.ascore.substr(0,this.match.ascore.indexOf('/')).split('-')
             },
             hscore () {
                 return this.match.hscore && this.match.hscore.split('/')[0].split('-')

@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <view-empty v-if="!homeData.length"></view-empty>
+        <view-empty v-if="!homeData.values"></view-empty>
     </section>
 </template>
 
@@ -46,12 +46,13 @@
     import viewEmpty from '~components/match/view_empty.vue'
     import style from '~directives/style'
     import logo from '~directives/logo'
+    import loader from '~components/match/loader.vue'
     export default{
         directives: {
             style, logo
         },
         components: {
-            viewEmpty
+            viewEmpty, loader
         },
         props: ['homeData'],
         methods: {
