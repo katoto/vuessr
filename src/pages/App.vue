@@ -6,7 +6,7 @@
 <script>
     import '~assets/style/public/reset.css'
     import Vue from 'vue'
-    import vueTap from 'v-tap'
+    import vueTap from '~directives/v-tap'
     import '~assets/style/base.css'
     Vue.use(vueTap)
     export default {

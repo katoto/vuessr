@@ -90,8 +90,7 @@
 
     .ball-tab {
         width: 3.68rem;
-        height: .666667rem;
-        border: 0.04rem solid #242c35;
+        line-height: .666667rem;
         font-size: .373333rem;
         color: #242c35;
         clear: both;
@@ -108,15 +107,18 @@
     .ball-tab li {
         width: 50%;
         text-align: center;
-        height: .666667rem;
-        line-height: .666667rem;
-        float: left
-    }
 
+        float: left;
+        box-sizing: border-box;
+    }
     .ball-tab .cur {
         background: #242c35;
-        color: #fff
+        color: #fff;
     }
+    .ball-tab  li:first-child{border: 0.04rem solid #242c35; border-right: none}
+    .ball-tab  li:last-child{border: 0.04rem solid #242c35;border-left: none }
+    .ball-tab  li:first-child.cur{ border-radius: 0.106667rem 0 0 0.106667rem}
+    .ball-tab  li:last-child.cur{ border-radius: 0 0.106667rem  0.106667rem  0}
     .search-league {
         color: #aab5bd;
         font-size: .346667rem;
