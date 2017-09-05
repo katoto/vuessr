@@ -421,7 +421,7 @@
             },
             ascore () {
                 return this.match.ascore && this.match.ascore.split('/')[0].split('-')
-//                return this.match.ascore && this.match.ascore.substr(0,this.match.ascore.indexOf('/')).split('-')
+            //                return this.match.ascore && this.match.ascore.substr(0,this.match.ascore.indexOf('/')).split('-')
             },
             hscore () {
                 return this.match.hscore && this.match.hscore.split('/')[0].split('-')

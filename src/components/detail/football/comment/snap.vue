@@ -271,7 +271,7 @@
             tWidth () {
                 if (this.match.status === '0') {
                     if (this.expertRecommend && this.expertRecommend.shortcontent) {
-                        return '19.4rem'
+                        return '19.0rem'
                     } else {
                         return 'auto'
                     }
@@ -279,7 +279,7 @@
                     if (this.expertRecommend && this.expertRecommend.shortcontent) {
                         return '28.6rem'
                     } else {
-                        return '19.4rem'
+                        return '19.0rem'
                     }
                 } else {
                     return 'auto'
