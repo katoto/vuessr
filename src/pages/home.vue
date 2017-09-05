@@ -91,7 +91,7 @@
     .ball-tab {
         width: 3.68rem;
         height: .666667rem;
-        border: .026667rem solid #242c35;
+        border: 0.04rem solid #242c35;
         font-size: .373333rem;
         color: #242c35;
         clear: both;

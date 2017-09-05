@@ -444,7 +444,7 @@
     }
 
     .filter-time .today {
-        width: 4.906667rem;
+        width: 4.8rem;
         height: 1.066667rem;
         line-height: 1.066667rem;
         float: left;

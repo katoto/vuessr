@@ -645,7 +645,8 @@
     .list-yuce .info span {
         display: inline-block;
         padding-left: .293333rem;
-        position: relative
+        position: relative;
+        margin-left: 0.266rem;
     }
 
     .list-yuce .info span:first-child {

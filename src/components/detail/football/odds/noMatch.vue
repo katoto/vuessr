@@ -1,7 +1,6 @@
 <template>
     <div class="ui-empty">
         <img src="http://tccache.500.com/mobile/widget/empty/images/08.png" class="w240">
-
         <div class="ui-empty-gfont">很抱歉，没有数据</div>
     </div>
 

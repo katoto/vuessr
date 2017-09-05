@@ -798,7 +798,9 @@
     }
 
     .box-gailv{margin-top:.4rem}
-    .gailvTit{width:.4rem;height:100%;-webkit-writing-mode:vertical-rl;color:#fff;text-align:center;letter-spacing:.133333rem;vertical-align:middle}
+    .gailvTit{width:.4rem;height:100%;-webkit-writing-mode:vertical-rl;writing-mode:vertical-rl;
+        -moz-writing-mode:vertical-rl;
+        color:#fff;text-align:center;letter-spacing:.133333rem;vertical-align:middle}
     [data-dpr="1"] .gailvTit{font-size:10px}
     [data-dpr="2"] .gailvTit{font-size:20px}
     [data-dpr="3"] .gailvTit{font-size:30px}

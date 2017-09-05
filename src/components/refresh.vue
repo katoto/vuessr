@@ -24,8 +24,8 @@
 
 <style scoped>
     .refresh-box {
-        width: 1.066667rem;
-        height: 1.066667rem;
+        width: 1.08rem;
+        height: 1.08rem;
         position: fixed;
         bottom: 1.706667rem;
         right: .533333rem;
