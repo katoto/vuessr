@@ -88,7 +88,7 @@
             refreshTime () { // 用户点击刷新按钮时间戳
                 return this.$store.state.refreshTime
             },
-            coldhotDistributeDescFmt() {
+            coldhotDistributeDescFmt () {
                 return [this.metro.coldhot_distribute.tag.desc.slice(0, 2), this.metro.coldhot_distribute.tag.desc.slice(2)]
             }
         },

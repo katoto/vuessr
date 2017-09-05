@@ -137,6 +137,9 @@ const actionsInfo = mapActions({
         existNotStartMatch = matchesInfo.matches.some(match => {
             return match.status === '0'
         })
+        matchesInfo.matches.forEach(match => {
+            match.extra_info.ishasvideo = '1'
+        })
         commit(mTypes.setSwitchShow, existNotStartMatch)
         matchesInfo._expect = expect
         matchesInfo.tab = tab
