@@ -93,6 +93,7 @@
             toggleLeague ({league}) {
                 this.selectOptions[league] = !this.selectOptions[league]
                 this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
+                this.tab= ''
             },
             selectAll: function () {
                 Object.keys(this.selectOptions).forEach((key) => {
