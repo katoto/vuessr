@@ -335,8 +335,8 @@
         width: .496667rem;
         text-align: right;
         display: inline-block;
-        height: .64rem;
-        line-height: .64rem;
+        height: .56rem;
+        line-height: .56rem;
         overflow: hidden;display: inline-table;
     }
     .five-score .first-score{
@@ -347,8 +347,8 @@
         font-size: .453333rem;
         color: #36a171;
         display: inline-block;
-        height: .64rem;
-        line-height: .64rem;
+        height: .56rem;
+        line-height: .56rem;
         width: 1rem;
         text-align: right;
         overflow: hidden;display: inline-table;
