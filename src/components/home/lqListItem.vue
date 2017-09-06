@@ -322,15 +322,23 @@
     .live-time {
         font-size: .4rem;
         color: #36a171;
-        width: 100%;
+        /*width: 100%;*/
         text-align: center;
-        margin-top: .186667rem
+        /*margin-top: .186667rem*/
+        width: 1.2rem;
+        /*margin: 0 auto;*/
+        height: .533333re m;
+        /*border: 1px solid #eaeaea;*/
+        line-height: .533333rem;
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        left: 50%;
+        margin-left: -.6rem;
+        /*border-radius: .0533rem*/
     }
 
-    .live-timer {
-        line-height: 1.28rem;
-        margin-top: 0
-    }
 
     .score-half .first-half {
         font-size: .346667rem;
@@ -367,7 +375,20 @@
     .score-live {
         font-size: .346667rem;
         color: #36a171;
-        margin-top: .053333rem;
+
+        width: 1.2rem;
+        margin: 0 auto;
+        height: .533333rem;
+        /*border: 1px solid #eaeaea;*/
+        line-height: .533333rem;
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        left: 50%;
+        margin-left: -.6rem;
+        /*border-radius: .0533rem*/
     }
 </style>
 <script>
