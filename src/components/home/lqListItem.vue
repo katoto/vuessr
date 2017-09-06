@@ -238,7 +238,7 @@
     .game-lately {
         color: #aab5bd;
         font-size: .293333rem;
-        float: right; height:0.866rem;line-height: 0.866rem;
+        float: right;
     }
     .game-detail-r {
         float: left;
@@ -266,7 +266,7 @@
     .game-lately {
         color: #aab5bd;
         font-size: .293333rem;
-        float: right
+        float: right;display: table-cell;;vertical-align: middle;
     }
 
     .game-detail-r {
@@ -308,7 +308,8 @@
         line-height: .533333rem;
         text-align: center;
         color: #5c788f;
-        border-radius: .026667rem
+        font-size: .346667rem;
+        border-radius: .0533rem
     }
 
     .btn-live:active {
@@ -336,7 +337,8 @@
         display: inline-block;
         height: .64rem;
         line-height: .64rem;
-        overflow: hidden
+        overflow: hidden;
+        display: inline-table;
     }
     .five-score .first-score{
         width:0.54rem;
@@ -349,7 +351,7 @@
         line-height: .64rem;
         width: 1rem;
         text-align: right;
-        overflow: hidden
+        overflow: hidden;display: inline-table;
     }
     .btn-once {
         position: absolute;
