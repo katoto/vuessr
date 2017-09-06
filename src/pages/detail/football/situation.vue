@@ -96,7 +96,8 @@
                             // 换人,两个队员名都不为空
                             ? /\S/.test(event.exchange_player[0]) && /\S/.test(event.exchange_player[1])
                             // 其他事件则要求cdata不为空
-                            : /\S/.test(event.cdata)
+                            // : /\S/.test(event.cdata)
+                            : true
                     }
 
                     let newEvent = null

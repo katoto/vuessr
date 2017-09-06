@@ -115,10 +115,10 @@
         background: #242c35;
         color: #fff;
     }
-    .ball-tab  li:first-child{border: 0.04rem solid #242c35; border-right: none}
-    .ball-tab  li:last-child{border: 0.04rem solid #242c35;border-left: none }
-    .ball-tab  li:first-child.cur{ border-radius: 0.106667rem 0 0 0.106667rem}
-    .ball-tab  li:last-child.cur{ border-radius: 0 0.106667rem  0.106667rem  0}
+    .ball-tab  li:first-child{border: 0.04rem solid #242c35; border-right: none;
+        border-radius: 0.106667rem 0 0 0.106667rem}
+    .ball-tab  li:last-child{border: 0.04rem solid #242c35;border-left: none;
+        border-radius: 0 0.106667rem  0.106667rem  0}
     .search-league {
         color: #aab5bd;
         font-size: .346667rem;
