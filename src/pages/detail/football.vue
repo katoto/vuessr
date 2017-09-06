@@ -552,9 +552,9 @@
         margin-left: -4rem;
         top: 0;
         color: #fff;
-        opacity: 0;
+        /*opacity: 0;*/
         overflow: hidden;
-        transform: translateY(-500%);
+        /*transform: translateY(-500%);*/
         z-index: 10;
     }
     .detailTop .itm-bf {
