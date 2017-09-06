@@ -557,6 +557,7 @@
     .data-detail ul li p:nth-child(2){font-size:.32rem;color:rgba(81,94,109,.5)}
 
     .itmMove{-webkit-animation:itmMove4 .8s ease-in-out forwards;animation:itmMove4 .8s ease-in-out forwards}
+    .itmMove i{display: block; height: 0.64rem; line-height: 0.64rem;}
     .itmMove i:last-child{-webkit-animation:itmMove3 2s ease-in-out forwards;animation:itmMove3 2s ease-in-out forwards}
     @-webkit-keyframes itmMove4{0%{-webkit-transform:translate(0,0);transform:translate(0,0)}
         100%{-webkit-transform:translate(0,-50%);transform:translate(0,-50%)}
