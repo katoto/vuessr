@@ -85,7 +85,7 @@
         -webkit-animation: itmMove3 2s ease-in-out forwards;
         animation: itmMove3 2s ease-in-out forwards
     }
-
+    .itmMove i{display: block; height: 0.64rem; line-height: 0.64rem;}
     @-webkit-keyframes itmMove4 {
         0% {
             -webkit-transform: translate(0,0);

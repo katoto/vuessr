@@ -10,7 +10,8 @@
                         <li class="itemC">对阵</li>
                         <li class="itemR">初赔/终赔</li>
                     </ul>
-                    <ul class="dataItem" v-for="info,idx in item.table" v-if="shouldShowAll[index]||idx<5">
+                    <!--<ul class="dataItem" v-for="info,idx in item.table" v-if="shouldShowAll[index]||idx<5">-->
+                    <ul class="dataItem" v-for="info,idx in item.table">
                         <li class="itemL">
                             <div>{{info.simpleleague}}</div>
                             <div>{{info.matchdate.substring(2,10)}}</div>
@@ -79,10 +80,7 @@
                 this.tab = tab
             },
             toggleAll({index}) {
-                alert(index)
-                alert(JSON.stringify(this.shouldShowAll))
                 this.shouldShowAll[index] = !this.shouldShowAll[index]
-                alert(JSON.stringify(this.shouldShowAll))
             }
         },
         created () {

@@ -19,9 +19,9 @@
                 </div>
                 <!-- 全选、反选、五大联赛 -->
                 <ul class="select-all">
-                    <li v-tap="{methods: selectAll}">全选</li>
-                    <li v-tap="{methods: inverseAll}">反选</li>
-                    <li v-tap="{methods: selectFiveLeague}" v-if="show">五大联赛</li>
+                    <li v-tap="{methods: selectAll}" :class="{cur:tab ==='all'}">全选</li>
+                    <li v-tap="{methods: inverseAll}" :class="{cur:tab ==='reverse'}">反选</li>
+                    <li v-tap="{methods: selectFiveLeague}" v-if="show" :class="{cur:tab ==='five'}">五大联赛</li>
                 </ul>
                 <!-- 确认按钮区 -->
                 <div class="btn-cont">
@@ -55,7 +55,8 @@
                     'sfc': '足彩',
                     'bjdc': '单场'
                 },
-                show: true
+                show: true,
+                tab:''
             }
         },
         watch: {
@@ -92,24 +93,28 @@
             toggleLeague ({league}) {
                 this.selectOptions[league] = !this.selectOptions[league]
                 this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
+                this.tab= ''
             },
             selectAll: function () {
                 Object.keys(this.selectOptions).forEach((key) => {
                     this.selectOptions[key] = true
                 })
                 this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
+                this.tab='all'
             },
             inverseAll: function () {
                 Object.keys(this.selectOptions).forEach((key) => {
                     this.selectOptions[key] = !this.selectOptions[key]
                 })
                 this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
+                this.tab='reverse'
             },
             selectFiveLeague () {
                 Object.keys(this.selectOptions).forEach((key) => {
                     this.selectOptions[key] = !!this.fiveLeagues[key]
                 })
                 this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
+                this.tab='five'
             },
             confirm: function () {
                 let tmp = Object.values(this.selectOptions)
@@ -264,7 +269,7 @@
         box-sizing: border-box;
     }
 
-    .select-all li:active {
+    .select-all  .cur {
         background: #ebf1f5;
         color: #242c35
     }
