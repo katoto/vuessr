@@ -359,6 +359,11 @@
         left: 50%;
         margin-left: -.6rem
     }
+    .score-live {
+        font-size: .346667rem;
+        color: #36a171;
+        margin-top: .053333rem;
+    }
 </style>
 <script>
     import {BasketballStatusCode as StatusCode, BasketballStatusDesc as StatusName} from '~common/constants'
