@@ -586,6 +586,9 @@
     .hide {
         display: none
     }
+    .list-yuce .info .mr0{
+        margin-left: 0
+    }
 
     .list-yuce li {
         height: 1.893333rem;
