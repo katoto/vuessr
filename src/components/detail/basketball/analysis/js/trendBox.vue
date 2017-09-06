@@ -9,26 +9,34 @@
                 <div class="fczs-txt">近期状态</div>
             </div>
         </div>
+        <template v-if="noEmptyFlag">
+            <div class="vic-cont">
+                <template >
+                    <div class="line-horiz" v-if="trends[hoa].level" :style="trendTop"><em>{{hoa === 'home' ? 0 - trends[hoa].level : trends[hoa].level}}</em></div>
+                    <ul class="vic-list" :class="{'vic-list-fc': type === '分差'}">
+                        <li class="vic-item-empty" v-tap="{methods: () => trendFid = item.fid}" :class="{'vic-item-lose':item.state=='0','vic-item-win':item.state=='3','vic-item-coming':!item.state}" v-for="(item, idx) in trends[hoa].coords">
+                            <span :style="trendHeight[idx]">
+                                <em class="line-ver" v-if="item.value&&item.fid&&trendFid&&trendFid==item.fid"><i>{{item.matchdate.substring(5,10)}}<br>{{item.awaysxname}}{{item.awayscore}}:{{item.homescore}}{{item.homesxname}}</i></em>
+                            </span>
+                            <!-- <span v-if="!item.value&&!item.fid" ></span> -->
+                        </li>
+                    </ul>
+                </template>
+            </div>
+            <p class="jqzs-notice">近20天{{type}}走势</p>
+        </template>
+        <trend-no-data v-else></trend-no-data>
 
-        <div class="vic-cont">
-            <template>
-                <div class="line-horiz" v-if="trends[hoa].level" :style="trendTop"><em>{{hoa === 'home' ? 0 - trends[hoa].level : trends[hoa].level}}</em></div>
-                <ul class="vic-list" :class="{'vic-list-fc': type === '分差'}">
-                    <li class="vic-item-empty" v-tap="{methods: () => trendFid = item.fid}" :class="{'vic-item-lose':item.state=='0','vic-item-win':item.state=='3','vic-item-coming':!item.state}" v-for="(item, idx) in trends[hoa].coords">
-                        <span :style="trendHeight[idx]">
-                            <em class="line-ver" v-if="item.value&&item.fid&&trendFid&&trendFid==item.fid"><i>{{item.matchdate.substring(5,10)}}<br>{{item.awaysxname}}{{item.awayscore}}:{{item.homescore}}{{item.homesxname}}</i></em>
-                        </span>
-                        <!-- <span v-if="!item.value&&!item.fid" ></span> -->
-                    </li>
-                </ul>
-            </template>
-        </div>
-        <p class="jqzs-notice">近20天{{type}}走势</p>
     </div>
 </template>
 
 <script>
+import trendNoData from '~components/detail/trendNoData.vue'
+
 export default {
+    components: {
+        trendNoData
+    },
     props: {
         baseInfo: {
             type: Object,
@@ -72,6 +80,13 @@ export default {
                 terrible: 'zsjc'
             },
             trendFid: null
+        }
+    },
+    computed: {
+        noEmptyFlag() {
+            return this.trends[this.hoa].coords.slice(0, 15).some((item) => {
+                return item.state !== ""
+            })
         }
     }
 }
