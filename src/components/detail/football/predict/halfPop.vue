@@ -2,7 +2,7 @@
     <div class="popBox l-full l-flex-column  slide-bottom-to-top">
         <div class="popTopbar" v-tap="{methods: closeDialog}"></div>
         <div class="popInner box-yc">
-            <div class="full-scroll l-full l-scroll-y">
+            <div class="l-full l-scroll-y">
                 <div class="popHeader">
                     <h4 class="popTit">最大概率</h4>
                     <ul class="dataItem">
