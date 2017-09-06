@@ -102,6 +102,7 @@
                 <template v-if="feature.a[match.status]"><!--正在开打-->
                     <div class="score-live">{{match.status_desc}}</div>
                     <!--<div class="live-time" v-if="match.status !== StatusCode.MID">{{match.match_at}}</div>-->
+                    <div class="live-time" v-if="match.status === StatusCode.MID">中场</div>
                 </template>
                 <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
                     <div class="follow had-follow">完场</div>
@@ -238,7 +239,7 @@
     .game-lately {
         color: #aab5bd;
         font-size: .293333rem;
-        float: right; height:0.866rem;line-height: 0.866rem;
+        float: right;
     }
     .game-detail-r {
         float: left;
@@ -266,7 +267,7 @@
     .game-lately {
         color: #aab5bd;
         font-size: .293333rem;
-        float: right
+        float: right;display: table-cell;;vertical-align: middle;
     }
 
     .game-detail-r {
@@ -308,7 +309,8 @@
         line-height: .533333rem;
         text-align: center;
         color: #5c788f;
-        border-radius: .026667rem
+        font-size: .346667rem;
+        border-radius: .0533rem
     }
 
     .btn-live:active {
@@ -336,7 +338,8 @@
         display: inline-block;
         height: .64rem;
         line-height: .64rem;
-        overflow: hidden
+        overflow: hidden;
+        display: inline-table;
     }
     .five-score .first-score{
         width:0.54rem;
@@ -349,7 +352,7 @@
         line-height: .64rem;
         width: 1rem;
         text-align: right;
-        overflow: hidden
+        overflow: hidden;display: inline-table;
     }
     .btn-once {
         position: absolute;
@@ -358,6 +361,11 @@
         transform: translateY(-50%);
         left: 50%;
         margin-left: -.6rem
+    }
+    .score-live {
+        font-size: .346667rem;
+        color: #36a171;
+        margin-top: .053333rem;
     }
 </style>
 <script>
