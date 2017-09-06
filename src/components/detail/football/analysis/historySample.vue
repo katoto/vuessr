@@ -50,7 +50,7 @@
                             </table>
                         </li>
                     </ul>
-                    <div class="more" :class="{'more-up': shouldShowAll[index]}" v-tap="{methods: toggleAll, index}"><i class="zd-arrow"></i></div>
+                    <!--<div class="more" :class="{'more-up': shouldShowAll[index]}" v-tap="{methods: toggleAll, index}"><i class="zd-arrow"></i></div>-->
                 </div>
 
                 <div class="sk-btips">500彩票网提示：<br> 以上数据仅供参考，请以官方公布的数据为准
