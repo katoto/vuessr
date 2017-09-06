@@ -36,7 +36,6 @@
         watch: {
             '$route.path' () {
                 this.initView()
-                console.log(this.tab)
             }
         },
         methods: {
