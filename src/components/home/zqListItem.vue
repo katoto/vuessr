@@ -395,7 +395,7 @@
     .mid-font {
         font-size: .346667rem;
     }
-    .live-time i{-webkit-animation:flash 1s 1s ease infinite;-moz-animation:flash 1s 1s ease infinite;}
+    .live-time i{-webkit-animation:flash 2s 2s ease infinite;-moz-animation:flash 2s 2s ease infinite;}
     @-webkit-keyframes flash{
     0%,50%,100%
     {opacity: 1;}
