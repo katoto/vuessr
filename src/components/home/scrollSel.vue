@@ -25,9 +25,9 @@
                     zs: 0,
                     hot: 1,
                     concern: 2,
-                    sfc: 2,
-                    csl: 2,
-                    bjdc: 2
+                    csl: 3,
+                    sfc: 3,
+                    bjdc: 3
                 },
                 liw: 173
             }

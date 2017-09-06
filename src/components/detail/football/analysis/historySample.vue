@@ -49,7 +49,7 @@
                             </table>
                         </li>
                     </ul>
-                    <div class="more" :class="{'more-up': shouldShowAll[index]}" v-tap="{methods: () => shouldShowAll[index] = !shouldShowAll[index]}"><i class="zd-arrow"></i></div>
+                    <div class="more" :class="{'more-up': shouldShowAll[index]}" v-tap="{methods: toggleAll, index}"><i class="zd-arrow"></i></div>
                 </div>
 
                 <div class="sk-btips">500彩票网提示：<br> 以上数据仅供参考，请以官方公布的数据为准
@@ -77,6 +77,12 @@
             },
             switchTab ({tab}) {
                 this.tab = tab
+            },
+            toggleAll({index}) {
+                alert(index)
+                alert(JSON.stringify(this.shouldShowAll))
+                this.shouldShowAll[index] = !this.shouldShowAll[index]
+                alert(JSON.stringify(this.shouldShowAll))
             }
         },
         created () {
