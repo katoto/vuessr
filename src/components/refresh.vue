@@ -33,7 +33,7 @@
         right: .4rem;
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
-        z-index: 9;
+        z-index: 11;
         overflow: visible;
     }
     .refresh-icon {

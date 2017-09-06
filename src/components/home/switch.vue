@@ -104,7 +104,7 @@
         right: .4rem;
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
-        z-index: 9;
+        z-index: 11;
         box-shadow: 0 0 .133333rem rgba(210,81,56,.36)
     }
 
