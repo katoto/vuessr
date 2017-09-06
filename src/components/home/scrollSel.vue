@@ -110,7 +110,7 @@
     }
 
     .item-tab ul {
-        width: 13.8rem;
+        width: 14.2rem;
     }
 
     .item-tab li {
