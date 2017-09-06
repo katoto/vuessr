@@ -267,7 +267,9 @@
     .game-lately {
         color: #aab5bd;
         font-size: .293333rem;
-        float: right;display: table-cell;;vertical-align: middle;
+        float: right;
+        display: table-cell;
+        vertical-align:middle;
     }
 
     .game-detail-r {
@@ -336,8 +338,8 @@
         width: .58rem;
         text-align: right;
         display: inline-block;
-        height: .64rem;
-        line-height: .64rem;
+        height: .56rem;
+        line-height: .56rem;
         overflow: hidden;
         display: inline-table;
     }
@@ -348,8 +350,8 @@
         font-size: .453333rem;
         color: #36a171;
         display: inline-block;
-        height: .64rem;
-        line-height: .64rem;
+        height: .56rem;
+        line-height: .56rem;
         width: 1rem;
         text-align: right;
         overflow: hidden;display: inline-table;
