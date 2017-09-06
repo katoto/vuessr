@@ -1,7 +1,7 @@
 <template>
     <div class="sk-btips">
         共{{all}}家公司为你提供数据，其中主流公司{{main}}家<br>
-        <span class="colorc">500彩票网提示：以上数据仅供参考，请以官方公布的数据为准</span>
+        <span>500彩票网提示：以上数据仅供参考，请以官方公布的数据为准</span>
     </div>
 </template>
 <script>

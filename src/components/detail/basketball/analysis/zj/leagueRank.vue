@@ -84,7 +84,7 @@
                             失
                         </th>
                     </tr>
-                    <tr v-for="(rank, idx) in leaguerank">
+                    <tr v-for="(rank, idx) in leaguerank" :class="{'vs-ing': baseInfo.homeid === rank.tid || baseInfo.awayid === rank.tid}">
                         <td>
                             {{idx+1}}
                         </td>
@@ -288,6 +288,10 @@
     [data-dpr="3"] .fx-table tr td:first-child span.f23 {
         font-size: 34.5px
     }
-
+    tr.vs-ing td {
+        background: #f6fafe;
+        border-bottom: 1px solid #f2f8fd;
+        border-top: 1px solid #f2f8fd;
+    }
 
 </style>

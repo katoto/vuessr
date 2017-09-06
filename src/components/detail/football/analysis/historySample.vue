@@ -10,7 +10,8 @@
                         <li class="itemC">对阵</li>
                         <li class="itemR">初赔/终赔</li>
                     </ul>
-                    <ul class="dataItem" v-for="info,idx in item.table" v-if="shouldShowAll[index]||idx<5">
+                    <!--<ul class="dataItem" v-for="info,idx in item.table" v-if="shouldShowAll[index]||idx<5">-->
+                    <ul class="dataItem" v-for="info,idx in item.table">
                         <li class="itemL">
                             <div>{{info.simpleleague}}</div>
                             <div>{{info.matchdate.substring(2,10)}}</div>
@@ -49,7 +50,7 @@
                             </table>
                         </li>
                     </ul>
-                    <div class="more" :class="{'more-up': shouldShowAll[index]}" v-tap="{methods: () => shouldShowAll[index] = !shouldShowAll[index]}"><i class="zd-arrow"></i></div>
+                    <div class="more" :class="{'more-up': shouldShowAll[index]}" v-tap="{methods: toggleAll, index}"><i class="zd-arrow"></i></div>
                 </div>
 
                 <div class="sk-btips">500彩票网提示：<br> 以上数据仅供参考，请以官方公布的数据为准
@@ -77,6 +78,9 @@
             },
             switchTab ({tab}) {
                 this.tab = tab
+            },
+            toggleAll({index}) {
+                this.shouldShowAll[index] = !this.shouldShowAll[index]
             }
         },
         created () {
