@@ -22,7 +22,7 @@
                 </div>
                 <div class="week-tit weeker-item">
                     <ul v-if="rExpectList">
-                        <li v-for="expect in rExpectList" :class="{cur: expect === curExpect}" v-tap="{methods: enterExpect, expect: expect}">{{expect.substr(8)}}</li>
+                        <li v-for="expect in rExpectList" :class="{cur: expect === curExpect}" v-tap="{methods: enterExpect, expect: expect}">{{expect | expectFmt}}</li>
                     </ul>
                 </div>
             </div>
@@ -130,6 +130,15 @@
                 } else {
                     const tmp = expect.split('-')
                     return `${[tmp[1], tmp[2]].join('-')} 周${dayMap[date.getDay()]}`
+                }
+            },
+            expectFmt: (expect) => {
+                const date = new Date(expect.split('-').join('/'))
+                const current = new Date()
+                if (current.getDate() === date.getDate() && current.getMonth() === date.getMonth() && current.getFullYear() === date.getFullYear()) {
+                    return '今'
+                } else {
+                    return expect.substr(8)
                 }
             }
         }
