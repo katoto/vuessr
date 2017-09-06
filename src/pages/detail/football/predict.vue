@@ -586,6 +586,9 @@
     .hide {
         display: none
     }
+    .list-yuce .info .mr0{
+        margin-left: 0
+    }
 
     .list-yuce li {
         height: 1.893333rem;
@@ -711,7 +714,8 @@
         padding: .026667rem .106667rem;
         border: 1px solid rgba(210,81,56,.4);
         color: rgba(210,81,56,1);
-        border-radius: .053333rem
+        border-radius: .053333rem;
+        margin-left: 0.106rem;
     }
 
 
