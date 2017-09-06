@@ -21,7 +21,7 @@ export default {
             required: true
         }
     },
-    data() {
+    data () {
         return {
             goDetailFlag: false
         }
@@ -42,8 +42,8 @@ export default {
         }
     },
     methods: {
-        initPos() {
-            if(sessionStorage.getItem('teamScPos')) {
+        initPos () {
+            if (sessionStorage.getItem('teamScPos')) {
                 this.$el.parentElement.scrollTop = sessionStorage.getItem('teamScPos')
             } else {
                 this.goNoStartMatch()
@@ -70,8 +70,8 @@ export default {
     mounted () {
         this.initPos()
     },
-    destroyed() {
-        if(!this.goDetailFlag) {    // 假如不是跳到详情页，则清楚位置记录
+    destroyed () {
+        if (!this.goDetailFlag) {    // 假如不是跳到详情页，则清楚位置记录
             sessionStorage.removeItem('teamScPos')
         }
     }
