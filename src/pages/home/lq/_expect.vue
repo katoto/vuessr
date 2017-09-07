@@ -203,7 +203,6 @@
         text-align: center;
         position: relative
     }
-
     .loading .icon {
         display: inline-block;
         width: .72rem;
