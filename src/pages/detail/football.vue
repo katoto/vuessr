@@ -6,7 +6,7 @@
             <!--<a class="link-index f26" href="/score/index.html#/football">比分首页</a>-->
 
             <!--<div onclick="home.goLeague()" class="r-sn f24">{{match.simpleleague}}</div>-->
-            <router-link2 :to="'/center/footballmatch/'+match.seasonid+'/integral'" class="r-sn f24">{{match.simpleleague}}</router-link2>
+            <router-link2 :to="{path: '/center/footballmatch/'+match.seasonid+'/integral', query: $route.query}" class="r-sn f24">{{match.simpleleague}}</router-link2>
 
 
             <!--<div id="_concern" style="display: none" class="topR" onclick="home.doConcern()">

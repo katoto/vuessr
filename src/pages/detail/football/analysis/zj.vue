@@ -110,7 +110,7 @@
 
 
 
-        <div class="inte-look zhedie" v-if="leagueRank.issame === '1'" v-tap="{methods: ()=>{$router.push('/center/footballmatch/'+match.seasonid+'/integral')}}">完整积分榜></div>
+        <div class="inte-look zhedie" v-if="leagueRank.issame === '1'" v-tap="{methods: ()=>{$router.push({path: '/center/footballmatch/'+match.seasonid+'/integral', query: $route.query})}}">完整积分榜></div>
 
 
         <div class="zhedie-box zhedie-box-wl" v-if="cupRank && cupRank.length && match.stagemode==='2'">
@@ -144,7 +144,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="inte-look zhedie" v-tap="{methods: ()=>{$router.push('/center/footballmatch/'+match.seasonid+'/integral')}}">完整积分榜&gt;</div>
+            <div class="inte-look zhedie" v-tap="{methods: ()=>{$router.push({path: '/center/footballmatch/'+match.seasonid+'/integral', query: $route.query})}}">完整积分榜></div>
             <!--<div class="inte-look zhedie"  onclick="location.href='match_center/index.html#/footballleague/integral/{{match.seasonid}}'">完整积分榜&gt;</div>-->
 
         </div>
