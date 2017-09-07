@@ -72,10 +72,10 @@ export default {
         refreshTime () { // 用户点击刷新按钮时间戳
             return this.$store.state.refreshTime
         },
-        noEmptyFlagLeaguerank() {
+        noEmptyFlagLeaguerank () {
             return this.noEmpty(this.leaguerank)
         },
-        noEmptyFlagNBArank() {
+        noEmptyFlagNBArank () {
             return this.noEmpty(this.nbarank.all)
         }
     },

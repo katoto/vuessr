@@ -46,19 +46,19 @@
                     this.scrollerObj.scrollTo((this.tabLeft[tab] * this.liw), 0, true)
                 })
             },
-            pathToTab(path) {
+            pathToTab (path) {
                 switch (path) {
-                    case '/home/zq/jczq/cur': return 'jczq'
-                    case '/home/zq/all/cur': return 'all'
-                    case '/home/zq/crazybet/cur': return 'crazybet'
-                    case '/home/zq/zs'    : return 'zs'
-                    case '/home/zq/hot/cur': return 'hot'
-                    case '/home/zq/concern': return 'concern'
-                    case '/home/zq/csl/cur': return 'csl'
-                    case '/home/zq/sfc/cur': return 'sfc'
-                    case '/home/zq/bjdc/cur': return 'bjdc'
+                case '/home/zq/jczq/cur': return 'jczq'
+                case '/home/zq/all/cur': return 'all'
+                case '/home/zq/crazybet/cur': return 'crazybet'
+                case '/home/zq/zs' : return 'zs'
+                case '/home/zq/hot/cur': return 'hot'
+                case '/home/zq/concern': return 'concern'
+                case '/home/zq/csl/cur': return 'csl'
+                case '/home/zq/sfc/cur': return 'sfc'
+                case '/home/zq/bjdc/cur': return 'bjdc'
 
-                    default: return 'jczq'
+                default: return 'jczq'
                 }
             },
             raf: (cb) => window.requestAnimationFrame ? requestAnimationFrame(cb) : setTimeout(() => cb(), 16.7),
@@ -102,7 +102,7 @@
             }
         },
         watch: {
-            "$route.path"(nPath, oPath) {
+            '$route.path' (nPath, oPath) {
                 this.initLeft(this.pathToTab(nPath))
             }
         }

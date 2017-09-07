@@ -56,7 +56,7 @@
                     'bjdc': '单场'
                 },
                 show: true,
-                tab:''
+                tab: ''
             }
         },
         watch: {
@@ -93,28 +93,28 @@
             toggleLeague ({league}) {
                 this.selectOptions[league] = !this.selectOptions[league]
                 this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
-                this.tab= ''
+                this.tab = ''
             },
             selectAll: function () {
                 Object.keys(this.selectOptions).forEach((key) => {
                     this.selectOptions[key] = true
                 })
                 this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
-                this.tab='all'
+                this.tab = 'all'
             },
             inverseAll: function () {
                 Object.keys(this.selectOptions).forEach((key) => {
                     this.selectOptions[key] = !this.selectOptions[key]
                 })
                 this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
-                this.tab='reverse'
+                this.tab = 'reverse'
             },
             selectFiveLeague () {
                 Object.keys(this.selectOptions).forEach((key) => {
                     this.selectOptions[key] = !!this.fiveLeagues[key]
                 })
                 this.filteredMatches = this.matches.filter(match => this.selectOptions[match.simpleleague])
-                this.tab='five'
+                this.tab = 'five'
             },
             confirm: function () {
                 let tmp = Object.values(this.selectOptions)

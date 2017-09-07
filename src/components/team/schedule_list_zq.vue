@@ -71,7 +71,7 @@ export default {
         this.initPos()
     },
     destroyed () {
-        if (!this.goDetailFlag) {    // 假如不是跳到详情页，则清楚位置记录
+        if (!this.goDetailFlag) { // 假如不是跳到详情页，则清楚位置记录
             sessionStorage.removeItem('teamScPos')
         }
     }
