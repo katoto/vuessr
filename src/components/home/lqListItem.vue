@@ -354,7 +354,8 @@
         line-height: .56rem;
         width: 1rem;
         text-align: right;
-        overflow: hidden;display: inline-table;
+        overflow: hidden;
+        display: inline-table;
     }
     .btn-once {
         position: absolute;
@@ -362,7 +363,7 @@
         -webkit-transform: translateY(-50%);
         transform: translateY(-50%);
         left: 50%;
-        margin-left: -.6rem
+        margin-left: -.6rem;
     }
     .score-live {
         font-size: .346667rem;
