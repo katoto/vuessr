@@ -5,6 +5,7 @@ import SockJS from 'sockjs-client'
 import platform from '~common/platform'
 import Vue from 'vue'
 import Vuex from 'vuex'
+import ajax from '~common/ajax'
 import home from './home'
 import zqdetail from './zqdetail'
 import lqdetail from './lqdetail'
@@ -170,8 +171,9 @@ const actions = {
         }
         return true
     },
-    doVerify ({commit}) {
-        commit('setVerify', false)
+    async doVerify ({commit}) {
+        let result = await ajax.get(`http://ets.500.com/esuser/utruename/checkit?platform=touch`)
+        commit('setVerify', result.flag === '1')
     },
     login () {
         platform.login()

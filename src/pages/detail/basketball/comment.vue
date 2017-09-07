@@ -103,7 +103,7 @@ export default {
         total () {
             return this.comment.total
         },
-        isVerify() {
+        isVerify () {
             return this.$store.state.isVerify
         }
     },
@@ -140,7 +140,7 @@ export default {
         async onReply ({commentReplyId, replyName}) {
             this.$store.dispatch('ensureLogin')
             await this.$store.dispatch('doVerify')
-            if(this.isVerify) {
+            if (this.isVerify) {
                 this.$store.commit(mTypes.showEditorDialog, {commentReplyId, replyName})
             } else {
                 this.$store.commit(mTypes.setDialog, {

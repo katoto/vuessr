@@ -18,15 +18,15 @@
 
 <script>
 export default {
-    props: ["params"],
+    props: ['params'],
     methods: {
-        onClose() {
-            if(typeof this.params.onClose === 'function') {
+        onClose () {
+            if (typeof this.params.onClose === 'function') {
                 this.params.onClose()
             }
         },
-        onVerify() {
-            if(typeof this.params.onVerify === 'function') {
+        onVerify () {
+            if (typeof this.params.onVerify === 'function') {
                 this.params.onVerify()
             }
         }

@@ -239,7 +239,7 @@
             async beginEdit () {
                 this.$store.dispatch('ensureLogin')
                 await this.$store.dispatch('doVerify') // 判断实名认证
-                if(this.isVerify) {
+                if (this.isVerify) {
                     this.$store.commit(mTypes.showEditorDialog, {})
                 } else {
                     this.$store.commit(mTypes.setDialog, {
