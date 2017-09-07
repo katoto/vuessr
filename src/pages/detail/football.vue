@@ -1,8 +1,8 @@
 <template>
     <div class="l-full l-flex-column root" v-if="match">
         <div class="detailTop" :class="{'topBarMove': showScore, 'topBarMove2': !showScore}" style="display: block;">
-            <a class="back-icon" onclick="history.back()" href="javascript:;">返回</a>
-            <router-link2 to="/home/zq/jczq/cur" class="link-index f26">比分首页</router-link2>
+            <a class="back-icon" onclick="history.back()" href="javascript:;" v-if="$route.query.from!=='app_bet'">返回</a>
+            <router-link2 to="/home/zq/jczq/cur" class="link-index f26" v-if="$route.query.from!=='app_bet'">比分首页</router-link2>
             <!--<a class="link-index f26" href="/score/index.html#/football">比分首页</a>-->
 
             <!--<div onclick="home.goLeague()" class="r-sn f24">{{match.simpleleague}}</div>-->
@@ -252,7 +252,7 @@
                 this.$refs.scroller.update()
             },
             goTeam ({teamId}) {
-                this.$router.push(`/team/football/${teamId}/sc`)
+                this.$router.push({path: `/team/football/${teamId}/sc`, query: this.$route.query})
             },
             onSend ({content, isShare}) {
                 this.$store.dispatch('ensureLogin')
