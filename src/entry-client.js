@@ -87,8 +87,11 @@ router.onReady(() => {
 
     // actually mount to DOM
     platform.ready(() => {
-        window.EsApp && window.EsApp.invoke('titleBar', {isShow: '0', title: '比分详情'})
-
+        if (window.EsApp && ~location.href.indexOf('from=app_bet')) {
+            window.EsApp.invoke('titleBar', {isShow: '1', title: '比分详情'})
+        } else if (window.EsApp) {
+            window.EsApp.invoke('titleBar', {isShow: '0', title: '比分详情'})
+        }
         app.$mount('#app')
     })
 })
