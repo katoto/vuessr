@@ -154,6 +154,8 @@
     import score from '~components/detail/score.vue'
     import copy from '~components/detail/copy.vue'
     import commEnter from '~components/detail/commEnter.vue'
+    import verify from '~components/detail/verify.vue'
+
     import {
         aTypes,
         mTypes
@@ -234,9 +236,24 @@
                 })
                 this.closeEditor()
             },
-            beginEdit () {
+            async beginEdit () {
                 this.$store.dispatch('ensureLogin')
-                this.$store.commit(mTypes.showEditorDialog, {})
+                await this.$store.dispatch('doVerify') // 判断实名认证
+                if(this.isVerify) {
+                    this.$store.commit(mTypes.showEditorDialog, {})
+                } else {
+                    this.$store.commit(mTypes.setDialog, {
+                        component: verify,
+                        params: {
+                            onClose: () => {
+                                this.$store.commit(mTypes.setDialog, {})
+                            },
+                            onVerify: () => {
+                                window.location.href = `http://m.500.com/account/index.php?c=home&a=idauth&backurl=${window.location.href}`
+                            }
+                        }
+                    })
+                }
             },
             closeEditor () {
                 this.$store.commit(mTypes.hideEditorDialog)

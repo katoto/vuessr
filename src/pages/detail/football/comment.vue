@@ -57,6 +57,7 @@
 <script>
     import snap from '~components/detail/football/comment/snap.vue'
     import report from '~components/detail/report.vue'
+    import verify from '~components/detail/verify.vue'
     import {aTypes, mTypes} from '~store/zqdetail'
     export default {
         async asyncData ({store, route: {params}}) {
@@ -81,7 +82,7 @@
             this.fetchCountAndEventAndStatisticsInterval()
         },
         components: {
-            snap
+            snap, verify
         },
         watch: {
             loaded () {
@@ -155,9 +156,24 @@
                     }, 1000 * 10)
                 }
             },
-            onReply ({commentReplyId, replyName}) {
+            async onReply ({commentReplyId, replyName}) {
                 this.$store.dispatch('ensureLogin')
-                this.$store.commit(mTypes.showEditorDialog, {commentReplyId, replyName})
+                await this.$store.dispatch('doVerify')
+                if(this.isVerify) {
+                    this.$store.commit(mTypes.showEditorDialog, {commentReplyId, replyName})
+                } else {
+                    this.$store.commit(mTypes.setDialog, {
+                        component: verify,
+                        params: {
+                            onClose: () => {
+                                this.$store.commit(mTypes.setDialog, {})
+                            },
+                            onVerify: () => {
+                                window.location.href = `http://m.500.com/account/index.php?c=home&a=idauth&backurl=${window.location.href}`
+                            }
+                        }
+                    })
+                }
             },
             async onLike ({status, id, index}) {
                 this.$store.dispatch('ensureLogin')
@@ -234,6 +250,9 @@
             },
             bestExport () {
                 return this.comment.bestExport
+            },
+            isVerify() {
+                return this.$store.state.isVerify
             }
         }
 

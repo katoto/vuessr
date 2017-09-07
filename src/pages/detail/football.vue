@@ -162,6 +162,7 @@
     import score from '~components/detail/score.vue'
     import {aTypes, mTypes} from '~store/zqdetail'
     import commEnter from '~components/detail/commEnter.vue'
+    import verify from '~components/detail/verify.vue'
     if (process.env.VUE_ENV !== 'server') {
         require('nativeshare')
     }
@@ -204,6 +205,9 @@
             },
             toast () {
                 return this.$store.state.toast
+            },
+            isVerify() {
+                return this.$store.state.isVerify
             }
         },
         async mounted () {
@@ -264,9 +268,24 @@
                 })
                 this.closeEditor()
             },
-            beginEdit () {
+            async beginEdit () {
                 this.$store.dispatch('ensureLogin')
-                this.$store.commit(mTypes.showEditorDialog, {})
+                await this.$store.dispatch('doVerify') // 判断实名认证
+                if(this.isVerify) {
+                    this.$store.commit(mTypes.showEditorDialog, {})
+                } else {
+                    this.$store.commit(mTypes.setDialog, {
+                        component: verify,
+                        params: {
+                            onClose: () => {
+                                this.$store.commit(mTypes.setDialog, {})
+                            },
+                            onVerify: () => {
+                                window.location.href = `http://m.500.com/account/index.php?c=home&a=idauth&backurl=${window.location.href}`
+                            }
+                        }
+                    })
+                }
             },
             doShare (nativeShare) {
             // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
