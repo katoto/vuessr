@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div vif>
         <div class="zhedie-box" v-if="baseInfo.stagemode === '1'">
             <div class="zj-nav">
                 联赛排名

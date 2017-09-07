@@ -8,12 +8,13 @@
         </div>
         <template v-if="noEmptyFlag">
             <template v-if="vtype === '1'">
-                <div class="zhedie show" >
+                <div class="zhedie show" v-if="noEmptyFlagHome && noEmptyFlagAway">
                     <trend-box :baseInfo="baseInfo" type="分差" :trends="trends" hoa="away" :trendTop="trendTopAway" :trendHeight="trendHeightAway" ></trend-box>
                     <trend-box :baseInfo="baseInfo" type="分差" :trends="trends" hoa="home" :trendTop="trendTopHome" :trendHeight="trendHeightHome" ></trend-box>
                     <!-- <item-loader  v-if="!loaded"></item-loader> -->
                 </div>
-                <div class="fczs-notice">
+                <feed-back-no-data v-else></feed-back-no-data>
+                <div class="fczs-notice" v-if="noEmptyFlagHome || noEmptyFlagAway">
                     <span><em class="point-red"></em>胜</span>
                     <span><em class="point-blue"></em>负</span>
                     <span><em class="xs">---</em>日期</span>
@@ -21,13 +22,14 @@
                 </div>
             </template>
             <template v-else>
-                <div class="zhedie show">
-                    <trend-box :baseInfo="baseInfo" type="总分"  :trends="trends" hoa="away" :trendTop="trendTotalTopAway" :trendHeight="totalTrendHeightAway"></trend-box>
-                    <trend-box :baseInfo="baseInfo" type="总分"  :trends="trends" hoa="home" :trendTop="totalTrendTopHome" :trendHeight="totalTrendHeightHome"></trend-box>
+                <div class="zhedie show" v-if="noEmptyFlagHome && noEmptyFlagAway">
+                    <trend-box :baseInfo="baseInfo" type="总分"  :trends="trends" hoa="away" :trendTop="trendTotalTopAway" :trendHeight="totalTrendHeightAway" ></trend-box>
+                    <trend-box :baseInfo="baseInfo" type="总分"  :trends="trends" hoa="home" :trendTop="totalTrendTopHome" :trendHeight="totalTrendHeightHome" ></trend-box>
                     <!-- <item-loader  v-if="!loaded"></item-loader> -->
                 </div>
+                <feed-back-no-data v-else></feed-back-no-data>
                 <!--图形解释-->
-                <div class="fczs-notice">
+                <div class="fczs-notice" v-if="noEmptyFlagHome || noEmptyFlagAway">
                     <span><em class="point-red"></em>大分</span>
                     <span><em class="point-blue"></em>小分</span>
                     <span><em class="xs">---</em>日期</span>
@@ -115,6 +117,22 @@ export default {
         },
         noEmptyFlag () {
             return this.noEmpty(this.trends)
+        },
+        noEmptyFlagHome() {
+            if(this.noEmptyFlag) {
+                return this.trends.home.coords.slice(0, 10).some((item) => {
+                    return item.state !== ""
+                })
+            }
+            return false
+        },
+        noEmptyFlagAway() {
+            if(this.noEmptyFlag) {
+                return this.trends.away.coords.slice(0, 10).some((item) => {
+                    return item.state !== ""
+                })
+            }
+            return false
         }
     },
     methods: {
