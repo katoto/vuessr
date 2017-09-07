@@ -179,7 +179,7 @@
         border-right: 1px solid #eaeaea;
         position: relative
     }
-
+    .game-detail-l:active{-webkit-tap-highlight-color:rgba(244,244,244,0.6)}
     .game-item {
         padding-right: .533333rem;
         box-sizing: border-box;
@@ -376,7 +376,6 @@
     .score-live {
         font-size: .346667rem;
         color: #36a171;
-
         width: 1.2rem;
         margin: 0 auto;
         height: .533333rem;

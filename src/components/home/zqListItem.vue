@@ -206,6 +206,7 @@
         border-right: 1px solid #eaeaea;
         position: relative
     }
+    .game-detail-l:active{-webkit-tap-highlight-color:rgba(244,244,244,0.6)}
     .game-item {
         padding-right: .533333rem;
         box-sizing: border-box;
