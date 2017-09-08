@@ -57,10 +57,10 @@
                     this.scrollerObj.scrollTo((this.tabLeft[tab] * this.liw), 0, true)
                 })
             },
-            pathToTab(path) {
+            pathToTab (path) {
                 let result = 'jczq'
                 this.tabs.forEach((tab) => {
-                    if(!!(~path.indexOf(tab))) {
+                    if (~path.indexOf(tab)) {
                         result = tab
                     }
                 })
