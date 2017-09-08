@@ -118,18 +118,18 @@ export default {
         noEmptyFlag () {
             return this.noEmpty(this.trends)
         },
-        noEmptyFlagHome() {
-            if(this.noEmptyFlag) {
+        noEmptyFlagHome () {
+            if (this.noEmptyFlag) {
                 return this.trends.home.coords.slice(0, 10).some((item) => {
-                    return item.state !== ""
+                    return item.state !== ''
                 })
             }
             return false
         },
-        noEmptyFlagAway() {
-            if(this.noEmptyFlag) {
+        noEmptyFlagAway () {
+            if (this.noEmptyFlag) {
                 return this.trends.away.coords.slice(0, 10).some((item) => {
-                    return item.state !== ""
+                    return item.state !== ''
                 })
             }
             return false

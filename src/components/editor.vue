@@ -40,7 +40,6 @@
         mounted () {
             this.$el.querySelector('.comm-txt').focus()
             this.$el.addEventListener('touchmove', (e) => {
-                console.log('move')
                 e.stopPropagation()
                 e.preventDefault()
             })

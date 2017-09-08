@@ -79,7 +79,7 @@
             switchTab ({tab}) {
                 this.tab = tab
             },
-            toggleAll({index}) {
+            toggleAll ({index}) {
                 this.shouldShowAll[index] = !this.shouldShowAll[index]
             }
         },

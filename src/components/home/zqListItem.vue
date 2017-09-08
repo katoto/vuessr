@@ -206,6 +206,7 @@
         border-right: 1px solid #eaeaea;
         position: relative
     }
+    .game-detail-l:active{background: #f4f4f4}
     .game-item {
         padding-right: .533333rem;
         box-sizing: border-box;

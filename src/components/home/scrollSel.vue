@@ -107,7 +107,7 @@
             }
         },
         watch: {
-            "$route.path"(nPath, oPath) {
+            '$route.path' (nPath, oPath) {
                 this.initLeft(this.pathToTab(nPath))
             }
         }

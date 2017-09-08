@@ -83,9 +83,9 @@ export default {
         }
     },
     computed: {
-        noEmptyFlag() {
+        noEmptyFlag () {
             return this.trends[this.hoa].coords.slice(0, 15).some((item) => {
-                return item.state !== ""
+                return item.state !== ''
             })
         }
     }
