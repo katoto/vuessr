@@ -29,6 +29,17 @@
                     sfc: 3,
                     bjdc: 3
                 },
+                tabs: [
+                    'jczq',
+                    'all',
+                    'crazybet',
+                    'zs',
+                    'hot',
+                    'concern',
+                    'csl',
+                    'sfc',
+                    'bjdc'
+                ],
                 liw: 173
             }
         },
@@ -47,19 +58,13 @@
                 })
             },
             pathToTab (path) {
-                switch (path) {
-                case '/home/zq/jczq/cur': return 'jczq'
-                case '/home/zq/all/cur': return 'all'
-                case '/home/zq/crazybet/cur': return 'crazybet'
-                case '/home/zq/zs' : return 'zs'
-                case '/home/zq/hot/cur': return 'hot'
-                case '/home/zq/concern': return 'concern'
-                case '/home/zq/csl/cur': return 'csl'
-                case '/home/zq/sfc/cur': return 'sfc'
-                case '/home/zq/bjdc/cur': return 'bjdc'
-
-                default: return 'jczq'
-                }
+                let result = 'jczq'
+                this.tabs.forEach((tab) => {
+                    if (~path.indexOf(tab)) {
+                        result = tab
+                    }
+                })
+                return result
             },
             raf: (cb) => window.requestAnimationFrame ? requestAnimationFrame(cb) : setTimeout(() => cb(), 16.7),
             config () {
