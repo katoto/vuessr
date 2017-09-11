@@ -36,16 +36,16 @@
         methods: {
             goLeague () {
                 if (~this.$route.path.indexOf('/zq/')) {
-                    this.$router.push({name: 'center-football'})
+                    this.$router.push({name: 'center-football', query: this.$route.query})
                 } else {
-                    this.$router.push({name: 'center-basketball'})
+                    this.$router.push({name: 'center-basketball', query: this.$route.query})
                 }
             },
             goTab ({tab}) {
                 if (tab === 'zq') {
-                    this.$router.replace(`/home/${tab}/jczq/cur`)
+                    this.$router.replace({path:`/home/${tab}/jczq/cur`,query:this.$route.query})
                 } else {
-                    this.$router.replace(`/home/${tab}/jclq/cur`)
+                    this.$router.replace({path:`/home/${tab}/jclq/cur`,query:this.$route.query})
                 }
             }
         }

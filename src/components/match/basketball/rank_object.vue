@@ -83,7 +83,7 @@
         },
         methods: {
             goTeam ({teamid}) {
-                this.$router.push(`/team/basketball/${teamid}/curr/gl/`)
+                this.$router.push({path: `/team/basketball/${teamid}/curr/gl/`, query: this.$route.query})
             }
         }
     }

@@ -44,7 +44,7 @@
                             </a>
                             <ul class="hot-match-list match-list-detail" :class="{'hide':!isActive[index]}" v-for="detail in list.leaguelist">
                                 <li class="hot-match-item">
-                                    <router-link :to="{name: 'center-football-match-integral',params:{seasonid:detail.seasonid}}">
+                                    <router-link :to="{name: 'center-football-match-integral',params:{seasonid:detail.seasonid},query:$route.query}">
                                         <span class="link-all-match">
                                             <em class="match-icon">
                                                 <img :src="detail['matchlogo']"/></em>
