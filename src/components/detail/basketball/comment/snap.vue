@@ -64,7 +64,7 @@ export default {
                 let totalVote = (this.vote.ticket[0] - 0) + (this.vote.ticket[2] - 0) + (this.vote.ticket[1] - 0)
                 if (totalVote) {
                     result.winPer = (this.vote.ticket[0] / totalVote * 100).toFixed(0)
-                    result.lostPer = (this.vote.ticket[2] / totalVote * 100).toFixed(0)
+                    result.lostPer = 100 - result.winPer
                     result.winW = result.winPer
                     result.lostW = result.lostPer
                     if (result.winW === '100') {
