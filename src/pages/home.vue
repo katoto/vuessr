@@ -47,9 +47,9 @@
             },
             goTab ({tab}) {
                 if (tab === 'zq') {
-                    this.$router.replace(`/home/${tab}/jczq/cur`)
+                    this.$router.replace({path: `/home/${tab}/jczq/cur`, query: this.$route.query})
                 } else {
-                    this.$router.replace(`/home/${tab}/jclq/cur`)
+                    this.$router.replace({path: `/home/${tab}/jclq/cur`, query: this.$route.query})
                 }
             }
         }

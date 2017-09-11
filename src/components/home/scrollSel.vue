@@ -49,7 +49,7 @@
         },
         methods: {
             async switchTab ({path}) {
-                await this.$router.replace(path)
+                await this.$router.replace({path: path, query: this.$route.query})
             },
             async initLeft (tab) {
                 sessionStorage.setItem('homeTab', tab)

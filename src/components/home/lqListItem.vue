@@ -13,7 +13,7 @@
         <!-- 比赛详细信息 -->
         <div class="game-detail">
             <!-- 左边的球队信息、近六场 -->
-            <router-link class="game-detail-l l-flex-column" v-tap="{methods: goDetail}" :to="detailPath">
+            <router-link class="game-detail-l l-flex-column" v-tap="{methods: goDetail}" :to="{path: detailPath, query: $route.query}">
 
                 <div class="game-item ">
                     <div class="game-name"><img data-inited="0"
@@ -440,7 +440,7 @@
         },
         methods: {
             goDetail () {
-                this.$router.push(this.detailPath)
+                this.$router.push({path: this.detailPath, query: this.$route.query})
             },
             doConcern () {
                 this.$store.dispatch('ensureLogin')
