@@ -128,7 +128,7 @@
         },
         methods: {
             goAnalysis ({fid}) {
-                this.$router.push(`/detail/football/${fid}/odds/europe`)
+                this.$router.push({path: `/detail/football/${fid}/odds/europe`, query: this.$route.query})
             },
             makeDescClass (desc) {
                 switch (desc) {

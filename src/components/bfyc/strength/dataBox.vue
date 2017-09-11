@@ -44,7 +44,7 @@ export default {
     },
     methods: {
         goAnalysis ({fid}) {
-            this.$router.push(`/detail/football/${fid}/analysis/js`)
+            this.$router.push({path: `/detail/football/${fid}/analysis/js`, query: this.$route.query})
         }
     },
     filters: {

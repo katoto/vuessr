@@ -52,7 +52,7 @@ export default {
         goDetail ({fid}) {
             sessionStorage.setItem('teamScPos', this.$el.parentElement.scrollTop)
             this.goDetailFlag = true
-            this.$router.push(`/detail/football/${fid}/situation`)
+            this.$router.push({path: `/detail/football/${fid}/situation`, query: this.$route.query})
         },
         scoreFmt (match) {
             if (match.homescore && match.awayscore) {
@@ -71,7 +71,7 @@ export default {
         this.initPos()
     },
     destroyed () {
-        if (!this.goDetailFlag) { // 假如不是跳到详情页，则清楚位置记录
+        if (!this.goDetailFlag) { // 假如不是跳到详情页，则清除位置记录
             sessionStorage.removeItem('teamScPos')
         }
     }

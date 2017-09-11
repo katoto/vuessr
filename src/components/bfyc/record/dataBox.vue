@@ -55,7 +55,7 @@ export default {
             return false
         },
         goAnalysis ({fid}) {
-            this.$router.push(`/detail/football/${fid}/analysis/zj`)
+            this.$router.push({path: `/detail/football/${fid}/analysis/zj`, query: this.$route.query})
         }
     }
 }

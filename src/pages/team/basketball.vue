@@ -12,8 +12,8 @@
                 </div>
             </div>
             <nav class="sk-tab">
-                <router-link :class="{'cur': ~$route.path.indexOf('/gl')}" :to="{name: 'team-basketball-gl'}" replace>概览<i class="sktab-arrow"></i></router-link>
-                <router-link :class="{'cur': ~$route.path.indexOf('/sc')}" :to="{name: 'team-basketball-sc'}" replace>赛程<i class="sktab-arrow"></i></router-link>
+                <router-link :class="{'cur': ~$route.path.indexOf('/gl')}" :to="{name: 'team-basketball-gl', query: $route.query}" replace>概览<i class="sktab-arrow"></i></router-link>
+                <router-link :class="{'cur': ~$route.path.indexOf('/sc')}" :to="{name: 'team-basketball-sc', query: $route.query}" replace>赛程<i class="sktab-arrow"></i></router-link>
             </nav>
         </header>
         <div class="l-flex-1 l-relative">
