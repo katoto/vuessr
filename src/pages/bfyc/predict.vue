@@ -184,7 +184,7 @@
                 this.$store.dispatch(aTypes.getPredict, this.cur)
             },
             goAnalysis ({fid}) {
-                this.$router.push(`/detail/football/${fid}/predict`)
+                this.$router.push({path: `/detail/football/${fid}/predict`, query: this.$route.query})
             },
             async fetchData () {
                 await this.$store.dispatch(aTypes.getPredict, this.$store.state.bfyc.currExpect)

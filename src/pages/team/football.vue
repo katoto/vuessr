@@ -12,9 +12,9 @@
                 </div>
             </div>
             <nav class="sk-tab">
-                <router-link :class="{'cur': ~$route.path.indexOf('/gl')}" :to="{name: 'team-football-gl'}" replace>概览<i class="sktab-arrow"></i></router-link>
-                <router-link :class="{'cur': ~$route.path.indexOf('/sc')}" :to="{name: 'team-football-sc'}" replace>赛程<i class="sktab-arrow"></i></router-link>
-                <router-link :class="{'cur': ~$route.path.indexOf('/zr')}" :to="{name: 'team-football-zr'}" replace>阵容<i class="sktab-arrow"></i></router-link>
+                <router-link :class="{'cur': ~$route.path.indexOf('/gl')}" :to="{name: 'team-football-gl', query: $route.query}" replace>概览<i class="sktab-arrow"></i></router-link>
+                <router-link :class="{'cur': ~$route.path.indexOf('/sc')}" :to="{name: 'team-football-sc', query: $route.query}" replace>赛程<i class="sktab-arrow"></i></router-link>
+                <router-link :class="{'cur': ~$route.path.indexOf('/zr')}" :to="{name: 'team-football-zr', query: $route.query}" replace>阵容<i class="sktab-arrow"></i></router-link>
             </nav>
         </header>
         <div class="l-flex-1 l-relative">

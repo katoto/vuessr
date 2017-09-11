@@ -16,7 +16,7 @@
     export default{
         methods: {
             onTab ({tab}) {
-                this.$router.replace(`/bfyc/record/${tab}`)
+                this.$router.replace({path: `/bfyc/record/${tab}`, query: this.$route.query})
             }
         }
     }

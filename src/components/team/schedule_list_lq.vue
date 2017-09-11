@@ -42,7 +42,7 @@ export default {
     },
     methods: {
         goDetail ({fid}) {
-            this.$router.push(`/detail/basketball/${fid}/situation/event`)
+            this.$router.push({path: `/detail/basketball/${fid}/situation/event`, query: this.$route.query})
         },
         scoreFmt (match) {
             if (match.homescore && match.awayscore) {

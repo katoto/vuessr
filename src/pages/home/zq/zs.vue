@@ -2,7 +2,7 @@
     <div class="l-full l-scroll-y">
         <div class="mark-cont" v-if="metro">
             <!-- 精选预测 -->
-            <router-link class="one-mark jxyc" to="/bfyc/predict">
+            <router-link class="one-mark jxyc" :to="{path: '/bfyc/predict', query: $route.query}">
                 <div class="mark-tit">精选预测</div>
                 <div class="mark-demo">
                     <template v-if="metro.awesome_predict.homesxname">
@@ -16,7 +16,7 @@
                 </div>
             </router-link>
             <!-- 冷热分布 -->
-            <router-link class="one-mark lrfb" to="/bfyc/hotcool">
+            <router-link class="one-mark lrfb" :to="{path: '/bfyc/hotcool', query: $route.query}">
                 <div class="mark-tit">冷热分布</div>
                 <div class="mark-demo">
                     <template v-if="metro.coldhot_distribute.order">
@@ -30,7 +30,7 @@
                 </div>
             </router-link>
             <!-- 实力对比 -->
-            <router-link class="one-mark sldb" to="/bfyc/strength">
+            <router-link class="one-mark sldb" :to="{path: '/bfyc/strength', query: $route.query}">
                 <div class="mark-tit">实力对比</div>
                 <div class="mark-demo">
                     <template v-if="metro.strength_compare.homesxname">
@@ -43,7 +43,7 @@
                 </div>
             </router-link>
             <!-- 战绩特征 -->
-            <router-link class="one-mark zjtz" to="/bfyc/record/result">
+            <router-link class="one-mark zjtz" :to="{path: '/bfyc/record/result', query: $route.query}">
                 <div class="mark-tit">战绩特征</div>
                 <div class="mark-demo">
                     <template v-if="metro.combat_feature.awaysxname">
