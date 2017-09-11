@@ -152,7 +152,7 @@
         },
         methods: {
             switchTab ({path}) {
-                this.$router.replace(path)
+                this.$router.replace({path: path, query: this.$route.query})
             }
         },
         async mounted () {

@@ -10,16 +10,16 @@
         <!--菜单切换区-->
         <nav class="match-tab match-list-tab match-list-b">
             <div class="match-tab-itm" :class="{cur:~$route.path.indexOf('/europe')}">
-                <router-link :to="{name:'center-basketball-league-europe'}" replace>欧洲</router-link>
+                <router-link :to="{name:'center-basketball-league-europe', query:$route.query}" replace>欧洲</router-link>
             </div>
             <div class="match-tab-itm" :class="{cur:~$route.path.indexOf('/asian')}">
-                <router-link :to="{name:'center-basketball-league-asian'}" replace>亚洲</router-link>
+                <router-link :to="{name:'center-basketball-league-asian', query:$route.query}" replace>亚洲</router-link>
             </div>
             <div class="match-tab-itm" :class="{cur:~$route.path.indexOf('/america')}">
-                <router-link :to="{name:'center-basketball-league-america'}" replace>美洲</router-link>
+                <router-link :to="{name:'center-basketball-league-america', query:$route.query}" replace>美洲</router-link>
             </div>
             <div class="match-tab-itm" :class="{cur:~$route.path.indexOf('/cups')}">
-                <router-link :to="{name:'center-basketball-league-cups'}" replace>杯赛</router-link>
+                <router-link :to="{name:'center-basketball-league-cups', query:$route.query}" replace>杯赛</router-link>
             </div>
         </nav>
 

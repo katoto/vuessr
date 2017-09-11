@@ -1,7 +1,7 @@
 <template>
     <div class="bifen-list l-full l-flex-column">
         <div class="head-zone">
-            <div class="icon-return" onclick="history.back()"><span></span></div>
+            <div class="icon-return" onclick="history.back()" v-if="backBtnShow"><span></span></div>
             <ul class="ball-tab">
                 <li :class="{cur: ~$route.path.indexOf('/zq/')}" v-tap="{methods: goTab, tab: 'zq'}">足球</li>
                 <li :class="{cur: ~$route.path.indexOf('/lq/')}"  v-tap="{methods: goTab, tab: 'lq'}">篮球</li>
@@ -31,21 +31,25 @@
         computed: {
             switchShow () {
                 return this.$store.state.home.switchShow
+            },
+            backBtnShow() {
+                if(!this.$route.query.from) return true
+                return this.$route.query.from !== 'app_home'
             }
         },
         methods: {
             goLeague () {
                 if (~this.$route.path.indexOf('/zq/')) {
-                    this.$router.push({name: 'center-football'})
+                    this.$router.push({name: 'center-football', query: this.$route.query})
                 } else {
-                    this.$router.push({name: 'center-basketball'})
+                    this.$router.push({name: 'center-basketball', query: this.$route.query})
                 }
             },
             goTab ({tab}) {
                 if (tab === 'zq') {
-                    this.$router.replace(`/home/${tab}/jczq/cur`)
+                    this.$router.replace({path: `/home/${tab}/jczq/cur`, query: this.$route.query})
                 } else {
-                    this.$router.replace(`/home/${tab}/jclq/cur`)
+                    this.$router.replace({path: `/home/${tab}/jclq/cur`, query: this.$route.query})
                 }
             }
         }

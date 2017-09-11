@@ -5,7 +5,7 @@
 
             <ul class="hot-match-list" v-for="list in match">
                 <li class="hot-match-item">
-                    <router-link class="link-all-match" :to=" '/center/basketballmatch/'+list['seasonid'] + '/rank'">
+                    <router-link class="link-all-match" :to="{path: '/center/basketballmatch/'+list['seasonid'] + '/rank',query:$route.query}">
                         <em class="match-icon">
                             <img :src="list['matchlogo']">
                         </em>
@@ -15,7 +15,7 @@
             </ul>
             <div class="all-match">
                 <!--<a href="#/match/basketball" class="link-all-match">全部赛事<i class="icon-more"></i></a>-->
-                <router-link :to="{name:'center-basketball-league-europe'}">
+                <router-link :to="{name:'center-basketball-league-europe',query:$route.query}">
                     <span class="link-all-match">全部赛事<i class="icon-more"></i></span>
                 </router-link>
             </div>

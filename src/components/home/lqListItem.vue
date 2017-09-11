@@ -13,7 +13,7 @@
         <!-- 比赛详细信息 -->
         <div class="game-detail">
             <!-- 左边的球队信息、近六场 -->
-            <router-link class="game-detail-l l-flex-column" v-tap="{methods: goDetail}" :to="detailPath">
+            <router-link class="game-detail-l l-flex-column" v-tap="{methods: goDetail}" :to="{path: detailPath, query: $route.query}">
 
                 <div class="game-item ">
                     <div class="game-name"><img data-inited="0"
@@ -179,7 +179,7 @@
         border-right: 1px solid #eaeaea;
         position: relative
     }
-
+    .game-detail-l:active{background: #f4f4f4}
     .game-item {
         padding-right: .533333rem;
         box-sizing: border-box;
@@ -322,15 +322,23 @@
     .live-time {
         font-size: .4rem;
         color: #36a171;
-        width: 100%;
+        /*width: 100%;*/
         text-align: center;
-        margin-top: .186667rem
+        /*margin-top: .186667rem*/
+        width: 1.2rem;
+        /*margin: 0 auto;*/
+        height: .533333re m;
+        /*border: 1px solid #eaeaea;*/
+        line-height: .533333rem;
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        left: 50%;
+        margin-left: -.6rem;
+        /*border-radius: .0533rem*/
     }
 
-    .live-timer {
-        line-height: 1.28rem;
-        margin-top: 0
-    }
 
     .score-half .first-half {
         font-size: .346667rem;
@@ -354,7 +362,8 @@
         line-height: .56rem;
         width: 1rem;
         text-align: right;
-        overflow: hidden;display: inline-table;
+        overflow: hidden;
+        display: inline-table;
     }
     .btn-once {
         position: absolute;
@@ -362,12 +371,24 @@
         -webkit-transform: translateY(-50%);
         transform: translateY(-50%);
         left: 50%;
-        margin-left: -.6rem
+        margin-left: -.6rem;
     }
     .score-live {
         font-size: .346667rem;
         color: #36a171;
-        margin-top: .053333rem;
+        width: 1.2rem;
+        margin: 0 auto;
+        height: .533333rem;
+        /*border: 1px solid #eaeaea;*/
+        line-height: .533333rem;
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        left: 50%;
+        margin-left: -.6rem;
+        /*border-radius: .0533rem*/
     }
 </style>
 <script>
@@ -419,7 +440,7 @@
         },
         methods: {
             goDetail () {
-                this.$router.push(this.detailPath)
+                this.$router.push({path: this.detailPath, query: this.$route.query})
             },
             doConcern () {
                 this.$store.dispatch('ensureLogin')

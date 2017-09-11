@@ -12,7 +12,7 @@
                 <!--各国联赛详细-->
                 <ul class="hot-match-list match-list-detail" v-if="isActive[index]" v-for="detail in item.leaguelist">
                     <li class="hot-match-item">
-                        <router-link :to="{name: 'center-basketball-match-rank',params:{seasonid:detail.seasonid}}">
+                        <router-link :to="{name: 'center-basketball-match-rank',params:{seasonid:detail.seasonid},query:$route.query}">
                             <span class="link-all-match">
                                 <em class="match-icon">
                                     <img :src="detail['matchlogo']"/></em>

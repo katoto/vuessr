@@ -1,12 +1,12 @@
 <template>
     <div v-if="analysis">
-        <NBA-rank :baseInfo='baseInfo' :nbarank='nbarank.all' v-if="isNBA && nbarank"></NBA-rank>
-        <league-rank :baseInfo='baseInfo' :leaguerank='leaguerank' v-else-if='leaguerank'></league-rank>
+        <NBA-rank :baseInfo='baseInfo' :nbarank='nbarank.all' v-if="isNBA && noEmptyFlagNBArank"></NBA-rank>
+        <league-rank :baseInfo='baseInfo' :leaguerank='leaguerank' v-else-if='noEmptyFlagLeaguerank'></league-rank>
         <jz-data :jzData='jzData' v-if="jzData"></jz-data>
         <recent-record :recentRecord='recentRecord' v-if="recentRecord"></recent-record>
         <future-match :futureMatch='futureMatch' v-if="futureMatch"></future-match>
         <macau-news :macauNews='macauNews' v-if="macauNews"></macau-news>
-        <skbtips v-if="nbarank"></skbtips> 
+        <skbtips v-if="nbarank"></skbtips>
         <item-loader v-if="!(nbarank)"></item-loader>
     </div>
 </template>
@@ -71,6 +71,12 @@ export default {
         },
         refreshTime () { // 用户点击刷新按钮时间戳
             return this.$store.state.refreshTime
+        },
+        noEmptyFlagLeaguerank () {
+            return this.noEmpty(this.leaguerank)
+        },
+        noEmptyFlagNBArank () {
+            return this.noEmpty(this.nbarank.all)
         }
     },
     methods: {
@@ -80,6 +86,12 @@ export default {
             const matchdate = matchtime && matchtime.substr(0, 10)
             await this.$store.dispatch(aTypes.getAnalysisZj, {fid, homeid, awayid, seasonid, stageid, matchid, matchdate, matchgroup, stagemode})
             this.$store.commit('endOneRefresh')
+        },
+        noEmpty (obj) {
+            if (obj) {
+                return !!Object.keys(obj).length
+            }
+            return false
         }
     },
     mounted () {

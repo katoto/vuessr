@@ -40,47 +40,34 @@
         font-size: .453333rem;
         color: #36a171;
         display: inline-block;
-        height: .64rem;
-        line-height: .64rem;
+        height: .56rem;
+        line-height: .56rem;
         width: 1rem;
         text-align: right;
         overflow: hidden;
+        display: inline-table;
     }
     .itm{
-        -webkit-box-flex: 1;
-        -ms-flex: 1;
-        flex: 1;
-        display: block;
-        width: 100%;
+        font-size: .453333rem;
+        color: #36a171;
+        display: inline-block;
+        height: .56rem;
+        line-height: .56rem;
+        width: 1rem;
         text-align: right;
+        overflow: hidden;
+        display: inline-table;
     }
 
-
-
-    i {
+    .itm i {
         display: block;
         white-space: nowrap
     }
-
-
-    [data-dpr="1"] .root {
-        font-size: 17px
-    }
-
-    [data-dpr="2"] .root {
-        font-size: 34px
-    }
-
-    [data-dpr="3"] .root {
-        font-size: 51px
-    }
-
 
     .itmMove {
         -webkit-animation: itmMove4 .8s ease-in-out forwards;
         animation: itmMove4 .8s ease-in-out forwards
     }
-
     .itmMove i:last-child {
         -webkit-animation: itmMove3 2s ease-in-out forwards;
         animation: itmMove3 2s ease-in-out forwards

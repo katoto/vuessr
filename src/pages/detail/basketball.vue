@@ -346,10 +346,10 @@
                 })
             },
             goTeam ({teamId}) {
-                this.$router.push(`/team/basketball/${teamId}/curr/sc`)
+                this.$router.push({path: `/team/basketball/${teamId}/curr/sc`, query: this.$route.query})
             },
             goLeague ({seasonid}) {
-                this.$router.push(`/center/basketballmatch/${seasonid}/rank`)
+                this.$router.push({path: `/center/basketballmatch/${seasonid}/rank`, query: this.$route.query})
             }
         },
         async mounted () {
