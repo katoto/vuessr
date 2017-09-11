@@ -224,7 +224,7 @@
                 }
             },
             goDetail ({fid}) {
-                this.$router.push(`/detail/football/${fid}/analysis/zj`)
+                this.$router.push({path: `/detail/football/${fid}/analysis/zj`, query: this.$route.query})
             },
             isEmpty (obj) {
                 return Object.keys(obj).length

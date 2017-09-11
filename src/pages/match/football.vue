@@ -4,7 +4,7 @@
             <h1 class="hot-match-tit">热门</h1>
             <ul class="hot-match-list" v-for="list in footMatch">
                 <li class="hot-match-item">
-                    <router-link class="link-all-match" :to=" '/center/footballmatch/'+list.seasonid + '/integral'">
+                    <router-link class="link-all-match" :to="{path: '/center/footballmatch/'+list.seasonid + '/integral',query:$route.query}">
                         <em class="match-icon">
                             <img :src="list['matchlogo']">
                         </em>
@@ -15,7 +15,7 @@
 
             <div class="all-match">
                 <!--<a href="#/match/football" class="link-all-match">全部赛事<i class="icon-more"></i></a>-->
-                <router-link :to="{name:'center-football-league'}">
+                <router-link :to="{name:'center-football-league',query:$route.query}">
                     <span class="link-all-match">全部赛事<i class="icon-more"></i></span>
                 </router-link>
             </div>

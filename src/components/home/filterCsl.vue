@@ -60,7 +60,7 @@
                 }
             },
             enterExpect ({expect}) {
-               this.showSel = false
+                this.showSel = false
                 setTimeout(() => {
                     this.$router.replace({
                         name: 'home-zq-expect',

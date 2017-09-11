@@ -13,13 +13,13 @@
                 </div>
             </div>
             <nav class="sk-tab">
-                <router-link :class="{'cur':~$route.path.indexOf('/schedule')}" :to=" '/center/footballmatch/' + match.seasonid + '/schedule' " replace>
+                <router-link :class="{'cur':~$route.path.indexOf('/schedule')}" :to="{path: '/center/footballmatch/' + match.seasonid + '/schedule',query:$route.query }" replace>
                     赛程<i :class="{'sktab-arrow':~$route.path.indexOf('/schedule')}"></i>
                 </router-link>
-                <router-link :class="{'cur':~$route.path.indexOf('/integral')}" :to=" '/center/footballmatch/' + match.seasonid + '/integral' " replace>
+                <router-link :class="{'cur':~$route.path.indexOf('/integral')}" :to=" {path:'/center/footballmatch/' + match.seasonid + '/integral',query:$route.query }" replace>
                     积分榜<i :class="{'sktab-arrow':~$route.path.indexOf('/integral')}"></i>
                 </router-link>
-                <router-link :class="{'cur':~$route.path.indexOf('/statistics')}" :to=" '/center/footballmatch/' + match.seasonid + '/statistics' " replace>
+                <router-link :class="{'cur':~$route.path.indexOf('/statistics')}" :to="{path: '/center/footballmatch/' + match.seasonid + '/statistics',query:$route.query} " replace>
                     统计<i :class="{'sktab-arrow':~$route.path.indexOf('/statistics')}"></i>
                 </router-link>
             </nav>
