@@ -153,6 +153,10 @@
 </template>
 <script>
     import {aTypes} from '~store/zqdetail'
+    let Swiper = () => {}
+    if (process.env.VUE_ENV !== 'server') {
+        Swiper = require('swiper/dist/js/swiper')
+    }
     export default {
         props: ['eventlist', 'statistic', 'match', 'online', 'vote', 'expertRecommend'],
         data () {
@@ -212,33 +216,23 @@
                 location.href = this.expertRecommend.touch_url
             },
             updateSnap () {
-//                this.scrollerObj && this.scrollerObj.setDimensions(this.container.offsetWidth, this.container.offsetHeight, this.content.offsetWidth, this.content.offsetHeight)
+                this.mySwiper.update()
             }
         },
         mounted () {
-            require.ensure(['swiper'], (require) => {
-                try {
-                    const Swiper = require('swiper').default
-//                alert(Swiper)
-                    this.mySwiper = new Swiper('.swiper-container', {
-                        pagination: '.swiper-pagination',
-                        effect: 'slide',
-                        grabCursor: true,
-                        centeredSlides: true,
-                        slidesPerView: 'auto',
-                        coverflow: {
-                            rotate: 50,
-                            stretch: 50,
-                            depth: 100,
-                            modifier: 1,
-                            slideShadows: true
-                        }
-                    })
-                } catch (e) {
-                    alert(e)
+            this.mySwiper = new Swiper('.swiper-container', {
+                pagination: '.swiper-pagination',
+                effect: 'slide',
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                coverflow: {
+                    rotate: 50,
+                    stretch: 50,
+                    depth: 100,
+                    modifier: 1,
+                    slideShadows: true
                 }
-
-
             })
             /**/
         },
