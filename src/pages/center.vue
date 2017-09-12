@@ -4,7 +4,7 @@
         <!--头部-->
         <div class="pl-head-box">
             <div class="pl-head">
-                <a class="back-icon pl-back"  onClick="history.back()">返回</a>
+                <a class="back-icon pl-back"  v-tap="{methods: back}">返回</a>
                 {{tab=='football'?'足球赛事中心':'篮球赛事中心'}}
             </div>
         </div>
@@ -32,6 +32,15 @@
                     return 'football'
                 } else {
                     return 'basketball'
+                }
+            }
+        },
+        methods: {
+            back () {
+                if (window.EsApp && this.$route.query.from === 'nav') {
+                    window.EsApp.invoke('close')
+                } else {
+                    history.back()
                 }
             }
         }
