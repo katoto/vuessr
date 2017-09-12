@@ -354,24 +354,24 @@
 
         86% {
             width: 9.2rem;
-            height: 11.333333rem
+            height: 10rem
         }
 
         100% {
             width: 9.2rem;
-            height: 10rem
+            height: 9rem
         }
     }
 
     @keyframes league-close {
         0% {
             width: 9.2rem;
-            height: 10rem
+            height: 9rem
         }
 
         30% {
             width: 9.2rem;
-            height: 11.333333rem
+            height: 10rem
         }
 
         60% {
@@ -386,11 +386,11 @@
     }
 
     .toggle-enter-active {
-        animation: league-open .4s 0s 1 cubic-bezier(.5, .25, 0, .75) normal forwards
+        animation: league-open .5s 0s 1 cubic-bezier(.5, .25, 0, .75) normal forwards
     }
 
     .toggle-leave-active {
-        animation: league-close .4s 0s 1 ease both
+        animation: league-close .5s 0s 1 ease both
     }
 
     .toggle-enter-active .cup-info {
@@ -402,7 +402,7 @@
     }
 
     .layer-leave-active {
-        transition: transform .4s;
+        transition: transform .5s;
     }
 
     .layer {
