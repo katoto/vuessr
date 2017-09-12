@@ -40,23 +40,20 @@
         font-size: .453333rem;
         color: #36a171;
         display: inline-block;
-        height: .56rem;
-        line-height: .56rem;
+        height: .64rem;
+        line-height: .64rem;
         width: 1rem;
         text-align: right;
         overflow: hidden;
-        display: inline-table;
     }
     .itm{
-        font-size: .453333rem;
-        color: #36a171;
-        display: inline-block;
-        height: .56rem;
-        line-height: .56rem;
-        width: 1rem;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        display: block;
+        width: 100%;
         text-align: right;
-        overflow: hidden;
-        display: inline-table;
+
     }
 
     .itm i {
