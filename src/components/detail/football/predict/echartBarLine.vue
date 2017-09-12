@@ -36,7 +36,7 @@
             let u = navigator.userAgent
             const isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1
             this.$el.style.height = this.$el.offsetHeight * 1.2 + 'px'
-            let fontSize = 22
+            let fontSize = 20
             if (isAndroid) {
                 fontSize = this.fontSize / 2
             }

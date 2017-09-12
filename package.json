@@ -44,6 +44,7 @@
     "scroller": "0.0.3",
     "serve-favicon": "^2.4.3",
     "sockjs-client": "^1.1.4",
+    "swiper": "^4.0.0-beta.2",
     "v-tap": "^3.0.2",
     "vue": "^2.4.2",
     "vue-router": "^2.7.0",
