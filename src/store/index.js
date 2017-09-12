@@ -5,6 +5,7 @@ import SockJS from 'sockjs-client'
 import platform from '~common/platform'
 import Vue from 'vue'
 import Vuex from 'vuex'
+import ajax from '~common/ajax'
 import home from './home'
 import zqdetail from './zqdetail'
 import lqdetail from './lqdetail'
@@ -29,7 +30,8 @@ const state = {
         latestSub: [], // 最近一次订阅数据， websocket重连的时候重新订阅上次订阅的事件
         reconnect: 0 // socket 记录重连次数， 起到辅助作用， 比如websocket断开了连接， 重新请求接口， 避免推送丢失引发的问题
     },
-    isApp: false
+    isApp: false,
+    isVerify: null
 }
 const mutations = {
     initSocket (state, {connect}) {
@@ -68,6 +70,9 @@ const mutations = {
     },
     setIsApp (state, isApp) {
         state.isApp = isApp
+    },
+    setVerify (state, isVerify) {
+        state.isVerify = isVerify
     }
 
 }
@@ -165,6 +170,10 @@ const actions = {
             throw new Error('当前用户没有登录， 跳登录')
         }
         return true
+    },
+    async doVerify ({commit}) {
+        let result = await ajax.get(`http://ets.500.com/esuser/utruename/checkit?platform=touch`)
+        commit('setVerify', result.flag === '1')
     },
     login () {
         platform.login()

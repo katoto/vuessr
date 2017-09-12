@@ -265,7 +265,12 @@
         color: #aab5bd;
         font-size: .293333rem;
         float: right;
-        display: table-cell;vertical-align: middle;
+        height: .64rem;
+        line-height: .64rem;
+        overflow: hidden;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
     }
 
     .game-detail-r {
@@ -333,12 +338,15 @@
     .score-half .first-half {
         font-size: .346667rem;
         color: #aab5bd;
-        width: .496667rem;
+        width: .586667rem;
         text-align: right;
-        display: inline-block;
-        height: .56rem;
-        line-height: .56rem;
-        overflow: hidden;display: inline-table;
+        height: .64rem;
+        line-height: .64rem;
+        overflow: hidden;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        display: block;
     }
     .five-score .first-score{
         width:0.54rem;
@@ -348,11 +356,11 @@
         font-size: .453333rem;
         color: #36a171;
         display: inline-block;
-        height: .56rem;
-        line-height: .56rem;
+        height: .64rem;
+        line-height: .64rem;
         width: 1rem;
         text-align: right;
-        overflow: hidden;display: inline-table;
+        overflow: hidden;
     }
     .btn-once {
         position: absolute;

@@ -60,9 +60,11 @@
 import {mTypes, aTypes} from '~store/lqdetail'
 import snap from '~components/detail/basketball/comment/snap.vue'
 import report from '~components/detail/report.vue'
+import verify from '~components/detail/verify.vue'
+
 export default {
     components: {
-        snap
+        snap, verify
     },
     data () {
         return {
@@ -100,6 +102,9 @@ export default {
         },
         total () {
             return this.comment.total
+        },
+        isVerify () {
+            return this.$store.state.isVerify
         }
     },
     methods: {
@@ -132,9 +137,24 @@ export default {
             this.commentList = commentList
             this.$store.commit('endOneRefresh')
         },
-        onReply ({commentReplyId, replyName}) {
+        async onReply ({commentReplyId, replyName}) {
             this.$store.dispatch('ensureLogin')
-            this.$store.commit(mTypes.showEditorDialog, {commentReplyId, replyName})
+            await this.$store.dispatch('doVerify')
+            if (this.isVerify) {
+                this.$store.commit(mTypes.showEditorDialog, {commentReplyId, replyName})
+            } else {
+                this.$store.commit(mTypes.setDialog, {
+                    component: verify,
+                    params: {
+                        onClose: () => {
+                            this.$store.commit(mTypes.setDialog, {})
+                        },
+                        onVerify: () => {
+                            window.location.href = `http://m.500.com/account/index.php?c=home&a=idauth&backurl=${window.location.href}`
+                        }
+                    }
+                })
+            }
         },
         async onLike ({status, id, index}) {
             this.$store.dispatch('ensureLogin')
