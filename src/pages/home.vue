@@ -32,8 +32,8 @@
             switchShow () {
                 return this.$store.state.home.switchShow
             },
-            backBtnShow() {
-                if(!this.$route.query.from) return true
+            backBtnShow () {
+                if (!this.$route.query.from) return true
                 return this.$route.query.from !== 'app_home'
             }
         },
