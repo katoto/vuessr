@@ -131,7 +131,9 @@
             </detail-scroller>
 
         </div>
-        <div  v-if="outer.component" class="popLayer"></div>
+        <transition name="fade">
+            <div  v-if="outer.component" class="popLayer"></div>
+        </transition>
         <transition name="slide">
             <div v-if="outer.component" class="l-full" style="z-index: 101">
                 <component :is="outer.component" :params="outer.params"></component>
@@ -162,6 +164,7 @@
     import score from '~components/detail/score.vue'
     import {aTypes, mTypes} from '~store/zqdetail'
     import commEnter from '~components/detail/commEnter.vue'
+    import verify from '~components/detail/verify.vue'
     if (process.env.VUE_ENV !== 'server') {
         require('nativeshare')
     }
@@ -204,6 +207,9 @@
             },
             toast () {
                 return this.$store.state.toast
+            },
+            isVerify () {
+                return this.$store.state.isVerify
             }
         },
         async mounted () {
@@ -264,9 +270,24 @@
                 })
                 this.closeEditor()
             },
-            beginEdit () {
+            async beginEdit () {
                 this.$store.dispatch('ensureLogin')
-                this.$store.commit(mTypes.showEditorDialog, {})
+                await this.$store.dispatch('doVerify') // 判断实名认证
+                if (this.isVerify) {
+                    this.$store.commit(mTypes.showEditorDialog, {})
+                } else {
+                    this.$store.commit(mTypes.setDialog, {
+                        component: verify,
+                        params: {
+                            onClose: () => {
+                                this.$store.commit(mTypes.setDialog, {})
+                            },
+                            onVerify: () => {
+                                window.location.href = `http://m.500.com/account/index.php?c=home&a=idauth&backurl=${window.location.href}`
+                            }
+                        }
+                    })
+                }
             },
             doShare (nativeShare) {
             // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
@@ -896,8 +917,8 @@
 
     }
     .slide-enter-active, .slide-leave-active {
-        -webkit-transition: -webkit-transform .3s ease;
-        transition: transform .3s ease;
+        -webkit-transition: -webkit-transform .4s ease;
+        transition: transform .4s ease;
     }
     .slide-enter-active, .slide-leave {
         -webkit-transform: translate(0, 0);
@@ -907,6 +928,10 @@
     .slide-leave-active, .slide-enter {
         -webkit-transform: translate(0, 100%);
         transform: translate(0, 100%);
+    }
+    .fade-enter-active, .fade-leave-active {
+        -webkit-transition: all .2s ease;
+        transition: all .2s ease;
     }
     .sk-point {
         position: relative;
