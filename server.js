@@ -16,17 +16,6 @@ const serve = (path, cache) => express.static(resolve(path), {
 const port = process.env.PORT || 3000
 
 const app = express()
-/* if (process.env.EMBED) {
-    app.use(compression({threshold: 0}))
-    app.use('/', serve('./dist', true))
-    app.use('/', serve('./public', true))
-
-    app.listen(port, () => {
-        console.log(`server started at localhost:${port}`)
-    })
-    return
-}
-*/
 
 const template = fs.readFileSync(resolve('./public/index.template.html'), 'utf-8')
 
@@ -71,7 +60,7 @@ if (isProd) {
 app.use(compression({threshold: 0}))
 // app.use(favicon('./public/favicon.ico'))
 app.use('/', serve('./dist', true))
-app.use('/', serve('./public', true))
+app.use('/', serve('./public', false))
 // app.use('/manifest.json', serve('./manifest.json', true))
 // app.use('/service-worker.js', serve('./dist/service-worker.js'))
 let ipAddress = process.env.ADDRESS || 'ews.500.com'
@@ -109,7 +98,7 @@ function render (req, res) {
     const s = Date.now()
 
     res.setHeader('Content-Type', 'text/html')
-    res.setHeader('Cache-Control', 'max-age=3000')
+    res.setHeader('Cache-Control', 'max-age=120') // 缓存2分钟
     const handleError = err => {
         if (err && err.code === 404) {
             res.status(404).end('404 | Page Not Found')
@@ -131,13 +120,12 @@ function render (req, res) {
             return res.end(hit)
         }
     }
-    /* if (~req.url.indexOf('/bjdc/')) {
+    if (req.query.render === 'local') {
         res.sendFile(path.resolve('./dist/backup.html'))
         return
     }
-    */
     const context = {
-        title: '足球比分', // default title
+        title: '比分', // default title
         url: req.url
     }
     renderer.renderToString(context, (err, html) => {
