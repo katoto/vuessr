@@ -27,7 +27,7 @@
     }
 </script>
 
-<style scoped>
+<style>
 
     .refresh-box {
         width: 1.066667rem;

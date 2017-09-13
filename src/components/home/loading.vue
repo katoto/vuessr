@@ -4,7 +4,7 @@
         <div class="icon-shadow"></div>
     </div>
 </template>
-<style scoped>
+<style>
     .loading {
         width: 100%;
         height: 2.5rem;
