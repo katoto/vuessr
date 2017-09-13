@@ -340,7 +340,7 @@
                         },
                         onShare: () => {
                             this.$store.commit(mTypes.setDialog, {})
-                            setTimeout(() => this.doShare(nativeShare), 16.7)
+                            setTimeout(() => this.doShare(nativeShare), 400)
                         },
                         onCollect: async () => {
                             await this.$store.dispatch('ensureLogin')
