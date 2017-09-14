@@ -127,6 +127,9 @@
 
 </template>
 <style scoped>
+    .active {
+        background-color: #f4f4f4;
+    }
     .dian {
         animation: dianstyle 1s ease-out 0s infinite alternate;
         -webkit-animation: dianstyle 1s ease-out 0s infinite alternate;
@@ -207,6 +210,7 @@
         position: relative
     }
     .game-detail-l:active{background: #f4f4f4}
+
     .game-item {
         padding-right: .533333rem;
         box-sizing: border-box;
@@ -526,6 +530,13 @@
         },
         mounted () {
             this.makeInterVal(1000 * 60) // 设置定时器
+            let detailL = this.$el.querySelector('.game-detail-l')
+            detailL.addEventListener('touchstart', (e) => {
+                detailL.classList.add('active')
+            })
+            detailL.addEventListener('touchend', (e) => {
+                detailL.classList.remove('active')
+            })
         },
         filters: {
             matchtimeFmt: (macthtime) => {

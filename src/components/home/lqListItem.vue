@@ -119,6 +119,9 @@
 
 </template>
 <style scoped>
+    .active {
+        background-color: #f4f4f4;
+    }
     .one_blank {
         margin-right: .073333rem;
     }
@@ -437,6 +440,15 @@
                 StatusCode,
                 StatusName
             }
+        },
+        mounted () {
+            let detailL = this.$el.querySelector('.game-detail-l')
+            detailL.addEventListener('touchstart', (e) => {
+                detailL.classList.add('active')
+            })
+            detailL.addEventListener('touchend', (e) => {
+                detailL.classList.remove('active')
+            })
         },
         methods: {
             goDetail () {
