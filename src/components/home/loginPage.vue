@@ -1,5 +1,5 @@
 <template>
-    <div class="ui-empty l-full l-flex-column l-box-center l-box-vertical-center ">
+    <div class="l-full l-flex-column l-box-center l-box-vertical-center ">
         <img src="http://tccache.500.com/mobile/widget/empty/images/10.png" class="w240">
         <p class="ui-empty-gfont">登录后即可关注你喜欢的比赛</p>
         <button class="ui-empty-btn"  v-tap="{methods: doLogin}">点我登录</button></div>
@@ -14,18 +14,12 @@
     }
 </script>
 <style scoped>
-    .ui-empty .w240 {
+    .w240 {
         width: 3.2rem;
         height:3.2rem;
     }
-    .ui-empty img {
+    img {
         margin-bottom: 0.933333rem;
-    }
-    .ui-empty-dfont {
-        font-size: 0.453333rem;
-        color: #333;
-        height: 0.893333rem;
-        line-height: 0.893333rem;
     }
     .ui-empty-gfont {
         font-size: 0.4rem;
