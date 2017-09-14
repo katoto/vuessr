@@ -5,7 +5,7 @@
         <div class="next-day" :class="{'no-day': onNext}" v-tap="{methods: goNext}"><span class="rotate180"></span></div>
 
 
-        <transition name="toggle">
+        <transition name="c-h-ft">
             <div class="alert-datetime " v-if="showSel">
                 <div class="month-tit"><span></span>{{curExpect.substr(5, 2)}}月</div>
                 <div class="week-tit">
@@ -342,69 +342,13 @@
         border-radius: 50%;
         color: #fff
     }
-    @keyframes appear {
-        0% {
-            /*transform: translate(-2.32rem,-3.49333rem);*/
-            height: 1.066667rem;
-            width: 6.88rem
-        }
 
-        51% {
-            /*transform: translate(0rem,-3.49333rem);*/
-            height: 1.066667rem;
-            width: 9.2rem
-        }
 
-        86% {
-            /*transform: translate(0rem,1rem);*/
-            height: 5.333333rem
-        }
-
-        100% {
-            /*transform: translate(0, 0);*/
-            height: 4.56rem;
-            width: 9.2rem
-        }
-    }
-
-    @keyframes disappear {
-        0% {
-            /*transform: translate(0, 0);*/
-            height: 4.56rem;
-            width: 9.2rem
-        }
-
-        13% {
-            /*transform: translate(0rem,1rem);*/
-            height: 5.333333rem
-        }
-
-        49% {
-            /*transform: translate(0rem,-3.49333rem);*/
-            height: 1.066667rem;
-            width: 9.2rem
-        }
-
-        100% {
-            /*transform: translate(-2.32rem,-3.49333rem);*/
-            height: 1.066667rem;
-            width: 6.88rem
-        }
-    }
-
-    .toggle-enter-active {
-        animation: appear .8s 0s 1 ease both
-    }
-
-    .toggle-leave-active {
-        animation: disappear 1s 0s 1 cubic-bezier(.5, .25, .075, .805) normal forwards
-    }
-
-    .toggle-enter-active .week-tit {
+    .c-h-ft-enter-active .week-tit {
         display: none
     }
 
-    .toggle-leave-active .week-tit {
+    .c-h-ft-leave-active .week-tit {
         display: none
     }
 

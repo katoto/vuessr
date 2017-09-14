@@ -3,7 +3,7 @@
         <div class="filter-league" data-p4="filter" data-p2="zq" v-tap="{methods: toggleSel}"><span></span>
             筛选
         </div>
-        <transition name="toggle">
+        <transition name="c-h-fl">
             <!-- 联赛筛选弹窗 -->
             <div class="alert-league" v-if="showSel">
                 <!-- 场次信息 -->
@@ -222,6 +222,7 @@
         margin: 0 auto;
         height: 5.706667rem;
         overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
         margin-bottom: .3rem
     }
 
@@ -305,112 +306,13 @@
         background: #f4f4f4
     }
 
-    @keyframes league-open {
-        0% {
-            width: 2.066667rem;
-            height: 1.066667rem
-        }
 
-        51% {
-            width: 9.2rem;
-            height: 1.066667rem
-        }
 
-        86% {
-            width: 9.2rem;
-            height: 11.333333rem
-        }
-
-        100% {
-            width: 9.2rem;
-            height: 10rem
-        }
-    }
-
-    @keyframes league-close {
-        0% {
-            width: 9.2rem;
-            height: 10rem
-        }
-
-        30% {
-            width: 9.2rem;
-            height: 11.333333rem
-        }
-
-        60% {
-            width: 9.2rem;
-            height: 1.066667rem
-        }
-
-        100% {
-            width: 2.066667rem;
-            height: 1.066667rem
-        }
-    }
-
-    /* @keyframes csl-open {
-         0% {
-             width: 2.4rem;
-             height: 1.066667rem
-         }
-
-         60% {
-             width: 9.2rem;
-             height: 1.066667rem
-         }
-
-         86% {
-             width: 9.2rem;
-             height: 6.4rem
-         }
-
-         100% {
-             width: 9.2rem;
-             height: 5.2rem
-         }
-     }
-
-     @keyframes csl-close {
-         0% {
-             width: 9.2rem;
-             height: 5.2rem
-         }
-
-         30% {
-             width: 9.2rem;
-             height: 6.4rem
-         }
-
-         60% {
-             width: 9.2rem;
-             height: 1.066667rem
-         }
-
-         100% {
-             width: 2.4rem;
-             height: 1.066667rem
-         }
-     }
- */
-
-    .toggle-enter-active {
-        animation: league-open .8s 0s 1 cubic-bezier(.5, .25, 0, .75) normal forwards
-    }
-
-    /*.toggle-enter-active {
-           animation: csl-open 1s 0s 1 ease normal forwards
-       }*/
-
-    .toggle-leave-active {
-        animation: league-close 1s 0s 1 ease both
-    }
-
-    .toggle-enter-active .btn-cont {
+    .c-h-fl-enter-active .btn-cont {
         display: none
     }
 
-    .toggle-leave-active .btn-cont {
+    .c-h-fl-leave-active .btn-cont {
         display: none
     }
 

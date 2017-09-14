@@ -6,7 +6,7 @@
             <div class="today" v-tap="{methods: toggleSel}"><span></span>第{{curExpect}}轮</div>
             <div class="next-day" :class="{'no-day': onNext}" v-tap="{methods: goNext}"><span class="rotate180"></span></div>
         </div>
-        <transition name="toggle">
+        <transition name="c-h-fc">
             <!-- 联赛筛选弹窗 -->
             <div class="alert-csl" v-if="showSel">
                 <div class="month-tit"><span></span>轮次</div>
@@ -346,58 +346,13 @@
         background: #f4f4f4
     }
 
-    @keyframes league-open {
-        0% {
-            width: 9.2rem;
-            height: 1.066667rem
-        }
 
-        86% {
-            width: 9.2rem;
-            height: 10rem
-        }
 
-        100% {
-            width: 9.2rem;
-            height: 9rem
-        }
-    }
-
-    @keyframes league-close {
-        0% {
-            width: 9.2rem;
-            height: 9rem
-        }
-
-        30% {
-            width: 9.2rem;
-            height: 10rem
-        }
-
-        60% {
-            width: 9.2rem;
-            height: 1.066667rem
-        }
-
-        100% {
-            width: 9.2rem;
-            height: 1.066667rem
-        }
-    }
-
-    .toggle-enter-active {
-        animation: league-open .5s 0s 1 cubic-bezier(.5, .25, 0, .75) normal forwards
-    }
-
-    .toggle-leave-active {
-        animation: league-close .5s 0s 1 ease both
-    }
-
-    .toggle-enter-active .cup-info {
+    .c-h-fc-enter-active .cup-info {
         display: none
     }
 
-    .toggle-leave-active .cup-info {
+    .c-h-fc-leave-active .cup-info {
         display: none
     }
 
