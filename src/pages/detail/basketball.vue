@@ -447,7 +447,7 @@
         top: 50%;
         margin-top: -.053333rem;
         left: 50%;
-        margin-left: -.24rem;
+        margin-left: -.26rem;
     }
 
     .zq-header {
