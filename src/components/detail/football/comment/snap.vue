@@ -213,6 +213,7 @@
                 await this.$store.dispatch(aTypes.getVote, {fid: this.$route.params.fid})
             },
             goRec () {
+                if(this.$route.query.iosspecial === '1') return
                 location.href = this.expertRecommend.touch_url
             },
             updateSnap () {
