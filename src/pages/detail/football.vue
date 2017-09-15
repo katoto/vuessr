@@ -114,7 +114,7 @@
                             </router-link2>
                         </li>
 
-                        <li v-if="$route.query.shenhe !== '1'"
+                        <li v-if="$route.query.iosspecial !== '1'"
                                 :class="{cur: ~$route.path.indexOf('/crazybet')}">
                             <router-link2 :to="{name: 'football-detail-crazybet', query: $route.query}" replace>
                                 <span data-p2="zq_detail" data-p4="crazybet">猜球<i class="sktab-arrow"></i></span>
