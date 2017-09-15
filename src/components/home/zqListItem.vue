@@ -10,7 +10,7 @@
             <span v-if="match.status == StatusCode.ENDED && match.extra_statusid == '13'">点球 {{match.spot_kick_score}}</span>
 
             <template v-if="feature.d[match.status] && match.extra_info">
-                <span class="crazy-guess" v-if="match.extra_info.iscrazybet==='1'">猜球</span><span
+                <span class="crazy-guess" v-if="match.extra_info.iscrazybet==='1' && $route.query.iosspecial !== '1'">猜球</span><span
                     class="crazy-guess" v-if="match.extra_info.isrecommend === '1'">有料</span>
             </template>
 
