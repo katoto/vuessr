@@ -330,7 +330,7 @@
         /*margin-top: .186667rem*/
         width: 1.2rem;
         /*margin: 0 auto;*/
-        height: .533333re m;
+        height: .533333rem;
         /*border: 1px solid #eaeaea;*/
         line-height: .533333rem;
         position: absolute;
@@ -360,9 +360,8 @@
     .score-half .second-half {
         font-size: .453333rem;
         color: #36a171;
-        display: inline-block;
-        height: .56rem;
-        line-height: .56rem;
+        height: .60rem;
+        line-height: .60rem;
         width: 1rem;
         text-align: right;
         overflow: hidden;
