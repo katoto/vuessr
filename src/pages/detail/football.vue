@@ -107,7 +107,7 @@
                                 <span data-p2="zq_detail" data-p4="odds">赔率<i class="sktab-arrow"></i></span>
                             </router-link2>
                         </li>
-                        <li
+                        <li v-if="$route.query.shenhe !== '1'"
                                 :class="{cur: ~$route.path.indexOf('/comment')}">
                             <router-link2 :to="{name: 'football-detail-comment', query: $route.query}" replace>
                                 <span data-p2="zq_detail" data-p4="comment">聊球<i class="sktab-arrow"></i></span>
