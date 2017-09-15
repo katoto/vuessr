@@ -102,7 +102,7 @@
                 <template v-if="feature.a[match.status]"><!--正在开打-->
                     <div class="score-live">{{match.status_desc}}</div>
                     <!--<div class="live-time" v-if="match.status !== StatusCode.MID">{{match.match_at}}</div>-->
-                    <div class="live-time" v-if="match.status === StatusCode.MID">中场</div>
+                    <!--<div class="live-time" v-if="match.status === StatusCode.MID">中场</div>-->
                 </template>
                 <template v-if="match.status === StatusCode.ENDED"><!--已结束-->
                     <div class="follow had-follow">完场</div>
