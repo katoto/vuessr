@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <div class="gl-box box-yc" v-if="predictRecommend&&predictRecommend.articles">
+        <div class="gl-box box-yc" v-if="predictRecommend&&predictRecommend.articles && $route.query.iosspecial !=='1'">
             <div class="gl-nav">专家推荐</div>
             <div class="feed-back" v-if="predictRecommend.isrecommend=='0'&&predictRecommend.articles.length>0">
                 <div class="feed-box">

@@ -86,7 +86,8 @@
                         params: {
                             tab: this.$route.params.tab,
                             expect: expect
-                        }
+                        },
+                        query: this.$route.query
                     })
                 }, 500)
             },
@@ -99,7 +100,8 @@
                         params: {
                             tab: this.$route.params.tab,
                             expect: this.expectList[idx + 1]
-                        }
+                        },
+                        query: this.$route.query
                     })
                 }
             },
@@ -112,7 +114,8 @@
                         params: {
                             tab: this.$route.params.tab,
                             expect: this.expectList[idx - 1]
-                        }
+                        },
+                        query: this.$route.query
                     })
                 }
             }
