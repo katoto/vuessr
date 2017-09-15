@@ -24,7 +24,7 @@
                     </ul>
                 </div>
                 <ul class="popTab clear">
-                    <li class="f30" :class="{cur: tab==='history'}" v-tap="{methods: switchTab, tab: 'history'}">历史对比01
+                    <li class="f30" :class="{cur: tab==='history'}" v-tap="{methods: switchTab, tab: 'history'}">历史对比
                     </li>
                     <li class="f30" :class="{cur: tab==='trend'}" v-tap="{methods: switchTab, tab: 'trend'}">趋势记录
                     </li>
