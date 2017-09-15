@@ -2,7 +2,7 @@
     <div class="l-full l-flex-column root" v-if="baseInfo">
         <div class="detailTop" style="display: block;" :class="{'topBarMove': showScore, 'topBarMove2': !showScore}">
             <a class="back-icon" onclick="history.back()" href="javascript:;">返回</a>
-            <router-link2 to="/home/lq/jclq/cur" class="link-index f26">比分首页</router-link2>
+            <router-link2  :to="{path: '/home/zq/jclq/cur', query: $route.query}" class="link-index f26">比分首页</router-link2>
             <div v-tap="{methods:goLeague,seasonid:baseInfo.seasonid}" class="r-sn f24">{{baseInfo.simpleleague}}</div>
 
 

@@ -2,7 +2,7 @@
     <div class="l-full l-flex-column root" v-if="match">
         <div class="detailTop" :class="{'topBarMove': showScore, 'topBarMove2': !showScore}" style="display: block;">
             <a class="back-icon" onclick="history.back()" href="javascript:;" v-if="$route.query.from!=='app_bet'">返回</a>
-            <router-link2 to="/home/zq/jczq/cur" class="link-index f26" v-if="$route.query.from!=='app_bet'">比分首页</router-link2>
+            <router-link2 :to="{path: '/home/zq/jczq/cur', query: $route.query}" class="link-index f26" v-if="$route.query.from!=='app_bet'">比分首页</router-link2>
             <!--<a class="link-index f26" href="/score/index.html#/football">比分首页</a>-->
 
             <!--<div onclick="home.goLeague()" class="r-sn f24">{{match.simpleleague}}</div>-->
@@ -114,7 +114,7 @@
                             </router-link2>
                         </li>
 
-                        <li
+                        <li v-if="$route.query.shenhe !== '1'"
                                 :class="{cur: ~$route.path.indexOf('/crazybet')}">
                             <router-link2 :to="{name: 'football-detail-crazybet', query: $route.query}" replace>
                                 <span data-p2="zq_detail" data-p4="crazybet">猜球<i class="sktab-arrow"></i></span>
