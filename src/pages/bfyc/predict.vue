@@ -176,6 +176,9 @@
             }
         },
         mounted () {
+            if (this.$route.query.from === 'app_bet') {
+                window.EsApp && window.EsApp.invoke('titleBar', {isShow: '1', title: '精选预测'})
+            }
             this.fetchData()
         },
         methods: {
@@ -209,6 +212,9 @@
             fdate (cur) {
                 return cur && cur.replace('-', '年').replace('-', '月') + '日'
             }
+        },
+        head: {
+            title: '精选预测'
         }
     }
 </script>

@@ -3,8 +3,8 @@
         <div class="head-zone">
             <div class="icon-return" onclick="history.back()" v-if="backBtnShow"><span></span></div>
             <ul class="ball-tab">
-                <li :class="{cur: ~$route.path.indexOf('/zq/')}" v-tap="{methods: goTab, tab: 'zq'}">足球</li>
-                <li :class="{cur: ~$route.path.indexOf('/lq/')}"  v-tap="{methods: goTab, tab: 'lq'}">篮球</li>
+                <li :class="{cur: ~$route.path.indexOf('/zq/')}"><router-link :to="{path: `/home/zq/jczq/cur`, query: this.$route.query}">足球</router-link></li>
+                <li :class="{cur: ~$route.path.indexOf('/lq/')}"><router-link :to="{path: `/home/lq/jclq/cur`, query: this.$route.query}">篮球</router-link></li>
             </ul>
             <div class="search-league" v-tap="{methods: goLeague}" data-p2="zq" data-p4="liansai"><span></span>联赛</div>
         </div>
@@ -58,6 +58,11 @@
 </script>
 
 <style scoped>
+    .ball-tab a{
+        display: block;
+        background-color: inherit;
+        color: inherit;
+    }
     .bifen-list {
         background: #fff;
         width: 100%;

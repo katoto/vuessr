@@ -3,11 +3,13 @@
     <div></div>
 </template>
 <script>
-    import echarts from 'echarts/lib/echarts'
-    import 'echarts/lib/chart/line'
-    import 'echarts/lib/chart/bar'
-    import 'echarts/lib/component/legend'
-
+    let echarts = () => {}
+    if (process.env.VUE_ENV !== 'server') {
+        echarts = require('echarts/lib/echarts')
+        require('echarts/lib/chart/line')
+        require('echarts/lib/chart/bar')
+        require('echarts/lib/component/legend')
+    }
     export default {
         props: {
             nameBar: {

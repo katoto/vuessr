@@ -37,12 +37,20 @@
         },
         methods: {
             back () {
-                if (window.EsApp && this.$route.query.from === 'nav') {
+                if (window.EsApp && this.$route.query.from === 'app_bet') {
                     window.EsApp.invoke('close')
                 } else {
                     history.back()
                 }
             }
+        },
+        mounted () {
+            if (this.$route.query.from === 'app_bet') {
+                window.EsApp && window.EsApp.invoke('titleBar', {isShow: '1', title: '赛事中心'})
+            }
+        },
+        head: {
+            title: '赛事中心'
         }
     }
 </script>
