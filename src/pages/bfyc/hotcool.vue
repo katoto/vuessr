@@ -153,6 +153,9 @@
             }
         },
         mounted () {
+            if (this.$route.query.from === 'app_bet') {
+                window.EsApp && window.EsApp.invoke('titleBar', {isShow: '1', title: '冷热分布'})
+            }
             this.$store.dispatch(aTypes.getHotcool)
         },
         filters: {
@@ -171,6 +174,9 @@
                 if (type === 'europe' || type === 'betfair') tail = '%'
                 return input === '' ? '--' : (input + tail)
             }
+        },
+        head: {
+            title: '冷热分布'
         }
 
     }

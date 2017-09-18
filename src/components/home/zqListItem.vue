@@ -23,7 +23,7 @@
                 <div class="game-item">
                     <div class="game-name"><img data-inited="0"
                                                 src="~assets/style/images/home/zq-logo.png"
-                                                alt="主队图标"
+                                                :alt="match.homesxname"
                                                 :data-src="match.homelogo">
                                                 {{match.homesxname}}
                                                 <em v-if="match.homestanding && match.homestanding !== '0' && match.homestanding != '-1'">{{match.homestanding | rankFmt}}</em>
@@ -54,7 +54,7 @@
                 <div class="game-item ">
                     <div class="game-name"><img data-inited="0"
                                                 src="~assets/style/images/home/zq-logo.png"
-                                                alt="客队图标"
+                                                :alt="match.awaysxname"
                                                 :data-src="match.awaylogo">
                                                 {{match.awaysxname}}
                                                 <em v-if="match.awaystanding && match.awaystanding !== '0' && match.awaystanding != '-1'">{{match.awaystanding | rankFmt}}</em>

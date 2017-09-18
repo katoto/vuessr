@@ -3,8 +3,11 @@
     <div></div>
 </template>
 <script>
-    import echarts from 'echarts/lib/echarts'
-    import 'echarts/lib/chart/pie'
+    let echarts = () => {}
+    if (process.env.VUE_ENV !== 'server') {
+        echarts = require('echarts/lib/echarts')
+        require('echarts/lib/chart/pie')
+    }
     export default {
         props: {
             data: {
