@@ -1,7 +1,7 @@
 <template>
     <div class="v124-wrap l-full l-flex-column">
         <!--head begin-->
-        <header id="uiHead" class="ui-head">
+        <header id="uiHead" class="ui-head" v-if="$route.query.from!=='app_bet'">
             <div class="ui-head-in">
                 <div class="ui-head-l">
                     <span class="ui-head-btn1" v-tap="{methods: back}"></span>
