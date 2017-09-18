@@ -213,6 +213,9 @@
             }
         },
         async mounted () {
+            if (this.$route.query.from === 'app_bet') {
+                window.EsApp && window.EsApp.invoke('titleBar', {isShow: '1', title: '比分详情'})
+            }
             await this.fetchData()
             if (this.match.status !== StatusCode.ENDED) { // 事件订阅
                 this.$store.dispatch(aTypes.subscribeInfo, [this.match.fid])
@@ -443,6 +446,7 @@
         head (state) {
             return {
                 title: `【${state.zqdetail.baseInfo.homesxname}】vs【${state.zqdetail.baseInfo.awaysxname}】足球比赛直播_在线直播_比赛技术统计-500彩票网`,
+                appTitle: '比分详情',
                 description: '看足球比分直播，上500彩票网！免费提供最快、最全、最准的比分直播，中超、英超、欧冠、世界杯等热门赛事比分数据应有尽有！更有比分预测、战绩统计等服务助你赢大奖！'
             }
         }
