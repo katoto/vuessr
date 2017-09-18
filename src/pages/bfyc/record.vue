@@ -18,6 +18,14 @@
             onTab ({tab}) {
                 this.$router.replace({path: `/bfyc/record/${tab}`, query: this.$route.query})
             }
+        },
+        mounted () {
+            if (this.$route.query.from === 'app_bet') {
+                window.EsApp && window.EsApp.invoke('titleBar', {isShow: '1', title: '战绩特征'})
+            }
+        },
+        head: {
+            title: '战绩特征'
         }
     }
 </script>

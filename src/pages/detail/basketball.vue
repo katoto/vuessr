@@ -365,6 +365,9 @@
             }
         },
         async mounted () {
+            if (this.$route.query.from === 'app_bet') {
+                window.EsApp && window.EsApp.invoke('titleBar', {isShow: '1', title: '比分详情'})
+            }
             await this.fetchData()
             if (this.baseInfo.status !== StatusCode.ENDED) {
                 this.$store.dispatch(aTypes.subscribeInfo, [this.baseInfo.fid])
@@ -403,6 +406,7 @@
         },
         head (state) {
             return {
+                appTitle: '比分详情',
                 title: `【${state.lqdetail.baseInfo.awaysxname}】vs【${state.lqdetail.baseInfo.homesxname}】篮球比赛直播_在线直播_比赛技术统计-500彩票网`,
                 description: '【500彩票网免费提供全网效率最高篮球比分直播】包括篮球即时比分、篮彩完场比分、竞彩篮球未来赛事等服务，绝对是竞彩篮球投注的神器！'
             }

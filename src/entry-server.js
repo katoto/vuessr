@@ -30,10 +30,17 @@ export default context => {
                 // let title = '比分'
                 matchedComponents.some(Component => {
                     if (typeof Component.head === 'function') {
-                        Object.assign(context, Component.head(store.state))
+                        let head = Component.head(store.state)
+                        Object.assign(context, head)
+                        if (~context.url.indexOf('from=app_bet')) {
+                            context.title = head.appTitle || context.title
+                        }
                     } else {
                         if (Component.head) {
                             Object.assign(context, Component.head)
+                            if (~context.url.indexOf('from=app_bet')) {
+                                context.title = Component.head.appTitle || context.title
+                            }
                         }
                     }
                 })

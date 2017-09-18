@@ -63,7 +63,13 @@
 
         },
         mounted () {
+            if (this.$route.query.from === 'app_bet') {
+                window.EsApp && window.EsApp.invoke('titleBar', {isShow: '1', title: '实力对比'})
+            }
             this.$store.dispatch(aTypes.getStrength)
+        },
+        head: {
+            title: '实力对比'
         }
 
     }
