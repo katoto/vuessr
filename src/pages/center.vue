@@ -2,7 +2,7 @@
 <template>
     <div class="match-wrap wrapper l-full l-flex-column">
         <!--头部-->
-        <div class="pl-head-box">
+        <div class="pl-head-box" v-if="$route.query.from!=='app_bet'">
             <div class="pl-head">
                 <a class="back-icon pl-back"  v-tap="{methods: back}">返回</a>
                 {{tab=='football'?'足球赛事中心':'篮球赛事中心'}}

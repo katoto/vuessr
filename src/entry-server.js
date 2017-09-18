@@ -27,13 +27,17 @@ export default context => {
                 }
                 store.state.time = Date.now()
                 context.state = store.state
-                let title = '比分'
+                // let title = '比分'
                 matchedComponents.some(Component => {
-                    if (Component.title) {
-                        title = Component.title
+                    if (typeof Component.head === 'function') {
+                        Object.assign(context, Component.head(store.state))
+                    } else {
+                        if (Component.head) {
+                            Object.assign(context, Component.head)
+                        }
                     }
                 })
-                context.title = title
+                // context.title = title
 
                 resolve(app)
             } catch (e) {

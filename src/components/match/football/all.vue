@@ -101,7 +101,7 @@
         props: ['allData'],
         methods: {
             goTeam ({teamid}) {
-                this.$router.push(`/team/football/${teamid}/sc/`)
+                this.$router.push({path: `/team/football/${teamid}/sc/`, query: this.$route.query})
             },
             isEmpty (obj) {
                 return Object.keys(obj).length

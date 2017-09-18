@@ -41,9 +41,6 @@
         },
         destroyed () {
             this.$store.commit(mTypes.reset)
-        },
-        head: {
-            title: '足球比分-500彩票网'
         }
     }
 </script>

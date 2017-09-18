@@ -1,16 +1,11 @@
 <template>
     <div class="l-full l-flex-column root" v-if="baseInfo">
         <div class="detailTop" style="display: block;" :class="{'topBarMove': showScore, 'topBarMove2': !showScore}">
-            <a class="back-icon" onclick="history.back()" href="javascript:;">返回</a>
-            <router-link2  :to="{path: '/home/zq/jclq/cur', query: $route.query}" class="link-index f26">比分首页</router-link2>
+            <a class="back-icon" onclick="history.back()" href="javascript:;" v-if="$route.query.from!=='app_bet'">返回</a>
+            <router-link2  :to="{path: '/home/lq/jclq/cur', query: $route.query}" class="link-index f26" v-if="$route.query.from!=='app_bet'">比分首页</router-link2>
             <div v-tap="{methods:goLeague,seasonid:baseInfo.seasonid}" class="r-sn f24">{{baseInfo.simpleleague}}</div>
 
-
-            <div id="_concern" style="display: none" class="topR" onclick="home.doConcern()">
-                <div class="sk-gz"></div>
-            </div>
-            <div id="_sharemode" style="display: block;overflow: hidden" class="topR" v-tap="{methods: showShareMode}"
-                 onclick="home.showShareMode()">
+            <div id="_sharemode" style="display: block;overflow: hidden" class="topR" v-tap="{methods: showShareMode}">
                 <div class="sk-point"></div>
             </div>
             <div class="fen-box f30 responsive">
@@ -404,6 +399,12 @@
             },
             '$store.state.lqdetail.scTime' () {
                 this.updateScroller()
+            }
+        },
+        head (state) {
+            return {
+                title: `【${state.lqdetail.baseInfo.awaysxname}】vs【${state.lqdetail.baseInfo.homesxname}】篮球比赛直播_在线直播_比赛技术统计-500彩票网`,
+                description: '【500彩票网免费提供全网效率最高篮球比分直播】包括篮球即时比分、篮彩完场比分、竞彩篮球未来赛事等服务，绝对是竞彩篮球投注的神器！'
             }
         }
     }
