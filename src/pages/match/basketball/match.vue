@@ -2,7 +2,7 @@
     <div class="wrapper l-full l-flex-column">
         <header class="header inte-header-b" v-if="match">
             <div class="info">
-                <a class="back-icon" onClick="history.back()">返回</a>
+                <a class="back-icon" onClick="history.back()" v-if="$route.query.from!=='app_bet'">返回</a>
                 <div class="info-c">
                     <div class="info-pic">
                         <img :src="match.matchlogo || 'http://tccache.500.com/mobile/touch/images/bifen/mr-logo.png'">
