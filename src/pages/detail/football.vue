@@ -439,6 +439,11 @@
                 }
                 return isFirstHalf ? minute : (minute + 45)
             }
+        },
+        head (state) {
+            return {
+                title: `【${state.zqdetail.baseInfo.homesxname}】vs【${state.zqdetail.baseInfo.awaysxname}】足球比赛直播_在线直播_比赛技术统计-500彩票网`
+            }
         }
 
     }

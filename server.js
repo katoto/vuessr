@@ -125,7 +125,7 @@ function render (req, res) {
         return
     }
     const context = {
-        title: '比分', // default title
+        title: '足球比分直播_竞彩足球比分直播_足彩即时比分直播网-500彩票网', // default title
         url: req.url
     }
     renderer.renderToString(context, (err, html) => {

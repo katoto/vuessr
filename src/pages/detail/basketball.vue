@@ -405,6 +405,11 @@
             '$store.state.lqdetail.scTime' () {
                 this.updateScroller()
             }
+        },
+        head (state) {
+            return {
+                title: `【${state.lqdetail.baseInfo.awaysxname}】vs【${state.lqdetail.baseInfo.homesxname}】篮球比赛直播_在线直播_比赛技术统计-500彩票网`
+            }
         }
     }
 </script>
