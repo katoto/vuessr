@@ -126,6 +126,7 @@ function render (req, res) {
     }
     const context = {
         title: '足球比分直播_竞彩足球比分直播_足彩即时比分直播网-500彩票网', // default title
+        description: '看足球比分直播，上500彩票网！免费提供最快、最全、最准的比分直播，中超、英超、欧冠、世界杯等热门赛事比分数据应有尽有！更有比分预测、战绩统计等服务助你赢大奖！',
         url: req.url
     }
     renderer.renderToString(context, (err, html) => {
