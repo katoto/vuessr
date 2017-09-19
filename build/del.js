@@ -31,7 +31,7 @@ if (args.length) {
     exec(`svn delete ${args.join(' ')}`, (error, stdout, stderr) => {
         if (error) {
             console.error(`exec error: ${error}`)
-            return
+            process.exit(-1)
         }
         console.log(`stdout: ${stdout}`)
         console.log(`stderr: ${stderr}`)
