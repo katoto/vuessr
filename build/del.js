@@ -20,7 +20,7 @@ const distFiles = fs.readdirSync(dist)
 
 const deleteFileList = []
 distFiles.forEach(file => {
-    if (!all[file]) {
+    if (!all[file] && file !== '.svn') {
         deleteFileList.push(file)
         // fs.unlinkSync(path.join(dist, file))
         console.log(`deleted file: ` + file)
