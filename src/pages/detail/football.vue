@@ -264,7 +264,7 @@
                 this.$router.push({path: `/team/football/${teamId}/sc`, query: this.$route.query})
             },
             onSend ({content, isShare}) {
-                if(content === '') {
+                if (content === '') {
                     this.$store.dispatch('showToast', '您未发表任何内容')
                 } else {
                     this.$store.dispatch('ensureLogin')
