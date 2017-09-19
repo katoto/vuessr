@@ -10,6 +10,9 @@ module.exports = {
             instances: 2,
             exec_mode: 'cluster',
             watch: ['dist/*.json'],
+            restart_delay: '500', // time to wait before restarting a crashed app (in milliseconds). defaults to 0.,
+            listen_timeout: '5000', // time in ms before forcing a reload if app not listening,
+            max_memory_restart: '1G',
             ignore_watch: ['node_modules'],
             env: {
                 NODE_ENV: 'production',
