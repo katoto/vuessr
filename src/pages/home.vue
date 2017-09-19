@@ -3,7 +3,7 @@
         <div class="head-zone">
             <div class="icon-return" onclick="history.back()" v-if="backBtnShow"><span></span></div>
             <ul class="ball-tab">
-                <li :class="{cur: ~$route.path.indexOf('/zq/')}"><router-link :to="{path: `/home/zq/jczq/cur`, query: this.$route.query}">足球</router-link></li>
+                <li :class="{cur: ~$route.path.indexOf('/zq/')}"><router-link :to="{path: `/home/zq/jczq/cur`, query: this.$route.query}">足球1</router-link></li>
                 <li :class="{cur: ~$route.path.indexOf('/lq/')}"><router-link :to="{path: `/home/lq/jclq/cur`, query: this.$route.query}">篮球</router-link></li>
             </ul>
             <div class="search-league" v-tap="{methods: goLeague}" data-p2="zq" data-p4="liansai"><span></span>联赛</div>
