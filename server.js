@@ -26,7 +26,7 @@ function createRenderer (bundle, options) {
         // for component caching
         cache: LRU({
             max: 1000,
-            maxAge: 1000 * 60 * 5
+            maxAge: 1000 * 60
         }),
         shouldPreload: () => false,
         // this is only needed when vue-server-renderer is npm-linked
@@ -85,7 +85,7 @@ app.use((req, resp, next) => {
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
 const microCache = LRU({
     max: 100,
-    maxAge: 2000
+    maxAge: 15000
 })
 
 // since this app has no user-specific content, every page is micro-cacheable.
