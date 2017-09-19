@@ -9,6 +9,8 @@ module.exports = {
             kill_timeout: 3000,
             instances: 2,
             exec_mode: 'cluster',
+            watch: true,
+            ignore_watch: ['node_modules'],
             env: {
                 NODE_ENV: 'production',
                 PORT: 3000,

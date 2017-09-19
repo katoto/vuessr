@@ -12,7 +12,7 @@ const dist = path.join(__dirname, '../dist')
 const manifest = require('../dist/vue-ssr-client-manifest.json')
 const allFile = manifest.all
 let fversions = []
-const fvp = path.join(dist, '.version.json')
+const fvp = path.join(dist, '__version.json')
 if (fs.existsSync(fvp)) {
     fversions = JSON.parse(fs.readFileSync(fvp, 'utf-8'))
 }
@@ -40,7 +40,7 @@ const distFiles = fs.readdirSync(dist)
 
 const deleteFileList = []
 distFiles.forEach(file => {
-    if (!all[file] && file.indexOf('.') !== 0) {
+    if (!all[file] && file.indexOf('.') !== 0 && file !== '__version.json') {
         deleteFileList.push(file)
         // fs.unlinkSync(path.join(dist, file))
         console.log(`deleted file: ` + file)
