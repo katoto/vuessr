@@ -222,14 +222,18 @@
                 this.$refs.scroller.update()
             },
             onSend ({content, isShare}) {
-                this.$store.dispatch('ensureLogin')
-                this.$store.dispatch(aTypes.sendComment, {
-                    fid: this.$route.params.fid,
-                    content,
-                    parentid: this.commentReplyId,
-                    isShare
-                })
-                this.closeEditor()
+                if (content === '') {
+                    this.$store.dispatch('showToast', '您未发表任何内容')
+                } else {
+                    this.$store.dispatch('ensureLogin')
+                    this.$store.dispatch(aTypes.sendComment, {
+                        fid: this.$route.params.fid,
+                        content,
+                        parentid: this.commentReplyId,
+                        isShare
+                    })
+                    this.closeEditor()
+                }
             },
             async beginEdit () {
                 this.$store.dispatch('ensureLogin')
