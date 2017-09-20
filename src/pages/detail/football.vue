@@ -1,12 +1,17 @@
 <template>
     <div class="l-full l-flex-column root" v-if="match">
         <div class="detailTop" :class="{'topBarMove': showScore, 'topBarMove2': !showScore}" style="display: block;">
-            <a class="back-icon" onclick="history.back()" href="javascript:;" v-if="$route.query.from!=='app_bet'">返回</a>
-            <router-link2 :to="{path: '/home/zq/jczq/cur', query: $route.query}" class="link-index f26" v-if="$route.query.from!=='app_bet'">比分首页</router-link2>
+            <a class="back-icon" onclick="history.back()" href="javascript:;"
+               v-if="$route.query.from!=='app_bet'">返回</a>
+            <router-link2 :to="{path: '/home/zq/jczq/cur', query: $route.query}" class="link-index f26"
+                          v-if="$route.query.from!=='app_bet'">比分首页
+            </router-link2>
             <!--<a class="link-index f26" href="/score/index.html#/football">比分首页</a>-->
 
             <!--<div onclick="home.goLeague()" class="r-sn f24">{{match.simpleleague}}</div>-->
-            <router-link2 :to="{path: '/center/footballmatch/'+match.seasonid+'/integral', query: $route.query}" class="r-sn f24">{{match.simpleleague}}</router-link2>
+            <router-link2 :to="{path: '/center/footballmatch/'+match.seasonid+'/integral', query: $route.query}"
+                          class="r-sn f24">{{match.simpleleague}}
+            </router-link2>
 
 
             <!--<div id="_concern" style="display: none" class="topR" onclick="home.doConcern()">
@@ -21,7 +26,8 @@
                 <div class="itm-bf" v-if="(match.status !== StatusCode.FIRST_HALF &&
                                    match.status !== StatusCode.MID &&
                                    match.status !== StatusCode.LAST_HALF &&
-                                   match.status !== StatusCode.ENDED)">&nbsp;&nbsp;VS&nbsp;&nbsp;</div>
+                                   match.status !== StatusCode.ENDED)">&nbsp;&nbsp;VS&nbsp;&nbsp;
+                </div>
                 <div class="itm-bf" v-else>
 
                     <div class="fen-bf"><span class="score">{{match.homescore}}</span></div>
@@ -41,7 +47,8 @@
                                    match.status == StatusCode.LAST_HALF ||
                                    match.status == StatusCode.ENDED">
 
-                           <score :homescore="match.homescore"  :awayscore="match.awayscore" :ready="ready" type="zq"></score>
+                            <score :homescore="match.homescore" :awayscore="match.awayscore" :ready="ready"
+                                   type="zq"></score>
                         </div>
 
                         <div
@@ -71,7 +78,8 @@
                     </div>
                     <div class="game-info">
                         <div v-if="match.status === StatusCode.FIRST_HALF || match.status === StatusCode.LAST_HALF"
-                             class="game-state f24">{{ match.match_at|matchAtFmt(match.status == StatusCode.FIRST_HALF)}}<i class="dian">'</i>
+                             class="game-state f24">{{ match.match_at|matchAtFmt(match.status ==
+                            StatusCode.FIRST_HALF)}}<i class="dian">'</i>
                         </div>
                         <div v-if="match.status === StatusCode.MID" class="game-state f24">中场休息</div>
                         <div v-if="match.status === StatusCode.ENDED" class="game-state f24">完场</div>
@@ -98,7 +106,9 @@
                         <li
                                 :class="{cur: ~$route.path.indexOf('/predict')}">
                             <router-link2 :to="{name: 'football-detail-predict', query: $route.query}" replace>
-                                <span data-p2="zq_detail" data-p4="predict">预测<i class="sktab-arrow"></i><em class="nav-yuce-liao " :class="{enter: !~$route.path.indexOf('/predict')}">料</em></span>
+                                <span data-p2="zq_detail" data-p4="predict">预测<i class="sktab-arrow"></i><em
+                                        class="nav-yuce-liao "
+                                        :class="{enter: !~$route.path.indexOf('/predict')}">料</em></span>
                             </router-link2>
                         </li>
                         <li
@@ -115,7 +125,7 @@
                         </li>
 
                         <li v-if="$route.query.iosspecial !== '1'"
-                                :class="{cur: ~$route.path.indexOf('/crazybet')}">
+                            :class="{cur: ~$route.path.indexOf('/crazybet')}">
                             <router-link2 :to="{name: 'football-detail-crazybet', query: $route.query}" replace>
                                 <span data-p2="zq_detail" data-p4="crazybet">猜球<i class="sktab-arrow"></i></span>
                             </router-link2>
@@ -132,7 +142,7 @@
 
         </div>
         <transition name="fade">
-            <div  v-if="outer.component" class="popLayer"></div>
+            <div v-if="outer.component" class="popLayer"></div>
         </transition>
         <transition name="slide">
             <div v-if="outer.component" class="l-full" style="z-index: 101">
@@ -210,6 +220,28 @@
             },
             isVerify () {
                 return this.$store.state.isVerify
+            },
+            s_title () {
+                if (this.match.status === StatusCode.NOT_STARTED) {
+                    return `${this.match.homesxname}vs${this.match.awaysxname} ${this.match.matchtime.substr(5, 2)}月${this.match.matchtime.substr(8, 2)}日${this.match.matchtime.substr(11, 5)}, 预测推荐>>`
+                } else if (this.match.status === StatusCode.FIRST_HALF || this.match.status === StatusCode.MID || this.match.status === StatusCode.LAST_HALF) {
+                    return `正在直播：${this.match.homesxname}vs${this.match.awaysxname} 一起看球侃大山>>`
+                } else if (this.match.status === StatusCode.ENDED) {
+                    return `${this.match.homesxname}${this.match.homescore}:${this.match.awayscore}${this.match.awaysxname} 技术统计+赛况详情，不复盘你怎么懂球>>`
+                } else {
+                    return `${this.match.homesxname}vs${this.match.awaysxname} 实时比分`
+                }
+            },
+            s_desc () {
+                if (this.match.status === StatusCode.NOT_STARTED) {
+                    return `小伙伴一起来看赛事前瞻吧！`
+                } else if (this.match.status === StatusCode.FIRST_HALF || this.match.status === StatusCode.MID || this.match.status === StatusCode.LAST_HALF) {
+                    return `小伙伴一起来看比赛吧！`
+                } else if (this.match.status === StatusCode.ENDED) {
+                    return `小伙伴一起来回顾比赛吧！`
+                } else {
+                    return `小伙伴一起来看比赛吧！`
+                }
             }
         },
         async mounted () {
@@ -245,11 +277,7 @@
                 this.$store.commit('endOneRefresh')
             },
             changeHeader (status) {
-                if (status) {
-                    this.showScore = true
-                } else {
-                    this.showScore = false
-                }
+                this.showScore = !!status
             },
             closeEditor () {
                 this.$store.commit(mTypes.hideEditorDialog)
@@ -297,20 +325,47 @@
                 }
             },
             doShare (nativeShare) {
-            // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
+                // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
                 try {
                     nativeShare.call()
                     // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
                     // 类似的命令下面有介绍
                 } catch (err) {
-                //                    alert(err.message)
-                    // 如果不支持，你可以在这里做降级处理
-                    this.$store.commit(mTypes.setDialog, {component: copy,
-                        params: {
-                            onClose: () => {
-                                this.$store.commit(mTypes.setDialog, {})
+                    if (window.EsApp1) {
+                        window.EsApp.send('share', {
+                            wx_session: {
+                                title: this.s_title,
+                                url: location.href,
+                                content: this.s_desc,
+                                icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png'
+                            },
+                            wx_timeline: {
+                                title: this.s_title,
+                                url: location.href,
+                                content: this.s_desc,
+                                icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png'
+                            },
+                            qq: {
+                                title: this.s_title,
+                                url: location.href,
+                                content: this.s_desc,
+                                icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png'
+                            },
+                            isScreenShot: true // 是否截取当前页面的屏幕
+                        }, (channel) => {
+                            // 分享成功后的回调，会把分享成功的渠道字段传回来，比如channel为 'wx_timeline'
+                        })
+                    } else {
+                        // 如果不支持，你可以在这里做降级处理
+                        this.$store.commit(mTypes.setDialog, {
+                            component: copy,
+                            params: {
+                                onClose: () => {
+                                    this.$store.commit(mTypes.setDialog, {})
+                                }
                             }
-                        }})
+                        })
+                    }
                 }
             },
             showShareMode () {
@@ -328,43 +383,13 @@
                     syncIconToTag: false,
                     syncTitleToTag: false
                 })
-                if (this.match.status === StatusCode.NOT_STARTED) {
-                    //  设置分享文案
-                    nativeShare.setShareData({
-                        icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
-                        link: location.href,
-                        title: `${this.match.homesxname}vs${this.match.awaysxname} ${this.match.matchtime.substr(5, 2)}月${this.match.matchtime.substr(8, 2)}日${this.match.matchtime.substr(11, 5)}, 预测推荐>>`,
-                        desc: `小伙伴一起来看赛事前瞻吧！`,
-                        from: '500彩票网'
-                    })
-                } else if (this.match.status === StatusCode.FIRST_HALF || this.match.status === StatusCode.MID || this.match.status === StatusCode.LAST_HALF) {
-                    //  设置分享文案
-                    nativeShare.setShareData({
-                        icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
-                        link: location.href,
-                        title: `正在直播：${this.match.homesxname}vs${this.match.awaysxname} 一起看球侃大山>>`,
-                        desc: `小伙伴一起来看比赛吧！`,
-                        from: '500彩票网'
-                    })
-                } else if (this.match.status === StatusCode.ENDED) {
-                    //  设置分享文案
-                    nativeShare.setShareData({
-                        icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
-                        link: location.href,
-                        title: `${this.match.homesxname}${this.match.homescore}:${this.match.awayscore}${this.match.awaysxname} 技术统计+赛况详情，不复盘你怎么懂球>>`,
-                        desc: `小伙伴一起来回顾比赛吧！`,
-                        from: '500彩票网'
-                    })
-                } else {
-                    //  设置分享文案
-                    nativeShare.setShareData({
-                        icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
-                        link: location.href,
-                        title: `${this.match.homesxname}vs${this.match.awaysxname} 实时比分`,
-                        desc: `小伙伴一起来看比赛吧！`,
-                        from: '500彩票网'
-                    })
-                }
+                nativeShare.setShareData({
+                    icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
+                    link: location.href,
+                    title: this.s_title,
+                    desc: this.s_desc,
+                    from: '500彩票网'
+                })
 
                 this.$store.commit(mTypes.setDialog, {
                     component: share,
@@ -416,7 +441,7 @@
                 if (stamp === pushEvents.FOOTBALL_INFO) {
                     if (data.fid === this.match.fid) {
                         this.$store.commit(mTypes.syncBaseInfo, data)
-                    //                        this.$store.dispatch(aTypes.getBaseInfo, this.match.fid)
+                        //                        this.$store.dispatch(aTypes.getBaseInfo, this.match.fid)
                     }
                 }
             },
@@ -459,28 +484,47 @@
 </script>
 
 <style scoped>
-    .root{
+    .root {
         overflow: hidden;
     }
-    .f20{font-size:0.266rem}
-    .f24{font-size:0.32rem}
-    .f26{font-size:0.346rem}
-    .f28{font-size:0.373rem}
-    .f30{font-size:0.4rem}
+
+    .f20 {
+        font-size: 0.266rem
+    }
+
+    .f24 {
+        font-size: 0.32rem
+    }
+
+    .f26 {
+        font-size: 0.346rem
+    }
+
+    .f28 {
+        font-size: 0.373rem
+    }
+
+    .f30 {
+        font-size: 0.4rem
+    }
+
     .responsive {
         width: 100%;
         display: flex;
     }
+
     .each-resone {
         flex: 1;
         display: block;
         width: 100%;
     }
+
     /*头部*/
     .back-icon:before, .zj-nav .cur:after {
         background: url(~assets/style/images/detail/detail-icon.png) no-repeat;
         background-size: .533333rem 13.333333rem
     }
+
     /*详情页顶部*/
     .detailTop {
         position: relative;
@@ -488,15 +532,16 @@
         height: 1.173rem;
         background: #242c35;
     }
+
     [data-dpr="1"] .detailTop {
         height: 44px
     }
 
-    [data-dpr="2"] .detailTop  {
+    [data-dpr="2"] .detailTop {
         height: 88px
     }
 
-    [data-dpr="3"] .detailTop  {
+    [data-dpr="3"] .detailTop {
         height: 132px
     }
 
@@ -509,6 +554,7 @@
         left: 0;
         top: 0;
     }
+
     .back-icon:before {
         width: .32rem;
         height: .493333rem;
@@ -519,12 +565,15 @@
         background-position: center 0;
         margin-top: -.246667rem;
     }
+
     .back-icon:active {
         opacity: .6;
     }
+
     .yb-head .back-icon:before, .plxq .back-icon:before {
         margin-top: 0;
     }
+
     .detailTop .link-index {
         color: #fff;
         height: .5867rem;
@@ -538,6 +587,7 @@
         padding-left: .346667rem;
         z-index: 6
     }
+
     .detailTop .r-sn {
         color: #909396;
         position: absolute;
@@ -549,6 +599,7 @@
         text-align: center;
         width: 4rem;
     }
+
     .detailTop .r-sn:active {
         color: #fff;
     }
@@ -559,6 +610,7 @@
         height: 1.173rem;
         position: relative;
     }
+
     .detailTop .topR {
         position: absolute;
         top: 0;
@@ -566,6 +618,7 @@
         width: 1.173rem;
         height: 1.173rem;
     }
+
     .detailTop .sk-gz:after {
         position: absolute;
         content: '';
@@ -577,9 +630,11 @@
         margin-top: -0.2667rem;
         background-position: center -.54rem;
     }
+
     .detailTop .sk-gz.cur:after {
         background-position: center -1.1567rem;
     }
+
     .detailTop .fen-box {
         position: absolute;
         width: 8rem;
@@ -595,22 +650,27 @@
         /*transform: translateY(-500%);*/
         z-index: 10;
     }
+
     .detailTop .itm-bf {
         height: 0.7733rem;
         line-height: 0.7733rem;
         padding: 0.2rem;
     }
+
     .detailTop .itm-team {
         position: relative;
         width: 2rem;
         overflow: hidden;
     }
+
     .detailTop .itm-team:first-child {
         text-align: right
     }
+
     .detailTop .itm-team:last-child {
         text-align: left;
     }
+
     .detailTop .fen-bf, .detailTop .fen-bf-lq {
         width: 0.9rem;
         height: 0.7733rem;
@@ -618,9 +678,11 @@
         font-size: 0.4rem;
         float: left;
     }
+
     .detailTop .fen-bf-lq {
         width: 1.1rem;
     }
+
     .detailTop .fen-ld {
         font-size: 0.586rem;
         line-height: 0.6933rem;
@@ -633,12 +695,14 @@
         height: 3.2rem;
         background: #242c35;
     }
+
     .zq-header .itm-bf {
         color: #fff;
         position: absolute;
         top: 0.2667rem;
         width: 100%;
     }
+
     .left-img, .right-img {
         width: 2rem;
         text-align: center;
@@ -646,55 +710,68 @@
         position: absolute;
         z-index: 9;
     }
+
     .left-img {
         left: 1.213333rem
     }
+
     .right-img {
         right: 1.213333rem
     }
+
     .left-img:active, .right-img:active {
         background: rgba(255, 255, 255, .1)
     }
+
     .left-name, .right-name {
         color: #fff;
         position: relative;
         display: inline-block;
         margin-top: 0.1333rem;
     }
+
     .img-box {
         height: 1.05rem
     }
+
     .img-box img {
         width: 0.9067rem;
     }
+
     .zhu-ke {
-        font-size:0.293rem;
+        font-size: 0.293rem;
         color: #ccc;
         position: absolute;
     }
+
     .right-name .zhu-ke {
         right: -.266667rem
     }
+
     .left-name .zhu-ke {
         left: -.266667rem
     }
+
     .fen-box {
         width: 100%;
         text-align: center;
         position: relative;
         height: 2rem;
     }
+
     .fen-box .zhongli {
         position: absolute;
         bottom: 0.053333rem;
         color: rgba(255, 255, 255, .5);
         left: -.7rem;
     }
+
     .fen-box .header-pm {
         color: rgba(255, 255, 255, .3);
         height: 0.6667rem;
         line-height: 0.6667rem;
     }
+
     .itm-bf:after {
         content: '';
         clear: both;
@@ -703,18 +780,20 @@
         visibility: hidden
     }
 
-
     .wks, .gaix {
         color: #fff;
         height: 1.5rem;
         line-height: 1.5rem
     }
+
     .wks {
         font-size: 0.667rem;
     }
+
     .gaix {
         font-size: 0.533rem;
     }
+
     .sk-tips {
         position: absolute;
         top: 3.2rem;
@@ -723,6 +802,7 @@
         font-size: 0.2933rem;
         text-align: center
     }
+
     .fen-bf .score {
         position: absolute;
         left: 50%;
@@ -732,6 +812,7 @@
     .fen-bf {
         width: 0.9333rem;
     }
+
     .fen-ld {
         width: .626667rem;
         font-size: 0.8rem;
@@ -744,6 +825,7 @@
     .fen-bf-active .score {
         animation: changeScore 1s ease-in-out forwards
     }
+
     .fen-bf-active .score:last-child {
         animation: changeScore2 10s ease-in-out forwards
     }
@@ -755,20 +837,24 @@
         left: 0;
         top: 1.44rem;
     }
+
     .game-info .game-state {
         color: #fff;
     }
+
     .game-info .game-time {
         color: rgba(255, 255, 255, .3);
         height: 0.6667rem;
         line-height: 0.6667rem;
         margin-top: -0.0267rem;
     }
+
     .dian {
         animation: dianstyle 1s ease-out 0s infinite alternate;
         -webkit-animation: dianstyle 1s ease-out 0s infinite alternate;
         font-size: 0.4rem;
     }
+
     @keyframes dianstyle {
         0% {
             opacity: 1
@@ -777,6 +863,7 @@
             opacity: 0
         }
     }
+
     @-webkit-keyframes dianstyle {
         0% {
             opacity: 1
@@ -792,7 +879,7 @@
         height: 1.173rem;
         line-height: 1.173rem;
         color: #d1d4d0;
-        font-size:0.4rem;
+        font-size: 0.4rem;
         text-align: center;
         width: 100%;
         z-index: 9;
@@ -808,6 +895,7 @@
         border-bottom: 1px solid #e8e8e8;
         /*no*/
     }
+
     .navigator li {
         flex: 1;
         display: block;
@@ -816,9 +904,11 @@
         overflow: hidden;
         position: relative;
     }
+
     .navigator li:active {
         background: #f4f4f4;
     }
+
     .navigator .nav-guess::after {
         content: '';
         display: block;
@@ -830,6 +920,7 @@
         top: 0.133rem;
         right: 0.133rem;
     }
+
     .navigator li span {
         color: rgba(36, 44, 53, .8);
         position: relative;
@@ -837,9 +928,11 @@
         display: inline-block;
         white-space: nowrap;
     }
+
     .navigator li.cur span, .navigator li:active {
         color: rgba(36, 44, 53, 1);
     }
+
     .navigator li .sktab-arrow {
         height: 0.0533rem;
         overflow: hidden;
@@ -851,12 +944,15 @@
         left: 0;
         display: none;
     }
+
     .navigator li.cur .sktab-arrow {
         display: block;
     }
+
     .navigator li.cur .sktab-arrow {
         animation: arrowMove .4s ease-in-out both;
     }
+
     @keyframes arrowMove {
         0% {
             transform: scaleX(0)
@@ -875,9 +971,11 @@
         animation: opacityC .4s ease both;
         display: none;
     }
+
     .topBarMove2 .link-index, .topBarMove2 .r-sn, .topBarMove .fen-box {
         animation: opacityC2 .4s ease both;
     }
+
     @keyframes opacityC {
         0% {
             opacity: 1;
@@ -892,6 +990,7 @@
             transform: translateY(-500%);
         }
     }
+
     @keyframes opacityC2 {
         0% {
             opacity: 0;
@@ -907,8 +1006,13 @@
         }
     }
 
-    .fen-bf{background:rgba(255,255,255,.06);font-family:Arial;border-radius:.053333rem;position:relative;overflow:hidden}
-
+    .fen-bf {
+        background: rgba(255, 255, 255, .06);
+        font-family: Arial;
+        border-radius: .053333rem;
+        position: relative;
+        overflow: hidden
+    }
 
     /*详情页头部动效 end*/
 
@@ -924,16 +1028,17 @@
         background: rgba(0, 0, 0, .8)
     }
 
-
     .sktab-arrow {
         border: none !important;
         margin-left: auto !important;
 
     }
+
     .slide-enter-active, .slide-leave-active {
         -webkit-transition: -webkit-transform .4s ease;
         transition: transform .4s ease;
     }
+
     .slide-enter-active, .slide-leave {
         -webkit-transform: translate(0, 0);
         transform: translate(0, 0);
@@ -943,16 +1048,19 @@
         -webkit-transform: translate(0, 100%);
         transform: translate(0, 100%);
     }
+
     .fade-enter-active, .fade-leave-active {
         -webkit-transition: all .2s ease;
         transition: all .2s ease;
     }
+
     .sk-point {
         position: relative;
         width: 1.333333rem;
         height: 1.333333rem;
         display: inline-block;
     }
+
     .sk-point:after {
         content: "";
         display: inline-block;
@@ -966,24 +1074,99 @@
         left: 50%;
         margin-left: -.26rem;
     }
-    .navigator .nav-yuce-liao{display:block;width:.4rem;height:.346667rem;line-height:.346667rem;position:absolute;top:.133333rem;right:-.44rem;text-align:center;background-color:#d25138;color:#fff;border-radius:.04rem;font-size:.266667rem;overflow:hidden;-webkit-transform-origin:0 100%;transform-origin:0 100%;-webkit-transform:scale(0);transform:scale(0)}
-    .navigator .nav-yuce-liao.enter{-webkit-animation:iScale .3s ease both;animation:iScale .3s ease both;-webkit-transform:scale(1);transform:scale(1)}
-    .navigator .nav-yuce-liao.leave{-webkit-animation:iScale2 .3s ease both;animation:iScale2 .3s ease both;-webkit-transform:scale(0);transform:scale(0)}
-    @-webkit-keyframes iScale{0%{-webkit-transform:scale(0);transform:scale(0)}
-        80%{-webkit-transform:scale(1.2);transform:scale(1.2)}
-        100%{-webkit-transform:scale(1);transform:scale(1)}
+
+    .navigator .nav-yuce-liao {
+        display: block;
+        width: .4rem;
+        height: .346667rem;
+        line-height: .346667rem;
+        position: absolute;
+        top: .133333rem;
+        right: -.44rem;
+        text-align: center;
+        background-color: #d25138;
+        color: #fff;
+        border-radius: .04rem;
+        font-size: .266667rem;
+        overflow: hidden;
+        -webkit-transform-origin: 0 100%;
+        transform-origin: 0 100%;
+        -webkit-transform: scale(0);
+        transform: scale(0)
     }
-    @keyframes iScale{0%{-webkit-transform:scale(0);transform:scale(0)}
-        80%{-webkit-transform:scale(1.2);transform:scale(1.2)}
-        100%{-webkit-transform:scale(1);transform:scale(1)}
+
+    .navigator .nav-yuce-liao.enter {
+        -webkit-animation: iScale .3s ease both;
+        animation: iScale .3s ease both;
+        -webkit-transform: scale(1);
+        transform: scale(1)
     }
-    @-webkit-keyframes iScale2{0%{-webkit-transform:scale(1);transform:scale(1)}
-        50%{-webkit-transform:scale(1.2);transform:scale(1.2)}
-        100%{-webkit-transform:scale(0);transform:scale(0)}
+
+    .navigator .nav-yuce-liao.leave {
+        -webkit-animation: iScale2 .3s ease both;
+        animation: iScale2 .3s ease both;
+        -webkit-transform: scale(0);
+        transform: scale(0)
     }
-    @keyframes iScale2{0%{-webkit-transform:scale(1);transform:scale(1)}
-        50%{-webkit-transform:scale(1.2);transform:scale(1.2)}
-        100%{-webkit-transform:scale(0);transform:scale(0)}
+
+    @-webkit-keyframes iScale {
+        0% {
+            -webkit-transform: scale(0);
+            transform: scale(0)
+        }
+        80% {
+            -webkit-transform: scale(1.2);
+            transform: scale(1.2)
+        }
+        100% {
+            -webkit-transform: scale(1);
+            transform: scale(1)
+        }
+    }
+
+    @keyframes iScale {
+        0% {
+            -webkit-transform: scale(0);
+            transform: scale(0)
+        }
+        80% {
+            -webkit-transform: scale(1.2);
+            transform: scale(1.2)
+        }
+        100% {
+            -webkit-transform: scale(1);
+            transform: scale(1)
+        }
+    }
+
+    @-webkit-keyframes iScale2 {
+        0% {
+            -webkit-transform: scale(1);
+            transform: scale(1)
+        }
+        50% {
+            -webkit-transform: scale(1.2);
+            transform: scale(1.2)
+        }
+        100% {
+            -webkit-transform: scale(0);
+            transform: scale(0)
+        }
+    }
+
+    @keyframes iScale2 {
+        0% {
+            -webkit-transform: scale(1);
+            transform: scale(1)
+        }
+        50% {
+            -webkit-transform: scale(1.2);
+            transform: scale(1.2)
+        }
+        100% {
+            -webkit-transform: scale(0);
+            transform: scale(0)
+        }
     }
 
 </style>

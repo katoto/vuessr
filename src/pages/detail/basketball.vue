@@ -200,6 +200,32 @@
             },
             toast () {
                 return this.$store.state.toast
+            },
+            s_title () {
+                if (this.baseInfo.status === StatusCode.NOT_STARTED) {
+                    return `${this.baseInfo.awaysxname}vs${this.baseInfo.homesxname} ${this.baseInfo.matchtime.substr(5, 2)}月${this.baseInfo.matchtime.substr(8, 2)}日${this.baseInfo.matchtime.substr(11, 5)}, 预测推荐>>`
+                } else if (this.baseInfo.status === StatusCode.SECTION_1 || this.baseInfo.status === StatusCode.SECTION_2 || this.baseInfo.status === StatusCode.MID ||
+                    this.baseInfo.status === StatusCode.SECTION_3 || this.baseInfo.status === StatusCode.SECTION_4 || this.baseInfo.status === StatusCode.OVERTIME_1 ||
+                    this.baseInfo.status === StatusCode.OVERTIME_2 || this.baseInfo.status === StatusCode.OVERTIME_3 || this.baseInfo.status === StatusCode.OVERTIME_4) {
+                    return `正在直播：${this.baseInfo.awaysxname}vs${this.baseInfo.homesxname} 一起看球侃大山>>`
+                } else if (this.baseInfo.status === StatusCode.ENDED) {
+                    return `${this.baseInfo.awaysxname}${this.baseInfo.awayscore}:${this.baseInfo.homescore}${this.baseInfo.homesxname} 技术统计+赛况详情，不复盘你怎么懂球>>`
+                } else {
+                    return `${this.baseInfo.awaysxname}vs${this.baseInfo.homesxname} 实时比分`
+                }
+            },
+            s_desc () {
+                if (this.baseInfo.status === StatusCode.NOT_STARTED) {
+                    return `小伙伴一起来看赛事前瞻吧！`
+                } else if (this.baseInfo.status === StatusCode.SECTION_1 || this.baseInfo.status === StatusCode.SECTION_2 || this.baseInfo.status === StatusCode.MID ||
+                    this.baseInfo.status === StatusCode.SECTION_3 || this.baseInfo.status === StatusCode.SECTION_4 || this.baseInfo.status === StatusCode.OVERTIME_1 ||
+                    this.baseInfo.status === StatusCode.OVERTIME_2 || this.baseInfo.status === StatusCode.OVERTIME_3 || this.baseInfo.status === StatusCode.OVERTIME_4) {
+                    return `小伙伴一起来看比赛吧！`
+                } else if (this.baseInfo.status === StatusCode.ENDED) {
+                    return `小伙伴一起来回顾比赛吧！`
+                } else {
+                    return `小伙伴一起来看比赛吧！`
+                }
             }
         },
         methods: {
@@ -209,11 +235,7 @@
                 this.$store.commit('endOneRefresh')
             },
             changeHeader (status) {
-                if (status) {
-                    this.showScore = true
-                } else {
-                    this.showScore = false
-                }
+                this.showScore = !!status
             },
             reachEnd () {
                 this.$store.commit(mTypes.updateReachEndTime) // 更新滚动时间戳
@@ -264,16 +286,41 @@
                     // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
                     // 类似的命令下面有介绍
                 } catch (err) {
-                    //                    alert(err.message)
-                    // 如果不支持，你可以在这里做降级处理
-                    this.$store.commit(mTypes.setDialog, {
-                        component: copy,
-                        params: {
-                            onClose: () => {
-                                this.$store.commit(mTypes.setDialog, {})
+                    if (window.EsApp1) {
+                        window.EsApp.send('share', {
+                            wx_session: {
+                                title: this.s_title,
+                                url: location.href,
+                                content: this.s_desc,
+                                icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png'
+                            },
+                            wx_timeline: {
+                                title: this.s_title,
+                                url: location.href,
+                                content: this.s_desc,
+                                icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png'
+                            },
+                            qq: {
+                                title: this.s_title,
+                                url: location.href,
+                                content: this.s_desc,
+                                icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png'
+                            },
+                            isScreenShot: true // 是否截取当前页面的屏幕
+                        }, (channel) => {
+                            // 分享成功后的回调，会把分享成功的渠道字段传回来，比如channel为 'wx_timeline'
+                        })
+                    } else {
+                        // 如果不支持，你可以在这里做降级处理
+                        this.$store.commit(mTypes.setDialog, {
+                            component: copy,
+                            params: {
+                                onClose: () => {
+                                    this.$store.commit(mTypes.setDialog, {})
+                                }
                             }
-                        }
-                    })
+                        })
+                    }
                 }
             },
             showShareMode () {
@@ -291,45 +338,13 @@
                     syncIconToTag: false,
                     syncTitleToTag: false
                 })
-                if (this.baseInfo.status === StatusCode.NOT_STARTED) {
-                    //  设置分享文案
-                    nativeShare.setShareData({
-                        icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
-                        link: location.href,
-                        title: `${this.baseInfo.awaysxname}vs${this.baseInfo.homesxname} ${this.baseInfo.matchtime.substr(5, 2)}月${this.baseInfo.matchtime.substr(8, 2)}日${this.baseInfo.matchtime.substr(11, 5)}, 预测推荐>>`,
-                        desc: `小伙伴一起来看赛事前瞻吧！`,
-                        from: '500彩票网'
-                    })
-                } else if (this.baseInfo.status === StatusCode.SECTION_1 || this.baseInfo.status === StatusCode.SECTION_2 || this.baseInfo.status === StatusCode.MID ||
-                    this.baseInfo.status === StatusCode.SECTION_3 || this.baseInfo.status === StatusCode.SECTION_4 || this.baseInfo.status === StatusCode.OVERTIME_1 ||
-                    this.baseInfo.status === StatusCode.OVERTIME_2 || this.baseInfo.status === StatusCode.OVERTIME_3 || this.baseInfo.status === StatusCode.OVERTIME_4) {
-                    //  设置分享文案
-                    nativeShare.setShareData({
-                        icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
-                        link: location.href,
-                        title: `正在直播：${this.baseInfo.awaysxname}vs${this.baseInfo.homesxname} 一起看球侃大山>>`,
-                        desc: `小伙伴一起来看比赛吧！`,
-                        from: '500彩票网'
-                    })
-                } else if (this.baseInfo.status === StatusCode.ENDED) {
-                    //  设置分享文案
-                    nativeShare.setShareData({
-                        icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
-                        link: location.href,
-                        title: `${this.baseInfo.awaysxname}${this.baseInfo.awayscore}:${this.baseInfo.homescore}${this.baseInfo.homesxname} 技术统计+赛况详情，不复盘你怎么懂球>>`,
-                        desc: `小伙伴一起来回顾比赛吧！`,
-                        from: '500彩票网'
-                    })
-                } else {
-                    //  设置分享文案
-                    nativeShare.setShareData({
-                        icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
-                        link: location.href,
-                        title: `${this.baseInfo.awaysxname}vs${this.baseInfo.homesxname} 实时比分`,
-                        desc: `小伙伴一起来看比赛吧！`,
-                        from: '500彩票网'
-                    })
-                }
+                nativeShare.setShareData({
+                    icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png',
+                    link: location.href,
+                    title: this.s_title,
+                    desc: this.s_desc,
+                    from: '500彩票网'
+                })
                 this.$store.commit(mTypes.setDialog, {
                     component: share,
                     params: {
