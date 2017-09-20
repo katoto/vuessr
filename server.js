@@ -120,7 +120,7 @@ function render (req, res) {
             return res.end(hit)
         }
     }
-    if (req.query.render === 'local') {
+    if (req.query.render === 'local' || req.query.from === 'app_bet') {
         res.sendFile(path.resolve('./dist/backup.html'))
         return
     }
