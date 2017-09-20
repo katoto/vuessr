@@ -331,27 +331,14 @@
                     // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
                     // 类似的命令下面有介绍
                 } catch (err) {
-                    if (window.EsApp1) {
+                    if (window.EsApp) {
                         window.EsApp.send('share', {
-                            wx_session: {
+                            common: {
                                 title: this.s_title,
                                 url: location.href,
                                 content: this.s_desc,
                                 icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png'
-                            },
-                            wx_timeline: {
-                                title: this.s_title,
-                                url: location.href,
-                                content: this.s_desc,
-                                icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png'
-                            },
-                            qq: {
-                                title: this.s_title,
-                                url: location.href,
-                                content: this.s_desc,
-                                icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png'
-                            },
-                            isScreenShot: true // 是否截取当前页面的屏幕
+                            }
                         }, (channel) => {
                             // 分享成功后的回调，会把分享成功的渠道字段传回来，比如channel为 'wx_timeline'
                         })

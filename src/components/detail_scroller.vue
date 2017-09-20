@@ -65,7 +65,7 @@
                 let status = 0
                 const transform = typeof document.body.style.transform !== 'undefined' ? 'transform' : 'webkitTransform'
                 const transformOrigin = typeof document.body.style.transform !== 'undefined' ? 'transformOrigin' : 'webkitTransformOrigin'
-                this.head.style[transformOrigin] = '50% 100.5%'
+                this.head.style[transformOrigin] = '50% 100%'
                 let latestTop = 0
                 let outTouch = true
                 this.scrollerObj = new Scroller((left, top, zoom) => {
