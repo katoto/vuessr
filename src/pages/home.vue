@@ -3,10 +3,10 @@
         <div class="head-zone">
             <div class="icon-return" onclick="history.back()" v-if="backBtnShow"><span></span></div>
             <ul class="ball-tab">
-                <li :class="{cur: ~$route.path.indexOf('/zq/')}"><router-link :to="{path: `/home/zq/jczq/cur`, query: this.$route.query}">足球</router-link></li>
-                <li :class="{cur: ~$route.path.indexOf('/lq/')}"><router-link :to="{path: `/home/lq/jclq/cur`, query: this.$route.query}">篮球</router-link></li>
+                <li :class="{cur: ~$route.path.indexOf('/zq/')}"><router-link2 :to="{path: `/home/zq/jczq/cur`, query: this.$route.query}" replace>足球</router-link2></li>
+                <li :class="{cur: ~$route.path.indexOf('/lq/')}"><router-link2 :to="{path: `/home/lq/jclq/cur`, query: this.$route.query}" replace>篮球</router-link2></li>
             </ul>
-            <div class="search-league" v-tap="{methods: goLeague}" data-p2="zq" data-p4="liansai"><span></span>联赛</div>
+            <router-link2 :to="{name:  ~$route.path.indexOf('/zq/')?'center-football': 'center-basketball', query: $route.query}" class="search-league" data-p2="zq" data-p4="liansai"><span></span>联赛</router-link2>
         </div>
 
 
@@ -25,9 +25,15 @@
 <script>
     import refresh from '~components/refresh.vue'
     import switchComp from '~components/home/switch.vue'
+    import routerLink2 from '~components/routerLink2.vue'
     export default{
 
-        components: {refresh, switchComp},
+        components: {refresh, switchComp, routerLink2},
+        mounted () {
+            if (window.EsApp && this.$route.query.from === 'app_bet') {
+                window.EsApp.invoke('titleBar', {isShow: '1', title: '比分'})
+            }
+        },
         computed: {
             switchShow () {
                 return this.$store.state.home.switchShow
@@ -36,24 +42,7 @@
                 if (!this.$route.query.from) return true
                 return this.$route.query.from !== 'app_home'
             }
-        },
-        methods: {
-            goLeague () {
-                if (~this.$route.path.indexOf('/zq/')) {
-                    this.$router.push({name: 'center-football', query: this.$route.query})
-                } else {
-                    this.$router.push({name: 'center-basketball', query: this.$route.query})
-                }
-            },
-            goTab ({tab}) {
-                if (tab === 'zq') {
-                    this.$router.replace({path: `/home/${tab}/jczq/cur`, query: this.$route.query})
-                } else {
-                    this.$router.replace({path: `/home/${tab}/jclq/cur`, query: this.$route.query})
-                }
-            }
         }
-
     }
 </script>
 

@@ -248,6 +248,13 @@
             if (this.$route.query.from === 'app_bet') {
                 window.EsApp && window.EsApp.invoke('titleBar', {isShow: '1', title: '比分详情'})
             }
+            if (window.EsApp) {
+                window.EsApp.invoke('sharebtn', {isShow: '1'})
+                // 注册App的分享按钮的点击事件
+                window.EsApp.on('sharebtnclicked', () => {
+                    this.doOtherShare()
+                })
+            }
             await this.fetchData()
             if (this.match.status !== StatusCode.ENDED) { // 事件订阅
                 this.$store.dispatch(aTypes.subscribeInfo, [this.match.fid])
@@ -269,6 +276,10 @@
             this.$store.dispatch('unsubscribeAll')
             if (this._timeId) clearInterval(this._timeId)
             this.$store.commit(mTypes.reset)
+            if (window.EsApp) {
+                window.EsApp.invoke('sharebtn', {isShow: '0'})
+                window.EsApp.removeListener('sharebtnclicked')
+            }
         },
         methods: {
             async fetchData () {
@@ -324,6 +335,30 @@
                     })
                 }
             },
+            doOtherShare () {
+                if (window.EsApp) {
+                    window.EsApp.send('share', {
+                        common: {
+                            title: this.s_title,
+                            url: location.href.split('?')[0],
+                            content: this.s_desc,
+                            icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png'
+                        }
+                    }, (channel) => {
+                        // 分享成功后的回调，会把分享成功的渠道字段传回来，比如channel为 'wx_timeline'
+                    })
+                } else {
+                    // 如果不支持，你可以在这里做降级处理
+                    this.$store.commit(mTypes.setDialog, {
+                        component: copy,
+                        params: {
+                            onClose: () => {
+                                this.$store.commit(mTypes.setDialog, {})
+                            }
+                        }
+                    })
+                }
+            },
             doShare (nativeShare) {
                 // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
                 try {
@@ -331,28 +366,7 @@
                     // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
                     // 类似的命令下面有介绍
                 } catch (err) {
-                    if (window.EsApp) {
-                        window.EsApp.send('share', {
-                            common: {
-                                title: this.s_title,
-                                url: location.href,
-                                content: this.s_desc,
-                                icon: 'http://www.500cache.com/mobile/touch/images/app_logo.png'
-                            }
-                        }, (channel) => {
-                            // 分享成功后的回调，会把分享成功的渠道字段传回来，比如channel为 'wx_timeline'
-                        })
-                    } else {
-                        // 如果不支持，你可以在这里做降级处理
-                        this.$store.commit(mTypes.setDialog, {
-                            component: copy,
-                            params: {
-                                onClose: () => {
-                                    this.$store.commit(mTypes.setDialog, {})
-                                }
-                            }
-                        })
-                    }
+                    this.doOtherShare()
                 }
             },
             showShareMode () {
@@ -463,7 +477,8 @@
             return {
                 title: `【${state.zqdetail.baseInfo.homesxname}】vs【${state.zqdetail.baseInfo.awaysxname}】足球比赛直播_在线直播_比赛技术统计-500彩票网`,
                 appTitle: '比分详情',
-                description: `【${state.zqdetail.baseInfo.homesxname}】vs【${state.zqdetail.baseInfo.awaysxname}】足球比赛直播、在线直播动画，包含【主队名】VS【客队名】足球比赛的预计首发阵容、球队技术统计直观对比。`
+                canonical: `http://live.500.com/detail.php?fid=${state.zqdetail.baseInfo.fid}`,
+                description: `【${state.zqdetail.baseInfo.homesxname}】vs【${state.zqdetail.baseInfo.awaysxname}】足球比赛直播、在线直播动画，包含【${state.zqdetail.baseInfo.homesxname}】vs【${state.zqdetail.baseInfo.awaysxname}】足球比赛的预计首发阵容、球队技术统计直观对比。`
             }
         }
 
