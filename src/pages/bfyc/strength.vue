@@ -69,7 +69,8 @@
             this.$store.dispatch(aTypes.getStrength)
         },
         head: {
-            title: '实力对比'
+            appTitle: '实力对比',
+            title: '实力对比-足球比分-500彩票网'
         }
 
     }

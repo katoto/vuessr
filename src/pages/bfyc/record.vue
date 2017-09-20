@@ -25,7 +25,8 @@
             }
         },
         head: {
-            title: '战绩特征'
+            title: '战绩特征-足球比分-500彩票网',
+            appTitle: '战绩特征'
         }
     }
 </script>

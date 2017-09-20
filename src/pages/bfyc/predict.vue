@@ -214,7 +214,8 @@
             }
         },
         head: {
-            title: '精选预测'
+            title: '精选预测-足球比分-500彩票网',
+            appTitle: '精选预测'
         }
     }
 </script>
