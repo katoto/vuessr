@@ -135,6 +135,7 @@ function render (req, res) {
         respList[req.url] = [res]
         renderer.renderToString(context, (err, html) => {
             if (err) {
+                respList[req.url] = undefined
                 return handleError(err)
             }
             respList[req.url].forEach(response => {
