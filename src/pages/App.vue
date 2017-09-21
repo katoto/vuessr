@@ -12,6 +12,11 @@
     export default {
         mounted () {
             this.$store.dispatch('initWebsocket')
+            if (this.$route.query.render !== 'local' && this.$route.query.from !== 'app_home' && this.$route.query.from !== 'app_bet' && process.env.VUE_ENV !== 'server' && process.env.NODE_ENV === 'production') {
+                this.$router.replace({query: {
+                    render: 'local'
+                }})
+            }
             const findP = (e) => {
                 if (e.tagName === 'BODY' || !e) return
                 if (e.dataset.p2) {

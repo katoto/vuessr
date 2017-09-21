@@ -23,7 +23,7 @@
                 </div>
 
             </div>
-            <div v-if="statistic&&eventlist&&(match.status=='1'||match.status=='2'||match.status=='3'||match.status=='4')" class="com-slide-box swiper-slide">
+            <div v-if="statistic&&eventlist&&(match.status=='1'||match.status=='2'||match.status=='3'|| (match.status=='4' && eventlist.length))" class="com-slide-box swiper-slide">
                 <h1 class="com-slide-tit" v-if="!(match.status=='4'&&online=='0')">
                     {{match.status=='4'?'共':'与'}}<em><span
                         class="score-itm" :class="{'itmMove': inmove}"><i>{{online0}}</i><i>{{online1}}</i></span></em>{{match.status=='4'?'人看了这场比赛！':'人一起观看比赛！'}}
