@@ -26,7 +26,6 @@
         color: #242c35;
         height: .933333rem;
         line-height: .933333rem;
-        line-height: .933333rem;
         width: 100%;
         overflow: hidden
     }
