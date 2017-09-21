@@ -94,6 +94,7 @@ const microCache = LRU({
 // headers.
 const isCacheable = req => useMicroCache
 
+const respList = {}
 function render (req, res) {
     const s = Date.now()
 
@@ -130,18 +131,30 @@ function render (req, res) {
         canonical: 'http://live.500.com/',
         url: req.url
     }
-    renderer.renderToString(context, (err, html) => {
-        if (err) {
-            return handleError(err)
+    if (!respList[req.url] || !respList[req.url].length) {
+        respList[req.url] = [res]
+        renderer.renderToString(context, (err, html) => {
+            if (err) {
+                return handleError(err)
+            }
+            respList[req.url].forEach(response => {
+                response.end(html)
+            })
+            respList[req.url] = undefined
+            if (cacheable) {
+                microCache.set(req.url, html)
+            }
+            if (!isProd) {
+                console.log(`whole request: ${Date.now() - s}ms`)
+            }
+        })
+    } else {
+        if (respList[req.url].length > 500) {
+            res.sendFile(path.resolve('./dist/backup.html'))
+        } else {
+            respList[req.url].push(res)
         }
-        res.end(html)
-        if (cacheable) {
-            microCache.set(req.url, html)
-        }
-        if (!isProd) {
-            console.log(`whole request: ${Date.now() - s}ms`)
-        }
-    })
+    }
 }
 
 app.get('*', isProd ? render : (req, res) => {
