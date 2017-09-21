@@ -377,11 +377,12 @@
             if (this.$route.query.from === 'app_bet') {
                 window.EsApp && window.EsApp.invoke('titleBar', {isShow: '1', title: '比分详情'})
             }
-            if (window.EsApp) {
+            /* if (window.EsApp) {
                 window.EsApp.invoke('sharebtn', {isShow: '1'})
                 // 注册App的分享按钮的点击事件
                 window.EsApp.on('sharebtnclicked', this.doOtherShare)
             }
+            */
             await this.fetchData()
             if (this.baseInfo.status !== StatusCode.ENDED) {
                 this.$store.dispatch(aTypes.subscribeInfo, [this.baseInfo.fid])
@@ -392,10 +393,11 @@
         destroyed () {
             this.$store.dispatch('unsubscribeAll')
             this.$store.commit(mTypes.reset)
-            if (window.EsApp) {
+            /* if (window.EsApp) {
                 window.EsApp.invoke('sharebtn', {isShow: '0'})
                 window.EsApp.removeListener('sharebtnclicked')
             }
+            */
         },
         watch: {
             socketData ({data, stamp}) { // websocket推送过来的数据

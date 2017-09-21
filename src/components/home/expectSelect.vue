@@ -129,9 +129,6 @@
         box-sizing: border-box
     }
 
-    .filter-time-long {
-        width: 9.2rem
-    }
 
     .filter-league,.filter-time {
         box-shadow: 0 0 .133333rem rgba(22,34,29,.1)
@@ -179,14 +176,7 @@
         background-size: cover
     }
 
-    .filter-time-long .today {
-        width: 7.2rem;
-        padding-left: 2.933333rem
-    }
 
-    .filter-time-long .today span {
-        left: 2.266667rem
-    }
 
     .filter-time .next-day {
         width: .96rem;
@@ -329,22 +319,6 @@
 
     /*----------------------------*/
 
-    .alert-datetime {
-        width: 9.2rem;
-        position: absolute;
-        top: 0;
-        left: 0;
-        padding: .4rem .4rem .506667rem .4rem;
-        box-sizing: border-box;
-        border: .013333rem solid #eaeaea;
-        border-radius: .106667rem;
-        background: #fff;
-        z-index: 2;
-        overflow: hidden;
-        clear: both;
-        zoom: 1
-    }
-
     .month-tit {
         height: .466667rem;
         line-height: .466667rem;
@@ -368,45 +342,7 @@
         background-size: cover
     }
 
-    .week-tit {
-        height: .72rem;
-        line-height: .72rem;
-        font-size: .32rem;
-        color: #aab5bd
-    }
-
-    .week-tit ul li {
-        float: left;
-        width: .88rem;
-        text-align: center;
-        margin-right: .346667rem
-    }
-
-    .week-tit ul li:last-child {
-        margin-right: 0
-    }
-
-    .weeker-item {
-        height: auto;
-        font-size: .346667rem;
-        color: #242c35
-    }
-
-    .weeker-item ul li {
-        height: .88rem;
-        line-height: .88rem
-    }
-
-    .week-tit ul li:nth-child(7),.weeker-item ul li:nth-child(7n) {
-        margin-right: 0;
-        float: right
-    }
-    .weeker-item ul .cur {
-        background: #d25138;
-        border-radius: 50%;
-        color: #fff
-    }
-
+    
 
     .c-h-es-enter-active .cup-info {
         display: none

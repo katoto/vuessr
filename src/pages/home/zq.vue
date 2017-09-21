@@ -14,8 +14,6 @@
 
 
 </template>
-<style scoped>
-</style>
 <script>
     import scrollSel from '~components/home/scrollSel.vue'
     import {mTypes, aTypes} from '~store/home'

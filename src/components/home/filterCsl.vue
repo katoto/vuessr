@@ -315,39 +315,6 @@
         color: #242c35
     }
 
-    .btn-cont {
-        width: 100%;
-        border-top: 1px solid #eaeaea;
-        font-size: .4rem;
-        color: #242c35;
-        margin-top: .4rem;
-        height: 1.2rem;
-        line-height: 1.2rem;
-        position: absolute;
-        bottom: 0;
-        left: 0
-    }
-
-    .btn-cont .btn-sure {
-        width: 50%;
-        box-sizing: border-box;
-        text-align: center;
-        position: absolute;
-        bottom: 0
-    }
-
-    .btn-cont .btn-l {
-        border-right: 1px solid #eaeaea;
-        left: 0
-    }
-
-    .btn-cont .btn-r {
-        right: 0
-    }
-
-    .btn-cont .btn-sure:active {
-        background: #f4f4f4
-    }
 
 
 
