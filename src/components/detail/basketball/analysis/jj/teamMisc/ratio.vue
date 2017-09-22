@@ -19,7 +19,7 @@
             <div class="gl-box gl-zjBox">
                 <data-box :data="data" :dataType="combatType"></data-box>
             </div>
-            <div class="infoTips" v-if="teamMisc.ratio.desc">
+            <div class="infoTips" v-if="teamMisc.combat.desc">
                 <i class="icon"></i>
                 <p class="f24">
                     {{teamMisc.combat.desc}}

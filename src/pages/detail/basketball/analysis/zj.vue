@@ -76,7 +76,7 @@ export default {
             return this.noEmpty(this.leaguerank)
         },
         noEmptyFlagNBArank () {
-            return this.noEmpty(this.nbarank.all)
+            return this.noEmpty(this.nbarank && this.nbarank.all)
         }
     },
     methods: {
