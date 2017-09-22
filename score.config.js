@@ -7,7 +7,7 @@ module.exports = {
             name: 'score',
             script: './server.js',
             kill_timeout: 3000,
-            instances: 2,
+            instances: 3,
             exec_mode: 'cluster',
             watch: ['dist/*.json'],
             restart_delay: '500', // time to wait before restarting a crashed app (in milliseconds). defaults to 0.,
