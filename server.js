@@ -100,7 +100,7 @@ function render (req, res) {
 
     res.setHeader('Content-Type', 'text/html')
     res.setHeader('Cache-Control', 'max-age=120') // 缓存2分钟
-    const handleError = err => {
+    /* const handleError = err => {
         if (err && err.code === 404) {
             res.status(404).end('404 | Page Not Found')
         } else {
@@ -110,6 +110,7 @@ function render (req, res) {
             console.error(err.stack)
         }
     }
+    */
 
     const cacheable = isCacheable(req)
     if (cacheable) {
@@ -135,13 +136,17 @@ function render (req, res) {
         respList[req.url] = [res]
         renderer.renderToString(context, (err, html) => {
             if (err) {
-                respList[req.url] = undefined
-                return handleError(err)
+                respList[req.url].forEach(response => {
+                    response.sendFile(path.resolve('./dist/backup.html'))
+                })
+                delete respList[req.url]
+                console.error(err)
+                return
             }
             respList[req.url].forEach(response => {
                 response.end(html)
             })
-            respList[req.url] = undefined
+            delete respList[req.url]
             if (cacheable) {
                 microCache.set(req.url, html)
             }
