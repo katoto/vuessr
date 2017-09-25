@@ -12,10 +12,11 @@
         },
         methods: {
             emitRefresh () {
-                if (window.EsApp) {
+                /* if (window.EsApp) {
                     location.reload()
                     return
                 }
+                */
                 this.$store.commit('beginRefresh')
             }
         }
