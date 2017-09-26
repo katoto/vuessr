@@ -355,7 +355,7 @@ const actionsInfo = mapActions({
             op = 'unset'
             statset = '0'
         }
-        await ajax.get(`/score/concern/focus?fid=${fid}&vtype=1&op=${op}&lotid=46&expect=${expect}&ck=123`, {ignore: false})
+        await ajax.get(`/score/concern/focus?fid=${fid}&vtype=1&op=${op}&lotid=46&expect=${expect}`, {ignore: false})
         commit(mTypes.changeConcernStatus, statset)
     }
 }, ns)
