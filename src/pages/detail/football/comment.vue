@@ -136,6 +136,7 @@
                     pageNo: pageNo,
                     tab: this.tab
                 })
+                await this.$store.dispatch(aTypes.getTotal, {fid: this.$route.params.fid})
                 if (!commentlist.length) {
                     this.end = true
                 }
