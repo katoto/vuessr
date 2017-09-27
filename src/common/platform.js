@@ -5,7 +5,7 @@ let exports = {}
 /*eslint-disable */
 if (process.env.VUE_ENV !== 'server') {
     exports = {
-
+        protocol: location.protocol + '//',
         domain: {
             mapi: 'c.m.500.com/mapi',
             touch: 'c.m.500.com',
