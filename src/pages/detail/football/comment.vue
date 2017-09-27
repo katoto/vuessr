@@ -109,7 +109,8 @@
             reachEndTime () {
                 if (this.end || !this.loaded) return
                 this.pageNo++
-                this.fetchCommentData(this.pageNo)
+                if(this.pageNo > 0)
+                    this.fetchCommentData(this.pageNo)
             }
         },
         methods: {
