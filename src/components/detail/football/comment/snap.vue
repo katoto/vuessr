@@ -215,9 +215,9 @@
             goRec () {
                 if (this.$route.query.iosspecial === '1') return
                 if (window.EsApp && this.$route.query.from === 'app_home') {
-                    window.EsApp.invoke('webview',{url:this.expertRecommend.touch_url})
+                    window.EsApp.invoke('webview', {url: this.expertRecommend.touch_url})
                 } else {
-                    location.href =this.expertRecommend.touch_url
+                    location.href = this.expertRecommend.touch_url
                 }
             },
             updateSnap () {

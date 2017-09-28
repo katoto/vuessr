@@ -348,11 +348,10 @@
             },
             goUrl ({url}) {
                 if (window.EsApp && this.$route.query.from === 'app_home') {
-                    window.EsApp.invoke('webview',{url})
+                    window.EsApp.invoke('webview', {url})
                 } else {
                     location.href = url
                 }
-
             }
         },
         watch: {
