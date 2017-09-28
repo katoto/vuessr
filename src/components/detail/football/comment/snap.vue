@@ -214,7 +214,11 @@
             },
             goRec () {
                 if (this.$route.query.iosspecial === '1') return
-                location.href = this.expertRecommend.touch_url
+                if (window.EsApp && this.$route.query.from === 'app_home') {
+                    window.EsApp.invoke('webview',{url:this.expertRecommend.touch_url})
+                } else {
+                    location.href =this.expertRecommend.touch_url
+                }
             },
             updateSnap () {
                 this.mySwiper.update()
