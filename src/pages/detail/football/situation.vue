@@ -1,5 +1,5 @@
 <template>
-    <div v-if="situation">
+    <div v-if="situation && situation.news">
        <!-- <template v-if="(situation.eventlist && situation.eventlist.length) || (situation.statistic && situation.statistic.h_ballcontrol_rate)">
 
         </template>-->
@@ -21,18 +21,18 @@
 
         </template>
         <template v-else>
-            <me-sports v-if="situation.news && situation.news.length" :news="situation.news"  :init-size="match.status == StatusCode.NOT_STARTED?5:3"></me-sports>
-            <div class="ui-empty" v-if="(!situation.news || !situation.news.length) && !match.video">
+            <me-sports v-if="situation.news.length" :news="situation.news"  :init-size="match.status == StatusCode.NOT_STARTED?5:3"></me-sports>
+            <div class="ui-empty" v-if="!situation.news.length && !match.video">
                 <img src="~assets/style/images/detail/07.png" class="w240">
                 <div class="ui-empty-dfont" v-if="match.status === StatusCode.NOT_STARTED || match.status === ''">比赛时间 {{match.matchtime.substr(5, 11)}}</div>
                 <div class="ui-empty-dfont" v-else>{{StatusDesc[match.status === '' ? '0' : match.status]}}</div>
                 <div class="ui-empty-gfont" v-if="match.status === StatusCode.NOT_STARTED || match.status === ''">先去分析栏目看看吧</div>
             </div>
+
         </template>
 
-
-
     </div>
+    <item-loader v-else></item-loader>
 </template>
 
 <script scoped>
@@ -42,6 +42,7 @@
     import meSports from '~components/detail/meSports.vue'
     import statistic from '~components/detail/football/situation/statistic.vue'
     import skbtips from '~components/detail/skbtips.vue'
+    import itemLoader from '~components/detail/itemLoader.vue'
     export default {
         async asyncData ({store, route: {params}}) {
             const {status, matchtime, homeid, awayid, league_id} = store.state.zqdetail.baseInfo // baseInfo 保证有数据了
@@ -65,7 +66,7 @@
             }
         },
         components: {
-            event, meSports, statistic, skbtips
+            event, meSports, statistic, skbtips, itemLoader
         },
         methods: {
             async fetchData () {

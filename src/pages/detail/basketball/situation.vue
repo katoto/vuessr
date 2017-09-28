@@ -1,6 +1,6 @@
 
 <template>
-    <div>
+    <div v-if="news">
         <template v-if="match.status != StatusCode.NOT_STARTED">  <!--赛中或赛后-->
             <div class="sk-detail-tap-box sk-detail-tap-box2">
                 <ul class="sk-detail-tap">
@@ -34,6 +34,7 @@
         <!--<me-sports src="detail-page/comment/me-sports.html" drunk-if="match.status == StatusCode.NOT_STARTED || eventlist == null" requesting="{{isRequesting}}" leagueid="{{match.matchid}}" on-size="hasNews=!!$event.args[0]" init-size="{{match.status == StatusCode.NOT_STARTED?5:3}}" homeid="{{match.homeid}}" awayid="{{match.awayid}}" status="{{match.status}}" matchtime="{{match.matchdate}}" vtype="2"></me-sports>-->
         <me-sports v-if="match.status == StatusCode.NOT_STARTED && news && news.length" :news="news.news" :init-size="5"></me-sports>
     </div>
+    <item-loader v-else></item-loader>
 </template>
 <script>
     import {BasketballStatusCode as StatusCode, BasketballStatusDesc as StatusDesc} from '~common/constants'
@@ -41,6 +42,7 @@
     import meSports from '~components/detail/meSports.vue'
     import noData from '~components/no_data.vue'
     import routerLink2 from '~components/routerLink2.vue'
+    import itemLoader from '~components/detail/itemLoader.vue'
     export default{
         async asyncData ({store, route: {params}}) {
             const {status, matchtime, homeid, awayid, matchid} = store.state.lqdetail.baseInfo // baseInfo 保证有数据了
@@ -49,7 +51,7 @@
             })
         },
         components: {
-            meSports, noData, routerLink2
+            meSports, noData, routerLink2, itemLoader
         },
         data () {
             return {

@@ -1,7 +1,7 @@
 <template>
     <div class="bifen-list l-full l-flex-column">
         <div class="head-zone">
-            <div class="icon-return" onclick="history.back()" v-if="backBtnShow"><span></span></div>
+            <div class="icon-return" v-back v-if="backBtnShow"><span></span></div>
             <ul class="ball-tab">
                 <li :class="{cur: ~$route.path.indexOf('/zq/')}"><router-link2 :to="{path: `/home/zq/jczq/cur`, query: this.$route.query}" replace>足球</router-link2></li>
                 <li :class="{cur: ~$route.path.indexOf('/lq/')}"><router-link2 :to="{path: `/home/lq/jclq/cur`, query: this.$route.query}" replace>篮球</router-link2></li>

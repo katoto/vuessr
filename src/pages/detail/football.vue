@@ -1,7 +1,7 @@
 <template>
     <div class="l-full l-flex-column root" v-if="match">
         <div class="detailTop" :class="{'topBarMove': showScore, 'topBarMove2': !showScore}" style="display: block;">
-            <a class="back-icon" onclick="history.back()" href="javascript:;"
+            <a class="back-icon" v-back href="javascript:;"
                v-if="$route.query.from!=='app_bet'">返回</a>
             <router-link2 :to="{path: '/home/zq/jczq/cur', query: $route.query}" class="link-index f26"
                           v-if="$route.query.from!=='app_bet'">比分首页
