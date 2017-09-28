@@ -1,5 +1,5 @@
 <template>
-    <div v-if="situation">
+    <div v-if="situation && situation.news">
        <!-- <template v-if="(situation.eventlist && situation.eventlist.length) || (situation.statistic && situation.statistic.h_ballcontrol_rate)">
 
         </template>-->
@@ -28,11 +28,11 @@
                 <div class="ui-empty-dfont" v-else>{{StatusDesc[match.status === '' ? '0' : match.status]}}</div>
                 <div class="ui-empty-gfont" v-if="match.status === StatusCode.NOT_STARTED || match.status === ''">先去分析栏目看看吧</div>
             </div>
+
         </template>
 
-
-
     </div>
+    <item-loader v-else></item-loader>
 </template>
 
 <script scoped>
@@ -42,6 +42,7 @@
     import meSports from '~components/detail/meSports.vue'
     import statistic from '~components/detail/football/situation/statistic.vue'
     import skbtips from '~components/detail/skbtips.vue'
+    import itemLoader from '~components/detail/itemLoader.vue'
     export default {
         async asyncData ({store, route: {params}}) {
             const {status, matchtime, homeid, awayid, league_id} = store.state.zqdetail.baseInfo // baseInfo 保证有数据了
@@ -65,7 +66,7 @@
             }
         },
         components: {
-            event, meSports, statistic, skbtips
+            event, meSports, statistic, skbtips, itemLoader
         },
         methods: {
             async fetchData () {
