@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-
+const vConsolePlugin = require('vconsole-webpack-plugin')
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
@@ -82,6 +82,9 @@ module.exports = {
             })
         ]
         : [
-            new FriendlyErrorsPlugin()
+            new FriendlyErrorsPlugin(),
+            new vConsolePlugin({
+                enable: true
+            })
         ]
 }
