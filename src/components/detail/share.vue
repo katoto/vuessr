@@ -8,7 +8,7 @@
                     <!--收藏成功用 star-cllected-->
                     <p>收藏</p>
                 </div>
-                <div class="collec-box share-box"  v-tap="{methods: doShare}">
+                <div class="collec-box share-box"  v-tap="{methods: doShare}" v-if="!isWeixin">
                     <span class="share-icon"></span>
                     <p>分享</p>
                 </div>
@@ -45,6 +45,13 @@
                 if (typeof this.params.onReply === 'function') {
                     this.params.onReply()
                 }
+            }
+        },
+        computed: {
+            isWeixin () {
+                const ua = window.navigator.userAgent.toLowerCase()
+                // eslint-disable-next-line
+                return ua.match(/MicroMessenger/i) == 'micromessenger'
             }
         }
     }
