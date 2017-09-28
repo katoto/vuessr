@@ -43,7 +43,7 @@ const initState = {
     situation: {
         eventlist: null,
         statistic: null,
-        newsList: null
+        news: null
     },
     odds: {
         europe: null,
