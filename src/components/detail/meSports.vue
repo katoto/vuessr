@@ -21,6 +21,7 @@
     </div>
 </template>
 <script>
+    import {mTypes} from '~store/zqdetail'
     export default {
         props: {
             news: {
@@ -59,6 +60,7 @@
                     this.nums = this.initSize
                 }
                 this.$emit('rs')
+                this.$store.commit(mTypes.updateScTime)
             }
         },
         filters: {
