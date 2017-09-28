@@ -7,8 +7,10 @@
     import '~assets/style/public/reset.css'
     import Vue from 'vue'
     import vueTap from '~directives/v-tap'
+    import vueBack from '~directives/v-back'
     import '~assets/style/base.css'
     Vue.use(vueTap)
+    Vue.use(vueBack)
     export default {
         mounted () {
             this.$store.dispatch('initWebsocket')
