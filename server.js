@@ -85,7 +85,7 @@ app.use((req, resp, next) => {
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
 const microCache = LRU({
     max: 100,
-    maxAge: 15000
+    maxAge: isProd ? 15000 : 1000
 })
 
 // since this app has no user-specific content, every page is micro-cacheable.
@@ -122,7 +122,7 @@ function render (req, res) {
             return res.end(hit)
         }
     }
-    if (req.query.render === 'local' || req.query.from === 'app_bet') {
+    if (isProd && (req.query.render === 'local' || req.query.from === 'app_bet')) {
         res.sendFile(path.resolve('./dist/backup.html'))
         return
     }
