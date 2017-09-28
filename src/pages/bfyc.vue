@@ -42,8 +42,8 @@ export default{
     },
     methods: {
         back () {
-            if (window.EsApp && this.$route.query.from === 'nav') {
-                window.EsApp.invoke('close')
+            if (window.EsApp && this.$route.query.from === 'app_bet') {
+                window.EsApp.invoke('back')
             } else {
                 history.back()
             }
