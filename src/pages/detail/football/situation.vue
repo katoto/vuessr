@@ -21,8 +21,8 @@
 
         </template>
         <template v-else>
-            <me-sports v-if="situation.news && situation.news.length" :news="situation.news"  :init-size="match.status == StatusCode.NOT_STARTED?5:3"></me-sports>
-            <div class="ui-empty" v-if="(!situation.news || !situation.news.length) && !match.video">
+            <me-sports v-if="situation.news.length" :news="situation.news"  :init-size="match.status == StatusCode.NOT_STARTED?5:3"></me-sports>
+            <div class="ui-empty" v-if="!situation.news.length && !match.video">
                 <img src="~assets/style/images/detail/07.png" class="w240">
                 <div class="ui-empty-dfont" v-if="match.status === StatusCode.NOT_STARTED || match.status === ''">比赛时间 {{match.matchtime.substr(5, 11)}}</div>
                 <div class="ui-empty-dfont" v-else>{{StatusDesc[match.status === '' ? '0' : match.status]}}</div>
