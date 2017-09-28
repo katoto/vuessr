@@ -119,10 +119,11 @@
         height: .933333rem;
         line-height: .933333rem;
         width: 100%;
-        overflow: hidden
+        overflow: hidden;
+        font-size: .4rem;
     }
 
-    [data-dpr="1"] .item-tab {
+  /*  [data-dpr="1"] .item-tab {
         font-size: 15px
     }
 
@@ -132,7 +133,7 @@
 
     [data-dpr="3"] .item-tab {
         font-size: 45px
-    }
+    }*/
 
     .item-tab ul {
         width: 14.2rem;
